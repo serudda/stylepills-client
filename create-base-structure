@@ -1,0 +1,38 @@
+Crear un proyecto desde cero:
+React + Typescript
+referencia: https://github.com/Microsoft/TypeScript-React-Starter
+
+1- Instalar 'create-react-app'
+npm install -g create-react-app
+
+2- Crear la estructura base del proyecto:
+create-react-app my-app --scripts-version=react-scripts-ts
+
+Cambiar 'my-app' por el nombre que le quieres dar a tu proyecto. 
+Ademas agregando '--scripts-version=react-scripts-ts' lo que hace es agregar typescript al proyecto
+
+3- Para correr el proyecto por primera vez:
+npm run start
+
+4- Para ejecutar las pruebas:
+npm run test
+
+5- Para preparar el proyecto para desplegarlo en PRD:
+npm run build
+
+6- Para usar Enzyme, lo que tenemos que hacer es:
+npm install -D enzyme @types/enzyme react-addons-test-utils
+
+Con esto lo instalamos, de paso instalamos sus declaration files (.d.ts)
+Por lo general al correr las pruebas, salen unas advertencias como las siguientes:
+'Warning: ReactTestUtils has been moved to react-dom/test-utils. Update references to remove this warning.'
+Para eliminarlo correr el siguiente comando: 
+npm i --save-dev react-test-renderer
+Lo que pasa es que 'react-test-renderer debe estar en nuestro 'node_modules' local.
+
+7- Instalar Redux para la gestion de estados de un componente en React:
+npm install -S redux react-redux @types/react-redux
+
+En este caso estamos instalando 'redux' y 'react-redux', y solo estamos instalando el declaration files
+de 'react-redux', ya que Redux en su core ya viene con sus definition files.
+

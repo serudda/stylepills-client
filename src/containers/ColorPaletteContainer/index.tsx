@@ -1,16 +1,17 @@
-import React from 'react';
-import ColorPalette from '../../../../components/ColorPalette';
+import * as React from 'react';
+import ColorPalette from '../../common/ColorPalette';
 
 
 class ColorPaletteContainer extends React.Component {
     render() {
         return(
             <div className="color-palette-container">
+                <h3>Color Palette</h3>
                 <ul>
-                    <ColorPalette color="#CCCCCC"/>
+                    <ColorPalette/>
                 </ul>
             </div>
-        )
+        );
     }
 }
 
