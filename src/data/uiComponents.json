@@ -1,0 +1,19 @@
+{
+    "response": [
+        {
+            "id": 1,
+            "color": "#000000",
+            "label": "#000000"
+        },
+        {
+            "id": 2,
+            "color": "#CCCCCC",
+            "label": "#CCCCCC"
+        },
+        {
+            "id": 3,
+            "color": "#FFFFFF",
+            "label": "#FFFFFF"
+        }
+    ]
+}
