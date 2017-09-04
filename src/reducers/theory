@@ -1,0 +1,67 @@
+Reducer:
+
+- Los Reducers son funciones puras que usted escribe para manejar las Actions despachadas
+y que son los unicos responsables de cambiar el State.
+
+- Un reducer recibe dos parametros: el state actual, y la action. Y puede solo modificar 
+el State, retornando un nuevo State, no alterando el anterior.
+
+// Reducer Function
+var someReducer = function(state, action) {
+  ...
+  return state;
+}
+
+- Se consideran 'Funciones Puras' o 'Pure Functions' ya que deben cumplir con las siguientes
+caracteristicas:
+    * No realizan llamadas externas a la red de componentes o a bases de datos.
+    * El valor que retorna, depende unicamente de los valores que recibe por parametro.
+    * Sus parametros deben ser considerados 'inmutables', lo que significa que no deben
+    ser cmabiados ni alterados.
+    * Llamar a una función Pura con el mismo conjunto de parametros, siempre devolvera
+    el mismo valor de salida.
+
+
+Ejemplo:
+
+// The Reducer Function
+var userReducer = function(state, action) {
+  if (state === undefined) {
+    return state = [];
+  }
+  if (action.type === 'ADD_USER') {
+    return state.concat(action.user);
+  }
+
+  // siempre es necesario que se retorne el state. Ya que el reductor siempre esta a la espera
+  // del State.
+  
+}
+
+// Create a store by passing in the reducer
+var store = Redux.createStore(userReducer);
+
+// Dispatch our first action to express an intent to change the state
+store.dispatch({
+  type: 'ADD_USER',
+  user: {name: 'Dan'}
+});
+
+Flujo:
+1. El Store es creado con un reducer.
+2. El reducer establece que el estado inicial de la aplicacion es un Array vacio. *
+3. Se dispara una action mediante un dispatch, el cual contiene un nuevo usuario y el tipo de action.
+4. El reducer agrega al nuevo usuario al State y lo retorna, el cual actualiza el Store.
+
+OJO: * El reducer es llamado dos veces en es ejemplo -  una vez que el Store se crea (createStore),
+y luego de nuevo cuando la action es despachada.
+Cuando el Store es creado, Redux inmediatamente llama a los reducers y utiliza sus valores de retorno 
+como estado inicial. El primero llamado a el reducer, envia 'undefined' para el State. Asi que
+por eso se agrego la validacion, de si el state === undefined, entonces state = [].
+
+- Los reducers son tambien llamados cada vez que que las actions son despachadas (store.dispatch())
+
+Basados en nuestro ejemplo, nuestro State ahora contendra el nuevo user:
+
+store.getState();   // => [{name: 'Dan'}]
+

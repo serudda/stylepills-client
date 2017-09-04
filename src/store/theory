@@ -1,0 +1,42 @@
+Store:
+
+Resumen del proceso:
+
+- Components then "dispatch" state changes to the store, not directly to other components. 
+The components that need to be aware of state changes can "subscribe" to the store
+
+- Los componentes 'despachan' los cambios de estado en el store, no directamente a los
+demás componentes. Y los componentes que necesitan estar al tanto de los cambios de estado
+pueden 'suscribirse' al store.
+
+---
+
+- Con Redux de por medio, los componentes no se comunican directamente entre si, sino que 
+todos los cambios de estado deben pasar por la unica fuente de la verdad, the Store.
+
+- Los States son Read-Only: La unica manera de mutar el state es emitir una Action, un objeto
+que describe lo que sucedio. Esto significa que la app no puede modificar el State directamente.
+En su lugar, 'Actions' se envian para expresar una intención de cambiar es State en el Store.
+
+- Es Store por si mismo es una API muy pequeña que solo provee 4 metodos:
+    * store.dispatch(action)
+    * store.subscribe(listener)
+    * store.getState()
+    * replaceReducer(nextReducer)
+
+Como puedes ver, no hay ningún metodo para setear el State. Por lo tanto, enviar una
+'action' es la unica manera para que el codigo de la App exprese la intension de cambiar 
+el State:
+
+e.g. 
+
+var action = {
+    type: 'ADD_USER',
+    user: {name: 'Dan'}
+};
+
+//Asumiendo que un objecto Store ya ha sido creado
+store.dispatch(action);
+
+Las 'Actions' pueden describirse como payload que llevan consigo una propiedad 'type'
+y todos los datos que podrian ser usados para actualizar el State.

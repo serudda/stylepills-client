@@ -1,0 +1,22 @@
+Presentational Components:
+- Es como llamariamos en MVC, las vistas. 
+- Son considerados 'Tontos', ya que no tienen ni idea de donde llegaron sus 'props' o datos.
+- No tienen ni idea acerca del 'state'.
+- Nunca deberian cambiar la data en las props por si mismos.
+- Aunque estos no deberian cambiar los datos en sus props, si puede formatear los datos 
+para mostrarlos de alguna forma (e.g. Recibir un timestamp, y mostrarlos en otro formato de fecha)
+- Los Presentational Components son esencialmente la 'paleta' de nuestra aplicación. Podrias
+ponerlos a todos en una pagina juntos, y deberian renderizarse perfectamente, para que por
+ejemplo un diseñador pueda ajustarlos sin tener que tocar la logica de la aplicación.
+- Esto te obliga a extraer los "componentes del diseño" o "layout components" tales como:
+Sidebar, Page, ContextMenu, DropDown, etc.
+- No tiene contacto alguno con Redux.
+- Estos componentes reciben de sus Container Component Parent todo a través de los PROPS, 
+estos no deberian manejar STATES en lo absoluto.
+
+Flujo de trabajo: 
+Cuando se desee agregar una nueva sección a su aplicación: ej. una pagina nueva. Se recomienda
+escribirlo primero como un Presentational Component. Eventualmente, te daras cuenta de que 
+estas pasando demasiados props desde el padre. Cuando notes que algunos componentes no estan 
+usando los props que estan recibiendo, sino que simplemente los remiten a los componentes hijos.
+Es buen momento para agregar algunos Container Components.

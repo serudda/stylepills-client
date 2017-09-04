@@ -1,0 +1,42 @@
+Container Components:
+- Es como llamariamos en MVC, los controladores. 
+- Un Container Component realiza la recolección de datos (show, get, etc) y luego renderiza
+a sus subcomponentes enviandoles esta data.
+- Es un componente que solo actua como un envoltorio para los presentational components y
+es el encargado de hablar directamente con Redux.
+- Esta compuesto de dos funciones principales: 'mapStateToProps' y 'mapDispatchToProps'. 
+    * mapStateToProps: Toma el estado global de Redux, y se encarga de reducirlo al minimo necesario
+    para renderizar sus presentational components.
+    * mapDispatchToProps: Es la encargada de devolver funciones (actions) envueltas en algo llamado: 'dispatch', 
+    ya que no queremos que nuestro componente envie las actions directamente, sino que pasen por el
+    Store de Redux quien es el encargado de gestionar todos los States de cada componente.
+- Es considerado el 'Inteligente', ya que son concientes de todo lo relacionado al componente (sus estados).
+
+Nota Importante: Si por ejemplo el presentational Component es un Button, que al ser presionado
+tiene que cambiar el valor de un state. Lo mejor es que el padre el envie esa funcion atraves de los 
+props: 
+
+
+// CONTAINER COMPONENT
+var UserListContainer = React.createClass({
+  ...
+  render: function() {
+    return (<UserList users={this.state.users} toggleActive={this.toggleActive} />);
+  },
+
+  toggleActive: function() {
+    // We should change state in container components :)
+  }
+});
+
+---------------------------------------------------------------------
+
+// PRESENTATIONAL COMPONENT
+var UserList = React.createClass({
+    render: function() {
+        return (
+            <button onClick={this.props.toggleActive}>Toggle Active</button>
+        );
+    });
+  }
+});
