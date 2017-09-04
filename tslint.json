@@ -16,7 +16,7 @@
         "curly": true,
         "eofline": false,
         "forin": true,
-        "indent": [ true, "tabs", 4 ],
+        "indent": [ true, "spaces", 4 ],
         "interface-name": [false, "never-prefix"],
         "jsdoc-format": true,
         "jsx-no-lambda": false,

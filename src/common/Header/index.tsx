@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+const liStyle = {
+    display: 'inline-block'
+};
+
 const Header = () => (
-    <header className="ma-header">
-        <nav>
+    <header className="ma-header container">
+        <nav className="navbar navbar-default">
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/components">Components</Link></li>
+                <li style={liStyle}><Link to="/">Home</Link></li>
+                {' | '}
+                <li style={liStyle}><Link to="/components">Components</Link></li>
             </ul>
         </nav>
     </header>
