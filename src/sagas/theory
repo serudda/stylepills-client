@@ -1,0 +1,11 @@
+Redux-Saga
+El manejo de AJAX es un aspecto muy importante en la construccion de aplicaciones Web.
+Recordemos que los Reducers son funciones puras y no manejan efectos secundarios o tareas
+asincronas; y es ahi donde Redux-saga es muy util.
+
+Las sagas, son simplemente generator functions que resumen la complejidad de un flujo
+de trabajo asincrono. Es una forma clara de manejar procesos asincronos.
+
+Definimos unos watcher saga, los cuales nos sirven como mecanismo para asegurarnos
+de que cualquier action despachada, que requiera un llamado a una API o al servidor, 
+sea interceptada por el middleware (redux-saga) 

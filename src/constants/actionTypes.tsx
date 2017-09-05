@@ -1,0 +1,12 @@
+/* Naming convention: 
+ * <NOUN>-<VERB>
+ * e.g. USER_LOGIN , UICOMPONENT_SELECT, TODO_ADD, UICOMPONENT_UPDATE
+*/
+
+
+// It's preferable to keep your action types together.
+export const GET_UICOMPONENT = 'GET_UICOMPONENT';
+export const GET_UICOMPONENT_SUCCESS = 'GET_UICOMPONENT_SUCCESS';
+export const GET_UICOMPONENT_ERROR = 'GET_UICOMPONENT_ERROR';
+export const SELECT_UICOMPONENT = 'SELECT_UICOMPONENT';
+export const ADD_UICOMPONENT = 'ADD_UICOMPONENT';
