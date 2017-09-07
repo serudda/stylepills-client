@@ -1,5 +1,6 @@
 export default {
     uiComponents: [],
-    errorMessage: '',
-    uiComponentSelected: null
-}
+    error: '',
+    fetching: false,
+    fetched: false
+};

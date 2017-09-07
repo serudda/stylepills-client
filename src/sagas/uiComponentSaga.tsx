@@ -8,14 +8,19 @@ import * as types from '../constants/actionTypes';
 
 export default function* getUiComponentsSaga () {
     try {
+        console.log('(1.8) Enter to getUiComponentsSaga on sagas/uiComponentSaga.tsx');    
+        console.log('(1.9) Launch yield: call - getUiComponents API on sagas/uiComponentSaga.tsx');
         const uiComponents = yield call(getUiComponents);
+        console.log('(1.11) After yield call getUIComponents API on sagas/uiComponentSaga.tsx', uiComponents);
 
         /*yield[
             put({ type: types.GET_UICOMPONENT_SUCCESS, uiComponents }),
             put({ type: types.SELECT_UICOMPONENT, uiComponent: uiComponents[0] })
         ];*/
+
+        console.log('(1.12) Launch yield: put - GET_UICOMPONENT_FULFILLED on sagas/uiComponentSaga.tsx');
         yield[
-            put({ type: types.GET_UICOMPONENT_SUCCESS, uiComponents })
+            put({ type: types.GET_UICOMPONENT_FULFILLED, payload: uiComponents })
         ];
 
     } catch (error) {

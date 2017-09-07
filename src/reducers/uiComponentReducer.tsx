@@ -3,21 +3,35 @@ import * as types from '../constants/actionTypes';
 
 
 // Handles ui component related actions
-export default function (state = initialState.uiComponents, action: any) {
+export default function ( state: any = initialState.uiComponents, action: any ) {
+    console.log('(reducer) Enter to uiComponentReducer on reducers/uiComponentReducer');
+    console.log('(reducer) action type:', action.type);
     switch (action.type) {
-        case types.GET_UICOMPONENT_SUCCESS:
-            return [...state, action.uiComponents]
         
-        case types.GET_UICOMPONENT_ERROR:
-            return {...state, message: action.errorMessage}
-        
-        case types.SELECT_UICOMPONENT:
-            return {...state, uiComponentSelected: action.component}
-        
-        case types.ADD_UICOMPONENT:
-            return [...state, action.component]
+        case types.GET_UICOMPONENT: {
+            console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT* on reducers/uiComponentReducer');
+            return {...state, fetching: true};
+        }
 
+        case types.GET_UICOMPONENT_FULFILLED: {
+            console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT_FULFILLED* on reducers/uiComponentReducer');
+            return {...state, 
+                    uiComponents: action.payload,
+                    fetching: false,
+                    fetched: true
+            };
+        }
+        
+        case types.GET_UICOMPONENT_ERROR: {
+            console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT_ERROR* on reducers/uiComponentReducer');
+            return {...state, 
+                    fetching: false,
+                    error: action.payload
+            };
+        }
+            
         default:
+            console.log('(reducer) Enter to Switch option: *default* on reducers/uiComponentReducer');
             return state;  
     }
 }

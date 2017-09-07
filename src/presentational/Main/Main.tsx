@@ -6,6 +6,7 @@ import NotFoundPage from '../../presentational/NotFoundPage';
 
 
 const Main = () => {
+    console.log('(10) Activated Main component on presentational/Main.tsx');
     return (
         <main>
             <Switch>

@@ -4,6 +4,8 @@ import * as types from '../constants/actionTypes';
 
 // Watches for GET_UICOMPONENTS action type asynchronously
 export default function* watchGetUiComponent() {
+    // LOG    
+    console.log('(6) Active watcher Sagas on sagas/watcher.tsx');
     yield takeLatest(types.GET_UICOMPONENT, getUiComponentsSaga);
 }
 
@@ -15,12 +17,12 @@ A diferencia de las funciones normales, que al entrar en ellas, corren, y devuel
 un valor final, las generator functions pueden pausarse y reanudarse a petición y
 pueden retornar (con mayor precisión 'yield') valores multiples.
 
-
 takeLatest
 Es un metodo de alto nivel que fusiona los effect creators 'take' y 'folk'. Basicamente 
-toma un action type y ejecuta la función que pasamos como segundo parametro, de una
-manera no bloqueante con el resultado del action creator. Como su nombre lo sugiere,
-'takeLatest' devuelve el resultado de la ultima llamada.
+toma un action type y una función que pasamos como segundo parametro, se queda
+escuchando a que se dispare dicha action, cuando se dispare dicha action, este
+watcher dispara la funcion que pasamos (e.g. getUiComponentsSaga). Como su nombre 
+lo sugiere, 'takeLatest' devuelve el resultado de la ultima llamada.
 
 watchGetUiComponent
 Este esta siempre a la espera que se lance una Action con el Action Type: 'GET_UICOMPONENT'.

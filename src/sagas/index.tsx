@@ -2,9 +2,11 @@ import { fork } from 'redux-saga/effects';
 import watchGetUiComponent from './watcher';
 
 // Here, we register our watcher saga(s) and export as a single generator
-// function (startForeman) as our root Saga.
+// function (rootSaga) as our root Saga.
 
-export default function* startForeman() {
+export default function* rootSaga() {
+    // LOG    
+    console.log('(5) Active rootSaga on /sagas/index.tsx');
     yield fork(watchGetUiComponent);
 }
 

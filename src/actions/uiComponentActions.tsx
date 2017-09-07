@@ -1,31 +1,25 @@
 import * as types from '../constants/actionTypes';
 
 // Return an action type, GET_UICOMPONENT and the ui components list
-export const getUiComponentAction = () => ({
-    type: types.GET_UICOMPONENT
-});
+export const getUiComponentAction = () => {
+    console.log('(1.7) Launch GET_UICOMPONENT action on *getUiComponentAction* on actions/uiComponentActions.tsx');
+    return {
+        type: types.GET_UICOMPONENT
+    }
+};
 
-// Return an action type, GET_UICOMPONENT_SUCCESS and the ui components list
-export const getUiComponentSuccessAction = (uiComponents: Array<any>) => ({
-    type: types.GET_UICOMPONENT_SUCCESS,
-    uiComponents
-});
+// Return an action type, GET_UICOMPONENT_FULFILLED and the ui components list
+export const getUiComponentSuccessAction = ({payload}:any) => {
+    console.log('(1.12) Launch yield: put - GET_UICOMPONENT_FULFILLED on sagas/uiComponentSaga.tsx');
+    return {
+        type: types.GET_UICOMPONENT_FULFILLED,
+        payload
+    }
+};
 
 // Return an action type, GET_UICOMPONENT_ERROR and the error message
-export const getUiComponentErrorAction = (errorMessage: string) => ({
+export const getUiComponentErrorAction = ({payload}:any) => ({
     type: types.GET_UICOMPONENT_ERROR,
-    errorMessage
-});
-
-// Return an action type, SELECT_UICOMPONENT and the ui component selected
-export const selectUiComponentAction = (component: any) => ({
-    type: types.SELECT_UICOMPONENT,
-    component
-});
-
-// Return an action type, ADD_UICOMPONENT, use wants to add a new component to his/her repo
-export const addUiComponentAction = (component : any) => ({
-    type: types.ADD_UICOMPONENT,
-    component
+    payload
 });
 

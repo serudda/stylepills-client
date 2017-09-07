@@ -12,9 +12,11 @@ import { Provider } from 'react-redux';
 // configure Store
 import configureStore from './store/configureStore';
 
-
+console.log('(1) Create store base on configureStore on index.tsx');
 // Initialize store
 const store = configureStore();
+
+console.log('(7) Render App component on index.tsx');
 
 render((
   <Provider store={store}> 
