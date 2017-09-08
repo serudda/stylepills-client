@@ -1,5 +1,7 @@
+// Dependencies
 import * as React from 'react';
 
+// Interfaces
 interface IColorPalette {
     id: number;
     color: string;
@@ -9,14 +11,6 @@ interface IColorPalette {
 // del container padre, cuando quiero pasarle una prop, que me dice el sig error:
 // 'Type '{ id: any; }' has no properties in common with type 'IntrinsicAttributes & { children?: ReactNode; }'.'
 const ColorPalette: React.SFC<IColorPalette> = ({id, color}) => {
-
-    /*const styleColor = {
-        backgroundColor: color
-    };
-
-    const styleLabel = {
-        color: labelColor
-    };*/
 
     console.log('(1.4) Render ColorPalette on common/ColorPalette/index.tsx');
 

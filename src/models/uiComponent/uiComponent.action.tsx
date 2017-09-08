@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../../constants/action.types';
 
 // Return an action type, GET_UICOMPONENT and the ui components list
 export const getUiComponentAction = () => {

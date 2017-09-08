@@ -1,5 +1,5 @@
 export default {
-    uiComponents: [],
+    items: [],
     error: '',
     fetching: false,
     fetched: false

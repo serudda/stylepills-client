@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Header from '../../common/Header';
-import Main from '../../presentational/Main/Main';
+import Header from '../../common/Header/Header.presentation';
+import Main from '../Main/Main.container';
 import './App.scss';
 
 // The parent component renders the Header component and component(s) in the

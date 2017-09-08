@@ -1,9 +1,9 @@
-import initialState from './initialState';
-import * as types from '../constants/actionTypes';
+import initialState from '../../reducer/reducer.initialState';
+import * as types from '../../constants/action.types';
 
 
 // Handles ui component related actions
-export default function ( state: any = initialState.uiComponents, action: any ) {
+export default function ( state: any = initialState, action: any ) {
     console.log('(reducer) Enter to uiComponentReducer on reducers/uiComponentReducer');
     console.log('(reducer) action type:', action.type);
     switch (action.type) {
@@ -16,7 +16,7 @@ export default function ( state: any = initialState.uiComponents, action: any ) 
         case types.GET_UICOMPONENT_FULFILLED: {
             console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT_FULFILLED* on reducers/uiComponentReducer');
             return {...state, 
-                    uiComponents: action.payload,
+                    items: action.payload,
                     fetching: false,
                     fetched: true
             };

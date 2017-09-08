@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import uiComponents from '../reducers/uiComponentReducer';
+import uiComponents from '../models/uiComponent/uiComponent.reducer';
 
 console.log('(reducer) Enter to reducers/index.tsx');
 console.log('(reducer) Created rootReducer with combineReducers on reducers/index.tsx');
