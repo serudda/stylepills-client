@@ -1,5 +1,4 @@
 // Dependencies
-
 import * as React from 'react';
 import ColorPalette from './ColorPalette.presentation';
 import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';
@@ -12,12 +11,12 @@ export interface IProps {
 
 // Subscribe component to redux store and merge the state into
 // component's props.
-function mapStateToProps ({ uiComponents }: any ): any {
+function mapStateToProps (state:any): any {
     // LOG    
     console.log('(1.2) Connect ColorPaletteContainer with Redux on containers/ColorPaletteContainer/index.tsx');
-    console.log('(1.3) Launch mapStateToProps on containers/ColorPaletteContainer/index.tsx', uiComponents);
+    console.log('(1.3) Launch mapStateToProps on containers/ColorPaletteContainer/index.tsx', state.uiComponents.items);
     return {
-        uiComponents: uiComponents.uiComponents
+        uiComponents: state.uiComponents.items
     };
 }
 
