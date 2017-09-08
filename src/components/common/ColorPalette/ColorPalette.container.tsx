@@ -1,13 +1,13 @@
 // Dependencies
 
 import * as React from 'react';
-import ColorPalette from '../../common/ColorPalette';
-import { getUiComponentAction } from '../../actions/uiComponentActions';
+import ColorPalette from './ColorPalette.presentation';
+import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';
 import { connect } from 'react-redux';
 
 export interface IProps {
-    uiComponents: any; // eslint-disable-next-line
-    dispatch: any; // eslint-disable-next-line
+    uiComponents: any;
+    dispatch: any;
 }
 
 // Subscribe component to redux store and merge the state into
@@ -44,11 +44,7 @@ class ColorPaletteContainer extends React.Component<IProps, object> {
     render() {
 
         // LOG
-        console.log('(1.4) Render ColorPaletteContainer on containers/ColorPaletteContainer/index.tsx');
-        // 2. Debo revisar el ciclo completo, asegurarme que funciona, y si es asi empezar a limpiar todos los 
-        // archivos, documentar el flujo de como funciona React + Redux.
-        // 3. Empezar a tipar todo lo que más se pueda, crear un archivo schema para cada uno de los tipos de 
-        // que hay: reducer, component, container, store, saga, etc.
+        console.log('(1.4) Render ColorPaletteContainer on containers/ColorPaletteContainer/index.tsx'); 
         
         const { uiComponents = [] } = this.props;
 

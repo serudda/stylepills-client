@@ -1,18 +1,16 @@
-// HOLA SOY EL NUEVO CAMBIO
-
 // Dependencies
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // App component
-import App from './containers/App/App';
+import App from './components/pages/App/App';
 
 // Redux Provider component
 import { Provider } from 'react-redux';
 
 // configure Store
-import configureStore from './store/configureStore';
+import configureStore from './store/store.config';
 
 console.log('(1) Create store base on configureStore on index.tsx');
 // Initialize store

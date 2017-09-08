@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
-import getUiComponentsSaga from './uiComponentSaga';
-import * as types from '../constants/actionTypes';
+import getUiComponentsSaga from '../models/uiComponent/uiComponent.saga';
+import * as types from '../constants/action.types';
 
 // Watches for GET_UICOMPONENTS action type asynchronously
 export default function* watchGetUiComponent() {

@@ -1,5 +1,5 @@
-import initialState from './initialState';
-import * as types from '../constants/actionTypes';
+import initialState from '../../reducer/reducer.initialState';
+import * as types from '../../constants/action.types';
 
 
 // Handles ui component related actions

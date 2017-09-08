@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import rootReducer from '../reducers';
-import rootSaga from '../sagas';
+import rootReducer from '../reducer/reducer.config';
+import rootSaga from '../saga/saga.config';
 
 // Return the store instance
 // It can also take initialState argument when provided

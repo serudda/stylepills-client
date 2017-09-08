@@ -1,5 +1,5 @@
 import { fork } from 'redux-saga/effects';
-import watchGetUiComponent from './watcher';
+import watchGetUiComponent from './saga.watcher';
 
 // Here, we register our watcher saga(s) and export as a single generator
 // function (rootSaga) as our root Saga.

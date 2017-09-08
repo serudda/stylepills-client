@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ColorPaletteContainer from '../../containers/ColorPaletteContainer';
+import ColorPaletteContainer from '../../common/ColorPalette/ColorPalette.container';
 import { Link } from 'react-router-dom';
 
 const ComponentPage = () => {

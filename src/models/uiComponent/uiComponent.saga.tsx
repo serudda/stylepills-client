@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects';
-import getUiComponents from '../api/api';
-import * as types from '../constants/actionTypes';
+import getUiComponents from '../../api/api';
+import * as types from '../../constants/action.types';
 
 // Responsible for get UI components from server, making calls to the API
 // and instructing the redux-saga middleware on the next line of action, 
