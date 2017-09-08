@@ -2,11 +2,12 @@
 import * as React from 'react';
 import ColorPalette from './ColorPalette.presentation';
 import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 
 export interface IProps {
     uiComponents: any;
     dispatch: any;
+    getUiComponents (): void;
 }
 
 // Subscribe component to redux store and merge the state into
@@ -20,14 +21,14 @@ function mapStateToProps (state:any): any {
     };
 }
 
+function mapDispatchToProps (dispatch: Dispatch<any>): any {
+    return {
+        getUiComponents: () => dispatch(getUiComponentAction())
+    };
+}
+
 
 class ColorPaletteContainer extends React.Component<IProps, object> {
-
-    /*mapDispatchToProps(dispatch: Dispatch<any>): any {
-        return {
-            getUiComponents: () => dispatch(getUiComponentAction())
-        };
-    }*/
 
     // Dispatches 'getUiComponentAction' inmediately after initial rendering.
     // Note that we are using the dispatch method from the store to execute this task,
@@ -36,7 +37,7 @@ class ColorPaletteContainer extends React.Component<IProps, object> {
         // LOG 
         console.log('(1.5) Enter to componentDidMount on containers/ColorPaletteContainer/index.tsx');
         console.log('(1.6) Dispatch getUiComponentAction on containers/ColorPaletteContainer/index.tsx');
-        this.props.dispatch(getUiComponentAction());
+        //this.props.getUiComponents();
     }
 
 
@@ -55,9 +56,10 @@ class ColorPaletteContainer extends React.Component<IProps, object> {
                         <ColorPalette id={component.id} color={component.color} />
                     ))}
                 </ul>
+                <button onClick={this.props.getUiComponents}>Press me</button>
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(ColorPaletteContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ColorPaletteContainer);
