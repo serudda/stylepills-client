@@ -1,24 +1,73 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as types from '../../constants/action.types';
 
-// Return an action type, GET_UICOMPONENT and the ui components list
-export const getUiComponentAction = () => {
-    console.log('(1.7) Launch GET_UICOMPONENT action on *getUiComponentAction* on actions/uiComponentActions.tsx');
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
+export interface IGetUiComponentAction {
+    type: types.GET_UICOMPONENT;
+}
+
+export interface IGetUiComponentSuccessAction {
+    type: types.GET_UICOMPONENT_FULFILLED;
+    payload: any;
+}
+
+export interface IGetUiComponentErrorAction {
+    type: types.GET_UICOMPONENT_ERROR;
+    payload: any;
+}
+
+type Action = IGetUiComponentAction 
+            | IGetUiComponentSuccessAction 
+            | IGetUiComponentErrorAction;
+
+
+/************************************/
+/*             ACTIONS              */
+/************************************/
+
+
+/**
+ * getUiComponentAction
+ * @description - Return an action type, GET_UICOMPONENT 
+ * to indicate that app requests ui components list
+ * @function
+ * @return {void}
+*/
+export const getUiComponentAction = (): Action => {
     return {
         type: types.GET_UICOMPONENT
     }
 };
 
-// Return an action type, GET_UICOMPONENT_FULFILLED and the ui components list
-export const getUiComponentSuccessAction = ({payload}:any) => {
-    console.log('(1.12) Launch yield: put - GET_UICOMPONENT_FULFILLED on sagas/uiComponentSaga.tsx');
+
+/**
+ * getUiComponentSuccessAction
+ * @description - Return an action type, GET_UICOMPONENT_FULFILLED 
+ * and the ui components list from database
+ * @function
+ * @return {void}
+*/
+export const getUiComponentSuccessAction = ({payload}:any): Action => {
     return {
         type: types.GET_UICOMPONENT_FULFILLED,
         payload
     }
 };
 
-// Return an action type, GET_UICOMPONENT_ERROR and the error message
-export const getUiComponentErrorAction = ({payload}:any) => ({
+
+/**
+ * getUiComponentErrorAction
+ * @description - Return an action type, GET_UICOMPONENT_ERROR 
+ * and the error message
+ * @function
+ * @return {void}
+*/
+export const getUiComponentErrorAction = ({payload}:any): Action => ({
     type: types.GET_UICOMPONENT_ERROR,
     payload
 });
