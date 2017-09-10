@@ -20,6 +20,8 @@ import configureStore from './store/store.config';
 const store = configureStore();
 
 
+/*         RENDER         */
+/**************************/
 render((
         <Provider store={store}>
             <Router>
