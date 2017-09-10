@@ -23,7 +23,7 @@ interface IStateProps {
 
 /* Mapped Dispatches to Props */
 interface IDispatchProps {
-    getUiComponents: () => void;
+    _getUiComponents: () => void;
 }
 
 
@@ -43,7 +43,7 @@ function mapStateToProps (state: IRootState): IStateProps {
 /********************************************/
 function mapDispatchToProps (dispatch: Dispatch<IRootState>): IDispatchProps {
     return {
-        getUiComponents: () => dispatch(getUiComponentAction())
+        _getUiComponents: () => dispatch(getUiComponentAction())
     };
 }
 
@@ -63,7 +63,7 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
      * @memberof ColorPaletteContainer
      */
     componentDidMount() {        
-        this.props.getUiComponents();
+        this.props._getUiComponents();
     }
 
 
