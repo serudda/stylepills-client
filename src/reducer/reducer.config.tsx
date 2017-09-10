@@ -59,4 +59,5 @@ export default rootReducer;
  *          }
  *      }
  */
-// Typing Reference: https://github.com/piotrwitek/react-redux-typescript-guide/blob/master/playground/src/redux/root-reducer.ts
+// Typing Reference: 
+// https://github.com/piotrwitek/react-redux-typescript-guide/blob/master/playground/src/redux/root-reducer.ts
