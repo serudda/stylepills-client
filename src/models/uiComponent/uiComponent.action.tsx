@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as types from '../../constants/action.types';
+import * as model from './uiComponent.model';
 
 
 /************************************/
@@ -13,7 +14,7 @@ export interface IGetUiComponentAction {
 
 export interface IGetUiComponentSuccessAction {
     type: types.GET_UICOMPONENT_FULFILLED;
-    payload: any;
+    payload: Array<model.UiComponent>;
 }
 
 export interface IGetUiComponentErrorAction {
@@ -21,15 +22,17 @@ export interface IGetUiComponentErrorAction {
     payload: any;
 }
 
-type Action = IGetUiComponentAction 
-            | IGetUiComponentSuccessAction 
-            | IGetUiComponentErrorAction;
+export type Action = 
+    // API Requests
+    IGetUiComponentAction 
+|   IGetUiComponentSuccessAction 
+|   IGetUiComponentErrorAction;
+
 
 
 /************************************/
 /*             ACTIONS              */
 /************************************/
-
 
 /**
  * getUiComponentAction
@@ -37,7 +40,7 @@ type Action = IGetUiComponentAction
  * to indicate that app requests ui components list
  * @function
  * @return {void}
-*/
+ */
 export const getUiComponentAction = (): Action => {
     return {
         type: types.GET_UICOMPONENT
@@ -51,8 +54,8 @@ export const getUiComponentAction = (): Action => {
  * and the ui components list from database
  * @function
  * @return {void}
-*/
-export const getUiComponentSuccessAction = ({payload}:any): Action => {
+ */
+export const getUiComponentSuccessAction = (payload: Array<model.UiComponent>): Action => {
     return {
         type: types.GET_UICOMPONENT_FULFILLED,
         payload
@@ -66,7 +69,7 @@ export const getUiComponentSuccessAction = ({payload}:any): Action => {
  * and the error message
  * @function
  * @return {void}
-*/
+ */
 export const getUiComponentErrorAction = ({payload}:any): Action => ({
     type: types.GET_UICOMPONENT_ERROR,
     payload

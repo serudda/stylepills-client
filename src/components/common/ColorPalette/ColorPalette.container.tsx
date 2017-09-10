@@ -5,6 +5,8 @@ import * as React from 'react';
 import ColorPalette from './ColorPalette.presentation';
 import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';
 import { connect, Dispatch } from 'react-redux';
+import * as model from '../../../models/uiComponent/uiComponent.model';
+import { IRootState } from '../../../reducer/reducer.config';
 
 
 /************************************/
@@ -16,7 +18,7 @@ interface IOwnProps {}
 
 /* Mapped State to Props */
 interface IStateProps {
-    uiComponents: Array<any>;
+    uiComponents: Array<model.UiComponent>;
 }
 
 /* Mapped Dispatches to Props */
@@ -27,7 +29,10 @@ interface IDispatchProps {
 
 /*            MAPSTATETOPROPS            */
 /*****************************************/
-function mapStateToProps (state:any): IStateProps {
+/* Nota: viene 'state.uiComponents' por que al combinar los reducers (combineReducers)
+   este le asignar el nombre que hayamos especificado en reducer.config.tsx, en este
+   caso 'uiComponents' */
+function mapStateToProps (state: IRootState): IStateProps {
     return {
         uiComponents: state.uiComponents.items
     };
@@ -50,7 +55,7 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
 
     
     componentDidMount() {        
-        //this.props.getUiComponents();
+        // this.props.getUiComponents();
     }
 
 
@@ -64,7 +69,7 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
             <div className="color-palette-container">
                 <h3>Color Palette</h3>
                 <ul>
-                    {uiComponents.map((component: any, i: any) => (
+                    {uiComponents.map((component: model.UiComponent, i: number) => (
                         <ColorPalette id={component.id} color={component.color} />
                     ))}
                 </ul>
