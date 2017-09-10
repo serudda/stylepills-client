@@ -1,0 +1,7 @@
+{
+    "typescript.check.tscVersion": false,
+    "workbench.colorTheme": "One Dark Pro Vivid",
+    "editor.fontSize": 14,
+    "workbench.iconTheme": "file-icons",
+    "editor.tabSize": 4
+}

@@ -55,7 +55,7 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
 
     
     componentDidMount() {        
-        // this.props.getUiComponents();
+        this.props.getUiComponents();
     }
 
 
@@ -73,7 +73,7 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
                         <ColorPalette id={component.id} color={component.color} />
                     ))}
                 </ul>
-                <button onClick={this.props.getUiComponents} type="button">Press me</button>
+                {/*<button onClick={this.props.getUiComponents} type="button">Press me</button> */}
             </div>
         );
 
