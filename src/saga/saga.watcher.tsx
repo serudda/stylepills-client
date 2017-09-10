@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import { takeLatest } from 'redux-saga/effects';
 import getUiComponentsSaga from '../models/uiComponent/uiComponent.saga';
 import * as types from '../constants/action.types';

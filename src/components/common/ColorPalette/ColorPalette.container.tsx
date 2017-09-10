@@ -41,7 +41,7 @@ function mapStateToProps (state: IRootState): IStateProps {
 
 /*            MAPDISPATCHTOPROPS            */
 /********************************************/
-function mapDispatchToProps (dispatch: Dispatch<any>): IDispatchProps {
+function mapDispatchToProps (dispatch: Dispatch<IRootState>): IDispatchProps {
     return {
         getUiComponents: () => dispatch(getUiComponentAction())
     };

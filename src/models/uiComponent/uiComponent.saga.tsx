@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import { put, call } from 'redux-saga/effects';
 import getUiComponents from '../../api/api';
 import * as types from '../../constants/action.types';

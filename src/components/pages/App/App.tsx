@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import Header from '../../common/Header/Header.presentation';
 import Main from '../Main/Main.container';

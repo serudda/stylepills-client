@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import { fork } from 'redux-saga/effects';
 import watchGetUiComponent from './saga.watcher';
 

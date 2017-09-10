@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as types from '../../constants/action.types';
 import * as model from './uiComponent.model';
 import { Action } from './uiComponent.action';

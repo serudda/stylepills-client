@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import { combineReducers } from 'redux';
 import uiComponents from '../models/uiComponent/uiComponent.reducer';
 

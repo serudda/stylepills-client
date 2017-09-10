@@ -1,4 +1,6 @@
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import ColorPalette from './ColorPalette.presentation';
 import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';

@@ -1,4 +1,6 @@
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 
 // Interfaces

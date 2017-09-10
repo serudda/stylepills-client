@@ -1,3 +1,6 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as model from '../models/uiComponent/uiComponent.model';
 let data = require('../data/uiComponents.json');
 

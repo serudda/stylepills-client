@@ -44,7 +44,7 @@ export type Action =
 export const getUiComponentAction = (): Action => {
     return {
         type: types.GET_UICOMPONENT
-    }
+    };
 };
 
 
@@ -59,7 +59,7 @@ export const getUiComponentSuccessAction = (payload: Array<model.UiComponent>): 
     return {
         type: types.GET_UICOMPONENT_FULFILLED,
         payload
-    }
+    };
 };
 
 
@@ -70,8 +70,10 @@ export const getUiComponentSuccessAction = (payload: Array<model.UiComponent>): 
  * @function
  * @return {void}
  */
-export const getUiComponentErrorAction = ({payload}:any): Action => ({
-    type: types.GET_UICOMPONENT_ERROR,
-    payload
-});
+export const getUiComponentErrorAction = ({payload}: any): Action => {
+    return {
+        type: types.GET_UICOMPONENT_ERROR,
+        payload
+    }; 
+};
 
