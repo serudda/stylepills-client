@@ -34,12 +34,12 @@ export type Action =
 /*             ACTIONS              */
 /************************************/
 
+
 /**
- * getUiComponentAction
- * @description - Return an action type, GET_UICOMPONENT 
+ * @desc Return an action type, GET_UICOMPONENT 
  * to indicate that app requests ui components list
- * @function
- * @return {void}
+ * @function getUiComponentAction
+ * @returns {Action}
  */
 export const getUiComponentAction = (): Action => {
     return {
@@ -49,11 +49,11 @@ export const getUiComponentAction = (): Action => {
 
 
 /**
- * getUiComponentSuccessAction
- * @description - Return an action type, GET_UICOMPONENT_FULFILLED 
+ * @desc Return an action type, GET_UICOMPONENT_FULFILLED 
  * and the ui components list from database
- * @function
- * @return {void}
+ * @function getUiComponentSuccessAction
+ * @param {Array<model.UiComponent>} {payload}
+ * @returns {Action}
  */
 export const getUiComponentSuccessAction = (payload: Array<model.UiComponent>): Action => {
     return {
@@ -64,11 +64,13 @@ export const getUiComponentSuccessAction = (payload: Array<model.UiComponent>): 
 
 
 /**
- * getUiComponentErrorAction
- * @description - Return an action type, GET_UICOMPONENT_ERROR 
+ * @desc Return an action type, GET_UICOMPONENT_ERROR 
  * and the error message
- * @function
- * @return {void}
+ * @function getUiComponentErrorAction
+ * @param {*} {payload}
+ * @returns {Action}
+ * FIXME: Especificar que parametro recibe: un payload? un mensaje de error?
+ * Después de eso, tiparlo.
  */
 export const getUiComponentErrorAction = ({payload}: any): Action => {
     return {

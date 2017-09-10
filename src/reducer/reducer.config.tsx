@@ -7,17 +7,26 @@ import uiComponents from '../models/uiComponent/uiComponent.reducer';
 // Set of States 
 import { IUiComponentState } from '../models/uiComponent/uiComponent.reducer';
 
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
 // Root State: Contains every Reducer State on the Store
 export interface IRootState {
     uiComponents: IUiComponentState;
 }
 
+/************************************/
+/*           ROOT REDUCER           */
+/************************************/
 // Combines all reducers to a single reducer function
 const rootReducer = combineReducers<IRootState>({
     uiComponents
 });
 
+/* Export */
 export default rootReducer;
+
 
 
 /**

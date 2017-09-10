@@ -48,12 +48,20 @@ function mapDispatchToProps (dispatch: Dispatch<IRootState>): IDispatchProps {
 }
 
 
-/****************************************/
-/*           CLASS DEFINITION           */
-/****************************************/
+/**
+ * @desc Represents Color Palette container component
+ * @class ColorPaletteContainer
+ * @extends {React.Component}
+ */
 class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & IDispatchProps, {}> {
 
     
+    /**
+     * @desc Get UI components after all children Elements 
+     * and our Component instances are mounted onto the Browser
+     * @method componentDidMount
+     * @memberof ColorPaletteContainer
+     */
     componentDidMount() {        
         this.props.getUiComponents();
     }

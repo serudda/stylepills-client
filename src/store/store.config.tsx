@@ -7,14 +7,16 @@ import logger from 'redux-logger';
 import rootReducer from '../reducer/reducer.config';
 import rootSaga from '../saga/saga.config';
 
-// Return the store instance
-// It can also take initialState argument when provided
+/**
+ * @desc Create store passing rootReducer (combined reducers) and 
+ * each middleware. This returns the store instance.
+ * @function getUiComponentSuccessAction
+ * @returns {*} configureStore
+ */
+// 
 const configureStore = () => {
-    console.log('(2) Launch configureStore on store/configureStore.tsx');
     const sagaMiddleware = createSagaMiddleware();
     const middleware = applyMiddleware(sagaMiddleware, logger);
-    console.log('(3) The sagaMiddleware run rootSaga on store/configureStore.tsx');
-    console.log('(4) Launched createStore on store/configureStore.tsx');
     return {
         ...createStore(rootReducer, middleware),
         runSaga: sagaMiddleware.run(rootSaga)
@@ -22,6 +24,8 @@ const configureStore = () => {
 };
 
 export default configureStore;
+
+
 
 /* 
 

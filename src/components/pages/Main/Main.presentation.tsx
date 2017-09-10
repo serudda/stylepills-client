@@ -8,8 +8,19 @@ import ComponentPage from '../ComponentPage/ComponentPage.presentation';
 import NotFoundPage from '../NotFoundPage/NotFoundPage.presentation';
 
 
-const Main = () => {
-    console.log('(10) Activated Main component on presentational/Main.tsx');
+/************************************/
+/*            INTERFACES            */
+/************************************/
+interface IMainProps {}
+
+
+/**
+ * @desc Represent Main Structure which contains Routes List
+ * @function Main
+ * @type STATELESS FUNCTIONAL COMPONENT (SFC)
+ * @returns page view & routes list
+ */
+const Main: React.SFC<IMainProps> = () => {
     return (
         <main>
             <Switch>
@@ -21,4 +32,5 @@ const Main = () => {
     );
 };
 
+/* Export */
 export default Main;

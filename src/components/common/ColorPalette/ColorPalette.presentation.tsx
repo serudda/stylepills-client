@@ -13,9 +13,12 @@ interface IColorPaletteProps {
 }
 
 
-/***********************************************************************/
-/*           STATELESS FUNCTIONAL COMPONENT (SFC) DEFINITION           */
-/***********************************************************************/
+/**
+ * @desc Represent Color Palette Component
+ * @function ColorPalette
+ * @type STATELESS FUNCTIONAL COMPONENT (SFC)
+ * @returns component view
+ */
 const ColorPalette: React.SFC<IColorPaletteProps> = ({id, color}) => {
 
     return (

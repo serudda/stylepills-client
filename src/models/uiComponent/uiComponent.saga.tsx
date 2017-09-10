@@ -7,10 +7,15 @@ import * as types from '../../constants/action.types';
 import { getUiComponentSuccessAction } from './uiComponent.action';
 import * as model from './uiComponent.model';
 
-// Responsible for get UI components from server, making calls to the API
-// and instructing the redux-saga middleware on the next line of action, 
-// for success or failure operation.
 
+/** 
+ * @desc Responsible for get UI components from server, making calls to the API
+ * and instructing the redux-saga middleware on the next line of action, 
+ * for success or failure operation.
+ * @param {IUiComponentState} [state=defaultState] 
+ * @param {Action} action 
+ * @returns {IUiComponentState} 
+ */
 export default function* getUiComponentsSaga () {
     try {
 

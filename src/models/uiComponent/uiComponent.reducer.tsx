@@ -5,6 +5,8 @@ import * as types from '../../constants/action.types';
 import * as model from './uiComponent.model';
 import { Action } from './uiComponent.action';
 
+
+
 /************************************/
 /*            INTERFACES            */
 /************************************/
@@ -16,6 +18,10 @@ export interface IUiComponentState {
     fetched: Boolean;
 }
 
+/************************************/
+/*          DEFAULT STATE           */
+/************************************/
+
 const defaultState: IUiComponentState = {
     items: [],
     error: '',
@@ -24,7 +30,13 @@ const defaultState: IUiComponentState = {
 };
 
 
-// Handles ui component related actions
+
+/** 
+ * @desc This function takes UI Component actions and return a new state 
+ * @param {IUiComponentState} [state=defaultState] 
+ * @param {Action} action 
+ * @returns {IUiComponentState} 
+ */
 export default function (state: IUiComponentState = defaultState, action: Action): IUiComponentState {
 
     switch (action.type) {
