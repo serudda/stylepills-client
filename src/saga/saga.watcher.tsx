@@ -1,13 +1,21 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import { takeLatest } from 'redux-saga/effects';
 import getUiComponentsSaga from '../models/uiComponent/uiComponent.saga';
 import * as types from '../constants/action.types';
 
-// Watches for GET_UICOMPONENTS action type asynchronously
+
+
+/** 
+ * @desc Watcher for GET_UICOMPONENT action type asynchronously
+ * @function watchGetUiComponent
+ * @type FUNCTION GENERATOR 
+ */
 export default function* watchGetUiComponent() {
-    // LOG    
-    console.log('(6) Active watcher Sagas on sagas/watcher.tsx');
     yield takeLatest(types.GET_UICOMPONENT, getUiComponentsSaga);
 }
+
 
 
 /*

@@ -1,4 +1,6 @@
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -12,16 +14,18 @@ import { Provider } from 'react-redux';
 // configure Store
 import configureStore from './store/store.config';
 
-console.log('(1) Create store base on configureStore on index.tsx');
+
+
 // Initialize store
 const store = configureStore();
 
-console.log('(7) Render App component on index.tsx');
 
+/*         RENDER         */
+/**************************/
 render((
-  <Provider store={store}> 
-    <Router>
-      <App />
-    </Router>
-  </Provider>
-  ), document.getElementById('root'));
+        <Provider store={store}>
+            <Router>
+                <App />
+            </Router>
+        </Provider>
+), document.getElementById('root'));

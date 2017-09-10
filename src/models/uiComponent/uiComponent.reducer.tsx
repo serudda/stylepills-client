@@ -1,20 +1,55 @@
-import initialState from '../../reducer/reducer.initialState';
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as types from '../../constants/action.types';
+import * as model from './uiComponent.model';
+import { Action } from './uiComponent.action';
 
 
-// Handles ui component related actions
-export default function ( state: any = initialState, action: any ) {
-    console.log('(reducer) Enter to uiComponentReducer on reducers/uiComponentReducer');
-    console.log('(reducer) action type:', action.type);
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
+
+export interface IUiComponentState {
+    items: Array<model.UiComponent>;
+    error: string;
+    fetching: Boolean;
+    fetched: Boolean;
+}
+
+/************************************/
+/*          DEFAULT STATE           */
+/************************************/
+
+const defaultState: IUiComponentState = {
+    items: [],
+    error: '',
+    fetching: false,
+    fetched: false
+};
+
+
+
+/** 
+ * @desc This function takes UI Component actions and return a new state 
+ * @param {IUiComponentState} [state=defaultState] 
+ * @param {Action} action 
+ * @returns {IUiComponentState} 
+ */
+export default function (state: IUiComponentState = defaultState, action: Action): IUiComponentState {
+
     switch (action.type) {
-        
+
+        /***********************************/
+        /*       API REQUEST ACTIONS       */
+        /***********************************/
+
         case types.GET_UICOMPONENT: {
-            console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT* on reducers/uiComponentReducer');
             return {...state, fetching: true};
         }
 
         case types.GET_UICOMPONENT_FULFILLED: {
-            console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT_FULFILLED* on reducers/uiComponentReducer');
             return {...state, 
                     items: action.payload,
                     fetching: false,
@@ -23,15 +58,18 @@ export default function ( state: any = initialState, action: any ) {
         }
         
         case types.GET_UICOMPONENT_ERROR: {
-            console.log('(reducer) Enter to Switch option: *GET_UICOMPONENT_ERROR* on reducers/uiComponentReducer');
             return {...state, 
                     fetching: false,
                     error: action.payload
             };
         }
+
+
+        /***********************************/
+        /*            UI ACTIONS           */
+        /***********************************/
             
         default:
-            console.log('(reducer) Enter to Switch option: *default* on reducers/uiComponentReducer');
             return state;  
     }
 }

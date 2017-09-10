@@ -1,12 +1,24 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import ColorPaletteContainer from '../../common/ColorPalette/ColorPalette.container';
 import { Link } from 'react-router-dom';
 
-const ComponentPage = () => {
 
-    // LOG
-    console.log('(1.1) Activated ComponentPage on presentational/ComponentPage');
+/************************************/
+/*            INTERFACES            */
+/************************************/
+interface IComponentPageProps {}
 
+
+/**
+ * @desc Represent Component Detail Page
+ * @function ComponentPage
+ * @type STATELESS FUNCTIONAL COMPONENT (SFC)
+ * @returns page view
+ */
+const ComponentPage: React.SFC<IComponentPageProps> = () => {
     return (
         <div>
             <div className="section-color-palette">
@@ -20,4 +32,5 @@ const ComponentPage = () => {
     );
 };
 
+/* Export */
 export default ComponentPage;

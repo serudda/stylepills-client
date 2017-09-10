@@ -1,65 +1,92 @@
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import ColorPalette from './ColorPalette.presentation';
 import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';
 import { connect, Dispatch } from 'react-redux';
+import * as model from '../../../models/uiComponent/uiComponent.model';
+import { IRootState } from '../../../reducer/reducer.config';
 
-export interface IProps {
-    uiComponents: any;
-    dispatch: any;
-    getUiComponents (): void;
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
+
+/* Own Props */
+interface IOwnProps {}
+
+/* Mapped State to Props */
+interface IStateProps {
+    uiComponents: Array<model.UiComponent>;
 }
 
-// Subscribe component to redux store and merge the state into
-// component's props.
-function mapStateToProps (state:any): any {
-    // LOG    
-    console.log('(1.2) Connect ColorPaletteContainer with Redux on containers/ColorPaletteContainer/index.tsx');
-    console.log('(1.3) Launch mapStateToProps on containers/ColorPaletteContainer/index.tsx', state.uiComponents.items);
+/* Mapped Dispatches to Props */
+interface IDispatchProps {
+    _getUiComponents: () => void;
+}
+
+
+/*            MAPSTATETOPROPS            */
+/*****************************************/
+/* Nota: viene 'state.uiComponents' por que al combinar los reducers (combineReducers)
+   este le asignar el nombre que hayamos especificado en reducer.config.tsx, en este
+   caso 'uiComponents' */
+function mapStateToProps (state: IRootState): IStateProps {
     return {
         uiComponents: state.uiComponents.items
     };
 }
 
-function mapDispatchToProps (dispatch: Dispatch<any>): any {
+
+/*            MAPDISPATCHTOPROPS            */
+/********************************************/
+function mapDispatchToProps (dispatch: Dispatch<IRootState>): IDispatchProps {
     return {
-        getUiComponents: () => dispatch(getUiComponentAction())
+        _getUiComponents: () => dispatch(getUiComponentAction())
     };
 }
 
 
-class ColorPaletteContainer extends React.Component<IProps, object> {
+/**
+ * @desc Represents Color Palette container component
+ * @class ColorPaletteContainer
+ * @extends {React.Component}
+ */
+class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & IDispatchProps, {}> {
 
-    // Dispatches 'getUiComponentAction' inmediately after initial rendering.
-    // Note that we are using the dispatch method from the store to execute this task,
-    // courtesy of 'react-redux'
-    componentDidMount() {
-        // LOG 
-        console.log('(1.5) Enter to componentDidMount on containers/ColorPaletteContainer/index.tsx');
-        console.log('(1.6) Dispatch getUiComponentAction on containers/ColorPaletteContainer/index.tsx');
-        //this.props.getUiComponents();
+    
+    /**
+     * @desc Get UI components after all children Elements 
+     * and our Component instances are mounted onto the Browser
+     * @method componentDidMount
+     * @memberof ColorPaletteContainer
+     */
+    componentDidMount() {        
+        this.props._getUiComponents();
     }
 
 
+    /*         RENDER         */
+    /**************************/
     render() {
 
-        // LOG
-        console.log('(1.4) Render ColorPaletteContainer on containers/ColorPaletteContainer/index.tsx'); 
-        
         const { uiComponents = [] } = this.props;
 
         return(
             <div className="color-palette-container">
                 <h3>Color Palette</h3>
                 <ul>
-                    {uiComponents.map((component: any, i: any) => (
+                    {uiComponents.map((component: model.UiComponent, i: number) => (
                         <ColorPalette id={component.id} color={component.color} />
                     ))}
                 </ul>
-                <button onClick={this.props.getUiComponents}>Press me</button>
+                {/*<button onClick={this.props.getUiComponents} type="button">Press me</button> */}
             </div>
         );
+
     }
 }
 
+/* Export */
 export default connect(mapStateToProps, mapDispatchToProps)(ColorPaletteContainer);

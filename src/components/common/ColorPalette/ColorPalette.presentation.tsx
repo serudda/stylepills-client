@@ -1,18 +1,25 @@
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 
-// Interfaces
-interface IColorPalette {
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
+interface IColorPaletteProps {
     id: number;
     color: string;
 }
 
-// Con React.SFC<interface> lo que hacemos es saltarnos la advertencia desde el lado
-// del container padre, cuando quiero pasarle una prop, que me dice el sig error:
-// 'Type '{ id: any; }' has no properties in common with type 'IntrinsicAttributes & { children?: ReactNode; }'.'
-const ColorPalette: React.SFC<IColorPalette> = ({id, color}) => {
 
-    console.log('(1.4) Render ColorPalette on common/ColorPalette/index.tsx');
+/**
+ * @desc Represent Color Palette Component
+ * @function ColorPalette
+ * @type STATELESS FUNCTIONAL COMPONENT (SFC)
+ * @returns component view
+ */
+const ColorPalette: React.SFC<IColorPaletteProps> = ({id, color}) => {
 
     return (
         <div className="ma-color-palette">
@@ -21,6 +28,8 @@ const ColorPalette: React.SFC<IColorPalette> = ({id, color}) => {
             <div className="ma-color-palette__label" />
         </div>
     );
+
 };
 
+/* Export */
 export default ColorPalette;

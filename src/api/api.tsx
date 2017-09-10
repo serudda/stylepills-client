@@ -1,8 +1,9 @@
-// import response from '../data/uiComponents.json';
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
+import * as model from '../models/uiComponent/uiComponent.model';
 let data = require('../data/uiComponents.json');
 
-export default function getUiComponents() {
-    console.log('(1.10) Get UI Component from API Service on api/api.tsx');
-    // data = JSON.parse(data);
+export default function getUiComponents(): Array<model.UiComponent> {
     return data.response;
 }

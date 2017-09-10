@@ -1,12 +1,28 @@
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
+interface IHeaderProps {}
+
+
+/*************************************/
+/*           INLINE STYLES           */
+/*************************************/
 const liStyle = {
     display: 'inline-block'
 };
 
-const Header = () => (
+
+/***********************************************************************/
+/*           STATELESS FUNCTIONAL COMPONENT (SFC) DEFINITION           */
+/***********************************************************************/
+const Header: React.SFC<IHeaderProps> = () => (
     <header className="ma-header container">
         <nav className="navbar navbar-default">
             <ul>
@@ -18,5 +34,5 @@ const Header = () => (
     </header>
 );
 
-
+/* Export */
 export default Header;
