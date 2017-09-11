@@ -1,0 +1,40 @@
+$color: (
+    lightPrimary:   #FFE29C,
+    primary:        #FFFA6E,
+    darkPrimary:    #FDD502,
+    positive:       #74C080,
+    negative:       #FF4949,
+    warning:        #FFC82C,
+    info:           #408FEC,
+    black:          #1F2D3D,
+    steel:          #273444,
+    slate:          #3C4858,
+    silver:         #8492A6,
+    smoke:          #E0E6ED,
+    darkSmoke:      #D3DCE6,
+    extraDarkSmoke: #C0CCDA,
+    snow:           #F9FAFC,
+    darkSnow:       #EFF2F7,
+    extraDarkSnow:  #E5E9F2,
+    white:          #FFFFFF,
+);
+
+$body-background: map-get($color, white);
+$body-font-color: map-get($color, black);
+
+
+body.mainApp {
+    padding: 0;
+    background-color: $body-background;
+    color: $body-font-color;
+    overflow-x: hidden;
+    height: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0;
+
+    // Fix Safari row issue
+    .row:before {
+        display: inherit;
+    }
+}
