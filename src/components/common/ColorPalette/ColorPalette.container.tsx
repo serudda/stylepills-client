@@ -77,8 +77,8 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
             <div className="color-palette-container">
                 <h3>Color Palette</h3>
                 <ul>
-                    {uiComponents.map((component: model.UiComponent, i: number) => (
-                        <ColorPalette id={component.id} color={component.color} />
+                    {uiComponents.map((component: model.UiComponent) => (
+                        <ColorPalette key={component.id} options={component} />
                     ))}
                 </ul>
                 {/*<button onClick={this.props.getUiComponents} type="button">Press me</button> */}

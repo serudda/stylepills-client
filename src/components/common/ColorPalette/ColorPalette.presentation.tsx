@@ -2,14 +2,14 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import * as model from '../../../models/uiComponent/uiComponent.model';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
 interface IColorPaletteProps {
-    id: number;
-    color: string;
+    options: model.UiComponent;
 }
 
 
@@ -19,11 +19,11 @@ interface IColorPaletteProps {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ColorPalette: React.SFC<IColorPaletteProps> = ({id, color}) => {
+const ColorPalette: React.SFC<IColorPaletteProps> = ({options}) => {
 
     return (
         <div className="ma-color-palette">
-            <p>{id} {color}</p>
+            <p>{options.id} {options.color} {options.label}</p>
             <div className="ma-color-palette__color" />
             <div className="ma-color-palette__label" />
         </div>
