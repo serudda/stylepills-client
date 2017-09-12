@@ -1,18 +1,37 @@
-// COLOR PALETTE COMPONENT
+/**
+ * CARD COMPONENT
+ * --------------
+ */
 
 /// VARIABLES
-$color-palette-bg-color: #FFFFFF;
-$color-palette-color-bg-color: #FFFFFF;
-$color-palette-label-font-color: #6D6D6D;
 
-.ma-color-palette {
-    background-color: $color-palette-bg-color;
 
-    &__color {
-        background-color: $color-palette-color-bg-color;
-    }
+/// END - VARIABLES
 
-    &__label {
-        color: $color-palette-label-font-color;
+
+
+/**
+ *  COLOR PALETTE CARD
+ */
+
+ .colorPalette-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__item {
+        display: block;
+        width: 120px;
+        height: 150px;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        &__color {
+            width:100%;
+            height:80%;
+        }
+
+        &__label {
+            letter-spacing:3px;
+        }
     }
 }

@@ -14,6 +14,9 @@ import { Provider } from 'react-redux';
 // configure Store
 import configureStore from './store/store.config';
 
+//Third Party
+import 'highlight.js/styles/atom-one-dark.css';
+
 
 
 // Initialize store

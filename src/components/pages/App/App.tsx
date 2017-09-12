@@ -2,7 +2,6 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import Header from '../../common/Header/Header.presentation';
 import Main from '../Main/Main.presentation';
 import './App.css'; // Tell Webpack that App.tsx uses these styles
 
@@ -24,8 +23,8 @@ class App extends React.Component {
     /**************************/
     render() {
         return (
-            <div className="container-fluid text-center">
-                <Header />
+            <div className="container-fluid">
+                {/*<Header />*/}
                 <Main />
             </div>
         );
