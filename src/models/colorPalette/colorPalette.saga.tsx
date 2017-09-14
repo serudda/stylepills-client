@@ -2,31 +2,30 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { put, call } from 'redux-saga/effects';
-import {getUiComponents} from '../../api/api';
+import {getColorPalettes} from '../../api/api';
 import * as types from '../../constants/action.types';
-import { getUiComponentSuccessAction } from './uiComponent.action';
-import * as model from './uiComponent.model';
+import { getColorPaletteSuccessAction } from './colorPalette.action';
+import * as model from './colorPalette.model';
 
 
 /** 
- * @desc Responsible for get UI components from server, making calls to the API
- * and instructing the redux-saga middleware on the next line of action, 
- * for success or failure operation.
- * @param {IUiComponentState} [state=defaultState] 
- * @param {Action} action 
- * @returns {IUiComponentState} 
+ * @desc Responsible for get Color Palettes list from server, making calls 
+ * to the API and instructing the redux-saga middleware on the next line of 
+ * action, for success or failure operation.
+ * @function getColorPalettesSaga
+ * @return {void}
  */
-export default function* getUiComponentsSaga () {
+export default function* getColorPalettesSaga () {
     try {
 
-        const uiComponents: Array<model.UiComponent> = yield call(getUiComponents);
+        const colorPalettes: Array<model.ColorPalette> = yield call(getColorPalettes);
 
         yield[
-            put(getUiComponentSuccessAction(uiComponents))
+            put(getColorPaletteSuccessAction(colorPalettes))
         ];
 
     } catch (error) {
-        yield put({ type: types.GET_UICOMPONENT_ERROR, error });
+        yield put({ type: types.GET_COLORPALETTE_ERROR, error });
     }
 }
 

@@ -3,9 +3,9 @@
 /************************************/
 import * as React from 'react';
 import ColorPalette from './ColorPalette.presentation';
-import { getUiComponentAction } from '../../../models/uiComponent/uiComponent.action';
+import { getColorPaletteAction } from '../../../models/colorPalette/colorPalette.action';
 import { connect, Dispatch } from 'react-redux';
-import * as model from '../../../models/uiComponent/uiComponent.model';
+import * as model from '../../../models/colorPalette/colorPalette.model';
 import { IRootState } from '../../../reducer/reducer.config';
 
 
@@ -18,12 +18,12 @@ interface IOwnProps {}
 
 /* Mapped State to Props */
 interface IStateProps {
-    uiComponents: Array<model.UiComponent>;
+    colorPalettes: Array<model.ColorPalette>;
 }
 
 /* Mapped Dispatches to Props */
 interface IDispatchProps {
-    _getUiComponents: () => void;
+    _getColorPalettes: () => void;
 }
 
 
@@ -34,7 +34,7 @@ interface IDispatchProps {
    caso 'uiComponents' */
 function mapStateToProps (state: IRootState): IStateProps {
     return {
-        uiComponents: state.uiComponents.items
+        colorPalettes: state.colorPalettes.items
     };
 }
 
@@ -43,7 +43,7 @@ function mapStateToProps (state: IRootState): IStateProps {
 /********************************************/
 function mapDispatchToProps (dispatch: Dispatch<IRootState>): IDispatchProps {
     return {
-        _getUiComponents: () => dispatch(getUiComponentAction())
+        _getColorPalettes: () => dispatch(getColorPaletteAction())
     };
 }
 
@@ -63,7 +63,7 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
      * @memberof ColorPaletteContainer
      */
     componentDidMount() {        
-        this.props._getUiComponents();
+        this.props._getColorPalettes();
     }
 
 
@@ -71,14 +71,14 @@ class ColorPaletteContainer extends React.Component<IOwnProps & IStateProps & ID
     /**************************/
     render() {
 
-        const { uiComponents = [] } = this.props;
+        const { colorPalettes = [] } = this.props;
 
         return(
             <div className="color-palette-container">
                 <h3>Color Palette</h3>
                 <ul>
-                    {uiComponents.map((component: model.UiComponent) => (
-                        <ColorPalette key={component.id} options={component} />
+                    {colorPalettes.map((color: model.ColorPalette) => (
+                        <ColorPalette key={color.id} options={color} />
                     ))}
                 </ul>
                 {/*<button onClick={this.props.getUiComponents} type="button">Press me</button> */}

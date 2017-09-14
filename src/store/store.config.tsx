@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import rootReducer from '../reducer/reducer.config';
 import rootSaga from '../saga/saga.config';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 /**
  * @desc Create store passing rootReducer (combined reducers) and 
@@ -13,12 +14,12 @@ import rootSaga from '../saga/saga.config';
  * @function getUiComponentSuccessAction
  * @returns {*} configureStore
  */
-// 
+
 const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();
     const middleware = applyMiddleware(sagaMiddleware, logger);
     return {
-        ...createStore(rootReducer, middleware),
+        ...createStore(rootReducer, composeWithDevTools(middleware)),
         runSaga: sagaMiddleware.run(rootSaga)
     };
 };

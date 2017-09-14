@@ -2,18 +2,48 @@
     "response": [
         {
             "id": 1,
-            "color": "#000000",
-            "label": "#000000"
-        },
-        {
-            "id": 2,
-            "color": "#CCCCCC",
-            "label": "#CCCCCC"
-        },
-        {
-            "id": 3,
-            "color": "#FFFFFF",
-            "label": "#FFFFFF"
+            "title": "Avatar",
+            "colorPalette": [
+                {
+                    "id": 1,
+                    "label": "#07C27C",
+                    "hex": "#07C27C",
+                    "name": "Light Primary"
+                },
+                {
+                    "id": 2,
+                    "label": "#00AB6B",
+                    "hex": "#00AB6B",
+                    "name": "Primary"
+                },
+                {
+                    "id": 3,
+                    "label": "#167D51",
+                    "hex": "#167D51",
+                    "name": "Dark Primary"
+                },
+                {
+                    "id": 4,
+                    "label": "#2D2C2C",
+                    "hex": "#2D2C2C",
+                    "name": "Black"
+                },
+                {
+                    "id": 5,
+                    "label": "#949494",
+                    "hex": "#949494",
+                    "name": "Light Gray"
+                },
+                {
+                    "id": 6,
+                    "label": "#FFFFFF",
+                    "hex": "#FFFFFF",
+                    "name": "White"
+                }
+            ],
+            "css": ".round {border-radius: 50%;}.me-avatar {-webkit-backface-visibility: hidden;backface-visibility: hidden;position: relative;display: inline-block;overflow: hidden;background-color: #949494;background: url('photo-default.svg') 0 0 no-repeat;background-size: cover;}",
+            "scss": "/// Import color variable@import 'color';/// VARIABLES$avatar-default-path: 'photo-default.svg';$avatar-sizes: (xs: 32px,sm: 40px,md: 70px,lg: 100px,);",
+            "html": "<div class='me-avatar me-avatar--xs round'><img width='32' height='32' src='{avatar_default_path}' alt='{username}'></div>"
         }
     ]
 }

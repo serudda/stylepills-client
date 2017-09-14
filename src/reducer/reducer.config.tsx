@@ -3,9 +3,11 @@
 /************************************/
 import { combineReducers } from 'redux';
 import uiComponents from '../models/uiComponent/uiComponent.reducer';
+import colorPalettes from '../models/colorPalette/colorPalette.reducer';
 
 // Set of States 
 import { IUiComponentState } from '../models/uiComponent/uiComponent.reducer';
+import { IColorPaletteState } from '../models/colorPalette/colorPalette.reducer';
 
 
 /************************************/
@@ -14,6 +16,7 @@ import { IUiComponentState } from '../models/uiComponent/uiComponent.reducer';
 // Root State: Contains every Reducer State on the Store
 export interface IRootState {
     uiComponents: IUiComponentState;
+    colorPalettes: IColorPaletteState;
 }
 
 /************************************/
@@ -21,7 +24,8 @@ export interface IRootState {
 /************************************/
 // Combines all reducers to a single reducer function
 const rootReducer = combineReducers<IRootState>({
-    uiComponents
+    uiComponents,
+    colorPalettes
 });
 
 /* Export */
