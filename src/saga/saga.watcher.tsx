@@ -3,6 +3,7 @@
 /************************************/
 import { takeLatest } from 'redux-saga/effects';
 import getUiComponentsSaga from '../models/uiComponent/uiComponent.saga';
+import getColorPalettesSaga from '../models/colorPalette/colorPalette.saga';
 import * as types from '../constants/action.types';
 
 
@@ -13,7 +14,10 @@ import * as types from '../constants/action.types';
  * @type FUNCTION GENERATOR 
  */
 export default function* watchGetUiComponent() {
-    yield takeLatest(types.GET_UICOMPONENT, getUiComponentsSaga);
+    yield [
+        takeLatest(types.GET_UICOMPONENT, getUiComponentsSaga),
+        takeLatest(types.GET_COLORPALETTE, getColorPalettesSaga)
+    ]
 }
 
 

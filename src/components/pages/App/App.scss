@@ -1,24 +1,37 @@
-.App {
-  text-align: center;
-}
+// App Main Sass
+// --------------------------------------------------
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
+// Fonts
+// --------------------------------------------------
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
+@import 'https://fonts.googleapis.com/css?family=Poppins';
 
-.App-intro {
-  font-size: large;
-}
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+// All Core Sass files goes into the theme/core files (variables, globals)
+// --------------------------------------------------
+@import '../../../theme/core/global';
+@import '../../../theme/core/helper';
+
+
+// MainApp Components
+// --------------------------------------------------
+
+// tabs Style
+//@import 'components/tab';
+// card Style
+//@import 'components/card';
+// buttons Style
+//@import 'components/button';
+// label Style
+@import '../../../theme/components/label';
+
+
+// MainApp Pages and Other components (modals, etc)
+// --------------------------------------------------
+// component Page Style
+@import '../ComponentPage/ComponentPage';
+// Color Palette Component Style
+@import '../../common/ColorPalette/ColorPalette';
+

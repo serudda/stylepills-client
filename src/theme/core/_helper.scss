@@ -1,0 +1,475 @@
+/**
+ * GLOBAL HELPERS
+ * --------------
+ *
+ * Class naming convention
+ * stylePropertyName-valueName
+ * e.g.
+ * float-left
+ * textAlign-center
+ * verticalAlign-middle
+ *
+ * Our personal helpers classes are a mix of several styleguide from:
+ * Mailchimp - https://ux.mailchimp.com/patterns/helpers
+ * Marvel - https://marvelapp.com/styleguide/overview/code-guidelines
+ * Heroku - https://purple.herokuapp.com/
+ */
+
+
+/**
+*  POSITION
+*/
+
+.position-absolute { position: absolute;}
+.position-relative { position: relative;}
+
+.float-left { float: left;}
+.float-right { float: right;}
+
+.display-inlineBlock {display: inline-block;;}
+
+.flex-center {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.flex-0 {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.flex-1 {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+/**
+ *  SPACING
+ */
+
+/* Margin scale */
+.margin-0  {margin: 0;}
+.margin-1  {margin: 6px;}
+.margin-2  {margin: 12px;}
+.margin-3  {margin: 18px;}
+.margin-4  {margin: 24px;}
+.margin-5  {margin: 30px;}
+.margin-6  {margin: 36px;}
+.margin-7  {margin: 42px;}
+.margin-8  {margin: 48px;}
+.margin-9  {margin: 54px;}
+.margin-10 {margin: 60px;}
+.margin-11 {margin: 66px;}
+.margin-12 {margin: 72px;}
+
+/* Margin top scale */
+.marginTop-1  {margin-top: 6px;}
+.marginTop-2  {margin-top: 12px;}
+.marginTop-3  {margin-top: 18px;}
+.marginTop-4  {margin-top: 24px;}
+.marginTop-5  {margin-top: 30px;}
+.marginTop-6  {margin-top: 36px;}
+.marginTop-7  {margin-top: 42px;}
+.marginTop-8  {margin-top: 48px;}
+.marginTop-9  {margin-top: 54px;}
+.marginTop-10 {margin-top: 60px;}
+.marginTop-11 {margin-top: 66px;}
+.marginTop-12 {margin-top: 72px;}
+
+/* Margin bottom scale */
+.marginBottom-1  {margin-bottom: 6px;}
+.marginBottom-2  {margin-bottom: 12px;}
+.marginBottom-3  {margin-bottom: 18px;}
+.marginBottom-4  {margin-bottom: 24px;}
+.marginBottom-5  {margin-bottom: 30px;}
+.marginBottom-6  {margin-bottom: 36px;}
+.marginBottom-7  {margin-bottom: 42px;}
+.marginBottom-8  {margin-bottom: 48px;}
+.marginBottom-9  {margin-bottom: 54px;}
+.marginBottom-10 {margin-bottom: 60px;}
+.marginBottom-11 {margin-bottom: 66px;}
+.marginBottom-12 {margin-bottom: 72px;}
+
+/* Margin left scale */
+.marginLeft-1  {margin-left: 6px;}
+.marginLeft-2  {margin-left: 12px;}
+.marginLeft-3  {margin-left: 18px;}
+.marginLeft-4  {margin-left: 24px;}
+.marginLeft-5  {margin-left: 30px;}
+.marginLeft-6  {margin-left: 36px;}
+.marginLeft-7  {margin-left: 42px;}
+.marginLeft-8  {margin-left: 48px;}
+.marginLeft-9  {margin-left: 54px;}
+.marginLeft-10 {margin-left: 60px;}
+.marginLeft-11 {margin-left: 66px;}
+.marginLeft-12 {margin-left: 72px;}
+
+/* Margin right scale */
+.marginRight-1  {margin-right: 6px;}
+.marginRight-2  {margin-right: 12px;}
+.marginRight-3  {margin-right: 18px;}
+.marginRight-4  {margin-right: 24px;}
+.marginRight-5  {margin-right: 30px;}
+.marginRight-6  {margin-right: 36px;}
+.marginRight-7  {margin-right: 42px;}
+.marginRight-8  {margin-right: 48px;}
+.marginRight-9  {margin-right: 54px;}
+.marginRight-10 {margin-right: 60px;}
+.marginRight-11 {margin-right: 66px;}
+.marginRight-12 {margin-right: 72px;}
+
+/* Padding scale */
+.padding-0  {padding: 0;}
+.padding-1  {padding: 6px;}
+.padding-2  {padding: 12px;}
+.padding-3  {padding: 18px;}
+.padding-4  {padding: 24px;}
+.padding-5  {padding: 30px;}
+.padding-6  {padding: 36px;}
+.padding-7  {padding: 42px;}
+.padding-8  {padding: 48px;}
+.padding-9  {padding: 54px;}
+.padding-10 {padding: 60px;}
+.padding-11 {padding: 66px;}
+.padding-12 {padding: 72px;}
+
+/* Padding top scale */
+.paddingTop-1  {padding-top: 6px;}
+.paddingTop-2  {padding-top: 12px;}
+.paddingTop-3  {padding-top: 18px;}
+.paddingTop-4  {padding-top: 24px;}
+.paddingTop-5  {padding-top: 30px;}
+.paddingTop-6  {padding-top: 36px;}
+.paddingTop-7  {padding-top: 42px;}
+.paddingTop-8  {padding-top: 48px;}
+.paddingTop-9  {padding-top: 54px;}
+.paddingTop-10 {padding-top: 60px;}
+.paddingTop-11 {padding-top: 66px;}
+.paddingTop-12 {padding-top: 72px;}
+
+/* Padding bottom scale */
+.paddingBottom-1  {padding-bottom: 6px;}
+.paddingBottom-2  {padding-bottom: 12px;}
+.paddingBottom-3  {padding-bottom: 18px;}
+.paddingBottom-4  {padding-bottom: 24px;}
+.paddingBottom-5  {padding-bottom: 30px;}
+.paddingBottom-6  {padding-bottom: 36px;}
+.paddingBottom-7  {padding-bottom: 42px;}
+.paddingBottom-8  {padding-bottom: 48px;}
+.paddingBottom-9  {padding-bottom: 54px;}
+.paddingBottom-10 {padding-bottom: 60px;}
+.paddingBottom-11 {padding-bottom: 66px;}
+.paddingBottom-12 {padding-bottom: 72px;}
+
+/* Padding left scale */
+.paddingLeft-1  {padding-left: 6px;}
+.paddingLeft-2  {padding-left: 12px;}
+.paddingLeft-3  {padding-left: 18px;}
+.paddingLeft-4  {padding-left: 24px;}
+.paddingLeft-5  {padding-left: 30px;}
+.paddingLeft-6  {padding-left: 36px;}
+.paddingLeft-7  {padding-left: 42px;}
+.paddingLeft-8  {padding-left: 48px;}
+.paddingLeft-9  {padding-left: 54px;}
+.paddingLeft-10 {padding-left: 60px;}
+.paddingLeft-11 {padding-left: 66px;}
+.paddingLeft-12 {padding-left: 72px;}
+
+/* Padding right scale */
+.paddingRight-1  {padding-right: 6px;}
+.paddingRight-2  {padding-right: 12px;}
+.paddingRight-3  {padding-right: 18px;}
+.paddingRight-4  {padding-right: 24px;}
+.paddingRight-5  {padding-right: 30px;}
+.paddingRight-6  {padding-right: 36px;}
+.paddingRight-7  {padding-right: 42px;}
+.paddingRight-8  {padding-right: 48px;}
+.paddingRight-9  {padding-right: 54px;}
+.paddingRight-10 {padding-right: 60px;}
+.paddingRight-11 {padding-right: 66px;}
+.paddingRight-12 {padding-right: 72px;}
+
+
+
+
+/**
+ *  TEXT MANIPULATION
+ */
+
+.fontFamily-openSans      {font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
+.fontFamily-sourceCodePro {font-family: "Source Code Pro", Consolas, "Lucida Console", Courier, monospace;}
+.fontFamily-poppins       {font-family: "Poppins", sans-serif;}
+
+/* Font brand colors */
+.color-lightPrimary { color: map-get($color, lightPrimary); }
+.color-primary { color: map-get($color, primary); }
+.color-darkPrimary { color: map-get($color, darkPrimary); }
+
+/* Font UI colors */
+.color-positive {color: map-get($color, positive);}
+.color-negative {color: map-get($color, negative);}
+.color-warning  {color: map-get($color, warning);}
+.color-info     {color: map-get($color, info);}
+
+/* Font Grey colors */
+.color-black   {color: map-get($color, black);}
+.color-steel   {color: map-get($color, steel);}
+.color-slate   {color: map-get($color, slate);}
+.color-silver  {color: map-get($color, silver);}
+
+.color-smoke            {color: map-get($color, smoke);}
+.color-darkSmoke        {color: map-get($color, darkSmoke);}
+.color-extraDarkSmoke   {color: map-get($color, extraDarkSmoke);}
+
+.color-snow            {color: map-get($color, snow);}
+.color-darkSnow        {color: map-get($color, darkSnow);}
+.color-extraDarkSnow   {color: map-get($color, extraDarkSnow);}
+
+.color-white  {color: map-get($color,white);}
+
+/* Font Size scale */
+.fontSize-xxs    { font-size: 10px; }
+.fontSize-xs     { font-size: 12px; }
+.fontSize-sm     { font-size: 14px; }
+.fontSize-md     { font-size: 16px; }
+.fontSize-lg     { font-size: 18px; }
+.fontSize-xl     { font-size: 20px; }
+.fontSize-xxl    { font-size: 28px; }
+.fontSize-xxxl   { font-size: 38px; }
+.fontSize-xxxxl  { font-size: 46px; }
+
+
+/* Font Weight scale */
+.fontWeight-1  { font-weight: 100; }
+.fontWeight-2  { font-weight: 200; }
+.fontWeight-3  { font-weight: 300; }
+.fontWeight-4  { font-weight: 400; }
+.fontWeight-5  { font-weight: 500; }
+.fontWeight-6  { font-weight: 600; }
+.fontWeight-7  { font-weight: 700; }
+.fontWeight-8  { font-weight: 800; }
+.fontWeight-9  { font-weight: 900; }
+
+/* Line Height scale */
+.lineHeight-1 {line-height: 6px;}
+.lineHeight-2 {line-height: 12px;}
+.lineHeight-3 {line-height: 18px;}
+.lineHeight-4 {line-height: 24px;}
+.lineHeight-5 {line-height: 30px;}
+
+.text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.textTransform-capitalize {text-transform: capitalize;}
+.textTransform-lowercase  {text-transform: lowercase;}
+.textTransform-uppercase  {text-transform: uppercase;}
+.textTransform-fullWidth  {text-transform: full-width;}
+
+.textAlign-left {text-align: left;}
+.textAlign-right {text-align: right;}
+.textAlign-center {text-align: center;}
+
+.fontStyle-italic {font-style: italic;}
+.fontStyle-normal {font-style:normal;}
+
+.link-reset {text-decoration: none!important;}
+
+.fontSmoothing-reset {-webkit-font-smoothing: initial;}
+
+
+
+/**
+ *  BORDER
+ */
+
+/* Border scale */
+.border-0 {border: 0 hidden transparent;}
+.border-1 {border: 1px solid}
+.border-2 {border: 2px solid}
+.border-3 {border: 3px solid}
+
+.borderTop-0 {border-top: 0 hidden transparent;}
+.borderTop-1 {border-top: 1px solid}
+.borderTop-2 {border-top: 2px solid}
+.borderTop-3 {border-top: 3px solid}
+
+.borderBottom-0 {border-bottom: 0 hidden transparent;}
+.borderBottom-1 {border-bottom: 1px solid}
+.borderBottom-2 {border-bottom: 2px solid}
+.borderBottom-3 {border-bottom: 3px solid}
+
+.borderLeft-0 {border-left: 0 hidden transparent;}
+.borderLeft-1 {border-left: 1px solid}
+.borderLeft-2 {border-left: 2px solid}
+.borderLeft-3 {border-left: 3px solid}
+
+.borderRight-0 {border-right: 0 hidden transparent;}
+.borderRight-1 {border-right: 1px solid}
+.borderRight-2 {border-right: 2px solid}
+.borderRight-3 {border-right: 3px solid}
+
+/* Border brand colors */
+.borderColor-lightPrimary    {border-color: map-get($color, lightPrimary);}
+.borderColor-primary         {border-color: map-get($color, primary);}
+.borderColor-darkPrimary     {border-color: map-get($color, darkPrimary);}
+
+/* Border UI colors */
+.borderColor-positive {border-color: map-get($color, positive);}
+.borderColor-negative {border-color: map-get($color, negative);}
+.borderColor-warning  {border-color: map-get($color, warning);}
+.borderColor-info     {border-color: map-get($color, info);}
+
+/* Border Grey colors */
+.borderColor-black   {border-color: map-get($color, black);}
+.borderColor-steel   {border-color: map-get($color, steel);}
+.borderColor-slate   {border-color: map-get($color, slate);}
+.borderColor-silver  {border-color: map-get($color, silver);}
+
+.borderColor-smoke            {border-color: map-get($color, smoke);}
+.borderColor-darkSmoke        {border-color: map-get($color, darkSmoke);}
+.borderColor-extraDarkSmoke   {border-color: map-get($color, extraDarkSmoke);}
+
+.borderColor-snow            {border-color: map-get($color, snow);}
+.borderColor-darkSnow        {border-color: map-get($color, darkSnow);}
+.borderColor-extraDarkSnow   {border-color: map-get($color, extraDarkSnow);}
+
+.borderColor-white  {border-color: map-get($color,white);}
+
+/* Border radius scale */
+.borderRadius-sm {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.borderRadius-md {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.borderRadius-lg {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.borderRadius-circle {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/* Top Left Border Radius scale */
+.borderRadiusTopLeft-sm {
+    -webkit-border-radius: 3px 0 0 0;
+    -moz-border-radius: 3px 0 0 0;
+    border-radius: 3px 0 0 0;
+}
+.borderRadiusTopLeft-md {
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+    border-radius: 5px 0 0 0;
+}
+.borderRadiusTopLeft-lg {
+    -webkit-border-radius: 10px 0 0 0;
+    -moz-border-radius: 10px 0 0 0;
+    border-radius: 10px 0 0 0;
+}
+
+/* Top Right Border Radius scale */
+.borderRadiusTopRight-sm {
+    -webkit-border-radius: 0 3px 0 0;
+    -moz-border-radius: 0 3px 0 0;
+    border-radius: 0 3px 0 0;
+}
+.borderRadiusTopRight-md {
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+    border-radius: 0 5px 0 0;
+}
+.borderRadiusTopRight-lg {
+    -webkit-border-radius: 0 10px 0 0;
+    -moz-border-radius: 0 10px 0 0;
+    border-radius: 0 10px 0 0;
+}
+
+/* Bottom Left Border Radius scale */
+.borderRadiusBottomLeft-sm {
+    -webkit-border-radius: 0 0 0 3px;
+    -moz-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
+}
+.borderRadiusBottomLeft-md {
+    -webkit-border-radius: 0 0 0 5px;
+    -moz-border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 5px;
+}
+.borderRadiusBottomLeft-lg {
+    -webkit-border-radius: 0 0 0 10px;
+    -moz-border-radius: 0 0 0 10px;
+    border-radius: 0 0 0 10px;
+}
+
+/* Bottom Right Border Radius scale */
+.borderRadiusBottomRight-sm {
+    -webkit-border-radius: 0 0 3px 0;
+    -moz-border-radius: 0 0 3px 0;
+    border-radius: 0 0 3px 0;
+}
+.borderRadiusBottomRight-md {
+    -webkit-border-radius: 0 0 5px 0;
+    -moz-border-radius: 0 0 5px 0;
+    border-radius: 0 0 5px 0;
+}
+.borderRadiusBottomRight-lg {
+    -webkit-border-radius: 0 0 10px 0;
+    -moz-border-radius: 0 0 10px 0;
+    border-radius: 0 0 10px 0;
+}
+
+
+
+/**
+ *  BOX SHADOW
+ */
+
+.boxShadow-subtle   {box-shadow: 0 2px 8px rgba(31,45,61,.05);}
+.boxShadow-close    {box-shadow: 0 1px 2px 0 rgba(31,45,61,.15);}
+.boxShadow-raised   {box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);}
+.boxShadow-float    {box-shadow: 0 5px 15px -2px rgba(10, 16, 34, .4);}
+
+
+/**
+ *  BACKGROUND
+ */
+
+ /* Background brand colors */
+ .bg-lightPrimary    {background-color: map-get($color, lightPrimary);}
+ .bg-primary         {background-color: map-get($color, primary);}
+ .bg-darkPrimary     {background-color: map-get($color, darkPrimary);}
+
+ /* Background UI colors */
+ .bg-positive {background-color: map-get($color, positive);}
+ .bg-negative {background-color: map-get($color, negative);}
+ .bg-warning  {background-color: map-get($color, warning);}
+ .bg-info     {background-color: map-get($color, info);}
+
+ /* Background Grey colors */
+ .bg-black   {background-color: map-get($color, black);}
+ .bg-steel   {background-color: map-get($color, steel);}
+ .bg-slate   {background-color: map-get($color, slate);}
+ .bg-silver  {background-color: map-get($color, silver);}
+
+ .bg-smoke            {background-color: map-get($color, smoke);}
+ .bg-darkSmoke        {background-color: map-get($color, darkSmoke);}
+ .bg-extraDarkSmoke   {background-color: map-get($color, extraDarkSmoke);}
+
+ .bg-snow            {background-color: map-get($color, snow);}
+ .bg-darkSnow        {background-color: map-get($color, darkSnow);}
+ .bg-extraDarkSnow   {background-color: map-get($color, extraDarkSnow);}
+
+ .bg-white  {background-color: map-get($color,white);}
