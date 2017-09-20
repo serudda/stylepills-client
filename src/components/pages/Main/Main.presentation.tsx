@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import HomeComponent from '../HomePage/HomePage.presentation';
-import ComponentPage from '../ComponentPage/ComponentPage.presentation';
+import ComponentPage from '../ComponentPage/ComponentPage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage.presentation';
 
 

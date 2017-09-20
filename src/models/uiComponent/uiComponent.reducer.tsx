@@ -12,7 +12,7 @@ import { Action } from './uiComponent.action';
 /************************************/
 
 export interface IUiComponentState {
-    items: Array<model.UiComponent>;
+    item: model.UiComponent;
     error: string;
     fetching: Boolean;
     fetched: Boolean;
@@ -23,7 +23,13 @@ export interface IUiComponentState {
 /************************************/
 
 const defaultState: IUiComponentState = {
-    items: [],
+    item: {
+        title: '',
+        css: '',
+        colorPalette: null,
+        scss: '',
+        html: ''
+    },
     error: '',
     fetching: false,
     fetched: false
@@ -51,7 +57,7 @@ export default function (state: IUiComponentState = defaultState, action: Action
 
         case types.GET_UICOMPONENT_FULFILLED: {
             return {...state, 
-                    items: action.payload,
+                    item: action.payload,
                     fetching: false,
                     fetched: true
             };

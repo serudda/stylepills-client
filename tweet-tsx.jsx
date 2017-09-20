@@ -1,8 +1,11 @@
 
+    interface IData {
+        user: model.User;
+    }
 
-function _getData() {
-    /* ... */
-}
+    function _getData(): IData {
+        /* ... */
+    }
 
 
 

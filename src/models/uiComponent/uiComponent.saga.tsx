@@ -1,11 +1,11 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import { put, call } from 'redux-saga/effects';
-import {getUiComponents} from '../../api/api';
+import { put, /*call*/ } from 'redux-saga/effects';
+// import {getUiComponents} from '../../api/api';
 import * as types from '../../constants/action.types';
-import { getUiComponentSuccessAction } from './uiComponent.action';
-import * as model from './uiComponent.model';
+// import { getUiComponentSuccessAction } from './uiComponent.action';
+// import * as model from './uiComponent.model';
 
 
 /** 
@@ -19,11 +19,11 @@ import * as model from './uiComponent.model';
 export default function* getUiComponentsSaga () {
     try {
 
-        const uiComponents: Array<model.UiComponent> = yield call(getUiComponents);
+        /*const uiComponents: Array<model.UiComponent> = yield call(getUiComponents);
 
         yield[
             put(getUiComponentSuccessAction(uiComponents))
-        ];
+        ];*/
 
     } catch (error) {
         yield put({ type: types.GET_UICOMPONENT_ERROR, error });

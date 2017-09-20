@@ -17,7 +17,7 @@ export default function* watchGetUiComponent() {
     yield [
         takeLatest(types.GET_UICOMPONENT, getUiComponentsSaga),
         takeLatest(types.GET_COLORPALETTE, getColorPalettesSaga)
-    ]
+    ];
 }
 
 

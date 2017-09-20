@@ -1,11 +1,11 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import { put, call } from 'redux-saga/effects';
-import {getColorPalettes} from '../../api/api';
+import { put, /*call*/ } from 'redux-saga/effects';
+// import { getColorPalettes } from '../../api/api';
 import * as types from '../../constants/action.types';
 import { getColorPaletteSuccessAction } from './colorPalette.action';
-import * as model from './colorPalette.model';
+// import * as model from './colorPalette.model';
 
 
 /** 
@@ -18,9 +18,11 @@ import * as model from './colorPalette.model';
 export default function* getColorPalettesSaga () {
     try {
 
-        const colorPalettes: Array<model.ColorPalette> = yield call(getColorPalettes);
+        // const colorPalettes: Array<model.ColorPalette> = yield call(getColorPalettes);
+        const colorPalettes: any = [];
 
         yield[
+            // put(getColorPaletteSuccessAction(colorPalettes))
             put(getColorPaletteSuccessAction(colorPalettes))
         ];
 

@@ -14,7 +14,7 @@ export interface IGetUiComponentAction {
 
 export interface IGetUiComponentSuccessAction {
     type: types.GET_UICOMPONENT_FULFILLED;
-    payload: Array<model.UiComponent>;
+    payload: model.UiComponent;
 }
 
 export interface IGetUiComponentErrorAction {
@@ -55,7 +55,7 @@ export const getUiComponentAction = (): Action => {
  * @param {Array<model.UiComponent>} {payload}
  * @returns {Action}
  */
-export const getUiComponentSuccessAction = (payload: Array<model.UiComponent>): Action => {
+export const getUiComponentSuccessAction = (payload: model.UiComponent): Action => {
     return {
         type: types.GET_UICOMPONENT_FULFILLED,
         payload

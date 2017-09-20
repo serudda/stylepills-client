@@ -1,7 +1,7 @@
 /************************************************/
 /*             UI COMPONENT MODELS              */
 /************************************************/
-import {ColorPalette} from '../colorPalette/colorPalette.model';
+import { ColorPalette } from '../colorPalette/colorPalette.model';
 
 /**
  * @desc Specifies the Ui Component type (model) to identify
@@ -9,11 +9,11 @@ import {ColorPalette} from '../colorPalette/colorPalette.model';
  * @type UiComponent
  */
 export type UiComponent = {
-    id: number;
+    id?: number;
     title: string;
-    colorPalette: Array<ColorPalette>;
+    colorPalette: ColorPalette | null;
     css: string;
     scss: string;
     html: string;
-}
+};
 

@@ -2,13 +2,19 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { combineReducers } from 'redux';
+import { ApolloClient } from 'react-apollo';
+
 import uiComponents from '../models/uiComponent/uiComponent.reducer';
 import colorPalettes from '../models/colorPalette/colorPalette.reducer';
 
 // Set of States 
+import { IColorState } from '../models/color/color.model';
 import { IUiComponentState } from '../models/uiComponent/uiComponent.reducer';
 import { IColorPaletteState } from '../models/colorPalette/colorPalette.reducer';
 
+
+// Initialize Client
+const client = new ApolloClient();
 
 /************************************/
 /*            INTERFACES            */
@@ -16,7 +22,9 @@ import { IColorPaletteState } from '../models/colorPalette/colorPalette.reducer'
 // Root State: Contains every Reducer State on the Store
 export interface IRootState {
     uiComponents: IUiComponentState;
-    colorPalettes: IColorPaletteState;
+    colorPalette: IColorPaletteState;
+    colors: IColorState;
+    apollo: any;
 }
 
 /************************************/
@@ -25,7 +33,8 @@ export interface IRootState {
 // Combines all reducers to a single reducer function
 const rootReducer = combineReducers<IRootState>({
     uiComponents,
-    colorPalettes
+    colorPalettes,
+    apollo: client.reducer(),
 });
 
 /* Export */
