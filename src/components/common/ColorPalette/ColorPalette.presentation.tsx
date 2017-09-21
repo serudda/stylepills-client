@@ -2,15 +2,21 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import Color from '../Color/Color.presentation';
 import * as model from '../../../models/colorPalette/colorPalette.model';
+// FIXME: Buscar alternativa mucho mejor para este tipo de casos donde esta el Componente
+// y esta el type importados en el mismo archivo (ColorModel)
+import * as ColorModel from '../../../models/color/color.model';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
+
 interface IColorPaletteProps {
     options: model.ColorPalette;
 }
+
 
 
 /**
@@ -22,14 +28,15 @@ interface IColorPaletteProps {
 const ColorPalette: React.SFC<IColorPaletteProps> = ({options}) => {
 
     return (
-        <div className="ma-color-palette">
-            <p>{options.id} {options.hex} {options.label}</p>
-            <div className="ma-color-palette__color" />
-            <div className="ma-color-palette__label" />
+        <div className="colorPalette-container">
+            {options.colors.map((color: ColorModel.Color) => (
+                <Color key={color.id} options={color} />
+            ))}
         </div>
     );
-
+    
 };
+
 
 /* Export */
 export default ColorPalette;

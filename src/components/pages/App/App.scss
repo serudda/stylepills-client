@@ -30,8 +30,12 @@
 
 // MainApp Pages and Other components (modals, etc)
 // --------------------------------------------------
+
+// Color Component Style
+@import '../../common/Color/Color';
+
+
 // component Page Style
 @import '../ComponentPage/ComponentPage';
-// Color Palette Component Style
-@import '../../common/ColorPalette/ColorPalette';
+
 

@@ -1,7 +1,7 @@
 /*************************************************/
 /*             COLOR PALETTE MODELS              */
 /*************************************************/
-
+import { Color } from '../color/color.model';
 
 /**
  * @desc Specifies the 'Color Palette' type (model) to identify
@@ -9,8 +9,9 @@
  * @type ColorPalette
  */
 export type ColorPalette = {
-    id: number;
-    label: string;
-    hex: string;
-}
+    id: number | null;
+    category: string;
+    description: string;
+    colors: Array<Color>;
+};
 
