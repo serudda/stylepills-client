@@ -31,12 +31,12 @@ const Color: React.SFC<IColorProps> = ({options}) => {
             <div className="ma-color__item boxShadow-float borderRadius-md padding-1 textAlign-center fontSize-md">
                 <div className="ma-color__item__color-square borderColor-smoke" style={colorStyle} />
                 <p className="ma-color__item__label fontFamily-poppins fontSize-sm fontWeight-6 marginTop-1 color-silver">
-                    {options.label}
+                    {options.hex}
                 </p>
             </div>
 
             <div className="marginTop-2">
-                <p className="fontFamily-poppins fontSize-md color-silver">Light Primary</p>
+                <p className="fontFamily-poppins fontSize-md color-silver">{options.label}</p>
             </div>
 
         </div>

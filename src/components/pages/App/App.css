@@ -927,23 +927,27 @@ body.mainApp {
       color: #1F2D3D; }
 
 /**
- * CARD COMPONENT
+ * COLOR COMPONENT
  * --------------
  */
-/**
- *  COLOR PALETTE CARD
- */
 .colorPalette-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.ma-color {
   display: flex;
   flex-wrap: wrap; }
-  .colorPalette-container__item {
+  .ma-color__item {
     display: block;
     width: 120px;
     height: 150px;
     justify-content: flex-start;
     flex-direction: column; }
-    .colorPalette-container__item__color {
+    .ma-color__item__color-square {
       width: 100%;
       height: 80%; }
-    .colorPalette-container__item__label {
+    .ma-color__item__label {
       letter-spacing: 3px; }

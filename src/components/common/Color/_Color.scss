@@ -3,6 +3,14 @@
  * --------------
  */
 
+ .colorPalette-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
 .ma-color {
     display: flex;
     flex-wrap: wrap;

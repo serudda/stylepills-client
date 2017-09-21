@@ -52,7 +52,9 @@ const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({options}) =>
                         {/* Color Palette Title */}
                         <h2 className="color-slate fontWeight-6 margin-0 marginBottom-1">Color Palette</h2>
                         <p className="color-silver marginBottom-4 fontSize-lg">
-                            Color type: <strong className="fontFamily-sourceCodePro">Vibrant</strong>
+                            Color type: <strong className="fontFamily-sourceCodePro">
+                                {options.category}
+                            </strong>
                         </p>
 
                         {/* Color Palette */}

@@ -10,6 +10,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 
 import ColorPaletteSection from './sections/ColorPaletteSection';
 import ComponentDetailSection from './sections/ComponentDetailSection';
+import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 import * as hljs from 'highlight.js';
 
 
@@ -21,8 +22,15 @@ interface IOwnProps {}
 
 /* Mapped State to Props */
 interface IStateProps {
-    data?: any;
-    getUiComponentById: model.UiComponent;
+    // Tiene ? por que existe mapStateToProps, cuando decidamos que hacer con esa 
+    // funcion, retiramos el ?
+    data?: {
+        loading: Boolean, 
+        error: {message: string}, 
+        uiComponent: model.UiComponent
+    };
+    match?: any;
+    uiComponent: model.UiComponent;
 }
 
 
@@ -31,9 +39,11 @@ interface IStateProps {
 /* Nota: viene 'state.uiComponent' por que al combinar los reducers (combineReducers)
    este le asignar el nombre que hayamos especificado en reducer.config.tsx, en este
    caso 'uiComponent' */
+// TODO: Analizar si vamos a seguir usando el Store propio, o todo lo vamos a hacer através
+// de Apollo, de ser asi, no vamos a necesitar esta funciona. Analizar que es lo mejor. 
 function mapStateToProps (state: IRootState): IStateProps {
     return {
-        getUiComponentById: state.uiComponents.item
+        uiComponent: state.uiComponents.item
     };
 }
 
@@ -65,10 +75,19 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
             width: '100%'
         };
         
-        const { getUiComponentById } = this.props.data;
+        const {data: {loading, error, uiComponent}/*, match */} = this.props;
+        // (LEGACY) const { getUiComponentById } = this.props.data;
 
-        if (this.props.data.loading) {
+        if (loading) {
             return (<div>Loading</div>);
+        }
+
+        if (error) {
+            return (<p>(error.message)</p>);
+        }
+
+        if (uiComponent === null) {
+            return (<NotFound />);
         }
 
         return (
@@ -88,7 +107,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
                 </section>
 
                 {/* Color Palette Section */}
-                <ColorPaletteSection options={getUiComponentById.colorPalette}/>
+                <ColorPaletteSection options={uiComponent.colorPalette}/>
 
                 {/* Component Detail Section */}
                 <ComponentDetailSection />
@@ -102,9 +121,9 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 
 // NOTE: This will be automatically fired when the component is rendered, 
 // sending this exact GraphQL query to the backend.
-const query = gql`
+const getUiComponentByIdQuery = gql`
             query {
-                getUiComponentById(id: "1") {
+                uiComponent(id: 1) {
                     id
                     css
                     scss
@@ -124,11 +143,11 @@ const query = gql`
                     }
                 }
             }
-          `;
+        `;
 
 
 /* Export */
 export default compose(
-    graphql(query),
+    graphql(getUiComponentByIdQuery),
     connect(mapStateToProps)
 )(ComponentPageContainer);
