@@ -83,7 +83,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         }
 
         if (error) {
-            return (<p>(error.message)</p>);
+            return (<p>{error.message}</p>);
         }
 
         if (uiComponent === null) {
