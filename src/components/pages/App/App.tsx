@@ -2,8 +2,10 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+
 import Main from '../Main/Main.presentation';
-import './App.css'; // Tell Webpack that App.tsx uses these styles
+// NOTE: Tell Webpack that App.tsx uses these styles. App.css contain every styles of the project
+import './App.css'; 
 
 
 /**
@@ -13,10 +15,6 @@ import './App.css'; // Tell Webpack that App.tsx uses these styles
  * @extends {React.Component}
  */
 class App extends React.Component {
-
-    constructor() {
-        super();
-    }
 
 
     /*         RENDER         */
@@ -30,6 +28,7 @@ class App extends React.Component {
         );
     }
 }
+
 
 /* Export */
 export default App;

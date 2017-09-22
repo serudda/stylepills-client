@@ -3,7 +3,8 @@
 /************************************/
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import HomeComponent from '../HomePage/HomePage.presentation';
+
+import HomePage from '../HomePage/HomePage.presentation';
 import ComponentPage from '../ComponentPage/ComponentPage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage.presentation';
 
@@ -24,13 +25,15 @@ const Main: React.SFC<IMainProps> = () => {
     return (
         <main>
             <Switch>
-                <Route exact path="/" component={HomeComponent} />
+                {/* tslint:disable-next-line:jsx-boolean-value */}
+                <Route exact path="/" component={HomePage} />
                 <Route path="/components" component={ComponentPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </main>
     );
 };
+
 
 /* Export */
 export default Main;

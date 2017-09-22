@@ -14,13 +14,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 // Initialize Client
 const client = new ApolloClient();
 
+
 /**
  * @desc Create store passing rootReducer (combined reducers) and 
  * each middleware. This returns the store instance.
  * @function getUiComponentSuccessAction
  * @returns {*} configureStore
  */
-
 const configureStore = () => {
     const apolloMiddleware = client.middleware();
     const sagaMiddleware = createSagaMiddleware();
@@ -31,6 +31,7 @@ const configureStore = () => {
     };
 };
 
+/* Export */
 export default configureStore;
 
 
