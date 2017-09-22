@@ -1,26 +1,17 @@
 /**
  * COLOR COMPONENT
  * --------------
+ * NOTE: We assign the name Capitalize in order to:
+ *  1. Shorten name removing 'ma' prefix
+ *  2. We won't have css conflict with element in other plugin so we are using Capitalize naming.
  */
 
- .colorPalette-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
 
-.ma-color {
-    display: flex;
-    flex-wrap: wrap;
-
+.Color {
     &__item {
         display: block;
         width: 120px;
         height: 150px;
-        justify-content: flex-start;
-        flex-direction: column;
 
         &__color-square {
             width:100%;

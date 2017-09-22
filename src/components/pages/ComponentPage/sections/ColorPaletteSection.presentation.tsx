@@ -2,14 +2,16 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+
 import ColorPalette from '../../../common/ColorPalette/ColorPalette.presentation';
-import * as model from '../../../../models/colorPalette/colorPalette.model';
+import { ColorPalette as ColorPaletteModel } from '../../../../models/colorPalette/colorPalette.model';
+
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
 interface IColorPaletteSectionProps {
-    options: model.ColorPalette;
+    options: ColorPaletteModel;
 }
 
 
@@ -20,12 +22,27 @@ interface IColorPaletteSectionProps {
  * @memberof ComponentPage
  * @returns page view
  */
-const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({options}) => {
+const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({ options }) => {
 
+
+    /*       PROPERTIES       */
+    /**************************/
+    // We put explicity only the properties that we're going to use.
+    // We assign default values
+    const {
+        category = '', 
+    } = options;
+
+
+    // TODO: Remover estos estilos ya que no son dinamicos, sino flojera.
     const codeStyle: React.CSSProperties = {
         whiteSpace: 'pre'
     };
 
+    /* TODO: Analizar muy bien como se va a trabajar con este tipo de componente: Lo mejor
+        es crear un componente 'Highlight' or 'Code' y que se encargue de recibir el codigo, y el sepa
+        que tipo de codigo deberia mostrar (scss, css, html, etc), que se encargue de gestionar los tabs, etc.
+    */
     const code = `
     $color: (
         lightPrimary:   #07C27C,
@@ -41,6 +58,8 @@ const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({options}) =>
     `;
 
 
+    /*         MARKUP          */
+    /***************************/
     return(
         <section className="bg-white padding-8">
             <div className="container">
@@ -53,7 +72,7 @@ const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({options}) =>
                         <h2 className="color-slate fontWeight-6 margin-0 marginBottom-1">Color Palette</h2>
                         <p className="color-silver marginBottom-4 fontSize-lg">
                             Color type: <strong className="fontFamily-sourceCodePro">
-                                {options.category}
+                                {category}
                             </strong>
                         </p>
 
@@ -67,21 +86,29 @@ const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({options}) =>
 
                         <div className="row">
                             <div className="col-xs-12">
-                                <div className="float-right"><p className="fontFamily-poppins fontSmoothing-reset fontSize-md">Scss</p></div>
+                                <div className="float-right">
+                                    <p className="fontFamily-poppins fontSmoothing-reset fontSize-md">
+                                        Scss
+                                    </p>
+                                </div>
                             </div>
                             <div className="col-xs-12">
-                                <pre className="fontSize-sm fontSmoothing-reset bg-darkSnow"><code className="scss borderRadius-sm" style={codeStyle}>
+                                <pre className="fontSize-sm fontSmoothing-reset bg-darkSnow">
+                                    <code className="scss borderRadius-sm" style={codeStyle}>
                                 {code}
-                                </code></pre>
+                                    </code>
+                                </pre>
                             </div>
                         </div>
 
                     </div>
+
                 </div>
             </div>
         </section>
     );
 };
+
 
 /* Export */
 export default ColorPaletteSection;

@@ -3,6 +3,7 @@
 /*************************************************/
 import { Color } from '../color/color.model';
 
+
 /**
  * @desc Specifies the 'Color Palette' type (model) to identify
  * its properties, methods, etc.
