@@ -5,20 +5,27 @@ import * as React from 'react';
 import { connect /* , Dispatch */ } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import * as model from '../../../models/uiComponent/uiComponent.model';
-import { IRootState } from '../../../reducer/reducer.config';
-
-import ColorPaletteSection from './sections/ColorPaletteSection';
-import ComponentDetailSection from './sections/ComponentDetailSection';
-import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 import * as hljs from 'highlight.js';
+
+import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+
+import { IRootState } from '../../../reducer/reducer.config';
+import ColorPaletteSection from './sections/ColorPaletteSection.presentation';
+import ComponentDetailSection from './sections/ComponentDetailSection.presentation';
+import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
 /* Own Props */
-interface IOwnProps {}
+interface IOwnProps {
+    // Method interface example
+    // handleNameChange (event: Event): void;
+    // NOTE: This is an example when a component has its own Props.
+    // count: number;
+}
+
 
 /* Mapped State to Props */
 interface IStateProps {
@@ -27,13 +34,14 @@ interface IStateProps {
     data?: {
         loading: Boolean, 
         error: {message: string}, 
-        uiComponent: model.UiComponent
+        uiComponent: UiComponentModel
     };
     match?: any;
-    uiComponent: model.UiComponent;
+    uiComponent: UiComponentModel;
 }
 
 
+/*****************************************/
 /*            MAPSTATETOPROPS            */
 /*****************************************/
 /* Nota: viene 'state.uiComponent' por que al combinar los reducers (combineReducers)
@@ -52,32 +60,72 @@ function mapStateToProps (state: IRootState): IStateProps {
  * @desc Represents Component Detail Page
  * @class ComponentPageContainer
  * @extends {React.Component}
+ * @returns component page view (Stateful component)
  */
 class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* & IDispatchProps */, {}> {
 
-    /**
-     * @desc Get UI components after all children Elements 
-     * and our Component instances are mounted onto the Browser
-     * @method componentDidMount
-     * @memberof ComponentPage
-     */
+    
+    /*   COMPONENTDIDMOUNT    */
+    /**************************/
     componentDidMount() {        
         // Init Highlight js
         hljs.initHighlightingOnLoad();
     }
+
+    
+    /*        METHODS         */
+    /**************************/
+    /*
+    
+    // Methods Naming examples
+
+    handleSubmit = (event: Event) => {
+        event.preventDefault();
+    }
+
+    // Use fat arrow functions for methods to preserve  
+       context (this will thus be the component instance) 
+    handleNameChange = (event: Event) => {
+        event.preventDefault();
+    }
+  
+    handleExpand = (event: Event) => {
+        e.preventDefault()
+    }
+
+    handleChange = (event: Event) => {
+        e.preventDefault()
+    }
+
+    */
 
 
     /*         RENDER         */
     /**************************/
     render() {
         
+        // TODO: Remover de aqui, no deberian haber inline styles si
+        // no son dinamicas.
         const imgStyle = {
             width: '100%'
         };
-        
-        const {data: {loading, error, uiComponent}/*, match */} = this.props;
-        // (LEGACY) const { getUiComponentById } = this.props.data;
 
+        
+        /*       PROPERTIES       */
+        /**************************/
+        const {
+            // NOTE: This is an example when a component has its own Props.
+            /* count, */
+            data: {
+                loading, 
+                error, 
+                uiComponent,
+            }/*, match */
+        } = this.props;
+
+
+        /*       VALIDATIONS       */
+        /***************************/
         if (loading) {
             return (<div>Loading</div>);
         }
@@ -90,6 +138,9 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
             return (<NotFound />);
         }
 
+
+        /*         MARKUP          */
+        /***************************/
         return (
             <div>
                 {/* Component Context */}
@@ -106,12 +157,25 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
                     </div>
                 </section>
 
+                {/* 
+                NOTE: This is an example when a component has its own Props. 
+                <div>{count}</div>
+                */}
+
                 {/* Color Palette Section */}
                 <ColorPaletteSection options={uiComponent.colorPalette}/>
 
                 {/* Component Detail Section */}
                 <ComponentDetailSection />
 
+                {/* 
+                    //Methods connection example
+
+                    <div onSubmit={this.handleSubmit} 
+                         expanded={this.state.expanded} 
+                         onExpand={this.handleExpand}
+                         onChange={this.handleChange} />
+                */}
             </div>
         );
     }

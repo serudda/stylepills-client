@@ -1,3 +1,7 @@
+/************************************************/
+/*               GLOBAL VARIABLES               */
+/************************************************/
+
 $color: (
     lightPrimary:   #FFE29C,
     primary:        #FFFA6E,
@@ -22,6 +26,9 @@ $color: (
 $body-background: map-get($color, white);
 $body-font-color: map-get($color, black);
 
+
+/*               GLOBAL STYLES               */
+/*********************************************/
 
 body.mainApp {
     padding: 0;

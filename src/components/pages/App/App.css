@@ -1,6 +1,11 @@
 @import 'https://fonts.googleapis.com/css?family=Open+Sans';
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
+/************************************************/
+/*               GLOBAL VARIABLES               */
+/************************************************/
+/*               GLOBAL STYLES               */
+/*********************************************/
 body.mainApp {
   padding: 0;
   background-color: #FFFFFF;
@@ -901,53 +906,36 @@ body.mainApp {
 .bg-white {
   background-color: #FFFFFF; }
 
-.ma-label {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1.43;
-  cursor: default;
-  text-decoration: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  /*               LABEL BOX               */
-  /*****************************************/ }
-  .ma-label--box {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: 0 hidden transparent;
-    text-align: center;
-    font-weight: bold; }
-    .ma-label--box--sm {
-      padding: 4px 12px;
-      font-size: 12px; }
-    .ma-label--box--primary {
-      background: 0 0;
-      background-color: #FFFA6E;
-      color: #1F2D3D; }
-
 /**
  * COLOR COMPONENT
  * --------------
+ * NOTE: We assign the name Capitalize in order to:
+ *  1. Shorten name removing 'ma' prefix
+ *  2. We won't have css conflict with element in other plugin so we are using Capitalize naming.
  */
-.colorPalette-container {
+.Color__item {
+  display: block;
+  width: 120px;
+  height: 150px; }
+  .Color__item__color-square {
+    width: 100%;
+    height: 80%; }
+  .Color__item__label {
+    letter-spacing: 3px; }
+
+/**
+ * COLOR PALETTE COMPONENT
+ * -----------------------
+ */
+.ColorPalette {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap; }
-
-.ma-color {
-  display: flex;
-  flex-wrap: wrap; }
-  .ma-color__item {
-    display: block;
-    width: 120px;
-    height: 150px;
+  .ColorPalette__content {
     justify-content: flex-start;
     flex-direction: column; }
-    .ma-color__item__color-square {
-      width: 100%;
-      height: 80%; }
-    .ma-color__item__label {
-      letter-spacing: 3px; }
+
+/* NOTE: Solo esta de muestra para que se sepa que cada pagina puede tener sus
+    estilos propios */
