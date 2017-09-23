@@ -9,7 +9,7 @@
 body.mainApp {
   padding: 0;
   background-color: #FFFFFF;
-  color: #1F2D3D;
+  color: #24292e;
   overflow-x: hidden;
   height: 100%;
   text-rendering: optimizeLegibility;
@@ -459,13 +459,13 @@ body.mainApp {
 
 /* Font brand colors */
 .color-lightPrimary {
-  color: #FFE29C; }
+  color: #FDF980; }
 
 .color-primary {
-  color: #FFFA6E; }
+  color: #FEEB6A; }
 
 .color-darkPrimary {
-  color: #FDD502; }
+  color: #FCD85E; }
 
 /* Font UI colors */
 .color-positive {
@@ -482,7 +482,7 @@ body.mainApp {
 
 /* Font Grey colors */
 .color-black {
-  color: #1F2D3D; }
+  color: #24292e; }
 
 .color-steel {
   color: #273444; }
@@ -691,13 +691,13 @@ body.mainApp {
 
 /* Border brand colors */
 .borderColor-lightPrimary {
-  border-color: #FFE29C; }
+  border-color: #FDF980; }
 
 .borderColor-primary {
-  border-color: #FFFA6E; }
+  border-color: #FEEB6A; }
 
 .borderColor-darkPrimary {
-  border-color: #FDD502; }
+  border-color: #FCD85E; }
 
 /* Border UI colors */
 .borderColor-positive {
@@ -714,7 +714,7 @@ body.mainApp {
 
 /* Border Grey colors */
 .borderColor-black {
-  border-color: #1F2D3D; }
+  border-color: #24292e; }
 
 .borderColor-steel {
   border-color: #273444; }
@@ -851,13 +851,13 @@ body.mainApp {
  */
 /* Background brand colors */
 .bg-lightPrimary {
-  background-color: #FFE29C; }
+  background-color: #FDF980; }
 
 .bg-primary {
-  background-color: #FFFA6E; }
+  background-color: #FEEB6A; }
 
 .bg-darkPrimary {
-  background-color: #FDD502; }
+  background-color: #FCD85E; }
 
 /* Background UI colors */
 .bg-positive {
@@ -874,7 +874,7 @@ body.mainApp {
 
 /* Background Grey colors */
 .bg-black {
-  background-color: #1F2D3D; }
+  background-color: #24292e; }
 
 .bg-steel {
   background-color: #273444; }
