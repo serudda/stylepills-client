@@ -1,0 +1,33 @@
+//               APP MAIN SASS STYLES
+// --------------------------------------------------
+
+
+// Fonts
+// --------------------------------------------------
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
+@import 'https://fonts.googleapis.com/css?family=Poppins';
+
+
+// All Core Sass files goes into the theme/core files (variables, globals)
+// --------------------------------------------------
+@import '../../../theme/core/global';
+@import '../../../theme/core/helper';
+
+
+// MainApp Components (modals, etc)
+// --------------------------------------------------
+
+// Color Component Style
+@import '../../common/Color/Color';
+// Color Palette Component Style
+@import '../../common/ColorPalette/ColorPalette';
+
+
+// MainApp Pages (HomePage, ComponentPage, etc)
+// --------------------------------------------------
+
+// Component Page Style
+@import '../ComponentPage/ComponentPage';
+
+

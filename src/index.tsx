@@ -1,29 +1,34 @@
-// HOLA SOY EL NUEVO CAMBIO
-
-// Dependencies
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
-// App component
-import App from './containers/App/App';
+import 'highlight.js/styles/atom-one-dark.css';
 
-// Redux Provider component
-import { Provider } from 'react-redux';
+import App from './components/pages/App/App';
+import configureStore from './store/store.config';
 
-// configure Store
-import configureStore from './store/configureStore';
 
-console.log('(1) Create store base on configureStore on index.tsx');
+// Initialize apollo client
+const client = new ApolloClient({
+    networkInterface: createNetworkInterface({
+        uri: 'http://localhost:4000/graphql'
+    }),
+});
+
 // Initialize store
 const store = configureStore();
 
-console.log('(7) Render App component on index.tsx');
 
+/*         RENDER         */
+/**************************/
 render((
-  <Provider store={store}> 
-    <Router>
-      <App />
-    </Router>
-  </Provider>
-  ), document.getElementById('root'));
+    <ApolloProvider store={store} client={client}>
+        <Router>
+            <App />
+        </Router>
+    </ApolloProvider>
+), document.getElementById('root'));

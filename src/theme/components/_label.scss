@@ -1,0 +1,44 @@
+/*
+    TODO: Ver si necesito este componente o no, si no lo necesito eliminarlo
+*/
+
+.ma-label {
+    display: inline-block;
+    //margin-bottom: 0;
+    vertical-align: middle;
+    line-height: 1.43;
+    cursor: default;
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+
+
+    /*               LABEL BOX               */
+    /*****************************************/
+
+    &--box {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 0 hidden transparent;
+        text-align: center;
+        font-weight: bold;
+
+
+        ///LABEL BOX SIZE
+        &--sm {
+            padding: 4px 12px;
+            font-size: 12px;
+        }
+
+
+        ///LABEL BOX COLOR
+        &--primary {
+            background: 0 0;
+            background-color: map-get($color, primary);
+            color: map-get($color, black);
+        }
+
+    }
+
+}
