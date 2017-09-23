@@ -19,18 +19,11 @@ import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 /*            INTERFACES            */
 /************************************/
 /* Own Props */
-interface IOwnProps {
-    // Method interface example
-    // handleNameChange (event: Event): void;
-    // NOTE: This is an example when a component has its own Props.
-    // count: number;
-}
+interface IOwnProps {}
 
 
 /* Mapped State to Props */
 interface IStateProps {
-    // Tiene ? por que existe mapStateToProps, cuando decidamos que hacer con esa 
-    // funcion, retiramos el ?
     data?: {
         loading: Boolean, 
         error: {message: string}, 
@@ -44,11 +37,6 @@ interface IStateProps {
 /*****************************************/
 /*            MAPSTATETOPROPS            */
 /*****************************************/
-/* Nota: viene 'state.uiComponent' por que al combinar los reducers (combineReducers)
-   este le asignar el nombre que hayamos especificado en reducer.config.tsx, en este
-   caso 'uiComponent' */
-// TODO: Analizar si vamos a seguir usando el Store propio, o todo lo vamos a hacer através
-// de Apollo, de ser asi, no vamos a necesitar esta funciona. Analizar que es lo mejor. 
 function mapStateToProps (state: IRootState): IStateProps {
     return {
         uiComponent: state.uiComponents.item
@@ -74,30 +62,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 
     
     /*        METHODS         */
-    /**************************/
-    /*
-    
-    // Methods Naming examples
-
-    handleSubmit = (event: Event) => {
-        event.preventDefault();
-    }
-
-    // Use fat arrow functions for methods to preserve  
-       context (this will thus be the component instance) 
-    handleNameChange = (event: Event) => {
-        event.preventDefault();
-    }
-  
-    handleExpand = (event: Event) => {
-        e.preventDefault()
-    }
-
-    handleChange = (event: Event) => {
-        e.preventDefault()
-    }
-
-    */
+    /**************************/ 
 
 
     /*         RENDER         */
@@ -114,7 +79,6 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         /*       PROPERTIES       */
         /**************************/
         const {
-            // NOTE: This is an example when a component has its own Props.
             /* count, */
             data: {
                 loading, 
@@ -157,25 +121,12 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
                     </div>
                 </section>
 
-                {/* 
-                NOTE: This is an example when a component has its own Props. 
-                <div>{count}</div>
-                */}
-
                 {/* Color Palette Section */}
                 <ColorPaletteSection options={uiComponent.colorPalette}/>
 
                 {/* Component Detail Section */}
                 <ComponentDetailSection />
 
-                {/* 
-                    //Methods connection example
-
-                    <div onSubmit={this.handleSubmit} 
-                         expanded={this.state.expanded} 
-                         onExpand={this.handleExpand}
-                         onChange={this.handleChange} />
-                */}
             </div>
         );
     }
@@ -183,8 +134,6 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 }
 
 
-// NOTE: This will be automatically fired when the component is rendered, 
-// sending this exact GraphQL query to the backend.
 const getUiComponentByIdQuery = gql`
             query {
                 uiComponent(id: 1) {

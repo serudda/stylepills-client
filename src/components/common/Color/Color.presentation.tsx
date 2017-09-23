@@ -24,8 +24,6 @@ const Color: React.SFC<IColorProps> = ({ options }) => {
 
     /*       PROPERTIES       */
     /**************************/
-    // We put explicity only the properties that we're going to use.
-    // We assign default values
     const {
         hex = '#FFFFFF', 
         label = 'white'
@@ -34,8 +32,6 @@ const Color: React.SFC<IColorProps> = ({ options }) => {
 
     /*   INLINE DYNAMIC STYLES    */
     /******************************/
-    // Used UPPERCASE to differentiate it quickly inside the JSX
-    // We take a explicit identify class from the element to name the const.
     const MACOLOR_ITEM_COLORSQUARE: React.CSSProperties = {
         backgroundColor: hex
     };

@@ -26,9 +26,9 @@ const store = configureStore();
 /*         RENDER         */
 /**************************/
 render((
-        <ApolloProvider store={store} client={client}>
-            <Router>
-                <App />
-            </Router>
-        </ApolloProvider>
+    <ApolloProvider store={store} client={client}>
+        <Router>
+            <App />
+        </Router>
+    </ApolloProvider>
 ), document.getElementById('root'));

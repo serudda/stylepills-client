@@ -27,8 +27,6 @@ const ColorPaletteSection: React.SFC<IColorPaletteSectionProps> = ({ options }) 
 
     /*       PROPERTIES       */
     /**************************/
-    // We put explicity only the properties that we're going to use.
-    // We assign default values
     const {
         category = '', 
     } = options;
