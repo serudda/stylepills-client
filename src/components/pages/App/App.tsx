@@ -4,7 +4,6 @@
 import * as React from 'react';
 
 import Main from '../Main/Main.presentation';
-// NOTE: Tell Webpack that App.tsx uses these styles. App.css contain every styles of the project
 import './App.css'; 
 
 

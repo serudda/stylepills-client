@@ -908,10 +908,7 @@ body.mainApp {
 
 /**
  * COLOR COMPONENT
- * --------------
- * NOTE: We assign the name Capitalize in order to:
- *  1. Shorten name removing 'ma' prefix
- *  2. We won't have css conflict with element in other plugin so we are using Capitalize naming.
+ * -------------- 
  */
 .Color__item {
   display: block;
