@@ -2,7 +2,25 @@
 
 /// VARIABLES
 
+.Header {
+    z-index: 1;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    color: rgba(255,255,255,0.75);
+    background-color: #24292e;
+    font-size: 16px;
 
-.ma-header {
-    background-color: #FFFFFF;
+    &__logo {
+        font-size: 24px;
+        color: map-get($color, white);
+        white-space: nowrap;
+        
+        img {
+            margin: -5px 15px -1px -2px;
+        }
+
+        &:hover {
+            color: map-get($color, white);
+        }
+    }
 }

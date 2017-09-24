@@ -28,6 +28,14 @@
 
 .display-inlineBlock {display: inline-block;;}
 
+/*
+NOTE: Boostrap 4 has a flex set
+.display-flex { 
+    display: -webkit-box !important;
+    display: flex !important;
+}
+*/
+
 .flex-center {
     display: -ms-flexbox;
     display: flex;
@@ -200,7 +208,8 @@
 
 .fontFamily-openSans      {font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
 .fontFamily-sourceCodePro {font-family: "Source Code Pro", Consolas, "Lucida Console", Courier, monospace;}
-.fontFamily-poppins       {font-family: "Poppins", sans-serif;}
+.fontFamily-poppins       {font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
+.fontFamily-quicksand     {font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
 
 /* Font brand colors */
 .color-lightPrimary { color: map-get($color, lightPrimary); }
@@ -215,6 +224,7 @@
 
 /* Font Grey colors */
 .color-black   {color: map-get($color, black);}
+.color-mirage  {color: map-get($color, mirage);}
 .color-steel   {color: map-get($color, steel);}
 .color-slate   {color: map-get($color, slate);}
 .color-silver  {color: map-get($color, silver);}
@@ -327,6 +337,7 @@
 
 /* Border Grey colors */
 .borderColor-black   {border-color: map-get($color, black);}
+.borderColor-mirage  {border-color: map-get($color, mirage);}
 .borderColor-steel   {border-color: map-get($color, steel);}
 .borderColor-slate   {border-color: map-get($color, slate);}
 .borderColor-silver  {border-color: map-get($color, silver);}
@@ -460,6 +471,7 @@
 
  /* Background Grey colors */
  .bg-black   {background-color: map-get($color, black);}
+ .bg-mirage  {background-color: map-get($color, mirage);}
  .bg-steel   {background-color: map-get($color, steel);}
  .bg-slate   {background-color: map-get($color, slate);}
  .bg-silver  {background-color: map-get($color, silver);}
