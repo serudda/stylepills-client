@@ -1,6 +1,7 @@
 @import 'https://fonts.googleapis.com/css?family=Open+Sans';
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
+@import 'https://fonts.googleapis.com/css?family=Quicksand';
 /************************************************/
 /*               GLOBAL VARIABLES               */
 /************************************************/
@@ -52,6 +53,13 @@ body.mainApp {
 .display-inlineBlock {
   display: inline-block; }
 
+/*
+NOTE: Boostrap 4 has a flex set
+.display-flex { 
+    display: -webkit-box !important;
+    display: flex !important;
+}
+*/
 .flex-center {
   display: -ms-flexbox;
   display: flex;
@@ -455,7 +463,10 @@ body.mainApp {
   font-family: "Source Code Pro", Consolas, "Lucida Console", Courier, monospace; }
 
 .fontFamily-poppins {
-  font-family: "Poppins", sans-serif; }
+  font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
+
+.fontFamily-quicksand {
+  font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
 /* Font brand colors */
 .color-lightPrimary {
@@ -483,6 +494,9 @@ body.mainApp {
 /* Font Grey colors */
 .color-black {
   color: #24292e; }
+
+.color-mirage {
+  color: #1F2D3D; }
 
 .color-steel {
   color: #273444; }
@@ -716,6 +730,9 @@ body.mainApp {
 .borderColor-black {
   border-color: #24292e; }
 
+.borderColor-mirage {
+  border-color: #1F2D3D; }
+
 .borderColor-steel {
   border-color: #273444; }
 
@@ -876,6 +893,9 @@ body.mainApp {
 .bg-black {
   background-color: #24292e; }
 
+.bg-mirage {
+  background-color: #1F2D3D; }
+
 .bg-steel {
   background-color: #273444; }
 
@@ -906,6 +926,22 @@ body.mainApp {
 .bg-white {
   background-color: #FFFFFF; }
 
+.Header {
+  z-index: 1;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  color: rgba(255, 255, 255, 0.75);
+  background-color: #24292e;
+  font-size: 16px; }
+  .Header__logo {
+    font-size: 24px;
+    color: #FFFFFF;
+    white-space: nowrap; }
+    .Header__logo img {
+      margin: -5px 15px -1px -2px; }
+    .Header__logo:hover {
+      color: #FFFFFF; }
+
 /**
  * COLOR COMPONENT
  * -------------- 
@@ -933,6 +969,12 @@ body.mainApp {
   .ColorPalette__content {
     justify-content: flex-start;
     flex-direction: column; }
+
+.HomePage .jumbotron {
+  border-radius: 0; }
+  .HomePage .jumbotron--texture {
+    background-image: url("../../../resources/images/texture-bg.png");
+    overflow: hidden; }
 
 /* NOTE: Solo esta de muestra para que se sepa que cada pagina puede tener sus
     estilos propios */

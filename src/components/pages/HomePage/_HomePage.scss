@@ -1,0 +1,10 @@
+.HomePage {
+    .jumbotron {
+        border-radius: 0;
+
+        &--texture {
+            background-image: url('../../../resources/images/texture-bg.png');
+            overflow: hidden;
+        }
+    }
+}

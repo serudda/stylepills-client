@@ -7,7 +7,7 @@
 @import 'https://fonts.googleapis.com/css?family=Open+Sans';
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
-
+@import 'https://fonts.googleapis.com/css?family=Quicksand';
 
 // All Core Sass files goes into the theme/core files (variables, globals)
 // --------------------------------------------------
@@ -18,6 +18,8 @@
 // MainApp Components (modals, etc)
 // --------------------------------------------------
 
+// Header Component Style
+@import '../../common/Header/Header';
 // Color Component Style
 @import '../../common/Color/Color';
 // Color Palette Component Style
@@ -26,6 +28,9 @@
 
 // MainApp Pages (HomePage, ComponentPage, etc)
 // --------------------------------------------------
+
+// Home Page Style
+@import '../HomePage/HomePage';
 
 // Component Page Style
 @import '../ComponentPage/ComponentPage';
