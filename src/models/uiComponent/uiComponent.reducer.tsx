@@ -29,11 +29,13 @@ export interface IUiComponentState {
 
 const defaultState: IUiComponentState = {
     item: {
-        title: '',
+        id: null,
+        name: '',
         css: '',
         colorPalette: null,
         scss: '',
-        html: ''
+        html: '',
+        background: ''
     },
     error: '',
     fetching: false,

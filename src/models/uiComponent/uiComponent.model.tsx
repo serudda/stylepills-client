@@ -9,11 +9,12 @@ import { ColorPalette } from '../colorPalette/colorPalette.model';
  * @type UiComponent
  */
 export type UiComponent = {
-    id?: number;
-    title: string;
+    id: number | null;
+    name: string;
     colorPalette: ColorPalette | null;
     css: string;
     scss: string;
     html: string;
+    background: string;
 };
 

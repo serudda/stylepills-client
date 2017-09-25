@@ -7,4 +7,18 @@
             overflow: hidden;
         }
     }
+
+    .ComponentListSection {
+
+        .componentBox-container {
+            width: 32%;
+            margin: 0 2% 25px 0;
+            overflow: hidden;
+            position: relative;
+
+            &:nth-child(3n), .single-pen:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+    }
 }
