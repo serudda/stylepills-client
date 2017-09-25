@@ -70,7 +70,8 @@ NOTE: Boostrap 4 has a flex set
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  justify-content: center; }
 
 .flex-0 {
   -ms-flex: 0 0 auto;
@@ -1030,6 +1031,48 @@ NOTE: Boostrap 4 has a flex set
   position: relative;
   z-index: 0;
   cursor: pointer; }
+
+.Iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  /*-webkit-transform: scale(0.5);
+        transform: scale(0.5);*/
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+  transition: opacity 0.4s ease; }
+
+/*
+    TODO: Ver si necesito este componente o no, si no lo necesito eliminarlo
+*/
+.ma-label {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.43;
+  cursor: default;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /*               LABEL BOX               */
+  /*****************************************/ }
+  .ma-label--box {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 0 hidden transparent;
+    text-align: center;
+    font-weight: bold; }
+    .ma-label--box--sm {
+      padding: 4px 12px;
+      font-size: 12px; }
+    .ma-label--box--primary {
+      background: 0 0;
+      background-color: #FEEB6A;
+      color: #24292e; }
 
 .HomePage .jumbotron {
   border-radius: 0; }

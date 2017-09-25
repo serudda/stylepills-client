@@ -98,7 +98,7 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
                 </div>
 
                 {/* Components List */}
-                <div className="ComponentListSection row sp-bg-darkSnow pt-5 m-0">
+                <div className="ComponentListSection row sp-bg-darkSnow pt-5 pb-5 m-0">
                     <div className="col">
                         <div className="container position-relative">
                             <div className="color-slate fontSize-xl borderBottom-1 borderColor-extraDarkSmoke pb-2 mb-5">

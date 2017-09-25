@@ -27,7 +27,9 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
     /**************************/
     const {
         name = '#FFFFFF',  
-        background = '#FFFFFF'
+        background = '#FFFFFF',
+        html = '',
+        css = ''
     } = options;
 
 
@@ -38,7 +40,8 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
         backgroundColor: background,
         height: '0',
         paddingTop: '56.25%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position: 'relative'
     };
 
     /*const COMPONENT: React.CSSProperties = {
@@ -71,9 +74,9 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
                     {name}
                 </p>
             </div>
-            <div className="ComponentBox__content position-relative borderRadius-xs" style={COMPONENTBOX_CONTENT}>
+            <div className="ComponentBox__content borderRadius-xs" style={COMPONENTBOX_CONTENT}>
                 {/*<div className="Component" style={COMPONENT} dangerouslySetInnerHTML={createMarkup()} />*/}
-                <Iframe />
+                <Iframe html={html} style={css}/>
             </div>
             <div className="ComponentBox__footer sp-bg-white position-relative clearfix" style={COMPONENTBOX_FOOTER}>
                 <div className="DesignedBy float-right">
