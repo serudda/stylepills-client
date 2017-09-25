@@ -4,6 +4,7 @@
 import * as React from 'react';
 
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+import Iframe from '../Iframe/Iframe.container';
 
 
 /************************************/
@@ -25,9 +26,7 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
     /*       PROPERTIES       */
     /**************************/
     const {
-        name = '#FFFFFF', 
-        css = '',
-        html = '',
+        name = '#FFFFFF',  
         background = '#FFFFFF'
     } = options;
 
@@ -42,11 +41,11 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
         overflow: 'hidden'
     };
 
-    const COMPONENT: React.CSSProperties = {
+    /*const COMPONENT: React.CSSProperties = {
         position: 'absolute',
         top: '0',
         left: '0'
-    };
+    };*/
 
     const COMPONENTBOX_FOOTER: React.CSSProperties = {
         whiteSpace: 'nowrap',
@@ -57,6 +56,10 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
     const DESIGN_BY: React.CSSProperties = {
         order: -1
     };
+
+    /*const createMarkup = () => {
+        return {__html: '<button class="btn btn-primary">My First buttons</button>'};
+    };*/
 
 
     /*         MARKUP          */
@@ -69,7 +72,8 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
                 </p>
             </div>
             <div className="ComponentBox__content position-relative borderRadius-xs" style={COMPONENTBOX_CONTENT}>
-                <div className="Component" style={COMPONENT}>{html}{css}</div>
+                {/*<div className="Component" style={COMPONENT} dangerouslySetInnerHTML={createMarkup()} />*/}
+                <Iframe />
             </div>
             <div className="ComponentBox__footer sp-bg-white position-relative clearfix" style={COMPONENTBOX_FOOTER}>
                 <div className="DesignedBy float-right">
