@@ -18,6 +18,9 @@ body.mainApp {
   letter-spacing: 0; }
   body.mainApp .row:before {
     display: inherit; }
+  body.mainApp .AppContent {
+    min-height: 100%;
+    position: relative; }
 
 /**
  * GLOBAL HELPERS
@@ -475,6 +478,9 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-quicksand {
   font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
+.fontFamily-courierNew {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; }
+
 /* Font brand colors */
 .color-lightPrimary {
   color: #FDF980; }
@@ -484,6 +490,15 @@ NOTE: Boostrap 4 has a flex set
 
 .color-darkPrimary {
   color: #FCD85E; }
+
+.color-lightSecondary {
+  color: #3CDAD5; }
+
+.color-secondary {
+  color: #33ADA9; }
+
+.color-darkSecondary {
+  color: #288784; }
 
 /* Font UI colors */
 .color-positive {
@@ -1046,33 +1061,16 @@ NOTE: Boostrap 4 has a flex set
   transform-origin: top left;
   transition: opacity 0.4s ease; }
 
-/*
-    TODO: Ver si necesito este componente o no, si no lo necesito eliminarlo
-*/
-.ma-label {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1.43;
-  cursor: default;
-  text-decoration: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  /*               LABEL BOX               */
-  /*****************************************/ }
-  .ma-label--box {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: 0 hidden transparent;
-    text-align: center;
-    font-weight: bold; }
-    .ma-label--box--sm {
-      padding: 4px 12px;
-      font-size: 12px; }
-    .ma-label--box--primary {
-      background: 0 0;
-      background-color: #FEEB6A;
-      color: #24292e; }
+/**
+ * FOOTER COMPONENT
+ * ----------------- 
+ */
+.Footer {
+  padding: 10px 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 2px;
+  left: 0; }
 
 .HomePage .jumbotron {
   border-radius: 0; }

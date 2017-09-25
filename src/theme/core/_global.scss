@@ -3,25 +3,28 @@
 /************************************************/
 
 $color: (
-    lightPrimary:  #FDF980,
-    primary:       #FEEB6A,
-    darkPrimary:   #FCD85E,
+    lightPrimary:   #FDF980,
+    primary:        #FEEB6A,
+    darkPrimary:    #FCD85E,
+    lightSecondary: #3CDAD5,
+    secondary:      #33ADA9,
+    darkSecondary:  #288784,
     positive:       #74C080,
     negative:       #FF4949,
     warning:        #FFC82C,
     info:           #408FEC,
-    black:         #24292e,
-    mirage:          #1F2D3D,
+    black:        #24292e,
+    mirage:         #1F2D3D,
     steel:          #273444,
     slate:          #3C4858,
-    silver:         #8492A6,
+    silver:       #8492A6,
     smoke:          #E0E6ED,
     darkSmoke:      #D3DCE6,
     extraDarkSmoke: #C0CCDA,
-    snow:           #F9FAFC,
+    snow:         #F9FAFC,
     darkSnow:       #EFF2F7,
     extraDarkSnow:  #E5E9F2,
-    white:          #FFFFFF,
+    white:        #FFFFFF,
 );
 
 $body-background: map-get($color, white);
@@ -44,5 +47,10 @@ body.mainApp {
     // Fix Safari row issue
     .row:before {
         display: inherit;
+    }
+
+    .AppContent {
+        min-height: 100%;
+        position: relative;
     }
 }

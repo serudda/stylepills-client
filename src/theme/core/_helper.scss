@@ -218,11 +218,16 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-sourceCodePro {font-family: "Source Code Pro", Consolas, "Lucida Console", Courier, monospace;}
 .fontFamily-poppins       {font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
 .fontFamily-quicksand     {font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
+.fontFamily-courierNew    {font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;}
 
 /* Font brand colors */
 .color-lightPrimary { color: map-get($color, lightPrimary); }
 .color-primary { color: map-get($color, primary); }
 .color-darkPrimary { color: map-get($color, darkPrimary); }
+
+.color-lightSecondary { color: map-get($color, lightSecondary); }
+.color-secondary { color: map-get($color, secondary); }
+.color-darkSecondary { color: map-get($color, darkSecondary); }
 
 /* Font UI colors */
 .color-positive {color: map-get($color, positive);}

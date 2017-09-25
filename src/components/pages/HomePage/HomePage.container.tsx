@@ -83,7 +83,7 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="HomePage">
+            <div className="HomePage sp-bg-darkSnow h-100">
 
                 {/* Logo and Burguer Icon */}
                 <div className="jumbotron jumbotron--texture sp-bg-slate m-0">
@@ -91,7 +91,7 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
                         <h1 className="color-white m-0 mb-3">
                             Build your UI components
                         </h1>
-                        <p className="color-extraDarkSmoke fontSize-xxl">
+                        <p className="color-extraDarkSmoke fontSize-xl">
                             Get beautiful open source UI components weekly, Join Stylepill weekly list! We'll send a new beautiful set of 3 components weekly to your email.
                         </p>
                     </div>

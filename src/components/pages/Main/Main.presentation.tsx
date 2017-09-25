@@ -24,12 +24,14 @@ interface IMainProps {}
 const Main: React.SFC<IMainProps> = () => {
     return (
         <main>
-            <Switch>
-                {/* tslint:disable-next-line:jsx-boolean-value */}
-                <Route exact path="/" component={HomePage} />
-                <Route path="/components" component={ComponentPage} />
-                <Route component={NotFoundPage} />
-            </Switch>
+            <div className="AppContent">
+                <Switch>
+                    {/* tslint:disable-next-line:jsx-boolean-value */}
+                    <Route exact path="/" component={HomePage} />
+                    <Route path="/components" component={ComponentPage} />
+                    <Route component={NotFoundPage} />
+                </Switch>
+            </div>
         </main>
     );
 };
