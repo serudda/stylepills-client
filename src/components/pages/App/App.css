@@ -18,6 +18,9 @@ body.mainApp {
   letter-spacing: 0; }
   body.mainApp .row:before {
     display: inherit; }
+  body.mainApp .AppContent {
+    min-height: 100%;
+    position: relative; }
 
 /**
  * GLOBAL HELPERS
@@ -35,6 +38,12 @@ body.mainApp {
  * Marvel - https://marvelapp.com/styleguide/overview/code-guidelines
  * Heroku - https://purple.herokuapp.com/
  */
+.width-wrapper {
+  max-width: 1270px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 20px; }
+
 /**
 *  POSITION
 */
@@ -64,7 +73,8 @@ NOTE: Boostrap 4 has a flex set
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  justify-content: center; }
 
 .flex-0 {
   -ms-flex: 0 0 auto;
@@ -468,6 +478,9 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-quicksand {
   font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
+.fontFamily-courierNew {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; }
+
 /* Font brand colors */
 .color-lightPrimary {
   color: #FDF980; }
@@ -477,6 +490,15 @@ NOTE: Boostrap 4 has a flex set
 
 .color-darkPrimary {
   color: #FCD85E; }
+
+.color-lightSecondary {
+  color: #3CDAD5; }
+
+.color-secondary {
+  color: #33ADA9; }
+
+.color-darkSecondary {
+  color: #288784; }
 
 /* Font UI colors */
 .color-positive {
@@ -655,6 +677,15 @@ NOTE: Boostrap 4 has a flex set
 .border-3 {
   border: 3px solid; }
 
+.border-4 {
+  border: 4px solid; }
+
+.border-5 {
+  border: 5px solid; }
+
+.border-6 {
+  border: 6px solid; }
+
 .borderTop-0 {
   border-top: 0 hidden transparent; }
 
@@ -666,6 +697,15 @@ NOTE: Boostrap 4 has a flex set
 
 .borderTop-3 {
   border-top: 3px solid; }
+
+.borderTop-4 {
+  border-top: 4px solid; }
+
+.borderTop-5 {
+  border-top: 5px solid; }
+
+.borderTop-6 {
+  border-top: 6px solid; }
 
 .borderBottom-0 {
   border-bottom: 0 hidden transparent; }
@@ -679,6 +719,15 @@ NOTE: Boostrap 4 has a flex set
 .borderBottom-3 {
   border-bottom: 3px solid; }
 
+.borderBottom-4 {
+  border-bottom: 4px solid; }
+
+.borderBottom-5 {
+  border-bottom: 5px solid; }
+
+.borderBottom-6 {
+  border-bottom: 6px solid; }
+
 .borderLeft-0 {
   border-left: 0 hidden transparent; }
 
@@ -691,6 +740,15 @@ NOTE: Boostrap 4 has a flex set
 .borderLeft-3 {
   border-left: 3px solid; }
 
+.borderLeft-4 {
+  border-left: 4px solid; }
+
+.borderLeft-5 {
+  border-left: 5px solid; }
+
+.borderLeft-6 {
+  border-left: 6px solid; }
+
 .borderRight-0 {
   border-right: 0 hidden transparent; }
 
@@ -702,6 +760,15 @@ NOTE: Boostrap 4 has a flex set
 
 .borderRight-3 {
   border-right: 3px solid; }
+
+.borderRight-4 {
+  border-right: 4px solid; }
+
+.borderRight-5 {
+  border-right: 5px solid; }
+
+.borderRight-6 {
+  border-right: 6px solid; }
 
 /* Border brand colors */
 .borderColor-lightPrimary {
@@ -867,63 +934,63 @@ NOTE: Boostrap 4 has a flex set
  *  BACKGROUND
  */
 /* Background brand colors */
-.bg-lightPrimary {
+.sp-bg-lightPrimary {
   background-color: #FDF980; }
 
-.bg-primary {
+.sp-bg-primary {
   background-color: #FEEB6A; }
 
-.bg-darkPrimary {
+.sp-bg-darkPrimary {
   background-color: #FCD85E; }
 
 /* Background UI colors */
-.bg-positive {
+.sp-bg-positive {
   background-color: #74C080; }
 
-.bg-negative {
+.sp-bg-negative {
   background-color: #FF4949; }
 
-.bg-warning {
+.sp-bg-warning {
   background-color: #FFC82C; }
 
-.bg-info {
+.sp-bg-info {
   background-color: #408FEC; }
 
 /* Background Grey colors */
-.bg-black {
+.sp-bg-black {
   background-color: #24292e; }
 
-.bg-mirage {
+.sp-bg-mirage {
   background-color: #1F2D3D; }
 
-.bg-steel {
+.sp-bg-steel {
   background-color: #273444; }
 
-.bg-slate {
+.sp-bg-slate {
   background-color: #3C4858; }
 
-.bg-silver {
+.sp-bg-silver {
   background-color: #8492A6; }
 
-.bg-smoke {
+.sp-bg-smoke {
   background-color: #E0E6ED; }
 
-.bg-darkSmoke {
+.sp-bg-darkSmoke {
   background-color: #D3DCE6; }
 
-.bg-extraDarkSmoke {
+.sp-bg-extraDarkSmoke {
   background-color: #C0CCDA; }
 
-.bg-snow {
+.sp-bg-snow {
   background-color: #F9FAFC; }
 
-.bg-darkSnow {
+.sp-bg-darkSnow {
   background-color: #EFF2F7; }
 
-.bg-extraDarkSnow {
+.sp-bg-extraDarkSnow {
   background-color: #E5E9F2; }
 
-.bg-white {
+.sp-bg-white {
   background-color: #FFFFFF; }
 
 .Header {
@@ -970,11 +1037,54 @@ NOTE: Boostrap 4 has a flex set
     justify-content: flex-start;
     flex-direction: column; }
 
+/**
+ * COMPONENT BOX COMPONENT
+ * ------------------------ 
+ */
+.ComponentBox {
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  cursor: pointer; }
+
+.Iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  /*-webkit-transform: scale(0.5);
+        transform: scale(0.5);*/
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+  transition: opacity 0.4s ease; }
+
+/**
+ * FOOTER COMPONENT
+ * ----------------- 
+ */
+.Footer {
+  padding: 10px 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 2px;
+  left: 0; }
+
 .HomePage .jumbotron {
   border-radius: 0; }
   .HomePage .jumbotron--texture {
     background-image: url("../../../resources/images/texture-bg.png");
     overflow: hidden; }
+
+.HomePage .ComponentListSection .componentBox-container {
+  width: 32%;
+  margin: 0 2% 25px 0;
+  overflow: hidden;
+  position: relative; }
+  .HomePage .ComponentListSection .componentBox-container:nth-child(3n), .HomePage .ComponentListSection .componentBox-container .single-pen:nth-child(3n) {
+    margin-right: 0; }
 
 /* NOTE: Solo esta de muestra para que se sepa que cada pagina puede tener sus
     estilos propios */

@@ -38,7 +38,7 @@ const Header: React.SFC<IHeaderProps> = () => (
                                 href="/login">
                                 Now
                             </a>
-                            <span className="textWeight-9 color-slate marginRight-2 marginLeft-2">|</span>
+                            <span className="textWeight-9 color-slate mr-2 ml-2">|</span>
                             <a className="textWeight-9 color-white no-underline" 
                                 href="/join?source=header-home">
                                 Join List

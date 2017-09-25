@@ -3,14 +3,14 @@
 /************************************/
 import * as React from 'react';
 
-import * as model from '../../../models/color/color.model';
+import { Color as ColorModel } from '../../../models/color/color.model';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
 interface IColorProps {
-    options: model.Color;
+    options: ColorModel;
 }
 
 
