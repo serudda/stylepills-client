@@ -59,6 +59,11 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
     componentDidMount() {        
         // Init Highlight js
         // hljs.initHighlightingOnLoad();
+        let header = document.getElementById('header');
+        let footer = document.getElementById('footer');
+
+        header.style.display = 'none';
+        footer.style.display = 'none';
     }
 
     

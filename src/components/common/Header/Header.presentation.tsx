@@ -17,7 +17,7 @@ interface IHeaderProps {}
 /***********************************************************************/
 const Header: React.SFC<IHeaderProps> = () => (
 
-    <header className="Header">
+    <header id="header" className="Header">
 
         <div className="container d-lg-flex justify-content-end">
 
@@ -36,7 +36,7 @@ const Header: React.SFC<IHeaderProps> = () => (
                         <div className="HeaderNavlink px-0 py-2 m-0">
                             <a className="fontWeight-9 color-primary no-underline" 
                                 href="/login">
-                                Now
+                                Open
                             </a>
                             <span className="textWeight-9 color-slate mr-2 ml-2">|</span>
                             <a className="textWeight-9 color-white no-underline" 

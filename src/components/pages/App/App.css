@@ -1158,7 +1158,7 @@ NOTE: Boostrap 4 has a flex set
         word-wrap: break-word; }
 
 .PanelSection .actionsFooter {
-  border-top: solid 1px #494952;
+  border-top: solid 1px #111111;
   position: absolute;
   bottom: 0;
   left: 0;

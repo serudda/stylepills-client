@@ -114,10 +114,11 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                                     </a>
                                 </div>
                             </div>
+                            {/*
                             <div className="col-auto">
-                                {/* Close Panel */}
                                 <span className="color-silver mr-3">X</span>
-                            </div>
+                            </div> 
+                            */}
                         </div>
 
 
@@ -156,9 +157,13 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
 
 
                         {/* BUTTONS OPTIONS */}
-                        <footer className="actionsFooter sp-bg-silver">
-                            <div className="otherActions"></div>
-                            <div className="mainAction"></div>
+                        <footer className="actionsFooter sp-bg-black">
+                            {/* <div className="otherActions"></div> */}
+                            <div className="mainAction">
+                                <button className="btn btn-primary btn-block fontSmoothing-reset">
+                                    Download Component
+                                </button>
+                            </div>
                         </footer>
 
                     </div>

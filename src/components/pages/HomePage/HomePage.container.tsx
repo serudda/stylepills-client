@@ -58,6 +58,18 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
         };
     }
 
+    /*   COMPONENTDIDMOUNT    */
+    /**************************/
+    componentDidMount() {        
+        // Init Highlight js
+        // hljs.initHighlightingOnLoad();
+        let header = document.getElementById('header');
+        let footer = document.getElementById('footer');
+
+        header.style.display = 'block';
+        footer.style.display = 'block';
+    }
+
 
     /*         RENDER         */
     /**************************/
@@ -96,19 +108,19 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
             <div className="HomePage sp-bg-darkSnow h-100">
 
                 {/* Logo and Burguer Icon */}
-                <div className="jumbotron jumbotron--texture sp-bg-slate m-0">
+                <div className="jumbotron text-center jumbotron--texture sp-bg-slate m-0">
                     <div className="container position-relative">
                         <h1 className="color-white m-0 mb-3">
                             Build your UI components
                         </h1>
-                        <p className="color-extraDarkSmoke fontSize-xl">
+                        <p className="color-extraDarkSmoke fontSize-xl mr-sm-3 ml-sm-3">
                             Get beautiful open source UI components weekly, Join Stylepill weekly list! We'll send a new beautiful set of 3 components weekly to your email.
                         </p>
                     </div>
                 </div>
 
                 {/* Components List */}
-                <div className="ComponentListSection row sp-bg-darkSnow pt-5 pb-5 m-0">
+                <div className="ComponentListSection row sp-bg-darkSnow pt-5 pb-5 margin-0" style={{marginBottom: '150px'}}>
                     <div className="col">
                         <div className="container position-relative">
                             <div className="color-slate fontSize-xl borderBottom-1 borderColor-extraDarkSmoke pb-2 mb-5">
