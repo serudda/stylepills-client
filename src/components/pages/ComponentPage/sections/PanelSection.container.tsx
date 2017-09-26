@@ -1,3 +1,8 @@
+/*
+TODO: Rehacer todo el sistema de Tabs, usando State, estudiar si es mejor
+atraves de Redux o State locales.
+*/
+
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
@@ -103,7 +108,7 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                             <div className="col-auto mr-auto">
                                 {/* Logo */}
                                 <div className="ml-4">
-                                    <a className="Header__logo m-0 link-reset" href="https://stylepills.co">
+                                    <a className="Header__logo m-0 link-reset" href="/">
                                         <img src={logo} alt="Stylepills" width="28px"/>
                                         <span className="fontFamily-quicksand fontWeight-9">Stylepills</span>
                                     </a>

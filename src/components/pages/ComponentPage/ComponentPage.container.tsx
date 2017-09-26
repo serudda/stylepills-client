@@ -19,7 +19,9 @@ import PreviewSection from './sections/PreviewSection.container';
 /*            INTERFACES            */
 /************************************/
 /* Own Props */
-interface IOwnProps {}
+interface IOwnProps {
+    match?: {params: {id: number}};
+}
 
 
 /* Mapped State to Props */
@@ -29,7 +31,6 @@ interface IStateProps {
         error: {message: string}, 
         uiComponent: UiComponentModel
     };
-    match?: any;
     uiComponent: UiComponentModel;
 }
 
@@ -63,6 +64,9 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
     
     /*        METHODS         */
     /**************************/ 
+    getId() {
+        return this.props.match.params.id;
+    }
 
 
     /*         RENDER         */
@@ -78,7 +82,10 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
                 loading, 
                 error, 
                 uiComponent,
-            }/*, match */
+            }, 
+            /*match: {
+                params: {id}
+            }*/
         } = this.props;
 
 
@@ -89,7 +96,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         }
 
         if (error) {
-            return (<p>(error.message)</p>);
+            return (<p>{error.message}</p>);
         }
 
         if (uiComponent === null) {
@@ -120,8 +127,8 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 
 
 const getUiComponentByIdQuery = gql`
-            query {
-                uiComponent(id: 2) {
+            query getUiComponentById ($id: ID!) {
+                uiComponent(id: $id) {
                     id
                     name
                     html
@@ -147,6 +154,8 @@ const getUiComponentByIdQuery = gql`
 
 /* Export */
 export default compose(
-    graphql(getUiComponentByIdQuery),
+    graphql(getUiComponentByIdQuery, {
+        options: (ownProps: IOwnProps) => ({ variables: { id: ownProps.match.params.id } }),
+    }),
     connect(mapStateToProps)
 )(ComponentPageContainer);

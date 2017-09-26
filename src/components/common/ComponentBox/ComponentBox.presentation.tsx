@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 import Iframe from '../Iframe/Iframe.container';
+import { Link } from 'react-router-dom';
 
 
 /************************************/
@@ -31,6 +32,7 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ data, options }) => {
     /*       PROPERTIES       */
     /**************************/
     const {
+        id,
         name = '#FFFFFF',  
         background = '#FFFFFF',
         html = '',
@@ -75,7 +77,8 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ data, options }) => {
             </div>
             <div className="ComponentBox__content borderRadius-xs" style={COMPONENTBOX_CONTENT}>
                 {isClicked &&
-                    <a href="https://codepen.io/notoriousb1t/pen/eGdoPV" className="cover-link" />
+                    /*<a href="https://codepen.io/notoriousb1t/pen/eGdoPV" className="cover-link" />*/
+                    <Link to={`/component/${id}`} className="cover-link" />
                 }
                 <Iframe html={html} style={css}/>
             </div>
