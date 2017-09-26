@@ -7,7 +7,6 @@ import * as hljs from 'highlight.js';
 const logo = require('../../../../resources/images/Stylepills-main-short-logo.svg');
 
 
-
 /************************************/
 /*            INTERFACES            */
 /************************************/
@@ -28,11 +27,19 @@ interface IOwnProps {
  */
 class PanelSectionContainer extends React.Component<IOwnProps, {}> {
 
+    private codeHtml: any; 
+
+    constructor() {
+        super();
+    }
+
     /*   COMPONENTDIDMOUNT    */
     /**************************/
     componentDidMount() {        
         // Init Highlight js
+        hljs.highlightBlock(this.codeHtml);
         hljs.initHighlightingOnLoad();
+    
     }
 
 
@@ -88,8 +95,11 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
                         {/* SOURCE CODE */}
                         <div className="SourceCode">
                             <pre className="fontSize-sm fontSmoothing-reset bg-darkSnow">
-                                <code className="scss borderRadius-sm">
-                                    Texto
+                                <code ref={(sourceCode) => { this.codeHtml = sourceCode; }} 
+                                      className="scss borderRadius-sm">
+
+                                    {this.props.options.css}
+
                                 </code>
                             </pre>
                         </div>

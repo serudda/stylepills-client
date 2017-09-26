@@ -102,7 +102,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
             <div className="ComponentPage row sp-bg-darkSnow no-gutters">
 
                 {/* Left Column: Menu */}
-                <div className="col sp-bg-slate">
+                <div className="col-4 sp-bg-slate">
                     <PanelSection options={uiComponent}/>
                 </div>
 
@@ -122,7 +122,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 
 const getUiComponentByIdQuery = gql`
             query {
-                uiComponent(id: 1) {
+                uiComponent(id: 2) {
                     id
                     css
                     scss
