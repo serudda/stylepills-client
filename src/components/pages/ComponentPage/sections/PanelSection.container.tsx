@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import * as hljs from 'highlight.js';
 
 const logo = require('../../../../resources/images/Stylepills-main-short-logo.svg');
 
@@ -88,7 +89,7 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
                         <div className="SourceCode">
                             <pre className="fontSize-sm fontSmoothing-reset bg-darkSnow">
                                 <code className="scss borderRadius-sm">
-                                    {this.props.options.html}
+                                    Texto
                                 </code>
                             </pre>
                         </div>
