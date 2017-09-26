@@ -12,6 +12,7 @@ import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiC
 import { IRootState } from '../../../reducer/reducer.config';
 import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 import PanelSection from './sections/PanelSection.container';
+import PreviewSection from './sections/PreviewSection.container';
 
 
 /************************************/
@@ -108,9 +109,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 
                 {/* Right Column: Preview */}
                 <div className="rightCol col-7 sp-bg-darkSnow">
-                    <section>
-                        {}
-                    </section>
+                    <PreviewSection data={uiComponent}/>
                 </div>
 
             </div>
@@ -124,9 +123,10 @@ const getUiComponentByIdQuery = gql`
             query {
                 uiComponent(id: 2) {
                     id
+                    name
+                    html
                     css
                     scss
-                    html
                     __typename
                     colorPalette {
                         id

@@ -11,7 +11,12 @@ import Iframe from '../Iframe/Iframe.container';
 /*            INTERFACES            */
 /************************************/
 interface IComponentBoxProps {
-    options: UiComponentModel;
+    data: UiComponentModel;
+    options: IComponentBoxOptions;
+}
+
+export interface IComponentBoxOptions {
+    isClicked: boolean;
 }
 
 
@@ -21,7 +26,7 @@ interface IComponentBoxProps {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
+const ComponentBox: React.SFC<IComponentBoxProps> = ({ data, options }) => {
 
     /*       PROPERTIES       */
     /**************************/
@@ -29,7 +34,11 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
         name = '#FFFFFF',  
         background = '#FFFFFF',
         html = '',
-        css = ''
+        css = ''        
+    } = data;
+
+    const {
+        isClicked = false
     } = options;
 
 
@@ -44,12 +53,6 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
         position: 'relative'
     };
 
-    /*const COMPONENT: React.CSSProperties = {
-        position: 'absolute',
-        top: '0',
-        left: '0'
-    };*/
-
     const COMPONENTBOX_FOOTER: React.CSSProperties = {
         whiteSpace: 'nowrap',
         padding: '8px 10px 4px',
@@ -59,10 +62,6 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
     const DESIGN_BY: React.CSSProperties = {
         order: -1
     };
-
-    /*const createMarkup = () => {
-        return {__html: '<button class="btn btn-primary">My First buttons</button>'};
-    };*/
 
 
     /*         MARKUP          */
@@ -75,8 +74,9 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
                 </p>
             </div>
             <div className="ComponentBox__content borderRadius-xs" style={COMPONENTBOX_CONTENT}>
-                <a href="https://codepen.io/notoriousb1t/pen/eGdoPV" className="cover-link" />
-                {/*<div className="Component" style={COMPONENT} dangerouslySetInnerHTML={createMarkup()} />*/}
+                {isClicked &&
+                    <a href="https://codepen.io/notoriousb1t/pen/eGdoPV" className="cover-link" />
+                }
                 <Iframe html={html} style={css}/>
             </div>
             <div className="ComponentBox__footer sp-bg-white position-relative clearfix" style={COMPONENTBOX_FOOTER}>

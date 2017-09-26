@@ -7,7 +7,7 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { IRootState } from '../../../reducer/reducer.config';
-import ComponentBox from '../../common/ComponentBox/ComponentBox.presentation';
+import ComponentBox, { IComponentBoxOptions } from '../../common/ComponentBox/ComponentBox.presentation';
 
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
@@ -49,10 +49,20 @@ function mapStateToProps (state: IRootState): IOwnProps {
  */
 class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
 
+    private componentBoxOptions: IComponentBoxOptions;
+
+    constructor() {
+        super();
+        this.componentBoxOptions = {
+            isClicked: true
+        };
+    }
+
 
     /*         RENDER         */
     /**************************/
     render() {
+        
         
         /*       PROPERTIES       */
         /**************************/
@@ -108,8 +118,8 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
 
                         <div className="d-flex flex-wrap width-wrapper">
                             {uiComponents.map((uiComponent: UiComponentModel) => (
-                                <div key={uiComponent.id} className="componentBox-container boxShadow-float borderRadius-sm">
-                                    <ComponentBox options={uiComponent} />
+                                <div key={uiComponent.id} className="componentBox-container boxShadow-float borderRadius-md">
+                                    <ComponentBox data={uiComponent} options={this.componentBoxOptions}/>
                                 </div>
                             ))}
                         </div>
