@@ -2,7 +2,14 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import * as hljs from 'highlight.js';
+// import * as hljs from 'highlight.js';
+import * as CodeMirror from 'react-codemirror';
+import 'codemirror/mode/css/css';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/scroll/simplescrollbars';
+import 'codemirror/addon/scroll/simplescrollbars.css';
+import 'codemirror/theme/material.css';
+import 'codemirror/addon/display/autorefresh';
 
 const logo = require('../../../../resources/images/Stylepills-main-short-logo.svg');
 
@@ -37,8 +44,8 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
     /**************************/
     componentDidMount() {        
         // Init Highlight js
-        hljs.highlightBlock(this.codeHtml);
-        hljs.initHighlightingOnLoad();
+        // hljs.highlightBlock(this.codeHtml);
+        // hljs.initHighlightingOnLoad();
     
     }
 
@@ -46,17 +53,26 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
     /*         RENDER         */
     /**************************/
     render() {
+
+        const codeMirrorOptions = {
+            scrollbarStyle: 'overlay',
+            lineNumbers: true,
+            readOnly: 'on',
+            mode: 'css',
+            theme: 'material',
+            autoRefresh: true
+        };
         
     
         /*         MARKUP          */
         /***************************/
         return (
-            <section className="PanelSection">
-                <div className="row">
-                    <div className="col">
+            <section className="PanelSection h-100">
+                <div className="row no-gutters h-100" style={{minHeight: '100%'}}>
+                    <div className="col h-100" style={{minHeight: '100%'}}>
 
                         {/* PANEL HEADER */}
-                        <div className="row justify-content-between pt-3 pb-3">
+                        <div className="row justify-content-between pt-3 pb-3 no-gutters">
                             <div className="col-auto mr-auto">
                                 {/* Logo */}
                                 <div className="ml-4">
@@ -92,17 +108,18 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
                             </button>
                         </div>
 
+
                         {/* SOURCE CODE */}
-                        <div className="SourceCode">
-                            <pre className="fontSize-sm fontSmoothing-reset bg-darkSnow">
-                                <code ref={(sourceCode) => { this.codeHtml = sourceCode; }} 
-                                      className="scss borderRadius-sm">
-
-                                    {this.props.options.css}
-
-                                </code>
-                            </pre>
+                        <div className="SourceCode position-relative">
+                            <CodeMirror ref={(sourceCode: any) => { this.codeHtml = sourceCode; }}  value={this.props.options.css} options={codeMirrorOptions}/>
                         </div>
+
+
+                        {/* BUTTONS OPTIONS */}
+                        <footer className="actionsFooter sp-bg-silver">
+                            <div className="otherActions"></div>
+                            <div className="mainAction"></div>
+                        </footer>
 
                     </div>
                 </div>

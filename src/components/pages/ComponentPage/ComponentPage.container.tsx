@@ -5,7 +5,7 @@ import * as React from 'react';
 import { connect /* , Dispatch */ } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import * as hljs from 'highlight.js';
+// import * as hljs from 'highlight.js';
 
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
@@ -56,7 +56,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
     /**************************/
     componentDidMount() {        
         // Init Highlight js
-        hljs.initHighlightingOnLoad();
+        // hljs.initHighlightingOnLoad();
     }
 
     
@@ -101,13 +101,13 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         return (
             <div className="ComponentPage row sp-bg-darkSnow no-gutters">
 
-                {/* Left Column: Menu */}
-                <div className="col-4 sp-bg-slate">
+                {/* Left Column: Panel Section */}
+                <div className="leftCol col-5 sp-bg-slate">
                     <PanelSection options={uiComponent}/>
                 </div>
 
                 {/* Right Column: Preview */}
-                <div className="col-8">
+                <div className="rightCol col-7 sp-bg-darkSnow">
                     <section>
                         {}
                     </section>
