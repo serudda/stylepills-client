@@ -62,7 +62,7 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
                                             href="/login">
                                             Open
                                         </a>
-                                        <span className="textWeight-9 color-slate mr-2 ml-2">|</span>
+                                        <span className="textWeight-9 color-extraDarkSmoke mr-2 ml-2">|</span>
                                         <a className="textWeight-9 color-slate no-underline" 
                                             href="/join?source=header-home">
                                             Join List

@@ -5,6 +5,8 @@ import * as React from 'react';
 // import * as hljs from 'highlight.js';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
+import 'codemirror/mode/sass/sass';
+import 'codemirror/mode/xml/xml';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/scroll/simplescrollbars';
 import 'codemirror/addon/scroll/simplescrollbars.css';
@@ -19,6 +21,7 @@ const logo = require('../../../../resources/images/Stylepills-main-short-logo.sv
 /************************************/
 /* Own Props */
 interface IOwnProps {
+    currentTab?: number;
     options: {
         html: string,
         css: string,
@@ -32,12 +35,17 @@ interface IOwnProps {
  * @extends {React.Component}
  * @returns component page view (Stateful component)
  */
-class PanelSectionContainer extends React.Component<IOwnProps, {}> {
+class PanelSectionContainer extends React.Component<IOwnProps, any> {
 
-    private codeHtml: any; 
 
     constructor() {
         super();
+        this.state = {currentTab: 1};
+    }
+
+
+    _handleClick(tab: number) {
+        this.setState({ currentTab: tab });
     }
 
     /*   COMPONENTDIDMOUNT    */
@@ -54,11 +62,30 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
     /**************************/
     render() {
 
-        const codeMirrorOptions = {
+
+        const hmtlOptions = {
+            scrollbarStyle: 'overlay',
+            lineNumbers: true,
+            readOnly: 'on',
+            mode: 'xml',
+            theme: 'material',
+            autoRefresh: true
+        };
+
+        const cssOptions = {
             scrollbarStyle: 'overlay',
             lineNumbers: true,
             readOnly: 'on',
             mode: 'css',
+            theme: 'material',
+            autoRefresh: true
+        };
+
+        const scssOptions = {
+            scrollbarStyle: 'overlay',
+            lineNumbers: true,
+            readOnly: 'on',
+            mode: 'sass',
             theme: 'material',
             autoRefresh: true
         };
@@ -91,19 +118,22 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
 
                         {/* TABS */}
                         <div className="tabs fontSmoothing-reset">
-                            <button className="tabs__button tabs__button--active">
+                            <button className={this.state.currentTab === 1 ? 'tabs__button tabs__button--active' : 'tabs__button'}
+                                    onClick={() => this._handleClick(1)}>
                                 <div className="inner">
                                     HTML
                                 </div>
                             </button>
-                            <button className="tabs__button">
+                            <button className={this.state.currentTab === 2 ? 'tabs__button tabs__button--active' : 'tabs__button'}
+                                    onClick={() => this._handleClick(2)}>
                                 <div className="inner">
                                     CSS
                                 </div>
                             </button>
-                            <button className="tabs__button">
+                            <button className={this.state.currentTab === 3 ? 'tabs__button tabs__button--active' : 'tabs__button'}
+                                    onClick={() => this._handleClick(3)}>
                                 <div className="inner">
-                                    SASS
+                                    SCSS
                                 </div>
                             </button>
                         </div>
@@ -111,7 +141,12 @@ class PanelSectionContainer extends React.Component<IOwnProps, {}> {
 
                         {/* SOURCE CODE */}
                         <div className="SourceCode position-relative">
-                            <CodeMirror ref={(sourceCode: any) => { this.codeHtml = sourceCode; }}  value={this.props.options.css} options={codeMirrorOptions}/>
+                            <CodeMirror className={this.state.currentTab !== 1 ? 'd-none' : null}   
+                                        value={this.props.options.html} options={hmtlOptions}/>
+                            <CodeMirror className={this.state.currentTab !== 2 ? 'd-none' : null} 
+                                        value={this.props.options.css} options={cssOptions}/>
+                            <CodeMirror className={this.state.currentTab !== 3 ? 'd-none' : null} 
+                                        value={this.props.options.scss} options={scssOptions}/>
                         </div>
 
 
