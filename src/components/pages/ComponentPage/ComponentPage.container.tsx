@@ -10,9 +10,8 @@ import * as hljs from 'highlight.js';
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
 import { IRootState } from '../../../reducer/reducer.config';
-import ColorPaletteSection from './sections/ColorPaletteSection.presentation';
-import ComponentDetailSection from './sections/ComponentDetailSection.presentation';
 import NotFound from '../NotFoundPage/NotFoundPage.presentation';
+import PanelSection from './sections/PanelSection.container';
 
 
 /************************************/
@@ -68,12 +67,6 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
     /*         RENDER         */
     /**************************/
     render() {
-        
-        // TODO: Remover de aqui, no deberian haber inline styles si
-        // no son dinamicas.
-        const imgStyle = {
-            width: '100%'
-        };
 
         
         /*       PROPERTIES       */
@@ -106,26 +99,19 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         /*         MARKUP          */
         /***************************/
         return (
-            <div>
-                {/* Component Context */}
-                <section className="bg-white padding-8">
-                    <div className="container">
-                        <div className="row middle-xs">
-                            <div className="col-xs-12">
-                                <h1 className="color-silver fontWeight-6 margin-0 borderBottom-2 borderColor-darkSnow paddingBottom-2 marginBottom-6">Components based on Medium</h1>
-                            </div>
-                            <div className="col-xs-12">
-                                <img style={imgStyle} src={'https://s3.amazonaws.com/waysily-img/stylepill/medium-theme/medium-bg.jpg'} alt="medium-bg" />
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div className="ComponentPage row sp-bg-darkSnow no-gutters">
 
-                {/* Color Palette Section */}
-                <ColorPaletteSection options={uiComponent.colorPalette}/>
+                {/* Left Column: Menu */}
+                <div className="col sp-bg-slate">
+                    <PanelSection options={uiComponent}/>
+                </div>
 
-                {/* Component Detail Section */}
-                <ComponentDetailSection />
+                {/* Right Column: Preview */}
+                <div className="col-8">
+                    <section>
+                        {}
+                    </section>
+                </div>
 
             </div>
         );

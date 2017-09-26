@@ -75,6 +75,7 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ options }) => {
                 </p>
             </div>
             <div className="ComponentBox__content borderRadius-xs" style={COMPONENTBOX_CONTENT}>
+                <a href="https://codepen.io/notoriousb1t/pen/eGdoPV" className="cover-link" />
                 {/*<div className="Component" style={COMPONENT} dangerouslySetInnerHTML={createMarkup()} />*/}
                 <Iframe html={html} style={css}/>
             </div>
