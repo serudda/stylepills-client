@@ -59,12 +59,14 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
                                 <span className="d-block d-lg-inline-block">
                                     <div className="HeaderNavlink px-0 py-2 m-0">
                                         <a className="fontWeight-9 color-darkSecondary no-underline" 
-                                            href="/login">
+                                            href="https://stylepill.carrd.co/#now"
+                                            target="_blank">
                                             Open
                                         </a>
                                         <span className="textWeight-9 color-extraDarkSmoke mr-2 ml-2">|</span>
                                         <a className="textWeight-9 color-slate no-underline" 
-                                            href="/join?source=header-home">
+                                            href="http://eepurl.com/cYzCeX"
+                                            target="_blank">
                                             Join List
                                         </a>
                                     </div>

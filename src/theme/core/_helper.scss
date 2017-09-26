@@ -15,6 +15,9 @@
  * Heroku - https://purple.herokuapp.com/
  */
 
+/**
+*  GENERAL
+*/
 
 .width-wrapper {
     max-width: 1270px;
@@ -22,6 +25,16 @@
     position: relative;
     padding: 0 20px;
 }
+
+
+/**
+*  CURSOR
+*/
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 
 /**
 *  POSITION

@@ -38,11 +38,20 @@ body.mainApp {
  * Marvel - https://marvelapp.com/styleguide/overview/code-guidelines
  * Heroku - https://purple.herokuapp.com/
  */
+/**
+*  GENERAL
+*/
 .width-wrapper {
   max-width: 1270px;
   margin: 0 auto;
   position: relative;
   padding: 0 20px; }
+
+/**
+*  CURSOR
+*/
+.cursor-pointer {
+  cursor: pointer; }
 
 /**
 *  POSITION

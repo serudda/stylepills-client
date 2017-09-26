@@ -160,7 +160,7 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                         <footer className="actionsFooter sp-bg-black">
                             {/* <div className="otherActions"></div> */}
                             <div className="mainAction">
-                                <button className="btn btn-primary btn-block fontSmoothing-reset">
+                                <button className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer">
                                     Download Component
                                 </button>
                             </div>
