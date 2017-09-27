@@ -294,6 +294,11 @@ NOTE: Boostrap 4 has a flex set
 .lineHeight-3 {line-height: 18px;}
 .lineHeight-4 {line-height: 24px;}
 .lineHeight-5 {line-height: 30px;}
+.lineHeight-6 {line-height: 36px;}
+.lineHeight-7 {line-height: 42px;}
+.lineHeight-8 {line-height: 48px;}
+.lineHeight-9 {line-height: 54px;}
+.lineHeight-10 {line-height: 60px;}
 
 .text-truncate {
     overflow: hidden;
@@ -369,6 +374,10 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-lightPrimary    {border-color: map-get($color, lightPrimary);}
 .borderColor-primary         {border-color: map-get($color, primary);}
 .borderColor-darkPrimary     {border-color: map-get($color, darkPrimary);}
+
+.borderColor-lightSecondary { border-color: map-get($color, lightSecondary); }
+.borderColor-secondary { border-color: map-get($color, secondary); }
+.borderColor-darkSecondary { border-color: map-get($color, darkSecondary); }
 
 /* Border UI colors */
 .borderColor-positive {border-color: map-get($color, positive);}

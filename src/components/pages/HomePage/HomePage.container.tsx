@@ -112,13 +112,13 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
             <div className="HomePage sp-bg-darkSnow h-100">
 
                 {/* Logo and Burguer Icon */}
-                <div className="jumbotron text-center jumbotron--texture sp-bg-slate m-0">
+                <div className="jumbotron jumbotron--texture sp-bg-slate m-0">
                     <div className="container position-relative">
-                        <h1 className="color-white m-0 mb-3">
-                            Build your UI components
+                        <h1 className="color-white mt-sm-5 mb-4 mr-sm-5 ml-sm-5 lineHeight-10">
+                            <span className="borderBottom-3 borderColor-secondary">Stylepills</span> is a repository for front-end designers and developers.
                         </h1>
-                        <p className="color-extraDarkSmoke fontSize-xl mr-sm-3 ml-sm-3">
-                            Get beautiful open source UI components weekly, Join Stylepill weekly list! We'll send a new beautiful set of 3 components weekly to your email.
+                        <p className="color-extraDarkSmoke fontSize-xxl mb-sm-5 mr-sm-5 ml-sm-5">
+                            It's the best place to host all your personal UI components in one place. In addition, you can ‘feed’ your repository with other users’ components.
                         </p>
                     </div>
                 </div>
