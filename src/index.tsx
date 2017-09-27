@@ -22,7 +22,7 @@ import configureStore from './store/store.config';
 // Initialize apollo client - PRD
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
-        uri: 'https://stylepills-server.herokuapp.com/graphiql'
+        uri: 'https://stylepills-server.herokuapp.com/graphql'
     }),
 });
 
