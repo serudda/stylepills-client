@@ -119,12 +119,12 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
             <div className="ComponentPage row sp-bg-darkSnow no-gutters">
 
                 {/* Left Column: Panel Section */}
-                <div className="leftCol col-5 sp-bg-slate">
+                <div className="leftCol col-12 col-sm-5 order-12 order-sm-12 sp-bg-slate">
                     <PanelSection options={uiComponent}/>
                 </div>
 
                 {/* Right Column: Preview */}
-                <div className="rightCol col-7 sp-bg-darkSnow">
+                <div className="rightCol col-12 col-sm-7 order-1 order-sm-1 mb-5 mb-sm-0 sp-bg-darkSnow">
                     <PreviewSection data={uiComponent}/>
                 </div>
 

@@ -1123,24 +1123,74 @@ NOTE: Boostrap 4 has a flex set
   margin: 0 2% 25px 0;
   overflow: hidden;
   position: relative; }
-  .HomePage .ComponentListSection .componentBox-container:nth-child(3n), .HomePage .ComponentListSection .componentBox-container .single-pen:nth-child(3n) {
+  .HomePage .ComponentListSection .componentBox-container:nth-child(3n) {
     margin-right: 0; }
+
+@media (max-width: 830px) {
+  .HomePage .ComponentListSection .componentBox-container {
+    width: 49%; }
+    .HomePage .ComponentListSection .componentBox-container:nth-child(2n) {
+      margin-right: 0; }
+    .HomePage .ComponentListSection .componentBox-container:nth-child(3n) {
+      margin-right: 2%; } }
+
+@media (max-width: 550px) {
+  .HomePage .ComponentListSection .componentBox-container {
+    width: 100%;
+    margin-right: 0 !important; } }
 
 .ComponentPage .leftCol {
   padding: 0;
-  overflow-y: hidden;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  top: 0; }
+  overflow-y: hidden; }
 
 .ComponentPage .rightCol {
-  position: fixed;
-  right: 0;
-  left: auto;
-  bottom: 0;
-  top: 0;
   padding: 0; }
+
+@media (min-width: 576px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden; }
+  .ComponentPage .rightCol {
+    padding: 0; } }
+
+@media (min-width: 768px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden; }
+  .ComponentPage .rightCol {
+    padding: 0; } }
+
+@media (min-width: 992px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0; }
+  .ComponentPage .rightCol {
+    position: fixed;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    top: 0;
+    padding: 0; } }
+
+@media (min-width: 1200px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0; }
+  .ComponentPage .rightCol {
+    position: fixed;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    top: 0;
+    padding: 0; } }
 
 .PanelSection .tabs {
   width: 100%;
@@ -1176,7 +1226,7 @@ NOTE: Boostrap 4 has a flex set
       height: 48px; }
 
 .PanelSection .SourceCode {
-  height: calc(100% - 51px - 163px); }
+  height: calc(100% - 68px - 51px - 94px); }
   .PanelSection .SourceCode .ReactCodeMirror {
     height: 100%; }
     .PanelSection .SourceCode .ReactCodeMirror .CodeMirror {
@@ -1231,6 +1281,22 @@ NOTE: Boostrap 4 has a flex set
     flex-shrink: 1;
     position: relative;
     padding: 1.75em; }
+
+@media (min-width: 576px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+@media (min-width: 768px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+@media (min-width: 992px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+@media (min-width: 1200px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
 
 .PreviewSection .previewComponent {
   overflow: hidden; }

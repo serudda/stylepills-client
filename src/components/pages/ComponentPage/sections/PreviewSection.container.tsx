@@ -48,7 +48,7 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
         /*         MARKUP          */
         /***************************/
         return (
-            <section className="PreviewSection h-100 pr-5 pl-5">
+            <section className="PreviewSection h-100 pr-1 pl-1 pr-sm-5 pl-sm-5">
 
                 {/* HEADER */}
                 <div className="row justify-content-between pt-3 pb-3 no-gutters">

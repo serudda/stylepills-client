@@ -132,7 +132,7 @@ class HomePageContainer extends React.Component<IOwnProps & IStateProps, {}> {
                             </div>
                         </div>
 
-                        <div className="d-flex flex-wrap width-wrapper">
+                        <div className="d-sm-flex flex-wrap width-wrapper">
                             {uiComponents.map((uiComponent: UiComponentModel) => (
                                 <div key={uiComponent.id} className="componentBox-container boxShadow-float borderRadius-md">
                                     <ComponentBox data={uiComponent} options={this.componentBoxOptions}/>
