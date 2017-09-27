@@ -41,7 +41,7 @@ const Header: React.SFC<IHeaderProps> = () => (
                             </a>
                             <span className="textWeight-9 color-slate mr-2 ml-2">|</span>
                             <a className="textWeight-9 color-white no-underline" 
-                                href="http://eepurl.com/cYzCeX"
+                                href="http://eepurl.com/c1fttz"
                                 target="_blank">
                                 Join List
                             </a>
