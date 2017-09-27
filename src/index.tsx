@@ -12,10 +12,17 @@ import App from './components/pages/App/App';
 import configureStore from './store/store.config';
 
 
-// Initialize apollo client
-const client = new ApolloClient({
+// Initialize apollo client - DEV
+/*const client = new ApolloClient({
     networkInterface: createNetworkInterface({
         uri: 'http://localhost:4000/graphql'
+    }),
+});*/
+
+// Initialize apollo client - PRD
+const client = new ApolloClient({
+    networkInterface: createNetworkInterface({
+        uri: 'https://stylepills-server.herokuapp.com/graphiql'
     }),
 });
 
