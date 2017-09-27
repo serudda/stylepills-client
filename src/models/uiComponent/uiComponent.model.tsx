@@ -16,5 +16,6 @@ export type UiComponent = {
     scss: string;
     html: string;
     background: string;
+    download: string;
 };
 

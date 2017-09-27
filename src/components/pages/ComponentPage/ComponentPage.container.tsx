@@ -5,21 +5,23 @@ import * as React from 'react';
 import { connect /* , Dispatch */ } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import * as hljs from 'highlight.js';
+// import * as hljs from 'highlight.js';
 
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
 import { IRootState } from '../../../reducer/reducer.config';
-import ColorPaletteSection from './sections/ColorPaletteSection.presentation';
-import ComponentDetailSection from './sections/ComponentDetailSection.presentation';
 import NotFound from '../NotFoundPage/NotFoundPage.presentation';
+import PanelSection from './sections/PanelSection.container';
+import PreviewSection from './sections/PreviewSection.container';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
 /* Own Props */
-interface IOwnProps {}
+interface IOwnProps {
+    match?: {params: {id: number}};
+}
 
 
 /* Mapped State to Props */
@@ -29,7 +31,6 @@ interface IStateProps {
         error: {message: string}, 
         uiComponent: UiComponentModel
     };
-    match?: any;
     uiComponent: UiComponentModel;
 }
 
@@ -57,23 +58,25 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
     /**************************/
     componentDidMount() {        
         // Init Highlight js
-        hljs.initHighlightingOnLoad();
+        // hljs.initHighlightingOnLoad();
+        let header = document.getElementById('header');
+        let footer = document.getElementById('footer');
+
+        header.style.display = 'none';
+        footer.style.display = 'none';
     }
 
     
     /*        METHODS         */
     /**************************/ 
+    getId() {
+        return this.props.match.params.id;
+    }
 
 
     /*         RENDER         */
     /**************************/
     render() {
-        
-        // TODO: Remover de aqui, no deberian haber inline styles si
-        // no son dinamicas.
-        const imgStyle = {
-            width: '100%'
-        };
 
         
         /*       PROPERTIES       */
@@ -84,18 +87,25 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
                 loading, 
                 error, 
                 uiComponent,
-            }/*, match */
+            }, 
+            /*match: {
+                params: {id}
+            }*/
         } = this.props;
 
 
         /*       VALIDATIONS       */
         /***************************/
         if (loading) {
-            return (<div>Loading</div>);
+            return (
+                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
+                    Loading...
+                </div>
+            );
         }
 
         if (error) {
-            return (<p>(error.message)</p>);
+            return (<p>{error.message}</p>);
         }
 
         if (uiComponent === null) {
@@ -106,26 +116,17 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         /*         MARKUP          */
         /***************************/
         return (
-            <div>
-                {/* Component Context */}
-                <section className="bg-white padding-8">
-                    <div className="container">
-                        <div className="row middle-xs">
-                            <div className="col-xs-12">
-                                <h1 className="color-silver fontWeight-6 margin-0 borderBottom-2 borderColor-darkSnow paddingBottom-2 marginBottom-6">Components based on Medium</h1>
-                            </div>
-                            <div className="col-xs-12">
-                                <img style={imgStyle} src={'https://s3.amazonaws.com/waysily-img/stylepill/medium-theme/medium-bg.jpg'} alt="medium-bg" />
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <div className="ComponentPage row sp-bg-darkSnow no-gutters">
 
-                {/* Color Palette Section */}
-                <ColorPaletteSection options={uiComponent.colorPalette}/>
+                {/* Left Column: Panel Section */}
+                <div className="leftCol col-5 sp-bg-slate">
+                    <PanelSection options={uiComponent}/>
+                </div>
 
-                {/* Component Detail Section */}
-                <ComponentDetailSection />
+                {/* Right Column: Preview */}
+                <div className="rightCol col-7 sp-bg-darkSnow">
+                    <PreviewSection data={uiComponent}/>
+                </div>
 
             </div>
         );
@@ -135,12 +136,15 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
 
 
 const getUiComponentByIdQuery = gql`
-            query {
-                uiComponent(id: 1) {
+            query getUiComponentById ($id: ID!) {
+                uiComponent(id: $id) {
                     id
+                    name
+                    html
                     css
                     scss
-                    html
+                    background
+                    download
                     __typename
                     colorPalette {
                         id
@@ -161,6 +165,8 @@ const getUiComponentByIdQuery = gql`
 
 /* Export */
 export default compose(
-    graphql(getUiComponentByIdQuery),
+    graphql(getUiComponentByIdQuery, {
+        options: (ownProps: IOwnProps) => ({ variables: { id: ownProps.match.params.id } }),
+    }),
     connect(mapStateToProps)
 )(ComponentPageContainer);

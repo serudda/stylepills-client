@@ -35,7 +35,8 @@ const defaultState: IUiComponentState = {
         colorPalette: null,
         scss: '',
         html: '',
-        background: ''
+        background: '',
+        download: ''
     },
     error: '',
     fetching: false,

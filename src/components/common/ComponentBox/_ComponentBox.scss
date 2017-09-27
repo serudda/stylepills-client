@@ -5,8 +5,20 @@
 
 
 .ComponentBox {
-    overflow: hidden;
+    //overflow: hidden;
     position: relative;
     z-index: 0;
     cursor: pointer;
+
+    &__content {
+        .cover-link {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            border: 0 !important;
+            z-index: 1;
+        }
+    }
 }

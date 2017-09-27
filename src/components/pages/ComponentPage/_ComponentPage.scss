@@ -1,2 +1,19 @@
-/* NOTE: Solo esta de muestra para que se sepa que cada pagina puede tener sus
-    estilos propios */
+.ComponentPage {
+    .leftCol {
+        padding: 0;
+        overflow-y: hidden;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: 0;
+    }
+
+    .rightCol {
+        position: fixed;
+        right: 0;
+        left: auto;
+        bottom: 0;
+        top: 0;
+        padding: 0;
+    }
+}
