@@ -30,7 +30,8 @@ interface IOwnProps {
     options: {
         html: string,
         css: string,
-        scss: string
+        scss: string,
+        download: string
     };
 }
 
@@ -160,9 +161,10 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                         <footer className="actionsFooter sp-bg-black">
                             {/* <div className="otherActions"></div> */}
                             <div className="mainAction">
-                                <button className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer">
+                                <a href={this.props.options.download} 
+                                    className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer link-reset">
                                     Download Component
-                                </button>
+                                </a>
                             </div>
                         </footer>
 

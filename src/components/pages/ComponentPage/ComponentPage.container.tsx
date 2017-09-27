@@ -143,6 +143,8 @@ const getUiComponentByIdQuery = gql`
                     html
                     css
                     scss
+                    background
+                    download
                     __typename
                     colorPalette {
                         id

@@ -37,7 +37,7 @@ const Header: React.SFC<IHeaderProps> = () => (
                             <a className="fontWeight-9 color-primary no-underline" 
                                 href="https://stylepill.carrd.co/#now"
                                 target="_blank">
-                                Open
+                                Now
                             </a>
                             <span className="textWeight-9 color-slate mr-2 ml-2">|</span>
                             <a className="textWeight-9 color-white no-underline" 

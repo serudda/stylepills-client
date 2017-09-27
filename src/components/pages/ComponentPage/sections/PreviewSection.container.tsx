@@ -61,7 +61,7 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
                                         <a className="fontWeight-9 color-darkSecondary no-underline" 
                                             href="https://stylepill.carrd.co/#now"
                                             target="_blank">
-                                            Open
+                                            Now
                                         </a>
                                         <span className="textWeight-9 color-extraDarkSmoke mr-2 ml-2">|</span>
                                         <a className="textWeight-9 color-slate no-underline" 

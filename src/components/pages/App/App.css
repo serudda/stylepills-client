@@ -1152,7 +1152,7 @@ NOTE: Boostrap 4 has a flex set
       height: 48px; }
 
 .PanelSection .SourceCode {
-  height: calc(100% - 51px - 125px); }
+  height: calc(100% - 51px - 163px); }
   .PanelSection .SourceCode .ReactCodeMirror {
     height: 100%; }
     .PanelSection .SourceCode .ReactCodeMirror .CodeMirror {
