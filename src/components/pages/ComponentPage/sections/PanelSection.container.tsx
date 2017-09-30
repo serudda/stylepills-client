@@ -69,6 +69,11 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
     render() {
 
 
+        /*       PROPERTIES       */
+        /**************************/
+        const { options: {html, css, scss, download} } = this.props;
+
+
         const hmtlOptions = {
             scrollbarStyle: 'overlay',
             lineNumbers: true,
@@ -149,11 +154,11 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                         {/* SOURCE CODE */}
                         <div className="SourceCode position-relative">
                             <CodeMirror className={this.state.currentTab !== 1 ? 'd-none' : null}   
-                                        value={this.props.options.html} options={hmtlOptions}/>
+                                        value={html} options={hmtlOptions}/>
                             <CodeMirror className={this.state.currentTab !== 2 ? 'd-none' : null} 
-                                        value={this.props.options.css} options={cssOptions}/>
+                                        value={css} options={cssOptions}/>
                             <CodeMirror className={this.state.currentTab !== 3 ? 'd-none' : null} 
-                                        value={this.props.options.scss} options={scssOptions}/>
+                                        value={scss} options={scssOptions}/>
                         </div>
 
 
@@ -161,7 +166,7 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                         <footer className="actionsFooter sp-bg-black">
                             {/* <div className="otherActions"></div> */}
                             <div className="mainAction">
-                                <a href={this.props.options.download} 
+                                <a href={download} 
                                     className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer link-reset">
                                     Download Component
                                 </a>

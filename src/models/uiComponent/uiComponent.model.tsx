@@ -18,4 +18,3 @@ export type UiComponent = {
     background: string;
     download: string;
 };
-

@@ -43,6 +43,11 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
     /*         RENDER         */
     /**************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const { data } = this.props;
         
     
         /*         MARKUP          */
@@ -78,7 +83,7 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
 
                 {/* PREVIEW COMPONENT */}
                 <div className="previewComponent boxShadow-float borderRadius-md">
-                    <ComponentBox data={this.props.data} options={this.componentBoxOptions}/>
+                    <ComponentBox data={data} options={this.componentBoxOptions}/>
                 </div>
                 
             </section>

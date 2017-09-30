@@ -2,47 +2,18 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { connect /* , Dispatch */ } from 'react-redux';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
 import gql from 'graphql-tag';
 // import * as hljs from 'highlight.js';
 
-import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+// import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
-import { IRootState } from '../../../reducer/reducer.config';
+// import { IRootState } from '../../../reducer/reducer.config';
 import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 import PanelSection from './sections/PanelSection.container';
 import PreviewSection from './sections/PreviewSection.container';
+import { UiComponent } from '../../../models/uiComponent/uiComponent.model';
 
-
-/************************************/
-/*            INTERFACES            */
-/************************************/
-/* Own Props */
-interface IOwnProps {
-    match?: {params: {id: number}};
-}
-
-
-/* Mapped State to Props */
-interface IStateProps {
-    data?: {
-        loading: Boolean, 
-        error: {message: string}, 
-        uiComponent: UiComponentModel
-    };
-    uiComponent: UiComponentModel;
-}
-
-
-/*****************************************/
-/*            MAPSTATETOPROPS            */
-/*****************************************/
-function mapStateToProps (state: IRootState): IStateProps {
-    return {
-        uiComponent: state.uiComponents.item
-    };
-}
 
 
 /**
@@ -51,7 +22,7 @@ function mapStateToProps (state: IRootState): IStateProps {
  * @extends {React.Component}
  * @returns component page view (Stateful component)
  */
-class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* & IDispatchProps */, {}> {
+class ComponentPageContainer extends React.Component<ChildProps<InputProps, Response>, {}> {
 
     
     /*   COMPONENTDIDMOUNT    */
@@ -70,7 +41,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
     /*        METHODS         */
     /**************************/ 
     getId() {
-        return this.props.match.params.id;
+        return this.props.data.loading;
     }
 
 
@@ -81,17 +52,7 @@ class ComponentPageContainer extends React.Component<IOwnProps & IStateProps /* 
         
         /*       PROPERTIES       */
         /**************************/
-        const {
-            /* count, */
-            data: {
-                loading, 
-                error, 
-                uiComponent,
-            }, 
-            /*match: {
-                params: {id}
-            }*/
-        } = this.props;
+        const {loading, error, uiComponent} = this.props.data;
 
 
         /*       VALIDATIONS       */
@@ -162,11 +123,22 @@ const getUiComponentByIdQuery = gql`
             }
         `;
 
+type Response = {
+    uiComponent: UiComponent;
+};
+
+type InputProps = {
+    match: {
+        params: {
+            id: number
+        }
+    }
+};
+
 
 /* Export */
 export default compose(
-    graphql(getUiComponentByIdQuery, {
-        options: (ownProps: IOwnProps) => ({ variables: { id: ownProps.match.params.id } }),
-    }),
-    connect(mapStateToProps)
+    graphql<Response, InputProps>(getUiComponentByIdQuery, {
+        options: ({match: {params: {id}}}) => ({ variables: { id: id } })
+    })
 )(ComponentPageContainer);
