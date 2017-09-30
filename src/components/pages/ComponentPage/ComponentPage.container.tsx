@@ -6,13 +6,12 @@ import { graphql, compose, ChildProps } from 'react-apollo';
 import gql from 'graphql-tag';
 // import * as hljs from 'highlight.js';
 
-// import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
 // import { IRootState } from '../../../reducer/reducer.config';
 import NotFound from '../NotFoundPage/NotFoundPage.presentation';
 import PanelSection from './sections/PanelSection.container';
 import PreviewSection from './sections/PreviewSection.container';
-import { UiComponent } from '../../../models/uiComponent/uiComponent.model';
 
 
 
@@ -124,7 +123,7 @@ const getUiComponentByIdQuery = gql`
         `;
 
 type Response = {
-    uiComponent: UiComponent;
+    uiComponent: UiComponentModel;
 };
 
 type InputProps = {
@@ -135,10 +134,16 @@ type InputProps = {
     }
 };
 
-
 /* Export */
 export default compose(
     graphql<Response, InputProps>(getUiComponentByIdQuery, {
-        options: ({match: {params: {id}}}) => ({ variables: { id: id } })
+        options: (ownProps: InputProps) => (
+            { 
+                variables: 
+                { 
+                    id: ownProps.match.params.id 
+                } 
+            }
+        )
     })
 )(ComponentPageContainer);

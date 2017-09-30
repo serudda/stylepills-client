@@ -1,0 +1,236 @@
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
+// Las dependencias de React (react, react-redux, react-router, etc)
+import * as React from 'react';
+import { connect /* , Dispatch */ } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
+
+// Las dependencias de terceros (graphql, highlight, moment, etc)
+import * as hljs from 'highlight.js';
+
+// Las dependencias de mis models (uiComponent, user, country, colorPalette, color, etc)
+import { UiComponent as UiComponentModel } from 'models/uiComponent/uiComponent.model';
+import { ColorPalette as ColorPaletteModel } from 'models/colorPalette/colorPalette.model';
+import { User as UserModel } from 'models/user/user.model';
+
+// Las dependencias de mis queries, mutations, subscriptions
+import { GET_UI_COMPONENT_BY_ID_QUERY, GetByIdResponse } from 'models/modelName/modelName.query';
+
+// Las dependencias de mi aplicación (ComponentPage, Tooltip, Form, Component, etc)
+import ColorPalette from './component/common/ColorPalette';
+import ProductListSection from './sections/ProductListSection';
+import NotFound from './component/common/NotFound.container';
+// -----------------------------------
+
+
+/********************************/
+/*          INTERFACES          */
+/********************************/
+
+/* NOTE: Representa las propiedades (attributes) del componente. 
+	Esta interface le dice al componente de un nivel superior
+	que atributos o propiedades recibe este componente*/
+IMyComponentProps {
+	count: number;
+	addCount: (value) => void;
+}
+
+
+/***********************************************/
+/*              CLASS DEFINITION               */
+/***********************************************/
+class MyComponent extends React.Component<ChildProps<InputProps, Response>, {}> {
+
+
+	/********************************/
+	/*         CONSTRUCTOR          */
+	/********************************/
+    constructor(props, context) {
+		
+    	super(props, context);
+
+		// Init State
+      	this.state = {
+        	checked: false,
+      	};
+		
+		// Bind methods
+    	this.toggleChecked = this.toggleChecked.bind(this);
+		this._handleChange = this._handleChange.bind(this);
+
+    }
+
+
+	/********************************/
+	/*        PUBLIC METHODS        */
+	/********************************/
+
+	/**
+	 * @desc Method description
+	 * @method toggleChecked
+	 * @example this.toggleChecked()
+	 * @public
+	 * @returns {void}
+	 */
+	toggleChecked(): void {
+
+		/* NOTE: Usamos el setState para cambiar los states locales (e.g. checked, cambio de tabs, etc.) 
+			States que no necesitan saber los componentes externos. La unica manera de cambiar los states
+			locales son usando setState. */
+
+    	this.setState((prevState) => (
+      		{ checked: !prevState.checked }
+    	));
+
+  	}
+
+
+	/********************************/
+	/*       PRIVATE METHODS        */
+	/********************************/
+
+	/**
+	 * @desc Method description
+	 * @method _handleChange
+	 * @example this._handleChange()
+	 * @private 
+	 * @returns {void}
+	 */
+	_handleChange = (event: Event) => {
+        event.preventDefault();
+    }
+
+  
+  	/********************************/
+	/*        RENDER MARKUP         */
+	/********************************/
+    render() {
+
+
+		/*       PROPERTIES       */
+        /**************************/
+        const {
+            // NOTE: This is an example when a component has its own Props.
+            /* count, */
+            data: {loading, error, uiComponent}/*, match */
+        } = this.props;
+
+
+		/*       VALIDATIONS       */
+        /***************************/
+        if (loading) {
+            return (<div>Loading</div>);
+        }
+
+        if (error) {
+            return (<p>{error.message}</p>);
+        }
+
+        if (uiComponent === null) {
+            return (<NotFound />);
+        }
+      	
+		
+		/*         MARKUP          */
+        /***************************/
+        return (
+            <div className="ComponentPage row sp-bg-darkSnow no-gutters">
+
+                {/* Left Column: Panel Section */}
+                <div className="leftCol col-12 col-sm-5 order-12 order-sm-12 sp-bg-slate">
+                    <PanelSection options={uiComponent}/>
+                </div>
+
+                {/* Right Column: Preview */}
+                <div className="rightCol col-12 col-sm-7 order-1 order-sm-1 mb-5 mb-sm-0 sp-bg-darkSnow">
+                    <PreviewSection data={uiComponent}/>
+                </div>
+
+            </div>
+        );
+    }
+}
+
+
+/* NOTE: Este seria el Type del parametro que enviamos por React-Router */
+type InputProps = {
+    match: {
+        params: {
+            id: number
+        }
+    }
+};
+
+
+/* NOTE: 'config.options' Es un objeto que te permite definir el comportamiento 
+	de tu Componente, por ejemplo pasando variables a tu Query para solicitar un
+	dato en especifico, filtrar, paginar, etc */
+const config = {
+	options: (ownProps: InputProps) => (
+		{ 
+			variables: 
+			{ 
+				id: ownProps.match.params.id 
+			} 
+		}
+	)
+};
+
+
+const getUiComponentByIdQuery = graphql<GetByIdResponse, InputProps>(
+	GET_UI_COMPONENT_BY_ID_QUERY,
+	config
+);
+
+
+export default compose(
+	getUiComponentByIdQuery
+)(MyComponent);
+
+
+/*
+
+getInitialState()
+Mientras antes utilizamos el método especial React API getInitialState() 
+para configurar nuestro estado, con las clases ES6 podemos establecer 
+"this.state" directamente aquí en el constructor.
+
+---
+
+bind nuestros propios methods
+Cada vez que definamos nuestros propios métodos de componentes personalizados 
+para un componente de clase ES6, tenemos que enlazarlo manualmente al componente nosotros mismos.
+
+// We bind it here:
+this.toggleChecked = this.toggleChecked.bind(this);
+
+Ahora, cuando toggleChecked() se ejecuta, esto hará referencia al componente en oposición a null.
+
+---
+
+Graphql Typescript
+reference: http://dev.apollodata.com/react/using-with-types.html
+
+---
+
+Comment convention
+reference: http://usejsdoc.org/ (scroll down to see each block tag)
+
+/**
+ * @desc Method description
+ * @method Method Name
+ * @function Function Name
+ * @example this.addElement(newElement)
+ * @extends {React.Component}
+ * @private
+ * @public
+ * @param {string} name - name param description
+ * @param {number} age - age param description
+ * @returns {component page view (Stateful component)}
+ */
+
+---
+
+
+*/
