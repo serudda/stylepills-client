@@ -25,7 +25,7 @@ import NotFound from './component/common/NotFound.container';
 
 
 /********************************/
-/*          INTERFACES          */
+/*      INTERFACES & TYPES      */
 /********************************/
 
 /* NOTE: Representa las propiedades (attributes) del componente. 
@@ -205,12 +205,17 @@ const config = {
 };
 
 
+/********************************/
+/*            QUERY             */
+/********************************/
+
 const getUiComponentByIdQuery = graphql<GetByIdResponse, InputProps>(
 	GET_UI_COMPONENT_BY_ID_QUERY,
 	config
 );
 
 
+/* Export Component */
 export default compose(
 	getUiComponentByIdQuery
 )(MyComponent);
