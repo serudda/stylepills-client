@@ -1,0 +1,22 @@
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
+import { ColorPalette } from '../colorPalette/colorPalette.model';
+
+
+
+/**
+ * @desc Specifies the Ui Component type (model) to identify
+ * its properties, methods, etc.
+ * @type UiComponent
+ */
+export type ModelName = {
+    id: number | null;
+    name: string;
+    colorPalette: ColorPalette | null;
+    css: string;
+    scss: string;
+    html: string;
+    background: string;
+    download: string;
+};

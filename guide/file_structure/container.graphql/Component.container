@@ -31,7 +31,7 @@ import NotFound from './component/common/NotFound.container';
 /* NOTE: Representa las propiedades (attributes) del componente. 
 	Esta interface le dice al componente de un nivel superior
 	que atributos o propiedades recibe este componente*/
-IMyComponentProps {
+interface IMyComponentProps {
 	count: number;
 	addCount: (value) => void;
 }
@@ -40,7 +40,7 @@ IMyComponentProps {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class MyComponent extends React.Component<ChildProps<InputProps, Response>, {}> {
+class MyComponent extends React.Component<ChildProps<InputProps, GetByIdResponse>, {}> {
 
 
 	/********************************/
@@ -63,6 +63,33 @@ class MyComponent extends React.Component<ChildProps<InputProps, Response>, {}> 
 
 
 	/********************************/
+	/*       COMPONENTDIDMOUNT      */
+    /********************************/
+    componentDidMount() {   
+        /* NOTE: Se invoca una sola vez, 
+		inmediatamente DESPUES de que el renderizado inicial ocurra */
+    }
+
+
+	/********************************/
+	/*      COMPONENTWILLMOUNT      */
+    /********************************/
+    componentWillMount() {  
+        /* NOTE: Se invoca una sola vez, 
+		inmediatamente ANTES de que el renderizado inicial ocurra */
+    }
+
+
+	/********************************/
+	/*      COMPONENTWILLUNMOUNT    */
+    /********************************/
+    componentWillUnmount() {        
+        /* NOTE: Se invoca inmediatamente ANTES de que 
+			el el componente es desmontado del el DOM */
+    }
+
+
+	/********************************/
 	/*        PUBLIC METHODS        */
 	/********************************/
 
@@ -77,7 +104,7 @@ class MyComponent extends React.Component<ChildProps<InputProps, Response>, {}> 
 
 		/* NOTE: Usamos el setState para cambiar los states locales (e.g. checked, cambio de tabs, etc.) 
 			States que no necesitan saber los componentes externos. La unica manera de cambiar los states
-			locales son usando setState. */
+			locales es usando setState. Ademas disparara la actualizacion del component*/
 
     	this.setState((prevState) => (
       		{ checked: !prevState.checked }

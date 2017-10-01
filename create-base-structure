@@ -27,7 +27,7 @@ Con esto lo instalamos, de paso instalamos sus declaration files (.d.ts)
 Por lo general al correr las pruebas, salen unas advertencias como las siguientes:
 'Warning: ReactTestUtils has been moved to react-dom/test-utils. Update references to remove this warning.'
 Para eliminarlo correr el siguiente comando: 
-npm i --save-dev react-test-renderer
+npm install -D react-test-renderer
 Lo que pasa es que 'react-test-renderer debe estar en nuestro 'node_modules' local.
 
 7- Instalar Redux para la gestion de estados de un componente en React:
