@@ -31,10 +31,10 @@ import NotFound from './component/common/NotFound.container';
 /* NOTE: Representa las propiedades (attributes) del componente. 
 	Esta interface le dice al componente de un nivel superior
 	que atributos o propiedades recibe este componente*/
-interface IMyComponentProps {
+type MyComponentProps = {
 	count: number;
 	addCount: (value) => void;
-}
+};
 
 
 /***********************************************/
@@ -47,17 +47,22 @@ class MyComponent extends React.Component<ChildProps<InputProps, GetByIdResponse
 	/*         CONSTRUCTOR          */
 	/********************************/
     constructor(props, context) {
+		/* NOTE: No hay necesidad de pasar 'props' en el constructor 
+        si desea utilizarlo en otros lugares. Porque React lo configuró 
+        automáticamente para usted.
+        reference: http://cheng.logdown.com/posts/2016/03/26/683329 */
 		
     	super(props, context);
 
 		// Init State
       	this.state = {
-        	checked: false,
+        	checked: this.props.checked,
       	};
 		
 		// Bind methods
     	this.toggleChecked = this.toggleChecked.bind(this);
 		this._handleChange = this._handleChange.bind(this);
+		this._handleClick = this._handleClick.bind(this);
 
     }
 
@@ -118,14 +123,47 @@ class MyComponent extends React.Component<ChildProps<InputProps, GetByIdResponse
 	/********************************/
 
 	/**
-	 * @desc Method description
+	 * @desc Method description. Este metodo es el convencional, que no recibe parametros,
+	 * solo realiza una accion al ser disparado, podria cambiar un State, disparar una action, etc.
 	 * @method _handleChange
 	 * @example this._handleChange()
 	 * @private 
 	 * @returns {void}
 	 */
-	_handleChange = (event: Event) => {
-        event.preventDefault();
+	private _handleChange(e: Event) {
+		/* Aquí, 'e' es un evento sintético. React define estos eventos sintéticos 
+		de acuerdo con las especificaciones del W3C, por lo que no necesita preocuparse 
+		por la compatibilidad entre navegadores */
+        e.preventDefault();
+    }
+
+	/**
+     * @desc HandleClick pasando parametros al metodos
+	 * @important ES6 class property-arrow function esta en stage-2 en el proceso de 
+	 * aceptación para incluir en la proxima version de ECMA
+	 * reference: https://medium.com/@rjun07a/binding-callbacks-in-react-components-9133c0b396c6
+     * @method _handleClick
+     * @example this._handleClick('Sergio')
+     * @private 
+     * @returns {void}
+     */
+    private _handleClick = (item: string) => (e: any) => {
+        e.preventDefault();
+        this._checkMyProgress(item);
+    }
+
+	/**
+     * @desc Metodo private que es llamado por un _handler, y recibe parametros
+	 * Este tipo de funciones nos ayudan a dar más contexto a la accion de un boton por ejemplo,
+	 * y ademas nos permite reusar el metodo, llamandolo a traves de otros eventos.
+     * @method _checkMyProgress
+     * @example this._checkMyProgress('Sergio')
+     * @private 
+     * @returns {void}
+     */
+    private _checkMyProgress(item: string) {
+        e.preventDefault();
+        this._checkMyProgress(item);
     }
 
   
@@ -173,6 +211,15 @@ class MyComponent extends React.Component<ChildProps<InputProps, GetByIdResponse
                 <div className="rightCol col-12 col-sm-7 order-1 order-sm-1 mb-5 mb-sm-0 sp-bg-darkSnow">
                     <PreviewSection data={uiComponent}/>
                 </div>
+
+				{/* Trigger an event */}
+				<input onChange={this._handleChange}/>
+
+				{/* Buttons passing params */}
+				<button className="btn btn-primary btn-lg btn-block mb-2"
+						onClick={this._handleClick('Sergio')}>
+					Check my progress
+				</button>
 
             </div>
         );
