@@ -74,7 +74,7 @@ class IframeContainer extends React.Component<IOwnProps, {}> {
                 {/* tslint:disable-next-line:jsx-self-close */}
                 <iframe ref={(iframe) => { this.iframeHtml = iframe; }} 
                         frameBorder="0"
-                        sandbox="allow-forms allow-popups allow-scripts allow-same-origin">
+                        sandbox="allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-modals allow-forms">
                 </iframe>
             </div>
         );
