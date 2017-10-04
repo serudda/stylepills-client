@@ -70,11 +70,12 @@ class IframeContainer extends React.Component<IOwnProps, {}> {
         /*         MARKUP          */
         /***************************/
         return (
+            // FIXME: No esta compilando los scripts externos, revisar por que.
             <div className="Iframe-wrapper">
                 {/* tslint:disable-next-line:jsx-self-close */}
                 <iframe ref={(iframe) => { this.iframeHtml = iframe; }} 
                         frameBorder="0"
-                        sandbox="allow-forms allow-popups allow-scripts allow-same-origin">
+                        sandbox="allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-modals allow-forms">
                 </iframe>
             </div>
         );
