@@ -3,7 +3,7 @@
 /************************************/
 import * as React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
 // import 'highlight.js/styles/atom-one-dark.css';
@@ -41,8 +41,8 @@ const store = configureStore();
 /**************************/
 render((
     <ApolloProvider store={store} client={client}>
-        <Router>
+        <BrowserRouter basename="/">
             <App />
-        </Router>
+        </BrowserRouter>
     </ApolloProvider>
 ), document.getElementById('root'));
