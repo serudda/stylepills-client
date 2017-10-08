@@ -9,7 +9,7 @@ import gql from 'graphql-tag';
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
 // import { IRootState } from '../../../reducer/reducer.config';
-import NotFound from '../NotFoundPage/NotFoundPage.presentation';
+import NotFound from '../NotFoundPage/NotFoundPage';
 import PanelSection from './sections/PanelSection.container';
 import PreviewSection from './sections/PreviewSection.container';
 

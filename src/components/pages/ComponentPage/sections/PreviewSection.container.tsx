@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import ComponentBox, { IComponentBoxOptions } from '../../../common/ComponentBox/ComponentBox.presentation';
+import ComponentBox, { IComponentBoxOptions } from '../../../common/ComponentBox/ComponentBox';
 import { UiComponent } from '../../../../models/uiComponent/uiComponent.model';
 
 

@@ -685,6 +685,9 @@ NOTE: Boostrap 4 has a flex set
 .fontSmoothing-reset {
   -webkit-font-smoothing: initial; }
 
+.textShadow-close {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
+
 /**
  *  BORDER
  */
@@ -793,6 +796,16 @@ NOTE: Boostrap 4 has a flex set
 
 .borderRight-6 {
   border-right: 6px solid; }
+
+/* Border types */
+.borderStyle-dashed {
+  border-style: dashed; }
+
+.borderStyle-dotted {
+  border-style: dotted; }
+
+.borderStyle-solid {
+  border-style: solid; }
 
 /* Border brand colors */
 .borderColor-lightPrimary {
@@ -1026,6 +1039,107 @@ NOTE: Boostrap 4 has a flex set
 .sp-bg-white {
   background-color: #FFFFFF; }
 
+/**********************************************************/
+/*                        BUTTONS                         */
+/**********************************************************/
+.sp-btn {
+  display: inline-block;
+  border: 1px solid transparent;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  transition: background 300ms ease-out;
+  outline: none;
+  box-shadow: none;
+  text-shadow: none; }
+  .sp-btn--sm {
+    padding: 4px 12px;
+    font-size: 12px; }
+  .sp-btn--md {
+    padding: 7px 21px;
+    font-size: 14px; }
+  .sp-btn--lg {
+    padding: 10px 50px;
+    font-size: 18px; }
+  .sp-btn--block {
+    display: block;
+    white-space: normal;
+    width: 100%; }
+  .sp-btn--primary {
+    background-color: #FEEB6A;
+    color: #24292e; }
+    .sp-btn--primary:hover {
+      background-color: #FCD85E;
+      text-decoration: none;
+      color: #24292e; }
+    .sp-btn--primary:focus {
+      background-color: #FEEB6A;
+      color: #24292e;
+      text-decoration: none; }
+  .sp-btn--secondary {
+    background-color: #33ADA9;
+    color: #FFFFFF; }
+    .sp-btn--secondary:hover {
+      background-color: #288784;
+      text-decoration: none;
+      color: #FFFFFF; }
+    .sp-btn--secondary:focus {
+      background-color: #33ADA9;
+      color: #FFFFFF;
+      text-decoration: none; }
+  .sp-btn--neutral {
+    background-color: #E0E6ED;
+    color: #24292e; }
+    .sp-btn--neutral:hover {
+      background-color: #D3DCE6;
+      text-decoration: none;
+      color: #24292e; }
+    .sp-btn--neutral:focus {
+      background-color: #E0E6ED;
+      color: #24292e;
+      text-decoration: none; }
+  .sp-btn--primary-ghost {
+    background: 0 0;
+    border: 2px solid #FEEB6A;
+    color: #FEEB6A; }
+  .sp-btn--secondary-ghost {
+    background: 0 0;
+    border: 2px solid #33ADA9;
+    color: #33ADA9; }
+
+/**********************************************************/
+/*                         LINKS                          */
+/**********************************************************/
+.sp-link {
+  text-decoration: none;
+  transition: background 300ms ease-out;
+  cursor: pointer; }
+  .sp-link--box--primary {
+    color: #FEEB6A; }
+    .sp-link--box--primary:hover {
+      background-color: #FEEB6A;
+      border-bottom-color: #FCD85E;
+      color: #24292e;
+      text-decoration: none; }
+    .sp-link--box--primary:focus {
+      text-decoration: none; }
+  .sp-link--box--secondary {
+    color: #33ADA9; }
+    .sp-link--box--secondary:hover {
+      background-color: #33ADA9;
+      border-bottom-color: #288784;
+      color: #FFFFFF;
+      text-decoration: none; }
+    .sp-link--box--secondary:focus {
+      text-decoration: none; }
+
 .Header {
   z-index: 1;
   padding-top: 16px;
@@ -1112,32 +1226,47 @@ NOTE: Boostrap 4 has a flex set
   bottom: 2px;
   left: 0; }
 
-.HomePage .jumbotron {
-  border-radius: 0; }
-  .HomePage .jumbotron--texture {
-    background-image: url("../../../resources/images/texture-bg.png");
-    overflow: hidden; }
+.HomePage .leftSide__header {
+  height: 113px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 40%;
+  z-index: 3; }
+  .HomePage .leftSide__header__content {
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 0 80px 40px #fff;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    width: 100%; }
 
-.HomePage .ComponentListSection .componentBox-container {
-  width: 32%;
-  margin: 0 2% 25px 0;
+.HomePage .leftSide__content {
+  position: relative;
+  box-sizing: border-box; }
+  .HomePage .leftSide__content .section {
+    height: 100vh; }
+  .HomePage .leftSide__content__text {
+    margin: 0 auto;
+    max-width: 400px;
+    width: calc(100% - (10px * 8)); }
+
+.HomePage .explanation-image {
+  height: 100%;
   overflow: hidden;
-  position: relative; }
-  .HomePage .ComponentListSection .componentBox-container:nth-child(3n) {
-    margin-right: 0; }
-
-@media (max-width: 830px) {
-  .HomePage .ComponentListSection .componentBox-container {
-    width: 49%; }
-    .HomePage .ComponentListSection .componentBox-container:nth-child(2n) {
-      margin-right: 0; }
-    .HomePage .ComponentListSection .componentBox-container:nth-child(3n) {
-      margin-right: 2%; } }
-
-@media (max-width: 550px) {
-  .HomePage .ComponentListSection .componentBox-container {
-    width: 100%;
-    margin-right: 0 !important; } }
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 58.3%;
+  z-index: 4; }
+  .HomePage .explanation-image img {
+    margin-left: 50px;
+    width: 94.5%; }
+  .HomePage .explanation-image a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+    border-bottom: 2px solid #FEEB6A; }
 
 .ComponentPage .leftCol {
   padding: 0;

@@ -1,0 +1,112 @@
+/**********************************************************/
+/*                        BUTTONS                         */
+/**********************************************************/
+
+.sp-btn {
+    display: inline-block;
+    border: 1px solid transparent;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+    transition: background 300ms ease-out;
+    outline: none;
+    box-shadow: none;
+    text-shadow: none;
+
+
+    /// BUTTON-SIZE
+    
+    &--sm {
+        padding: 4px 12px;
+        font-size: 12px;
+    }
+
+    &--md {
+        padding: 7px 21px;
+        font-size: 14px;
+    }
+
+    &--lg {
+        padding: 10px 50px;
+        font-size: 18px;
+    }
+
+    &--block {
+        display: block;
+        white-space: normal;
+        width: 100%;
+    }
+
+
+    /// BUTTON-COLOR
+
+    &--primary {
+        background-color: map-get($color, primary);
+        color: map-get($color, black);
+        
+        &:hover {
+            background-color: map-get($color, darkPrimary);
+            text-decoration: none;
+            color: map-get($color, black);
+        }
+
+        &:focus {
+            background-color: map-get($color, primary);
+            color: map-get($color, black);
+            text-decoration: none;
+        }
+    }
+
+    &--secondary {
+        background-color: map-get($color, secondary);
+        color: map-get($color, white);
+
+        &:hover {
+            background-color: map-get($color, darkSecondary);
+            text-decoration: none;
+            color: map-get($color, white);
+        }
+
+        &:focus {
+            background-color: map-get($color, secondary);
+            color: map-get($color, white);
+            text-decoration: none;
+        }
+    }
+
+    &--neutral {
+        background-color: map-get($color, smoke);
+        color: map-get($color, black);
+
+        &:hover {
+            background-color: map-get($color, darkSmoke);
+            text-decoration: none;
+            color: map-get($color, black);
+        }
+
+        &:focus {
+            background-color: map-get($color, smoke);
+            color: map-get($color, black);
+            text-decoration: none;
+        }
+    }
+
+    &--primary-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, primary);
+        color: map-get($color, primary);
+    }
+
+    &--secondary-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, secondary);
+        color: map-get($color, secondary);
+    }
+}
