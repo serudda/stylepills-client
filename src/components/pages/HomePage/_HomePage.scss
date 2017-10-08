@@ -8,13 +8,13 @@
             left: 0;
             position: fixed;
             top: 0;
-            width: 40%;
+            // width: 40%; legacy
             z-index: 3;
+            box-shadow: 0 0 80px 40px #fff;
+            background-color: #fff;
 
             &__content {
                 align-items: center;
-                background-color: #fff;
-                box-shadow: 0 0 80px 40px #fff;
                 display: -ms-flexbox;
                 display: flex;
                 height: 100%;

@@ -1245,12 +1245,11 @@ NOTE: Boostrap 4 has a flex set
   left: 0;
   position: fixed;
   top: 0;
-  width: 40%;
-  z-index: 3; }
+  z-index: 3;
+  box-shadow: 0 0 80px 40px #fff;
+  background-color: #fff; }
   .HomePage .leftSide__header__content {
     align-items: center;
-    background-color: #fff;
-    box-shadow: 0 0 80px 40px #fff;
     display: -ms-flexbox;
     display: flex;
     height: 100%;

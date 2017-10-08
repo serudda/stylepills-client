@@ -31,10 +31,10 @@ const HomePage: React.SFC<HomePageProps> = () => {
             <div className="row no-gutters">
 
                 {/* Left Side */}
-                <div className="leftSide col-12 col-lg-5 px-5">
+                <div className="leftSide col-12 col-lg-5 px-lg-5">
                         
                     {/* Header */}
-                    <div className="leftSide__header px-5">
+                    <div className="leftSide__header px-5 w-100">
                         <div className="leftSide__header__content">
                             {/* Logo and Burguer Icon */}
                             <div className="float-left">
@@ -49,6 +49,7 @@ const HomePage: React.SFC<HomePageProps> = () => {
                     {/* Content */}
                     <div className="leftSide__content">
 
+                        {/* Section: PUV */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -66,8 +67,20 @@ const HomePage: React.SFC<HomePageProps> = () => {
                             </div>
                         </div>
 
-                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed"/>
+                        <div className="row no-gutters d-block d-lg-none align-items-center section">
+                            <div className="col-12">
+                                {/* Aqui va el SVG */}
+                                <img className="borderRadius-md w-100" 
+                                    src={addComponentPage} 
+                                    alt="Add Component Page"/>
+                            </div>
+                        </div> 
 
+
+                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed d-none d-lg-block"/>
+
+
+                        {/* Section: Host Components */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -81,8 +94,20 @@ const HomePage: React.SFC<HomePageProps> = () => {
                             </div>
                         </div>
 
-                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed"/>
+                        <div className="row no-gutters d-block d-lg-none align-items-center section">
+                            <div className="col-12">
+                                {/* Aqui va el SVG */}
+                                <img className="borderRadius-md w-100" 
+                                    src={addComponentPage} 
+                                    alt="Add Component Page"/>
+                            </div>
+                        </div>
 
+
+                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed d-none d-lg-block"/>
+
+
+                        {/* Section: Feed your repository */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -97,8 +122,20 @@ const HomePage: React.SFC<HomePageProps> = () => {
                             </div>
                         </div>
 
-                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed"/>
+                        <div className="row no-gutters d-block d-lg-none align-items-center section">
+                            <div className="col-12">
+                                {/* Aqui va el SVG */}
+                                <img className="borderRadius-md w-100" 
+                                    src={addComponentPage} 
+                                    alt="Add Component Page"/>
+                            </div>
+                        </div>
 
+
+                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed d-none d-lg-block"/>
+
+
+                        {/* Section: Private components */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -112,8 +149,20 @@ const HomePage: React.SFC<HomePageProps> = () => {
                             </div>
                         </div>
 
-                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed"/>
+                        <div className="row no-gutters d-block d-lg-none align-items-center section">
+                            <div className="col-12">
+                                {/* Aqui va el SVG */}
+                                <img className="borderRadius-md w-100" 
+                                    src={addComponentPage} 
+                                    alt="Add Component Page"/>
+                            </div>
+                        </div>
 
+
+                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed d-none d-lg-block"/>
+
+
+                        {/* Section: Create styleguides */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -129,8 +178,20 @@ const HomePage: React.SFC<HomePageProps> = () => {
                             </div>
                         </div>
 
-                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed"/>
+                        <div className="row no-gutters d-block d-lg-none align-items-center section">
+                            <div className="col-12">
+                                {/* Aqui va el SVG */}
+                                <img className="borderRadius-md w-100" 
+                                    src={addComponentPage} 
+                                    alt="Add Component Page"/>
+                            </div>
+                        </div>
 
+
+                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed d-none d-lg-block"/>
+
+
+                        {/* Section: Attach anything */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -145,8 +206,20 @@ const HomePage: React.SFC<HomePageProps> = () => {
                             </div>
                         </div>
 
-                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed"/>
+                        <div className="row no-gutters d-block d-lg-none align-items-center section">
+                            <div className="col-12">
+                                {/* Aqui va el SVG */}
+                                <img className="borderRadius-md w-100" 
+                                    src={addComponentPage} 
+                                    alt="Add Component Page"/>
+                            </div>
+                        </div>
 
+
+                        <hr className="borderColor-extraDarkSmoke borderStyle-dashed d-none d-lg-block"/>
+
+
+                        {/* Section: Join */}
                         <div className="row no-gutters align-items-center section">
                             <div className="col-12">
                                 <div className="leftSide__content__text">
@@ -186,7 +259,7 @@ const HomePage: React.SFC<HomePageProps> = () => {
                 </div>
 
                 {/* Right Side */}
-                <div className="rightSide col-12 col-lg-7">
+                <div className="rightSide col-12 col-lg-7 d-none d-lg-block">
                     <div className="rightSide__content flex-center">
                         
                         {/* Header */}
