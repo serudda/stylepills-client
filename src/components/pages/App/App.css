@@ -1061,10 +1061,10 @@ NOTE: Boostrap 4 has a flex set
   text-shadow: none; }
   .sp-btn--sm {
     padding: 4px 12px;
-    font-size: 12px; }
+    font-size: 14px; }
   .sp-btn--md {
     padding: 7px 21px;
-    font-size: 14px; }
+    font-size: 16px; }
   .sp-btn--lg {
     padding: 10px 50px;
     font-size: 18px; }
@@ -1113,6 +1113,14 @@ NOTE: Boostrap 4 has a flex set
     background: 0 0;
     border: 2px solid #33ADA9;
     color: #33ADA9; }
+  .sp-btn--white-ghost {
+    background: 0 0;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF; }
+    .sp-btn--white-ghost:hover {
+      background-color: #FFFFFF;
+      text-decoration: none;
+      color: #3C4858; }
 
 /**********************************************************/
 /*                         LINKS                          */
@@ -1125,8 +1133,7 @@ NOTE: Boostrap 4 has a flex set
     color: #FEEB6A; }
     .sp-link--box--primary:hover {
       background-color: #FEEB6A;
-      border-bottom-color: #FCD85E;
-      color: #24292e;
+      color: #3C4858;
       text-decoration: none; }
     .sp-link--box--primary:focus {
       text-decoration: none; }
@@ -1134,10 +1141,17 @@ NOTE: Boostrap 4 has a flex set
     color: #33ADA9; }
     .sp-link--box--secondary:hover {
       background-color: #33ADA9;
-      border-bottom-color: #288784;
       color: #FFFFFF;
       text-decoration: none; }
     .sp-link--box--secondary:focus {
+      text-decoration: none; }
+  .sp-link--box--white {
+    color: #FFFFFF; }
+    .sp-link--box--white:hover {
+      background-color: #E0E6ED;
+      color: #3C4858;
+      text-decoration: none; }
+    .sp-link--box--white:focus {
       text-decoration: none; }
 
 .Header {
@@ -1227,7 +1241,7 @@ NOTE: Boostrap 4 has a flex set
   left: 0; }
 
 .HomePage .leftSide__header {
-  height: 113px;
+  height: 75px;
   left: 0;
   position: fixed;
   top: 0;
@@ -1252,21 +1266,28 @@ NOTE: Boostrap 4 has a flex set
     max-width: 400px;
     width: calc(100% - (10px * 8)); }
 
-.HomePage .explanation-image {
+.HomePage .rightSide__content {
   height: 100%;
   overflow: hidden;
   position: fixed;
   right: 0;
   top: 0;
   width: 58.3%;
-  z-index: 4; }
-  .HomePage .explanation-image img {
+  z-index: 4;
+  background-image: linear-gradient(-180deg, #276aae 0%, #428cca 28%, #68a9df 74%, #8acbf2 100%); }
+  .HomePage .rightSide__content__header {
+    top: 0;
+    left: 0;
+    margin-top: 15px; }
+  .HomePage .rightSide__content img {
     margin-left: 50px;
     width: 94.5%; }
-  .HomePage .explanation-image a:hover {
-    color: #FFFFFF;
-    text-decoration: none;
-    border-bottom: 2px solid #FEEB6A; }
+  .HomePage .rightSide__content__footer {
+    bottom: 25px; }
+    .HomePage .rightSide__content__footer a:hover {
+      color: #FFFFFF;
+      text-decoration: none;
+      border-bottom: 2px solid #FEEB6A; }
 
 .ComponentPage .leftCol {
   padding: 0;

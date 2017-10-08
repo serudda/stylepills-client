@@ -25,12 +25,12 @@
     
     &--sm {
         padding: 4px 12px;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     &--md {
         padding: 7px 21px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     &--lg {
@@ -108,5 +108,18 @@
         background: 0 0;
         border: 2px solid map-get($color, secondary);
         color: map-get($color, secondary);
+    }
+
+    &--white-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, white);
+        color: map-get($color, white);
+
+        &:hover {
+            background-color: map-get($color, white);
+            text-decoration: none;
+            color: map-get($color, slate);
+        }
+
     }
 }

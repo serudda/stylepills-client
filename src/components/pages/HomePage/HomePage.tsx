@@ -29,10 +29,12 @@ const HomePage: React.SFC<HomePageProps> = () => {
     return (
         <div className="HomePage">
             <div className="row no-gutters">
-                <div className="leftSide col-xs-12 col-sm-5 pl-5 pr-5">
+
+                {/* Left Side */}
+                <div className="leftSide col-12 col-lg-5 px-5">
                         
                     {/* Header */}
-                    <div className="leftSide__header pl-5 pr-5">
+                    <div className="leftSide__header px-5">
                         <div className="leftSide__header__content">
                             {/* Logo and Burguer Icon */}
                             <div className="float-left">
@@ -58,7 +60,7 @@ const HomePage: React.SFC<HomePageProps> = () => {
                                     </p>
                                     <a href="http://eepurl.com/c1fttz"
                                         className="sp-btn sp-btn--lg sp-btn--primary borderRadius-md fontWeight-9 fontFamily-openSans">
-                                        JOIN LIST
+                                        SIGN UP
                                     </a> 
                                 </div>
                             </div>
@@ -162,14 +164,14 @@ const HomePage: React.SFC<HomePageProps> = () => {
                                         While we're working on the Stylepills closed beta, we'll send you beautiful open source UI components weekly.
                                     </p>
                                     <div className="row align-items-center">
-                                        <div className="col">
+                                        <div className="col mb-2">
                                             <a href="http://eepurl.com/c1fttz"
                                                className="sp-btn sp-btn--lg sp-btn--primary borderRadius-md fontWeight-9 fontFamily-openSans">
-                                                JOIN LIST
+                                                SIGN UP
                                             </a>
                                         </div>
-                                        <div className="col">
-                                            <a href="http://eepurl.com/c1fttz"
+                                        <div className="col mb-2">
+                                            <a href="http://stylepills.co/"
                                                className="sp-btn sp-btn--md sp-btn--neutral borderRadius-md fontWeight-9 fontFamily-openSans">
                                                 See Components
                                             </a>
@@ -182,14 +184,47 @@ const HomePage: React.SFC<HomePageProps> = () => {
                     </div>
 
                 </div>
-                <div className="col-xs-12 col-sm-7">
-                    <div className="explanation-image sp-bg-darkSmoke flex-center" style={{backgroundImage: 'linear-gradient(-180deg, rgb(39, 106, 174) 0%, rgb(66, 140, 202) 28%, rgb(104, 169, 223) 74%, rgb(138, 203, 242) 100%)'}}>
+
+                {/* Right Side */}
+                <div className="rightSide col-12 col-lg-7">
+                    <div className="rightSide__content flex-center">
+                        
+                        {/* Header */}
+                        <div className="rightSide__content__header pl-4 pr-4 position-absolute w-100">
+                            <div className="w-100">
+                                <div className="HeaderNavlink px-0 py-2 m-0 float-right">
+
+                                    <a className="sp-link sp-link--box sp-link--box--primary fontSize-sm fontWeight-9 mr-3" 
+                                        href="https://stylepill.carrd.co/#now" 
+                                        target="_blank">
+                                        Open
+                                    </a>
+
+                                    <a className="sp-link sp-link--box sp-link--box--white fontSize-sm fontWeight-9" 
+                                        href="http://eepurl.com/c1fttz" 
+                                        target="_blank">
+                                        Now
+                                    </a>
+
+                                    <span className="textWeight-9 color-white mr-3 ml-3">|</span>
+
+                                    <a className="sp-btn sp-btn--sm sp-btn--white-ghost borderRadius-sm fontWeight-9" 
+                                        href="http://eepurl.com/c1fttz">
+                                        Sign Up
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        </div>
+
                         {/* Aqui va el SVG */}
                         <img className="borderRadius-md" 
                              src={addComponentPage} 
                              alt="Add Component Page"/>
+
                         {/* Footer */}
-                        <div style={{position: 'absolute', bottom: '25px'}}>
+                        <div className="rightSide__content__footer position-absolute">
                             <a className="fontFamily-courierNew color-white fontSize-md fontWeight-9 textShadow-close" 
                                href="https://www.codementor.io/rosa7082/how-we-created-and-launched-stylepill-in-less-than-12-hours-and-got-to-1-on-product-hunt-bu44wpppo"
                                target="_blank">

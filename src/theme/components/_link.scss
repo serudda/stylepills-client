@@ -17,8 +17,7 @@
 
             &:hover {
                 background-color: map-get($color, primary);
-                border-bottom-color: map-get($color, darkPrimary);
-                color: map-get($color, black);
+                color: map-get($color, slate);
                 text-decoration: none;
             }
 
@@ -32,8 +31,21 @@
 
             &:hover {
                 background-color: map-get($color, secondary);
-                border-bottom-color: map-get($color, darkSecondary);
                 color: map-get($color, white);
+                text-decoration: none;
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
+        }
+
+        &--white {
+            color: map-get($color, white);
+
+            &:hover {
+                background-color: map-get($color, smoke);
+                color: map-get($color, slate);
                 text-decoration: none;
             }
 
