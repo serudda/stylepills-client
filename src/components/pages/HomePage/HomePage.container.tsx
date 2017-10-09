@@ -13,7 +13,7 @@ import AttachSection from './Sections/AttachSection/AttachSection';
 import JoinSection from './Sections/JoinSection/JoinSection';
 
 const logo = require('../../../resources/images/Stylepills-main-short-logo.svg');
-const PUV_IMAGE_URL = require('../../../resources/images/show_component_page.png');
+const PUV_IMAGE_URL = require('../../../resources/images/puv_page.png');
 const HOST_COMPONENT_IMAGE_URL = require('../../../resources/images/add_component_page.png');
 const PRIVATE_COMPONENT_IMAGE_URL = require('../../../resources/images/private_component_page.png');
 const ATTACH_IMAGE_URL = require('../../../resources/images/attach_resource_page.png');
