@@ -15,10 +15,11 @@ import JoinSection from './Sections/JoinSection/JoinSection';
 const logo = require('../../../resources/images/Stylepills-main-short-logo.svg');
 const PUV_IMAGE_URL = require('../../../resources/images/show_component_page.png');
 const HOST_COMPONENT_IMAGE_URL = require('../../../resources/images/add_component_page.png');
-const PRIVATE_COMPONENT_IMAGE_URL = require('../../../resources/images/show_component_page.png');
-const ATTACH_IMAGE_URL = require('../../../resources/images/add_component_page.png');
+const PRIVATE_COMPONENT_IMAGE_URL = require('../../../resources/images/private_component_page.png');
+const ATTACH_IMAGE_URL = require('../../../resources/images/attach_resource_page.png');
 const FEED_REPOSITORY_IMAGE_URL = require('../../../resources/images/show_component_page.png');
-const CREATE_STYLEGUIDE_IMAGE_URL = require('../../../resources/images/add_component_page.png');
+const CREATE_STYLEGUIDE_IMAGE_URL = require('../../../resources/images/styleguide_page.png');
+const JOIN_IMAGE_URL = require('../../../resources/images/join_page.png');
 
 /* NOTE: There's an issue with the last version 7.3.1, for that reason, I had to use 7.2.0
 reference: https://github.com/brigade/react-waypoint/pull/223 */
@@ -83,16 +84,19 @@ class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, L
                 currentImage = HOST_COMPONENT_IMAGE_URL;
                 break;
             case '3':
-                currentImage = PRIVATE_COMPONENT_IMAGE_URL;
-                break;
-            case '4':
                 currentImage = FEED_REPOSITORY_IMAGE_URL;
                 break;
+            case '4':
+                currentImage = PRIVATE_COMPONENT_IMAGE_URL;
+                break;
             case '5':
-                currentImage = ATTACH_IMAGE_URL;
+                currentImage = CREATE_STYLEGUIDE_IMAGE_URL;
                 break;
             case '6':
-                currentImage = CREATE_STYLEGUIDE_IMAGE_URL;
+                currentImage = ATTACH_IMAGE_URL;
+                break;
+            case '7':
+                currentImage = JOIN_IMAGE_URL;
                 break;
             default:
                 currentImage = PUV_IMAGE_URL;
@@ -177,6 +181,10 @@ class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, L
     
                         {/* Section: Join */}
                         <JoinSection />
+
+                        <Waypoint
+                            onEnter={this._handleWaypointEnter('7')}
+                        /> 
     
                     </div>
     
