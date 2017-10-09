@@ -3,16 +3,14 @@
 /************************************/
 import * as React from 'react';
 
-const explanationImage = require('../../../../../resources/images/add_component_page.png');
+const explanationImage = require('../../../../../resources/images/show_component_page.png');
 
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type PuvSectionProps = {
-    //
-};
+type PuvSectionProps = {/**/};
 
 
 /**

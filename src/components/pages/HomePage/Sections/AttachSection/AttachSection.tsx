@@ -3,7 +3,7 @@
 /************************************/
 import * as React from 'react';
 
-const explanationImage = require('../../../../../resources/images/show_component_page.png');
+const explanationImage = require('../../../../../resources/images/attach_resource_page.png');
 
 /********************************/
 /*      INTERFACES & TYPES      */
