@@ -323,6 +323,8 @@ NOTE: Boostrap 4 has a flex set
 
 .fontSmoothing-reset {-webkit-font-smoothing: initial;}
 
+.textShadow-close {text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
+
 
 
 /**
@@ -369,6 +371,11 @@ NOTE: Boostrap 4 has a flex set
 .borderRight-4 {border-right: 4px solid}
 .borderRight-5 {border-right: 5px solid}
 .borderRight-6 {border-right: 6px solid}
+
+/* Border types */
+.borderStyle-dashed {border-style: dashed;}
+.borderStyle-dotted {border-style: dotted;}
+.borderStyle-solid {border-style: solid;}
 
 /* Border brand colors */
 .borderColor-lightPrimary    {border-color: map-get($color, lightPrimary);}
