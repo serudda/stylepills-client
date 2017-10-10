@@ -992,52 +992,84 @@ NOTE: Boostrap 4 has a flex set
 /* Background UI colors */
 .sp-bg-positive {
   background-color: #74C080; }
+  .sp-bg-positive--hover:hover {
+    background-color: #74C080; }
 
 .sp-bg-negative {
   background-color: #FF4949; }
+  .sp-bg-negative--hover:hover {
+    background-color: #FF4949; }
 
 .sp-bg-warning {
   background-color: #FFC82C; }
+  .sp-bg-warning--hover:hover {
+    background-color: #FFC82C; }
 
 .sp-bg-info {
   background-color: #408FEC; }
+  .sp-bg-info--hover:hover {
+    background-color: #408FEC; }
 
 /* Background Grey colors */
 .sp-bg-black {
   background-color: #24292e; }
+  .sp-bg-black--hover:hover {
+    background-color: #24292e; }
 
 .sp-bg-mirage {
   background-color: #1F2D3D; }
+  .sp-bg-mirage--hover:hover {
+    background-color: #1F2D3D; }
 
 .sp-bg-steel {
   background-color: #273444; }
+  .sp-bg-steel--hover:hover {
+    background-color: #273444; }
 
 .sp-bg-slate {
   background-color: #3C4858; }
+  .sp-bg-slate--hover:hover {
+    background-color: #3C4858; }
 
 .sp-bg-silver {
   background-color: #8492A6; }
+  .sp-bg-silver--hover:hover {
+    background-color: #8492A6; }
 
 .sp-bg-smoke {
   background-color: #E0E6ED; }
+  .sp-bg-smoke--hover:hover {
+    background-color: #E0E6ED; }
 
 .sp-bg-darkSmoke {
   background-color: #D3DCE6; }
+  .sp-bg-darkSmoke--hover:hover {
+    background-color: #D3DCE6; }
 
 .sp-bg-extraDarkSmoke {
   background-color: #C0CCDA; }
+  .sp-bg-extraDarkSmoke--hover:hover {
+    background-color: #C0CCDA; }
 
 .sp-bg-snow {
   background-color: #F9FAFC; }
+  .sp-bg-snow--hover:hover {
+    background-color: #F9FAFC; }
 
 .sp-bg-darkSnow {
   background-color: #EFF2F7; }
+  .sp-bg-darkSnow--hover:hover {
+    background-color: #EFF2F7; }
 
 .sp-bg-extraDarkSnow {
   background-color: #E5E9F2; }
+  .sp-bg-extraDarkSnow--hover:hover {
+    background-color: #E5E9F2; }
 
 .sp-bg-white {
   background-color: #FFFFFF; }
+  .sp-bg-white--hover:hover {
+    background-color: #FFFFFF; }
 
 /**********************************************************/
 /*                        BUTTONS                         */
@@ -1121,6 +1153,13 @@ NOTE: Boostrap 4 has a flex set
       background-color: #FFFFFF;
       text-decoration: none;
       color: #3C4858; }
+  .sp-btn--black-ghost {
+    background: 0 0;
+    border: 2px solid #24292e;
+    color: #24292e; }
+    .sp-btn--black-ghost:hover {
+      text-decoration: none;
+      color: #3C4858; }
 
 /**********************************************************/
 /*                         LINKS                          */
@@ -1153,22 +1192,33 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none; }
     .sp-link--box--white:focus {
       text-decoration: none; }
+  .sp-link--box--black {
+    color: #24292e; }
+    .sp-link--box--black:hover {
+      background-color: #E0E6ED;
+      color: #3C4858;
+      text-decoration: none; }
+    .sp-link--box--black:focus {
+      text-decoration: none; }
 
 .Header {
   z-index: 1;
   padding-top: 16px;
   padding-bottom: 16px;
   color: rgba(255, 255, 255, 0.75);
-  background-color: #24292e;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
   font-size: 16px; }
   .Header__logo {
-    font-size: 24px;
-    color: #FFFFFF;
+    font-size: 20px;
+    color: #24292e;
     white-space: nowrap; }
     .Header__logo img {
-      margin: -5px 15px -1px -2px; }
-    .Header__logo:hover {
+      margin: -6px 10px -1px -2px; }
+    .Header__logo.is-reversed {
       color: #FFFFFF; }
+    .Header__logo:hover {
+      color: #24292e; }
 
 /**
  * COLOR COMPONENT

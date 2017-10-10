@@ -6,6 +6,8 @@ import { graphql, compose, ChildProps } from 'react-apollo';
 
 import { GET_ALL_UI_COMPONENTS_QUERY, GetAllResponse } from '../../../models/uiComponent/uiComponent.query';
 
+import Header from '../../common/Header/Header';
+import FilterSubNav from '../../common/FilterSubNav/FilterSubNav';
 import ComponentsList from '../../common/ComponentsList/ComponentsList';
 // -----------------------------------
 
@@ -67,6 +69,8 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
         /***************************/
         return (
             <div className="ComponentsListPage">
+                <Header />
+                <FilterSubNav />
                 <ComponentsList components={data.uiComponents}/>
             </div>
         );

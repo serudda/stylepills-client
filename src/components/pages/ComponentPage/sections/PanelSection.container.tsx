@@ -114,8 +114,8 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                             <div className="col-auto mr-auto">
                                 {/* Logo */}
                                 <div className="ml-4">
-                                    <a className="Header__logo m-0 link-reset" href="/">
-                                        <img src={logo} alt="Stylepills" width="28px"/>
+                                    <a className="Header__logo is-reversed m-0 link-reset" href="/">
+                                        <img src={logo} alt="Stylepills" width="20px"/>
                                         <span className="fontFamily-quicksand fontWeight-9">Stylepills</span>
                                     </a>
                                 </div>
@@ -167,7 +167,7 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                             {/* <div className="otherActions"></div> */}
                             <div className="mainAction">
                                 <a href={download} 
-                                    className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer link-reset">
+                                   className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer link-reset">
                                     Download Component
                                 </a>
                             </div>

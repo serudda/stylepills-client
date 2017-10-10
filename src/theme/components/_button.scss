@@ -120,6 +120,16 @@
             text-decoration: none;
             color: map-get($color, slate);
         }
+    }
 
+    &--black-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, black);
+        color: map-get($color, black);
+
+        &:hover {
+            text-decoration: none;
+            color: map-get($color, slate);
+        }
     }
 }

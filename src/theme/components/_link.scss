@@ -54,5 +54,19 @@
             }
         }
 
+        &--black {
+            color: map-get($color, black);
+
+            &:hover {
+                background-color: map-get($color, smoke);
+                color: map-get($color, slate);
+                text-decoration: none;
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
+        }
+
     }
 }
