@@ -1,0 +1,72 @@
+/**********************************************************/
+/*                         LINKS                          */
+/**********************************************************/
+
+.sp-link {
+    text-decoration: none;
+    transition: background 300ms ease-out;
+    cursor: pointer;
+
+    &--box {
+
+
+        /// BOX LINK TYPE
+
+        &--primary {
+            color: map-get($color, primary);
+
+            &:hover {
+                background-color: map-get($color, primary);
+                color: map-get($color, slate);
+                text-decoration: none;
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
+        }
+
+        &--secondary {
+            color: map-get($color, secondary);
+
+            &:hover {
+                background-color: map-get($color, secondary);
+                color: map-get($color, white);
+                text-decoration: none;
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
+        }
+
+        &--white {
+            color: map-get($color, white);
+
+            &:hover {
+                background-color: map-get($color, smoke);
+                color: map-get($color, slate);
+                text-decoration: none;
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
+        }
+
+        &--black {
+            color: map-get($color, black);
+
+            &:hover {
+                background-color: map-get($color, smoke);
+                color: map-get($color, slate);
+                text-decoration: none;
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
+        }
+
+    }
+}

@@ -9,13 +9,23 @@
 @import 'https://fonts.googleapis.com/css?family=Poppins';
 @import 'https://fonts.googleapis.com/css?family=Quicksand';
 
+
 // All Core Sass files goes into the theme/core files (variables, globals)
 // --------------------------------------------------
 @import '../../../theme/core/global';
 @import '../../../theme/core/helper';
 
 
-// MainApp Components (modals, etc)
+// Basic Components (buttons, inputs, labels, etc)
+// --------------------------------------------------
+
+// Button Basic Component Style
+@import '../../../theme/components/button';
+// Link Basic Component Style
+@import '../../../theme/components/link';
+
+
+// React Components (Header, Modals, etc)
 // --------------------------------------------------
 
 // Header Component Style
@@ -26,6 +36,8 @@
 @import '../../common/ColorPalette/ColorPalette';
 // Component Box Component Style
 @import '../../common/ComponentBox/ComponentBox';
+// Components List Component Style
+@import '../../common/ComponentsList/ComponentsList';
 // IFrame Component Style
 @import '../../common/Iframe/Iframe';
 // Footer Component Style

@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import ComponentBox, { IComponentBoxOptions } from '../../../common/ComponentBox/ComponentBox.presentation';
+import ComponentBox from '../../../common/ComponentBox/ComponentBox';
 import { UiComponent } from '../../../../models/uiComponent/uiComponent.model';
 
 
@@ -22,13 +22,8 @@ interface IOwnProps {
  */
 class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
 
-    private componentBoxOptions: IComponentBoxOptions;
-
     constructor() {
         super();
-        this.componentBoxOptions = {
-            isClicked: false
-        };
     }
 
     /*   COMPONENTDIDMOUNT    */
@@ -83,7 +78,7 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
 
                 {/* PREVIEW COMPONENT */}
                 <div className="previewComponent boxShadow-float borderRadius-md">
-                    <ComponentBox data={data} options={this.componentBoxOptions}/>
+                    <ComponentBox component={data} isClicked={false}/>
                 </div>
                 
             </section>

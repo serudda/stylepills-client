@@ -9,7 +9,7 @@ import gql from 'graphql-tag';
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
 // import { IRootState } from '../../../reducer/reducer.config';
-import NotFound from '../NotFoundPage/NotFoundPage.presentation';
+import NotFound from '../NotFoundPage/NotFoundPage';
 import PanelSection from './sections/PanelSection.container';
 import PreviewSection from './sections/PreviewSection.container';
 
@@ -22,19 +22,6 @@ import PreviewSection from './sections/PreviewSection.container';
  * @returns component page view (Stateful component)
  */
 class ComponentPageContainer extends React.Component<ChildProps<InputProps, Response>, {}> {
-
-    
-    /*   COMPONENTDIDMOUNT    */
-    /**************************/
-    componentDidMount() {        
-        // Init Highlight js
-        // hljs.initHighlightingOnLoad();
-        let header = document.getElementById('header');
-        let footer = document.getElementById('footer');
-
-        header.style.display = 'none';
-        footer.style.display = 'none';
-    }
 
     
     /*        METHODS         */
