@@ -229,7 +229,7 @@ class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, L
                                 alt="Explanation Image"/>
     
                         {/* Footer */}
-                        <div className="rightSide__content__footer position-absolute">
+                        <div className="rightSide__content__footer position-absolute w-100 text-center">
                             <a className="fontFamily-courierNew color-white fontSize-md fontWeight-9 textShadow-close" 
                                 href="https://www.codementor.io/rosa7082/how-we-created-and-launched-stylepill-in-less-than-12-hours-and-got-to-1-on-product-hunt-bu44wpppo"
                                 target="_blank">
