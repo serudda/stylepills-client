@@ -13,9 +13,9 @@ import { UiComponent as UiComponentModel } from './uiComponent.model';
 /********************************/
 
 export const GET_ALL_UI_COMPONENTS_QUERY = gql`
-    query getAllThings {
-        things {
-            ...ThingFragment
+    query getAllUiComponents {
+        uiComponents {
+            ...UiComponentFragment
         }
     }
     ${UI_COMPONENT_FRAGMENT}
@@ -25,25 +25,25 @@ export const GET_ALL_UI_COMPONENTS_QUERY = gql`
 /***********************/
 
 export type GetAllResponse = {
-    things: Array<ThingModel>;
+    uiComponents: Array<UiComponentModel>;
 };
 
 
 // --------------------------------
 
 
-export const GET_THING_BY_ID_QUERY = gql`
-    query getThingById ($id: ID!) {
-        thing(id: $id) {
-            ...ThingFragment
+export const GET_UI_COMPONENT_BY_ID_QUERY = gql`
+    query getUiComponentById ($id: ID!) {
+        uiComponent(id: $id) {
+            ...UiComponentFragment
         }
     }
-    ${THING_FRAGMENT}
+    ${UI_COMPONENT_FRAGMENT}
 `;
 
 /*        TYPE         */
 /***********************/
 
 export type GetByIdResponse = {
-    thing: ThingModel;
+    uiComponent: UiComponentModel;
 };

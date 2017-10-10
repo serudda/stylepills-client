@@ -58,7 +58,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
             return (<p>{data.error.message}</p>);
         }
 
-        if (data.uiComponent === null) {
+        if (data.uiComponents === null) {
             return (<div>No data</div>);
         }
             
@@ -80,7 +80,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
 /********************************/
 /*            QUERY             */
 /********************************/
-const getAllUiComponentsQuery = graphql<GetAllResponse,  ComponentsListPageProps>(
+const getAllUiComponentsQuery = graphql<GetAllResponse, ComponentsListPageProps>(
     GET_ALL_UI_COMPONENTS_QUERY
 );
 
