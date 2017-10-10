@@ -34,6 +34,14 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
         super();
     }
 
+
+    /********************************/
+    /*       COMPONENTDIDMOUNT      */
+    /********************************/
+    componentDidMount() {   
+        window.scrollTo(0, 0);
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
