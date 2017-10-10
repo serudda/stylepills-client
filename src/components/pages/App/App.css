@@ -1303,6 +1303,7 @@ NOTE: Boostrap 4 has a flex set
     margin-left: 50px;
     width: 94.5%; }
   .HomePage .rightSide__content__footer {
+    left: 0;
     bottom: 25px; }
     .HomePage .rightSide__content__footer a:hover {
       color: #FFFFFF;
