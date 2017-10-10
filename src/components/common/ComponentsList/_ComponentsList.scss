@@ -1,0 +1,44 @@
+.ComponentsList {
+
+    .componentBox-container {
+        width: 32%;
+        margin: 0 2% 25px 0;
+        overflow: hidden;
+        position: relative;
+
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+    }
+
+}
+
+
+@media (max-width: 830px) {
+    .ComponentsList {
+        .componentBox-container {
+            width: 49%;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+
+            &:nth-child(3n) {
+                margin-right: 2%;
+            }
+
+        }
+
+    }
+}
+
+
+@media (max-width: 550px) {
+    .ComponentsList {
+        .componentBox-container {
+            width: 100%;
+            margin-right: 0 !important;
+        }
+    }
+}
+

@@ -4,6 +4,7 @@
 import * as React from 'react';
 
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+
 import Iframe from '../Iframe/Iframe.container';
 import { Link } from 'react-router-dom';
 
@@ -11,14 +12,12 @@ import { Link } from 'react-router-dom';
 /************************************/
 /*            INTERFACES            */
 /************************************/
-interface IComponentBoxProps {
-    data: UiComponentModel;
-    options: IComponentBoxOptions;
-}
 
-export interface IComponentBoxOptions {
+/* Own Props */
+type ComponentBoxProps = {
+    component: UiComponentModel;
     isClicked: boolean;
-}
+};
 
 
 /**
@@ -27,28 +26,14 @@ export interface IComponentBoxOptions {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ComponentBox: React.SFC<IComponentBoxProps> = ({ data, options }) => {
-
-    /*       PROPERTIES       */
-    /**************************/
-    const {
-        id,
-        name = '#FFFFFF',  
-        background = '#FFFFFF',
-        html = '',
-        css = ''        
-    } = data;
-
-    const {
-        isClicked = false
-    } = options;
+const ComponentBox: React.SFC<ComponentBoxProps> = ({ component, isClicked }) => {
 
 
     /*   INLINE DYNAMIC STYLES    */
     /******************************/
     
     const COMPONENTBOX_CONTENT: React.CSSProperties = {
-        backgroundColor: background,
+        backgroundColor: component.background,
         height: '0',
         paddingTop: '56.25%',
         overflow: 'hidden',
@@ -68,19 +53,19 @@ const ComponentBox: React.SFC<IComponentBoxProps> = ({ data, options }) => {
 
     /*         MARKUP          */
     /***************************/
+
     return (
         <div className="ComponentBox sp-bg-white border-6 borderColor-white">
             <div className="ComponentBox__title pt-1 pb-2">
                 <p className="fontSize-lg fontFamily-poppins color-silver m-0 ml-3">
-                    {name}
+                    {component.name}
                 </p>
             </div>
             <div className="ComponentBox__content borderRadius-xs" style={COMPONENTBOX_CONTENT}>
                 {isClicked &&
-                    /*<a href="https://codepen.io/notoriousb1t/pen/eGdoPV" className="cover-link" />*/
-                    <Link to={`/component/${id}`} className="cover-link" />
+                    <Link to={`/component/${component.id}`} className="cover-link" />
                 }
-                <Iframe html={html} style={css}/>
+                <Iframe html={component.html} style={component.css}/>
             </div>
             <div className="ComponentBox__footer sp-bg-white position-relative clearfix" style={COMPONENTBOX_FOOTER}>
                 <div className="DesignedBy float-right">

@@ -1215,6 +1215,27 @@ NOTE: Boostrap 4 has a flex set
     border: 0 !important;
     z-index: 1; }
 
+.ComponentsList .componentBox-container {
+  width: 32%;
+  margin: 0 2% 25px 0;
+  overflow: hidden;
+  position: relative; }
+  .ComponentsList .componentBox-container:nth-child(3n) {
+    margin-right: 0; }
+
+@media (max-width: 830px) {
+  .ComponentsList .componentBox-container {
+    width: 49%; }
+    .ComponentsList .componentBox-container:nth-child(2n) {
+      margin-right: 0; }
+    .ComponentsList .componentBox-container:nth-child(3n) {
+      margin-right: 2%; } }
+
+@media (max-width: 550px) {
+  .ComponentsList .componentBox-container {
+    width: 100%;
+    margin-right: 0 !important; } }
+
 .Iframe-wrapper iframe {
   width: 100%;
   height: 100%;

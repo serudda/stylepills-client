@@ -20,18 +20,18 @@ import configureStore from './store/store.config';
 });*/
 
 // Initialize apollo client - DEV
-/*const client = new ApolloClient({
+const client = new ApolloClient({
     networkInterface: createNetworkInterface({
         uri: 'https://stylepills-server-dev.herokuapp.com/graphql'
     }),
-});*/
+});
 
 // Initialize apollo client - PRD
-const client = new ApolloClient({
+/*const client = new ApolloClient({
     networkInterface: createNetworkInterface({
         uri: 'https://stylepills-server.herokuapp.com/graphql'
     }),
-});
+});*/
 
 // Initialize store
 const store = configureStore();
