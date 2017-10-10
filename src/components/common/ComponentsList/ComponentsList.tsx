@@ -29,11 +29,11 @@ const ComponentsList: React.SFC<ComponentsListProps> = ({ components }) => {
     /***************************/
     
     return (
-        <div className="ComponentsList row sp-bg-darkSnow pt-5 pb-5 margin-0">
+        <div className="ComponentsList row sp-bg-darkSnow pt-5 pb-5 margin-0 no-gutters">
             <div className="col">
-                <div className="container position-relative">
-                    <div className="color-slate fontSize-xl borderBottom-1 borderColor-extraDarkSmoke pb-2 mb-5">
-                        Recent
+                <div className="width-wrapper position-relative">
+                    <div className="color-silver fontSize-xl pb-2 mb-1 fontFamily-openSans fontWeight-9">
+                        All components
                     </div>
                 </div>
 
