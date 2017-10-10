@@ -24,19 +24,6 @@ import PreviewSection from './sections/PreviewSection.container';
 class ComponentPageContainer extends React.Component<ChildProps<InputProps, Response>, {}> {
 
     
-    /*   COMPONENTDIDMOUNT    */
-    /**************************/
-    componentDidMount() {        
-        // Init Highlight js
-        // hljs.initHighlightingOnLoad();
-        let header = document.getElementById('header');
-        let footer = document.getElementById('footer');
-
-        header.style.display = 'none';
-        footer.style.display = 'none';
-    }
-
-    
     /*        METHODS         */
     /**************************/ 
     getId() {
