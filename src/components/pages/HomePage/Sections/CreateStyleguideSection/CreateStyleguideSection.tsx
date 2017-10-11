@@ -39,7 +39,7 @@ const CreateStyleguideSection: React.SFC<CreateStyleguideSectionProps> = () => {
                         </h2>
                         <p className="fontSize-xl color-silver m-0">
                             Simplify your development process by having your fonts, typography, and UI components 
-                            together in one convenient place. So you and the team members can have quick and easy access 
+                            together in one convenient place. So you and your team members can have quick and easy access 
                             to the project's styleguide.
                         </p>
                     </div>

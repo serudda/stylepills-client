@@ -33,10 +33,10 @@ const PuvSection: React.SFC<PuvSectionProps> = () => {
                 <div className="col-12">
                     <div className="leftSide__content__text">
                         <h2 className="m-0 mb-4 lineHeight-6">
-                            <span className="color-secondary fontWeight-9">Stylepills</span> is a social repository for Front-end designers and developers.
+                            <span className="color-secondary fontWeight-9">Stylepills</span> is a social repository for front-end designers and developers.
                         </h2>
                         <p className="fontSize-xl color-silver m-0 mb-5">
-                            The best place to host/show off your UI Components, create the styleguides of your projects, and find inspiration in the community's open source components.
+                            The best place to host and show off your UI Components, create Styleguides for your projects, and find inspiration from the community's open source components.
                         </p>
                         <a href="http://eepurl.com/c1fttz"
                             className="sp-btn sp-btn--lg sp-btn--primary borderRadius-md fontWeight-9 fontFamily-openSans">

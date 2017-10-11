@@ -38,7 +38,7 @@ const PrivateComponentSection: React.SFC<PrivateComponentSectionProps> = () => {
                             Need private components?
                         </h2>
                         <p className="fontSize-xl color-silver m-0">
-                            If you are working on a top-secret project, you can make your components be private.
+                            If you are working on a top-secret project, mark your components private.
                         </p>
                     </div>
                 </div>

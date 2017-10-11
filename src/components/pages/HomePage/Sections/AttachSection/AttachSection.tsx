@@ -38,7 +38,7 @@ const AttachSection: React.SFC<AttachSectionProps> = () => {
                             Attach anything
                         </h2>
                         <p className="fontSize-xl color-silver m-0">
-                            Attach any resources associated with your Component so that you'll never lose them again. 
+                            Attach any resources associated with your component so that you'll never lose them again. 
                             From <strong>.psd</strong>, <strong>.ai</strong>, <strong>.sketch</strong> to <strong>.jpg</strong>, 
                             <strong> .png</strong>, and <strong>.svg</strong>.
                         </p>

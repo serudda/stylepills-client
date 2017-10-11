@@ -41,11 +41,11 @@ const JoinSection: React.SFC<JoinSectionProps> = () => {
                             We're working on a closed beta, making the repository with our 
                             <a className="fontWeight-9 sp-link sp-link--box sp-link--box--secondary ml-1" 
                                 href="https://stylepill.carrd.co/#now"
-                                target="_blank">1000+ early subscribers</a>. 
-                            But if you want an access, let us know by signing up, we'll gladly give it to you.
+                                target="_blank">1000+ early subscribers</a>.
+                            If you want early access, please let us know by signing up, and we'll gladly give it to you.
                         </p>
                         <p className="fontSize-md fontWeight-9 color-silver m-0 mb-5">
-                            While we're working on the Stylepills closed beta, we'll send you beautiful open source UI components weekly.
+                            While we're working on the Stylepills closed beta, we'll send you new beautiful open source UI components each week.
                         </p>
                         <div className="row align-items-center">
                             <div className="col mb-2">

@@ -35,10 +35,10 @@ const HostComponentSection: React.SFC<HostComponentSectionProps> = () => {
                 <div className="col-12">
                     <div className="leftSide__content__text">
                         <h2 className="m-0 mb-3">
-                            Host all your own Components
+                            Host all your own components
                         </h2>
                         <p className="fontSize-xl color-silver m-0">
-                            Host all your components so you can find them quickly whenever you need them to include in your projects.
+                            Host all your components so you can find them quickly whenever you need to include them in your projects.
                         </p>
                     </div>
                 </div>

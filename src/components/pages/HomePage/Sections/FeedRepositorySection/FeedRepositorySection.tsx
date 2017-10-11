@@ -38,8 +38,7 @@ const FeedRepositorySection: React.SFC<FeedRepositorySectionProps> = () => {
                             Feed your repository
                         </h2>
                         <p className="fontSize-xl color-silver m-0">
-                            Make your repository grow with the open source UI components of community members. 
-                            Store them in your personal repository.
+                            Grow your repository with the open source UI components of other community members. Store them in your personal repository.
                         </p>
                     </div>
                 </div>
