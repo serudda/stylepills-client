@@ -200,13 +200,13 @@ class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, L
                                 <div className="HeaderNavlink px-0 py-2 m-0 float-right">
     
                                     <a className="sp-link sp-link--box sp-link--box--primary fontSize-sm fontWeight-9 mr-3" 
-                                        href="https://stylepill.carrd.co/#now" 
+                                        href="https://stylepill.carrd.co/" 
                                         target="_blank">
                                         Open
                                     </a>
     
                                     <a className="sp-link sp-link--box sp-link--box--white fontSize-sm fontWeight-9" 
-                                        href="http://eepurl.com/c1fttz" 
+                                        href="https://rdmap.co/roadmap/218" 
                                         target="_blank">
                                         Now
                                     </a>

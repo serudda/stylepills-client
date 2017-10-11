@@ -57,18 +57,27 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
                         <div className="HeaderMenu d-lg-flex justify-content-between fontSmoothing-reset pr-4">
                             <div className="d-lg-flex">
                                 <span className="d-block d-lg-inline-block">
-                                    <div className="HeaderNavlink px-0 py-2 m-0">
-                                        <a className="fontWeight-9 color-darkSecondary no-underline" 
-                                            href="https://stylepill.carrd.co/#now"
+                                    <div className="HeaderNavlink px-0 py-2 m-0 float-right">
+                                    
+                                        <a className="sp-link sp-link--box sp-link--box--secondary fontSize-sm fontWeight-9 mr-3" 
+                                            href="https://stylepill.carrd.co/" 
+                                            target="_blank">
+                                            Open
+                                        </a>
+            
+                                        <a className="sp-link sp-link--box sp-link--box--black fontSize-sm fontWeight-9" 
+                                            href="https://rdmap.co/roadmap/218" 
                                             target="_blank">
                                             Now
                                         </a>
-                                        <span className="textWeight-9 color-extraDarkSmoke mr-2 ml-2">|</span>
-                                        <a className="textWeight-9 color-slate no-underline" 
-                                            href="http://eepurl.com/cYzCeX"
-                                            target="_blank">
-                                            Join List
+            
+                                        <span className="textWeight-9 color-darkSmoke mr-3 ml-3">|</span>
+            
+                                        <a className="sp-btn sp-btn--sm sp-btn--black-ghost sp-bg-smoke--hover borderRadius-sm fontWeight-9" 
+                                            href="http://eepurl.com/c1fttz">
+                                            Sign Up
                                         </a>
+            
                                     </div>
                                 </span>
                             </div>

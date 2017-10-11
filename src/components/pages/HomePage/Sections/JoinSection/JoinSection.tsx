@@ -40,7 +40,7 @@ const JoinSection: React.SFC<JoinSectionProps> = () => {
                         <p className="fontSize-xl color-silver m-0 mb-2">
                             We're working on a closed beta, making the repository with our 
                             <a className="fontWeight-9 sp-link sp-link--box sp-link--box--secondary ml-1" 
-                                href="https://stylepill.carrd.co/#now"
+                                href="https://stylepill.carrd.co/"
                                 target="_blank">1000+ early subscribers</a>.
                             If you want early access, please let us know by signing up, and we'll gladly give it to you.
                         </p>
