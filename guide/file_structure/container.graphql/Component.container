@@ -29,7 +29,7 @@ import NotFound from './component/common/NotFound.container';
 /********************************/
 
 /* NOTE: Representa las propiedades (attributes) del componente. 
-	Esta interface le dice al componente de un nivel superior
+	Este type le dice al componente de un nivel superior
 	que atributos o propiedades recibe este componente*/
 type MyComponentProps = {
 	count: number;
@@ -54,7 +54,7 @@ class MyComponent extends React.Component<ChildProps<InputProps, GetByIdResponse
 		
     	super(props, context);
 
-		// Init State
+		// Inicializamos el State local
       	this.state = {
         	checked: this.props.checked,
       	};
@@ -90,7 +90,7 @@ class MyComponent extends React.Component<ChildProps<InputProps, GetByIdResponse
     /********************************/
     componentWillUnmount() {        
         /* NOTE: Se invoca inmediatamente ANTES de que 
-			el el componente es desmontado del el DOM */
+			el componente es desmontado del el DOM */
     }
 
 
@@ -273,7 +273,8 @@ export default compose(
 getInitialState()
 Mientras antes utilizamos el método especial React API getInitialState() 
 para configurar nuestro estado, con las clases ES6 podemos establecer 
-"this.state" directamente aquí en el constructor.
+"this.state" directamente aquí en el constructor, en otras palabras ya no necesitamos
+usar getInitialState()
 
 ---
 

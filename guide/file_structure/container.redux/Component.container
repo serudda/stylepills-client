@@ -1,0 +1,311 @@
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
+// Las dependencias de React (react, react-redux, react-router, etc)
+import * as React from 'react';
+import { graphql, compose, ChildProps } from 'react-apollo';
+import { connect, Dispatch } from 'react-redux';
+
+// Las dependencias de terceros (graphql, highlight, moment, etc)
+// ...
+
+// Las dependencias de mis models (uiComponent, user, country, colorPalette, color, etc)
+import { Part } from '../../models/part/part.model';
+
+// Las dependencias de mis actions, reducer, store (Redux)
+import { closeBaselineSectionAction } from '../../actions/ui.action';
+import { IUiState } from '../../reducers/ui.reducer';
+import { IRootState } from '../../reducers/reducer.config';
+
+// Las dependencias de mi aplicación (ComponentPage, Tooltip, Form, Component, etc)
+import BaselineSensorList from '../common/BaselineSensorList/BaselineSensorList';
+
+// -----------------------------------
+
+
+/********************************/
+/*      INTERFACES & TYPES      */
+/********************************/
+
+/* NOTE: Representa las propiedades (attributes) del componente. 
+	Este interface le dice al componente de un nivel superior
+	que atributos o propiedades recibe este componente */
+type BaselineSensorListContainerProps = {
+    parts: Array<Part>;
+};
+
+/* Representa los States globales en el Store de Redux, que queremos
+   usar aqui en nuestro componente */
+type IStateProps = {
+    ui: IUiState;
+};
+
+/* Representa las actions que queremos usar aqui en nuestro componente, para
+cambiar un State global en el Store de Redux */
+type IDispatchProps = {
+    actions: {
+        ui: {
+            closeBaselineSection: () => void;
+        }
+    };
+};
+
+/* Representa el State local de este componente, los cambios de State que no le interesan
+a ningun componente externo (e.g. habilitar/deshabilitar un boton, cambio de tabs locales, etc) */
+type LocalStates = { 
+    combinationsUpdated: Array<{
+        id: number,
+        min: number,
+        max: number
+    }>;
+};
+
+
+/***********************************************/
+/*              CLASS DEFINITION               */
+/***********************************************/
+class BaselineSensorListContainer 
+extends React.Component<ChildProps<BaselineSensorListContainerProps & IStateProps & IDispatchProps, {}>, LocalStates> {
+    
+    /********************************/
+    /*         CONSTRUCTOR          */
+    /********************************/
+    constructor() {
+        /* NOTE: No hay necesidad de pasar 'props' en el constructor 
+        si desea utilizarlo en otros lugares. Porque React lo configuró 
+        automáticamente para usted.
+        reference: http://cheng.logdown.com/posts/2016/03/26/683329 */
+        super();
+
+        // Inicializamos el State local
+        this.state = {
+            combinationsUpdated: []
+        };
+        
+        // Bind methods
+        this._handleClick = this._handleClick.bind(this);
+        this._handleChange = this._handleChange.bind(this);
+
+    }
+
+
+    /********************************/
+	/*     COMPONENT_DID_MOUNT      */
+    /********************************/
+    componentDidMount() {   
+        /* NOTE: Se invoca una sola vez, 
+		inmediatamente DESPUES de que el renderizado inicial ocurra */
+    }
+
+
+	/********************************/
+	/*     COMPONENT_WILL_MOUNT     */
+    /********************************/
+    componentWillMount() {  
+        /* NOTE: Se invoca una sola vez, 
+		inmediatamente ANTES de que el renderizado inicial ocurra */
+    }
+
+
+	/********************************/
+	/*    COMPONENT_WILL_UNMOUNT    */
+    /********************************/
+    componentWillUnmount() {        
+        /* NOTE: Se invoca inmediatamente ANTES de que 
+			el componente es desmontado del el DOM */
+    }
+
+
+    /********************************/
+	/*        PUBLIC METHODS        */
+	/********************************/
+
+	/**
+	 * @desc Method description
+	 * @method toggleChecked
+	 * @example this.toggleChecked()
+	 * @public
+	 * @returns {void}
+	 */
+	toggleChecked(): void {
+
+		/* NOTE: Usamos el setState para cambiar los states locales (e.g. checked, cambio de tabs, etc.) 
+			States que no necesitan saber los componentes externos. La unica manera de cambiar los states
+			locales es usando setState. Ademas disparara la actualizacion del component*/
+
+    	this.setState((prevState) => (
+      		{ checked: !prevState.checked }
+    	));
+
+  	}
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+    /**
+	 * @desc Method description. Este metodo es el convencional, que no recibe parametros,
+	 * solo realiza una accion al ser disparado, podria cambiar un State, disparar una action, etc.
+	 * @method _handleChange
+	 * @example this._handleChange()
+	 * @private 
+	 * @returns {void}
+	 */
+    private _handleChange (e: any) {
+        /* Aquí, 'e' es un evento sintético. React define estos eventos sintéticos 
+		de acuerdo con las especificaciones del W3C, por lo que no necesita preocuparse 
+		por la compatibilidad entre navegadores */
+        e.preventDefault();
+        let target = e.target;
+        let value = target.value || 0;
+        let combinationId = target.getAttribute('data-id');
+        let key = target.getAttribute('data-key');
+        
+        // INPUT - NEW DISTANCE
+        let newCombination = {
+            [key]: value,
+            id: combinationId
+        };
+
+        // Save combination updated in Local State
+        this.setState(prevState => ({
+            combinationsUpdated: [...prevState.combinationsUpdated, newCombination]
+        }));
+        
+    }
+
+    /**
+     * @desc HandleClick pasando parametros al metodos
+	 * @important ES6 class property-arrow function esta en stage-2 en el proceso de 
+	 * aceptación para incluir en la proxima version de ECMA
+	 * reference: https://medium.com/@rjun07a/binding-callbacks-in-react-components-9133c0b396c6
+     * @method _handleClick
+     * @example this._handleClick('Sergio')
+     * @private 
+     * @returns {void}
+     */
+    private _handleClick = (item: string) => (e: any) => {
+        e.preventDefault();
+        this._saveCombinationsUpdated(item);
+    }
+
+    /**
+     * @desc Save Min & Max Properties
+     * @method _saveCombinationsUpdated
+     * @example this._saveCombinationsUpdated('Sergio')
+     * @private 
+     * @returns {void}
+     */
+    private _saveCombinationsUpdated(item: string) {
+        this._closeBaselineSection();
+    }
+
+
+    /**
+     * @desc Close Baseline section
+     * @method _closeBaselineSection
+     * @example this._closeBaselineSection()
+     * @private 
+     * @returns {void}
+     */
+    _closeBaselineSection() {
+        /* Disparamos la action global (Redux) que se encarga de cerrar la section:
+            BaselineSection. Al dispararse esta accion, se activara su correspondiente
+            reducer, el cual se encargara de cambiar el State global en el Store de Redux */
+        this.props.actions.ui.closeBaselineSection();
+    }
+
+    
+    /********************************/
+    /*        RENDER MARKUP         */
+    /********************************/
+    render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const {
+            /* Aqui se listan todas las propiedades que son pasados del padre asociadas
+            en 'BaselineSensorListContainerProps' type */
+            parts
+        } = this.props;
+                    
+        
+        /*         MARKUP          */
+        /***************************/
+        return (
+            <section className="BaselineSensorListContainer container">             
+
+                {/* Title */}
+                <div className="row mb-4">
+                    <div className="col text-center">
+                        <h3>
+                            Baseline Sensor Manage
+                        </h3>
+                    </div>
+                </div>
+                
+                {/* Real-time sensor ranges list */}
+                <BaselineSensorList parts={parts} onMinInputChange={this._handleChange} onMaxInputChange={this._handleChange}/>
+
+                <hr className="borderStyle-dashed mb-5" />
+
+                {/* Save new distances */}
+                <div className="row mb-5">
+                    <div className="col">
+                        <button className="btn btn-success btn-lg btn-block"
+                                onClick={this._handleClick}>
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+        );
+
+
+    }
+
+
+}
+
+
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+/* Aqui asociamos nuestro componente con los State del Store Redux,
+en este caso, lo vinculamos con el State global: ui, el cual se encarga de
+gestionar los cambios de State entre componentes (abrir un modal, cerrar un modal, etc) */
+function mapStateToProps(state: IRootState): IStateProps {
+    return {
+        ui:  state.ui
+    };
+}
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+/* Aqui asociamos nuestro componente con las actions de la aplicación (Redux) */
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): IDispatchProps {
+    return {
+        actions: {
+            ui: {
+                closeBaselineSection: () => dispatch(closeBaselineSectionAction())
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const baselineSensorListContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
+
+
+/*         EXPORT          */
+/***************************/
+export default compose(
+    baselineSensorListContainerConnect
+)(BaselineSensorListContainer);

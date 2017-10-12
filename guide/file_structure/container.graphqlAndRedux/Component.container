@@ -1,0 +1,352 @@
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
+// Las dependencias de React (react, react-redux, react-router, etc)
+import * as React from 'react';
+import { graphql, compose, ChildProps } from 'react-apollo';
+import { connect, Dispatch } from 'react-redux';
+
+// Las dependencias de terceros (graphql, highlight, moment, etc)
+// ...
+
+// Las dependencias de mis models (uiComponent, user, country, colorPalette, color, etc)
+import { Part } from '../../models/part/part.model';
+
+// Las dependencias de mis actions, reducer, store (Redux)
+import { closeRealTimeSectionAction } from '../../actions/ui.action';
+import { IUiState } from '../../reducers/ui.reducer';
+import { IRootState } from '../../reducers/reducer.config';
+
+// Las dependencias de mis queries, mutations, subscriptions
+import { UPDATE_COMBINATION_MUTATION } from '../../models/combination/combination.mutation';
+import { GET_ALL_THINGS_QUERY, GetAllResponse } from '../../models/thing/thing.query';
+
+// Las dependencias de mi aplicación (ComponentPage, Tooltip, Form, Component, etc)
+import RealTimeSensorList from '../common/RealTimeSensorList/RealTimeSensorList';
+
+// -----------------------------------
+
+
+/********************************/
+/*      INTERFACES & TYPES      */
+/********************************/
+
+/* NOTE: Representa las propiedades (attributes) del componente. 
+	Este type le dice al componente de un nivel superior
+	que atributos o propiedades recibe este componente */
+type RealTimeSensorListContainerProps = {
+    parts: Array<Part>;
+};
+
+/* Representa los States globales en el Store de Redux, que queremos
+   usar aqui en nuestro componente */
+type IStateProps = {
+    ui: IUiState;
+};
+
+/* Representa las actions que queremos usar aqui en nuestro componente, para
+cambiar un State global en el Store de Redux */
+type IDispatchProps = {
+    actions: {
+        ui: {
+            closeRealTimeSection: () => void;
+        }
+    };
+};
+
+/* Representa el State local de este componente, los cambios de State que no le interesan
+a ningun componente externo (e.g. habilitar/deshabilitar un boton, cambio de tabs locales, etc) */
+type LocalStates = { 
+    combinationsUpdated: Array<{
+        id: number,
+        distance: string
+    }>;
+};
+
+
+/***********************************************/
+/*              CLASS DEFINITION               */
+/***********************************************/
+class RealTimeSensorListContainer 
+extends React.Component<ChildProps<RealTimeSensorListContainerProps & IStateProps & IDispatchProps, GetAllResponse>, LocalStates> {
+
+    
+    /********************************/
+    /*         CONSTRUCTOR          */
+    /********************************/
+    constructor() {
+        /* NOTE: No hay necesidad de pasar 'props' en el constructor 
+        si desea utilizarlo en otros lugares. Porque React lo configuró 
+        automáticamente para usted.
+        reference: http://cheng.logdown.com/posts/2016/03/26/683329 */
+        super();
+
+		// Inicializamos el State local
+        this.state = {
+            combinationsUpdated: []
+        };
+        
+        // Bind methods
+        this._handleClick = this._handleClick.bind(this);
+        this._handleChange = this._handleChange.bind(this);
+
+    }
+
+
+	/********************************/
+	/*     COMPONENT_DID_MOUNT      */
+    /********************************/
+    componentDidMount() {   
+        /* NOTE: Se invoca una sola vez, 
+		inmediatamente DESPUES de que el renderizado inicial ocurra */
+    }
+
+
+	/********************************/
+	/*     COMPONENT_WILL_MOUNT     */
+    /********************************/
+    componentWillMount() {  
+        /* NOTE: Se invoca una sola vez, 
+		inmediatamente ANTES de que el renderizado inicial ocurra */
+    }
+
+
+	/********************************/
+	/*    COMPONENT_WILL_UNMOUNT    */
+    /********************************/
+    componentWillUnmount() {        
+        /* NOTE: Se invoca inmediatamente ANTES de que 
+			el componente es desmontado del el DOM */
+    }
+
+
+	/********************************/
+	/*        PUBLIC METHODS        */
+	/********************************/
+
+	/**
+	 * @desc Method description
+	 * @method toggleChecked
+	 * @example this.toggleChecked()
+	 * @public
+	 * @returns {void}
+	 */
+	toggleChecked(): void {
+
+		/* NOTE: Usamos el setState para cambiar los states locales (e.g. checked, cambio de tabs, etc.) 
+			States que no necesitan saber los componentes externos. La unica manera de cambiar los states
+			locales es usando setState. Ademas disparara la actualizacion del component*/
+
+    	this.setState((prevState) => (
+      		{ checked: !prevState.checked }
+    	));
+
+  	}
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+    /**
+	 * @desc Method description. Este metodo es el convencional, que no recibe parametros,
+	 * solo realiza una accion al ser disparado, podria cambiar un State, disparar una action, etc.
+	 * @method _handleChange
+	 * @example this._handleChange()
+	 * @private 
+	 * @returns {void}
+	 */
+    private _handleChange (e: any) {
+		/* Aquí, 'e' es un evento sintético. React define estos eventos sintéticos 
+		de acuerdo con las especificaciones del W3C, por lo que no necesita preocuparse 
+		por la compatibilidad entre navegadores */
+        // e.preventDefault();
+        let target = e.target;
+        let value = target.value || 0;
+        let combinationId = target.getAttribute('data-id');
+        
+        // INPUT - NEW DISTANCE
+        let newCombination = {
+            distance: value,
+            id: combinationId
+        };
+
+        // this.setState({[combinationId]: e.target.value});
+
+		// Save combination updated in Local State
+        this.setState(prevState => ({
+            combinationsUpdated: [...prevState.combinationsUpdated, newCombination]
+        }));
+        
+    }
+
+    /**
+     * @desc HandleClick pasando parametros al metodos
+	 * @important ES6 class property-arrow function esta en stage-2 en el proceso de 
+	 * aceptación para incluir en la proxima version de ECMA
+	 * reference: https://medium.com/@rjun07a/binding-callbacks-in-react-components-9133c0b396c6
+     * @method _handleClick
+     * @example this._handleClick('Sergio')
+     * @private 
+     * @returns {void}
+     */
+    private _handleClick = (item: string) => (e: any) => {
+        e.preventDefault();
+        this._saveDistances(item);
+    }
+
+
+    /**
+     * @desc Save Distances
+     * @method _saveDistances
+     * @example this._saveDistances('Sergio')
+     * @private 
+     * @returns {void}
+     */
+    private _saveDistances(item) {
+        /* 
+            Select each combination in order to validate if the distance is 
+            into min and max range
+        */
+        this.state.combinationsUpdated.forEach(combination => {
+             
+             // INPUT - NEW DISTANCE
+            let input = {
+                distance: combination.distance,
+                id: combination.id
+            };
+			/* props.mutate es incluido en las props de este componente cuando hacemos .compose(updateCombinationMutation)
+				'variables' es una propiedad donde le pasamos el objeto que queremos actualizar, y el id del objeto,
+				'refetchQueries' nos sirve para actualizar de nuevo el componente, despues de actualizarlos, hace el llamado
+				nuevamente para traer los datos actualizados, y renderizar de nuevo el componente con los nuevos datos.  */
+            this.props.mutate({
+                variables: {input},
+                refetchQueries: [{ query: GET_ALL_THINGS_QUERY }],
+            }).then(
+                () => {
+                    // tslint:disable-next-line:no-console
+                    console.log('DISTANCE UPDATED', input);   
+                }
+            );
+
+        });
+
+        this._closeRealTimeSection();
+
+    }
+
+
+    /**
+     * @desc Close Real Time section
+     * @method _closeRealTimeSection
+     * @example this._closeRealTimeSection()
+     * @private 
+     * @returns {void}
+     */
+    _closeRealTimeSection() {
+		* Disparamos la action global (Redux) que se encarga de cerrar la section:
+            BaselineSection. Al dispararse esta accion, se activara su correspondiente
+            reducer, el cual se encargara de cambiar el State global en el Store de Redux */
+        this.props.actions.ui.closeRealTimeSection();
+    }
+
+    
+    /********************************/
+    /*        RENDER MARKUP         */
+    /********************************/
+    render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const {
+			/* Aqui se listan todas las propiedades que son pasados del padre asociadas
+            en 'RealTimeSensorListContainerProps' type */
+            parts
+        } = this.props;
+                    
+        
+        /*         MARKUP          */
+        /***************************/
+        return (
+            <section className="RealTimeSensorListContainer container">             
+
+                {/* Title */}
+                <div className="row mb-4">
+                    <div className="col text-center">
+                        <h3>
+                            Real-Time Sensor Manage
+                        </h3>
+                    </div>
+                </div>{/* Real-time sensor ranges list */}
+                <RealTimeSensorList parts={parts} onInputChange={this._handleChange}/>
+
+                <hr className="borderStyle-dashed mb-5" />
+
+                {/* Save new distances */}
+                <div className="row mb-5">
+                    <div className="col">
+                        <button className="btn btn-success btn-lg btn-block"
+                                onClick={this._handleClick}>
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+        );
+
+
+    }
+
+
+}
+
+
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+/* Aqui asociamos nuestro componente con los State del Store Redux,
+en este caso, lo vinculamos con el State global: ui, el cual se encarga de
+gestionar los cambios de State entre componentes (abrir un modal, cerrar un modal, etc) */
+function mapStateToProps(state: IRootState): IStateProps {
+    return {
+        ui:  state.ui
+    };
+}
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+/* Aqui asociamos nuestro componente con las actions de la aplicación (Redux) */
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): IDispatchProps {
+    return {
+        actions: {
+            ui: {
+                closeRealTimeSection: () => dispatch(closeRealTimeSectionAction())
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*           MUTATION           */
+/********************************/
+const updateCombinationMutation = graphql<any, any>(
+    UPDATE_COMBINATION_MUTATION
+);
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const realTimeSensorListContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
+
+
+/*         EXPORT          */
+/***************************/
+export default compose(
+    updateCombinationMutation,
+    realTimeSensorListContainerConnect
+)(RealTimeSensorListContainer);
