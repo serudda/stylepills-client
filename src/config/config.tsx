@@ -18,8 +18,8 @@ class Config {
     constructor() {
 
         // Init environment (local, development or production)
-        if (process.env.REACT_APP_ENV === 'local') {
-            this._env = process.env.REACT_APP_ENV;
+        if (process.env.REACT_APP_LOCAL_ENV) {
+            this._env = process.env.REACT_APP_LOCAL_ENV;
         } else {
             this._env = process.env.NODE_ENV || 'development';
         }

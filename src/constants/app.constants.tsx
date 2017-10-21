@@ -1,5 +1,5 @@
 /**
- * @desc App values: Keep centralize every global app constant here 
+ * @desc App constants: Keep centralize every global app constant here 
  * (e.g. server urls, domain, google Map Key, accessKeyIdS3, etc.)
  * @type constants
  */
