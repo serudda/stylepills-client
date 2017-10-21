@@ -19,6 +19,9 @@
     outline: none;
     box-shadow: none;
     text-shadow: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 
 
     /// BUTTON-SIZE
@@ -50,6 +53,7 @@
     &--primary {
         background-color: map-get($color, primary);
         color: map-get($color, black);
+        font-weight: 900;
         
         &:hover {
             background-color: map-get($color, darkPrimary);
@@ -67,6 +71,7 @@
     &--secondary {
         background-color: map-get($color, secondary);
         color: map-get($color, white);
+        font-weight: 900;
 
         &:hover {
             background-color: map-get($color, darkSecondary);
@@ -84,6 +89,7 @@
     &--neutral {
         background-color: map-get($color, smoke);
         color: map-get($color, black);
+        font-weight: 900;
 
         &:hover {
             background-color: map-get($color, darkSmoke);
@@ -102,18 +108,33 @@
         background: 0 0;
         border: 2px solid map-get($color, primary);
         color: map-get($color, primary);
+        font-weight: 900;
+
+        &:hover {
+            background-color: map-get($color, primary);
+            text-decoration: none;
+            color: map-get($color, black);
+        }
     }
 
     &--secondary-ghost {
         background: 0 0;
         border: 2px solid map-get($color, secondary);
         color: map-get($color, secondary);
+        font-weight: 900;
+
+        &:hover {
+            background-color: map-get($color, secondary);
+            text-decoration: none;
+            color: map-get($color, white);
+        }
     }
 
     &--white-ghost {
         background: 0 0;
         border: 2px solid map-get($color, white);
         color: map-get($color, white);
+        font-weight: 900;
 
         &:hover {
             background-color: map-get($color, white);
@@ -126,10 +147,18 @@
         background: 0 0;
         border: 2px solid map-get($color, black);
         color: map-get($color, black);
+        font-weight: 900;
 
         &:hover {
+            border: 2px solid map-get($color, silver);
+            background-color: map-get($color, smoke);
             text-decoration: none;
             color: map-get($color, slate);
         }
+    }
+
+    &--combo {
+        background: 0 0;
+        border: 0 hidden transparent;
     }
 }

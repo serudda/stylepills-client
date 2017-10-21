@@ -1071,6 +1071,90 @@ NOTE: Boostrap 4 has a flex set
   .sp-bg-white--hover:hover {
     background-color: #FFFFFF; }
 
+/**
+ *  SVG STROKE COLOR
+ */
+/* SVG Stroke brand colors */
+.stroke-lightPrimary {
+  stroke: #FDF980; }
+
+.stroke-primary {
+  stroke: #FEEB6A; }
+
+.stroke-darkPrimary {
+  stroke: #FCD85E; }
+
+.stroke-lightSecondary {
+  stroke: #3CDAD5; }
+
+.stroke-secondary {
+  stroke: #33ADA9; }
+
+.stroke-darkSecondary {
+  stroke: #288784; }
+
+/* Border UI colors */
+.stroke-positive {
+  stroke: #74C080; }
+
+.stroke-negative {
+  stroke: #FF4949; }
+
+.stroke-warning {
+  stroke: #FFC82C; }
+
+.stroke-info {
+  stroke: #408FEC; }
+
+/* Border Grey colors */
+.stroke-black {
+  stroke: #24292e; }
+
+.stroke-mirage {
+  stroke: #1F2D3D; }
+
+.stroke-steel {
+  stroke: #273444; }
+
+.stroke-slate {
+  stroke: #3C4858; }
+
+.stroke-silver {
+  stroke: #8492A6; }
+
+.stroke-smoke {
+  stroke: #E0E6ED; }
+
+.stroke-darkSmoke {
+  stroke: #D3DCE6; }
+
+.stroke-extraDarkSmoke {
+  stroke: #C0CCDA; }
+
+.stroke-snow {
+  stroke: #F9FAFC; }
+
+.stroke-darkSnow {
+  stroke: #EFF2F7; }
+
+.stroke-extraDarkSnow {
+  stroke: #E5E9F2; }
+
+.stroke-white {
+  stroke: #FFFFFF; }
+
+/**
+ *  SVG STROKE WIDTH
+ */
+.strokeWidth-1 {
+  stroke-width: 1; }
+
+.strokeWidth-2 {
+  stroke-width: 2; }
+
+.strokeWidth-3 {
+  stroke-width: 3; }
+
 /**********************************************************/
 /*                        BUTTONS                         */
 /**********************************************************/
@@ -1090,7 +1174,10 @@ NOTE: Boostrap 4 has a flex set
   transition: background 300ms ease-out;
   outline: none;
   box-shadow: none;
-  text-shadow: none; }
+  text-shadow: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
   .sp-btn--sm {
     padding: 4px 12px;
     font-size: 14px; }
@@ -1106,7 +1193,8 @@ NOTE: Boostrap 4 has a flex set
     width: 100%; }
   .sp-btn--primary {
     background-color: #FEEB6A;
-    color: #24292e; }
+    color: #24292e;
+    font-weight: 900; }
     .sp-btn--primary:hover {
       background-color: #FCD85E;
       text-decoration: none;
@@ -1117,7 +1205,8 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none; }
   .sp-btn--secondary {
     background-color: #33ADA9;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    font-weight: 900; }
     .sp-btn--secondary:hover {
       background-color: #288784;
       text-decoration: none;
@@ -1128,7 +1217,8 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none; }
   .sp-btn--neutral {
     background-color: #E0E6ED;
-    color: #24292e; }
+    color: #24292e;
+    font-weight: 900; }
     .sp-btn--neutral:hover {
       background-color: #D3DCE6;
       text-decoration: none;
@@ -1140,15 +1230,26 @@ NOTE: Boostrap 4 has a flex set
   .sp-btn--primary-ghost {
     background: 0 0;
     border: 2px solid #FEEB6A;
-    color: #FEEB6A; }
+    color: #FEEB6A;
+    font-weight: 900; }
+    .sp-btn--primary-ghost:hover {
+      background-color: #FEEB6A;
+      text-decoration: none;
+      color: #24292e; }
   .sp-btn--secondary-ghost {
     background: 0 0;
     border: 2px solid #33ADA9;
-    color: #33ADA9; }
+    color: #33ADA9;
+    font-weight: 900; }
+    .sp-btn--secondary-ghost:hover {
+      background-color: #33ADA9;
+      text-decoration: none;
+      color: #FFFFFF; }
   .sp-btn--white-ghost {
     background: 0 0;
     border: 2px solid #FFFFFF;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    font-weight: 900; }
     .sp-btn--white-ghost:hover {
       background-color: #FFFFFF;
       text-decoration: none;
@@ -1156,10 +1257,16 @@ NOTE: Boostrap 4 has a flex set
   .sp-btn--black-ghost {
     background: 0 0;
     border: 2px solid #24292e;
-    color: #24292e; }
+    color: #24292e;
+    font-weight: 900; }
     .sp-btn--black-ghost:hover {
+      border: 2px solid #8492A6;
+      background-color: #E0E6ED;
       text-decoration: none;
       color: #3C4858; }
+  .sp-btn--combo {
+    background: 0 0;
+    border: 0 hidden transparent; }
 
 /**********************************************************/
 /*                         LINKS                          */

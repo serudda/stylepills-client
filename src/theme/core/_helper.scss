@@ -656,3 +656,49 @@ NOTE: Boostrap 4 has a flex set
         }
     }
 }
+
+
+/**
+ *  SVG STROKE COLOR
+ */
+
+/* SVG Stroke brand colors */
+.stroke-lightPrimary    {stroke: map-get($color, lightPrimary);}
+.stroke-primary         {stroke: map-get($color, primary);}
+.stroke-darkPrimary     {stroke: map-get($color, darkPrimary);}
+
+.stroke-lightSecondary  {stroke: map-get($color, lightSecondary);}
+.stroke-secondary       {stroke: map-get($color, secondary);}
+.stroke-darkSecondary   {stroke: map-get($color, darkSecondary);}
+
+/* Border UI colors */
+.stroke-positive        {stroke: map-get($color, positive);}
+.stroke-negative        {stroke: map-get($color, negative);}
+.stroke-warning         {stroke: map-get($color, warning);}
+.stroke-info            {stroke: map-get($color, info);}
+
+/* Border Grey colors */
+.stroke-black           {stroke: map-get($color, black);}
+.stroke-mirage          {stroke: map-get($color, mirage);}
+.stroke-steel           {stroke: map-get($color, steel);}
+.stroke-slate           {stroke: map-get($color, slate);}
+.stroke-silver          {stroke: map-get($color, silver);}
+
+.stroke-smoke           {stroke: map-get($color, smoke);}
+.stroke-darkSmoke       {stroke: map-get($color, darkSmoke);}
+.stroke-extraDarkSmoke  {stroke: map-get($color, extraDarkSmoke);}
+
+.stroke-snow            {stroke: map-get($color, snow);}
+.stroke-darkSnow        {stroke: map-get($color, darkSnow);}
+.stroke-extraDarkSnow   {stroke: map-get($color, extraDarkSnow);}
+
+.stroke-white           {stroke: map-get($color,white);}
+
+
+/**
+ *  SVG STROKE WIDTH
+ */
+
+.strokeWidth-1 {stroke-width: 1;}
+.strokeWidth-2 {stroke-width: 2;}
+.strokeWidth-3 {stroke-width: 3;}
