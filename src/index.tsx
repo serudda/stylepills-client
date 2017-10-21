@@ -1,37 +1,29 @@
-/************************************/
-/*           DEPENDENCIES           */
-/************************************/
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
-// import 'highlight.js/styles/atom-one-dark.css';
-
-import App from './components/pages/App/App';
+import { config } from './config/config';
 import configureStore from './store/store.config';
 
+import App from './components/pages/App/App';
+// -----------------------------------
 
-// Initialize apollo client - LOCAL
-/*const client = new ApolloClient({
-    networkInterface: createNetworkInterface({
-        uri: 'http://localhost:4000/graphql'
-    }),
-});*/
 
-// Initialize apollo client - DEV
-/*const client = new ApolloClient({
-    networkInterface: createNetworkInterface({
-        uri: 'https://stylepills-server-dev.herokuapp.com/graphql'
-    }),
-});*/
+// Get server config object
+let serverConfig = config.getServerConfig();
 
-// Initialize apollo client - PRD
+
+// Initialize apollo client
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
-        uri: 'https://stylepills-server.herokuapp.com/graphql'
+        uri: serverConfig.serverUrl
     }),
 });
+
 
 // Initialize store
 const store = configureStore();
