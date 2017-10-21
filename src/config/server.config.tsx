@@ -19,17 +19,17 @@ export interface IServerConfig {
 export function serverConfig(env: string): IServerConfig {
 
     switch (env) {
-        case 'local':
+        case appConfig.LOCAL:
             return {
                 serverUrl: appConfig.LOCAL_SERVER_URL
             };
         
-        case 'development':
+        case appConfig.DEV:
             return {
                 serverUrl: appConfig.DEV_SERVER_URL
             };
         
-        case 'production':
+        case appConfig.PRD:
             return {
                 serverUrl: appConfig.PRD_SERVER_URL
             };

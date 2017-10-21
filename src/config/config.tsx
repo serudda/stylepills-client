@@ -2,6 +2,7 @@
 /*         DEPENDENCIES         */
 /********************************/
 import { serverConfig, IServerConfig } from './server.config';
+import * as appConfig from '../constants/app.constants';
 // -----------------------------------
 
 
@@ -21,9 +22,10 @@ class Config {
         if (process.env.REACT_APP_LOCAL_ENV) {
             this._env = process.env.REACT_APP_LOCAL_ENV;
         } else {
-            this._env = process.env.NODE_ENV || 'development';
+            this._env = process.env.NODE_ENV || appConfig.DEV;
         }
         
+        // Init server config
         this._serverConfig = serverConfig(this._env);
     }
 
