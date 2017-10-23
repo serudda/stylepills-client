@@ -1179,13 +1179,13 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 5px;
   border-radius: 5px; }
   .sp-btn--sm {
-    padding: 4px 12px;
+    padding: 4px 10px;
     font-size: 14px; }
   .sp-btn--md {
-    padding: 7px 21px;
+    padding: 8px 20px;
     font-size: 16px; }
   .sp-btn--lg {
-    padding: 10px 50px;
+    padding: 12px 30px;
     font-size: 18px; }
   .sp-btn--block {
     display: block;
@@ -1266,7 +1266,36 @@ NOTE: Boostrap 4 has a flex set
       color: #3C4858; }
   .sp-btn--combo {
     background: 0 0;
-    border: 0 hidden transparent; }
+    border: 0 hidden transparent;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; }
+    .sp-btn--combo:hover {
+      background-color: #E0E6ED;
+      text-decoration: none;
+      color: #3C4858; }
+  .sp-btn--combo-secondary-ghost {
+    background: 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid #33ADA9; }
+    .sp-btn--combo-secondary-ghost:hover {
+      background-color: #33ADA9;
+      text-decoration: none;
+      color: #FFFFFF; }
+      .sp-btn--combo-secondary-ghost:hover .icon {
+        stroke: #FFFFFF; }
+  .sp-btn--combo-neutral-ghost {
+    background: 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid #D3DCE6; }
+    .sp-btn--combo-neutral-ghost:hover {
+      background-color: #E0E6ED;
+      text-decoration: none;
+      color: #3C4858; }
 
 /**********************************************************/
 /*                         LINKS                          */
@@ -1307,6 +1336,16 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none; }
     .sp-link--box--black:focus {
       text-decoration: none; }
+
+/**********************************************************/
+/*                         STATS                          */
+/**********************************************************/
+.sp-stats {
+  display: flex;
+  align-items: center; }
+  .sp-stats__item {
+    display: flex;
+    align-items: center; }
 
 .Header {
   z-index: 1;

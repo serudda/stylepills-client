@@ -48,7 +48,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
             </div>
 
             {/* Buttons */}
-            <div className="row">
+            <div className="row mb-5">
                 <div className="col">
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Buttons</h2>
                     
@@ -265,16 +265,185 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                     <button className="sp-btn sp-btn--combo sp-btn--sm">
                         <span>small combo button</span>
                         <Icon icon="chevronDown" 
-                              iconClass="stroke-secondary strokeWidth-3"                              
+                              iconClass="icon stroke-secondary strokeWidth-3 ml-1"
                               width="15" height="15"/>
                     </button>
 
                     <br/><br/>
 
-                    {/* Primary medium button */}
-                    <button className="sp-btn sp-btn--primary sp-btn--md">
-                        Primary medium button
+                    {/* medium button */}
+                    <button className="sp-btn sp-btn--combo sp-btn--md">
+                        <span>medium combo button</span>
+                        <Icon icon="chevronDown" 
+                            iconClass="icon stroke-secondary strokeWidth-3 ml-2"
+                            width="15" height="15"/>
                     </button>
+
+                    <br/><br/>
+
+                    {/* large button */}
+                    <button className="sp-btn sp-btn--combo sp-btn--lg">
+                        <span>large combo button</span>
+                        <Icon icon="chevronDown" 
+                            iconClass="icon stroke-secondary strokeWidth-3 ml-2"
+                            width="16" height="16"/>
+                    </button>
+
+                    <br/><br/>
+
+                    {/* small secondary ghost button */}
+                    <button className="sp-btn sp-btn--combo-secondary-ghost sp-btn--sm">
+                        <span>small combo button</span>
+                        <Icon icon="chevronDown" 
+                              iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                              width="15" height="15"/>
+                    </button>
+
+                    <br/><br/>
+
+                    {/* medium secondary ghost button */}
+                    <button className="sp-btn sp-btn--combo-secondary-ghost sp-btn--md">
+                        <span>medium combo button</span>
+                        <Icon icon="chevronDown" 
+                            iconClass="icon stroke-secondary strokeWidth-3 ml-2"
+                            width="15" height="15"/>
+                    </button>
+
+                    <br/><br/>
+
+                    {/* large secondary ghost button */}
+                    <button className="sp-btn sp-btn--combo-secondary-ghost sp-btn--lg">
+                        <span>large combo button</span>
+                        <Icon icon="chevronDown" 
+                            iconClass="icon stroke-secondary strokeWidth-3 ml-2"
+                            width="16" height="16"/>
+                    </button>
+
+                    <br/><br/>
+
+                    {/* small neutral ghost button */}
+                    <button className="sp-btn sp-btn--combo-neutral-ghost sp-btn--sm">
+                        <span>small combo button</span>
+                        <Icon icon="chevronDown" 
+                              iconClass="stroke-secondary strokeWidth-3 ml-1"
+                              width="15" height="15"/>
+                    </button>
+
+                    <br/><br/>
+
+                    {/* medium neutral ghost button */}
+                    <button className="sp-btn sp-btn--combo-neutral-ghost sp-btn--md">
+                        <span>medium combo button</span>
+                        <Icon icon="chevronDown" 
+                            iconClass="stroke-secondary strokeWidth-3 ml-2"
+                            width="15" height="15"/>
+                    </button>
+
+                    <br/><br/>
+
+                    {/* large neutral ghost button */}
+                    <button className="sp-btn sp-btn--combo-neutral-ghost sp-btn--lg">
+                        <span>large combo button</span>
+                        <Icon icon="chevronDown" 
+                            iconClass="stroke-secondary strokeWidth-3 ml-2"
+                            width="16" height="16"/>
+                    </button>
+
+                </div>
+            </div>
+
+            {/* Stats */}
+            <div className="row mb-5">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Stats</h2>
+
+                    {/* Small stats */}
+                    <div className="sp-stats">
+                        <div className="like sp-stats__item">
+                            <Icon icon="heart" 
+                                iconClass="stroke-black strokeWidth-3 mr-1"
+                                width="14" height="14"/>
+                            <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="comment sp-stats__item">
+                            <Icon icon="messageCircle"
+                                iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
+                                width="14" height="14"/>
+                            <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="store sp-stats__item">
+                            <Icon icon="package"
+                                iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
+                                width="14" height="14"/>
+                            <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="view sp-stats__item">
+                            <Icon icon="eye" 
+                                iconClass="stroke-slate strokeWidth-3 mr-1 ml-3"
+                                width="14" height="14"/>
+                            <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    {/* Medium stats */}
+                    <div className="sp-stats">
+                        <div className="like sp-stats__item">
+                            <Icon icon="heart" 
+                                iconClass="stroke-black strokeWidth-3 mr-1"
+                                width="16" height="16"/>
+                            <span className="fontSize-md fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="comment sp-stats__item">
+                            <Icon icon="messageCircle"
+                                iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
+                                width="16" height="16"/>
+                            <span className="fontSize-md fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="store sp-stats__item">
+                            <Icon icon="package"
+                                iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
+                                width="16" height="16"/>
+                            <span className="fontSize-md fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="view sp-stats__item">
+                            <Icon icon="eye" 
+                                iconClass="stroke-slate strokeWidth-3 mr-1 ml-3"
+                                width="16" height="16"/>
+                            <span className="fontSize-md fontWeight-9 color-silver">999</span>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    {/* Large stats */}
+                    <div className="sp-stats">
+                        <div className="like sp-stats__item">
+                            <Icon icon="heart" 
+                                iconClass="stroke-black strokeWidth-3 mr-1"
+                                width="18" height="18"/>
+                            <span className="fontSize-lg fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="comment sp-stats__item">
+                            <Icon icon="messageCircle"
+                                iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
+                                width="18" height="18"/>
+                            <span className="fontSize-lg fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="store sp-stats__item">
+                            <Icon icon="package"
+                                iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
+                                width="18" height="18"/>
+                            <span className="fontSize-lg fontWeight-9 color-silver">999</span>
+                        </div>
+                        <div className="view sp-stats__item">
+                            <Icon icon="eye" 
+                                iconClass="stroke-slate strokeWidth-3 mr-1 ml-3"
+                                width="18" height="18"/>
+                            <span className="fontSize-lg fontWeight-9 color-silver">999</span>
+                        </div>
+                    </div> 
 
                 </div>
             </div>
