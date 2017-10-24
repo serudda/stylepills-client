@@ -1,0 +1,105 @@
+/**********************************************************/
+/*                         AVATAR                         */
+/**********************************************************/
+
+
+/// VARIABLES
+$avatar-default-path: 'https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg';
+$avatar-sizes: (
+    xs: 32px,
+    sm: 40px,
+    md: 70px,
+    lg: 100px,
+);
+
+.sp-avatar {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    color: map-get($color, darkSmoke);
+    background-color: map-get($color, darkSmoke);
+    background: url($avatar-default-path) 0 0 no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+
+    /// AVATAR_SIZE
+    &--xxxs {
+        height: 20px;
+        width: 20px;
+    }
+
+    &--xxs {
+        height: 25px;
+        width: 25px;
+    }
+
+    &--xs {
+        height: 40px;
+        width: 40px;
+    }
+
+    &--sm {
+        height: 55px;
+        width: 55px;
+    }
+
+    &--md {
+        width: 70px;
+        height: 70px;
+    }
+
+    &--lg {
+        width: 85px;
+        height: 85px;
+    }
+
+    &--xl {
+        width: 100px;
+        height: 100px;
+    }
+
+    &--xxl {
+        width: 115px;
+        height: 115px;
+    }
+
+    &--empty {
+        background: $avatar-default-path;
+    }
+
+    /// ELEMENTS
+    img {
+        text-indent:-9999px;
+    }
+
+}
+
+
+/* DESIGNED BY */
+.sp-designedBy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &:hover {
+        color: map-get($color, secondary);
+    }
+
+    &--xs {
+        font-size: 12px;
+    }
+
+    &--sm {
+        font-size: 14px;
+    }
+
+    &--md {
+        font-size: 16px;
+    }
+}

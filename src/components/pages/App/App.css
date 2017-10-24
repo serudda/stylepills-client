@@ -93,6 +93,56 @@ NOTE: Boostrap 4 has a flex set
   -ms-flex: 1 1 auto;
   flex: 1 1 auto; }
 
+.order-0 {
+  -webkit-box-ordinal-group: 1;
+  -ms-flex-order: 0;
+  order: 0; }
+
+.order-1 {
+  -webkit-box-ordinal-group: 2;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.order-2 {
+  -webkit-box-ordinal-group: 3;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.order-3 {
+  -webkit-box-ordinal-group: 4;
+  -ms-flex-order: 3;
+  order: 3; }
+
+.order-4 {
+  -webkit-box-ordinal-group: 5;
+  -ms-flex-order: 4;
+  order: 4; }
+
+.order-5 {
+  -webkit-box-ordinal-group: 6;
+  -ms-flex-order: 5;
+  order: 5; }
+
+.order-6 {
+  -webkit-box-ordinal-group: 7;
+  -ms-flex-order: 6;
+  order: 6; }
+
+.order-7 {
+  -webkit-box-ordinal-group: 8;
+  -ms-flex-order: 7;
+  order: 7; }
+
+.order-8 {
+  -webkit-box-ordinal-group: 9;
+  -ms-flex-order: 8;
+  order: 8; }
+
+.order-last {
+  -webkit-box-ordinal-group: 100000;
+  -ms-flex-order: 99999;
+  order: 99999; }
+
 /**
  *  SPACING
  */
@@ -1156,6 +1206,66 @@ NOTE: Boostrap 4 has a flex set
   stroke-width: 3; }
 
 /**********************************************************/
+/*                         AVATAR                         */
+/**********************************************************/
+.sp-avatar {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #D3DCE6;
+  background-color: #D3DCE6;
+  background: url("https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg") 0 0 no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  .sp-avatar--xxxs {
+    height: 20px;
+    width: 20px; }
+  .sp-avatar--xxs {
+    height: 25px;
+    width: 25px; }
+  .sp-avatar--xs {
+    height: 40px;
+    width: 40px; }
+  .sp-avatar--sm {
+    height: 55px;
+    width: 55px; }
+  .sp-avatar--md {
+    width: 70px;
+    height: 70px; }
+  .sp-avatar--lg {
+    width: 85px;
+    height: 85px; }
+  .sp-avatar--xl {
+    width: 100px;
+    height: 100px; }
+  .sp-avatar--xxl {
+    width: 115px;
+    height: 115px; }
+  .sp-avatar--empty {
+    background: "https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg"; }
+  .sp-avatar img {
+    text-indent: -9999px; }
+
+/* DESIGNED BY */
+.sp-designedBy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; }
+  .sp-designedBy:hover {
+    color: #33ADA9; }
+  .sp-designedBy--xs {
+    font-size: 12px; }
+  .sp-designedBy--sm {
+    font-size: 14px; }
+  .sp-designedBy--md {
+    font-size: 16px; }
+
+/**********************************************************/
 /*                        BUTTONS                         */
 /**********************************************************/
 .sp-btn {
@@ -1202,7 +1312,8 @@ NOTE: Boostrap 4 has a flex set
     .sp-btn--primary:focus {
       background-color: #FEEB6A;
       color: #24292e;
-      text-decoration: none; }
+      text-decoration: none;
+      outline: none; }
   .sp-btn--secondary {
     background-color: #33ADA9;
     color: #FFFFFF;
@@ -1212,9 +1323,7 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none;
       color: #FFFFFF; }
     .sp-btn--secondary:focus {
-      background-color: #33ADA9;
-      color: #FFFFFF;
-      text-decoration: none; }
+      outline: none; }
   .sp-btn--neutral {
     background-color: #E0E6ED;
     color: #24292e;
@@ -1226,7 +1335,8 @@ NOTE: Boostrap 4 has a flex set
     .sp-btn--neutral:focus {
       background-color: #E0E6ED;
       color: #24292e;
-      text-decoration: none; }
+      text-decoration: none;
+      outline: none; }
   .sp-btn--primary-ghost {
     background: 0 0;
     border: 2px solid #FEEB6A;
@@ -1236,6 +1346,8 @@ NOTE: Boostrap 4 has a flex set
       background-color: #FEEB6A;
       text-decoration: none;
       color: #24292e; }
+    .sp-btn--primary-ghost:focus {
+      outline: none; }
   .sp-btn--secondary-ghost {
     background: 0 0;
     border: 2px solid #33ADA9;
@@ -1245,6 +1357,8 @@ NOTE: Boostrap 4 has a flex set
       background-color: #33ADA9;
       text-decoration: none;
       color: #FFFFFF; }
+    .sp-btn--secondary-ghost:focus {
+      outline: none; }
   .sp-btn--white-ghost {
     background: 0 0;
     border: 2px solid #FFFFFF;
@@ -1254,6 +1368,8 @@ NOTE: Boostrap 4 has a flex set
       background-color: #FFFFFF;
       text-decoration: none;
       color: #3C4858; }
+    .sp-btn--white-ghost:focus {
+      outline: none; }
   .sp-btn--black-ghost {
     background: 0 0;
     border: 2px solid #24292e;
@@ -1264,6 +1380,8 @@ NOTE: Boostrap 4 has a flex set
       background-color: #E0E6ED;
       text-decoration: none;
       color: #3C4858; }
+    .sp-btn--black-ghost:focus {
+      outline: none; }
   .sp-btn--combo {
     background: 0 0;
     border: 0 hidden transparent;
@@ -1274,6 +1392,8 @@ NOTE: Boostrap 4 has a flex set
       background-color: #E0E6ED;
       text-decoration: none;
       color: #3C4858; }
+    .sp-btn--combo:focus {
+      outline: none; }
   .sp-btn--combo-secondary-ghost {
     background: 0 0;
     display: flex;
@@ -1286,6 +1406,8 @@ NOTE: Boostrap 4 has a flex set
       color: #FFFFFF; }
       .sp-btn--combo-secondary-ghost:hover .icon {
         stroke: #FFFFFF; }
+    .sp-btn--combo-secondary-ghost:focus {
+      outline: none; }
   .sp-btn--combo-neutral-ghost {
     background: 0 0;
     display: flex;
@@ -1296,6 +1418,8 @@ NOTE: Boostrap 4 has a flex set
       background-color: #E0E6ED;
       text-decoration: none;
       color: #3C4858; }
+    .sp-btn--combo-neutral-ghost:focus {
+      outline: none; }
 
 /**********************************************************/
 /*                         INPUTS                         */

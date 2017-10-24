@@ -451,7 +451,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
             {/* Inputs */}
             <div className="row mb-5">
                 <div className="col">
-                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Stats</h2>
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Inputs</h2>
 
                     {/* small text input */}
                     <input type="text" placeholder="Small text input" className="sp-input sp-input--sm" />
@@ -482,6 +482,109 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                     </div>
 
                 </div>
+            </div>
+
+            {/* Avatars */}
+            <div className="row mb-5">
+
+                <div className="col-12">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">
+                        Avatars
+                    </h2>
+                </div>
+
+                <div className="col-12 d-flex align-items-center mb-5">
+
+                    {/* Extra extra extra small avatar */}
+                    <div className="sp-avatar sp-avatar--xxxs borderRadius-circle">
+                        <img width="22" height="22" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Sergio" />
+                    </div>
+
+                    {/* Extra extra small avatar */}
+                    <div className="sp-avatar sp-avatar--xxs borderRadius-circle">
+                        <img width="25" height="25" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Sergio" />
+                    </div>
+
+                    {/* Extra small avatar */}
+                    <div className="sp-avatar sp-avatar--xs borderRadius-circle">
+                        <img width="40" height="40" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Sergio" />
+                    </div>
+
+                    {/* Small avatar */}
+                    <div className="sp-avatar sp-avatar--sm borderRadius-circle">
+                        <img width="55" height="55" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Carlos" />
+                    </div>
+
+                    {/* Medium avatar */}
+                    <div className="sp-avatar sp-avatar--md borderRadius-circle">
+                        <img width="70" height="70" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Pedro" />
+                    </div>
+
+                    {/* Large avatar */}
+                    <div className="sp-avatar sp-avatar--lg borderRadius-circle">
+                        <img width="85" height="85" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Rosita" />
+                    </div>
+
+                    {/* Extra Large avatar */}
+                    <div className="sp-avatar sp-avatar--xl borderRadius-circle">
+                        <img width="100" height="100" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Rosita" />
+                    </div>
+
+                    {/* Extra Extra Large avatar */}
+                    <div className="sp-avatar sp-avatar--xxl borderRadius-circle">
+                        <img width="115" height="115" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Rosita" />
+                    </div>
+
+                     {/* Extra Extra Large Empty avatar */}
+                     <div className="sp-avatar sp-avatar--xxl borderRadius-circle">
+                        <img width="115" height="115" src="" alt="Rosita" />
+                    </div>
+                </div>
+
+                <div className="col-12">
+
+                    {/* Extra Small Designed by */}
+                    <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver" 
+                        href="https://www.twitter.com/rosa7082" target="_blank">
+                        <span className="order-1">Designed by</span>
+                        <span className="ml-1 order-3">Rosita & Sergio</span>
+                        <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                            <img width="22" height="22"
+                                 src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                 alt="rosa7082" />
+                        </div>
+                    </a>
+
+                    <br/>
+
+                    {/* Small Designed by */}
+                    <a className="sp-designedBy sp-designedBy--sm link-reset fontFamily-poppins fontWeight-6 color-silver" 
+                        href="https://www.twitter.com/rosa7082" target="_blank">
+                        <span className="order-1">Designed by</span>
+                        <span className="ml-1 order-3">Rosita & Sergio</span>
+                        <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                            <img width="22" height="22"
+                                 src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                 alt="rosa7082" />
+                        </div>
+                    </a>
+
+                    <br/>
+
+                    {/* Medium Designed by */}
+                    <a className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-6 color-silver" 
+                        href="https://www.twitter.com/rosa7082" target="_blank">
+                        <span className="order-1">Designed by</span>
+                        <span className="ml-1 order-3">Rosita & Sergio</span>
+                        <div className="sp-avatar sp-avatar--xxs borderRadius-circle ml-1 order-2">
+                            <img width="25" height="25"
+                                 src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                 alt="rosa7082" />
+                        </div>
+                    </a>
+
+                </div>
+
             </div>
 
         </div>

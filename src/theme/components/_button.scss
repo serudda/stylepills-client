@@ -65,6 +65,7 @@
             background-color: map-get($color, primary);
             color: map-get($color, black);
             text-decoration: none;
+            outline: none;
         }
     }
 
@@ -80,9 +81,7 @@
         }
 
         &:focus {
-            background-color: map-get($color, secondary);
-            color: map-get($color, white);
-            text-decoration: none;
+            outline: none;
         }
     }
 
@@ -101,6 +100,7 @@
             background-color: map-get($color, smoke);
             color: map-get($color, black);
             text-decoration: none;
+            outline: none;
         }
     }
 
@@ -115,6 +115,10 @@
             text-decoration: none;
             color: map-get($color, black);
         }
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &--secondary-ghost {
@@ -128,6 +132,10 @@
             text-decoration: none;
             color: map-get($color, white);
         }
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &--white-ghost {
@@ -140,6 +148,10 @@
             background-color: map-get($color, white);
             text-decoration: none;
             color: map-get($color, slate);
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 
@@ -155,6 +167,10 @@
             text-decoration: none;
             color: map-get($color, slate);
         }
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &--combo {
@@ -168,6 +184,10 @@
             background-color: map-get($color, smoke);
             text-decoration: none;
             color: map-get($color, slate);
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 
@@ -186,6 +206,10 @@
                 stroke: map-get($color, white);
             }
         }
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &--combo-neutral-ghost {
@@ -199,6 +223,10 @@
             background-color: map-get($color, smoke);
             text-decoration: none;
             color: map-get($color, slate);
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 }
