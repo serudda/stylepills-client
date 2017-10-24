@@ -286,7 +286,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         <span>large combo button</span>
                         <Icon icon="chevronDown" 
                             iconClass="icon stroke-secondary strokeWidth-3 ml-2"
-                            width="16" height="16"/>
+                            width="20" height="20"/>
                     </button>
 
                     <br/><br/>
@@ -316,7 +316,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         <span>large combo button</span>
                         <Icon icon="chevronDown" 
                             iconClass="icon stroke-secondary strokeWidth-3 ml-2"
-                            width="16" height="16"/>
+                            width="20" height="20"/>
                     </button>
 
                     <br/><br/>
@@ -346,7 +346,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         <span>large combo button</span>
                         <Icon icon="chevronDown" 
                             iconClass="stroke-secondary strokeWidth-3 ml-2"
-                            width="16" height="16"/>
+                            width="20" height="20"/>
                     </button>
 
                 </div>
@@ -447,6 +447,43 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
                 </div>
             </div>
+
+            {/* Inputs */}
+            <div className="row mb-5">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Stats</h2>
+
+                    {/* small text input */}
+                    <input type="text" placeholder="Small text input" className="sp-input sp-input--sm" />
+
+                    <br/>
+
+                    {/* medium text input */}
+                    <input type="text" placeholder="Medium text input" className="sp-input sp-input--md" />
+
+                    <br/>
+
+                    {/* large text input */}
+                    <input type="text" placeholder="Large text input" className="sp-input sp-input--lg" />
+
+                    <br/>
+
+                    {/* medium block text input */}
+                    <input type="text" placeholder="Medium block text input" className="sp-input sp-input--md sp-input--block" />
+
+                    <br/>
+
+                    {/* medium block search input */}
+                    <div className="sp-search sp-search--md">
+                        <Icon icon="search"
+                              iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
+                              width="14" height="14"/>
+                        <input type="text" placeholder="Search" className="sp-search__input sp-input sp-input--md sp-input--block" />
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     );
     

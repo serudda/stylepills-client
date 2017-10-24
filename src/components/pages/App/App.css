@@ -1182,10 +1182,10 @@ NOTE: Boostrap 4 has a flex set
     padding: 4px 10px;
     font-size: 14px; }
   .sp-btn--md {
-    padding: 8px 20px;
+    padding: 8px 15px;
     font-size: 16px; }
   .sp-btn--lg {
-    padding: 12px 30px;
+    padding: 12px 20px;
     font-size: 18px; }
   .sp-btn--block {
     display: block;
@@ -1296,6 +1296,50 @@ NOTE: Boostrap 4 has a flex set
       background-color: #E0E6ED;
       text-decoration: none;
       color: #3C4858; }
+
+/**********************************************************/
+/*                         INPUTS                         */
+/**********************************************************/
+.sp-input {
+  border: 1px solid #C0CCDA;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  background-color: #FFFFFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #3C4858;
+  display: block; }
+  .sp-input:focus {
+    border-color: #33ADA9;
+    outline: 0; }
+  .sp-input--sm {
+    padding: 0 10px;
+    height: 30px;
+    font-size: 13px; }
+  .sp-input--md {
+    padding: 0 14px;
+    height: 40px;
+    font-size: 15px; }
+  .sp-input--lg {
+    padding: 0 16px;
+    height: 50px;
+    font-size: 16px; }
+  .sp-input--block {
+    width: 100%; }
+
+/* SEARCH INPUT */
+.sp-search {
+  display: flex;
+  align-items: center;
+  position: relative; }
+  .sp-search__input {
+    padding-left: 36px;
+    box-sizing: border-box; }
+  .sp-search__icon {
+    position: absolute;
+    margin-left: 12px; }
 
 /**********************************************************/
 /*                         LINKS                          */

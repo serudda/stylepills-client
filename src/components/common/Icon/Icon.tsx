@@ -18,6 +18,7 @@ interface IconType {
     messageCircle: () => JSX.Element;
     package: () => JSX.Element;
     eye: () => JSX.Element;
+    search: () => JSX.Element;
 }
 
 /* Own Props */
@@ -157,6 +158,23 @@ class Icon extends React.Component<IconProps, {}> {
                          xmlns="http://www.w3.org/2000/svg">
                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                          <circle cx="12" cy="12" r="3" />
+                    </svg>
+                );
+            },
+            search: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                         <circle cx="10.5" cy="10.5" r="7.5" />
+                         <line x1="21" y1="21" x2="15.8" y2="15.8" />
                     </svg>
                 );
             }
