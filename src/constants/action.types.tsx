@@ -7,26 +7,15 @@
  */
 
 
-/* UI Component Actions Type */
-export const GET_UICOMPONENT = 'GET_UICOMPONENT';
-export type GET_UICOMPONENT = typeof GET_UICOMPONENT;
+/* UI Actions Type */
+export const CLEAR_UI = 'CLEAR_UI';
+export type CLEAR_UI = typeof CLEAR_UI;
 
-export const GET_UICOMPONENT_FULFILLED = 'GET_UICOMPONENT_FULFILLED';
-export type GET_UICOMPONENT_FULFILLED = typeof GET_UICOMPONENT_FULFILLED;
+export const SHOW_MODAL = 'SHOW_MODAL';
+export type SHOW_MODAL = typeof SHOW_MODAL;
 
-export const GET_UICOMPONENT_ERROR = 'GET_UICOMPONENT_ERROR';
-export type GET_UICOMPONENT_ERROR = typeof GET_UICOMPONENT_ERROR;
-
-
-/* Color Palette Actions Type */
-export const GET_COLORPALETTE = 'GET_COLORPALETTE';
-export type GET_COLORPALETTE = typeof GET_COLORPALETTE;
-
-export const GET_COLORPALETTE_FULFILLED = 'GET_COLORPALETTE_FULFILLED';
-export type GET_COLORPALETTE_FULFILLED = typeof GET_COLORPALETTE_FULFILLED;
-
-export const GET_COLORPALETTE_ERROR = 'GET_COLORPALETTE_ERROR';
-export type GET_COLORPALETTE_ERROR = typeof GET_COLORPALETTE_ERROR;
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+export type CLOSE_MODAL = typeof CLOSE_MODAL;
 
 
 /*

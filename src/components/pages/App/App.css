@@ -1578,9 +1578,6 @@ NOTE: Boostrap 4 has a flex set
   border-bottom: 3px solid transparent;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
   font-size: 16px; }
-  .Header .nav-item.active {
-    border-bottom: 3px solid #33ADA9;
-    font-weight: 900; }
 
 /**
  * COLOR COMPONENT
@@ -1700,6 +1697,17 @@ NOTE: Boostrap 4 has a flex set
     }
 
 }*/
+/**
+ * FOOTER COMPONENT
+ * ----------------- 
+ */
+.Footer {
+  padding: 10px 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 2px;
+  left: 0; }
+
 .Iframe-wrapper iframe {
   width: 100%;
   height: 100%;
@@ -1714,16 +1722,12 @@ NOTE: Boostrap 4 has a flex set
   transform-origin: top left;
   transition: opacity 0.4s ease; }
 
-/**
- * FOOTER COMPONENT
- * ----------------- 
- */
-.Footer {
-  padding: 10px 20px;
-  width: 100%;
-  position: absolute;
-  bottom: 2px;
-  left: 0; }
+/**********************************************************/
+/*                     NAVBAR OPTIONS                     */
+/**********************************************************/
+.NavbarOptions .nav-item.active {
+  border-bottom: 3px solid #33ADA9;
+  font-weight: 900; }
 
 .HomePage .leftSide__header {
   height: 75px;
