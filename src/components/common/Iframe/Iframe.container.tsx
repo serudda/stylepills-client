@@ -11,6 +11,7 @@ import * as React from 'react';
 interface IOwnProps {
     html: string;
     style: string;
+    background?: string;
 }
 
 
@@ -22,7 +23,7 @@ interface IOwnProps {
  */
 class IframeContainer extends React.Component<IOwnProps, {}> {
 
-    private iframeHtml: any;    
+    private iframeHtml: any;
 
     _inlineStylesheet(text: any, container: any) {
         var style = container.createElement('style');
@@ -48,6 +49,9 @@ class IframeContainer extends React.Component<IOwnProps, {}> {
             
             // Append HTML, style and script
             this._inlineStylesheet(this.props.style, iframe);
+
+            // Assign Contextual Background
+            iframe.body.style.backgroundColor = this.props.background || '#FFFFFF';
         } else {
             setTimeout(this._buildFrame, 0);
         }

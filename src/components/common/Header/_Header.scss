@@ -1,31 +1,18 @@
-// HEADER COMPONENT
-
-/// VARIABLES
+/**********************************************************/
+/*                         HEADER                         */
+/**********************************************************/
 
 .Header {
     z-index: 1;
-    padding-top: 16px;
     padding-bottom: 16px;
     color: rgba(255,255,255,0.75);
     background-color: map-get($color, white);
+    border-bottom: 3px solid transparent;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
     font-size: 16px;
-
-    &__logo {
-        font-size: 20px;
-        color: map-get($color, black);
-        white-space: nowrap;
-        
-        img {
-            margin: -6px 10px -1px -2px;
-        }
-
-        &.is-reversed {
-            color: map-get($color, white);
-        }
-
-        &:hover {
-            color: map-get($color, black);
-        }
+    
+    .nav-item.active {
+        border-bottom: 3px solid map-get($color, secondary);
+        font-weight: 900;
     }
 }

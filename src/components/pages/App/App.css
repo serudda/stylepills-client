@@ -93,6 +93,56 @@ NOTE: Boostrap 4 has a flex set
   -ms-flex: 1 1 auto;
   flex: 1 1 auto; }
 
+.order-0 {
+  -webkit-box-ordinal-group: 1;
+  -ms-flex-order: 0;
+  order: 0; }
+
+.order-1 {
+  -webkit-box-ordinal-group: 2;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.order-2 {
+  -webkit-box-ordinal-group: 3;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.order-3 {
+  -webkit-box-ordinal-group: 4;
+  -ms-flex-order: 3;
+  order: 3; }
+
+.order-4 {
+  -webkit-box-ordinal-group: 5;
+  -ms-flex-order: 4;
+  order: 4; }
+
+.order-5 {
+  -webkit-box-ordinal-group: 6;
+  -ms-flex-order: 5;
+  order: 5; }
+
+.order-6 {
+  -webkit-box-ordinal-group: 7;
+  -ms-flex-order: 6;
+  order: 6; }
+
+.order-7 {
+  -webkit-box-ordinal-group: 8;
+  -ms-flex-order: 7;
+  order: 7; }
+
+.order-8 {
+  -webkit-box-ordinal-group: 9;
+  -ms-flex-order: 8;
+  order: 8; }
+
+.order-last {
+  -webkit-box-ordinal-group: 100000;
+  -ms-flex-order: 99999;
+  order: 99999; }
+
 /**
  *  SPACING
  */
@@ -798,14 +848,41 @@ NOTE: Boostrap 4 has a flex set
   border-right: 6px solid; }
 
 /* Border types */
-.borderStyle-dashed {
-  border-style: dashed; }
+.borderTopStyle-dashed {
+  border-top-style: dashed; }
 
-.borderStyle-dotted {
-  border-style: dotted; }
+.borderTopStyle-dotted {
+  border-top-style: dotted; }
 
-.borderStyle-solid {
-  border-style: solid; }
+.borderTopStyle-solid {
+  border-top-style: solid; }
+
+.borderBottomStyle-dashed {
+  border-bottom-style: dashed; }
+
+.borderBottomStyle-dotted {
+  border-bottom-style: dotted; }
+
+.borderBottomStyle-solid {
+  border-bottom-style: solid; }
+
+.borderRightStyle-dashed {
+  border-right-style: dashed; }
+
+.borderRightStyle-dotted {
+  border-right-style: dotted; }
+
+.borderRightStyle-solid {
+  border-right-style: solid; }
+
+.borderLeftStyle-dashed {
+  border-left-style: dashed; }
+
+.borderLeftStyle-dotted {
+  border-left-style: dotted; }
+
+.borderLeftStyle-solid {
+  border-left-style: solid; }
 
 /* Border brand colors */
 .borderColor-lightPrimary {
@@ -1071,6 +1148,150 @@ NOTE: Boostrap 4 has a flex set
   .sp-bg-white--hover:hover {
     background-color: #FFFFFF; }
 
+/**
+ *  SVG STROKE COLOR
+ */
+/* SVG Stroke brand colors */
+.stroke-lightPrimary {
+  stroke: #FDF980; }
+
+.stroke-primary {
+  stroke: #FEEB6A; }
+
+.stroke-darkPrimary {
+  stroke: #FCD85E; }
+
+.stroke-lightSecondary {
+  stroke: #3CDAD5; }
+
+.stroke-secondary {
+  stroke: #33ADA9; }
+
+.stroke-darkSecondary {
+  stroke: #288784; }
+
+/* Border UI colors */
+.stroke-positive {
+  stroke: #74C080; }
+
+.stroke-negative {
+  stroke: #FF4949; }
+
+.stroke-warning {
+  stroke: #FFC82C; }
+
+.stroke-info {
+  stroke: #408FEC; }
+
+/* Border Grey colors */
+.stroke-black {
+  stroke: #24292e; }
+
+.stroke-mirage {
+  stroke: #1F2D3D; }
+
+.stroke-steel {
+  stroke: #273444; }
+
+.stroke-slate {
+  stroke: #3C4858; }
+
+.stroke-silver {
+  stroke: #8492A6; }
+
+.stroke-smoke {
+  stroke: #E0E6ED; }
+
+.stroke-darkSmoke {
+  stroke: #D3DCE6; }
+
+.stroke-extraDarkSmoke {
+  stroke: #C0CCDA; }
+
+.stroke-snow {
+  stroke: #F9FAFC; }
+
+.stroke-darkSnow {
+  stroke: #EFF2F7; }
+
+.stroke-extraDarkSnow {
+  stroke: #E5E9F2; }
+
+.stroke-white {
+  stroke: #FFFFFF; }
+
+/**
+ *  SVG STROKE WIDTH
+ */
+.strokeWidth-1 {
+  stroke-width: 1; }
+
+.strokeWidth-2 {
+  stroke-width: 2; }
+
+.strokeWidth-3 {
+  stroke-width: 3; }
+
+/**********************************************************/
+/*                         AVATAR                         */
+/**********************************************************/
+.sp-avatar {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #D3DCE6;
+  background-color: #D3DCE6;
+  background: url("https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg") 0 0 no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  .sp-avatar--xxxs {
+    height: 20px;
+    width: 20px; }
+  .sp-avatar--xxs {
+    height: 25px;
+    width: 25px; }
+  .sp-avatar--xs {
+    height: 40px;
+    width: 40px; }
+  .sp-avatar--sm {
+    height: 55px;
+    width: 55px; }
+  .sp-avatar--md {
+    width: 70px;
+    height: 70px; }
+  .sp-avatar--lg {
+    width: 85px;
+    height: 85px; }
+  .sp-avatar--xl {
+    width: 100px;
+    height: 100px; }
+  .sp-avatar--xxl {
+    width: 115px;
+    height: 115px; }
+  .sp-avatar--empty {
+    background: "https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg"; }
+  .sp-avatar img {
+    text-indent: -9999px; }
+
+/* DESIGNED BY */
+.sp-designedBy {
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  align-items: center; }
+  .sp-designedBy:hover {
+    color: #33ADA9; }
+  .sp-designedBy--xs {
+    font-size: 12px; }
+  .sp-designedBy--sm {
+    font-size: 14px; }
+  .sp-designedBy--md {
+    font-size: 16px; }
+
 /**********************************************************/
 /*                        BUTTONS                         */
 /**********************************************************/
@@ -1090,15 +1311,18 @@ NOTE: Boostrap 4 has a flex set
   transition: background 300ms ease-out;
   outline: none;
   box-shadow: none;
-  text-shadow: none; }
+  text-shadow: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
   .sp-btn--sm {
-    padding: 4px 12px;
+    padding: 4px 10px;
     font-size: 14px; }
   .sp-btn--md {
-    padding: 7px 21px;
+    padding: 8px 15px;
     font-size: 16px; }
   .sp-btn--lg {
-    padding: 10px 50px;
+    padding: 12px 20px;
     font-size: 18px; }
   .sp-btn--block {
     display: block;
@@ -1106,7 +1330,8 @@ NOTE: Boostrap 4 has a flex set
     width: 100%; }
   .sp-btn--primary {
     background-color: #FEEB6A;
-    color: #24292e; }
+    color: #24292e;
+    font-weight: 900; }
     .sp-btn--primary:hover {
       background-color: #FCD85E;
       text-decoration: none;
@@ -1114,21 +1339,22 @@ NOTE: Boostrap 4 has a flex set
     .sp-btn--primary:focus {
       background-color: #FEEB6A;
       color: #24292e;
-      text-decoration: none; }
+      text-decoration: none;
+      outline: none; }
   .sp-btn--secondary {
     background-color: #33ADA9;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    font-weight: 900; }
     .sp-btn--secondary:hover {
       background-color: #288784;
       text-decoration: none;
       color: #FFFFFF; }
     .sp-btn--secondary:focus {
-      background-color: #33ADA9;
-      color: #FFFFFF;
-      text-decoration: none; }
+      outline: none; }
   .sp-btn--neutral {
     background-color: #E0E6ED;
-    color: #24292e; }
+    color: #24292e;
+    font-weight: 900; }
     .sp-btn--neutral:hover {
       background-color: #D3DCE6;
       text-decoration: none;
@@ -1136,30 +1362,135 @@ NOTE: Boostrap 4 has a flex set
     .sp-btn--neutral:focus {
       background-color: #E0E6ED;
       color: #24292e;
-      text-decoration: none; }
+      text-decoration: none;
+      outline: none; }
   .sp-btn--primary-ghost {
     background: 0 0;
     border: 2px solid #FEEB6A;
-    color: #FEEB6A; }
+    color: #FEEB6A;
+    font-weight: 900; }
+    .sp-btn--primary-ghost:hover {
+      background-color: #FEEB6A;
+      text-decoration: none;
+      color: #24292e; }
+    .sp-btn--primary-ghost:focus {
+      outline: none; }
   .sp-btn--secondary-ghost {
     background: 0 0;
     border: 2px solid #33ADA9;
-    color: #33ADA9; }
+    color: #33ADA9;
+    font-weight: 900; }
+    .sp-btn--secondary-ghost:hover {
+      background-color: #33ADA9;
+      text-decoration: none;
+      color: #FFFFFF; }
+    .sp-btn--secondary-ghost:focus {
+      outline: none; }
   .sp-btn--white-ghost {
     background: 0 0;
     border: 2px solid #FFFFFF;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    font-weight: 900; }
     .sp-btn--white-ghost:hover {
       background-color: #FFFFFF;
       text-decoration: none;
       color: #3C4858; }
+    .sp-btn--white-ghost:focus {
+      outline: none; }
   .sp-btn--black-ghost {
     background: 0 0;
     border: 2px solid #24292e;
-    color: #24292e; }
+    color: #24292e;
+    font-weight: 900; }
     .sp-btn--black-ghost:hover {
+      border: 2px solid #8492A6;
+      background-color: #E0E6ED;
       text-decoration: none;
       color: #3C4858; }
+    .sp-btn--black-ghost:focus {
+      outline: none; }
+  .sp-btn--combo {
+    background: 0 0;
+    border: 0 hidden transparent;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; }
+    .sp-btn--combo:hover {
+      background-color: #E0E6ED;
+      text-decoration: none;
+      color: #3C4858; }
+    .sp-btn--combo:focus {
+      outline: none; }
+  .sp-btn--combo-secondary-ghost {
+    background: 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid #33ADA9; }
+    .sp-btn--combo-secondary-ghost:hover {
+      background-color: #33ADA9;
+      text-decoration: none;
+      color: #FFFFFF; }
+      .sp-btn--combo-secondary-ghost:hover .icon {
+        stroke: #FFFFFF; }
+    .sp-btn--combo-secondary-ghost:focus {
+      outline: none; }
+  .sp-btn--combo-neutral-ghost {
+    background: 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid #D3DCE6; }
+    .sp-btn--combo-neutral-ghost:hover {
+      background-color: #E0E6ED;
+      text-decoration: none;
+      color: #3C4858; }
+    .sp-btn--combo-neutral-ghost:focus {
+      outline: none; }
+
+/**********************************************************/
+/*                         INPUTS                         */
+/**********************************************************/
+.sp-input {
+  border: 1px solid #C0CCDA;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  background-color: #FFFFFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #3C4858;
+  display: block; }
+  .sp-input:focus {
+    border-color: #33ADA9;
+    outline: 0; }
+  .sp-input--sm {
+    padding: 0 10px;
+    height: 30px;
+    font-size: 13px; }
+  .sp-input--md {
+    padding: 0 14px;
+    height: 40px;
+    font-size: 15px; }
+  .sp-input--lg {
+    padding: 0 16px;
+    height: 50px;
+    font-size: 16px; }
+  .sp-input--block {
+    width: 100%; }
+
+/* SEARCH INPUT */
+.sp-search {
+  display: flex;
+  align-items: center;
+  position: relative; }
+  .sp-search__input {
+    padding-left: 36px;
+    box-sizing: border-box; }
+  .sp-search__icon {
+    position: absolute;
+    margin-left: 12px; }
 
 /**********************************************************/
 /*                         LINKS                          */
@@ -1201,24 +1532,55 @@ NOTE: Boostrap 4 has a flex set
     .sp-link--box--black:focus {
       text-decoration: none; }
 
+/**********************************************************/
+/*                         LOGO                           */
+/**********************************************************/
+.sp-logo {
+  font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;
+  font-weight: 900;
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  white-space: nowrap;
+  align-items: center; }
+  .sp-logo--sm {
+    font-size: 20px; }
+  .sp-logo--md {
+    font-size: 25px; }
+  .sp-logo--lg {
+    font-size: 30px; }
+  .sp-logo--black {
+    color: #24292e; }
+    .sp-logo--black:hover {
+      color: #33ADA9; }
+  .sp-logo--white {
+    color: #FFFFFF; }
+    .sp-logo--white:hover {
+      color: #FEEB6A; }
+
+/**********************************************************/
+/*                         STATS                          */
+/**********************************************************/
+.sp-stats {
+  display: flex;
+  align-items: center; }
+  .sp-stats__item {
+    display: flex;
+    align-items: center; }
+
+/**********************************************************/
+/*                         HEADER                         */
+/**********************************************************/
 .Header {
   z-index: 1;
-  padding-top: 16px;
   padding-bottom: 16px;
   color: rgba(255, 255, 255, 0.75);
   background-color: #FFFFFF;
+  border-bottom: 3px solid transparent;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
   font-size: 16px; }
-  .Header__logo {
-    font-size: 20px;
-    color: #24292e;
-    white-space: nowrap; }
-    .Header__logo img {
-      margin: -6px 10px -1px -2px; }
-    .Header__logo.is-reversed {
-      color: #FFFFFF; }
-    .Header__logo:hover {
-      color: #24292e; }
+  .Header .nav-item.active {
+    border-bottom: 3px solid #33ADA9;
+    font-weight: 900; }
 
 /**
  * COLOR COMPONENT
@@ -1248,32 +1610,55 @@ NOTE: Boostrap 4 has a flex set
     justify-content: flex-start;
     flex-direction: column; }
 
-/**
- * COMPONENT BOX COMPONENT
- * ------------------------ 
- */
+/**********************************************************/
+/*                     COMPONENT BOX                      */
+/**********************************************************/
 .ComponentBox {
   position: relative;
   z-index: 0;
   cursor: pointer; }
-  .ComponentBox__content .cover-link {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    border: 0 !important;
-    z-index: 1; }
+  .ComponentBox__content {
+    height: 0;
+    padding-top: 65%;
+    overflow: hidden;
+    position: relative; }
+    .ComponentBox__content .cover-link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      border: 0 !important;
+      z-index: 1; }
 
+/**********************************************************/
+/*                     COMPONENTS LIST                    */
+/**********************************************************/
 .ComponentsList .componentBox-container {
   width: 32%;
   margin: 0 2% 25px 0;
-  overflow: hidden;
   position: relative; }
   .ComponentsList .componentBox-container:nth-child(3n) {
     margin-right: 0; }
+  .ComponentsList .componentBox-container .componentInfo {
+    overflow: hidden; }
+    .ComponentsList .componentBox-container .componentInfo__users {
+      margin-bottom: 1px; }
+    .ComponentsList .componentBox-container .componentInfo__stats {
+      background: #EFF2F7;
+      position: absolute;
+      right: .25rem;
+      bottom: 0; }
+      .ComponentsList .componentBox-container .componentInfo__stats::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 100%;
+        width: 30px;
+        height: 100%;
+        background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
 
-@media (max-width: 830px) {
+@media (max-width: 991px) {
   .ComponentsList .componentBox-container {
     width: 49%; }
     .ComponentsList .componentBox-container:nth-child(2n) {
@@ -1281,11 +1666,40 @@ NOTE: Boostrap 4 has a flex set
     .ComponentsList .componentBox-container:nth-child(3n) {
       margin-right: 2%; } }
 
-@media (max-width: 550px) {
+@media (max-width: 575px) {
   .ComponentsList .componentBox-container {
     width: 100%;
     margin-right: 0 !important; } }
 
+/*@media (max-width: 830px) {
+    
+    .ComponentsList {
+        .componentBox-container {
+            width: 49%;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+
+            &:nth-child(3n) {
+                margin-right: 2%;
+            }
+
+        }
+
+    }
+
+}*/
+/*@media (max-width: 550px) {
+
+    .ComponentsList {
+        .componentBox-container {
+            width: 100%;
+            margin-right: 0 !important;
+        }
+    }
+
+}*/
 .Iframe-wrapper iframe {
   width: 100%;
   height: 100%;
