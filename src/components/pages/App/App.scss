@@ -1,6 +1,11 @@
 //               APP MAIN SASS STYLES
 // --------------------------------------------------
 
+// Third-Party
+// --------------------------------------------------
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
 
 // Fonts
 // --------------------------------------------------
@@ -27,6 +32,8 @@
 @import '../../../theme/components/input';
 // Link Basic Component Style
 @import '../../../theme/components/link';
+// Logo Basic Component Style
+@import '../../../theme/components/logo';
 // Stats Basic Component Style
 @import '../../../theme/components/stats';
 

@@ -9,6 +9,7 @@ import ComponentsListPage from '../ComponentsListPage/ComponentsListPage';
 import ComponentPage from '../ComponentPage/ComponentPage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
+import ExplorePage from '../ExplorePage/ExplorePage';
 
 
 /************************************/
@@ -33,6 +34,7 @@ const Main: React.SFC<IMainProps> = () => {
                     <Route path="/components" component={ComponentsListPage} />
                     <Route path="/component/:id" component={ComponentPage} />
                     <Route path="/styleguide" component={StyleguidePage} />
+                    <Route path="/explore" component={ExplorePage} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </div>

@@ -21,7 +21,7 @@ class App extends React.Component {
     /**************************/
     render() {
         return (
-            <div className="AppContent">
+            <div className="AppContent sp-bg-darkSnow">
                 {/*<Header />*/}
                 <Main />
                 {/*<Footer />*/}

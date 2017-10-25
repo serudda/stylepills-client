@@ -83,8 +83,9 @@ $avatar-sizes: (
 
 /* DESIGNED BY */
 .sp-designedBy {
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    // flex-wrap: wrap;
     align-items: center;
 
     &:hover {

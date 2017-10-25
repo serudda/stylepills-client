@@ -2,7 +2,10 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+
 import Icon from '../../common/Icon/Icon';
+import Iframe from '../../common/Iframe/Iframe.container';
 
 /********************************/
 /*      INTERFACES & TYPES      */
@@ -24,7 +27,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
     /***************************/
     
     return (
-        <div className="StyleguidePage container">
+        <div className="StyleguidePage width-wrapper p-0">
 
             {/* Title */}
             <div className="row my-5">
@@ -587,6 +590,411 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
             </div>
 
+            {/* Logo */}
+            <div className="row mb-5">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Logos</h2>
+
+                    {/* Small Logo (black) */}
+                    <div className="d-inline-flex p-1">
+                        <a className="sp-logo sp-logo--sm sp-logo--black m-0 link-reset" href="/">
+                            <Icon icon="logo" 
+                                iconClass="mr-2"
+                                width="20" height="20"/>
+                            <span>Stylepills</span>
+                        </a>
+                    </div>
+
+                    <br/>
+
+                    {/* Small Logo (white) */}
+                    <div className="sp-bg-slate d-inline-flex p-1">
+                        <a className="sp-logo sp-logo--sm sp-logo--white m-0 link-reset" href="/">
+                            <Icon icon="logo" 
+                                  iconClass="mr-2"
+                                  width="20" height="20"/>
+                            <span>Stylepills</span>
+                        </a>
+                    </div>
+
+                    <br/>
+
+                    {/* Medium Logo (black) */}
+                    <div className="d-inline-flex p-1">
+                        <a className="sp-logo sp-logo--md sp-logo--black m-0 link-reset" href="/">
+                            <Icon icon="logo" 
+                                iconClass="mr-2"
+                                width="25" height="25"/>
+                            <span>Stylepills</span>
+                        </a>
+                    </div>
+
+                    <br/>
+
+                    {/* Medium Logo (white) */}
+                    <div className="sp-bg-slate d-inline-flex p-1">
+                        <a className="sp-logo sp-logo--md sp-logo--white m-0 link-reset" href="/">
+                            <Icon icon="logo" 
+                                  iconClass="mr-2"
+                                  width="25" height="25"/>
+                            <span>Stylepills</span>
+                        </a>
+                    </div>
+
+                    <br/>
+
+                    {/* Large Logo (black) */}
+                    <div className="d-inline-flex p-1">
+                        <a className="sp-logo sp-logo--lg sp-logo--black m-0 link-reset" href="/">
+                            <Icon icon="logo" 
+                                iconClass="mr-2"
+                                width="28" height="28"/>
+                            <span>Stylepills</span>
+                        </a>
+                    </div>
+
+                    <br/>
+
+                    {/* Large Logo (white) */}
+                    <div className="sp-bg-slate d-inline-flex p-1">
+                        <a className="sp-logo sp-logo--lg sp-logo--white m-0 link-reset" href="/">
+                            <Icon icon="logo" 
+                                  iconClass="mr-2"
+                                  width="28" height="28"/>
+                            <span>Stylepills</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* Components List Section */}
+            <div className="row mb5 no-gutters">
+                <div className="col">
+                <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Components List</h2>
+
+                    {/* Components List */}
+                    <div className="ComponentsList row sp-bg-darkSnow pt-5 pb-5 margin-0 no-gutters">
+                        <div className="col">
+                            <div className="d-sm-flex flex-wrap width-wrapper">
+
+                                {/* Component Box */}
+                                <div className="componentBox-container">
+                                    <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+                                        <div className="ComponentBox__content borderRadius-xs">
+                                            <Link to={`/styleguide`} className="cover-link" />
+                                            <Iframe html="<div></div>" style="css" background="#FFFFFF"/>
+                                        </div>
+                                    </div>
+                                    <div className="componentInfo px-1">
+
+                                        {/* Component Name */}
+                                        <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">Tertiary Button</p>
+
+                                        {/* Designed by */}
+                                        <div className="componentInfo__user">
+
+                                            <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate" 
+                                                href="https://www.twitter.com/rosa7082" target="_blank">
+                                                <span className="ml-1 order-3">Rosita & Sergio</span>
+                                                <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                                                    <img width="22" height="22"
+                                                        src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                                        alt="rosa7082" />
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        {/* Stats */}
+                                        <div className="componentInfo__stats">
+
+                                            <div className="sp-stats">
+                                                <div className="like sp-stats__item">
+                                                    <Icon icon="heart" 
+                                                        iconClass="stroke-black strokeWidth-3 mr-1"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="comment sp-stats__item">
+                                                    <Icon icon="messageCircle"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="store sp-stats__item">
+                                                    <Icon icon="package"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="view sp-stats__item">
+                                                    <Icon icon="eye" 
+                                                        iconClass="stroke-slate strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Component Box */}
+                                <div className="componentBox-container">
+                                    <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+                                        <div className="ComponentBox__content borderRadius-xs">
+                                            <Link to={`/styleguide`} className="cover-link" />
+                                            <Iframe html="<div></div>" style="css" background="#FFFFFF"/>
+                                        </div>
+                                    </div>
+                                    <div className="componentInfo px-1">
+
+                                        {/* Component Name */}
+                                        <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">Tertiary Button</p>
+
+                                        {/* Designed by */}
+                                        <div className="componentInfo__user">
+
+                                            <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate" 
+                                                href="https://www.twitter.com/rosa7082" target="_blank">
+                                                <span className="ml-1 order-3">Rosita & Sergio</span>
+                                                <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                                                    <img width="22" height="22"
+                                                        src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                                        alt="rosa7082" />
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        {/* Stats */}
+                                        <div className="componentInfo__stats">
+
+                                            <div className="sp-stats">
+                                                <div className="like sp-stats__item">
+                                                    <Icon icon="heart" 
+                                                        iconClass="stroke-black strokeWidth-3 mr-1"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="comment sp-stats__item">
+                                                    <Icon icon="messageCircle"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="store sp-stats__item">
+                                                    <Icon icon="package"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="view sp-stats__item">
+                                                    <Icon icon="eye" 
+                                                        iconClass="stroke-slate strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Component Box */}
+                                <div className="componentBox-container">
+                                    <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+                                        <div className="ComponentBox__content borderRadius-xs">
+                                            <Link to={`/styleguide`} className="cover-link" />
+                                            <Iframe html="<div></div>" style="css" background="#FFFFFF"/>
+                                        </div>
+                                    </div>
+                                    <div className="componentInfo px-1">
+
+                                        {/* Component Name */}
+                                        <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">Tertiary Button</p>
+
+                                        {/* Designed by */}
+                                        <div className="componentInfo__user">
+
+                                            <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate" 
+                                                href="https://www.twitter.com/rosa7082" target="_blank">
+                                                <span className="ml-1 order-3">Rosita & Sergio</span>
+                                                <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                                                    <img width="22" height="22"
+                                                        src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                                        alt="rosa7082" />
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        {/* Stats */}
+                                        <div className="componentInfo__stats">
+
+                                            <div className="sp-stats">
+                                                <div className="like sp-stats__item">
+                                                    <Icon icon="heart" 
+                                                        iconClass="stroke-black strokeWidth-3 mr-1"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="comment sp-stats__item">
+                                                    <Icon icon="messageCircle"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="store sp-stats__item">
+                                                    <Icon icon="package"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="view sp-stats__item">
+                                                    <Icon icon="eye" 
+                                                        iconClass="stroke-slate strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Component Box */}
+                                <div className="componentBox-container">
+                                    <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+                                        <div className="ComponentBox__content borderRadius-xs">
+                                            <Link to={`/styleguide`} className="cover-link" />
+                                            <Iframe html="<div></div>" style="css" background="#3C4858"/>
+                                        </div>
+                                    </div>
+                                    <div className="componentInfo px-1">
+
+                                        {/* Component Name */}
+                                        <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">Tertiary Button</p>
+
+                                        {/* Designed by */}
+                                        <div className="componentInfo__user">
+
+                                            <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate" 
+                                                href="https://www.twitter.com/rosa7082" target="_blank">
+                                                <span className="ml-1 order-3">Rosita & Sergio</span>
+                                                <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                                                    <img width="22" height="22"
+                                                        src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                                        alt="rosa7082" />
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        {/* Stats */}
+                                        <div className="componentInfo__stats">
+
+                                            <div className="sp-stats">
+                                                <div className="like sp-stats__item">
+                                                    <Icon icon="heart" 
+                                                        iconClass="stroke-black strokeWidth-3 mr-1"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="comment sp-stats__item">
+                                                    <Icon icon="messageCircle"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="store sp-stats__item">
+                                                    <Icon icon="package"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="view sp-stats__item">
+                                                    <Icon icon="eye" 
+                                                        iconClass="stroke-slate strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Component Box */}
+                                <div className="componentBox-container">
+                                    <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+                                        <div className="ComponentBox__content borderRadius-xs">
+                                            <Link to={`/styleguide`} className="cover-link" />
+                                            <Iframe html="<div></div>" style="css" background="#8492A6"/>
+                                        </div>
+                                    </div>
+                                    <div className="componentInfo px-1">
+
+                                        {/* Component Name */}
+                                        <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">Tertiary Button</p>
+
+                                        {/* Designed by */}
+                                        <div className="componentInfo__user">
+
+                                            <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate" 
+                                                href="https://www.twitter.com/rosa7082" target="_blank">
+                                                <span className="ml-1 order-3">Rosita & Sergio</span>
+                                                <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
+                                                    <img width="22" height="22"
+                                                        src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
+                                                        alt="rosa7082" />
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        {/* Stats */}
+                                        <div className="componentInfo__stats">
+
+                                            <div className="sp-stats">
+                                                <div className="like sp-stats__item">
+                                                    <Icon icon="heart" 
+                                                        iconClass="stroke-black strokeWidth-3 mr-1"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="comment sp-stats__item">
+                                                    <Icon icon="messageCircle"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="store sp-stats__item">
+                                                    <Icon icon="package"
+                                                        iconClass="stroke-black strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                                <div className="view sp-stats__item">
+                                                    <Icon icon="eye" 
+                                                        iconClass="stroke-slate strokeWidth-3 mr-1 marginLeft-2"
+                                                        width="14" height="14"/>
+                                                    <span className="fontSize-sm fontWeight-9 color-silver">999</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     );
     
@@ -595,3 +1003,4 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
 /* Export */
 export default StyleguidePage;
+

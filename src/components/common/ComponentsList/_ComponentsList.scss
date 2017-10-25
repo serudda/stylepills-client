@@ -1,20 +1,82 @@
+/**********************************************************/
+/*                     COMPONENTS LIST                    */
+/**********************************************************/
+
 .ComponentsList {
 
     .componentBox-container {
         width: 32%;
         margin: 0 2% 25px 0;
-        overflow: hidden;
         position: relative;
 
         &:nth-child(3n) {
             margin-right: 0;
+        }
+
+        .componentInfo {
+            overflow: hidden;
+
+            &__users {
+                margin-bottom: 1px;
+            }
+
+            &__stats {
+                background: map-get($color, darkSnow);
+                position: absolute;
+                right: .25rem;
+                bottom: 0;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 100%;
+                    width: 30px;
+                    height: 100%;
+                    background: linear-gradient(to right, rgba(239, 242, 247, 0), map-get($color, darkSnow) 80%);
+                }
+            }
         }
     }
 
 }
 
 
-@media (max-width: 830px) {
+// Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+    .ComponentsList {
+        .componentBox-container {
+            width: 49%;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+
+            &:nth-child(3n) {
+                margin-right: 2%;
+            }
+
+        }
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) { 
+    .ComponentsList {
+        .componentBox-container {
+            width: 100%;
+            margin-right: 0 !important;
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@include media-breakpoint-down(sm) { }
+
+// Large devices (desktops, less than 1200px)
+@include media-breakpoint-down(lg) { }
+
+/*@media (max-width: 830px) {
+    
     .ComponentsList {
         .componentBox-container {
             width: 49%;
@@ -30,15 +92,18 @@
         }
 
     }
-}
+
+}*/
 
 
-@media (max-width: 550px) {
+/*@media (max-width: 550px) {
+
     .ComponentsList {
         .componentBox-container {
             width: 100%;
             margin-right: 0 !important;
         }
     }
-}
+
+}*/
 

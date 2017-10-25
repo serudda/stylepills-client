@@ -433,9 +433,21 @@ NOTE: Boostrap 4 has a flex set
 .borderRight-6 {border-right: 6px solid}
 
 /* Border types */
-.borderStyle-dashed {border-style: dashed;}
-.borderStyle-dotted {border-style: dotted;}
-.borderStyle-solid {border-style: solid;}
+.borderTopStyle-dashed {border-top-style: dashed;}
+.borderTopStyle-dotted {border-top-style: dotted;}
+.borderTopStyle-solid  {border-top-style: solid;}
+
+.borderBottomStyle-dashed {border-bottom-style: dashed;}
+.borderBottomStyle-dotted {border-bottom-style: dotted;}
+.borderBottomStyle-solid  {border-bottom-style: solid;}
+
+.borderRightStyle-dashed {border-right-style: dashed;}
+.borderRightStyle-dotted {border-right-style: dotted;}
+.borderRightStyle-solid  {border-right-style: solid;}
+
+.borderLeftStyle-dashed {border-left-style: dashed;}
+.borderLeftStyle-dotted {border-left-style: dotted;}
+.borderLeftStyle-solid  {border-left-style: solid;}
 
 /* Border brand colors */
 .borderColor-lightPrimary    {border-color: map-get($color, lightPrimary);}
