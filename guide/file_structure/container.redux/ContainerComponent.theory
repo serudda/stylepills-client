@@ -11,6 +11,9 @@ es el encargado de hablar directamente con Redux.
     ya que no queremos que nuestro componente envie las actions directamente, sino que pasen por el
     Store de Redux quien es el encargado de gestionar todos los States de cada componente.
 - Es considerado el 'Inteligente', ya que son concientes de todo lo relacionado al componente (sus estados).
+- Un presentational component no deberia contener un component container. Un presentational
+component si puede contener otros presentational components. Lo mismo los components container,
+pueden contener presentational components como components containers.
 
 Nota Importante: Si por ejemplo el presentational Component es un Button, que al ser presionado
 tiene que cambiar el valor de un state. Lo mejor es que el padre el envie esa funcion atraves de los 

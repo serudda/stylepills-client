@@ -13,7 +13,7 @@ export interface IClearUiAction {
     showModal: boolean;
 }
 
-export interface IOpenModalAction {
+export interface IShowModalAction {
     type: types.SHOW_MODAL;
     showModal: boolean;
 }
@@ -27,7 +27,7 @@ export interface ICloseModalAction {
 export type Action = 
     // UI interaction
     IClearUiAction
-|   IOpenModalAction
+|   IShowModalAction
 |   ICloseModalAction;
 
 
@@ -42,7 +42,7 @@ export type Action =
  * @function clearUi
  * @returns {Action}
  */
-export const clearUi = (): Action => {
+export const clearUiAction = (): Action => {
     return {
         type: types.CLEAR_UI,
         showModal: false
@@ -51,12 +51,12 @@ export const clearUi = (): Action => {
 
 
 /**
- * @desc Return an action type, OPEN_MODAL 
+ * @desc Return an action type, SHOW_MODAL 
  * to indicate that user wants opening a Modal
- * @function openModal
+ * @function showModalAction
  * @returns {Action}
  */
-export const openModal = (): Action => {
+export const showModalAction = (): Action => {
     return {
         type: types.SHOW_MODAL,
         showModal: true
@@ -67,10 +67,10 @@ export const openModal = (): Action => {
 /**
  * @desc Return an action type, CLOSE_MODAL
  * to indicate that user wants closing a Modal
- * @function closeModal
+ * @function closeModalAction
  * @returns {Action}
  */
-export const closeModal = (): Action => {
+export const closeModalAction = (): Action => {
     return {
         type: types.CLOSE_MODAL,
         showModal: false
