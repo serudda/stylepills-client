@@ -95,7 +95,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                                     iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
                                     width="14" height="14"/>
                                 <input type="text" 
-                                    placeholder="Search" 
+                                    placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
                                     className="sp-search__input sp-input sp-input--md sp-input--block" />
                             </div>
                         </div>
