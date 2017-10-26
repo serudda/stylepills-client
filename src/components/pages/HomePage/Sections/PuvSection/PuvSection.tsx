@@ -5,12 +5,15 @@ import * as React from 'react';
 
 const explanationImage = require('../../../../../resources/images/puv_page.png');
 
+// -----------------------------------
+
+
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type PuvSectionProps = {/**/};
+type PuvSectionProps = {};
 
 
 /**
@@ -24,7 +27,6 @@ const PuvSection: React.SFC<PuvSectionProps> = () => {
     
     /*         MARKUP          */
     /***************************/
-    
     return (
         <div>
 
@@ -49,7 +51,6 @@ const PuvSection: React.SFC<PuvSectionProps> = () => {
             {/* Image (Mobile): PUV */}
             <div className="row no-gutters d-block d-lg-none align-items-center section">
                 <div className="col-12">
-                    {/* Aqui va el SVG */}
                     <img className="borderRadius-md w-100" 
                         src={explanationImage} 
                         alt="PUV"/>

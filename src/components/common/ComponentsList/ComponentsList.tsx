@@ -6,6 +6,10 @@ import * as React from 'react';
 import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
 
 import ComponentBox from '../ComponentBox/ComponentBox';
+import ComponentInfoSection from '../ComponentBox/ComponentInfoSection/ComponentInfoSection';
+
+// -----------------------------------
+
 
 /********************************/
 /*      INTERFACES & TYPES      */
@@ -25,24 +29,22 @@ type ComponentsListProps = {
  */
 const ComponentsList: React.SFC<ComponentsListProps> = ({ components }) => {
     
+
     /*         MARKUP          */
     /***************************/
-    
     return (
-        <div className="ComponentsList row sp-bg-darkSnow pt-5 pb-5 margin-0 no-gutters">
+        <div className="ComponentsList row pt-5 pb-5 margin-0 no-gutters">
             <div className="col">
-                <div className="width-wrapper position-relative">
-                    <div className="color-silver fontSize-xl pb-2 mb-1 fontFamily-openSans fontWeight-9">
-                        All components
-                    </div>
-                </div>
-
                 <div className="d-sm-flex flex-wrap width-wrapper">
+
+                    {/* Component Box */}
                     {components.map((component: UiComponentModel) => (
-                        <div key={component.id} className="componentBox-container boxShadow-float borderRadius-md">
-                            <ComponentBox component={component} isClicked={true}/>
+                        <div key={component.id} className="componentBox-container">
+                            <ComponentBox component={component} />
+                            <ComponentInfoSection />
                         </div>
                     ))}
+
                 </div>
             </div>                
         </div>

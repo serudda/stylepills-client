@@ -9,7 +9,7 @@ import ComponentsListPage from '../ComponentsListPage/ComponentsListPage';
 import ComponentPage from '../ComponentPage/ComponentPage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
-import ExplorePage from '../ExplorePage/ExplorePage';
+import ExplorePage from '../ExplorePage/ExplorePage.container';
 
 
 /************************************/

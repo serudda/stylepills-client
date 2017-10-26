@@ -87,7 +87,7 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
 
                 {/* PREVIEW COMPONENT */}
                 <div className="previewComponent boxShadow-float borderRadius-md">
-                    <ComponentBox component={data} isClicked={false}/>
+                    <ComponentBox component={data}/>
                 </div>
                 
             </section>

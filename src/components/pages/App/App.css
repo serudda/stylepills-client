@@ -1629,6 +1629,27 @@ NOTE: Boostrap 4 has a flex set
       z-index: 1; }
 
 /**********************************************************/
+/*                     COMPONENT INFO                     */
+/**********************************************************/
+.ComponentInfo {
+  overflow: hidden; }
+  .ComponentInfo__users {
+    margin-bottom: 1px; }
+  .ComponentInfo__stats {
+    background: #EFF2F7;
+    position: absolute;
+    right: .25rem;
+    bottom: 0; }
+    .ComponentInfo__stats::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 100%;
+      width: 30px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
+
+/**********************************************************/
 /*                     COMPONENTS LIST                    */
 /**********************************************************/
 .ComponentsList .componentBox-container {
@@ -1637,23 +1658,6 @@ NOTE: Boostrap 4 has a flex set
   position: relative; }
   .ComponentsList .componentBox-container:nth-child(3n) {
     margin-right: 0; }
-  .ComponentsList .componentBox-container .componentInfo {
-    overflow: hidden; }
-    .ComponentsList .componentBox-container .componentInfo__users {
-      margin-bottom: 1px; }
-    .ComponentsList .componentBox-container .componentInfo__stats {
-      background: #EFF2F7;
-      position: absolute;
-      right: .25rem;
-      bottom: 0; }
-      .ComponentsList .componentBox-container .componentInfo__stats::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 100%;
-        width: 30px;
-        height: 100%;
-        background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
 
 @media (max-width: 991px) {
   .ComponentsList .componentBox-container {

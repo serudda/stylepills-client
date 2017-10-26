@@ -112,6 +112,13 @@ class Iframe extends React.Component<IframeProps, {}> {
             // Append Style
             this._inlineStylesheet(this.props.style, iframe);
 
+            /* 
+             Hide scroll in html 
+             TODO: Analizar una mejor manera de hacerlo, ya que si necesito reusar el componente,
+             y necesito habilitar el scroll, esto queda quemado aqui.
+            */
+            iframe.documentElement.style.overflow = 'hidden';
+
             // Assign Contextual Background
             iframe.body.style.backgroundColor = this.props.background || '#FFFFFF';
 

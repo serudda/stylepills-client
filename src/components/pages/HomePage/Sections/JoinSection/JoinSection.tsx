@@ -6,12 +6,15 @@ import { Link } from 'react-router-dom';
 
 const explanationImage = require('../../../../../resources/images/join_page.png');
 
+// -----------------------------------
+
+
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type JoinSectionProps = {/**/};
+type JoinSectionProps = {};
 
 
 /**
@@ -25,7 +28,6 @@ const JoinSection: React.SFC<JoinSectionProps> = () => {
     
     /*         MARKUP          */
     /***************************/
-    
     return (
 
         <div>
@@ -70,7 +72,6 @@ const JoinSection: React.SFC<JoinSectionProps> = () => {
             {/* Image (Mobile): Join */}
             <div className="row no-gutters d-block d-lg-none align-items-center section">
                 <div className="col-12">
-                    {/* Aqui va el SVG */}
                     <img className="borderRadius-md w-100" 
                         src={explanationImage} 
                         alt="Join"/>

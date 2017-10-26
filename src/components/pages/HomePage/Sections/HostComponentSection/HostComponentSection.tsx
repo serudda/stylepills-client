@@ -5,14 +5,15 @@ import * as React from 'react';
 
 const explanationImage = require('../../../../../resources/images/add_component_page.png');
 
+// -----------------------------------
+
+
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type HostComponentSectionProps = {
-    //
-};
+type HostComponentSectionProps = {};
 
 
 /**
@@ -26,7 +27,6 @@ const HostComponentSection: React.SFC<HostComponentSectionProps> = () => {
     
     /*         MARKUP          */
     /***************************/
-    
     return (
         <div>
 
@@ -47,7 +47,6 @@ const HostComponentSection: React.SFC<HostComponentSectionProps> = () => {
             {/* Image (Mobile): Host Components */}
             <div className="row no-gutters d-block d-lg-none align-items-center section">
                 <div className="col-12">
-                    {/* Aqui va el SVG */}
                     <img className="borderRadius-md w-100" 
                         src={explanationImage} 
                         alt="Host Components"/>

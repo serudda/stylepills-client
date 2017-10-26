@@ -1,6 +1,6 @@
-/********************************/
-/*         DEPENDENCIES         */
-/********************************/
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
 import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
@@ -17,16 +17,19 @@ import ComponentsList from '../../common/ComponentsList/ComponentsList';
 /********************************/
 
 /* Own Props */
-type ComponentsListPageProps = {/**/};
+type ExplorePageProps = {};
+
+/* Own States */
+type LocalStates = {};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class ComponentsListPage 
-extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}> {
-    
-    
+class ExplorePage 
+extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalStates> {
+
+
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
@@ -36,18 +39,10 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
 
 
     /********************************/
-    /*       COMPONENTDIDMOUNT      */
-    /********************************/
-    componentDidMount() {   
-        window.scrollTo(0, 0);
-    }
-
-    
-    /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-
+        
 
         /*       PROPERTIES       */
         /**************************/
@@ -57,11 +52,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
         /*       VALIDATIONS       */
         /***************************/
         if (data.loading) {
-            return (
-                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
-                    Loading...
-                </div>
-            );
+            return (<div>Loading</div>);
         }
 
         if (data.error) {
@@ -71,18 +62,21 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
         if (data.uiComponents === null) {
             return (<div>No data</div>);
         }
-            
-        
+
+
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ComponentsListPage">
+            <div className="ExplorePage sp-bg-darkSnow h-100">
+                
+                {/* Header */}
                 <Header />
+
+                {/* Components list */}
                 <ComponentsList components={data.uiComponents}/>
+
             </div>
         );
-
-
     }
 
 }
@@ -91,7 +85,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
 /********************************/
 /*            QUERY             */
 /********************************/
-const getAllUiComponentsQuery = graphql<GetAllResponse, ComponentsListPageProps>(
+const getAllUiComponentsQuery = graphql<GetAllResponse,  ExplorePageProps>(
     GET_ALL_UI_COMPONENTS_QUERY
 );
 
@@ -100,4 +94,4 @@ const getAllUiComponentsQuery = graphql<GetAllResponse, ComponentsListPageProps>
 /***************************/
 export default compose(
     getAllUiComponentsQuery
-)(ComponentsListPage);
+)(ExplorePage);
