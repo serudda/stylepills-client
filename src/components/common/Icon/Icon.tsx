@@ -50,6 +50,7 @@ class Icon extends React.Component<IconProps, {}> {
     /********************************/
     render() {
 
+        
         /*       PROPERTIES       */
         /**************************/
         const {
