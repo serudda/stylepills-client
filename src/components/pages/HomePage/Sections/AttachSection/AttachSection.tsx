@@ -5,14 +5,15 @@ import * as React from 'react';
 
 const explanationImage = require('../../../../../resources/images/attach_resource_page.png');
 
+// -----------------------------------
+
+
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type AttachSectionProps = {
-    //
-};
+type AttachSectionProps = {};
 
 
 /**
@@ -49,7 +50,6 @@ const AttachSection: React.SFC<AttachSectionProps> = () => {
             {/* Image (Mobile): Attach anything */}
             <div className="row no-gutters d-block d-lg-none align-items-center section">
                 <div className="col-12">
-                    {/* Aqui va el SVG */}
                     <img className="borderRadius-md w-100" 
                         src={explanationImage} 
                         alt="Attach Page"/>

@@ -1,42 +1,103 @@
-/************************************/
-/*           DEPENDENCIES           */
-/************************************/
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
 import * as React from 'react';
 
+// -----------------------------------
 
-/************************************/
-/*            INTERFACES            */
-/************************************/
+
+/********************************/
+/*      INTERFACES & TYPES      */
+/********************************/
+
 /* Own Props */
-interface IOwnProps {
+type IframeProps = {
     html: string;
     style: string;
     background?: string;
-}
+};
 
 
-/**
- * @desc Represents Iframe Component
- * @class IframeContainer
- * @extends {React.Component}
- * @returns component page view (Stateful component)
- */
-class IframeContainer extends React.Component<IOwnProps, {}> {
+/***********************************************/
+/*              CLASS DEFINITION               */
+/***********************************************/
+class Iframe extends React.Component<IframeProps, {}> {
 
-    private iframeHtml: any;
 
-    _inlineStylesheet(text: any, container: any) {
-        var style = container.createElement('style');
-        style.setAttribute('type', 'text/css');
-        style.innerHTML = text;
-        return container.head.appendChild(style);
+    /*      PRIVATE PROPERTIES      */
+    /********************************/
+    private iframeHtml: HTMLIFrameElement;
+
+
+    /********************************/
+    /*         CONSTRUCTOR          */
+    /********************************/
+    constructor() {    
+        super();
     }
 
-    _inlineHtml (html: any, container: any) {
+
+    /********************************/
+    /*     COMPONENT DID MOUNT      */
+    /********************************/
+    componentDidMount() {   
+        this._buildFrame();
+    }
+
+
+    /********************************/
+    /*     COMPONENT DID UPDATE     */
+    /********************************/
+    componentDidUpdate() {
+        this._buildFrame();
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+    /**
+     * @desc Insert inline Stylesheet inside Document iframe
+     * @method _inlineStylesheet
+     * @example this._inlineStylesheet(css, iframe.document)
+     * @private
+     * @param {string} style - name param description
+     * @param {HTMLDocument} container - document content of the iframe
+     * @returns {HTMLStyleElement}
+     */
+    private _inlineStylesheet(style: string, container: HTMLDocument): HTMLStyleElement {
+        let css = container.createElement('style');
+        css.setAttribute('type', 'text/css');
+        css.innerHTML = style;
+        return container.head.appendChild(css);
+    }
+
+
+    /**
+     * @desc Insert inline Html inside Document iframe
+     * @method _inlineHtml
+     * @example this._inlineHtml(html, iframe.document)
+     * @private
+     * @param {string} style - name param description
+     * @param {HTMLDocument} container - document content of the iframe
+     * @returns {void}
+     */
+    private _inlineHtml (html: string, container: HTMLDocument): void {
         return container.body.insertAdjacentHTML('beforeend', html);
     }
 
-    _buildFrame() {
+
+    /**
+     * @desc Build the inner document iframe
+     * @method _buildFrame
+     * @example this._buildFrame()
+     * @private
+     * @returns {void}
+     */
+    private _buildFrame(): void {
+
+        // VARIABLES
         let iframe = this.iframeHtml.contentWindow.document;
 
         // Clean iframe
@@ -44,30 +105,32 @@ class IframeContainer extends React.Component<IOwnProps, {}> {
         iframe.body.innerHTML = '';
 
         if (iframe.readyState === 'complete') {
-            // Html Input
+
+            // Append Html
             this._inlineHtml(this.props.html, iframe);
             
-            // Append HTML, style and script
+            // Append Style
             this._inlineStylesheet(this.props.style, iframe);
+
+            /* 
+             Hide scroll in html 
+             TODO: Analizar una mejor manera de hacerlo, ya que si necesito reusar el componente,
+             y necesito habilitar el scroll, esto queda quemado aqui.
+            */
+            iframe.documentElement.style.overflow = 'hidden';
 
             // Assign Contextual Background
             iframe.body.style.backgroundColor = this.props.background || '#FFFFFF';
+
         } else {
             setTimeout(this._buildFrame, 0);
         }
     }
 
-    componentDidMount() {
-        this._buildFrame();
-    }
 
-    componentDidUpdate() {
-        this._buildFrame();
-    }
-
-
-    /*         RENDER         */
-    /**************************/
+    /********************************/
+    /*        RENDER MARKUP         */
+    /********************************/
     render() {
     
 
@@ -76,14 +139,11 @@ class IframeContainer extends React.Component<IOwnProps, {}> {
         return (
             // FIXME: No esta compilando los scripts externos, revisar por que.
             <div className="Iframe-wrapper">
-                {/* tslint:disable-next-line:jsx-self-close */}
                 <iframe ref={(iframe) => { this.iframeHtml = iframe; }} 
                         frameBorder="0"
-                        sandbox="allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-modals allow-forms">
-                </iframe>
+                        sandbox="allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-modals allow-forms" />
             </div>
         );
-
 
     }
 }
@@ -91,4 +151,4 @@ class IframeContainer extends React.Component<IOwnProps, {}> {
 
 
 /* Export */
-export default IframeContainer;
+export default Iframe;

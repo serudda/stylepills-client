@@ -28,12 +28,12 @@ type HeaderProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type IStateProps = {
+type StateProps = {
     ui: IUiState;
 };
 
 /* Mapped Dispatches to Props */
-type IDispatchProps = {
+type DispatchProps = {
     actions: {
         ui: {
             clearUi: () => void;
@@ -46,7 +46,7 @@ type IDispatchProps = {
 /*              CLASS DEFINITION               */
 /***********************************************/
 class Header 
-extends React.Component<ChildProps<HeaderProps & IStateProps & IDispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     
     /********************************/
@@ -95,7 +95,7 @@ extends React.Component<ChildProps<HeaderProps & IStateProps & IDispatchProps, {
                                     iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
                                     width="14" height="14"/>
                                 <input type="text" 
-                                    placeholder="Search" 
+                                    placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
                                     className="sp-search__input sp-input sp-input--md sp-input--block" />
                             </div>
                         </div>
@@ -129,7 +129,7 @@ extends React.Component<ChildProps<HeaderProps & IStateProps & IDispatchProps, {
 /********************************/
 /*      MAP STATE TO PROPS      */
 /********************************/
-function mapStateToProps(state: IRootState): IStateProps {
+function mapStateToProps(state: IRootState): StateProps {
     return {
         ui:  state.ui
     };
@@ -138,7 +138,7 @@ function mapStateToProps(state: IRootState): IStateProps {
 /********************************/
 /*     MAP DISPATCH TO PROPS    */
 /********************************/
-function mapDispatchToProps(dispatch: Dispatch<IRootState>): IDispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {

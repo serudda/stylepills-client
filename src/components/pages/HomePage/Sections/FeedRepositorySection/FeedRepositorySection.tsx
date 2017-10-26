@@ -5,14 +5,15 @@ import * as React from 'react';
 
 const explanationImage = require('../../../../../resources/images/show_component_page.png');
 
+// -----------------------------------
+
+
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type FeedRepositorySectionProps = {
-    //
-};
+type FeedRepositorySectionProps = {};
 
 
 /**
@@ -26,7 +27,6 @@ const FeedRepositorySection: React.SFC<FeedRepositorySectionProps> = () => {
     
     /*         MARKUP          */
     /***************************/
-    
     return (
         <div>
 
@@ -47,10 +47,9 @@ const FeedRepositorySection: React.SFC<FeedRepositorySectionProps> = () => {
             {/* Image (Mobile): Feed your repository */}
             <div className="row no-gutters d-block d-lg-none align-items-center section">
                 <div className="col-12">
-                    {/* Aqui va el SVG */}
                     <img className="borderRadius-md w-100" 
-                        src={explanationImage} 
-                        alt="Feed your repository"/>
+                         src={explanationImage} 
+                         alt="Feed your repository"/>
                 </div>
             </div>
 

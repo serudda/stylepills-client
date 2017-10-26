@@ -43,7 +43,7 @@ type LocalStates = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, LocalStates> {
+class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalStates> {
 
     /********************************/
     /*         CONSTRUCTOR          */
@@ -72,7 +72,7 @@ class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, L
      * @private 
      * @returns {void}
      */
-    _handleWaypointEnter = (section: string) => (e: any) => {
+    private _handleWaypointEnter = (section: string) => (e: any) => {
 
         let currentImage = PUV_IMAGE_URL;
 
@@ -247,4 +247,4 @@ class HomePageContainer extends React.Component<ChildProps<HomePageProps, {}>, L
 
 
 /* Export */
-export default HomePageContainer;
+export default HomePage;
