@@ -2,25 +2,19 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { User } from '../user/user.model';
-import { Atom } from '../atom/atom.model';
 
 
 /************************************/
-/*            INTERFACE             */
+/*         TYPE & INTERFACES        */
 /************************************/
 
-export type User = {
+export type Comment = {
     id: number | null;
-    username: string;
-    firstname: string;
-    lastname: string;
-    email: string; 
-    password: string;
-    website: string;
-    avatar: string;
-    about: string;
+    content: string;
+    commentable: string;
+    commentableId: number;
     active: boolean;
-    atoms: Array<Atom>;
+    author: User;
     createdAt: string;
     updatedAt: string;
 };

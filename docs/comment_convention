@@ -1,0 +1,15 @@
+Comment convention
+reference: http://usejsdoc.org/ (scroll down to see each block tag)
+
+/**
+ * @desc Method description
+ * @method Method Name
+ * @function Function Name
+ * @example this.addElement(newElement)
+ * @extends {React.Component}
+ * @private
+ * @public
+ * @param {string} name - name param description
+ * @param {number} age - age param description
+ * @returns {component page view (Stateful component)}
+ */

@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { GET_ALL_UI_COMPONENTS_QUERY, GetAllResponse } from '../../../models/uiComponent/uiComponent.query';
+import { GET_ALL_ATOM_QUERY, GetAllResponse } from '../../../models/atom/atom.query';
 
 import Header from '../../common/Header/Header.container';
 import ComponentsList from '../../common/ComponentsList/ComponentsList';
@@ -59,7 +59,7 @@ extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalState
             return (<p>{data.error.message}</p>);
         }
 
-        if (data.uiComponents === null) {
+        if (data.atoms === null) {
             return (<div>No data</div>);
         }
 
@@ -73,7 +73,7 @@ extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalState
                 <Header />
 
                 {/* Components list */}
-                <ComponentsList components={data.uiComponents}/>
+                <ComponentsList components={data.atoms}/>
 
             </div>
         );
@@ -86,7 +86,7 @@ extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalState
 /*            QUERY             */
 /********************************/
 const getAllUiComponentsQuery = graphql<GetAllResponse,  ExplorePageProps>(
-    GET_ALL_UI_COMPONENTS_QUERY
+    GET_ALL_ATOM_QUERY
 );
 
 
