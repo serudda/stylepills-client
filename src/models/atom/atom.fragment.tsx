@@ -2,13 +2,14 @@
 /*         DEPENDENCIES         */
 /********************************/
 import gql from 'graphql-tag';
+
+import { AUTHOR_ATOM_FRAGMENT } from './../user/user.fragment';
 import { COMMENT_FRAGMENT } from './../comment/comment.fragment';
-import { USER_FRAGMENT } from './../user/user.fragment';
 import { ATOM_CATEGORY_FRAGMENT } from './../atomCategory/atomCategory.fragment';
 
 
 /********************************/
-/*            QUERIES           */
+/*           FRAGMENT           */
 /********************************/
 
 export const ATOM_FRAGMENT = gql`
@@ -21,16 +22,22 @@ export const ATOM_FRAGMENT = gql`
         stores
         views
         likes
-        ...CommentFragment
+        comments {
+            ...CommentFragment
+        }
         download
         private
-        ...UserFragment
-        ...AtomCategoryFragment
+        author {
+            ...AuthorAtomFragment
+        }
+        category {
+            ...AtomCategoryFragment
+        }
         createdAt
         updatedAt
         __typename
     }
     ${COMMENT_FRAGMENT}
-    ${USER_FRAGMENT}
     ${ATOM_CATEGORY_FRAGMENT}
+    ${AUTHOR_ATOM_FRAGMENT}
 `;

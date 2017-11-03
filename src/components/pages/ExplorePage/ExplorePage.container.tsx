@@ -59,7 +59,7 @@ extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalState
             return (<p>{data.error.message}</p>);
         }
 
-        if (data.atoms === null) {
+        if (data.allAtoms === null) {
             return (<div>No data</div>);
         }
 
@@ -73,7 +73,7 @@ extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalState
                 <Header />
 
                 {/* Components list */}
-                <ComponentsList components={data.atoms}/>
+                <ComponentsList components={data.allAtoms}/>
 
             </div>
         );
@@ -85,13 +85,22 @@ extends React.Component<ChildProps<ExplorePageProps, GetAllResponse>, LocalState
 /********************************/
 /*            QUERY             */
 /********************************/
-const getAllUiComponentsQuery = graphql<GetAllResponse,  ExplorePageProps>(
-    GET_ALL_ATOM_QUERY
+const getAllAtomsQuery = graphql<GetAllResponse, ExplorePageProps>(
+    GET_ALL_ATOM_QUERY, {
+        options:  () => (
+            { 
+                variables: 
+                 { 
+                    limit:  12
+                } 
+            }
+        )
+    }
 );
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    getAllUiComponentsQuery
+    getAllAtomsQuery
 )(ExplorePage);

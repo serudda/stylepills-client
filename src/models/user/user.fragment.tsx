@@ -2,11 +2,10 @@
 /*         DEPENDENCIES         */
 /********************************/
 import gql from 'graphql-tag';
-import { ATOM_FRAGMENT } from './../atom/atom.fragment';
 
 
 /********************************/
-/*            QUERIES           */
+/*           FRAGMENT           */
 /********************************/
 
 export const USER_FRAGMENT: any = gql`
@@ -19,10 +18,19 @@ export const USER_FRAGMENT: any = gql`
         website
         avatar
         about
-        ...AtomFragment
         createdAt
         updatedAt
         __typename
     }
-    ${ATOM_FRAGMENT}
+`;
+
+
+export const AUTHOR_ATOM_FRAGMENT: any = gql`
+fragment AuthorAtomFragment on User {
+    id 
+    firstname
+    lastname
+    avatar
+    __typename
+}
 `;

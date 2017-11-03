@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 
 
 /********************************/
-/*            QUERIES           */
+/*           FRAGMENT           */
 /********************************/
 
 export const ATOM_CATEGORY_FRAGMENT = gql`

@@ -2,11 +2,12 @@
 /*         DEPENDENCIES         */
 /********************************/
 import gql from 'graphql-tag';
-import { USER_FRAGMENT } from '../user/user.fragment';
+
+import { USER_FRAGMENT } from './../user/user.fragment';
 
 
 /********************************/
-/*            QUERIES           */
+/*           FRAGMENT           */
 /********************************/
 
 export const COMMENT_FRAGMENT = gql`
@@ -15,8 +16,9 @@ export const COMMENT_FRAGMENT = gql`
         content
         commentable
         commentableId
-        contextualBg
-        ...AuthorFragment
+        author {
+            ...UserFragment
+        }
         createdAt
         updatedAt
         __typename
