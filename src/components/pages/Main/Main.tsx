@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from '../HomePage/HomePage.container';
-import ComponentsListPage from '../ComponentsListPage/ComponentsListPage';
+import AtomsListPage from '../AtomsListPage/AtomsListPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
@@ -30,7 +30,7 @@ const Main: React.SFC<IMainProps> = () => {
                 <Switch>
                     {/* tslint:disable-next-line:jsx-boolean-value */}
                     <Route exact path="/" component={HomePage} />
-                    <Route path="/components" component={ComponentsListPage} />
+                    <Route path="/components" component={AtomsListPage} />
                     <Route path="/styleguide" component={StyleguidePage} />
                     <Route path="/explore" component={ExplorePage} />
                     <Route component={NotFoundPage} />

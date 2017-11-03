@@ -14,30 +14,30 @@ import Icon from '../../Icon/Icon';
 /************************************/
 
 /* Own Props */
-type ComponentInfoSectionProps = {};
+type AtomInfoSectionProps = {};
 
 
 /**
- * @desc Represent UI Component Info Section
- * @function ComponentInfoSection
+ * @desc Represent UI Atom Info Section
+ * @function AtomInfoSection
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ComponentInfoSection: React.SFC<ComponentInfoSectionProps> = () => {
+const AtomInfoSection: React.SFC<AtomInfoSectionProps> = () => {
 
 
     /*         MARKUP          */
     /***************************/
     return (
-        <div className="ComponentInfo px-1">
+        <div className="AtomInfo px-1">
 
-            {/* Component Name */}
+            {/* Atom Name */}
             <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">
                 Tertiary Button
             </p>
 
             {/* Designed by */}
-            <div className="ComponentInfo__user">
+            <div className="AtomInfo__user">
 
                 <Link className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate"
                       to={`estudiar_url`}>
@@ -52,7 +52,7 @@ const ComponentInfoSection: React.SFC<ComponentInfoSectionProps> = () => {
             </div>
 
             {/* Stats */}
-            <div className="ComponentInfo__stats">
+            <div className="AtomInfo__stats">
 
                 <div className="sp-stats">
                     <div className="like sp-stats__item">
@@ -88,4 +88,4 @@ const ComponentInfoSection: React.SFC<ComponentInfoSectionProps> = () => {
 };
 
 /* Export */
-export default ComponentInfoSection;
+export default AtomInfoSection;

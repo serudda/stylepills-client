@@ -2,9 +2,9 @@
 /*                     COMPONENTS LIST                    */
 /**********************************************************/
 
-.ComponentsList {
+.AtomsList {
 
-    .componentBox-container {
+    .atomBox-container {
         width: 32%;
         margin: 0 2% 25px 0;
         position: relative;
@@ -20,8 +20,8 @@
 
 // Medium devices (tablets, less than 992px)
 @include media-breakpoint-down(md) {
-    .ComponentsList {
-        .componentBox-container {
+    .AtomsList {
+        .atomBox-container {
             width: 49%;
 
             &:nth-child(2n) {
@@ -38,8 +38,8 @@
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-down(xs) { 
-    .ComponentsList {
-        .componentBox-container {
+    .AtomsList {
+        .atomBox-container {
             width: 100%;
             margin-right: 0 !important;
         }
@@ -54,8 +54,8 @@
 
 /*@media (max-width: 830px) {
     
-    .ComponentsList {
-        .componentBox-container {
+    .AtomsList {
+        .atomBox-container {
             width: 49%;
 
             &:nth-child(2n) {
@@ -75,8 +75,8 @@
 
 /*@media (max-width: 550px) {
 
-    .ComponentsList {
-        .componentBox-container {
+    .AtomsList {
+        .atomBox-container {
             width: 100%;
             margin-right: 0 !important;
         }

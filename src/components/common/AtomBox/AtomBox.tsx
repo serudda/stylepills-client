@@ -16,27 +16,27 @@ import { Link } from 'react-router-dom';
 /************************************/
 
 /* Own Props */
-type ComponentBoxProps = {
-    component: AtomModel
+type AtomBoxProps = {
+    atom: AtomModel
 };
 
 
 /**
- * @desc Represent UI Component Box Component
- * @function ComponentBox
+ * @desc Represent UI Atom Box Component
+ * @function AtomBox
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ComponentBox: React.SFC<ComponentBoxProps> = ({ component }) => {
+const AtomBox: React.SFC<AtomBoxProps> = ({ atom }) => {
 
 
     /*         MARKUP          */
     /***************************/
     return (
-        <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
-            <div className="ComponentBox__content borderRadius-xs">
-                <Link to={`/component/${component.id}`} className="cover-link" />
-                <Iframe html={component.html} style={component.css} background={component.contextualBg} />
+        <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+            <div className="AtomBox__content borderRadius-xs">
+                <Link to={`/atom/${atom.id}`} className="cover-link" />
+                <Iframe html={atom.html} style={atom.css} background={atom.contextualBg} />
             </div>
         </div>
     );
@@ -44,4 +44,4 @@ const ComponentBox: React.SFC<ComponentBoxProps> = ({ component }) => {
 };
 
 /* Export */
-export default ComponentBox;
+export default AtomBox;

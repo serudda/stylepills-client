@@ -668,31 +668,31 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                 </div>
             </div>
 
-            {/* Components List Section */}
+            {/* Atoms List Section */}
             <div className="row mb5 no-gutters">
                 <div className="col">
-                <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Components List</h2>
+                <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Atoms List</h2>
 
-                    {/* Components List */}
-                    <div className="ComponentsList row sp-bg-darkSnow pt-5 pb-5 margin-0 no-gutters">
+                    {/* Atoms List */}
+                    <div className="AtomsList row sp-bg-darkSnow pt-5 pb-5 margin-0 no-gutters">
                         <div className="col">
                             <div className="d-sm-flex flex-wrap width-wrapper">
 
-                                {/* Component Box */}
-                                <div className="componentBox-container">
-                                    <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
-                                        <div className="ComponentBox__content borderRadius-xs">
+                                {/* Atom Box */}
+                                <div className="atomBox-container">
+                                    <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
+                                        <div className="AtomBox__content borderRadius-xs">
                                             <Link to={`/styleguide`} className="cover-link" />
                                             <Iframe html="<div></div>" style="css" background="#FFFFFF"/>
                                         </div>
                                     </div>
-                                    <div className="ComponentInfo px-1">
+                                    <div className="AtomInfo px-1">
 
-                                        {/* Component Name */}
+                                        {/* Atom Name */}
                                         <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">Tertiary Button</p>
 
                                         {/* Designed by */}
-                                        <div className="ComponentInfo__user">
+                                        <div className="AtomInfo__user">
 
                                             <a className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate" 
                                                 href="https://www.twitter.com/rosa7082" target="_blank">
@@ -707,7 +707,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                         </div>
 
                                         {/* Stats */}
-                                        <div className="ComponentInfo__stats">
+                                        <div className="AtomInfo__stats">
 
                                             <div className="sp-stats">
                                                 <div className="like sp-stats__item">

@@ -7,7 +7,7 @@ import { graphql, compose, ChildProps } from 'react-apollo';
 import { GET_ALL_ATOM_QUERY, GetAllResponse } from '../../../models/atom/atom.query';
 
 import Header from '../../common/Header/Header.container';
-import ComponentsList from '../../common/ComponentsList/ComponentsList';
+import AtomsList from '../../common/AtomsList/AtomsList';
 
 // -----------------------------------
 
@@ -17,14 +17,14 @@ import ComponentsList from '../../common/ComponentsList/ComponentsList';
 /********************************/
 
 /* Own Props */
-type ComponentsListPageProps = {/**/};
+type AtomsListPageProps = {/**/};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class ComponentsListPage 
-extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}> {
+class AtomsListPage 
+extends React.Component<ChildProps<AtomsListPageProps, GetAllResponse>, {}> {
     
     
     /********************************/
@@ -38,7 +38,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
     /********************************/
     /*       COMPONENTDIDMOUNT      */
     /********************************/
-    componentDidMount() {   
+    atomDidMount() {   
         window.scrollTo(0, 0);
     }
 
@@ -76,9 +76,9 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ComponentsListPage">
+            <div className="AtomsListPage">
                 <Header />
-                <ComponentsList components={data.allAtoms}/>
+                <AtomsList atoms={data.allAtoms}/>
             </div>
         );
 
@@ -91,7 +91,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
 /********************************/
 /*            QUERY             */
 /********************************/
-const getAllAtomsQuery = graphql<GetAllResponse, ComponentsListPageProps>(
+const getAllAtomsQuery = graphql<GetAllResponse, AtomsListPageProps>(
     GET_ALL_ATOM_QUERY
 );
 
@@ -100,4 +100,4 @@ const getAllAtomsQuery = graphql<GetAllResponse, ComponentsListPageProps>(
 /***************************/
 export default compose(
     getAllAtomsQuery
-)(ComponentsListPage);
+)(AtomsListPage);

@@ -5,8 +5,8 @@ import * as React from 'react';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
-import ComponentBox from '../ComponentBox/ComponentBox';
-import ComponentInfoSection from '../ComponentBox/ComponentInfoSection/ComponentInfoSection';
+import AtomBox from '../AtomBox/AtomBox';
+import AtomInfoSection from '../AtomBox/AtomInfoSection/AtomInfoSection';
 
 // -----------------------------------
 
@@ -16,32 +16,32 @@ import ComponentInfoSection from '../ComponentBox/ComponentInfoSection/Component
 /********************************/
 
 /* Own Props */
-type ComponentsListProps = {
-    components: Array<AtomModel>;
+type AtomsListProps = {
+    atoms: Array<AtomModel>;
 };
 
 
 /**
- * @desc Represent Components List
- * @function ComponentsList
+ * @desc Represent Atoms List
+ * @function AtomsList
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ComponentsList: React.SFC<ComponentsListProps> = ({ components }) => {
+const AtomsList: React.SFC<AtomsListProps> = ({ atoms }) => {
     
 
     /*         MARKUP          */
     /***************************/
     return (
-        <div className="ComponentsList row pt-5 pb-5 margin-0 no-gutters">
+        <div className="AtomsList row pt-5 pb-5 margin-0 no-gutters">
             <div className="col">
                 <div className="d-sm-flex flex-wrap width-wrapper">
 
-                    {/* Component Box */}
-                    {components.map((component: AtomModel) => (
-                        <div key={component.id} className="componentBox-container">
-                            <ComponentBox component={component} />
-                            <ComponentInfoSection />
+                    {/* Atom Box */}
+                    {atoms.map((atom: AtomModel) => (
+                        <div key={atom.id} className="atomBox-container">
+                            <AtomBox atom={atom} />
+                            <AtomInfoSection />
                         </div>
                     ))}
 
@@ -54,4 +54,4 @@ const ComponentsList: React.SFC<ComponentsListProps> = ({ components }) => {
 
 
 /* Export */
-export default ComponentsList;
+export default AtomsList;

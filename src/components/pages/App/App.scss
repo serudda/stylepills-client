@@ -43,16 +43,12 @@
 
 // Header Component Style
 @import '../../common/Header/Header';
-// Color Component Style
-@import '../../common/Color/Color';
-// Color Palette Component Style
-@import '../../common/ColorPalette/ColorPalette';
 // Component Box Component Style
-@import '../../common/ComponentBox/ComponentBox';
+@import '../../common/AtomBox/AtomBox';
 // Component Info Component Style
-@import '../../common/ComponentBox/ComponentInfoSection/ComponentInfoSection';
+@import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 // Components List Component Style
-@import '../../common/ComponentsList/ComponentsList';
+@import '../../common/AtomsList/AtomsList';
 // Footer Component Style
 @import '../../common/Footer/Footer';
 // IFrame Component Style
@@ -67,11 +63,5 @@
 
 // Home Page Style
 @import '../HomePage/HomePage';
-// Component Page Style
-@import '../ComponentPage/ComponentPage';
-// Component Page: Panel Section Style
-@import '../ComponentPage/sections/PanelSection';
-// Component Page: Preview Section Style
-@import '../ComponentPage/sections/PreviewSection';
 
 

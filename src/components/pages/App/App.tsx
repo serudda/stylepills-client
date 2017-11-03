@@ -4,8 +4,6 @@
 import * as React from 'react';
 
 import Main from '../Main/Main';
-// import Header from './../../common/Header/Header';
-// import Footer from './../../common/Footer/Footer';
 import './App.css'; 
 
 
@@ -22,9 +20,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="AppContent sp-bg-darkSnow">
-                {/*<Header />*/}
                 <Main />
-                {/*<Footer />*/}
             </div>
         );
     }
