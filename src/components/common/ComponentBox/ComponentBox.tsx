@@ -3,7 +3,7 @@
 /************************************/
 import * as React from 'react';
 
-import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
 import Iframe from '../Iframe/Iframe.container';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 /* Own Props */
 type ComponentBoxProps = {
-    component: UiComponentModel
+    component: AtomModel
 };
 
 
@@ -36,7 +36,7 @@ const ComponentBox: React.SFC<ComponentBoxProps> = ({ component }) => {
         <div className="ComponentBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
             <div className="ComponentBox__content borderRadius-xs">
                 <Link to={`/component/${component.id}`} className="cover-link" />
-                <Iframe html={component.html} style={component.css} background={component.background} />
+                <Iframe html={component.html} style={component.css} background={component.contextualBg} />
             </div>
         </div>
     );

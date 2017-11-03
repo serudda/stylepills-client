@@ -1,4 +1,3 @@
-
 /********************************/
 /*         DEPENDENCIES         */
 /********************************/
@@ -6,17 +5,16 @@ import gql from 'graphql-tag';
 
 
 /********************************/
-/*            QUERIES           */
+/*           FRAGMENT           */
 /********************************/
 
-export const UI_COMPONENT_FRAGMENT = gql`
-    fragment UiComponentFragment on UiComponent {
+export const ATOM_CATEGORY_FRAGMENT = gql`
+    fragment AtomCategoryFragment on AtomCategory {
         id
         name
-        css
-        scss
-        html
-        background
+        description
+        createdAt
+        updatedAt
         __typename
     }
 `;

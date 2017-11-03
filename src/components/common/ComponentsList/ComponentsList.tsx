@@ -3,7 +3,7 @@
 /************************************/
 import * as React from 'react';
 
-import { UiComponent as UiComponentModel } from '../../../models/uiComponent/uiComponent.model';
+import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
 import ComponentBox from '../ComponentBox/ComponentBox';
 import ComponentInfoSection from '../ComponentBox/ComponentInfoSection/ComponentInfoSection';
@@ -17,7 +17,7 @@ import ComponentInfoSection from '../ComponentBox/ComponentInfoSection/Component
 
 /* Own Props */
 type ComponentsListProps = {
-    components: Array<UiComponentModel>;
+    components: Array<AtomModel>;
 };
 
 
@@ -38,7 +38,7 @@ const ComponentsList: React.SFC<ComponentsListProps> = ({ components }) => {
                 <div className="d-sm-flex flex-wrap width-wrapper">
 
                     {/* Component Box */}
-                    {components.map((component: UiComponentModel) => (
+                    {components.map((component: AtomModel) => (
                         <div key={component.id} className="componentBox-container">
                             <ComponentBox component={component} />
                             <ComponentInfoSection />

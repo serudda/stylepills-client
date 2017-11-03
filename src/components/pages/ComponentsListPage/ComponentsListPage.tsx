@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { GET_ALL_UI_COMPONENTS_QUERY, GetAllResponse } from '../../../models/uiComponent/uiComponent.query';
+import { GET_ALL_ATOM_QUERY, GetAllResponse } from '../../../models/atom/atom.query';
 
 import Header from '../../common/Header/Header.container';
 import ComponentsList from '../../common/ComponentsList/ComponentsList';
@@ -68,7 +68,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
             return (<p>{data.error.message}</p>);
         }
 
-        if (data.uiComponents === null) {
+        if (data.allAtoms === null) {
             return (<div>No data</div>);
         }
             
@@ -78,7 +78,7 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
         return (
             <div className="ComponentsListPage">
                 <Header />
-                <ComponentsList components={data.uiComponents}/>
+                <ComponentsList components={data.allAtoms}/>
             </div>
         );
 
@@ -91,13 +91,13 @@ extends React.Component<ChildProps<ComponentsListPageProps, GetAllResponse>, {}>
 /********************************/
 /*            QUERY             */
 /********************************/
-const getAllUiComponentsQuery = graphql<GetAllResponse, ComponentsListPageProps>(
-    GET_ALL_UI_COMPONENTS_QUERY
+const getAllAtomsQuery = graphql<GetAllResponse, ComponentsListPageProps>(
+    GET_ALL_ATOM_QUERY
 );
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    getAllUiComponentsQuery
+    getAllAtomsQuery
 )(ComponentsListPage);
