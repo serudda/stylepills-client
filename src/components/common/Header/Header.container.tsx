@@ -7,8 +7,10 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { IUiState } from '../../../reducer/ui.reducer';
+import { ISearchState } from '../../../reducer/search.reducer';
 
 import { clearUiAction } from '../../../actions/ui.action';
+import { searchAtomsAction } from '../../../actions/search.action';
 
 import Icon from '../Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
@@ -25,11 +27,14 @@ import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
 type HeaderProps = {};
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    text: string
+};
 
 /* Mapped State to Props */
 type StateProps = {
     ui: IUiState;
+    search: ISearchState;
 };
 
 /* Mapped Dispatches to Props */
@@ -37,6 +42,9 @@ type DispatchProps = {
     actions: {
         ui: {
             clearUi: () => void;
+        },
+        search: {
+            searchAtoms: (filters: any) => void;
         }
     };
 };
@@ -54,7 +62,50 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     /********************************/
     constructor() {
         super();
+
+        // Init state
+        this.state = {
+            text: ''
+        };
+
+        // Bind methods
+        this._handleSearchChange = this._handleSearchChange.bind(this);
     }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+    /**
+     * @desc Handle Search Change
+     * @method _handleSearchChange
+     * @example this._handleSearchChange()
+     * @private 
+     * @returns {void}
+     */
+    private _handleSearchChange (e: any) {
+        // FIXME: this.state.text siempre es un valor anterior.
+
+        // tslint:disable-next-line:no-console
+        console.log('LOG EVENT:', e.target.value);
+        // tslint:disable-next-line:no-console
+        console.log('LOG BEFORE THIS.STATE.TEXT:', this.state.text);
+        this.setState({text: e.target.value});
+        // tslint:disable-next-line:no-console
+        console.log('LOG AFTER THIS.STATE.TEXT:', this.state.text);
+
+        let filters = {
+            searchTerm: this.state.text,
+            atomCategoryId: 0,
+            sortBy: 'ALL'
+        };
+        // tslint:disable-next-line:no-console
+        console.log('LOG FILTER:', filters);
+        // TODO: No se esta enviando el actual valor del searchTerm, sino el anterior
+        this.props.actions.search.searchAtoms(filters);
+    }
+
 
     
     /********************************/
@@ -95,13 +146,14 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                                     iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
                                     width="14" height="14"/>
                                 <input type="text" 
+                                    value={this.state.text} onChange={this._handleSearchChange}
                                     placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
                                     className="sp-search__input sp-input sp-input--md sp-input--block" />
                             </div>
                         </div>
 
                         <div className="col-2">
-                            {/* Sort by section*/}
+                            {/* Sort by section */}
                             <div className="SortBy d-flex align-items-center justify-content-end">
                                 <span className="fontSize-sm color-silver mr-2">sort by</span>
                                 {/* filter btn */}
@@ -131,7 +183,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        ui:  state.ui
+        ui:  state.ui,
+        search: state.search
     };
 }
 
@@ -143,6 +196,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 clearUi: () => dispatch(clearUiAction())
+            },
+            search: {
+                searchAtoms: (filters: any) => dispatch(searchAtomsAction(filters))
             }
         }
     };

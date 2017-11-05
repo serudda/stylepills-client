@@ -18,6 +18,12 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 export type CLOSE_MODAL = typeof CLOSE_MODAL;
 
 
+/* Search Actions Type */
+export const SEARCH_ATOMS = 'SEARCH_ATOMS';
+export type SEARCH_ATOMS = typeof SEARCH_ATOMS;
+
+
+
 /*
  * Es necesario crear un 'type' a cada constante si queremos asignarla despues a una interface
  *      export interface getUiComponent {
