@@ -86,7 +86,7 @@ ${ATOM_FRAGMENT}
 /***********************/
 
 export type GetByCategoryResponse = {
-    atomsByCategory: AtomModel;
+    atomsByCategory: Array<AtomModel>;
 };
 
 
@@ -114,5 +114,5 @@ ${ATOM_FRAGMENT}
 /***********************/
 
 export type SearchAtomsResponse = {
-    searchAtoms: AtomModel;
+    searchAtoms: Array<AtomModel>;
 };

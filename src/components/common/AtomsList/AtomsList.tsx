@@ -27,7 +27,7 @@ type AtomsListProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const AtomsList: React.SFC<AtomsListProps> = ({ atoms }) => {
+const AtomsList: React.SFC<AtomsListProps> = ({ atoms = [] }) => {
     
 
     /*         MARKUP          */
