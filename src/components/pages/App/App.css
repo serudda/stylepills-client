@@ -1562,7 +1562,8 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 .sp-stats {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  height: 18px; }
   .sp-stats__item {
     display: flex;
     align-items: center; }
@@ -1622,7 +1623,7 @@ NOTE: Boostrap 4 has a flex set
       background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
 
 /**********************************************************/
-/*                     COMPONENTS LIST                    */
+/*                       ATOMS LIST                       */
 /**********************************************************/
 .AtomsList .atomBox-container {
   width: 32%;

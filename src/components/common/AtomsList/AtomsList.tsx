@@ -41,7 +41,7 @@ const AtomsList: React.SFC<AtomsListProps> = ({ atoms }) => {
                     {atoms.map((atom: AtomModel) => (
                         <div key={atom.id} className="atomBox-container">
                             <AtomBox atom={atom} />
-                            <AtomInfoSection />
+                            <AtomInfoSection {...atom} />
                         </div>
                     ))}
 

@@ -2,8 +2,10 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-
 import { Link } from 'react-router-dom';
+
+import { Atom } from '../../../../models/atom/atom.model';
+
 import Icon from '../../Icon/Icon';
 
 // -----------------------------------
@@ -14,7 +16,7 @@ import Icon from '../../Icon/Icon';
 /************************************/
 
 /* Own Props */
-type AtomInfoSectionProps = {};
+interface AtomInfoSectionProps extends Atom {}
 
 
 /**
@@ -23,7 +25,14 @@ type AtomInfoSectionProps = {};
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const AtomInfoSection: React.SFC<AtomInfoSectionProps> = () => {
+const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
+    name, 
+    likes, 
+    stores,
+    comments, 
+    views,
+    author
+}) => {
 
 
     /*         MARKUP          */
@@ -33,7 +42,7 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = () => {
 
             {/* Atom Name */}
             <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">
-                Tertiary Button
+                {name}
             </p>
 
             {/* Designed by */}
@@ -41,11 +50,11 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = () => {
 
                 <Link className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate"
                       to={`estudiar_url`}>
-                    <span className="ml-1 order-3">Lee Williams</span>
+                    <span className="ml-1 order-3">{author.firstname} {author.lastname}</span>
                     <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
                         <img width="22" height="22"
-                            src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" 
-                            alt="rosa7082" />
+                            src={author.avatar} 
+                            alt={author.username} />
                     </div>
                 </Link>
 
@@ -55,30 +64,39 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = () => {
             <div className="AtomInfo__stats">
 
                 <div className="sp-stats">
+
                     <div className="like sp-stats__item">
                         <Icon icon="heart" 
                             iconClass="stroke-silver strokeWidth-2 mr-1"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">11</span>
+                        <span className="fontSize-sm fontWeight-9 color-silver">{likes}</span>
                     </div>
+
+                    {/*
+                    // TODO: Traer count desde Sequelize: 
+                        http://static.html-js.com/sequelizejs/index.html#
                     <div className="comment sp-stats__item">
                         <Icon icon="messageCircle"
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">0</span>
+                        <span className="fontSize-sm fontWeight-9 color-silver">{comments}</span>
                     </div>
+                    */}
+
                     <div className="store sp-stats__item">
                         <Icon icon="package"
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">0</span>
+                        <span className="fontSize-sm fontWeight-9 color-silver">{stores}</span>
                     </div>
+
                     <div className="view sp-stats__item">
                         <Icon icon="eye" 
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">58</span>
+                        <span className="fontSize-sm fontWeight-9 color-silver">{views}</span>
                     </div>
+
                 </div>
 
             </div>
