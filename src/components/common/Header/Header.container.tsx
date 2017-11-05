@@ -87,8 +87,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     private _handleSearchChange (e: any) {
         // catch value
         let value = e.target.value;
-        
+
         // Build the filter set
+        // NOTE: Not take 'this.state.text' as a 'searchTerm' because it's async.
         let filters = {
             searchTerm: value,
             atomCategoryId: 0,
