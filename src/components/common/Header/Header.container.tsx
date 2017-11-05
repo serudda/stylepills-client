@@ -85,27 +85,24 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
      * @returns {void}
      */
     private _handleSearchChange (e: any) {
-        // FIXME: this.state.text siempre es un valor anterior.
-
-        // tslint:disable-next-line:no-console
-        console.log('LOG EVENT:', e.target.value);
-        // tslint:disable-next-line:no-console
-        console.log('LOG BEFORE THIS.STATE.TEXT:', this.state.text);
-        this.setState({text: e.target.value});
-        // tslint:disable-next-line:no-console
-        console.log('LOG AFTER THIS.STATE.TEXT:', this.state.text);
-
+        // catch value
+        let value = e.target.value;
+        
+        // Build the filter set
         let filters = {
-            searchTerm: this.state.text,
+            searchTerm: value,
             atomCategoryId: 0,
             sortBy: 'ALL'
         };
-        // tslint:disable-next-line:no-console
-        console.log('LOG FILTER:', filters);
-        // TODO: No se esta enviando el actual valor del searchTerm, sino el anterior
+
+        // update the state
+        this.setState((previousState) => {
+            return { ...previousState, text: value };
+        });
+        
+        // Trigger Search Atoms Action
         this.props.actions.search.searchAtoms(filters);
     }
-
 
     
     /********************************/
