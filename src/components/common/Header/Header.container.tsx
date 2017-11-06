@@ -137,7 +137,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 
                     {/* Filter section */}
                     <div className="FilterSection row align-items-center">
-                        <div className="col-10">
+                        <div className="col-9">
+
                             {/* Search Box */}
                             <div className="sp-search sp-search--md w-100">
                                 <Icon icon="search"
@@ -147,21 +148,56 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                                     value={this.state.text} onChange={this._handleSearchChange}
                                     placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
                                     className="sp-search__input sp-input sp-input--md sp-input--block" />
+                                {/*<button className="sp-search__btn sp-btn sp-btn--combo sp-btn--sm fontSmoothing-reset">
+                                    <span>Category</span>
+                                    <Icon icon="chevronDown" 
+                                          iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                                          width="15" height="15"/>
+                                </button>*/}
                             </div>
+
                         </div>
 
-                        <div className="col-2">
+                        <div className="col-3 d-flex align-content-center justify-content-end">
+
+                            {/* Category Select List */}
+                            <div className="sp-select-container mr-4">
+                                <select className="sp-select sp-select--md sp-select--input"
+                                        name="categories">
+                                    <option value="All" selected={true}>All</option>
+                                    <option value="Buttons">Buttons</option>
+                                    <option value="Inputs">Inputs</option>
+                                    <option value="Navbars">Navbars</option>
+                                </select>
+                                <Icon icon="chevronDown"
+                                    iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                                    width="15" height="15"/>
+                            </div>
+                            
                             {/* Sort by section */}
-                            <div className="SortBy d-flex align-items-center justify-content-end">
+                            <div className="sp-select-container">
+                                <select className="sp-select sp-select--md sp-select--input"
+                                        name="sortBy">
+                                    <option value="Recent" selected={true}>Recent</option>
+                                    <option value="Likes">Likes</option>
+                                    <option value="Stores">Stores</option>
+                                </select>
+                                <Icon icon="chevronDown"
+                                    iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                                    width="15" height="15"/>
+                            </div>
+
+                            {/* Sort by section 
+                            <div className="SortBy d-flex align-items-center">
                                 <span className="fontSize-sm color-silver mr-2">sort by</span>
-                                {/* filter btn */}
+                                // filter btn
                                 <button className="sp-btn sp-btn--combo-neutral-ghost sp-btn--sm">
                                     <span>Likes</span>
                                     <Icon icon="chevronDown" 
                                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
                                         width="15" height="15"/>
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

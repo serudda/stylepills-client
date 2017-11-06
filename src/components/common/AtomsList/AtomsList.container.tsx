@@ -55,7 +55,6 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /*       PROPERTIES       */
         /**************************/
         const {...data} = this.props.data;
-        // const{...search} = this.props.search;
         
         
         /*       VALIDATIONS       */
