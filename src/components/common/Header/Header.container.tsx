@@ -15,6 +15,7 @@ import { searchAtomsAction } from '../../../actions/search.action';
 import Icon from '../Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
+import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
 
 
 // -----------------------------------
@@ -91,10 +92,11 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 
         // Build the filter set
         // NOTE: Not take 'this.state.text' as a 'searchTerm' because it's async.
+        // TODO: Typar ya que esta estructura la uso a través de muchos componentes
         let filters = {
             searchTerm: value,
             atomCategoryId: this.props.search.atomCategoryId,
-            // sortBy: 'ALL'
+            sortBy: this.props.search.sortBy
         };
 
         // update the state
@@ -165,17 +167,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                             <AtomCategoryFilterContainer />
                             
                             {/* Sort by section */}
-                            <div className="sp-select-container">
-                                <select className="sp-select sp-select--md sp-select--input"
-                                        name="sortBy">
-                                    <option value="Recent" selected={true}>Recent</option>
-                                    <option value="Likes">Likes</option>
-                                    <option value="Stores">Stores</option>
-                                </select>
-                                <Icon icon="chevronDown"
-                                    iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                                    width="15" height="15"/>
-                            </div>
+                            <SortBySelectListContainer />
 
                             {/* Sort by section 
                             <div className="SortBy d-flex align-items-center">

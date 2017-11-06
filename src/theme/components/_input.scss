@@ -81,6 +81,7 @@
         -moz-appearance:    none;
         appearance:         none;
         line-height: normal;
+        cursor: pointer;
 
         &--input {
             @include input;

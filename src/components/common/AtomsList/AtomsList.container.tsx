@@ -89,6 +89,10 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
 /********************************/
 /*            QUERY             */
 /********************************/
+/* FIXME: Tratar de unificar la estructura de los filtros, limit, sortBy y DESC or ASC 
+ya que esta todo muy separado, y en cada componente que quiero usar esto, tengo una forma
+diferente de hacerlo, eso esta mal. */
+
 const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
     SEARCH_ATOMS_QUERY, {
         options:  (ownProps: StateProps) => (
@@ -100,6 +104,7 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                         text: ownProps.search.searchTerm,
                         atomCategoryId: ownProps.search.atomCategoryId
                     },
+                    sortBy: ownProps.search.sortBy,
                     limit:  12
                 } 
             }

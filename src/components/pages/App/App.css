@@ -1505,7 +1505,8 @@ NOTE: Boostrap 4 has a flex set
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    line-height: normal; }
+    line-height: normal;
+    cursor: pointer; }
     .sp-select-container .sp-select--input {
       border: 1px solid #C0CCDA;
       -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;

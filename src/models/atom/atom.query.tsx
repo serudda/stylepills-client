@@ -102,8 +102,8 @@ export type GetByCategoryResponse = {
  * @returns {Array<Atom>} Atoms List based on a filter parameters: e.g category, user's input text
  */
 export const SEARCH_ATOMS_QUERY = gql`
-query searchAtoms ($filter: AtomFilter!, $limit: Int) {
-    searchAtoms(filter: $filter, limit: $limit) {
+query searchAtoms ($filter: AtomFilter!, $sortBy: String, $limit: Int) {
+    searchAtoms(filter: $filter, sortBy: $sortBy, limit: $limit) {
         ...AtomFragment
     }
 }

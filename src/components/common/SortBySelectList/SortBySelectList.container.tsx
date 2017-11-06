@@ -3,10 +3,7 @@
 /********************************/
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { graphql, compose, ChildProps } from 'react-apollo';
-
-import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
-import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
+import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
@@ -24,7 +21,7 @@ import Icon from '../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type AtomCategoryFilterProps = {};
+type SortBySelectListProps = {};
 
 /* Own States */
 type LocalStates = {
@@ -49,8 +46,8 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomCategoryFilterContainer 
-extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & DispatchProps, GetAllResponse>, LocalStates> {
+class SortBySelectListContainer 
+extends React.Component<ChildProps<SortBySelectListProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     
     /********************************/
@@ -61,7 +58,7 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
 
         // Init state
         this.state = {
-            value: '0'
+            value: 'created_at'
         };
 
         // Bind methods
@@ -84,18 +81,11 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         // catch value
         let value = e.target.value;
 
-        // Parse to Int if value is String
-        if (typeof value === 'string') {
-            // tslint:disable-next-line:radix
-            parseInt(value);
-        }
-
         // Build the filter set
-        // TODO: Typarlo, ya que esta estructura la uso a traves de muchos componentes
         let filters = {
             searchTerm: this.props.search.searchTerm,
-            atomCategoryId: value,
-            sortBy: this.props.search.sortBy
+            atomCategoryId: this.props.search.atomCategoryId,
+            sortBy: value
         };
 
         // update the state
@@ -112,41 +102,19 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-
-        /*       PROPERTIES       */
-        /**************************/
-        const {...data} = this.props.data;
-        
-        
-        /*       VALIDATIONS       */
-        /***************************/
-        if (data.loading) {
-            return (<option>loading</option>);
-        }
-
-        /* TODO: Gestionar error
-        if (data.error) {
-            return (<p>{data.error.message}</p>);
-        }
-
-        if (data.allAtomCategories === null) {
-            return (<div>No data</div>);
-        }
-        */
             
         
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomCategoryFilter">
-                <div className="sp-select-container mr-4">
+            <div className="SortBySelectList">
+                <div className="sp-select-container">
                     <select value={this.state.value} onChange={this._handleChange}
                             className="sp-select sp-select--md sp-select--input"
-                            name="categories">
-                        <option key="0" value="0">All</option>
-                        {data.allAtomCategories.map((atom: AtomCategoryModel) => (
-                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
-                        ))}
+                            name="sortBy">
+                        <option value="created_at">Recent</option>
+                        <option value="likes">Likes</option>
+                        <option value="stores">Stores</option>
                     </select>
                     <Icon icon="chevronDown"
                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
@@ -158,14 +126,6 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
     }
 
 }
-
-
-/********************************/
-/*            QUERY             */
-/********************************/
-const getAllAtomCategoriesQuery = graphql<GetAllResponse, AtomCategoryFilterProps>(
-    GET_ALL_ATOM_CATEGORIES_QUERY
-);
 
 
 /********************************/
@@ -201,6 +161,5 @@ const atomCategoryFilterConnect = connect(mapStateToProps, mapDispatchToProps);
 /*         EXPORT          */
 /***************************/
 export default compose(
-    getAllAtomCategoriesQuery,
     atomCategoryFilterConnect
-)(AtomCategoryFilterContainer);
+)(SortBySelectListContainer);
