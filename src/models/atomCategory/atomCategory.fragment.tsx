@@ -13,8 +13,6 @@ export const ATOM_CATEGORY_FRAGMENT = gql`
         id
         name
         description
-        createdAt
-        updatedAt
         __typename
     }
 `;

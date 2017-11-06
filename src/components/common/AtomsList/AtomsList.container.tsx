@@ -67,7 +67,7 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
             return (<p>{data.error.message}</p>);
         }
 
-        if (data.searchAtoms === null) {
+        if (data.searchAtoms.length === 0) {
             return (<div>No data</div>);
         }
             
@@ -97,7 +97,8 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                 {
                     filter: {
                         private: false,
-                        text: ownProps.search.searchTerm
+                        text: ownProps.search.searchTerm,
+                        atomCategoryId: ownProps.search.atomCategoryId
                     },
                     limit:  12
                 } 

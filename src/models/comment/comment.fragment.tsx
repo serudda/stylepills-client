@@ -19,8 +19,6 @@ export const COMMENT_FRAGMENT = gql`
         author {
             ...UserFragment
         }
-        createdAt
-        updatedAt
         __typename
     }
     ${USER_FRAGMENT}

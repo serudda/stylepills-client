@@ -20,8 +20,8 @@ import { AtomCategory as AtomCategoryModel } from './atomCategory.model';
  * @returns {Array<AtomCategory>} Atom's categories list
  */
 export const GET_ALL_ATOM_CATEGORIES_QUERY = gql`
-query getAllAtomCategories ($limit: Int!){
-    allAtomCategories(limit: $limit) {
+query getAllAtomCategories {
+    allAtomCategories {
         ...AtomCategoryFragment
     }
 }

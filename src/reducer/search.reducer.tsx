@@ -23,7 +23,7 @@ export interface ISearchState {
 const defaultState: ISearchState = {
     searchTerm: '',
     atomCategoryId: null,
-    sortBy: 'ALL'
+    sortBy: ''
 };
 
 // -----------------------------------

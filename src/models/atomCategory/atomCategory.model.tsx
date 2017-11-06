@@ -7,6 +7,4 @@ export type AtomCategory = {
     name: string;
     description: string;
     active: boolean;
-    createdAt: string;
-    updatedAt: string;
 };

@@ -14,6 +14,7 @@ import { searchAtomsAction } from '../../../actions/search.action';
 
 import Icon from '../Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
+import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
 
 
 // -----------------------------------
@@ -92,8 +93,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
         // NOTE: Not take 'this.state.text' as a 'searchTerm' because it's async.
         let filters = {
             searchTerm: value,
-            atomCategoryId: 0,
-            sortBy: 'ALL'
+            atomCategoryId: this.props.search.atomCategoryId,
+            // sortBy: 'ALL'
         };
 
         // update the state
@@ -161,18 +162,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                         <div className="col-3 d-flex align-content-center justify-content-end">
 
                             {/* Category Select List */}
-                            <div className="sp-select-container mr-4">
-                                <select className="sp-select sp-select--md sp-select--input"
-                                        name="categories">
-                                    <option value="All" selected={true}>All</option>
-                                    <option value="Buttons">Buttons</option>
-                                    <option value="Inputs">Inputs</option>
-                                    <option value="Navbars">Navbars</option>
-                                </select>
-                                <Icon icon="chevronDown"
-                                    iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                                    width="15" height="15"/>
-                            </div>
+                            <AtomCategoryFilterContainer />
                             
                             {/* Sort by section */}
                             <div className="sp-select-container">
