@@ -10,7 +10,7 @@ import * as types from '../constants/action.types';
 
 export interface ISearchAtomsAction {
     type: types.SEARCH_ATOMS;
-    searchTerm: string;
+    text: string;
     atomCategoryId: number;
     sortBy: string;
 }
@@ -31,10 +31,10 @@ export type Action = ISearchAtomsAction;
  * @function searchAtomsAction
  * @returns {Action}
  */
-export const searchAtomsAction = ({searchTerm, atomCategoryId, sortBy}: ISearchAtomsAction): Action => {
+export const searchAtomsAction = ({text, atomCategoryId, sortBy}: ISearchAtomsAction): Action => {
     return {
         type: types.SEARCH_ATOMS,
-        searchTerm,
+        text,
         atomCategoryId,
         sortBy
     };

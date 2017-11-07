@@ -7,13 +7,12 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { IUiState } from '../../../reducer/ui.reducer';
-import { ISearchState } from '../../../reducer/search.reducer';
 
 import { clearUiAction } from '../../../actions/ui.action';
-import { searchAtomsAction } from '../../../actions/search.action';
 
 import Icon from '../Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
+import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
 import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
 
@@ -29,14 +28,11 @@ import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.cont
 type HeaderProps = {};
 
 /* Own States */
-type LocalStates = {
-    text: string
-};
+type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
     ui: IUiState;
-    search: ISearchState;
 };
 
 /* Mapped Dispatches to Props */
@@ -44,9 +40,6 @@ type DispatchProps = {
     actions: {
         ui: {
             clearUi: () => void;
-        },
-        search: {
-            searchAtoms: (filters: any) => void;
         }
     };
 };
@@ -64,48 +57,6 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     /********************************/
     constructor() {
         super();
-
-        // Init state
-        this.state = {
-            text: ''
-        };
-
-        // Bind methods
-        this._handleSearchChange = this._handleSearchChange.bind(this);
-    }
-
-
-    /********************************/
-    /*       PRIVATE METHODS        */
-    /********************************/
-
-    /**
-     * @desc Handle Search Change
-     * @method _handleSearchChange
-     * @example this._handleSearchChange()
-     * @private 
-     * @returns {void}
-     */
-    private _handleSearchChange (e: any) {
-        // catch value
-        let value = e.target.value;
-
-        // Build the filter set
-        // NOTE: Not take 'this.state.text' as a 'searchTerm' because it's async.
-        // TODO: Typar ya que esta estructura la uso a través de muchos componentes
-        let filters = {
-            searchTerm: value,
-            atomCategoryId: this.props.search.atomCategoryId,
-            sortBy: this.props.search.sortBy
-        };
-
-        // update the state
-        this.setState((previousState) => {
-            return { ...previousState, text: value };
-        });
-        
-        // Trigger Search Atoms Action
-        this.props.actions.search.searchAtoms(filters);
     }
 
     
@@ -143,21 +94,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                         <div className="col-9">
 
                             {/* Search Box */}
-                            <div className="sp-search sp-search--md w-100">
-                                <Icon icon="search"
-                                    iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
-                                    width="14" height="14"/>
-                                <input type="text" 
-                                    value={this.state.text} onChange={this._handleSearchChange}
-                                    placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
-                                    className="sp-search__input sp-input sp-input--md sp-input--block" />
-                                {/*<button className="sp-search__btn sp-btn sp-btn--combo sp-btn--sm fontSmoothing-reset">
-                                    <span>Category</span>
-                                    <Icon icon="chevronDown" 
-                                          iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                                          width="15" height="15"/>
-                                </button>*/}
-                            </div>
+                            <AtomSearchContainer />
 
                         </div>
 
@@ -199,8 +136,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        ui:  state.ui,
-        search: state.search
+        ui:  state.ui
     };
 }
 
@@ -212,9 +148,6 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 clearUi: () => dispatch(clearUiAction())
-            },
-            search: {
-                searchAtoms: (filters: any) => dispatch(searchAtomsAction(filters))
             }
         }
     };

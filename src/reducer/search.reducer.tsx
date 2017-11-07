@@ -11,7 +11,7 @@ import { Action } from '../actions/search.action';
 /* TODO: Analizar por que ahora el Store tiene un search global, pero deberia tener un
    search por cada tipo: searchAtoms, searchCategories, searchUsers, etc. */
 export interface ISearchState {
-    searchTerm: string;
+    text: string;
     atomCategoryId: number;
     sortBy: string;
 }
@@ -21,7 +21,7 @@ export interface ISearchState {
 /************************************/
 
 const defaultState: ISearchState = {
-    searchTerm: '',
+    text: '',
     atomCategoryId: null,
     sortBy: 'created_at'
 };
@@ -46,7 +46,7 @@ export default function (state: ISearchState = defaultState, action: Action): IS
         case types.SEARCH_ATOMS: {
             return {
                 ...state, 
-                searchTerm: action.searchTerm, 
+                text: action.text, 
                 atomCategoryId: action.atomCategoryId, 
                 sortBy: action.sortBy
             };

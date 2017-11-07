@@ -101,7 +101,7 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                 {
                     filter: {
                         private: false,
-                        text: ownProps.search.searchTerm,
+                        text: ownProps.search.text,
                         atomCategoryId: ownProps.search.atomCategoryId
                     },
                     sortBy: ownProps.search.sortBy,

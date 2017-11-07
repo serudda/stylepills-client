@@ -78,17 +78,18 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
      * @returns {void}
      */
     private _handleChange (e: any) {
-        // catch value
+        // VARIABLES
         let value = e.target.value;
+        let filters: ISearchState = null;
 
         // Build the filter set
-        let filters = {
-            searchTerm: this.props.search.searchTerm,
+        filters = {
+            text: this.props.search.text,
             atomCategoryId: this.props.search.atomCategoryId,
             sortBy: value
         };
 
-        // update the state
+        // Update the state
         this.setState((previousState) => {
             return { ...previousState, value };
         });
