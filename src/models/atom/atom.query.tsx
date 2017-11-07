@@ -7,6 +7,32 @@ import { ATOM_FRAGMENT } from './atom.fragment';
 import { Atom as AtomModel } from './atom.model';
 
 
+// -----------------------------------
+
+
+/********************************/
+/*      INTERFACES & TYPES      */
+/********************************/
+
+/**
+ * Arguments passed to Atom filter
+ */
+interface IAtomFilterArgs {
+    text?: string;
+    atomCategoryId?: number;
+}
+
+/**
+ * Arguments passed to Atom queries
+ */
+export interface IAtomQueryArgs {
+    id?: number;
+    filter: IAtomFilterArgs;
+    sortBy: string;
+    limit: number;
+}
+
+
 /********************************/
 /*            QUERIES           */
 /********************************/

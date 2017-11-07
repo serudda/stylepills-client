@@ -4,16 +4,16 @@
 import * as types from '../constants/action.types';
 import { Action } from '../actions/search.action';
 
+import * as appConfig from '../constants/app.constants';
+
+import { IAtomQueryArgs } from '../models/atom/atom.query';
+
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
-/* TODO: Analizar por que ahora el Store tiene un search global, pero deberia tener un
-   search por cada tipo: searchAtoms, searchCategories, searchUsers, etc. */
 export interface ISearchState {
-    text: string;
-    atomCategoryId: number;
-    sortBy: string;
+    searchAtoms: IAtomQueryArgs;
 }
 
 /************************************/
@@ -21,9 +21,14 @@ export interface ISearchState {
 /************************************/
 
 const defaultState: ISearchState = {
-    text: '',
-    atomCategoryId: null,
-    sortBy: 'created_at'
+    searchAtoms: {
+        filter: {
+            text: '',
+            atomCategoryId: null
+        },
+        sortBy: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT,
+        limit: appConfig.ATOM_SEARCH_LIMIT
+    }
 };
 
 // -----------------------------------
@@ -45,10 +50,15 @@ export default function (state: ISearchState = defaultState, action: Action): IS
 
         case types.SEARCH_ATOMS: {
             return {
-                ...state, 
-                text: action.text, 
-                atomCategoryId: action.atomCategoryId, 
-                sortBy: action.sortBy
+                ...state,
+                searchAtoms: {
+                    filter: {
+                        text: action.searchAtoms.filter.text, 
+                        atomCategoryId: action.searchAtoms.filter.atomCategoryId, 
+                    },
+                    sortBy: action.searchAtoms.sortBy,
+                    limit: action.searchAtoms.limit
+                } 
             };
         }
             

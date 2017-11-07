@@ -80,13 +80,18 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
     private _handleChange (e: any) {
         // VARIABLES
         let value = e.target.value;
-        let filters: ISearchState = null;
+        let queryArgs: ISearchState = null;
 
         // Build the filter set
-        filters = {
-            text: value,
-            atomCategoryId: this.props.search.atomCategoryId,
-            sortBy: this.props.search.sortBy
+        queryArgs = {
+            searchAtoms: {
+                filter: {
+                    text: value,
+                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
+                },
+                sortBy: this.props.search.searchAtoms.sortBy,
+                limit: this.props.search.searchAtoms.limit
+            }
         };
 
         // Update the state
@@ -95,7 +100,7 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
         });
         
         // Trigger Search Atoms Action
-        this.props.actions.search.searchAtoms(filters);
+        this.props.actions.search.searchAtoms(queryArgs);
     }
 
     
@@ -149,7 +154,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
-                searchAtoms: (filters: any) => dispatch(searchAtomsAction(filters))
+                searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             }
         }
     };

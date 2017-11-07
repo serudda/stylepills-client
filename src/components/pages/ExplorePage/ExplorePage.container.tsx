@@ -2,7 +2,15 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { compose, ChildProps } from 'react-apollo';
+import { connect, Dispatch } from 'react-redux';
+
+import * as appConfig from '../../../constants/app.constants';
+
+import { IRootState } from '../../../reducer/reducer.config';
+import { ISearchState } from '../../../reducer/search.reducer';
+
+import { searchAtomsAction } from '../../../actions/search.action';
 
 import Header from '../../common/Header/Header.container';
 import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
@@ -18,21 +26,66 @@ import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
 type ExplorePageProps = {};
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    limit: number
+};
+
+/* Mapped State to Props */
+type StateProps = {
+    search: ISearchState;
+};
+
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        search: {
+            searchAtoms: (filters: any) => void;
+        }
+    };
+};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ExplorePage 
-extends React.Component<ChildProps<ExplorePageProps, {}>, LocalStates> {
+extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {    
+    constructor() {
         super();
+
+        // Init state
+        this.state = {
+            limit: appConfig.ATOM_SEARCH_LIMIT
+        };
+    }
+
+
+    /********************************/
+    /*     COMPONENT_WILL_MOUNT     */
+    /********************************/
+    componentWillMount() {  
+        // VARIABLES
+        let queryArgs: ISearchState = null;
+        
+        // Build the filter set
+        queryArgs = {
+            searchAtoms: {
+                filter: {
+                    text: this.props.search.searchAtoms.filter.text,
+                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
+                },
+                sortBy: this.props.search.searchAtoms.sortBy,
+                limit: this.state.limit
+            }
+        };
+
+        // Trigger searchAtoms action in order to save 'limit' value on Store
+        this.props.actions.search.searchAtoms(queryArgs);
     }
 
 
@@ -60,6 +113,38 @@ extends React.Component<ChildProps<ExplorePageProps, {}>, LocalStates> {
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    return {
+        search: state.search
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            search: {
+                searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const explorePageConnect = connect(mapStateToProps, mapDispatchToProps); 
+
+
 /*         EXPORT          */
 /***************************/
-export default ExplorePage;
+export default compose(
+    explorePageConnect
+)(ExplorePage);

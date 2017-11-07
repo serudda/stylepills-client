@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import * as appConfig from '../../../constants/app.constants';
+
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 
@@ -58,7 +60,7 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
 
         // Init state
         this.state = {
-            value: 'created_at'
+            value: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT
         };
 
         // Bind methods
@@ -80,13 +82,18 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
     private _handleChange (e: any) {
         // VARIABLES
         let value = e.target.value;
-        let filters: ISearchState = null;
+        let queryArgs: ISearchState = null;
 
         // Build the filter set
-        filters = {
-            text: this.props.search.text,
-            atomCategoryId: this.props.search.atomCategoryId,
-            sortBy: value
+        queryArgs = {
+            searchAtoms: {
+                filter: {
+                    text: this.props.search.searchAtoms.filter.text,
+                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
+                },
+                sortBy: value,
+                limit: this.props.search.searchAtoms.limit
+            }
         };
 
         // Update the state
@@ -95,7 +102,7 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         });
         
         // Trigger Search Atoms Action
-        this.props.actions.search.searchAtoms(filters);
+        this.props.actions.search.searchAtoms(queryArgs);
     }
 
     
@@ -146,7 +153,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
-                searchAtoms: (filters: any) => dispatch(searchAtomsAction(filters))
+                searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             }
         }
     };

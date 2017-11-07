@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as types from '../constants/action.types';
+import { IAtomQueryArgs } from '../models/atom/atom.query';
 
 
 /************************************/
@@ -10,9 +11,7 @@ import * as types from '../constants/action.types';
 
 export interface ISearchAtomsAction {
     type: types.SEARCH_ATOMS;
-    text: string;
-    atomCategoryId: number;
-    sortBy: string;
+    searchAtoms: IAtomQueryArgs;
 }
 
 
@@ -31,11 +30,16 @@ export type Action = ISearchAtomsAction;
  * @function searchAtomsAction
  * @returns {Action}
  */
-export const searchAtomsAction = ({text, atomCategoryId, sortBy}: ISearchAtomsAction): Action => {
+export const searchAtomsAction = ({ searchAtoms }: ISearchAtomsAction): Action => {
     return {
         type: types.SEARCH_ATOMS,
-        text,
-        atomCategoryId,
-        sortBy
+        searchAtoms: {
+            filter: {
+                text: searchAtoms.filter.text,
+                atomCategoryId: searchAtoms.filter.atomCategoryId
+            },
+            sortBy: searchAtoms.sortBy,
+            limit: searchAtoms.limit
+        }
     };
 };
