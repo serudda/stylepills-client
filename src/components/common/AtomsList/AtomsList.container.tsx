@@ -9,8 +9,10 @@ import { SEARCH_ATOMS_QUERY, SearchAtomsResponse } from '../../../models/atom/at
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
+import { IPaginationState } from '../../../reducer/pagination.reducer';
 
 import AtomsList from './AtomsList';
+import PaginationBtnsContainer from '../../common/PaginationBtns/PaginationBtns.container';
 
 
 // -----------------------------------
@@ -29,6 +31,7 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     search: ISearchState;
+    pagination: IPaginationState;
 };
 
 
@@ -67,7 +70,7 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
             return (<p>{data.error.message}</p>);
         }
 
-        if (data.searchAtoms.length === 0) {
+        if (data.searchAtoms.results.length === 0) {
             return (<div>No data</div>);
         }
             
@@ -76,7 +79,10 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /***************************/
         return (
             <div>
-                <AtomsList atoms={data.searchAtoms}/>
+                <AtomsList atoms={data.searchAtoms.results}/>
+
+                {/* Pagination Buttons */}
+                <PaginationBtnsContainer cursors={data.searchAtoms.cursors}/>
             </div>
 
         );
@@ -95,13 +101,18 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
             { 
                 variables: 
                 {
+                    pagination: {
+                        first: ownProps.pagination.paginationAtoms.first,
+                        after: ownProps.pagination.paginationAtoms.after,
+                        last: ownProps.pagination.paginationAtoms.last,
+                        before: ownProps.pagination.paginationAtoms.before
+                    },
                     filter: {
-                        private: false,
+                        isPrivate: false,
                         text: ownProps.search.searchAtoms.filter.text,
                         atomCategoryId: ownProps.search.searchAtoms.filter.atomCategoryId
                     },
-                    sortBy: ownProps.search.searchAtoms.sortBy,
-                    limit:  ownProps.search.searchAtoms.limit
+                    sortBy: ownProps.search.searchAtoms.sortBy
                 }
             }
         )
@@ -114,7 +125,8 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        search: state.search
+        search: state.search,
+        pagination: state.pagination
     };
 }
 

@@ -15,6 +15,6 @@ export const DEV_SERVER_URL = 'https://stylepills-server-dev.herokuapp.com/graph
 export const PRD_SERVER_URL = 'https://stylepills-server.herokuapp.com/graphql';
 
 /* Search params */
-export const ATOM_SEARCH_LIMIT = 12;
-export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'created_at';
+export const ATOM_SEARCH_LIMIT = 6;
+export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'likes';
 export const ATOM_SEARCH_ORDER = 'DESC';

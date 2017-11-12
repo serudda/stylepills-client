@@ -8,12 +8,10 @@ import { compose, ChildProps } from 'react-apollo';
 import * as appConfig from '../../../constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
-import { ISearchState } from '../../../reducer/search.reducer';
+import { IPaginationState } from '../../../reducer/pagination.reducer';
+import { ICursor } from '../../../models/global/pagination.interface';
 
-import { searchAtomsAction } from '../../../actions/search.action';
-
-import Icon from '../Icon/Icon';
-
+import { prevPageAtomAction, nextPageAtomAction } from '../../../actions/pagination.action';
 
 // -----------------------------------
 
@@ -23,23 +21,24 @@ import Icon from '../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type PaginationBtnsProps = {};
+type PaginationBtnsProps = {
+    cursors: ICursor;
+};
 
 /* Own States */
-type LocalStates = {
-    value: string
-};
+type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    search: ISearchState;
+    pagination: IPaginationState;
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        search: {
-            searchAtoms: (filters: any) => void;
+        pagination: {
+            nextPageAtom: (pagination: any) => void;
+            prevPageAtom: (pagination: any) => void;
         }
     };
 };
@@ -58,13 +57,9 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
     constructor() {
         super();
 
-        // Init state
-        this.state = {
-            value: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT
-        };
-
         // Bind methods
-        this._handleChange = this._handleChange.bind(this);
+        this._handleNextClick = this._handleNextClick.bind(this);
+        this._handlePrevClick = this._handlePrevClick.bind(this);
     }
 
 
@@ -73,36 +68,54 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
     /********************************/
 
     /**
-     * @desc Handle Select List Change
-     * @method _handleChange
-     * @example this._handleChange()
+     * @desc Handle Next Button Click
+     * @method _handleNextClick
+     * @example this._handleNextClick()
      * @private 
      * @returns {void}
      */
-    private _handleChange (e: any) {
+    private _handleNextClick (e: any) {
         // VARIABLES
-        let value = e.target.value;
-        let queryArgs: ISearchState = null;
+        let queryArgs: IPaginationState = null;
 
-        // Build the filter set
+        // Build the pagination params set
         queryArgs = {
-            searchAtoms: {
-                filter: {
-                    text: this.props.search.searchAtoms.filter.text,
-                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
-                },
-                sortBy: value,
-                limit: this.props.search.searchAtoms.limit
+            paginationAtoms: {
+                first: appConfig.ATOM_SEARCH_LIMIT,
+                after: this.props.cursors.after,
+                last: null,
+                before: null
             }
         };
-
-        // Update the state
-        this.setState((previousState) => {
-            return { ...previousState, value };
-        });
         
-        // Trigger Search Atoms Action
-        this.props.actions.search.searchAtoms(queryArgs);
+        // Trigger Pagination Atoms Action
+        this.props.actions.pagination.nextPageAtom(queryArgs);
+    }
+
+
+    /**
+     * @desc Handle Prev Button Click
+     * @method _handlePrevClick
+     * @example this._handlePrevClick()
+     * @private 
+     * @returns {void}
+     */
+    private _handlePrevClick (e: any) {
+        // VARIABLES
+        let queryArgs: IPaginationState = null;
+
+        // Build the pagination params set
+        queryArgs = {
+            paginationAtoms: {
+                first: null,
+                after: null,
+                last: appConfig.ATOM_SEARCH_LIMIT,
+                before: this.props.cursors.before
+            }
+        };
+        
+        // Trigger Pagination Atoms Action
+        this.props.actions.pagination.prevPageAtom(queryArgs);
     }
 
     
@@ -110,24 +123,28 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+        /*       PROPERTIES       */
+        /**************************/
+        const{...cursors} = this.props.cursors;
             
         
         /*         MARKUP          */
         /***************************/
         return (
             <div className="PaginationBtns">
-                <div className="sp-select-container">
-                    <select value={this.state.value} onChange={this._handleChange}
-                            className="sp-select sp-select--md sp-select--input"
-                            name="sortBy">
-                        {/* TODO: Hacer de este select list un enum (usar mismos nombres que en BE) */}
-                        <option value="created_at">Recent</option>
-                        <option value="likes">Likes</option>
-                        <option value="stores">Stores</option>
-                    </select>
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                        width="15" height="15"/>
+                <div className="d-flex align-content-center">
+                {cursors.hasPrevious && 
+                <button onClick={this._handlePrevClick}
+                        className="sp-btn sp-btn--md sp-btn--secondary-ghost">
+                    Prev
+                </button>}
+                
+                {cursors.hasNext && 
+                <button onClick={this._handleNextClick}
+                        className="sp-btn sp-btn--md sp-btn--secondary-ghost">
+                    Next
+                </button>}
                 </div>
             </div>
         );
@@ -142,7 +159,7 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        search: state.search
+        pagination: state.pagination
     };
 }
 
@@ -153,8 +170,9 @@ function mapStateToProps(state: IRootState): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
-            search: {
-                searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
+            pagination: {
+                nextPageAtom: (queryArgs: any) => dispatch(nextPageAtomAction(queryArgs)),
+                prevPageAtom: (queryArgs: any) => dispatch(prevPageAtomAction(queryArgs))
             }
         }
     };
@@ -164,11 +182,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const atomCategoryFilterConnect = connect(mapStateToProps, mapDispatchToProps); 
+const paginationBtnsConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    atomCategoryFilterConnect
+    paginationBtnsConnect
 )(PaginationBtnsContainer);

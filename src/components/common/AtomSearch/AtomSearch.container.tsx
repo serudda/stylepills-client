@@ -89,8 +89,7 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
                     text: value,
                     atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
                 },
-                sortBy: this.props.search.searchAtoms.sortBy,
-                limit: this.props.search.searchAtoms.limit
+                sortBy: this.props.search.searchAtoms.sortBy
             }
         };
 

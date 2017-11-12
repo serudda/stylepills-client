@@ -38,8 +38,7 @@ export const searchAtomsAction = ({ searchAtoms }: ISearchAtomsAction): Action =
                 text: searchAtoms.filter.text,
                 atomCategoryId: searchAtoms.filter.atomCategoryId
             },
-            sortBy: searchAtoms.sortBy,
-            limit: searchAtoms.limit
+            sortBy: searchAtoms.sortBy
         }
     };
 };

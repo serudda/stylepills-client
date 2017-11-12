@@ -18,6 +18,16 @@ import { Atom as AtomModel } from './atom.model';
 /********************************/
 
 /**
+ * Arguments passed to Atom pagination (Next Page)
+ */
+export interface IAtomPaginationArgs {
+    first: number;
+    after: string;
+    last: number;
+    before: string;
+}
+
+/**
  * Arguments passed to Atom filter
  */
 interface IAtomFilterArgs {
@@ -30,19 +40,9 @@ interface IAtomFilterArgs {
  */
 export interface IAtomQueryArgs {
     id?: number;
-    filter: IAtomFilterArgs;
+    pagination?: IAtomPaginationArgs;
+    filter?: IAtomFilterArgs;
     sortBy: string;
-    limit: number;
-}
-
-/**
- * Arguments passed to Atom pagination (Next Page)
- */
-export interface IAtomPaginationArgs {
-    first: number;
-    after: string;
-    last: number;
-    before: string;
 }
 
 
@@ -171,8 +171,12 @@ export type SearchAtomsLegacyResponse = {
 export const SEARCH_ATOMS_QUERY = gql`
 query searchAtoms ($pagination: PaginationInput!, $filter: AtomFilter!, $sortBy: String) {
     searchAtoms(pagination: $pagination, filter: $filter, sortBy: $sortBy) {
-        results: [...AtomFragment],
-        cursors: ...CursorFragment
+        results {
+            ...AtomFragment
+        },
+        cursors{
+            ...CursorFragment
+        }
     }
 }
 ${ATOM_FRAGMENT}
@@ -183,5 +187,5 @@ ${CURSOR_FRAGMENT}
 /***********************/
 
 export type SearchAtomsResponse = {
-    searchAtoms: Array<IAtomPaginated>;
+    searchAtoms: IAtomPaginated;
 };

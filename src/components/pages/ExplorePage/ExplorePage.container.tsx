@@ -5,7 +5,7 @@ import * as React from 'react';
 import { compose, ChildProps } from 'react-apollo';
 import { connect, Dispatch } from 'react-redux';
 
-import * as appConfig from '../../../constants/app.constants';
+// import * as appConfig from '../../../constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
@@ -26,9 +26,7 @@ import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
 type ExplorePageProps = {};
 
 /* Own States */
-type LocalStates = {
-    limit: number
-};
+type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -57,35 +55,29 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
     /********************************/
     constructor() {
         super();
-
-        // Init state
-        this.state = {
-            limit: appConfig.ATOM_SEARCH_LIMIT
-        };
     }
 
 
     /********************************/
     /*     COMPONENT_WILL_MOUNT     */
     /********************************/
-    componentWillMount() {  
+    componentWillMount() { 
         // VARIABLES
-        let queryArgs: ISearchState = null;
+        // let queryArgs: ISearchState = null;
         
         // Build the filter set
-        queryArgs = {
+        /* queryArgs = {
             searchAtoms: {
                 filter: {
                     text: this.props.search.searchAtoms.filter.text,
                     atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
                 },
-                sortBy: this.props.search.searchAtoms.sortBy,
-                limit: this.state.limit
+                sortBy: this.props.search.searchAtoms.sortBy
             }
-        };
+        }; */
 
         // Trigger searchAtoms action in order to save 'limit' value on Store
-        this.props.actions.search.searchAtoms(queryArgs);
+        // this.props.actions.search.searchAtoms(queryArgs);
     }
 
 

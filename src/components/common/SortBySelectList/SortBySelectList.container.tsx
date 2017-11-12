@@ -91,8 +91,7 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
                     text: this.props.search.searchAtoms.filter.text,
                     atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
                 },
-                sortBy: value,
-                limit: this.props.search.searchAtoms.limit
+                sortBy: value
             }
         };
 
@@ -164,11 +163,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const atomCategoryFilterConnect = connect(mapStateToProps, mapDispatchToProps); 
+const sortBySelectListConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    atomCategoryFilterConnect
+    sortBySelectListConnect
 )(SortBySelectListContainer);

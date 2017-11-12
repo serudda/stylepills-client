@@ -26,8 +26,7 @@ const defaultState: ISearchState = {
             text: '',
             atomCategoryId: null
         },
-        sortBy: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT,
-        limit: appConfig.ATOM_SEARCH_LIMIT
+        sortBy: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT
     }
 };
 
@@ -56,8 +55,7 @@ export default function (state: ISearchState = defaultState, action: Action): IS
                         text: action.searchAtoms.filter.text, 
                         atomCategoryId: action.searchAtoms.filter.atomCategoryId, 
                     },
-                    sortBy: action.searchAtoms.sortBy,
-                    limit: action.searchAtoms.limit
+                    sortBy: action.searchAtoms.sortBy
                 } 
             };
         }

@@ -4,6 +4,8 @@
 import * as types from '../constants/action.types';
 import { Action } from '../actions/pagination.action';
 
+import * as appConfig from '../constants/app.constants';
+
 import { IAtomPaginationArgs } from '../models/atom/atom.query';
 
 
@@ -20,7 +22,7 @@ export interface IPaginationState {
 
 const defaultState: IPaginationState = {
     paginationAtoms: {
-        first: null,
+        first: appConfig.ATOM_SEARCH_LIMIT,
         after: null,
         last: null,
         before: null
