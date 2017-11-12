@@ -33,8 +33,6 @@ export const ATOM_FRAGMENT = gql`
         category {
             ...AtomCategoryFragment
         }
-        createdAt
-        updatedAt
         __typename
     }
     ${COMMENT_FRAGMENT}

@@ -1,19 +1,19 @@
-/************************************/
-/*           DEPENDENCIES           */
-/************************************/
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
 import * as React from 'react';
-import { compose, ChildProps } from 'react-apollo';
 import { connect, Dispatch } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
 
-// import * as appConfig from '../../../constants/app.constants';
+import * as appConfig from '../../../constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 
 import { searchAtomsAction } from '../../../actions/search.action';
 
-import Header from '../../common/Header/Header.container';
-import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
+import Icon from '../Icon/Icon';
+
 
 // -----------------------------------
 
@@ -23,10 +23,12 @@ import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
 /********************************/
 
 /* Own Props */
-type ExplorePageProps = {};
+type SortBySelectListProps = {};
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    value: string
+};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -46,60 +48,89 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class ExplorePage 
-extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps, {}>, LocalStates> {
-
-
+class SortBySelectListContainer 
+extends React.Component<ChildProps<SortBySelectListProps & StateProps & DispatchProps, {}>, LocalStates> {
+    
+    
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
     constructor() {
         super();
+
+        // Init state
+        this.state = {
+            value: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT
+        };
+
+        // Bind methods
+        this._handleChange = this._handleChange.bind(this);
     }
 
 
     /********************************/
-    /*     COMPONENT_WILL_MOUNT     */
+    /*       PRIVATE METHODS        */
     /********************************/
-    componentWillMount() { 
+
+    /**
+     * @desc Handle Select List Change
+     * @method _handleChange
+     * @example this._handleChange()
+     * @private 
+     * @returns {void}
+     */
+    private _handleChange (e: any) {
         // VARIABLES
-        // let queryArgs: ISearchState = null;
-        
+        let value = e.target.value;
+        let queryArgs: ISearchState = null;
+
         // Build the filter set
-        /* queryArgs = {
+        queryArgs = {
             searchAtoms: {
                 filter: {
                     text: this.props.search.searchAtoms.filter.text,
                     atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
                 },
-                sortBy: this.props.search.searchAtoms.sortBy
+                sortBy: value
             }
-        }; */
+        };
 
-        // Trigger searchAtoms action in order to save 'limit' value on Store
-        // this.props.actions.search.searchAtoms(queryArgs);
+        // Update the state
+        this.setState((previousState) => {
+            return { ...previousState, value };
+        });
+        
+        // Trigger Search Atoms Action
+        this.props.actions.search.searchAtoms(queryArgs);
     }
 
-
+    
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-
-
+            
+        
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ExplorePage sp-bg-darkSnow h-100">
-                
-                {/* Header */}
-                <Header />
-
-                {/* Atoms list container */}
-                <AtomsListContainer />
-
+            <div className="SortBySelectList">
+                <div className="sp-select-container">
+                    <select value={this.state.value} onChange={this._handleChange}
+                            className="sp-select sp-select--md sp-select--input"
+                            name="sortBy">
+                        {/* TODO: Hacer de este select list un enum (usar mismos nombres que en BE) */}
+                        <option value="created_at">Recent</option>
+                        <option value="likes">Likes</option>
+                        <option value="stores">Stores</option>
+                    </select>
+                    <Icon icon="chevronDown"
+                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                        width="15" height="15"/>
+                </div>
             </div>
         );
+
     }
 
 }
@@ -132,11 +163,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const explorePageConnect = connect(mapStateToProps, mapDispatchToProps); 
+const sortBySelectListConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    explorePageConnect
-)(ExplorePage);
+    sortBySelectListConnect
+)(SortBySelectListContainer);

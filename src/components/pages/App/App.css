@@ -1487,10 +1487,57 @@ NOTE: Boostrap 4 has a flex set
   position: relative; }
   .sp-search__input {
     padding-left: 36px;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    padding-right: 105px; }
+  .sp-search__btn {
+    position: absolute;
+    right: 5px; }
   .sp-search__icon {
     position: absolute;
     margin-left: 12px; }
+
+/* SELECT LIST */
+.sp-select-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center; }
+  .sp-select-container .sp-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    line-height: normal;
+    cursor: pointer; }
+    .sp-select-container .sp-select--input {
+      border: 1px solid #C0CCDA;
+      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      background-color: #FFFFFF;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      color: #3C4858;
+      display: block; }
+      .sp-select-container .sp-select--input:focus {
+        border-color: #33ADA9;
+        outline: 0; }
+    .sp-select-container .sp-select--sm {
+      padding: 0 35px 0 10px;
+      height: 30px;
+      font-size: 13px; }
+    .sp-select-container .sp-select--md {
+      padding: 0 35px 0 14px;
+      height: 40px;
+      font-size: 15px; }
+    .sp-select-container .sp-select--lg {
+      padding: 0 35px 0 16px;
+      height: 50px;
+      font-size: 16px; }
+    .sp-select-container .sp-select--block {
+      width: 100%; }
+  .sp-select-container .icon {
+    position: absolute;
+    right: 10px; }
 
 /**********************************************************/
 /*                         LINKS                          */
@@ -1562,7 +1609,8 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 .sp-stats {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  height: 18px; }
   .sp-stats__item {
     display: flex;
     align-items: center; }
@@ -1622,7 +1670,7 @@ NOTE: Boostrap 4 has a flex set
       background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
 
 /**********************************************************/
-/*                     COMPONENTS LIST                    */
+/*                       ATOMS LIST                       */
 /**********************************************************/
 .AtomsList .atomBox-container {
   width: 32%;
@@ -1704,6 +1752,14 @@ NOTE: Boostrap 4 has a flex set
 .NavbarOptions .nav-item.active {
   border-bottom: 3px solid #33ADA9;
   font-weight: 900; }
+
+.PaginationBtns {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 200px !important;
+  margin-left: -100px;
+  text-align: center; }
 
 .HomePage .leftSide__header {
   height: 75px;

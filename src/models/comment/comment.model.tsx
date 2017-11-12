@@ -15,6 +15,4 @@ export type Comment = {
     commentableId: number;
     active: boolean;
     author: User;
-    createdAt: string;
-    updatedAt: string;
 };

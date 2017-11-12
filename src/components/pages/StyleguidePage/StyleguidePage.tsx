@@ -487,8 +487,62 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                 </div>
             </div>
 
-            {/* Avatars */}
+            {/* Select List */}
             <div className="row mb-5">
+                <div className="col">
+                <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Select List</h2>
+
+                    {/* Small Select List */}
+                    <div className="sp-select-container">
+                        <select className="sp-select sp-select--sm sp-select--input"
+                                name="categories">
+                            <option value="All">All</option>
+                            <option value="Buttons" selected={true}>Buttons</option>
+                            <option value="Inputs">Inputs</option>
+                            <option value="Navbars">Navbars Options Large</option>
+                        </select>
+                        <Icon icon="chevronDown"
+                              iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                              width="15" height="15"/>
+                    </div>
+
+                    <br/><br/>
+
+                    {/* Medium Select List */}
+                    <div className="sp-select-container">
+                        <select className="sp-select sp-select--md sp-select--input"
+                                name="categories">
+                            <option value="All">All</option>
+                            <option value="Buttons" selected={true}>Buttons</option>
+                            <option value="Inputs">Inputs</option>
+                            <option value="Navbars">Navbars Options Large</option>
+                        </select>
+                        <Icon icon="chevronDown"
+                              iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                              width="15" height="15"/>
+                    </div>
+
+                    <br/><br/>
+
+                    {/* Large Select List */}
+                    <div className="sp-select-container">
+                        <select className="sp-select sp-select--lg sp-select--input"
+                                name="categories">
+                            <option value="All">All</option>
+                            <option value="Buttons" selected={true}>Buttons</option>
+                            <option value="Inputs">Inputs</option>
+                            <option value="Navbars">Navbars Options Large</option>
+                        </select>
+                        <Icon icon="chevronDown"
+                              iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                              width="15" height="15"/>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* Avatars */}
+            < div className="row mb-5">
 
                 <div className="col-12">
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">
@@ -586,12 +640,12 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </div>
                     </a>
 
-                </div>
+                </div>;
 
             </div>
 
             {/* Logo */}
-            <div className="row mb-5">
+            < div className="row mb-5" >
                 <div className="col">
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Logos</h2>
 
@@ -665,11 +719,11 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </a>
                     </div>
 
-                </div>
+                </div>;
             </div>
 
             {/* Atoms List Section */}
-            <div className="row mb5 no-gutters">
+            < div className="row mb5 no-gutters">
                 <div className="col">
                 <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Atoms List</h2>
 
@@ -743,11 +797,11 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             </div>
                         </div>                
                     </div>
-                </div>
+                </div>;
             </div>
 
 
-        </div>
+        </div >
     );
     
 };

@@ -3,8 +3,11 @@
 /************************************/
 import { combineReducers } from 'redux';
 import { ApolloClient } from 'react-apollo';
+import { Store } from 'apollo-client/store';
 
 import ui, { IUiState } from './ui.reducer';
+import search, { ISearchState } from './search.reducer';
+import pagination, { IPaginationState } from './pagination.reducer';
 
 // Initialize Client
 const client = new ApolloClient();
@@ -13,10 +16,11 @@ const client = new ApolloClient();
 /*            INTERFACES            */
 /************************************/
 // Root State: Contains every Reducer State on the Store
-// TODO: Asignar un tipo
 export interface IRootState {
-    apollo: any;
+    apollo: Store;
     ui: IUiState;
+    search: ISearchState;
+    pagination: IPaginationState;
 }
 
 /************************************/
@@ -26,6 +30,8 @@ export interface IRootState {
 const rootReducer = combineReducers<IRootState>({
     apollo: client.reducer(),
     ui,
+    search,
+    pagination
 });
 
 /* Export */

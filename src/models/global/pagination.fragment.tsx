@@ -8,11 +8,12 @@ import gql from 'graphql-tag';
 /*           FRAGMENT           */
 /********************************/
 
-export const ATOM_CATEGORY_FRAGMENT = gql`
-    fragment AtomCategoryFragment on AtomCategory {
-        id
-        name
-        description
+export const CURSOR_FRAGMENT = gql`
+    fragment CursorFragment on Cursor {
+        hasNext
+        hasPrevious
+        before
+        after
         __typename
     }
 `;

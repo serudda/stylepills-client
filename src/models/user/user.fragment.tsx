@@ -18,8 +18,6 @@ export const USER_FRAGMENT: any = gql`
         website
         avatar
         about
-        createdAt
-        updatedAt
         __typename
     }
 `;

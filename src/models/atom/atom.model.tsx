@@ -24,7 +24,5 @@ export type Atom = {
     active: boolean;
     private: boolean;
     author: User;
-    category: AtomCategory;
-    createdAt: string;
-    updatedAt: string;
+    category: AtomCategory; 
 };

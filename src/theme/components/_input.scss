@@ -2,7 +2,7 @@
 /*                         INPUTS                         */
 /**********************************************************/
 
-.sp-input {
+@mixin input {
     border: 1px solid map-get($color, extraDarkSmoke);
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
@@ -13,6 +13,10 @@
     border-radius: 3px;
     color: map-get($color, slate);
     display: block;
+}
+
+.sp-input {
+    @include input;
 
     &:focus {
         border-color: map-get($color, secondary);
@@ -51,10 +55,69 @@
     &__input {
         padding-left: 36px;
         box-sizing: border-box;
+        padding-right: 105px;
+    }
+
+    &__btn {
+        position: absolute; 
+        right: 5px;
     }
 
     &__icon {
         position: absolute;
         margin-left: 12px;
+    }
+}
+
+
+/* SELECT LIST */
+.sp-select-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+
+    .sp-select {
+        -webkit-appearance: none;
+        -moz-appearance:    none;
+        appearance:         none;
+        line-height: normal;
+        cursor: pointer;
+
+        &--input {
+            @include input;
+
+            &:focus {
+                border-color: map-get($color, secondary);
+                outline: 0;
+            }
+        }
+
+        &--sm {
+            padding: 0 35px 0 10px;
+            height: 30px;
+            font-size: 13px;
+        }
+    
+        &--md {
+            padding: 0 35px 0 14px;
+            height: 40px;
+            font-size: 15px;
+        }
+    
+        &--lg {
+            padding: 0 35px 0 16px;
+            height: 50px;
+            font-size: 16px;
+        }
+    
+        &--block {
+            width: 100%;
+        }
+        
+    }
+
+    .icon {
+        position: absolute;
+        right: 10px;
     }
 }

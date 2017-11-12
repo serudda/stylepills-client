@@ -12,6 +12,9 @@ import { clearUiAction } from '../../../actions/ui.action';
 
 import Icon from '../Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
+import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
+import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
+import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
 
 
 // -----------------------------------
@@ -88,30 +91,32 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 
                     {/* Filter section */}
                     <div className="FilterSection row align-items-center">
-                        <div className="col-10">
+                        <div className="col-9">
+
                             {/* Search Box */}
-                            <div className="sp-search sp-search--md w-100">
-                                <Icon icon="search"
-                                    iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
-                                    width="14" height="14"/>
-                                <input type="text" 
-                                    placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
-                                    className="sp-search__input sp-input sp-input--md sp-input--block" />
-                            </div>
+                            <AtomSearchContainer />
+
                         </div>
 
-                        <div className="col-2">
-                            {/* Sort by section*/}
-                            <div className="SortBy d-flex align-items-center justify-content-end">
+                        <div className="col-3 d-flex align-content-center justify-content-end">
+
+                            {/* Category Select List */}
+                            <AtomCategoryFilterContainer />
+                            
+                            {/* Sort by section */}
+                            <SortBySelectListContainer />
+
+                            {/* Sort by section 
+                            <div className="SortBy d-flex align-items-center">
                                 <span className="fontSize-sm color-silver mr-2">sort by</span>
-                                {/* filter btn */}
+                                // filter btn
                                 <button className="sp-btn sp-btn--combo-neutral-ghost sp-btn--sm">
                                     <span>Likes</span>
                                     <Icon icon="chevronDown" 
                                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
                                         width="15" height="15"/>
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

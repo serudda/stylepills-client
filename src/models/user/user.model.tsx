@@ -21,6 +21,4 @@ export type User = {
     about: string;
     active: boolean;
     atoms: Array<Atom>;
-    createdAt: string;
-    updatedAt: string;
 };

@@ -27,7 +27,7 @@ type AtomsListProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const AtomsList: React.SFC<AtomsListProps> = ({ atoms }) => {
+const AtomsList: React.SFC<AtomsListProps> = ({ atoms = [] }) => {
     
 
     /*         MARKUP          */
@@ -41,7 +41,7 @@ const AtomsList: React.SFC<AtomsListProps> = ({ atoms }) => {
                     {atoms.map((atom: AtomModel) => (
                         <div key={atom.id} className="atomBox-container">
                             <AtomBox atom={atom} />
-                            <AtomInfoSection />
+                            <AtomInfoSection {...atom} />
                         </div>
                     ))}
 
