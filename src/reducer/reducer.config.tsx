@@ -7,6 +7,7 @@ import { Store } from 'apollo-client/store';
 
 import ui, { IUiState } from './ui.reducer';
 import search, { ISearchState } from './search.reducer';
+import pagination, { IPaginationState } from './pagination.reducer';
 
 // Initialize Client
 const client = new ApolloClient();
@@ -19,6 +20,7 @@ export interface IRootState {
     apollo: Store;
     ui: IUiState;
     search: ISearchState;
+    pagination: IPaginationState;
 }
 
 /************************************/
@@ -28,7 +30,8 @@ export interface IRootState {
 const rootReducer = combineReducers<IRootState>({
     apollo: client.reducer(),
     ui,
-    search
+    search,
+    pagination
 });
 
 /* Export */

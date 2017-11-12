@@ -23,6 +23,14 @@ export const SEARCH_ATOMS = 'SEARCH_ATOMS';
 export type SEARCH_ATOMS = typeof SEARCH_ATOMS;
 
 
+/* Pagination Actions Type */
+export const NEXT_PAGE_ATOMS = 'NEXT_PAGE_ATOMS';
+export type NEXT_PAGE_ATOMS = typeof NEXT_PAGE_ATOMS;
+
+export const PREV_PAGE_ATOMS = 'PREV_PAGE_ATOMS';
+export type PREV_PAGE_ATOMS = typeof PREV_PAGE_ATOMS;
+
+
 
 /*
  * Es necesario crear un 'type' a cada constante si queremos asignarla despues a una interface

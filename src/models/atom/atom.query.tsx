@@ -3,6 +3,9 @@
 /********************************/
 import gql from 'graphql-tag';
 
+import { IAtomPaginated } from '../global/pagination.interface';
+
+import { CURSOR_FRAGMENT } from '../global/pagination.fragment';
 import { ATOM_FRAGMENT } from './atom.fragment';
 import { Atom as AtomModel } from './atom.model';
 
@@ -30,6 +33,16 @@ export interface IAtomQueryArgs {
     filter: IAtomFilterArgs;
     sortBy: string;
     limit: number;
+}
+
+/**
+ * Arguments passed to Atom pagination (Next Page)
+ */
+export interface IAtomPaginationArgs {
+    first: number;
+    after: string;
+    last: number;
+    before: string;
 }
 
 
@@ -119,16 +132,16 @@ export type GetByCategoryResponse = {
 // --------------------------------
 
 
-/**
+/** TODO: Remove when it is no longer necessary
  * @desc Get Atoms by an user's input text (including category filter)
- * @method Method searchAtoms
+ * @method Method searchAtomsLegacy
  * @public
  * @param {AtomFilter} $filter - a set of filters
  * @param {string} $limit - limit number of results returned
  * @returns {Array<Atom>} Atoms List based on a filter parameters: e.g category, user's input text
  */
-export const SEARCH_ATOMS_QUERY = gql`
-query searchAtoms ($filter: AtomFilter!, $sortBy: String, $limit: Int) {
+export const SEARCH_ATOMS_QUERY_LEGACY = gql`
+query searchAtomsLegacy ($filter: AtomFilter!, $sortBy: String, $limit: Int) {
     searchAtoms(filter: $filter, sortBy: $sortBy, limit: $limit) {
         ...AtomFragment
     }
@@ -139,6 +152,36 @@ ${ATOM_FRAGMENT}
 /*        TYPE         */
 /***********************/
 
-export type SearchAtomsResponse = {
+export type SearchAtomsLegacyResponse = {
     searchAtoms: Array<AtomModel>;
+};
+
+
+// --------------------------------
+
+
+/**
+ * @desc Get Atoms by an user's input text (including category filter and pagination)
+ * @method Method searchAtoms
+ * @public
+ * @param {AtomFilter} $filter - a set of filters
+ * @param {string} $limit - limit number of results returned
+ * @returns {Array<Atom>} Atoms List based on a filter parameters: e.g category, user's input text
+ */
+export const SEARCH_ATOMS_QUERY = gql`
+query searchAtoms ($pagination: PaginationInput!, $filter: AtomFilter!, $sortBy: String) {
+    searchAtoms(pagination: $pagination, filter: $filter, sortBy: $sortBy) {
+        results: [...AtomFragment],
+        cursors: ...CursorFragment
+    }
+}
+${ATOM_FRAGMENT}
+${CURSOR_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type SearchAtomsResponse = {
+    searchAtoms: Array<IAtomPaginated>;
 };

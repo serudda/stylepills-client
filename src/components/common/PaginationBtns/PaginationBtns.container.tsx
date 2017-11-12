@@ -23,7 +23,7 @@ import Icon from '../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type SortBySelectListProps = {};
+type PaginationBtnsProps = {};
 
 /* Own States */
 type LocalStates = {
@@ -48,8 +48,8 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class SortBySelectListContainer 
-extends React.Component<ChildProps<SortBySelectListProps & StateProps & DispatchProps, {}>, LocalStates> {
+class PaginationBtnsContainer 
+extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     
     /********************************/
@@ -115,7 +115,7 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="SortBySelectList">
+            <div className="PaginationBtns">
                 <div className="sp-select-container">
                     <select value={this.state.value} onChange={this._handleChange}
                             className="sp-select sp-select--md sp-select--input"
@@ -171,4 +171,4 @@ const atomCategoryFilterConnect = connect(mapStateToProps, mapDispatchToProps);
 /***************************/
 export default compose(
     atomCategoryFilterConnect
-)(SortBySelectListContainer);
+)(PaginationBtnsContainer);
