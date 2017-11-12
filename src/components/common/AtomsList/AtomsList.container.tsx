@@ -81,8 +81,18 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
             <div>
                 <AtomsList atoms={data.searchAtoms.results}/>
 
-                {/* Pagination Buttons */}
-                <PaginationBtnsContainer cursors={data.searchAtoms.cursors}/>
+                <div className="row pt-5 pb-5 margin-0 no-gutters">
+                    <div className="col">
+                        <div className="d-sm-flex flex-wrap width-wrapper justify-content-around">
+
+                            <hr/>
+                            
+                            {/* Pagination Buttons */}
+                            <PaginationBtnsContainer cursors={data.searchAtoms.cursors}/>
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
         );

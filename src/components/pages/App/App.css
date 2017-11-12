@@ -1753,6 +1753,14 @@ NOTE: Boostrap 4 has a flex set
   border-bottom: 3px solid #33ADA9;
   font-weight: 900; }
 
+.PaginationBtns {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 200px !important;
+  margin-left: -100px;
+  text-align: center; }
+
 .HomePage .leftSide__header {
   height: 75px;
   left: 0;

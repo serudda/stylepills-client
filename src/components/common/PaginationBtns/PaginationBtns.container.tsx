@@ -133,19 +133,17 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
         /***************************/
         return (
             <div className="PaginationBtns">
-                <div className="d-flex align-content-center">
                 {cursors.hasPrevious && 
                 <button onClick={this._handlePrevClick}
-                        className="sp-btn sp-btn--md sp-btn--secondary-ghost">
+                        className="sp-btn sp-btn--lg sp-btn--secondary-ghost float-left">
                     Prev
                 </button>}
                 
                 {cursors.hasNext && 
                 <button onClick={this._handleNextClick}
-                        className="sp-btn sp-btn--md sp-btn--secondary-ghost">
+                        className="sp-btn sp-btn--lg sp-btn--secondary-ghost float-right">
                     Next
                 </button>}
-                </div>
             </div>
         );
 
