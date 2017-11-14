@@ -10,6 +10,11 @@ import axios from 'axios';
 /*            INTERFACES            */
 /************************************/
 
+export interface IJwtDecoded {
+    id: number;
+    token: string;
+}
+
 export interface IAuth {
     setAuthorizationToken: (token: string | boolean) => void;
 }

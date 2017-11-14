@@ -6,14 +6,20 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
+import * as queryString from 'query-string';
+import * as jwtDecode from 'jwt-decode';
+
 import { config } from './config/config';
 import configureStore from './store/store.config';
 
-import { setAuthorizationToken } from './auth/auth';
+import { setAuthorizationToken, IJwtDecoded } from './auth/auth';
+// import { setCurrentUserAction } from './actions/auth.action';
 
 import App from './components/pages/App/App';
 
 // -----------------------------------
+
+
 
 
 // Get server config object
@@ -31,16 +37,25 @@ const client = new ApolloClient({
 // Initialize store
 const store = configureStore();
 
+// Current user id
+let currentUserId = null;
+
 
 // Set Authorization Token to each user request
 if (localStorage.accessToken) {
+
     setAuthorizationToken(localStorage.accessToken);
-    /* TODO: Si hay un access Token en localStorage, decodificar para obtener 
-        el Id del User logueado, y asi poder llamar al BE y obtener todos sus 
-        datos 
-        reference: https://www.youtube.com/watch?v=FyyPUIAe6kc&list=PLuNEz8XtB51K-x3bwCC9uNM_cxXaiCcRY&index=18
-        11:10 min*/
-    // store.dispatch(setCurrentUserAction(jwt.decode(localStorage.accessToken)));
+    // TODO: Traerme los datos del usuario logueado, guardarlos en el Store y en localStorage
+    // store.dispatch(setCurrentUserAction(jwtDecode(localStorage.accessToken)));
+
+} else if (location.search)  {
+
+    const parsed = queryString.parse(location.search);
+    const decoded: IJwtDecoded = jwtDecode(parsed.token);
+    localStorage.setItem('token', decoded.token);
+    // TODO: Traerme los datos del usuario logueado, guardarlos en el Store y en el localStorage
+    // store.dispatch(setCurrentUserAction(decoded));
+    currentUserId = decoded.id;
 }
 
 
@@ -49,7 +64,7 @@ if (localStorage.accessToken) {
 render((
     <ApolloProvider store={store} client={client}>
         <BrowserRouter basename="/">
-            <App />
+            <App currentUserId={currentUserId}/>
         </BrowserRouter>
     </ApolloProvider>
 ), document.getElementById('root'));
