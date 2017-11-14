@@ -3,7 +3,6 @@
 /************************************/
 import * as React from 'react';
 
-import Main from '../Main/Main';
 import './App.css'; 
 
 
@@ -19,9 +18,11 @@ class App extends React.Component {
     /**************************/
     render() {
         return (
-            <div className="AppContent sp-bg-darkSnow">
-                <Main />
-            </div>
+            <main>
+                <div className="AppContent sp-bg-darkSnow">
+                    {this.props.children}
+                </div>
+            </main>
         );
     }
 }

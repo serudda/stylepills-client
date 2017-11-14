@@ -12,6 +12,7 @@ export const PRD = 'production';
 /* Base Endpoints */
 export const DATA = '/graphql';
 export const AUTH_GOOGLE = '/auth/google';
+export const AUTH_LOGOUT = '/auth/logout';
 
 /* Server Urls */
 export const LOCAL_SERVER_URL = 'http://localhost:4000';
@@ -27,6 +28,11 @@ export const PRD_DATA_URL = `${PRD_SERVER_URL}${DATA}`;
 export const LOCAL_AUTH_GOOGLE_URL = `${LOCAL_SERVER_URL}${AUTH_GOOGLE}`;
 export const DEV_AUTH_GOOGLE_URL = `${DEV_SERVER_URL}${AUTH_GOOGLE}`;
 export const PRD_AUTH_GOOGLE_URL = `${PRD_SERVER_URL}${AUTH_GOOGLE}`;
+
+/* Auth Logout Base Endpoints */
+export const LOCAL_AUTH_LOGOUT_URL = `${LOCAL_SERVER_URL}${AUTH_LOGOUT}`;
+export const DEV_AUTH_LOGOUT_URL = `${DEV_SERVER_URL}${AUTH_LOGOUT}`;
+export const PRD_AUTH_LOGOUT_URL = `${PRD_SERVER_URL}${AUTH_LOGOUT}`;
 
 /* Search params */
 export const ATOM_SEARCH_LIMIT = 6;

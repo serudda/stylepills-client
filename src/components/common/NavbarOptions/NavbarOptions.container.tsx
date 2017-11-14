@@ -5,12 +5,14 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { config } from './../../../config/config';
+
 import { IRootState } from '../../../reducer/reducer.config';
 import { IUiState } from '../../../reducer/ui.reducer';
+import { IAuthState } from '../../../reducer/auth.reducer';
 
 import { showModalAction, closeModalAction } from '../../../actions/ui.action';
-import { logInWithGoogleAction } from '../../../actions/auth.action';
-
+import { logInWithGoogleAction, logoutAction } from '../../../actions/auth.action';
 
 // -----------------------------------
 
@@ -26,7 +28,8 @@ type NavbarOptionsProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = { 
+type StateProps = {
+    auth: IAuthState;
     ui: IUiState;
 };
 
@@ -35,6 +38,7 @@ type DispatchProps = {
     actions: {
         auth: {
             logInWithGoogle: () => void;
+            logout: () => void;
         },
         ui: {
             showModal: () => void;
@@ -58,7 +62,8 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         super();
 
         // Bind methods
-        this._handleClick = this._handleClick.bind(this);
+        this._handleLogInClick = this._handleLogInClick.bind(this);
+        this._handleLogoutClick = this._handleLogoutClick.bind(this);
     }
 
 
@@ -68,15 +73,28 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
 
     /**
-     * @desc HandleClick
-     * @method _handleClick
-     * @example this._handleClick()
+     * @desc HandleLogInClick
+     * @method _handleLogInClick
+     * @example this._handleLogInClick()
      * @private 
      * @returns {void}
      */
-    private _handleClick (e: any) {
+    private _handleLogInClick (e: any) {
         e.preventDefault();
         this._logInWithGoogle();
+    }
+
+
+    /**
+     * @desc HandleLogoutClick
+     * @method _handleLogoutClick
+     * @example this._handleLogoutClick()
+     * @private 
+     * @returns {void}
+     */
+    private _handleLogoutClick (e: any) {
+        e.preventDefault();
+        this._logout();
     }
 
 
@@ -88,7 +106,20 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
      * @returns {void}
      */
     private _logInWithGoogle() {
+        // NOTE: #1
         this.props.actions.auth.logInWithGoogle();
+    }
+
+
+    /**
+     * @desc Logout 
+     * @method _logout
+     * @example this._logout()
+     * @private 
+     * @returns {void}
+     */
+    private _logout() {
+        this.props.actions.auth.logout();
     }
 
     
@@ -96,29 +127,57 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+        // Get server config object
+        const serverConfig = config.getServerConfig();
+        const { isAuthenticated } = this.props.auth;
+
+        const userLinks = (
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item mx-2 active">
+                    <a className="nav-link color-slate fontSize-sm" href="">
+                        Explore
+                    </a>
+                </li>
+                <li className="nav-item mx-2">
+                    <a href="" className="nav-link color-slate fontSize-sm">
+                        Log out
+                    </a>
+                </li>
+            </ul>
+        );
+
+        const guestLinks = (
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item mx-2 active">
+                    <a className="nav-link color-slate fontSize-sm" href="">
+                        Explore
+                    </a>
+                </li>
+                <li className="nav-item mx-2">
+                    <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
+                        Sign Up
+                    </a>
+                </li>
+                <li className="nav-item mx-2">
+                    <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
+                        Log In
+                    </a>
+                </li>
+                <li className="nav-item mx-2">
+                    <a onClick={this._handleLogoutClick} href="" className="nav-link color-slate fontSize-sm">
+                        Log out
+                    </a>
+                </li>
+            </ul>
+        );
             
         
         /*         MARKUP          */
         /***************************/
         return (
             <div className="NavbarOptions collapse navbar-collapse">
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item mx-2 active">
-                        <a className="nav-link color-slate fontSize-sm" href="">
-                            Explore
-                        </a>
-                    </li>
-                    <li className="nav-item mx-2">
-                        <a onClick={this._handleClick} href="" className="nav-link color-slate fontSize-sm">
-                            Sign Up
-                        </a>
-                    </li>
-                    <li className="nav-item mx-2">
-                        <a onClick={this._handleClick} href="" className="nav-link color-slate fontSize-sm">
-                            Log In
-                        </a>
-                    </li>
-                </ul>
+                {isAuthenticated ? userLinks : guestLinks}
             </div>
         );
 
@@ -133,6 +192,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
+        auth: state.auth,
         ui:  state.ui
     };
 }
@@ -143,8 +203,10 @@ function mapStateToProps(state: IRootState): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
+            // NOTE: #1
             auth: {
-                logInWithGoogle: () => dispatch(logInWithGoogleAction())
+                logInWithGoogle: () => dispatch(logInWithGoogleAction()),
+                logout: () => dispatch(logoutAction())
             },
             ui: {
                 showModal: () => dispatch(showModalAction()),
@@ -166,3 +228,12 @@ const navbarOptionsConnect = connect(mapStateToProps, mapDispatchToProps);
 export default compose( 
     navbarOptionsConnect
 )(NavbarOptions);
+
+
+
+
+/*
+#1 - This action does not works, because google return No Access Cross Origin Domain
+I keep this action here to have a example that how to get data from another source
+different to GraphQL (axios and thunk actions).
+*/

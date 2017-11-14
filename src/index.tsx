@@ -29,12 +29,24 @@ const client = new ApolloClient({
 const store = configureStore();
 
 
+// Set Authorization Token to each user request
+if (localStorage.accessToken) {
+    setAuthorizationToken(localStorage.accessToken);
+    /* TODO: Si hay un access Token en localStorage, decodificar para obtener 
+        el Id del User logueado, y asi poder llamar al BE y obtener todos sus 
+        datos 
+        reference: https://www.youtube.com/watch?v=FyyPUIAe6kc&list=PLuNEz8XtB51K-x3bwCC9uNM_cxXaiCcRY&index=18
+        11:10 min*/
+    // store.dispatch(setCurrentUserAction(jwt.decode(localStorage.accessToken)));
+}
+
+
 /*         RENDER         */
 /**************************/
 render((
     <ApolloProvider store={store} client={client}>
         <BrowserRouter basename="/">
-            <App />
+            <MainRoutes />
         </BrowserRouter>
     </ApolloProvider>
 ), document.getElementById('root'));

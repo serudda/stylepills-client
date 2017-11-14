@@ -7,7 +7,10 @@ import * as types from '../constants/action.types';
 
 import { config } from './../config/config';
 
+import { setAuthorizationToken } from '../auth/auth';
+
 import { User } from '../models/user/user.model';
+
 
 
 // -----------------------------------
@@ -58,6 +61,42 @@ export const setCurrentUserAction = (user: User): Action => {
 export const logInWithGoogleAction = () => {
     return (dispatch: Function) => {
         return axios.get(serverConfig.authGoogleUrl)
+        .then(
+            (response) => {
+                // tslint:disable-next-line:no-console
+                console.log('RESPONSE: ', response);
+                return response;
+            }
+        ).catch(
+            (err) => {
+                // tslint:disable-next-line:no-console
+                console.log(err);
+                return err;
+            }
+        );
+    };
+};
+
+
+/**
+ * @desc request Log out 
+ * @function logoutAction
+ * @returns {Promise<any>}
+ */
+export const logoutAction = () => {
+    return (dispatch: Function) => {
+        
+        // Remove Access Token in localStorage
+        localStorage.removeItem('accessToken');
+
+        // Remove Access Token from header requests
+        setAuthorizationToken(false);
+
+        // Remove User information in Store
+        dispatch(setCurrentUserAction(null));
+
+        // Request logout on server side
+        return axios.get(serverConfig.authLogoutUrl)
         .then(
             (response) => {
                 // tslint:disable-next-line:no-console

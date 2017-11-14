@@ -1,13 +1,9 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import { config } from './../config/config';
 import axios from 'axios';
 
 // -----------------------------------
-
-// Get server config object
-const serverConfig = config.getServerConfig();
 
 
 /************************************/
@@ -15,7 +11,7 @@ const serverConfig = config.getServerConfig();
 /************************************/
 
 export interface IAuth {
-    logInWithGoogle: () => Promise<any>;
+    setAuthorizationToken: (token: string | boolean) => void;
 }
 
 
@@ -25,23 +21,17 @@ export interface IAuth {
 
 
 /**
- * @desc Request access with Google Auth
- * @function logInWithGoogle
- * @returns {Promise<any>}
+ * @desc Set Authorization Token on request header
+ * @function setAuthorizationToken
+ * @param {string} token - Access Token
+ * @returns {void}
  */
-export function logInWithGoogle() {
-    return (dispatch: Function) => {
-        return axios.get(serverConfig.authGoogleUrl)
-        .then(
-            (response) => {
-                return response;
-            }
-        ).catch(
-            (err) => {
-                // tslint:disable-next-line:no-console
-                console.log(err);
-                return err;
-            }
-        );
-    };
+export function setAuthorizationToken(token: string | boolean): void {
+    if (token) {
+        /* TODO: Este ejemplo lo adjunta en la cabeza de las llamadas por axios 
+        leer los articulos que he recopilado sobre proteger los llamados GraphQL */
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common.Authorization;
+    }
 }
