@@ -9,7 +9,10 @@ import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apol
 import { config } from './config/config';
 import configureStore from './store/store.config';
 
+import { setAuthorizationToken } from './auth/auth';
+
 import App from './components/pages/App/App';
+
 // -----------------------------------
 
 
@@ -46,7 +49,7 @@ if (localStorage.accessToken) {
 render((
     <ApolloProvider store={store} client={client}>
         <BrowserRouter basename="/">
-            <MainRoutes />
+            <App />
         </BrowserRouter>
     </ApolloProvider>
 ), document.getElementById('root'));
