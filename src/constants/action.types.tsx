@@ -17,6 +17,9 @@ export type SHOW_MODAL = typeof SHOW_MODAL;
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export type CLOSE_MODAL = typeof CLOSE_MODAL;
 
+/* Auth Actions Type */
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export type SET_CURRENT_USER = typeof SET_CURRENT_USER;
 
 /* Search Actions Type */
 export const SEARCH_ATOMS = 'SEARCH_ATOMS';

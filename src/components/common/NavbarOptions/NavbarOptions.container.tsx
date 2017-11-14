@@ -9,6 +9,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { IUiState } from '../../../reducer/ui.reducer';
 
 import { showModalAction, closeModalAction } from '../../../actions/ui.action';
+import { logInWithGoogleAction } from '../../../actions/auth.action';
 
 
 // -----------------------------------
@@ -25,13 +26,16 @@ type NavbarOptionsProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {
+type StateProps = { 
     ui: IUiState;
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
+        auth: {
+            logInWithGoogle: () => void;
+        },
         ui: {
             showModal: () => void;
             closeModal: () => void;
@@ -52,6 +56,39 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
     /********************************/
     constructor() {
         super();
+
+        // Bind methods
+        this._handleClick = this._handleClick.bind(this);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc HandleClick
+     * @method _handleClick
+     * @example this._handleClick()
+     * @private 
+     * @returns {void}
+     */
+    private _handleClick (e: any) {
+        e.preventDefault();
+        this._logInWithGoogle();
+    }
+
+
+    /**
+     * @desc Log In with Google
+     * @method _logInWithGoogle
+     * @example this._logInWithGoogle()
+     * @private 
+     * @returns {void}
+     */
+    private _logInWithGoogle() {
+        this.props.actions.auth.logInWithGoogle();
     }
 
     
@@ -72,12 +109,12 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                         </a>
                     </li>
                     <li className="nav-item mx-2">
-                        <a className="nav-link color-slate fontSize-sm" href="">
+                        <a onClick={this._handleClick} href="" className="nav-link color-slate fontSize-sm">
                             Sign Up
                         </a>
                     </li>
                     <li className="nav-item mx-2">
-                        <a className="nav-link color-slate fontSize-sm" href="">
+                        <a onClick={this._handleClick} href="" className="nav-link color-slate fontSize-sm">
                             Log In
                         </a>
                     </li>
@@ -106,6 +143,9 @@ function mapStateToProps(state: IRootState): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
+            auth: {
+                logInWithGoogle: () => dispatch(logInWithGoogleAction())
+            },
             ui: {
                 showModal: () => dispatch(showModalAction()),
                 closeModal: () => dispatch(closeModalAction()),

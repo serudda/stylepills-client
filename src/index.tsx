@@ -20,7 +20,7 @@ let serverConfig = config.getServerConfig();
 // Initialize apollo client
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
-        uri: serverConfig.serverUrl
+        uri: serverConfig.dataBaseUrl
     }),
 });
 

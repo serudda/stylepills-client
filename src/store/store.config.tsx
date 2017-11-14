@@ -4,6 +4,7 @@
 import { ApolloClient } from 'react-apollo';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import rootReducer from '../reducer/reducer.config';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -20,8 +21,12 @@ const client = new ApolloClient();
  * @returns {*} configureStore
  */
 const configureStore = () => {
+    // Middlewares list
     const apolloMiddleware = client.middleware();
-    const middleware = applyMiddleware(apolloMiddleware, logger);
+    const thunkMiddleware = thunk;
+
+    // Apply middleware
+    const middleware = applyMiddleware(apolloMiddleware, thunkMiddleware, logger);
     return {
         ...createStore(rootReducer, composeWithDevTools(middleware))
     };
