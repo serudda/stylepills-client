@@ -17,6 +17,17 @@ export type SHOW_MODAL = typeof SHOW_MODAL;
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export type CLOSE_MODAL = typeof CLOSE_MODAL;
 
+/* Auth Actions Type */
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export type LOGIN_REQUEST = typeof LOGIN_REQUEST;
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export type LOGIN_SUCCESS = typeof LOGIN_SUCCESS;
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export type LOGOUT_REQUEST = typeof LOGOUT_REQUEST;
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export type LOGOUT_SUCCESS = typeof LOGOUT_SUCCESS;
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export type LOGOUT_FAILURE = typeof LOGOUT_FAILURE;
 
 /* Search Actions Type */
 export const SEARCH_ATOMS = 'SEARCH_ATOMS';

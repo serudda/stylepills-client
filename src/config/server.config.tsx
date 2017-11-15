@@ -9,7 +9,9 @@ import * as appConfig from '../constants/app.constants';
 /*      INTERFACES & TYPES      */
 /********************************/
 export interface IServerConfig {
-    serverUrl: string;
+    dataBaseUrl: string;
+    authGoogleUrl: string;
+    authLogoutUrl: string;
 }
 
 
@@ -21,22 +23,30 @@ export function serverConfig(env: string): IServerConfig {
     switch (env) {
         case appConfig.LOCAL:
             return {
-                serverUrl: appConfig.LOCAL_SERVER_URL
+                dataBaseUrl: appConfig.LOCAL_DATA_URL,
+                authGoogleUrl: appConfig.LOCAL_AUTH_GOOGLE_URL,
+                authLogoutUrl: appConfig.LOCAL_AUTH_LOGOUT_URL
             };
         
         case appConfig.DEV:
             return {
-                serverUrl: appConfig.DEV_SERVER_URL
+                dataBaseUrl: appConfig.DEV_DATA_URL,
+                authGoogleUrl: appConfig.DEV_AUTH_GOOGLE_URL,
+                authLogoutUrl: appConfig.DEV_AUTH_LOGOUT_URL
             };
         
         case appConfig.PRD:
             return {
-                serverUrl: appConfig.PRD_SERVER_URL
+                dataBaseUrl: appConfig.PRD_DATA_URL,
+                authGoogleUrl: appConfig.PRD_AUTH_GOOGLE_URL,
+                authLogoutUrl: appConfig.PRD_AUTH_LOGOUT_URL
             };
 
         default:
             return {
-                serverUrl: appConfig.LOCAL_SERVER_URL
+                dataBaseUrl: appConfig.LOCAL_DATA_URL,
+                authGoogleUrl: appConfig.LOCAL_AUTH_GOOGLE_URL,
+                authLogoutUrl: appConfig.LOCAL_AUTH_LOGOUT_URL
             };
     }
 

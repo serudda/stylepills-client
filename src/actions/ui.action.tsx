@@ -39,7 +39,7 @@ export type Action =
 
 /**
  * @desc Return an action type, CLEAR_UI to reset UI states
- * @function clearUi
+ * @function clearUiAction
  * @returns {Action}
  */
 export const clearUiAction = (): Action => {
