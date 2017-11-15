@@ -63,7 +63,11 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /*       VALIDATIONS       */
         /***************************/
         if (data.loading) {
-            return (<div>Loading</div>);
+            return (
+                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
+                    Loading...
+                </div>
+            );
         }
 
         if (data.error) {

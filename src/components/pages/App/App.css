@@ -1809,3 +1809,165 @@ NOTE: Boostrap 4 has a flex set
       color: #FFFFFF;
       text-decoration: none;
       border-bottom: 2px solid #FEEB6A; }
+
+.ComponentPage .leftCol {
+  padding: 0;
+  overflow-y: hidden; }
+
+.ComponentPage .rightCol {
+  padding: 0; }
+
+@media (min-width: 576px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden; }
+  .ComponentPage .rightCol {
+    padding: 0; } }
+
+@media (min-width: 768px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden; }
+  .ComponentPage .rightCol {
+    padding: 0; } }
+
+@media (min-width: 992px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0; }
+  .ComponentPage .rightCol {
+    position: fixed;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    top: 0;
+    padding: 0; } }
+
+@media (min-width: 1200px) {
+  .ComponentPage .leftCol {
+    padding: 0;
+    overflow-y: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0; }
+  .ComponentPage .rightCol {
+    position: fixed;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    top: 0;
+    padding: 0; } }
+
+.PanelSection .tabs {
+  width: 100%;
+  background-color: #141619;
+  white-space: nowrap;
+  display: flex; }
+  .PanelSection .tabs__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #eceff1;
+    width: 33.3333%;
+    text-transform: uppercase;
+    background: none; }
+    .PanelSection .tabs__button--active {
+      border-bottom: 3px solid #33ada9; }
+    .PanelSection .tabs__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+.PanelSection .SourceCode {
+  height: calc(100% - 68px - 51px - 94px); }
+  .PanelSection .SourceCode .ReactCodeMirror {
+    height: 100%; }
+    .PanelSection .SourceCode .ReactCodeMirror .CodeMirror {
+      font-size: 13px;
+      -webkit-font-smoothing: initial;
+      height: 100%; }
+      .PanelSection .SourceCode .ReactCodeMirror .CodeMirror pre, .PanelSection .SourceCode .ReactCodeMirror .CodeMirror code {
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word; }
+
+.PanelSection .actionsFooter {
+  border-top: solid 1px #111111;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  z-index: 2000; }
+  .PanelSection .actionsFooter .otherActions {
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    position: relative;
+    padding-left: .875em; }
+  .PanelSection .actionsFooter .mainAction {
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -moz-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    flex-grow: 1;
+    -moz-flex-shrink: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex-shrink: 1;
+    flex-shrink: 1;
+    position: relative;
+    padding: 1.75em; }
+
+@media (min-width: 576px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+@media (min-width: 768px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+@media (min-width: 992px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+@media (min-width: 1200px) {
+  .PanelSection .SourceCode {
+    height: calc(100% - 51px - 163px); } }
+
+.PreviewSection .previewComponent {
+  overflow: hidden; }

@@ -1,0 +1,80 @@
+.ComponentPage {
+    .leftCol {
+        padding: 0;
+        overflow-y: hidden;
+    }
+
+    .rightCol {
+        padding: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .ComponentPage {
+        .leftCol {
+            padding: 0;
+            overflow-y: hidden;
+        }
+    
+        .rightCol {
+            padding: 0;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .ComponentPage {
+        .leftCol {
+            padding: 0;
+            overflow-y: hidden;
+        }
+    
+        .rightCol {
+            padding: 0;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .ComponentPage {
+        .leftCol {
+            padding: 0;
+            overflow-y: hidden;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            top: 0;
+        }
+    
+        .rightCol {
+            position: fixed;
+            right: 0;
+            left: auto;
+            bottom: 0;
+            top: 0;
+            padding: 0;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .ComponentPage {
+        .leftCol {
+            padding: 0;
+            overflow-y: hidden;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            top: 0;
+        }
+    
+        .rightCol {
+            position: fixed;
+            right: 0;
+            left: auto;
+            bottom: 0;
+            top: 0;
+            padding: 0;
+        }
+    }
+}
