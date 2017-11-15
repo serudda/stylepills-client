@@ -9,7 +9,7 @@ import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user
 import { User as UserModel } from '../../../models/user/user.model';
 
 import { IRootState } from '../../../reducer/reducer.config';
-import { IAuthState } from '../../../reducer/auth.reducer';
+// import { IAuthState } from '../../../reducer/auth.reducer';
 
 import { setCurrentUserAction } from '../../../actions/auth.action';
 
@@ -35,7 +35,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    auth: IAuthState;
+    isAuthenticated: boolean;
 };
 
 /* Mapped Dispatches to Props */
@@ -54,37 +54,11 @@ type DispatchProps = {
 class App 
 extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByIdResponse>, LocalStates> {
 
-
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
     constructor() {
         super();
-    }
-
-    /********************************/
-    /*     COMPONENT DID MOUNT      */
-    /********************************/
-    componentDidMount() { 
-        if (this.props.data) {
-            if (this.props.data.userById && !this.props.auth.user) {
-                // Save current user on Store
-                this.props.actions.auth.setCurrentUser(this.props.data.userById);
-            }
-        }
-    }
-
-
-    /********************************/
-    /*     COMPONENT DID UPDATE     */
-    /********************************/
-    componentDidUpdate() {
-        if (this.props.data) {
-            if (this.props.data.userById && !this.props.auth.user) {
-                // Save current user on Store
-                this.props.actions.auth.setCurrentUser(this.props.data.userById);
-            }
-        }
     }
 
 
@@ -95,7 +69,10 @@ extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByI
 
         /*       PROPERTIES       */
         /**************************/
-        // const {...data} = this.props.data;
+        const {...data} = this.props.data;
+
+        // tslint:disable-next-line:no-console
+        console.log('DATA: ', data.userById);
 
 
         /*         MARKUP          */
@@ -115,7 +92,7 @@ extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByI
 const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
     GET_USER_BY_ID_QUERY, {
         skip: (ownProps) => {
-            return !ownProps.currentUserId && !ownProps.auth.isAuthenticated;
+            return !ownProps.auth.isAuthenticated;
         },
         options:  (ownProps: AppProps) => {
             return {
@@ -133,8 +110,9 @@ const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
+    const { isAuthenticated } = state.auth;
     return {
-        auth: state.auth
+        isAuthenticated
     };
 }
 
@@ -161,7 +139,7 @@ const appConnect = connect(mapStateToProps, mapDispatchToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose(
+export default compose<any>(
     appConnect,
     getUserByIdQuery
 )(App);
