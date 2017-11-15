@@ -35,7 +35,7 @@ const AtomBox: React.SFC<AtomBoxProps> = ({ atom }) => {
     return (
         <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
             <div className="AtomBox__content borderRadius-xs">
-                <Link to={`/atom/${atom.id}`} className="cover-link" />
+                <Link to={`/atom/${atom.id}`} className="cover-link" target="_blank"/>
                 <Iframe html={atom.html} style={atom.css} background={atom.contextualBg} />
             </div>
         </div>
