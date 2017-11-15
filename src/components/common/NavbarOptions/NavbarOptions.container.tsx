@@ -103,8 +103,6 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         // Get server config object
         const serverConfig = config.getServerConfig();
         const { isAuthenticated } = this.props;
-        // tslint:disable-next-line:no-console
-        console.log(this.props);
 
         const userLinks = (
             <ul className="navbar-nav ml-auto">

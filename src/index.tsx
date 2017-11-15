@@ -45,6 +45,10 @@ let token = localStorage.token;
 let id = localStorage.userId;
 
 // Get Token and User Id from LocalStorage
+/* TODO: Estoy tomando lo que haya en la url y asumiendo que es un Token valido, 
+si no valido que es un Token valido, el usuario va a creer que esta logueado, y yo
+voy a creer que el usuario esta logueado, y cuando quiera hacer una peticion va a decir
+como si no estuviera logueado.*/
 if (!token || !id) {
     if (location.search) {
         const parsed = queryString.parse(location.search);
