@@ -77,7 +77,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
      * @private 
      * @returns {void}
      */
-    private _handleLogoutClick = () => (e: any) => {
+    private _handleLogoutClick (e: any) {
         e.preventDefault();
         this._logout();
     }
