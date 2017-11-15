@@ -12,8 +12,8 @@ import * as jwtDecode from 'jwt-decode';
 import { config } from './config/config';
 import configureStore from './store/store.config';
 
-import { setAuthorizationToken, IJwtDecoded } from './auth/auth';
-// import { setCurrentUserAction } from './actions/auth.action';
+import { IJwtDecoded } from './auth/auth';
+import { setTokenAndIdAction } from './actions/auth.action';
 
 import App from './components/pages/App/App';
 
@@ -38,28 +38,30 @@ const client = new ApolloClient({
 const store = configureStore();
 
 // Current user id
-let currentUserId = null;
+// let currentUserId = null;
 
 
 let token = localStorage.token;
-let id = localStorage.currentId;
+let id = localStorage.userId;
 
-// Get Token from LocalStorage
-if (token) {
-
-    setAuthorizationToken(token);
-    currentUserId = id;
-
-// Get Token from query string url
-} else if (location.search)  {
-
-    const parsed = queryString.parse(location.search);
-    const decoded: IJwtDecoded = jwtDecode(parsed.token);
-    localStorage.setItem('token', decoded.token);
-    localStorage.setItem('currentId', decoded.id);
-    currentUserId = decoded.id;
-    
+// Get Token and User Id from LocalStorage
+if (!token || !id) {
+    if (location.search) {
+        const parsed = queryString.parse(location.search);
+        const decoded: IJwtDecoded = jwtDecode(parsed.token);
+        token = decoded.token;
+        id = decoded.id;
+    } else {
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+    }
 }
+
+if (token && id) {
+    // Set Token an Id on Store and Local Storage
+    store.dispatch(setTokenAndIdAction(token, id));
+}
+
 
 
 /*         RENDER         */
@@ -67,7 +69,7 @@ if (token) {
 render((
     <ApolloProvider store={store} client={client}>
         <BrowserRouter basename="/">
-            <App currentUserId={currentUserId}/>
+            <App />
         </BrowserRouter>
     </ApolloProvider>
 ), document.getElementById('root'));

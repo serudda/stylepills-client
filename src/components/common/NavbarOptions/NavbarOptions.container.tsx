@@ -9,10 +9,10 @@ import { config } from './../../../config/config';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { IUiState } from '../../../reducer/ui.reducer';
-import { IAuthState } from '../../../reducer/auth.reducer';
+// import { IAuthState } from '../../../reducer/auth.reducer';
 
 import { showModalAction, closeModalAction } from '../../../actions/ui.action';
-import { logInWithGoogleAction, logoutAction } from '../../../actions/auth.action';
+import { logoutAction } from '../../../actions/auth.action';
 
 // -----------------------------------
 
@@ -29,7 +29,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    auth: IAuthState;
+    isAuthenticated: boolean;
     ui: IUiState;
 };
 
@@ -37,7 +37,6 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         auth: {
-            logInWithGoogle: () => void;
             logout: () => void;
         },
         ui: {
@@ -62,7 +61,6 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         super();
 
         // Bind methods
-        this._handleLogInClick = this._handleLogInClick.bind(this);
         this._handleLogoutClick = this._handleLogoutClick.bind(this);
     }
 
@@ -73,41 +71,15 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
 
     /**
-     * @desc HandleLogInClick
-     * @method _handleLogInClick
-     * @example this._handleLogInClick()
-     * @private 
-     * @returns {void}
-     */
-    private _handleLogInClick (e: any) {
-        e.preventDefault();
-        this._logInWithGoogle();
-    }
-
-
-    /**
      * @desc HandleLogoutClick
      * @method _handleLogoutClick
      * @example this._handleLogoutClick()
      * @private 
      * @returns {void}
      */
-    private _handleLogoutClick (e: any) {
+    private _handleLogoutClick = () => (e: any) => {
         e.preventDefault();
         this._logout();
-    }
-
-
-    /**
-     * @desc Log In with Google
-     * @method _logInWithGoogle
-     * @example this._logInWithGoogle()
-     * @private 
-     * @returns {void}
-     */
-    private _logInWithGoogle() {
-        // NOTE: #1
-        this.props.actions.auth.logInWithGoogle();
     }
 
 
@@ -130,7 +102,9 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
         // Get server config object
         const serverConfig = config.getServerConfig();
-        const { isAuthenticated } = this.props.auth;
+        const { isAuthenticated } = this.props;
+        // tslint:disable-next-line:no-console
+        console.log(this.props);
 
         const userLinks = (
             <ul className="navbar-nav ml-auto">
@@ -186,8 +160,9 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
+    const { isAuthenticated } = state.auth;
     return {
-        auth: state.auth,
+        isAuthenticated,
         ui:  state.ui
     };
 }
@@ -200,7 +175,6 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             // NOTE: #1
             auth: {
-                logInWithGoogle: () => dispatch(logInWithGoogleAction()),
                 logout: () => dispatch(logoutAction())
             },
             ui: {

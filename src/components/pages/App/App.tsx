@@ -2,16 +2,16 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
 import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user.query';
-import { User as UserModel } from '../../../models/user/user.model';
+// import { User as UserModel } from '../../../models/user/user.model';
 
 import { IRootState } from '../../../reducer/reducer.config';
 // import { IAuthState } from '../../../reducer/auth.reducer';
 
-import { setCurrentUserAction } from '../../../actions/auth.action';
+// import { setCurrentUserAction } from '../../../actions/auth.action';
 
 import Main from '../Main/Main';
 
@@ -26,9 +26,7 @@ import './App.css';
 /********************************/
 
 /* Own Props */
-type AppProps = {
-    currentUserId: string;
-};
+type AppProps = {};
 
 /* Own States */
 type LocalStates = {};
@@ -36,15 +34,16 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     isAuthenticated: boolean;
+    userId: string;
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
-    actions: {
+    /*actions: {
         auth: {
             setCurrentUser: (user: UserModel) => void;
         }
-    };
+    };*/
 };
 
 
@@ -91,14 +90,14 @@ extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByI
 /********************************/
 const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
     GET_USER_BY_ID_QUERY, {
-        skip: (ownProps) => {
-            return !ownProps.auth.isAuthenticated;
+        skip: (ownProps: AppProps & StateProps) => {
+            return !ownProps.isAuthenticated;
         },
-        options:  (ownProps: AppProps) => {
+        options:  (ownProps: AppProps & StateProps) => {
             return {
                 variables: 
                 { 
-                   id:  ownProps.currentUserId
+                   id:  ownProps.userId
                }
             };
         }
@@ -110,9 +109,10 @@ const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    const { isAuthenticated } = state.auth;
+    const { isAuthenticated, userId } = state.auth; 
     return {
-        isAuthenticated
+        isAuthenticated,
+        userId
     };
 }
 
@@ -120,7 +120,7 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*     MAP DISPATCH TO PROPS    */
 /********************************/
-function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+/*function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             auth: {
@@ -128,13 +128,13 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             }
         }
     };
-}
+}*/
 
 
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const appConnect = connect(mapStateToProps, mapDispatchToProps); 
+const appConnect = connect(mapStateToProps); 
 
 
 /*         EXPORT          */

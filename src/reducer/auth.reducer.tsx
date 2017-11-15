@@ -3,16 +3,16 @@
 /************************************/
 import * as types from '../constants/action.types';
 import { Action } from '../actions/auth.action';
-import { User } from '../models/user/user.model';
-import * as lodash from 'lodash';
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
 
 export interface IAuthState {
+    loading: boolean;
     isAuthenticated: boolean;
-    user: User;
+    userId?: string;
+    message?: string;
 }
 
 /************************************/
@@ -20,8 +20,8 @@ export interface IAuthState {
 /************************************/
 
 const defaultState: IAuthState = {
-    isAuthenticated: false,
-    user: null
+    loading: false,
+    isAuthenticated: !!localStorage.getItem('token')
 };
 
 // -----------------------------------
@@ -38,14 +38,48 @@ export default function (state: IAuthState = defaultState, action: Action): IAut
     switch (action.type) {
 
         /***********************************/
-        /*            UI ACTIONS           */
+        /*           AUTH ACTIONS          */
         /***********************************/
 
-        case types.SET_CURRENT_USER: {
+        case types.LOGIN_REQUEST: {
             return {
                 ...state,
-                isAuthenticated: !lodash.isEmpty(action.user), 
-                user: action.user
+                loading: true,
+                isAuthenticated: false
+            };
+        }
+
+        case types.LOGIN_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: true,
+                userId: action.userId
+            };
+        }
+
+        case types.LOGOUT_REQUEST: {
+            return {
+                ...state,
+                loading: true,
+                isAuthenticated: true
+            };
+        }
+
+        case types.LOGOUT_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false
+            };
+        }
+
+        case types.LOGOUT_FAILURE: {
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false,
+                message: action.message
             };
         }
             
