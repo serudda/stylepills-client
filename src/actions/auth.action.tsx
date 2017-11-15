@@ -9,7 +9,6 @@ import { config } from './../config/config';
 
 // import { setAuthorizationToken } from '../auth/auth';
 
-// import { User } from '../models/user/user.model';
 
 
 // -----------------------------------
@@ -21,11 +20,6 @@ const serverConfig = config.getServerConfig();
 /************************************/
 /*            INTERFACES            */
 /************************************/
-
-/*export interface ISetCurrentUserAction {
-    type: types.LOGIN_SUCCESS;
-    user: User;
-}*/
 
 export interface IRequestLoginAction {
     type: types.LOGIN_REQUEST;
@@ -73,19 +67,6 @@ export type Action =
 /************************************/
 /*             ACTIONS              */
 /************************************/
-
-
-/**
- * @desc Return an action type, SET_CURRENT_USER to set current user into Store
- * @function setCurrentUserAction
- * @returns {Action}
- */
-/*export const setCurrentUserAction = (user: User): Action => {
-    return {
-        type: types.SET_CURRENT_USER,
-        user
-    };
-};*/
 
 
 /**
@@ -149,8 +130,6 @@ export const receiveLoginAction = (userId: string): Action => {
  */
 export const setTokenAndIdAction = (token: string, id: string) => {
     return (dispatch: Function) => {
-        // tslint:disable-next-line:no-console
-        console.log('ENTRE');
         dispatch(requestLoginAction());
         localStorage.setItem('token', token);
         localStorage.setItem('userId', id);

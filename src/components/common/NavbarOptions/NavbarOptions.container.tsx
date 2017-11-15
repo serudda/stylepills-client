@@ -9,7 +9,6 @@ import { config } from './../../../config/config';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { IUiState } from '../../../reducer/ui.reducer';
-// import { IAuthState } from '../../../reducer/auth.reducer';
 
 import { showModalAction, closeModalAction } from '../../../actions/ui.action';
 import { logoutAction } from '../../../actions/auth.action';
