@@ -6,12 +6,8 @@ import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
 import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user.query';
-// import { User as UserModel } from '../../../models/user/user.model';
 
 import { IRootState } from '../../../reducer/reducer.config';
-// import { IAuthState } from '../../../reducer/auth.reducer';
-
-// import { setCurrentUserAction } from '../../../actions/auth.action';
 
 import Main from '../Main/Main';
 
@@ -37,21 +33,12 @@ type StateProps = {
     userId: string;
 };
 
-/* Mapped Dispatches to Props */
-type DispatchProps = {
-    /*actions: {
-        auth: {
-            setCurrentUser: (user: UserModel) => void;
-        }
-    };*/
-};
-
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class App 
-extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByIdResponse>, LocalStates> {
+extends React.Component<ChildProps<AppProps & StateProps, GetByIdResponse>, LocalStates> {
 
     /********************************/
     /*         CONSTRUCTOR          */
@@ -65,14 +52,6 @@ extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByI
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-
-        /*       PROPERTIES       */
-        /**************************/
-        const {...data} = this.props.data;
-
-        // tslint:disable-next-line:no-console
-        console.log('DATA: ', data.userById);
-
 
         /*         MARKUP          */
         /***************************/
@@ -115,20 +94,6 @@ function mapStateToProps(state: IRootState): StateProps {
         userId
     };
 }
-
-
-/********************************/
-/*     MAP DISPATCH TO PROPS    */
-/********************************/
-/*function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
-    return {
-        actions: {
-            auth: {
-                setCurrentUser: (user: UserModel) => dispatch(setCurrentUserAction(user))
-            }
-        }
-    };
-}*/
 
 
 /********************************/
