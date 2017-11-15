@@ -4,7 +4,7 @@
 import * as React from 'react';
 // import ComponentBox from '../../../common/ComponentBox/ComponentBox';
 import AtomBox from '../../../common/AtomBox/AtomBox';
-import AtomInfoSection from '../../../common/AtomBox/AtomInfoSection/AtomInfoSection';
+// import AtomInfoSection from '../../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 import { Atom as AtomModel } from '../../../../models/atom/atom.model';
 
 
@@ -88,11 +88,10 @@ class PreviewSectionContainer extends React.Component<IOwnProps, {}> {
                 </div>
 
                 {/* PREVIEW COMPONENT */}
-                <div className="previewComponent boxShadow-float borderRadius-md">
-                    {/*<ComponentBox component={data} isClicked={false}/>*/}
-                    <AtomBox atom={data} />
-                    <AtomInfoSection {...data} />
-                </div>
+                {/*<ComponentBox component={data} isClicked={false}/>*/}
+                <AtomBox atom={data} />
+                {/*<AtomInfoSection {...data} />*/}
+                
                 
             </section>
         );

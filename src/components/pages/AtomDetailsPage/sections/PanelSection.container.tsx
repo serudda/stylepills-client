@@ -13,7 +13,7 @@ import 'codemirror/addon/scroll/simplescrollbars.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/addon/display/autorefresh';
 
-const logo = require('../../../../resources/images/Stylepills-main-short-logo.svg');
+import Icon from '../../../common/Icon/Icon';
 
 
 /************************************/
@@ -65,7 +65,7 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
 
         /*       PROPERTIES       */
         /**************************/
-        const { options: {html, css, download} } = this.props;
+        const { options: {html, css} } = this.props;
 
 
         const hmtlOptions = {
@@ -108,9 +108,12 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
                             <div className="col-auto mr-auto">
                                 {/* Logo */}
                                 <div className="ml-4">
-                                    <a className="Header__logo is-reversed m-0 link-reset" href="/">
-                                        <img src={logo} alt="Stylepills" width="20px"/>
-                                        <span className="fontFamily-quicksand fontWeight-9">Stylepills</span>
+                                    {/* Logo */}
+                                    <a className="sp-logo sp-logo--sm sp-logo--white m-0 link-reset" href="/explore">
+                                        <Icon icon="logo" 
+                                            iconClass="mr-2"
+                                            width="20" height="20"/>
+                                        <span>Stylepills</span>
                                     </a>
                                 </div>
                             </div>
@@ -157,15 +160,15 @@ class PanelSectionContainer extends React.Component<IOwnProps, any> {
 
 
                         {/* BUTTONS OPTIONS */}
-                        <footer className="actionsFooter sp-bg-black">
-                            {/* <div className="otherActions"></div> */}
+                        {/*<footer className="actionsFooter sp-bg-black">
+                            // <div className="otherActions"></div>
                             <div className="mainAction">
                                 <a href={download} 
                                    className="btn btn-primary btn-block fontSmoothing-reset cursor-pointer link-reset">
                                     Download Component
                                 </a>
                             </div>
-                        </footer>
+                        </footer> */}
 
                     </div>
                 </div>

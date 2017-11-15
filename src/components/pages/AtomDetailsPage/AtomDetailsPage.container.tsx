@@ -16,12 +16,12 @@ import PreviewSection from './sections/PreviewSection.container';
 
 
 /**
- * @desc Represents Component Detail Page
+ * @desc Represents Atom Detail Page
  * @class ComponentPageContainer
  * @extends {React.Component}
  * @returns component page view (Stateful component)
  */
-class ComponentPageContainer extends React.Component<ChildProps<InputProps, Response>, {}> {
+class AtomDetailsPageContainer extends React.Component<ChildProps<InputProps, Response>, {}> {
 
     
     /*        METHODS         */
@@ -130,4 +130,4 @@ export default compose(
             }
         )
     })
-)(ComponentPageContainer);
+)(AtomDetailsPageContainer);
