@@ -1,0 +1,10 @@
+/**********************************************************/
+/*                     NAVBAR OPTIONS                     */
+/**********************************************************/
+
+.NavbarOptions {
+    .nav-item.active {
+        border-bottom: 3px solid map-get($color, secondary);
+        font-weight: 900;
+    }
+}

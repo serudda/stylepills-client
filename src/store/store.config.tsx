@@ -1,13 +1,12 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import logger from 'redux-logger';
 import { ApolloClient } from 'react-apollo';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import rootReducer from '../reducer/reducer.config';
-import rootSaga from '../saga/saga.config';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 
@@ -22,26 +21,17 @@ const client = new ApolloClient();
  * @returns {*} configureStore
  */
 const configureStore = () => {
+    // Middlewares list
     const apolloMiddleware = client.middleware();
-    const sagaMiddleware = createSagaMiddleware();
-    const middleware = applyMiddleware(apolloMiddleware, sagaMiddleware, logger);
+    const thunkMiddleware = thunk;
+
+    // Apply middleware
+    const middleware = applyMiddleware(apolloMiddleware, thunkMiddleware, logger);
     return {
-        ...createStore(rootReducer, composeWithDevTools(middleware)),
-        runSaga: sagaMiddleware.run(rootSaga)
+        ...createStore(rootReducer, composeWithDevTools(middleware))
     };
 };
 
+
 /* Export */
 export default configureStore;
-
-
-
-/* 
-
-Flow:
-
-1. Inicializamos nuestro SagaMiddleware.
-2. Pasamos rootReducer y sagaMiddleware al createStore para crear nuestro Redux Store.
-3. Finalmente, corremos nuestros sagas. 
-
-*/

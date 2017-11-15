@@ -5,14 +5,15 @@ import * as React from 'react';
 
 const explanationImage = require('../../../../../resources/images/styleguide_page.png');
 
+// -----------------------------------
+
+
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
 
 /* Own Props */
-type CreateStyleguideSectionProps = {
-    //
-};
+type CreateStyleguideSectionProps = {};
 
 
 /**
@@ -26,7 +27,6 @@ const CreateStyleguideSection: React.SFC<CreateStyleguideSectionProps> = () => {
     
     /*         MARKUP          */
     /***************************/
-    
     return (
         <div>
 
@@ -49,7 +49,6 @@ const CreateStyleguideSection: React.SFC<CreateStyleguideSectionProps> = () => {
             {/* Image (Mobile): Create styleguides */}
             <div className="row no-gutters d-block d-lg-none align-items-center section">
                 <div className="col-12">
-                    {/* Aqui va el SVG */}
                     <img className="borderRadius-md w-100" 
                         src={explanationImage} 
                         alt="Create Styleguide"/>

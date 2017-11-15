@@ -1,8 +1,3 @@
-/* TODO: Analizar que vamos a hacer con las actions, reducers, sagas. Si vamos
-viendo la necesidad de gestionar algunos estados con nuestro propio metodo, 
-mantenemos estos archivos, de lo contrario los eliminamos 
-NOTE: Este archivo no se reviso y se limpio */
-
 /**
  * @desc Action Types 
  * Naming convention: 
@@ -12,26 +7,40 @@ NOTE: Este archivo no se reviso y se limpio */
  */
 
 
-/* UI Component Actions Type */
-export const GET_UICOMPONENT = 'GET_UICOMPONENT';
-export type GET_UICOMPONENT = typeof GET_UICOMPONENT;
+/* UI Actions Type */
+export const CLEAR_UI = 'CLEAR_UI';
+export type CLEAR_UI = typeof CLEAR_UI;
 
-export const GET_UICOMPONENT_FULFILLED = 'GET_UICOMPONENT_FULFILLED';
-export type GET_UICOMPONENT_FULFILLED = typeof GET_UICOMPONENT_FULFILLED;
+export const SHOW_MODAL = 'SHOW_MODAL';
+export type SHOW_MODAL = typeof SHOW_MODAL;
 
-export const GET_UICOMPONENT_ERROR = 'GET_UICOMPONENT_ERROR';
-export type GET_UICOMPONENT_ERROR = typeof GET_UICOMPONENT_ERROR;
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+export type CLOSE_MODAL = typeof CLOSE_MODAL;
+
+/* Auth Actions Type */
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export type LOGIN_REQUEST = typeof LOGIN_REQUEST;
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export type LOGIN_SUCCESS = typeof LOGIN_SUCCESS;
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export type LOGOUT_REQUEST = typeof LOGOUT_REQUEST;
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export type LOGOUT_SUCCESS = typeof LOGOUT_SUCCESS;
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export type LOGOUT_FAILURE = typeof LOGOUT_FAILURE;
+
+/* Search Actions Type */
+export const SEARCH_ATOMS = 'SEARCH_ATOMS';
+export type SEARCH_ATOMS = typeof SEARCH_ATOMS;
 
 
-/* Color Palette Actions Type */
-export const GET_COLORPALETTE = 'GET_COLORPALETTE';
-export type GET_COLORPALETTE = typeof GET_COLORPALETTE;
+/* Pagination Actions Type */
+export const NEXT_PAGE_ATOMS = 'NEXT_PAGE_ATOMS';
+export type NEXT_PAGE_ATOMS = typeof NEXT_PAGE_ATOMS;
 
-export const GET_COLORPALETTE_FULFILLED = 'GET_COLORPALETTE_FULFILLED';
-export type GET_COLORPALETTE_FULFILLED = typeof GET_COLORPALETTE_FULFILLED;
+export const PREV_PAGE_ATOMS = 'PREV_PAGE_ATOMS';
+export type PREV_PAGE_ATOMS = typeof PREV_PAGE_ATOMS;
 
-export const GET_COLORPALETTE_ERROR = 'GET_COLORPALETTE_ERROR';
-export type GET_COLORPALETTE_ERROR = typeof GET_COLORPALETTE_ERROR;
 
 
 /*

@@ -1,0 +1,15 @@
+/**********************************************************/
+/*                         STATS                          */
+/**********************************************************/
+
+.sp-stats {
+    display: flex;
+    align-items: center;
+    height: 18px;
+
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+
+}

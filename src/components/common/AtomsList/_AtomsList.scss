@@ -1,0 +1,86 @@
+/**********************************************************/
+/*                       ATOMS LIST                       */
+/**********************************************************/
+
+.AtomsList {
+
+    .atomBox-container {
+        width: 32%;
+        margin: 0 2% 25px 0;
+        position: relative;
+
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+
+    }
+
+}
+
+
+// Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+    .AtomsList {
+        .atomBox-container {
+            width: 49%;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+
+            &:nth-child(3n) {
+                margin-right: 2%;
+            }
+
+        }
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) { 
+    .AtomsList {
+        .atomBox-container {
+            width: 100%;
+            margin-right: 0 !important;
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@include media-breakpoint-down(sm) { }
+
+// Large devices (desktops, less than 1200px)
+@include media-breakpoint-down(lg) { }
+
+/*@media (max-width: 830px) {
+    
+    .AtomsList {
+        .atomBox-container {
+            width: 49%;
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+
+            &:nth-child(3n) {
+                margin-right: 2%;
+            }
+
+        }
+
+    }
+
+}*/
+
+
+/*@media (max-width: 550px) {
+
+    .AtomsList {
+        .atomBox-container {
+            width: 100%;
+            margin-right: 0 !important;
+        }
+    }
+
+}*/
+

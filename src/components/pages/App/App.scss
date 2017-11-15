@@ -1,6 +1,11 @@
 //               APP MAIN SASS STYLES
 // --------------------------------------------------
 
+// Third-Party
+// --------------------------------------------------
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
 
 // Fonts
 // --------------------------------------------------
@@ -19,10 +24,18 @@
 // Basic Components (buttons, inputs, labels, etc)
 // --------------------------------------------------
 
+// Avatar Basic Component Style
+@import '../../../theme/components/avatar';
 // Button Basic Component Style
 @import '../../../theme/components/button';
+// Input Basic Component Style
+@import '../../../theme/components/input';
 // Link Basic Component Style
 @import '../../../theme/components/link';
+// Logo Basic Component Style
+@import '../../../theme/components/logo';
+// Stats Basic Component Style
+@import '../../../theme/components/stats';
 
 
 // React Components (Header, Modals, etc)
@@ -30,18 +43,20 @@
 
 // Header Component Style
 @import '../../common/Header/Header';
-// Color Component Style
-@import '../../common/Color/Color';
-// Color Palette Component Style
-@import '../../common/ColorPalette/ColorPalette';
 // Component Box Component Style
-@import '../../common/ComponentBox/ComponentBox';
+@import '../../common/AtomBox/AtomBox';
+// Component Info Component Style
+@import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 // Components List Component Style
-@import '../../common/ComponentsList/ComponentsList';
-// IFrame Component Style
-@import '../../common/Iframe/Iframe';
+@import '../../common/AtomsList/AtomsList';
 // Footer Component Style
 @import '../../common/Footer/Footer';
+// IFrame Component Style
+@import '../../common/Iframe/Iframe';
+// NavbarOptions Component Style
+@import '../../common/NavbarOptions/NavbarOptions';
+// Pagination Buttons Component Style
+@import '../../common/PaginationBtns/PaginationBtns';
 
 
 
@@ -50,11 +65,11 @@
 
 // Home Page Style
 @import '../HomePage/HomePage';
-// Component Page Style
-@import '../ComponentPage/ComponentPage';
-// Component Page: Panel Section Style
-@import '../ComponentPage/sections/PanelSection';
-// Component Page: Preview Section Style
-@import '../ComponentPage/sections/PreviewSection';
+// Atom Details Page Component Style
+@import '../AtomDetailsPage/AtomDetailsPage';
+// Atom Details Page (PanelSection) Style
+@import '../AtomDetailsPage/sections/PanelSection';
+// Atom Details Page (PreviewSection) Style
+@import '../AtomDetailsPage/sections/PreviewSection';
 
 

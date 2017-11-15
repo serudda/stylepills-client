@@ -1,26 +1,24 @@
-import { UiComponent } from '../uiComponent/uiComponent.model';
-import { Social } from '../social/social.models';
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
+import { User } from '../user/user.model';
+import { Atom } from '../atom/atom.model';
 
-/************************************************/
-/*                 USER MODELS                  */
-/************************************************/
 
-/**
- * @desc Specifies the User type (model) to identify
- * its properties, methods, etc.
- * @type User
- */
+/************************************/
+/*            INTERFACE             */
+/************************************/
 
 export type User = {
     id: number | null;
     username: string;
     firstname: string;
     lastname: string;
+    email: string; 
+    password: string;
+    website: string;
     avatar: string;
     about: string;
-    email: string;
-    website: string;
-    social: Social;
-    uiComponents: Array<UiComponent>;
+    active: boolean;
+    atoms: Array<Atom>;
 };
-
