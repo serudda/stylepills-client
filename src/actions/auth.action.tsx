@@ -86,8 +86,9 @@ export const logInWithGoogleAction = () => {
 export const logoutAction = () => {
     return (dispatch: Function) => {
         
-        // Remove Access Token in localStorage
-        localStorage.removeItem('accessToken');
+        // Remove Access Token and currentId in localStorage
+        localStorage.removeItem('token');
+        localStorage.removeItem('currentId');
 
         // Remove Access Token from header requests
         setAuthorizationToken(false);

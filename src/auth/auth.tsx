@@ -11,7 +11,7 @@ import axios from 'axios';
 /************************************/
 
 export interface IJwtDecoded {
-    id: number;
+    id: string;
     token: string;
 }
 

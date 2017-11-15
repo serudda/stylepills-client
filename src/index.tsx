@@ -41,21 +41,24 @@ const store = configureStore();
 let currentUserId = null;
 
 
-// Set Authorization Token to each user request
-if (localStorage.accessToken) {
+let token = localStorage.token;
+let id = localStorage.currentId;
 
-    setAuthorizationToken(localStorage.accessToken);
-    // TODO: Traerme los datos del usuario logueado, guardarlos en el Store y en localStorage
-    // store.dispatch(setCurrentUserAction(jwtDecode(localStorage.accessToken)));
+// Get Token from LocalStorage
+if (token) {
 
+    setAuthorizationToken(token);
+    currentUserId = id;
+
+// Get Token from query string url
 } else if (location.search)  {
 
     const parsed = queryString.parse(location.search);
     const decoded: IJwtDecoded = jwtDecode(parsed.token);
     localStorage.setItem('token', decoded.token);
-    // TODO: Traerme los datos del usuario logueado, guardarlos en el Store y en el localStorage
-    // store.dispatch(setCurrentUserAction(decoded));
+    localStorage.setItem('currentId', decoded.id);
     currentUserId = decoded.id;
+    
 }
 
 

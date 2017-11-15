@@ -140,7 +140,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                     </a>
                 </li>
                 <li className="nav-item mx-2">
-                    <a href="" className="nav-link color-slate fontSize-sm">
+                    <a onClick={this._handleLogoutClick} href="" className="nav-link color-slate fontSize-sm">
                         Log out
                     </a>
                 </li>
@@ -162,11 +162,6 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                 <li className="nav-item mx-2">
                     <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
                         Log In
-                    </a>
-                </li>
-                <li className="nav-item mx-2">
-                    <a onClick={this._handleLogoutClick} href="" className="nav-link color-slate fontSize-sm">
-                        Log out
                     </a>
                 </li>
             </ul>
