@@ -3,9 +3,10 @@
 /********************************/
 import * as React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
+import createHistory from 'history/createBrowserHistory';
 import * as queryString from 'query-string';
 import * as jwtDecode from 'jwt-decode';
 
@@ -19,8 +20,8 @@ import App from './components/pages/App/App';
 
 // -----------------------------------
 
-
-
+// Create a history of your choosing (we're using a browser history in this case)
+const history = createHistory();
 
 // Get server config object
 let serverConfig = config.getServerConfig();
@@ -72,8 +73,8 @@ if (token && id) {
 /**************************/
 render((
     <ApolloProvider store={store} client={client}>
-        <BrowserRouter basename="/">
+        <Router history={history}>
             <App />
-        </BrowserRouter>
+        </Router>
     </ApolloProvider>
 ), document.getElementById('root'));

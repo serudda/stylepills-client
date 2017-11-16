@@ -1,6 +1,8 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { EventTypes } from 'redux-segment';
+
 import axios from 'axios';
 
 import * as types from '../constants/action.types';
@@ -25,6 +27,17 @@ export interface IRequestLoginAction {
     type: types.LOGIN_REQUEST;
     loading: boolean;
     isAuthenticated: boolean;
+    meta: {
+        analytics: {
+            eventType: string,
+            eventPayload: {
+                event: string,
+                properties: {
+                    isAuthenticated: boolean
+                },
+            },
+        },
+    };
 }
 
 export interface IReceiveLoginAction {
@@ -32,6 +45,14 @@ export interface IReceiveLoginAction {
     loading: boolean;
     isAuthenticated: boolean;
     userId: string;
+    meta: {
+        analytics: {
+            eventType: string,
+            eventPayload: {
+                userId: string
+            }
+        },
+    };
 }
 
 export interface IRequestLogoutAction {
@@ -103,7 +124,18 @@ export const requestLoginAction = (): Action => {
     return {
         type: types.LOGIN_REQUEST,
         loading: true,
-        isAuthenticated: false
+        isAuthenticated: false,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.LOGIN_REQUEST,
+                    properties: {
+                        isAuthenticated: false
+                    },
+                },
+            },
+        }
     };
 };
 
@@ -118,7 +150,15 @@ export const receiveLoginAction = (userId: string): Action => {
         type: types.LOGIN_SUCCESS,
         loading: false,
         isAuthenticated: true,
-        userId
+        userId,
+        meta: {
+            analytics: {
+                eventType: EventTypes.identify,
+                eventPayload: {
+                    userId
+                }
+            }
+        }
     };
 };
 
