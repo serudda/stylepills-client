@@ -5,6 +5,8 @@ import { EventTypes } from 'redux-segment';
 
 import axios from 'axios';
 
+import { IAnalyticsTrack, IAnalyticsIdentify } from './../core/interfaces/interfaces';
+
 import * as types from '../constants/action.types';
 
 import { config } from './../config/config';
@@ -22,22 +24,23 @@ const serverConfig = config.getServerConfig();
 /************************************/
 /*            INTERFACES            */
 /************************************/
+interface IAuthEventPayLoad {
+    event: string;
+    properties: {
+        isAuthenticated: boolean,
+        message?: string
+    };
+}
+
+interface IUserEventPayLoad {
+    userId: string;
+}
 
 export interface IRequestLoginAction {
     type: types.LOGIN_REQUEST;
     loading: boolean;
     isAuthenticated: boolean;
-    meta: {
-        analytics: {
-            eventType: string,
-            eventPayload: {
-                event: string,
-                properties: {
-                    isAuthenticated: boolean
-                },
-            },
-        },
-    };
+    meta: IAnalyticsTrack<IAuthEventPayLoad>;
 }
 
 export interface IReceiveLoginAction {
@@ -45,26 +48,21 @@ export interface IReceiveLoginAction {
     loading: boolean;
     isAuthenticated: boolean;
     userId: string;
-    meta: {
-        analytics: {
-            eventType: string,
-            eventPayload: {
-                userId: string
-            }
-        },
-    };
+    meta: IAnalyticsIdentify<IUserEventPayLoad>; 
 }
 
 export interface IRequestLogoutAction {
     type: types.LOGOUT_REQUEST;
     loading: boolean;
     isAuthenticated: boolean;
+    meta: IAnalyticsTrack<IAuthEventPayLoad>;
 }
 
 export interface IReceiveLogoutAction {
     type: types.LOGOUT_SUCCESS;
     loading: boolean;
     isAuthenticated: boolean;
+    meta: IAnalyticsTrack<IAuthEventPayLoad>;
 }
 
 export interface ILogoutFailureAction {
@@ -72,6 +70,7 @@ export interface ILogoutFailureAction {
     loading: boolean;
     isAuthenticated: boolean;
     message: string;
+    meta: IAnalyticsTrack<IAuthEventPayLoad>;
 }
 
 
@@ -187,7 +186,18 @@ export const requestLogoutAction = (): Action => {
     return {
         type: types.LOGOUT_REQUEST,
         loading: true,
-        isAuthenticated: true
+        isAuthenticated: true,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.LOGOUT_REQUEST,
+                    properties: {
+                        isAuthenticated: true
+                    },
+                },
+            },
+        }
     };
 };
 
@@ -201,7 +211,18 @@ export const receiveLogoutAction = (): Action => {
     return {
         type: types.LOGOUT_SUCCESS,
         loading: false,
-        isAuthenticated: false
+        isAuthenticated: false,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.LOGOUT_SUCCESS,
+                    properties: {
+                        isAuthenticated: false
+                    },
+                },
+            },
+        }
     };
 };
 
@@ -216,7 +237,19 @@ export const logoutFailureAction = (message: string): Action => {
         type: types.LOGOUT_FAILURE,
         loading: false,
         isAuthenticated: true,
-        message
+        message,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.LOGOUT_FAILURE,
+                    properties: {
+                        isAuthenticated: true,
+                        message
+                    },
+                },
+            },
+        }
     };
 };
 
