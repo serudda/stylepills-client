@@ -7,11 +7,10 @@ import axios from 'axios';
 
 import { IAnalyticsTrack, IAnalyticsIdentify } from './../core/interfaces/interfaces';
 
+import { User } from '../models/user/user.model';
 import * as types from '../constants/action.types';
 
 import { config } from './../config/config';
-
-// import { setAuthorizationToken } from '../auth/auth';
 
 
 
@@ -33,7 +32,17 @@ interface IAuthEventPayLoad {
 }
 
 interface IUserEventPayLoad {
-    userId: string;
+    userId: number | string;
+    traits: {
+        avatar: string,
+        createdAt: string | number,
+        email: string,
+        firstName: string,
+        id: number | string,
+        lastName: string,
+        name: string,
+        username: string
+    };
 }
 
 export interface IRequestLoginAction {
@@ -47,7 +56,7 @@ export interface IReceiveLoginAction {
     type: types.LOGIN_SUCCESS;
     loading: boolean;
     isAuthenticated: boolean;
-    userId: string;
+    user: User;
     meta: IAnalyticsIdentify<IUserEventPayLoad>; 
 }
 
@@ -144,17 +153,27 @@ export const requestLoginAction = (): Action => {
  * @function receiveLoginAction
  * @returns {Action}
  */
-export const receiveLoginAction = (userId: string): Action => {
+export const receiveLoginAction = (user: User): Action => {
     return {
         type: types.LOGIN_SUCCESS,
         loading: false,
         isAuthenticated: true,
-        userId,
+        user,
         meta: {
             analytics: {
                 eventType: EventTypes.identify,
                 eventPayload: {
-                    userId
+                    userId: user.id,
+                    traits: {
+                        avatar: user.avatar,
+                        createdAt: Date.now(),
+                        email: user.email,
+                        firstName: user.firstname,
+                        id: user.id,
+                        lastName: user.lastname,
+                        name: `${user.firstname} ${user.lastname}` ,
+                        username: user.username
+                    }
                 }
             }
         }
@@ -167,12 +186,12 @@ export const receiveLoginAction = (userId: string): Action => {
  * @function setTokenAndIdAction
  * @returns {Promise<any>}
  */
-export const setTokenAndIdAction = (token: string, id: string) => {
+export const setTokenAndIdAction = (token: string, user: User) => {
     return (dispatch: Function) => {
         dispatch(requestLoginAction());
         localStorage.setItem('token', token);
-        localStorage.setItem('userId', id);
-        dispatch(receiveLoginAction(id));
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch(receiveLoginAction(user));
     };
 };
 
@@ -268,7 +287,7 @@ export const logoutAction = () => {
         
         // Remove Access Token and currentId in localStorage
         localStorage.removeItem('token');
-        localStorage.removeItem('userId');
+        localStorage.removeItem('user');
 
         // Remove Access Token from header requests
         // setAuthorizationToken(false);

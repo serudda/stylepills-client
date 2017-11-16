@@ -38,33 +38,29 @@ const client = new ApolloClient({
 // Initialize store
 const store = configureStore();
 
-// Current user id
-// let currentUserId = null;
-
-
 let token = localStorage.token;
-let id = localStorage.userId;
+let user = localStorage.user;
 
-// Get Token and User Id from LocalStorage
+// Get Token and User User from LocalStorage
 /* TODO: Estoy tomando lo que haya en la url y asumiendo que es un Token valido, 
 si no valido que es un Token valido, el usuario va a creer que esta logueado, y yo
 voy a creer que el usuario esta logueado, y cuando quiera hacer una peticion va a decir
 como si no estuviera logueado.*/
-if (!token || !id) {
+if (!token || !user) {
     if (location.search) {
         const parsed = queryString.parse(location.search);
         const decoded: IJwtDecoded = jwtDecode(parsed.token);
         token = decoded.token;
-        id = decoded.id;
+        user = decoded.user;
     } else {
         localStorage.removeItem('token');
-        localStorage.removeItem('id');
+        localStorage.removeItem('user');
     }
 }
 
-if (token && id) {
-    // Set Token an Id on Store and Local Storage
-    store.dispatch(setTokenAndIdAction(token, id));
+if (token && user) {
+    // Set Token an User on Store and Local Storage
+    store.dispatch(setTokenAndIdAction(token, user));
 }
 
 

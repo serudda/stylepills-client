@@ -3,6 +3,7 @@
 /************************************/
 import * as types from '../constants/action.types';
 import { Action } from '../actions/auth.action';
+import { User } from '../models/user/user.model';
 
 /************************************/
 /*            INTERFACES            */
@@ -11,7 +12,7 @@ import { Action } from '../actions/auth.action';
 export interface IAuthState {
     loading: boolean;
     isAuthenticated: boolean;
-    userId?: string;
+    user?: User;
     message?: string;
 }
 
@@ -54,7 +55,7 @@ export default function (state: IAuthState = defaultState, action: Action): IAut
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                userId: action.userId
+                user: action.user
             };
         }
 

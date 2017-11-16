@@ -9,6 +9,8 @@ import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user
 
 import { IRootState } from '../../../reducer/reducer.config';
 
+import { User } from '../../../models/user/user.model';
+
 import Main from '../Main/Main';
 
 import './App.css'; 
@@ -30,7 +32,7 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     isAuthenticated: boolean;
-    userId: string;
+    user: User;
 };
 
 
@@ -74,9 +76,9 @@ const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
         },
         options:  (ownProps: AppProps & StateProps) => {
             return {
-                variables: 
+                variables:
                 { 
-                   id:  ownProps.userId
+                   id:  ownProps.user.id
                }
             };
         }
@@ -88,10 +90,10 @@ const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    const { isAuthenticated, userId } = state.auth; 
+    const { isAuthenticated, user } = state.auth; 
     return {
         isAuthenticated,
-        userId
+        user
     };
 }
 
