@@ -5,7 +5,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import * as appConfig from '../../../constants/app.constants';
+import * as appConfig from '../../../core/constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { IPaginationState } from '../../../reducer/pagination.reducer';

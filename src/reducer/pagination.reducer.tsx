@@ -1,10 +1,10 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import * as types from '../constants/action.types';
+import * as types from '../core/constants/action.types';
 import { Action } from '../actions/pagination.action';
 
-import * as appConfig from '../constants/app.constants';
+import * as appConfig from '../core/constants/app.constants';
 
 import { IAtomPaginationArgs } from '../models/atom/atom.query';
 

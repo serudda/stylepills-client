@@ -5,8 +5,6 @@ import * as React from 'react';
 import { compose, ChildProps } from 'react-apollo';
 import { connect, Dispatch } from 'react-redux';
 
-// import * as appConfig from '../../../constants/app.constants';
-
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 

@@ -1,7 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import * as types from '../constants/action.types';
+import * as types from '../core/constants/action.types';
 import { Action } from '../actions/auth.action';
 import { User } from '../models/user/user.model';
 

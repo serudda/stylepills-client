@@ -2,7 +2,7 @@
 /*         DEPENDENCIES         */
 /********************************/
 import { serverConfig, IServerConfig } from './server.config';
-import * as appConfig from '../constants/app.constants';
+import * as appConfig from '../core/constants/app.constants';
 // -----------------------------------
 
 
