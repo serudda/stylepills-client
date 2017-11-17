@@ -11,7 +11,14 @@ import axios from 'axios';
 /************************************/
 
 export interface IJwtDecoded {
-    id: string;
+    user: {
+        id: string;
+        username: string;
+        firstname: string;
+        lastname: string;
+        email: string;
+        avatar: string;
+    };
     token: string;
 }
 
