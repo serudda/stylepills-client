@@ -4,11 +4,14 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import { Modal } from 'semantic-ui-react';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { closeModalAction } from './../../../../actions/ui.action';
+
+import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 
 // -----------------------------------
 
@@ -135,13 +138,35 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
             onClose={this._handleCloseClick}
             size="fullscreen"
             className="AtomDetailsModal">
-                <Modal.Header>{atom.name}</Modal.Header>
                 <Modal.Content>
-                    <Modal.Description>
-                        <p>{atom.html}</p>
-                    </Modal.Description>
+
+                    {/* Atom name */}
+                    <div className="fontFamily-openSans fontWeight-9 fontSize-xl color-silver mt-5">
+                        {atom.name}
+                    </div>
+
+                    {/* Designed by */}
+                    <div className="mt-2">
+
+                        <Link className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-5 color-silver text-truncate"
+                            to={`estudiar_url`}>
+                            <span className="order-1">by</span>
+                            <span className="ml-2 order-3">{atom.author.firstname} {atom.author.lastname}</span>
+                            <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-2 order-2">
+                                <img width="22" height="22"
+                                    src={atom.author.avatar} 
+                                    alt={atom.author.username} />
+                            </div>
+                        </Link>
+
+                    </div>
+
+                    {/* Atom Details Container */}
+                    <div className="mt-5">
+                        <AtomDetailsBox atom={atom}/>
+                    </div>
+
                 </Modal.Content>
-                <Modal.Actions />
             </Modal>
         );
 

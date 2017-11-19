@@ -26,6 +26,10 @@
     padding: 0 20px;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
 
 /**
 *  CURSOR
@@ -569,6 +573,43 @@ NOTE: Boostrap 4 has a flex set
     -webkit-border-radius: 0 0 10px 0;
     -moz-border-radius: 0 0 10px 0;
     border-radius: 0 0 10px 0;
+}
+
+/* Rounded Top */
+.sp-rounded-top-sm {
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.sp-rounded-top-md {
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.sp-rounded-top-lg {
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.sp-rounded-bottom-sm {
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+}
+
+.sp-rounded-bottom-md {
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+}
+
+.sp-rounded-bottom-lg {
+    -webkit-border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
 }
 
 

@@ -59,8 +59,6 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
                     </div>
                 </Link>
 
-                {/*<BasicModal text={name} />*/}
-
             </div>
 
             {/* Stats */}

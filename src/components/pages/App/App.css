@@ -47,6 +47,9 @@ body.mainApp {
   position: relative;
   padding: 0 20px; }
 
+.overflow-hidden {
+  overflow: hidden; }
+
 /**
 *  CURSOR
 */
@@ -1038,6 +1041,37 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0 0 10px 0;
   border-radius: 0 0 10px 0; }
 
+/* Rounded Top */
+.sp-rounded-top-sm {
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0; }
+
+.sp-rounded-top-md {
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0; }
+
+.sp-rounded-top-lg {
+  -webkit-border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0; }
+
+.sp-rounded-bottom-sm {
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px; }
+
+.sp-rounded-bottom-md {
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px; }
+
+.sp-rounded-bottom-lg {
+  -webkit-border-radius: 0 0 10px 10px;
+  -moz-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px; }
+
 /**
  *  BOX SHADOW
  */
@@ -1449,6 +1483,55 @@ NOTE: Boostrap 4 has a flex set
       outline: none; }
 
 /**********************************************************/
+/*                      ICON TAB MENU                     */
+/**********************************************************/
+.sp-iconTabMenu {
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-flex; }
+  .sp-iconTabMenu--is-reversed {
+    background-color: #24292e; }
+    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button {
+      -webkit-tap-highlight-color: #24292e;
+      color: #3C4858; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
+        background-color: #1F2D3D; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
+        border-top: 3px solid #FCD85E; }
+  .sp-iconTabMenu__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #3C4858;
+    width: 60px;
+    text-transform: uppercase;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    .sp-iconTabMenu__button:hover {
+      background-color: #E5E9F2; }
+    .sp-iconTabMenu__button--active {
+      border-top: 4px solid #288784; }
+    .sp-iconTabMenu__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+/**********************************************************/
 /*                         INPUTS                         */
 /**********************************************************/
 .sp-input {
@@ -1635,6 +1718,18 @@ NOTE: Boostrap 4 has a flex set
       bottom: 0;
       border: 0 !important;
       z-index: 1; }
+
+/**********************************************************/
+/*                        ATOM BOX                        */
+/**********************************************************/
+.AtomDetailsBox {
+  position: relative;
+  z-index: 0; }
+  .AtomDetailsBox__content {
+    height: 0;
+    padding-top: 15%;
+    overflow: hidden;
+    position: relative; }
 
 /**********************************************************/
 /*                        ATOM INFO                       */

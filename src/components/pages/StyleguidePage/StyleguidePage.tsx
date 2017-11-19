@@ -640,7 +640,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </div>
                     </a>
 
-                </div>;
+                </div>
 
             </div>
 
@@ -719,11 +719,11 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </a>
                     </div>
 
-                </div>;
+                </div>
             </div>
 
             {/* Atoms List Section */}
-            < div className="row mb5 no-gutters">
+            < div className="row mb-5 no-gutters">
                 <div className="col">
                 <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Atoms List</h2>
 
@@ -791,13 +791,102 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                             </div>
 
                                         </div>
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>                
                     </div>
-                </div>;
+                </div>
+            </div>
+
+            {/* Icon Tab Menu */}
+            <div className="row mb-5 no-gutters">
+                <div className="col">
+                <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Icon Tab Menu</h2>
+
+                    {/* Tab Menu (is Reversed) */}
+                    <div className="sp-iconTabMenu sp-iconTabMenu--is-reversed fontSmoothing-reset">
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="heartFull"
+                                    iconClass="strokeWidth-2"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="share"
+                                    iconClass="strokeWidth-2 stroke-slate"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
+                            <div className="inner">
+                                <Icon icon="messageCircle"
+                                    iconClass="strokeWidth-2 stroke-darkPrimary"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="download"
+                                    iconClass="strokeWidth-2 stroke-slate"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="package"
+                                    iconClass="strokeWidth-2 stroke-slate"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                    </div>
+
+                    <br/><br/>
+
+                    {/* Tab Menu */}
+                    <div className="sp-iconTabMenu fontSmoothing-reset">
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="heart"
+                                    iconClass="strokeWidth-2"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="share"
+                                    iconClass="strokeWidth-2 stroke-slate"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
+                            <div className="inner">
+                                <Icon icon="messageCircle"
+                                    iconClass="strokeWidth-2 stroke-darkSecondary"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="download"
+                                    iconClass="strokeWidth-2 stroke-slate"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                        <button className="sp-iconTabMenu__button">
+                            <div className="inner">
+                                <Icon icon="package"
+                                    iconClass="strokeWidth-2 stroke-slate"
+                                    width="22" height="22"/>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
             </div>
 
 
