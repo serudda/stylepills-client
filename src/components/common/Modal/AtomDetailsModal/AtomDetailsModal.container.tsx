@@ -18,7 +18,7 @@ import { closeModalAction } from './../../../../actions/ui.action';
 /********************************/
 
 /* Own Props */
-type TestModalProps = {
+type AtomDetailsModalProps = {
     atom: any
 };
 
@@ -41,8 +41,8 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class TestModal 
-extends React.Component<ChildProps<TestModalProps & StateProps & DispatchProps, {}>, LocalStates> {
+class AtomDetailsModal 
+extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     
     /********************************/
@@ -135,11 +135,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const testModalConnect = connect(null, mapDispatchToProps); 
+const atomDetailsModalConnect = connect(null, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose( 
-    testModalConnect
-)(TestModal);
+    atomDetailsModalConnect
+)(AtomDetailsModal);

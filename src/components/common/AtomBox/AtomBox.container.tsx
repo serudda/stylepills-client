@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import * as appConfig from './../../../core/constants/app.constants';
+
 import { IRootState } from './../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
@@ -84,7 +86,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
      * @returns {void}
      */
     private _showModal(atom: any) {
-        this.props.actions.ui.showModal('TestModal', {atom});
+        this.props.actions.ui.showModal(appConfig.ATOM_DETAILS_MODAL_TYPE, {atom});
     }
 
 

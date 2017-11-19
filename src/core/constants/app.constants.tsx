@@ -40,5 +40,4 @@ export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'likes';
 export const ATOM_SEARCH_ORDER = 'DESC';
 
 /* Modal Types */
-export const MODAL_TYPE_ATOM_LOGIN = 'MODAL_TYPE_ATOM_LOGIN';
-export const MODAL_TYPE_ATOM_DETAIL = 'MODAL_TYPE_ATOM_DETAIL';
+export const ATOM_DETAILS_MODAL_TYPE = 'AtomDetailsModal';

@@ -1,0 +1,55 @@
+ModalManager Component:
+
+1. El Component ModalManager base se renderiza en App, con el fin de que sea global y
+este por fuera de Main.
+
+2. ModalManager se encarga de gestionar todos los modales de la Aplicación. En el hay una
+variables llamada: modalComponentList, en la cual se adjunta todos los componentes Modal a
+usar. 
+
+    /* Here are all modal components */
+    const modalComponentList = {
+        TestModal,
+        ConfirmationModal,
+        AtomDetailsModal,
+        ...    
+    };
+
+3. Para poder usar un Modal, lo que se hace es: En el componente que se vaya a abrir el modal
+se dispara la action: openModalAction pasando por parametro: modalType y modalProps.
+
+"modalType" es el nombre del componente en la lista de modales gestionados por ModalManager:
+TestModal, ConfirmationModal, AtomDetailsModal, etc.
+
+"modalProps" son las propiedades que le pasaremos a cada modal para que muestre su respectiva
+data.
+
+4. El flujo seria el siguiente:
+    
+    - La forma de disparar la action seria:
+        this.props.actions.ui.showModal('AtomDetailsModal', {atom});
+
+    - Esta Action, sera escuchada por su respectivo reducer en ui.reducer, el cual se encarga de 
+    modificar el State 'modals' en el Store.
+
+    - ModalManager esta escuchando constantemente los cambios que se hagan al State 'modals' 
+    a través de mapStateToProps:
+
+        function mapStateToProps(state: IRootState): StateProps {
+            const { modals } = state.ui;
+            return {
+                currentModal: modals
+            };
+        }
+    
+    - Cuando el State 'modals' cambia en el Store, se re renderiza ModalManager, validando
+    si hay algo en 'currentModal', si es diferente de null, quiere decir que se acaba de 
+    abrir un modal, la propiedad currentModal contendra el modalType y el modalProps. Asi
+    que busca el modal abierto en la lista de modales (modalComponentList) y se encarga de
+    renderizarlo, pasando como props las props (modalProps) pasadas por el componente que 
+    abrio el modal.
+    
+5. Para cerrar el modal, este disparara una ui.action llamada CLOSE_MODAL, la cual sera
+tomada por su respectivo reducer en ui.reducer.tsx, y nulleara el State 'modals' en el Store
+Esto sera escuchado por ModalManager, y se re renderizara, en el cual no pasara la validacion
+de if(currentModal), haciendo que return undefined, y el componente se destruya.

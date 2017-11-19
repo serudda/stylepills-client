@@ -7,13 +7,13 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
-import TestModal from './../TestModal/TestModal.container';
+import AtomDetailsModal from './../AtomDetailsModal/AtomDetailsModal.container';
 
 // -----------------------------------
 
 /* Here are all modal components */
 const modalComponentList = {
-    TestModal
+    AtomDetailsModal
 };
 
 
