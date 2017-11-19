@@ -10,17 +10,23 @@ import * as types from '../core/constants/action.types';
 
 export interface IClearUiAction {
     type: types.CLEAR_UI;
-    showModal: boolean;
+    modals: {
+        type: string,
+        show: boolean,
+        props: any
+    };
 }
 
 export interface IShowModalAction {
     type: types.SHOW_MODAL;
-    showModal: boolean;
+    modals: {
+        modalType: string,
+        modalProps: any
+    };
 }
 
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
-    showModal: boolean;
 }
 
 
@@ -45,7 +51,11 @@ export type Action =
 export const clearUiAction = (): Action => {
     return {
         type: types.CLEAR_UI,
-        showModal: false
+        modals: {
+            type: null,
+            props: {},
+            show: false
+        }
     };
 };
 
@@ -56,10 +66,13 @@ export const clearUiAction = (): Action => {
  * @function showModalAction
  * @returns {Action}
  */
-export const showModalAction = (): Action => {
+export const showModalAction = (modalType: string, modalProps: any): Action => {
     return {
         type: types.SHOW_MODAL,
-        showModal: true
+        modals: {
+            modalType,
+            modalProps
+        }
     };
 };
 
@@ -72,7 +85,6 @@ export const showModalAction = (): Action => {
  */
 export const closeModalAction = (): Action => {
     return {
-        type: types.CLOSE_MODAL,
-        showModal: false
+        type: types.CLOSE_MODAL
     };
 };

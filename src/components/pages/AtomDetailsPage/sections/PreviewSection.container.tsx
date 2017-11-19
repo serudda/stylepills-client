@@ -3,7 +3,7 @@
 /************************************/
 import * as React from 'react';
 // import ComponentBox from '../../../common/ComponentBox/ComponentBox';
-import AtomBox from '../../../common/AtomBox/AtomBox';
+import AtomBox from '../../../common/AtomBox/AtomBox.container';
 // import AtomInfoSection from '../../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 import { Atom as AtomModel } from '../../../../models/atom/atom.model';
 

@@ -10,7 +10,10 @@ import { Action } from '../actions/ui.action';
 /************************************/
 
 export interface IUiState {
-    showModal: boolean;
+    modals: {
+        modalType: string,
+        modalProps: any
+    };
 }
 
 /************************************/
@@ -18,7 +21,7 @@ export interface IUiState {
 /************************************/
 
 const defaultState: IUiState = {
-    showModal: false
+    modals: null
 };
 
 // -----------------------------------
@@ -39,15 +42,30 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         /***********************************/
 
         case types.CLEAR_UI: {
-            return {...state, showModal: false};
+            return {
+                ...state, 
+                modals: {
+                    modalType: null,
+                    modalProps: {}
+                }
+            };
         }
 
         case types.SHOW_MODAL: {
-            return {...state, showModal: true};
+            return {
+                ...state,
+                modals: {
+                    modalType: action.modals.modalType,
+                    modalProps: action.modals.modalProps
+                }
+            };
         }
 
         case types.CLOSE_MODAL: {
-            return {...state, showModal: false};
+            return {
+                ...state, 
+                modals: null
+            };
         }
             
         default:

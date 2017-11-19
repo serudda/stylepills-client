@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { Atom } from '../../../../models/atom/atom.model';
 
+// import BasicModal from '../../Modal/BasicModal';
 import Icon from '../../Icon/Icon';
 
 // -----------------------------------
@@ -57,6 +58,8 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
                             alt={author.username} />
                     </div>
                 </Link>
+
+                {/*<BasicModal text={name} />*/}
 
             </div>
 
