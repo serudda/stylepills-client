@@ -53,3 +53,6 @@ data.
 tomada por su respectivo reducer en ui.reducer.tsx, y nulleara el State 'modals' en el Store
 Esto sera escuchado por ModalManager, y se re renderizara, en el cual no pasara la validacion
 de if(currentModal), haciendo que return undefined, y el componente se destruya.
+
+Seguimos este post paso a paso:
+http://blog.isquaredsoftware.com/2017/07/practical-redux-part-10-managing-modals/

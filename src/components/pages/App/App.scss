@@ -41,8 +41,6 @@
 // React Components (Header, Modals, etc)
 // --------------------------------------------------
 
-// Header Component Style
-@import '../../common/Header/Header';
 // Component Box Component Style
 @import '../../common/AtomBox/AtomBox';
 // Component Info Component Style
@@ -51,8 +49,12 @@
 @import '../../common/AtomsList/AtomsList';
 // Footer Component Style
 @import '../../common/Footer/Footer';
+// Header Component Style
+@import '../../common/Header/Header';
 // IFrame Component Style
 @import '../../common/Iframe/Iframe';
+// Atom Details Modal Component Style
+@import '../../common/Modal/AtomDetailsModal/AtomDetailsModal';
 // NavbarOptions Component Style
 @import '../../common/NavbarOptions/NavbarOptions';
 // Pagination Buttons Component Style

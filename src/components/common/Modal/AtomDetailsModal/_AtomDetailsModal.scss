@@ -1,0 +1,14 @@
+/**********************************************************/
+/*                   ATOM DETAILS MODAL                   */
+/**********************************************************/
+
+.AtomDetailsModal {
+
+}
+
+/* DIMMER (MODAL BACKDROP) */
+body.atomDetailsModal-open {
+    .ui.dimmer {
+        background-color: map-get($color, darkSnow);
+    }
+}

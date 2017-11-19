@@ -43,7 +43,7 @@ type DispatchProps = {
 /***********************************************/
 class AtomDetailsModal 
 extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>, LocalStates> {
-    
+
     
     /********************************/
     /*         CONSTRUCTOR          */
@@ -54,6 +54,23 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
         // Bind methods
         this._handleCloseClick = this._handleCloseClick.bind(this);
     }
+
+
+    /********************************/
+    /*     COMPONENT_DID_MOUNT      */
+    /********************************/
+    componentDidMount() { 
+        this._appendModalOpenClassToBody();
+    }
+
+
+    /********************************/
+    /*    COMPONENT_DID_UPDATE      */
+    /********************************/
+    componentDidUpdate() { 
+        this._appendModalOpenClassToBody();
+    }
+
 
 
     /********************************/
@@ -85,6 +102,19 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
         this.props.actions.ui.closeModal();
     }
 
+
+    /**
+     * @desc Append 'atomDetailsModal-open' class in body tag in order to
+     * manage the dimmer background color and other external styles
+     * @method _appendModalOpenClassToBody
+     * @example this._appendModalOpenClassToBody()
+     * @private 
+     * @returns {void}
+     */
+    private _appendModalOpenClassToBody() {
+        document.body.classList.add('atomDetailsModal-open');
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -93,6 +123,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
         
         // Destructuring props
         const { atom } = this.props;
+
         
         /*         MARKUP          */
         /***************************/
@@ -102,7 +133,8 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
             closeIcon="close"
             open={true}
             onClose={this._handleCloseClick}
-            size="fullscreen">
+            size="fullscreen"
+            className="AtomDetailsModal">
                 <Modal.Header>{atom.name}</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
