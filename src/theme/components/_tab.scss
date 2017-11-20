@@ -1,4 +1,75 @@
 /**********************************************************/
+/*                        TAB MENU                        */
+/**********************************************************/
+
+.sp-tabMenu {
+    background-color: map-get($color, white);
+    white-space: nowrap;
+    display: inline-flex;
+
+    /// MODIFIER
+    &--is-reversed {
+        background-color: #141619;
+
+        .sp-tabMenu__button {
+            -webkit-tap-highlight-color: #141619; 
+            color: map-get($color, white);
+
+            &:hover {
+                background-color: map-get($color, mirage);
+            }
+    
+            &--active {
+                border-bottom: 4px solid map-get($color, darkSecondary);
+            }
+        }
+    }
+
+    /// ELEMENTS
+    &__button {
+        border: 10px;
+        box-sizing: border-box;
+        display: inline-block;
+        font-family: Roboto, sans-serif;
+        -webkit-tap-highlight-color: map-get($color, white);
+        cursor: pointer;
+        text-decoration: none;
+        margin: 0px;
+        padding: 0px;
+        outline: none!important;
+        font-size: 14px;
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+        color: map-get($color, slate);
+        min-width: 100px;
+        text-transform: uppercase;
+        background: none;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+
+        &:hover {
+            background-color: map-get($color, extraDarkSnow);
+        }
+
+        &--active {
+            border-bottom: 4px solid map-get($color, darkSecondary);
+            color: map-get($color, darkSecondary);
+        }
+
+        .inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+        }
+    }
+}
+
+
+/**********************************************************/
 /*                      ICON TAB MENU                     */
 /**********************************************************/
 
@@ -20,7 +91,7 @@
             }
     
             &--active {
-                border-top: 3px solid map-get($color, darkPrimary);
+                border-top: 4px solid map-get($color, darkPrimary);
             }
         }
     }

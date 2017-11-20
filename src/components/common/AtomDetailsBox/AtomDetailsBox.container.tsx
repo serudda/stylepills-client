@@ -11,6 +11,15 @@ import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
 import Icon from '../Icon/Icon';
 import Iframe from '../Iframe/Iframe.container';
+import * as CodeMirror from 'react-codemirror';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/sass/sass';
+import 'codemirror/mode/xml/xml';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/scroll/simplescrollbars';
+import 'codemirror/addon/scroll/simplescrollbars.css';
+import 'codemirror/theme/material.css';
+import 'codemirror/addon/display/autorefresh';
 
 // -----------------------------------
 
@@ -57,6 +66,15 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         // Destructuring props
         const { atom } = this.props;
 
+        const hmtlOptions = {
+            scrollbarStyle: 'overlay',
+            lineNumbers: true,
+            readOnly: 'on',
+            mode: 'xml',
+            theme: 'material',
+            autoRefresh: true
+        };
+
 
         /*         MARKUP          */
         /***************************/
@@ -71,8 +89,10 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
                 </div>
 
                 {/* Panel Section */}
-                <div className="PanelSection">
-                    <div className="row no-gutters pl-3 align-items-center boxShadow-raised sp-rounded-bottom-md sp-bg-white borderTop-1 borderColor-smoke overflow-hidden">
+                <div className="PanelSection boxShadow-raised sp-rounded-bottom-md overflow-hidden">
+
+                    {/* Stats and Tab Menu Row */}
+                    <div className="row no-gutters pl-3 align-items-center sp-bg-black borderTop-1 borderColor-smoke">
                         
                         <div className="col-auto mr-auto">
 
@@ -109,7 +129,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
                         <div className="col-auto">
 
                             {/* Tab Menu */}
-                            <div className="sp-iconTabMenu fontSmoothing-reset">
+                            <div className="sp-iconTabMenu sp-iconTabMenu--is-reversed fontSmoothing-reset">
                                 <button className="sp-iconTabMenu__button">
                                     <div className="inner">
                                         <Icon icon="heartFull"
@@ -124,10 +144,10 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
                                             width="22" height="22"/>
                                     </div>
                                 </button>
-                                <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
+                                <button className="sp-iconTabMenu__button">
                                     <div className="inner">
                                         <Icon icon="messageCircle"
-                                            iconClass="strokeWidth-2 stroke-darkSecondary"
+                                            iconClass="strokeWidth-2 stroke-slate"
                                             width="22" height="22"/>
                                     </div>
                                 </button>
@@ -136,6 +156,13 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
                                         <Icon icon="download"
                                             iconClass="strokeWidth-2 stroke-slate"
                                             width="22" height="22"/>
+                                    </div>
+                                </button>
+                                <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
+                                    <div className="inner">
+                                        <Icon icon="code"
+                                            iconClass="strokeWidth-2 stroke-darkPrimary"
+                                            width="28" height="16"/>
                                     </div>
                                 </button>
                                 <button className="sp-iconTabMenu__button">
@@ -148,6 +175,45 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
                             </div>
                         </div>
                     </div>
+
+                    {/* Source Code Section */}
+                    <div className="row no-gutters sp-bg-black borderTop-1 border-dark overflow-hidden">
+
+                        {/* Source Code Tab Menu */}
+                        <div className="row no-gutters w-100" style={{backgroundColor: '#141619', borderTop: '1px solid #000000'}}>
+                            <div className="col">
+
+                                <div className="sp-tabMenu sp-tabMenu--is-reversed fontSmoothing-reset">
+                                    <button className="sp-tabMenu__button sp-tabMenu__button--active">
+                                        <div className="inner">
+                                            HTML
+                                        </div>
+                                    </button>
+                                    <button className="sp-tabMenu__button">
+                                        <div className="inner">
+                                            CSS
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Source Code Panel */}
+                        <div className="row no-gutters w-100 sp-bg-mirage">
+                            <div className="col position-relative">
+                                <div className="copyBtnContainer zIndex-footer">
+                                    <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                        Copy
+                                    </button>
+                                </div>
+                                <div className="SourceCode position-relative">
+                                    <CodeMirror value={atom.html} options={hmtlOptions}/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         );

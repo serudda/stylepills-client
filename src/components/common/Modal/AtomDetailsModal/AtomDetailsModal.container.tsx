@@ -133,11 +133,11 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
         return (
             <Modal
             basic={true}
-            closeIcon="close"
+            closeIcon="sp-close-icon"
             open={true}
             onClose={this._handleCloseClick}
             size="fullscreen"
-            className="AtomDetailsModal">
+            className="scrolling AtomDetailsModal">
                 <Modal.Content>
 
                     {/* Atom name */}

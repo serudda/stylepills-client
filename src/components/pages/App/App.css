@@ -2,6 +2,7 @@
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
 @import 'https://fonts.googleapis.com/css?family=Quicksand';
+@import 'https://fonts.googleapis.com/css?family=Fira+Mono';
 /************************************************/
 /*               GLOBAL VARIABLES               */
 /************************************************/
@@ -16,6 +17,12 @@ body.mainApp {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0; }
+  body.mainApp .sp-close-icon {
+    background-image: url("./../../../resources/images/x.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 2.6em;
+    height: 2.6em; }
   body.mainApp .row:before {
     display: inherit; }
   body.mainApp .AppContent {
@@ -145,6 +152,31 @@ NOTE: Boostrap 4 has a flex set
   -webkit-box-ordinal-group: 100000;
   -ms-flex-order: 99999;
   order: 99999; }
+
+/* z-index sizes */
+.zIndex-modal {
+  z-index: 9000; }
+
+.zIndex-overlay {
+  z-index: 8000; }
+
+.zIndex-dropdown {
+  z-index: 7000; }
+
+.zIndex-header {
+  z-index: 6000; }
+
+.zIndex-footer {
+  z-index: 500; }
+
+.zIndex-default {
+  z-index: 1; }
+
+.zIndex-below {
+  z-index: -1; }
+
+.zIndex-bottomless {
+  z-index: -9000; }
 
 /**
  *  SPACING
@@ -542,6 +574,9 @@ NOTE: Boostrap 4 has a flex set
 
 .fontFamily-courierNew {
   font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; }
+
+.fontFamily-firaMono {
+  font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 /* Font brand colors */
 .color-lightPrimary {
@@ -1483,6 +1518,56 @@ NOTE: Boostrap 4 has a flex set
       outline: none; }
 
 /**********************************************************/
+/*                        TAB MENU                        */
+/**********************************************************/
+.sp-tabMenu {
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-flex; }
+  .sp-tabMenu--is-reversed {
+    background-color: #141619; }
+    .sp-tabMenu--is-reversed .sp-tabMenu__button {
+      -webkit-tap-highlight-color: #141619;
+      color: #FFFFFF; }
+      .sp-tabMenu--is-reversed .sp-tabMenu__button:hover {
+        background-color: #1F2D3D; }
+      .sp-tabMenu--is-reversed .sp-tabMenu__button--active {
+        border-bottom: 4px solid #288784; }
+  .sp-tabMenu__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #3C4858;
+    min-width: 100px;
+    text-transform: uppercase;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    .sp-tabMenu__button:hover {
+      background-color: #E5E9F2; }
+    .sp-tabMenu__button--active {
+      border-bottom: 4px solid #288784;
+      color: #288784; }
+    .sp-tabMenu__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+/**********************************************************/
 /*                      ICON TAB MENU                     */
 /**********************************************************/
 .sp-iconTabMenu {
@@ -1497,7 +1582,7 @@ NOTE: Boostrap 4 has a flex set
       .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
         background-color: #1F2D3D; }
       .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
-        border-top: 3px solid #FCD85E; }
+        border-top: 4px solid #FCD85E; }
   .sp-iconTabMenu__button {
     border: 10px;
     box-sizing: border-box;
@@ -1730,6 +1815,10 @@ NOTE: Boostrap 4 has a flex set
     padding-top: 15%;
     overflow: hidden;
     position: relative; }
+  .AtomDetailsBox .copyBtnContainer {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
 
 /**********************************************************/
 /*                        ATOM INFO                       */
@@ -1844,6 +1933,20 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 /*                   ATOM DETAILS MODAL                   */
 /**********************************************************/
+.AtomDetailsModal .sp-close-icon {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  top: 1.0535rem;
+  right: 1rem;
+  position: absolute;
+  z-index: 1;
+  opacity: .5; }
+  .AtomDetailsModal .sp-close-icon:hover {
+    background-color: #D3DCE6;
+    border: 5px solid #D3DCE6;
+    opacity: 1; }
+
 /* DIMMER (MODAL BACKDROP) */
 body.atomDetailsModal-open .ui.dimmer {
   background-color: #EFF2F7; }
@@ -1999,19 +2102,26 @@ body.atomDetailsModal-open .ui.dimmer {
       height: 48px; }
 
 .PanelSection .SourceCode {
-  height: calc(100% - 68px - 51px - 94px); }
+  height: 500px; }
   .PanelSection .SourceCode .ReactCodeMirror {
     height: 100%; }
     .PanelSection .SourceCode .ReactCodeMirror .CodeMirror {
-      font-size: 13px;
+      font-size: 15px;
       -webkit-font-smoothing: initial;
-      height: 100%; }
-      .PanelSection .SourceCode .ReactCodeMirror .CodeMirror pre, .PanelSection .SourceCode .ReactCodeMirror .CodeMirror code {
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word; }
+      height: 100%;
+      background-color: #273444;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      /* pre,code { 
+                    white-space:pre-wrap;
+                    white-space:-moz-pre-wrap;
+                    white-space:-pre-wrap;
+                    white-space:-o-pre-wrap;
+                    word-wrap:break-word;
+                } */ }
+    .PanelSection .SourceCode .ReactCodeMirror .CodeMirror-gutters {
+      background-color: #273444; }
 
 .PanelSection .actionsFooter {
   border-top: solid 1px #111111;
@@ -2054,22 +2164,6 @@ body.atomDetailsModal-open .ui.dimmer {
     flex-shrink: 1;
     position: relative;
     padding: 1.75em; }
-
-@media (min-width: 576px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-@media (min-width: 768px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-@media (min-width: 992px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-@media (min-width: 1200px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
 
 .PreviewSection .previewComponent {
   overflow: hidden; }

@@ -138,6 +138,17 @@ NOTE: Boostrap 4 has a flex set
     order: 99999;
 }
 
+/* z-index sizes */
+.zIndex-modal       { z-index: 9000;}
+.zIndex-overlay     { z-index: 8000;}
+.zIndex-dropdown    { z-index: 7000;}
+.zIndex-header      { z-index: 6000;}
+.zIndex-footer      { z-index: 500;}
+.zIndex-default     { z-index: 1;}
+.zIndex-below       { z-index: -1;}
+.zIndex-bottomless  { z-index: -9000;}
+
+
 /**
  *  SPACING
  */
@@ -296,6 +307,7 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-poppins       {font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
 .fontFamily-quicksand     {font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif;}
 .fontFamily-courierNew    {font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;}
+.fontFamily-firaMono    {font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
 /* Font brand colors */
 .color-lightPrimary { color: map-get($color, lightPrimary); }

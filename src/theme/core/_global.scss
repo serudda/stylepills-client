@@ -44,6 +44,15 @@ body.mainApp {
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0;
 
+    // Custom Close Icon
+    .sp-close-icon {
+        background-image: url('./../../../resources/images/x.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 2.6em;
+        height: 2.6em;
+    }
+
     // Fix Safari row issue
     .row:before {
         display: inherit;

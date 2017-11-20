@@ -42,23 +42,32 @@
     }
 
     .SourceCode {
-        height: calc(100% - 68px - 51px - 94px);
+        // height: calc(100% - 68px - 51px - 94px);
+        height: 500px;
 
         .ReactCodeMirror {
             height: 100%;
 
             .CodeMirror {
-                font-size: 13px;
+                font-size: 15px;
                 -webkit-font-smoothing: initial;
                 height: 100%;
+                background-color: map-get($color, steel);
+                padding-top: 15px;
+                padding-bottom: 15px;
+                font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     
-                pre,code { 
+                /* pre,code { 
                     white-space:pre-wrap;
                     white-space:-moz-pre-wrap;
                     white-space:-pre-wrap;
                     white-space:-o-pre-wrap;
                     word-wrap:break-word;
-                } 
+                } */
+            }
+
+            .CodeMirror-gutters {
+                background-color: map-get($color, steel);
             }
         }
         
@@ -116,7 +125,7 @@
 @media (min-width: 576px) {
     .PanelSection {
         .SourceCode {
-            height: calc(100% - 51px - 163px);
+            // height: calc(100% - 51px - 163px);
         }
     }
 }
@@ -124,7 +133,7 @@
 @media (min-width: 768px) {
     .PanelSection {
         .SourceCode {
-            height: calc(100% - 51px - 163px);
+            // height: calc(100% - 51px - 163px);
         }
     }
 }
@@ -132,7 +141,7 @@
 @media (min-width: 992px) {
     .PanelSection {
         .SourceCode {
-            height: calc(100% - 51px - 163px);
+            // height: calc(100% - 51px - 163px);
         }
     }
 }
@@ -140,7 +149,7 @@
 @media (min-width: 1200px) {
     .PanelSection {
         .SourceCode {
-            height: calc(100% - 51px - 163px);
+            // height: calc(100% - 51px - 163px);
         }
     }
 }

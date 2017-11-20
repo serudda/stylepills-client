@@ -23,6 +23,7 @@ interface IconType {
     search: () => JSX.Element;
     download: () => JSX.Element;
     share: () => JSX.Element;
+    code: () => JSX.Element;
 }
 
 /* Own Props */
@@ -261,6 +262,25 @@ class Icon extends React.Component<IconProps, {}> {
                         <circle cx="18" cy="19" r="3" />
                         <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
                         <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                    </svg>
+                );
+            },
+            code: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 28 16" 
+                         fill="none"
+                         fillRule="evenodd"
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11,13.2862598 L15.3169675,0"/>
+                        <polyline transform="translate(6.146880, 6.608451) scale(1, -1) rotate(-130.000000) translate(-6.146880, -6.608451) " points="2.36089108 5.08392329 9.93286796 2.4375663 9.14841836 10.7793349" />
+                        <polyline transform="translate(20.146880, 6.608451) scale(-1, -1) rotate(-130.000000) translate(-20.146880, -6.608451) " points="16.3608911 5.08392329 23.932868 2.4375663 23.1484184 10.7793349" />
                     </svg>
                 );
             }

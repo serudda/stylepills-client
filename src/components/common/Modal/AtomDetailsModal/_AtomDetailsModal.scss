@@ -4,10 +4,27 @@
 
 .AtomDetailsModal {
 
+    .sp-close-icon {
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        top: 1.0535rem;
+        right: 1rem;
+        position: absolute;
+        z-index: 1;
+        opacity: .5;
+
+        &:hover{
+            background-color: map-get($color, darkSmoke);
+            border: 5px solid map-get($color, darkSmoke);
+            opacity: 1;
+        }
+    }
+
 }
 
 /* DIMMER (MODAL BACKDROP) */
-body.atomDetailsModal-open {
+body.atomDetailsModal-open { 
     .ui.dimmer {
         background-color: map-get($color, darkSnow);
     }
