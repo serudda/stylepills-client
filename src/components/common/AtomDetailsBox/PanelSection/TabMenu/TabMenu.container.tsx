@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import * as classNames from 'classnames';
+
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import Icon from './../../../Icon/Icon';
@@ -94,11 +96,45 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         // Destructuring props
         const { tab } = this.props;
 
+        // Tab Menu Classes
+        const tabMenuClasses = classNames({
+            'TabMenu': true, 
+            'sp-iconTabMenu': true, 
+            'fontSmoothing-reset': true,
+            'sp-iconTabMenu--is-reversed': tab === 'code'
+        });
+
+        // Comments Btn Classes
+        const commentsBtnClasses = classNames({
+            'sp-iconTabMenu__button': true, 
+            'sp-iconTabMenu__button--active': tab === 'comments'
+        });
+
+        // Comments Icon on Btn Classes
+        const commentsIconClasses = classNames({
+            'strokeWidth-2': true, 
+            'stroke-darkSecondary': tab === 'comments',
+            'stroke-slate': tab !== 'comments'
+        });
+
+        // Code Btn Classes
+        const codeBtnClasses = classNames({
+            'sp-iconTabMenu__button': true, 
+            'sp-iconTabMenu__button--active': tab === 'code'
+        });
+
+        // Code Icon on Btn Classes
+        const codeIconClasses = classNames({
+            'strokeWidth-2': true, 
+            'stroke-darkPrimary': tab === 'code',
+            'stroke-slate': tab !== 'code'
+        });
+
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className={tab === 'code' ? 'TabMenu sp-iconTabMenu sp-iconTabMenu--is-reversed fontSmoothing-reset' : 'TabMenu sp-iconTabMenu fontSmoothing-reset'}>
+            <div className={tabMenuClasses}>
                 <button className="sp-iconTabMenu__button">
                     <div className="inner">
                         <Icon icon="heartFull"
@@ -113,11 +149,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>
-                <button className={tab === 'comments' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active' : 'sp-iconTabMenu__button'}>
+                <button className={commentsBtnClasses}>
                     <div className="inner"
                         onClick={this._handleTabClick('comments')}>
                         <Icon icon="messageCircle"
-                            iconClass={tab === 'comments' ? 'strokeWidth-2 stroke-darkSecondary' : 'strokeWidth-2 stroke-slate'}
+                            iconClass={commentsIconClasses}
                             width="22" height="22"/>
                     </div>
                 </button>
@@ -128,11 +164,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>
-                <button className={tab === 'code' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active' : 'sp-iconTabMenu__button'}>
+                <button className={codeBtnClasses}>
                     <div className="inner"
                         onClick={this._handleTabClick('code')}>
                         <Icon icon="code"
-                            iconClass={tab === 'code' ? 'strokeWidth-2 stroke-darkPrimary' : 'strokeWidth-2 stroke-slate'}
+                            iconClass={codeIconClasses}
                             width="25" height="16"/>
                     </div>
                 </button>

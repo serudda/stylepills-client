@@ -2,8 +2,10 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+
+import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -29,17 +31,16 @@ type PanelSectionProps = {
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {};
-
-/* Mapped Dispatches to Props */
-type DispatchProps = {};
+type StateProps = {
+    tab: string;
+};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class PanelSection 
-extends React.Component<ChildProps<PanelSectionProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
@@ -57,6 +58,19 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps & DispatchProp
 
         // Destructuring props
         const { atom } = this.props;
+        const { tab } = this.props;
+
+        // Tab Menu Row Classes
+        const tabMenuRowClasses = classNames({
+            'row': true,
+            'no-gutters': true,
+            'pl-3': true,
+            'align-items-center': true,
+            'borderTop-1': true,
+            'borderColor-smoke': true,
+            'sp-bg-black': tab === 'code',
+            'sp-bg-white': tab !== 'code'
+        });
 
 
         /*         MARKUP          */
@@ -66,7 +80,7 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps & DispatchProp
             <div className="PanelSection boxShadow-raised sp-rounded-bottom-md overflow-hidden">
 
                 {/* Stats and Tab Menu Row */}
-                <div className="row no-gutters pl-3 align-items-center sp-bg-black borderTop-1 borderColor-smoke">
+                <div className={tabMenuRowClasses}>
                     
                     <div className="col-auto mr-auto">
 
@@ -84,7 +98,8 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps & DispatchProp
                 </div>
 
                 {/* Source Code Section */}
-                <SourceCodePanel html={atom.html} css={atom.css}/>
+                {tab === 'code' && 
+                <SourceCodePanel html={atom.html} css={atom.css}/>}
 
             </div>
         );
@@ -94,17 +109,24 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps & DispatchProp
 
 
 /********************************/
-/*     MAP DISPATCH TO PROPS    */
+/*      MAP STATE TO PROPS      */
 /********************************/
-function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
-    return {};
+function mapStateToProps(state: IRootState): StateProps {
+
+    const { tabs } = state.ui;
+    const { atomDetailsTab } = tabs;
+    const { tab } = atomDetailsTab;
+
+    return {
+        tab
+    };
 }
 
 
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const panelSectionConnect = connect(null, mapDispatchToProps);
+const panelSectionConnect = connect(mapStateToProps);
 
 
 /*         EXPORT          */

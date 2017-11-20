@@ -137,6 +137,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
             <Modal
             basic={true}
             closeIcon="sp-close-icon"
+            closeOnDimmerClick={false}
             open={true}
             onClose={this._handleCloseClick}
             size="fullscreen"
