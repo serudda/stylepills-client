@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as types from '../core/constants/action.types';
+import * as appConfig from '../core/constants/app.constants';
 
 
 /************************************/
@@ -13,10 +14,10 @@ export interface IClearUiAction {
     modals: null;
     tabs: {
         atomDetailsTab: {
-            tab: null
+            tab: string | null
         },
         sourceCodeTab: {
-            tab: null
+            tab: string | null
         }
     };
 }
@@ -52,7 +53,7 @@ export interface IChangeSourceCodeTabAction {
 }
 
 
-export type Action = 
+export type Action =
     // UI interaction
     IClearUiAction
 |   IShowModalAction
@@ -81,7 +82,7 @@ export const clearUiAction = (): Action => {
                 tab: null
             },
             sourceCodeTab: {
-                tab: null
+                tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
             }
         }
     };

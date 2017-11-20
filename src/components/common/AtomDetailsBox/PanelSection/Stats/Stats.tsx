@@ -28,7 +28,12 @@ type StatsProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns section view
  */
-const Stats: React.SFC<StatsProps> = ({ likes = 0, stores = 0, comments = 0, views = 0 }) => {
+const Stats: React.SFC<StatsProps> = ({ 
+    likes = 0, 
+    stores = 0, 
+    comments = 0, 
+    views = 0 
+}) => {
 
     
     /*         MARKUP          */

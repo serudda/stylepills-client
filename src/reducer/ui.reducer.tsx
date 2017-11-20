@@ -1,6 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
 
@@ -35,7 +36,7 @@ const defaultState: IUiState = {
             tab: null
         },
         sourceCodeTab: {
-            tab: null
+            tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
         }
     }
 };
@@ -66,7 +67,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                         tab: null
                     },
                     sourceCodeTab: {
-                        tab: null
+                        tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
                     }
                 }
             };
@@ -93,6 +94,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state,
                 tabs: {
+                    ...state.tabs,
                     atomDetailsTab: {
                         tab: action.tabs.atomDetailsTab.tab
                     }
@@ -104,6 +106,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state,
                 tabs: {
+                    ...state.tabs,
                     sourceCodeTab: {
                         tab: action.tabs.sourceCodeTab.tab
                     }

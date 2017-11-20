@@ -41,3 +41,6 @@ export const ATOM_SEARCH_ORDER = 'DESC';
 
 /* Modal Types */
 export const ATOM_DETAILS_MODAL_TYPE = 'AtomDetailsModal';
+
+/* Source Code Tabs (Atom Details) */
+export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';
