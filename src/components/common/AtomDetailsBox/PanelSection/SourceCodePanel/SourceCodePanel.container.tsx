@@ -11,6 +11,7 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
 
+import { Popup } from 'semantic-ui-react';
 import * as CopyToClipboard from 'react-copy-to-clipboard';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -36,7 +37,9 @@ type SourceCodePanelProps = {
 };
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    copied: boolean
+};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -66,6 +69,9 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     /********************************/
     constructor() {
         super();
+
+        // Init local state
+        this.state = {copied: false};
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
@@ -126,7 +132,22 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @returns {void}
      */
     private _copySourceCode(type: string) {
+
+        const TIMEOUT_COPIED_MESSAGE = 1000;
+        
+        // Show COPIED! message
+        this.setState({
+            copied: true
+        });
+
+        // Launch Copy Source Action
         this.props.actions.ui.copySourceCode(type);
+
+        // Hide COPIED! message after 'TIMEOUT_COPIED_MESSAGE' time
+        setTimeout(() => {
+            this.setState({ copied: false });
+        }, TIMEOUT_COPIED_MESSAGE);
+
     }
 
     /**
@@ -136,15 +157,23 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @private 
      * @param {string} code - source code block
      * @param {string} type - source code type (e.g. 'html', 'css')
-     * @returns {JSX.Element}
+     * @returns {JSX.Element} <Popup />
      */
     private _getCopyToClipboardBtn(code: string, type: string): JSX.Element {
         return (
-            <CopyToClipboard text={code} onCopy={this._handleCopyClick(type)}>
-                <button className="sp-btn sp-btn--secondary sp-btn--md">
-                    Copy
-                </button>
-            </CopyToClipboard>
+            <Popup
+            trigger={
+                <CopyToClipboard text={code} onCopy={this._handleCopyClick(type)}>
+                    <button className="sp-btn sp-btn--secondary sp-btn--md">
+                        Copy
+                    </button>
+                </CopyToClipboard>}
+            position="top right"
+            size="small">
+                {this.state.copied ? 
+                <span className="color-secondary fontWeight-9">COPIED!</span> : 
+                <span>Copy <strong className="color-darkSecondary textTransform-uppercase">{type}</strong> to clipboard</span>}
+            </Popup>
         );
     }
 
@@ -246,7 +275,7 @@ function mapStateToProps(state: IRootState): StateProps {
     const { tab } = sourceCodeTab;
 
     return {
-        tab
+        tab 
     };
 }
 
