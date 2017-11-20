@@ -1,17 +1,10 @@
 /**********************************************************/
-/*                        ATOM BOX                        */
+/*                   ATOM BOX DETAILS                     */
 /**********************************************************/
 
 .AtomDetailsBox {
     position: relative;
     z-index: 0;
-
-    &__content {
-        height: 0;
-        padding-top: 15%;
-        overflow: hidden;
-        position: relative;
-    }
 
     .copyBtnContainer {
         position: absolute;

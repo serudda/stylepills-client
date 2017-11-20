@@ -5,12 +5,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from './../../../reducer/reducer.config';
+import { IRootState } from './../../../../reducer/reducer.config';
 
-import { Atom as AtomModel } from '../../../models/atom/atom.model';
+import { Atom as AtomModel } from './../../../../models/atom/atom.model';
 
-import PreviewSection from './PreviewSection/PreviewSection.container';
-import PanelSection from './PanelSection/PanelSection.container';
+import Stats from './Stats/Stats';
+import TabMenu from './TabMenu/TabMenu.container';
+import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
 
 // -----------------------------------
 
@@ -20,7 +21,7 @@ import PanelSection from './PanelSection/PanelSection.container';
 /********************************/
 
 /* Own Props */
-type AtomDetailsBoxProps = {
+type PanelSectionProps = {
     atom: AtomModel
 };
 
@@ -37,8 +38,8 @@ type DispatchProps = {};
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomDetailsBox 
-extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchProps, {}>, LocalStates> {
+class PanelSection 
+extends React.Component<ChildProps<PanelSectionProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
@@ -61,13 +62,29 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomDetailsBox">
-                
-                {/* Preview Section */}
-                <PreviewSection html={atom.html} style={atom.css} contextualBg={atom.contextualBg}/>
 
-                {/* Panel Section */}
-                <PanelSection atom={atom}/>
+            <div className="PanelSection boxShadow-raised sp-rounded-bottom-md overflow-hidden">
+
+                {/* Stats and Tab Menu Row */}
+                <div className="row no-gutters pl-3 align-items-center sp-bg-black borderTop-1 borderColor-smoke">
+                    
+                    <div className="col-auto mr-auto">
+
+                        {/* Stats */}
+                        <Stats likes={atom.likes} stores={atom.stores} views={atom.views}/>
+
+                    </div>
+
+                    <div className="col-auto">
+
+                        {/* Tab Menu */}
+                        <TabMenu />
+
+                    </div>
+                </div>
+
+                {/* Source Code Section */}
+                <SourceCodePanel html={atom.html} css={atom.css}/>
 
             </div>
         );
@@ -87,11 +104,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const atomDetailsBoxConnect = connect(null, mapDispatchToProps);
+const panelSectionConnect = connect(null, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    atomDetailsBoxConnect
-)(AtomDetailsBox);
+    panelSectionConnect
+)(PanelSection);

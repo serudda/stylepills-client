@@ -13,11 +13,25 @@
         position: absolute;
         z-index: 1;
         opacity: .5;
+        
+        &::after {
+            content: "ESC";
+            color: map-get($color, slate);
+            position: relative;
+            top: 28px;
+            @extend .fontFamily-quicksand;
+            @extend .fontWeight-9;
+            @extend .fontSize-sm;
+        }
 
-        &:hover{
+        &:hover {
             background-color: map-get($color, darkSmoke);
             border: 5px solid map-get($color, darkSmoke);
             opacity: 1;
+        }
+
+        &:hover:after {
+            right: 4px;
         }
     }
 

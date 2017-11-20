@@ -49,6 +49,10 @@
 @import '../../common/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
+// Component Details Box Component (PreviewSection) Style
+@import '../../common/AtomDetailsBox/PreviewSection/PreviewSection';
+// Component Details Box Component (Source Code Panel) Style
+@import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
 // Component Info Component Style
 @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 // Components List Component Style
@@ -76,8 +80,8 @@
 // Atom Details Page Component Style
 @import '../AtomDetailsPage/AtomDetailsPage';
 // Atom Details Page (PanelSection) Style
-@import '../AtomDetailsPage/sections/PanelSection';
+// @import '../AtomDetailsPage/sections/PanelSection';
 // Atom Details Page (PreviewSection) Style
-@import '../AtomDetailsPage/sections/PreviewSection';
+// @import '../AtomDetailsPage/sections/PreviewSection';
 
 

@@ -1,0 +1,35 @@
+/**********************************************************/
+/*     SOURCE CODE (ATOM DETAILS BOX - PREVIEW SECTION)   */
+/**********************************************************/
+
+.AtomDetailsBox {
+
+    .SourceCode {
+        // height: calc(100% - 68px - 51px - 94px);
+        height: 500px;
+
+        .ReactCodeMirror {
+            height: 100%;
+
+            .CodeMirror {
+                font-size: 15px;
+                -webkit-font-smoothing: initial;
+                height: 100%;
+                background-color: map-get($color, steel);
+                padding-top: 15px;
+                padding-bottom: 15px;
+                font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            }
+
+            .CodeMirror-gutters {
+                background-color: map-get($color, steel);
+            }
+
+            .CodeMirror-linenumber {
+                color: map-get($color, slate);
+            }
+        }
+        
+    }
+
+}

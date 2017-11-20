@@ -69,6 +69,10 @@
             .CodeMirror-gutters {
                 background-color: map-get($color, steel);
             }
+
+            .CodeMirror-linenumber {
+                color: map-get($color, slate);
+            }
         }
         
     }
