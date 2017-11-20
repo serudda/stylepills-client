@@ -90,12 +90,8 @@
                 background-color: map-get($color, mirage);
             }
 
-            &--active-primary {
+            &--active {
                 border-top: 4px solid map-get($color, darkPrimary);
-            }
-    
-            &--active-secondary {
-                border-top: 4px solid map-get($color, darkSecondary);
             }
         }
     }

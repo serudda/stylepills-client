@@ -1581,10 +1581,8 @@ NOTE: Boostrap 4 has a flex set
       color: #3C4858; }
       .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
         background-color: #1F2D3D; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active-primary {
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
         border-top: 4px solid #FCD85E; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active-secondary {
-        border-top: 4px solid #288784; }
   .sp-iconTabMenu__button {
     border: 10px;
     box-sizing: border-box;

@@ -98,7 +98,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="TabMenu sp-iconTabMenu sp-iconTabMenu--is-reversed fontSmoothing-reset">
+            <div className={tab === 'code' ? 'TabMenu sp-iconTabMenu sp-iconTabMenu--is-reversed fontSmoothing-reset' : 'TabMenu sp-iconTabMenu fontSmoothing-reset'}>
                 <button className="sp-iconTabMenu__button">
                     <div className="inner">
                         <Icon icon="heartFull"
@@ -113,7 +113,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>
-                <button className={tab === 'comments' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active-secondary' : 'sp-iconTabMenu__button'}>
+                <button className={tab === 'comments' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active' : 'sp-iconTabMenu__button'}>
                     <div className="inner"
                         onClick={this._handleTabClick('comments')}>
                         <Icon icon="messageCircle"
@@ -128,7 +128,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>
-                <button className={tab === 'code' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active-primary' : 'sp-iconTabMenu__button'}>
+                <button className={tab === 'code' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active' : 'sp-iconTabMenu__button'}>
                     <div className="inner"
                         onClick={this._handleTabClick('code')}>
                         <Icon icon="code"
