@@ -12,7 +12,9 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { User } from '../../../models/user/user.model';
 
 import Main from '../Main/Main';
+import ModalManager from './../../common/Modal/ModalManager/ModalManager.container';
 
+import 'semantic-ui-css/semantic.min.css';
 import './App.css'; 
 
 
@@ -59,6 +61,7 @@ extends React.Component<ChildProps<AppProps & StateProps, GetByIdResponse>, Loca
         /***************************/
         return (
             <div className="AppContent sp-bg-darkSnow">
+                <ModalManager />
                 <Main />
             </div>
         );

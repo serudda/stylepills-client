@@ -78,6 +78,8 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
      * @method _handleChange
      * @example this._handleChange()
      * @private 
+     * @param {AtomModel} atom - atom data
+     * @param {any} e - Event
      * @returns {void}
      */
     private _handleChange (e: any) {

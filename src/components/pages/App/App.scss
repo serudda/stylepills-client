@@ -13,6 +13,8 @@
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
 @import 'https://fonts.googleapis.com/css?family=Quicksand';
+// Source Code Editor
+@import 'https://fonts.googleapis.com/css?family=Fira+Mono';
 
 
 // All Core Sass files goes into the theme/core files (variables, globals)
@@ -28,6 +30,8 @@
 @import '../../../theme/components/avatar';
 // Button Basic Component Style
 @import '../../../theme/components/button';
+// Icon Tab Menu Component Style
+@import '../../../theme/components/tab';
 // Input Basic Component Style
 @import '../../../theme/components/input';
 // Link Basic Component Style
@@ -41,18 +45,26 @@
 // React Components (Header, Modals, etc)
 // --------------------------------------------------
 
-// Header Component Style
-@import '../../common/Header/Header';
 // Component Box Component Style
 @import '../../common/AtomBox/AtomBox';
+// Component Details Box Component Style
+@import '../../common/AtomDetailsBox/AtomDetailsBox';
+// Component Details Box Component (PreviewSection) Style
+@import '../../common/AtomDetailsBox/PreviewSection/PreviewSection';
+// Component Details Box Component (Source Code Panel) Style
+@import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
 // Component Info Component Style
 @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 // Components List Component Style
 @import '../../common/AtomsList/AtomsList';
 // Footer Component Style
 @import '../../common/Footer/Footer';
+// Header Component Style
+@import '../../common/Header/Header';
 // IFrame Component Style
 @import '../../common/Iframe/Iframe';
+// Atom Details Modal Component Style
+@import '../../common/Modal/AtomDetailsModal/AtomDetailsModal';
 // NavbarOptions Component Style
 @import '../../common/NavbarOptions/NavbarOptions';
 // Pagination Buttons Component Style
@@ -65,11 +77,5 @@
 
 // Home Page Style
 @import '../HomePage/HomePage';
-// Atom Details Page Component Style
-@import '../AtomDetailsPage/AtomDetailsPage';
-// Atom Details Page (PanelSection) Style
-@import '../AtomDetailsPage/sections/PanelSection';
-// Atom Details Page (PreviewSection) Style
-@import '../AtomDetailsPage/sections/PreviewSection';
 
 

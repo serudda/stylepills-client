@@ -38,3 +38,9 @@ export const PRD_AUTH_LOGOUT_URL = `${PRD_SERVER_URL}${AUTH_LOGOUT}`;
 export const ATOM_SEARCH_LIMIT = 9;
 export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'likes';
 export const ATOM_SEARCH_ORDER = 'DESC';
+
+/* Modal Types */
+export const ATOM_DETAILS_MODAL_TYPE = 'AtomDetailsModal';
+
+/* Source Code Tabs (Atom Details) */
+export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';

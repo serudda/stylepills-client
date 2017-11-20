@@ -2,6 +2,7 @@
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
 @import 'https://fonts.googleapis.com/css?family=Quicksand';
+@import 'https://fonts.googleapis.com/css?family=Fira+Mono';
 /************************************************/
 /*               GLOBAL VARIABLES               */
 /************************************************/
@@ -16,6 +17,12 @@ body.mainApp {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0; }
+  body.mainApp .sp-close-icon {
+    background-image: url("./../../../resources/images/x.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 2.6em;
+    height: 2.6em; }
   body.mainApp .row:before {
     display: inherit; }
   body.mainApp .AppContent {
@@ -46,6 +53,9 @@ body.mainApp {
   margin: 0 auto;
   position: relative;
   padding: 0 20px; }
+
+.overflow-hidden {
+  overflow: hidden; }
 
 /**
 *  CURSOR
@@ -142,6 +152,31 @@ NOTE: Boostrap 4 has a flex set
   -webkit-box-ordinal-group: 100000;
   -ms-flex-order: 99999;
   order: 99999; }
+
+/* z-index sizes */
+.zIndex-modal {
+  z-index: 9000; }
+
+.zIndex-overlay {
+  z-index: 8000; }
+
+.zIndex-dropdown {
+  z-index: 7000; }
+
+.zIndex-header {
+  z-index: 6000; }
+
+.zIndex-footer {
+  z-index: 500; }
+
+.zIndex-default {
+  z-index: 1; }
+
+.zIndex-below {
+  z-index: -1; }
+
+.zIndex-bottomless {
+  z-index: -9000; }
 
 /**
  *  SPACING
@@ -534,11 +569,14 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-poppins {
   font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
-.fontFamily-quicksand {
+.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after {
   font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
 .fontFamily-courierNew {
   font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; }
+
+.fontFamily-firaMono {
+  font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 /* Font brand colors */
 .color-lightPrimary {
@@ -616,7 +654,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs {
   font-size: 12px; }
 
-.fontSize-sm {
+.fontSize-sm, .AtomDetailsModal .sp-close-icon::after {
   font-size: 14px; }
 
 .fontSize-md {
@@ -662,7 +700,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-8 {
   font-weight: 800; }
 
-.fontWeight-9 {
+.fontWeight-9, .AtomDetailsModal .sp-close-icon::after {
   font-weight: 900; }
 
 /* Line Height scale */
@@ -1037,6 +1075,37 @@ NOTE: Boostrap 4 has a flex set
   -webkit-border-radius: 0 0 10px 0;
   -moz-border-radius: 0 0 10px 0;
   border-radius: 0 0 10px 0; }
+
+/* Rounded Top */
+.sp-rounded-top-sm {
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0; }
+
+.sp-rounded-top-md {
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0; }
+
+.sp-rounded-top-lg {
+  -webkit-border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0; }
+
+.sp-rounded-bottom-sm {
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px; }
+
+.sp-rounded-bottom-md {
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px; }
+
+.sp-rounded-bottom-lg {
+  -webkit-border-radius: 0 0 10px 10px;
+  -moz-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px; }
 
 /**
  *  BOX SHADOW
@@ -1449,6 +1518,105 @@ NOTE: Boostrap 4 has a flex set
       outline: none; }
 
 /**********************************************************/
+/*                        TAB MENU                        */
+/**********************************************************/
+.sp-tabMenu {
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-flex; }
+  .sp-tabMenu--is-reversed {
+    background-color: #141619; }
+    .sp-tabMenu--is-reversed .sp-tabMenu__button {
+      -webkit-tap-highlight-color: #141619;
+      color: #FFFFFF; }
+      .sp-tabMenu--is-reversed .sp-tabMenu__button:hover {
+        background-color: #1F2D3D; }
+      .sp-tabMenu--is-reversed .sp-tabMenu__button--active {
+        border-bottom: 4px solid #288784; }
+  .sp-tabMenu__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #3C4858;
+    min-width: 100px;
+    text-transform: uppercase;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    .sp-tabMenu__button:hover {
+      background-color: #E5E9F2; }
+    .sp-tabMenu__button--active {
+      border-bottom: 4px solid #288784;
+      color: #288784; }
+    .sp-tabMenu__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+/**********************************************************/
+/*                      ICON TAB MENU                     */
+/**********************************************************/
+.sp-iconTabMenu {
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-flex; }
+  .sp-iconTabMenu--is-reversed {
+    background-color: #24292e; }
+    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button {
+      -webkit-tap-highlight-color: #24292e;
+      color: #3C4858; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
+        background-color: #1F2D3D; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
+        border-top: 4px solid #FCD85E; }
+  .sp-iconTabMenu__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #3C4858;
+    width: 60px;
+    text-transform: uppercase;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    .sp-iconTabMenu__button:hover {
+      background-color: #E5E9F2; }
+    .sp-iconTabMenu__button--active {
+      border-top: 4px solid #288784; }
+    .sp-iconTabMenu__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+/**********************************************************/
 /*                         INPUTS                         */
 /**********************************************************/
 .sp-input {
@@ -1616,18 +1784,6 @@ NOTE: Boostrap 4 has a flex set
     align-items: center; }
 
 /**********************************************************/
-/*                         HEADER                         */
-/**********************************************************/
-.Header {
-  z-index: 1;
-  padding-bottom: 16px;
-  color: rgba(255, 255, 255, 0.75);
-  background-color: #FFFFFF;
-  border-bottom: 3px solid transparent;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
-  font-size: 16px; }
-
-/**********************************************************/
 /*                        ATOM BOX                        */
 /**********************************************************/
 .AtomBox {
@@ -1647,6 +1803,46 @@ NOTE: Boostrap 4 has a flex set
       bottom: 0;
       border: 0 !important;
       z-index: 1; }
+
+/**********************************************************/
+/*                   ATOM BOX DETAILS                     */
+/**********************************************************/
+.AtomDetailsBox {
+  position: relative;
+  z-index: 0; }
+  .AtomDetailsBox .copyBtnContainer {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
+
+/**********************************************************/
+/*           ATOM DETAILS BOX (PREVIEW SECTION)           */
+/**********************************************************/
+.AtomDetailsBox .PreviewSection__content {
+  height: 0;
+  padding-top: 15%;
+  overflow: hidden;
+  position: relative; }
+
+/**********************************************************/
+/*     SOURCE CODE (ATOM DETAILS BOX - PREVIEW SECTION)   */
+/**********************************************************/
+.AtomDetailsBox .SourceCode {
+  height: 500px; }
+  .AtomDetailsBox .SourceCode .ReactCodeMirror {
+    height: 100%; }
+    .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror {
+      font-size: 15px;
+      -webkit-font-smoothing: initial;
+      height: 100%;
+      background-color: #273444;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror-gutters {
+      background-color: #273444; }
+    .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
+      color: #3C4858; }
 
 /**********************************************************/
 /*                        ATOM INFO                       */
@@ -1732,6 +1928,18 @@ NOTE: Boostrap 4 has a flex set
   bottom: 2px;
   left: 0; }
 
+/**********************************************************/
+/*                         HEADER                         */
+/**********************************************************/
+.Header {
+  z-index: 1;
+  padding-bottom: 16px;
+  color: rgba(255, 255, 255, 0.75);
+  background-color: #FFFFFF;
+  border-bottom: 3px solid transparent;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+  font-size: 16px; }
+
 .Iframe-wrapper iframe {
   width: 100%;
   height: 100%;
@@ -1745,6 +1953,34 @@ NOTE: Boostrap 4 has a flex set
   -webkit-transform-origin: top left;
   transform-origin: top left;
   transition: opacity 0.4s ease; }
+
+/**********************************************************/
+/*                   ATOM DETAILS MODAL                   */
+/**********************************************************/
+.AtomDetailsModal .sp-close-icon {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  top: 1.0535rem;
+  right: 1rem;
+  position: absolute;
+  z-index: 1;
+  opacity: .5; }
+  .AtomDetailsModal .sp-close-icon::after {
+    content: "ESC";
+    color: #3C4858;
+    position: relative;
+    top: 28px; }
+  .AtomDetailsModal .sp-close-icon:hover {
+    background-color: #D3DCE6;
+    border: 5px solid #D3DCE6;
+    opacity: 1; }
+  .AtomDetailsModal .sp-close-icon:hover:after {
+    right: 4px; }
+
+/* DIMMER (MODAL BACKDROP) */
+body.atomDetailsModal-open .ui.dimmer {
+  background-color: #EFF2F7; }
 
 /**********************************************************/
 /*                     NAVBAR OPTIONS                     */
@@ -1809,165 +2045,3 @@ NOTE: Boostrap 4 has a flex set
       color: #FFFFFF;
       text-decoration: none;
       border-bottom: 2px solid #FEEB6A; }
-
-.ComponentPage .leftCol {
-  padding: 0;
-  overflow-y: hidden; }
-
-.ComponentPage .rightCol {
-  padding: 0; }
-
-@media (min-width: 576px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden; }
-  .ComponentPage .rightCol {
-    padding: 0; } }
-
-@media (min-width: 768px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden; }
-  .ComponentPage .rightCol {
-    padding: 0; } }
-
-@media (min-width: 992px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: 0; }
-  .ComponentPage .rightCol {
-    position: fixed;
-    right: 0;
-    left: auto;
-    bottom: 0;
-    top: 0;
-    padding: 0; } }
-
-@media (min-width: 1200px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: 0; }
-  .ComponentPage .rightCol {
-    position: fixed;
-    right: 0;
-    left: auto;
-    bottom: 0;
-    top: 0;
-    padding: 0; } }
-
-.PanelSection .tabs {
-  width: 100%;
-  background-color: #141619;
-  white-space: nowrap;
-  display: flex; }
-  .PanelSection .tabs__button {
-    border: 10px;
-    box-sizing: border-box;
-    display: inline-block;
-    font-family: Roboto, sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
-    text-decoration: none;
-    margin: 0px;
-    padding: 0px;
-    outline: none;
-    font-size: 14px;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-    color: #eceff1;
-    width: 33.3333%;
-    text-transform: uppercase;
-    background: none; }
-    .PanelSection .tabs__button--active {
-      border-bottom: 3px solid #33ada9; }
-    .PanelSection .tabs__button .inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 48px; }
-
-.PanelSection .SourceCode {
-  height: calc(100% - 68px - 51px - 94px); }
-  .PanelSection .SourceCode .ReactCodeMirror {
-    height: 100%; }
-    .PanelSection .SourceCode .ReactCodeMirror .CodeMirror {
-      font-size: 13px;
-      -webkit-font-smoothing: initial;
-      height: 100%; }
-      .PanelSection .SourceCode .ReactCodeMirror .CodeMirror pre, .PanelSection .SourceCode .ReactCodeMirror .CodeMirror code {
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word; }
-
-.PanelSection .actionsFooter {
-  border-top: solid 1px #111111;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -moz-align-items: center;
-  -webkit-align-items: center;
-  -ms-align-items: center;
-  align-items: center;
-  z-index: 2000; }
-  .PanelSection .actionsFooter .otherActions {
-    display: -moz-flex;
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    position: relative;
-    padding-left: .875em; }
-  .PanelSection .actionsFooter .mainAction {
-    display: -moz-flex;
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    -moz-flex-direction: column;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -moz-flex-grow: 1;
-    -webkit-flex-grow: 1;
-    -ms-flex-grow: 1;
-    flex-grow: 1;
-    -moz-flex-shrink: 1;
-    -webkit-flex-shrink: 1;
-    -ms-flex-shrink: 1;
-    flex-shrink: 1;
-    position: relative;
-    padding: 1.75em; }
-
-@media (min-width: 576px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-@media (min-width: 768px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-@media (min-width: 992px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-@media (min-width: 1200px) {
-  .PanelSection .SourceCode {
-    height: calc(100% - 51px - 163px); } }
-
-.PreviewSection .previewComponent {
-  overflow: hidden; }

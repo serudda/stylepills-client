@@ -16,10 +16,14 @@ interface IconType {
     arrowDown: () => JSX.Element;
     chevronDown: () => JSX.Element;
     heart: () => JSX.Element;
+    heartFull: () => JSX.Element;
     messageCircle: () => JSX.Element;
     package: () => JSX.Element;
     eye: () => JSX.Element;
     search: () => JSX.Element;
+    download: () => JSX.Element;
+    share: () => JSX.Element;
+    code: () => JSX.Element;
 }
 
 /* Own Props */
@@ -138,6 +142,22 @@ class Icon extends React.Component<IconProps, {}> {
                     </svg>
                 );
             },
+            heartFull: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="#FF4949" 
+                         stroke="#FF4949"
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                );
+            },
             messageCircle: () => {
                 return (
                     <svg className={iconClass}
@@ -204,6 +224,63 @@ class Icon extends React.Component<IconProps, {}> {
                          xmlns="http://www.w3.org/2000/svg">
                          <circle cx="10.5" cy="10.5" r="7.5" />
                          <line x1="21" y1="21" x2="15.8" y2="15.8" />
+                    </svg>
+                );
+            },
+            download: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                         <polyline points="8 17 12 21 16 17" />
+                         <line x1="12" y1="12" x2="12" y2="21" />
+                         <path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29" />
+                    </svg>
+                );
+            },
+            share: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                    </svg>
+                );
+            },
+            code: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 28 16" 
+                         fill="none"
+                         fillRule="evenodd"
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11,13.2862598 L15.3169675,0"/>
+                        <polyline transform="translate(6.146880, 6.608451) scale(1, -1) rotate(-130.000000) translate(-6.146880, -6.608451) " points="2.36089108 5.08392329 9.93286796 2.4375663 9.14841836 10.7793349" />
+                        <polyline transform="translate(20.146880, 6.608451) scale(-1, -1) rotate(-130.000000) translate(-20.146880, -6.608451) " points="16.3608911 5.08392329 23.932868 2.4375663 23.1484184 10.7793349" />
                     </svg>
                 );
             }
