@@ -15,6 +15,7 @@ import { Popup } from 'semantic-ui-react';
 import * as CopyToClipboard from 'react-copy-to-clipboard';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
+// TODO: Remover cuando no se necesite
 // import 'codemirror/mode/sass/sass';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/lib/codemirror.css';
