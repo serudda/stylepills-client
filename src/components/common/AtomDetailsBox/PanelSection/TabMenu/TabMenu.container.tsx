@@ -69,9 +69,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      * @method _handleClick
      * @example this._handleClick()
      * @private 
+     * @param {string} tab - string tab id (e.g. 'comments', 'code', etc) 
+     * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleTabClick = (tab: string) => (e: any) => {
+    private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
     }

@@ -76,7 +76,8 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
      * @desc Handle Select List Change
      * @method _handleChange
      * @example this._handleChange()
-     * @private 
+     * @private
+     * @param {any} e - Event
      * @returns {void}
      */
     private _handleChange (e: any) {

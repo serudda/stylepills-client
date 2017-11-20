@@ -66,10 +66,11 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
      * @desc HandleLogoutClick
      * @method _handleLogoutClick
      * @example this._handleLogoutClick()
-     * @private 
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleLogoutClick (e: any) {
+    private _handleLogoutClick (e: React.FormEvent<{}>) {
         e.preventDefault();
         this._logout();
     }
@@ -79,7 +80,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
      * @desc Logout 
      * @method _logout
      * @example this._logout()
-     * @private 
+     * @private
      * @returns {void}
      */
     private _logout() {

@@ -69,7 +69,9 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
      * @desc HandleWaypointEnter
      * @method _handleWaypointEnter
      * @example this._handleWaypointEnter()
-     * @private 
+     * @private
+     * @param {string} section - section id (e.g. '1' = PUV Section)
+     * @param {any} e - Event
      * @returns {void}
      */
     private _handleWaypointEnter = (section: string) => (e: any) => {

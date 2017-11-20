@@ -74,7 +74,8 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
      * @desc Handle Change
      * @method _handleChange
      * @example this._handleChange()
-     * @private 
+     * @private
+     * @param {any} e - Event 
      * @returns {void}
      */
     private _handleChange (e: any) {

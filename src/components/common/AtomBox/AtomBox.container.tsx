@@ -70,10 +70,12 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
      * @desc HandleClick
      * @method _handleClick
      * @example this._handleClick()
-     * @private 
+     * @private
+     * @param {AtomModel} atom - atom data
+     * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleClick = (atom: any) => (e: any) => {
+    private _handleClick = (atom: AtomModel) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._showModal(atom);
     }
@@ -82,10 +84,11 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
      * @desc Show Modal 
      * @method _showModal
      * @example this._showModal()
-     * @private 
+     * @private
+     * @param {AtomModel} atom - atom data
      * @returns {void}
      */
-    private _showModal(atom: any) {
+    private _showModal(atom: AtomModel) {
         this.props.actions.ui.showModal(appConfig.ATOM_DETAILS_MODAL_TYPE, {atom});
     }
 

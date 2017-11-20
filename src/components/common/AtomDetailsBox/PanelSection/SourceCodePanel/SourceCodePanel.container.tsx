@@ -81,7 +81,9 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @desc HandleCopyClick
      * @method _handleCopyClick
      * @example this._handleClick()
-     * @private 
+     * @private
+     * @param {string} type - source code type (e.g. 'html', 'css')
+     * @param {any} e - Event
      * @returns {void}
      */
     private _handleCopyClick = (type: string) => (e: any) => { 
@@ -93,10 +95,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @desc HandleClick
      * @method _handleClick
      * @example this._handleClick()
-     * @private 
+     * @private
+     * @param {string} tab - source code tab (e.g. 'html', 'css')
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleTabClick = (tab: string) => (e: any) => {
+    private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
     }
@@ -105,7 +109,8 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @desc Change Tab
      * @method _changeTab
      * @example this._changeTab()
-     * @private 
+     * @private
+     * @param {string} tab - source code tab (e.g. 'html', 'css') 
      * @returns {void}
      */
     private _changeTab(tab: string) {
@@ -116,11 +121,31 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @desc Copy Source Code
      * @method _copySourceCode
      * @example this._copySourceCode()
-     * @private 
+     * @private
+     * @param {string} type - source code type (e.g. 'html', 'css')
      * @returns {void}
      */
     private _copySourceCode(type: string) {
         this.props.actions.ui.copySourceCode(type);
+    }
+
+    /**
+     * @desc Get CopyToClipboard Btn
+     * @method _getCopyToClipboardBtn
+     * @example this._getCopyToClipboardBtn()
+     * @private 
+     * @param {string} code - source code block
+     * @param {string} type - source code type (e.g. 'html', 'css')
+     * @returns {JSX.Element}
+     */
+    private _getCopyToClipboardBtn(code: string, type: string): JSX.Element {
+        return (
+            <CopyToClipboard text={code} onCopy={this._handleCopyClick(type)}>
+                <button className="sp-btn sp-btn--secondary sp-btn--md">
+                    Copy
+                </button>
+            </CopyToClipboard>
+        );
     }
 
 
@@ -189,17 +214,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                         {/* Copy Source Code Button */}
                         <div className="copyBtnContainer zIndex-footer">
 
-                            {tab === 'html' && <CopyToClipboard text={html} onCopy={this._handleCopyClick('html')}>
-                                <button className="sp-btn sp-btn--secondary sp-btn--md">
-                                    Copy
-                                </button>
-                            </CopyToClipboard>}
+                            {tab === 'html' && this._getCopyToClipboardBtn(html, 'html')}
 
-                            {tab === 'css' && <CopyToClipboard text={css} onCopy={this._handleCopyClick('css')}>
-                                <button className="sp-btn sp-btn--secondary sp-btn--md">
-                                    Copy
-                                </button>
-                            </CopyToClipboard>}
+                            {tab === 'css' && this._getCopyToClipboardBtn(css, 'css')}
+
                         </div>
 
                         {/* Source Code */}

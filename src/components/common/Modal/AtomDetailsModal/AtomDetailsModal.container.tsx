@@ -86,10 +86,11 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
      * @desc HandleCloseClick
      * @method _handleCloseClick
      * @example this._handleCloseClick()
-     * @private 
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleCloseClick (e: any) {
+    private _handleCloseClick (e: React.FormEvent<{}>) {
         e.preventDefault();
         this._closeModal();
     }
