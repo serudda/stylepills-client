@@ -23,6 +23,9 @@ export interface IUiState {
             tab: string
         }
     };
+    copied: {
+        copiedType: string
+    };
 }
 
 /************************************/
@@ -38,7 +41,8 @@ const defaultState: IUiState = {
         sourceCodeTab: {
             tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
         }
-    }
+    },
+    copied: null
 };
 
 // -----------------------------------
@@ -69,7 +73,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     sourceCodeTab: {
                         tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
                     }
-                }
+                },
+                copied: null
             };
         }
 
@@ -110,6 +115,15 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     sourceCodeTab: {
                         tab: action.tabs.sourceCodeTab.tab
                     }
+                }
+            };
+        }
+
+        case types.COPY_SOURCE_CODE: {
+            return {
+                ...state,
+                copied: {
+                    copiedType: action.copied.copiedType
                 }
             };
         }

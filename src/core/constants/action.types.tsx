@@ -23,6 +23,9 @@ export type CHANGE_ATOM_DETAILS_TAB = typeof CHANGE_ATOM_DETAILS_TAB;
 export const CHANGE_SOURCE_CODE_TAB = 'CHANGE_SOURCE_CODE_TAB';
 export type CHANGE_SOURCE_CODE_TAB = typeof CHANGE_SOURCE_CODE_TAB;
 
+export const COPY_SOURCE_CODE = 'COPY_SOURCE_CODE';
+export type COPY_SOURCE_CODE = typeof COPY_SOURCE_CODE;
+
 /* Auth Actions Type */
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export type LOGIN_REQUEST = typeof LOGIN_REQUEST;

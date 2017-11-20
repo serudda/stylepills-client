@@ -20,6 +20,7 @@ export interface IClearUiAction {
             tab: string | null
         }
     };
+    copied: null;
 }
 
 export interface IShowModalAction {
@@ -52,6 +53,13 @@ export interface IChangeSourceCodeTabAction {
     };
 }
 
+export interface ICopySourceCodeAction {
+    type: types.COPY_SOURCE_CODE;
+    copied: {
+        copiedType: string
+    };
+}
+
 
 export type Action =
     // UI interaction
@@ -59,7 +67,8 @@ export type Action =
 |   IShowModalAction
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
-|   IChangeSourceCodeTabAction;
+|   IChangeSourceCodeTabAction
+|   ICopySourceCodeAction;
 
 
 
@@ -84,7 +93,8 @@ export const clearUiAction = (): Action => {
             sourceCodeTab: {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
             }
-        }
+        },
+        copied: null
     };
 };
 
@@ -150,6 +160,22 @@ export const changeSourceCodeTabAction = (tab: string): Action => {
             sourceCodeTab: {
                 tab
             }
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, COPY_SOURCE_CODE 
+ * to indicate that user wants to copy a source code block
+ * @function copySourceCodeAction
+ * @returns {Action}
+ */
+export const copySourceCodeAction = (copiedType: string): Action => {
+    return {
+        type: types.COPY_SOURCE_CODE,
+        copied: {
+            copiedType
         }
     };
 };

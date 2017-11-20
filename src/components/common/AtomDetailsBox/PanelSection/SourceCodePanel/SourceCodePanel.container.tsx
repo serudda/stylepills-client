@@ -9,8 +9,9 @@ import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
-import { changeSourceCodeTabAction } from './../../../../../actions/ui.action';
+import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
 
+import * as CopyToClipboard from 'react-copy-to-clipboard';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
 // import 'codemirror/mode/sass/sass';
@@ -47,6 +48,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeSourceCodeTab: (tab: string) => void;
+            copySourceCode: (type: string) => void;
         }
     };
 };
@@ -67,12 +69,24 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
+        this._handleCopyClick = this._handleCopyClick.bind(this);
     }
 
 
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
+    /**
+     * @desc HandleCopyClick
+     * @method _handleCopyClick
+     * @example this._handleClick()
+     * @private 
+     * @returns {void}
+     */
+    private _handleCopyClick = (type: string) => (e: any) => { 
+        this._copySourceCode(type);
+    }
 
 
     /**
@@ -96,6 +110,17 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      */
     private _changeTab(tab: string) {
         this.props.actions.ui.changeSourceCodeTab(tab);
+    }
+
+    /**
+     * @desc Copy Source Code
+     * @method _copySourceCode
+     * @example this._copySourceCode()
+     * @private 
+     * @returns {void}
+     */
+    private _copySourceCode(type: string) {
+        this.props.actions.ui.copySourceCode(type);
     }
 
 
@@ -163,9 +188,18 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
                         {/* Copy Source Code Button */}
                         <div className="copyBtnContainer zIndex-footer">
-                            <button className="sp-btn sp-btn--secondary sp-btn--md">
-                                Copy
-                            </button>
+
+                            {tab === 'html' && <CopyToClipboard text={html} onCopy={this._handleCopyClick('html')}>
+                                <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                    Copy
+                                </button>
+                            </CopyToClipboard>}
+
+                            {tab === 'css' && <CopyToClipboard text={css} onCopy={this._handleCopyClick('css')}>
+                                <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                    Copy
+                                </button>
+                            </CopyToClipboard>}
                         </div>
 
                         {/* Source Code */}
@@ -206,7 +240,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab))
+                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab)),
+                copySourceCode: (type) => dispatch(copySourceCodeAction(type)),
             }
         }
     };
