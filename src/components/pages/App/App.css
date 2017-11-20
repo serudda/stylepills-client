@@ -1581,8 +1581,10 @@ NOTE: Boostrap 4 has a flex set
       color: #3C4858; }
       .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
         background-color: #1F2D3D; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active-primary {
         border-top: 4px solid #FCD85E; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active-secondary {
+        border-top: 4px solid #288784; }
   .sp-iconTabMenu__button {
     border: 10px;
     box-sizing: border-box;
@@ -2045,56 +2047,3 @@ body.atomDetailsModal-open .ui.dimmer {
       color: #FFFFFF;
       text-decoration: none;
       border-bottom: 2px solid #FEEB6A; }
-
-.ComponentPage .leftCol {
-  padding: 0;
-  overflow-y: hidden; }
-
-.ComponentPage .rightCol {
-  padding: 0; }
-
-@media (min-width: 576px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden; }
-  .ComponentPage .rightCol {
-    padding: 0; } }
-
-@media (min-width: 768px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden; }
-  .ComponentPage .rightCol {
-    padding: 0; } }
-
-@media (min-width: 992px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: 0; }
-  .ComponentPage .rightCol {
-    position: fixed;
-    right: 0;
-    left: auto;
-    bottom: 0;
-    top: 0;
-    padding: 0; } }
-
-@media (min-width: 1200px) {
-  .ComponentPage .leftCol {
-    padding: 0;
-    overflow-y: hidden;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    top: 0; }
-  .ComponentPage .rightCol {
-    position: fixed;
-    right: 0;
-    left: auto;
-    bottom: 0;
-    top: 0;
-    padding: 0; } }

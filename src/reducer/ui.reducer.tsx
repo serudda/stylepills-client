@@ -14,6 +14,14 @@ export interface IUiState {
         modalType: string,
         modalProps: any
     };
+    tabs: {
+        atomDetailsTab?: {
+            tab: string
+        },
+        sourceCodeTab?: {
+            tab: string
+        }
+    };
 }
 
 /************************************/
@@ -21,7 +29,15 @@ export interface IUiState {
 /************************************/
 
 const defaultState: IUiState = {
-    modals: null
+    modals: null,
+    tabs: {
+        atomDetailsTab: {
+            tab: null
+        },
+        sourceCodeTab: {
+            tab: null
+        }
+    }
 };
 
 // -----------------------------------
@@ -44,9 +60,14 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.CLEAR_UI: {
             return {
                 ...state, 
-                modals: {
-                    modalType: null,
-                    modalProps: {}
+                modals: null,
+                tabs: {
+                    atomDetailsTab: {
+                        tab: null
+                    },
+                    sourceCodeTab: {
+                        tab: null
+                    }
                 }
             };
         }
@@ -65,6 +86,28 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state, 
                 modals: null
+            };
+        }
+
+        case types.CHANGE_ATOM_DETAILS_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    atomDetailsTab: {
+                        tab: action.tabs.atomDetailsTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_SOURCE_CODE_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    sourceCodeTab: {
+                        tab: action.tabs.sourceCodeTab.tab
+                    }
+                }
             };
         }
             

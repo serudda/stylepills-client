@@ -9,7 +9,7 @@ import { Modal } from 'semantic-ui-react';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
-import { closeModalAction } from './../../../../actions/ui.action';
+import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
 
 import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 
@@ -36,6 +36,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             closeModal: () => void;
+            clearUi: () => void;
         }
     };
 };
@@ -103,6 +104,8 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
      */
     private _closeModal() {
         this.props.actions.ui.closeModal();
+        // Clean tabs states and other ui states
+        this.props.actions.ui.clearUi();
     }
 
 
@@ -182,7 +185,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                closeModal: () => dispatch(closeModalAction())
+                closeModal: () => dispatch(closeModalAction()),
+                clearUi: () => dispatch(clearUiAction())
             }
         }
     };

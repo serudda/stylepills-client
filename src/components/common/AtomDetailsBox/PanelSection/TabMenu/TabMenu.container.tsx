@@ -9,6 +9,8 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 
 import Icon from './../../../Icon/Icon';
 
+import { changeAtomDetailsTabAction } from './../../../../../actions/ui.action';
+
 // -----------------------------------
 
 
@@ -23,10 +25,18 @@ type TabMenuProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    tab: string;
+};
 
 /* Mapped Dispatches to Props */
-type DispatchProps = {};
+type DispatchProps = {
+    actions: {
+        ui: { 
+            changeAtomDetailsTab: (tab: string) => void;
+        }
+    };
+};
 
 
 /***********************************************/
@@ -41,6 +51,38 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /********************************/
     constructor() {
         super();
+
+        // Bind methods
+        this._handleTabClick = this._handleTabClick.bind(this);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc HandleClick
+     * @method _handleClick
+     * @example this._handleClick()
+     * @private 
+     * @returns {void}
+     */
+    private _handleTabClick = (tab: string) => (e: any) => {
+        e.preventDefault();
+        this._changeTab(tab);
+    }
+
+    /**
+     * @desc Change Tab
+     * @method _changeTab
+     * @example this._changeTab()
+     * @private 
+     * @returns {void}
+     */
+    private _changeTab(tab: string) {
+        this.props.actions.ui.changeAtomDetailsTab(tab);
     }
 
 
@@ -50,7 +92,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     render() {
 
         // Destructuring props
-        // const { atom } = this.props;
+        const { tab } = this.props;
 
 
         /*         MARKUP          */
@@ -71,10 +113,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>
-                <button className="sp-iconTabMenu__button">
-                    <div className="inner">
+                <button className={tab === 'comments' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active-secondary' : 'sp-iconTabMenu__button'}>
+                    <div className="inner"
+                        onClick={this._handleTabClick('comments')}>
                         <Icon icon="messageCircle"
-                            iconClass="strokeWidth-2 stroke-slate"
+                            iconClass={tab === 'comments' ? 'strokeWidth-2 stroke-darkSecondary' : 'strokeWidth-2 stroke-slate'}
                             width="22" height="22"/>
                     </div>
                 </button>
@@ -85,10 +128,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>
-                <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
-                    <div className="inner">
+                <button className={tab === 'code' ? 'sp-iconTabMenu__button sp-iconTabMenu__button--active-primary' : 'sp-iconTabMenu__button'}>
+                    <div className="inner"
+                        onClick={this._handleTabClick('code')}>
                         <Icon icon="code"
-                            iconClass="strokeWidth-2 stroke-darkPrimary"
+                            iconClass={tab === 'code' ? 'strokeWidth-2 stroke-darkPrimary' : 'strokeWidth-2 stroke-slate'}
                             width="25" height="16"/>
                     </div>
                 </button>
@@ -107,17 +151,38 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
 
 /********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+
+    const { tabs } = state.ui;
+    const { atomDetailsTab } = tabs;
+    const { tab } = atomDetailsTab;
+
+    return {
+        tab
+    };
+}
+
+
+/********************************/
 /*     MAP DISPATCH TO PROPS    */
 /********************************/
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
-    return {};
+    return {
+        actions: {
+            ui: {
+                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab))
+            }
+        }
+    };
 }
 
 
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const tabMenuConnect = connect(null, mapDispatchToProps);
+const tabMenuConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */
