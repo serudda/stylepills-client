@@ -1,13 +1,38 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { EventTypes } from 'redux-segment';
+
 import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
+import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
+
+interface IModalEventPayLoad {
+    event: string;
+    properties?: {
+        modalType: string,
+        modalProps: any
+    };
+}
+
+interface IChangeTabEventPayLoad {
+    event: string;
+    properties: {
+        tab: string
+    };
+}
+
+interface ICopySourceCodeEventPayLoad {
+    event: string;
+    properties: {
+        copiedType: string
+    };
+}
 
 export interface IClearUiAction {
     type: types.CLEAR_UI;
@@ -29,10 +54,12 @@ export interface IShowModalAction {
         modalType: string,
         modalProps: any
     };
+    meta: IAnalyticsTrack<IModalEventPayLoad>;
 }
 
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
+    meta: IAnalyticsTrack<IModalEventPayLoad>;
 }
 
 export interface IChangeAtomDetailsTabAction {
@@ -42,6 +69,7 @@ export interface IChangeAtomDetailsTabAction {
             tab: string
         }
     };
+    meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
 export interface IChangeSourceCodeTabAction {
@@ -51,6 +79,7 @@ export interface IChangeSourceCodeTabAction {
             tab: string
         }
     };
+    meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
 export interface ICopySourceCodeAction {
@@ -58,6 +87,7 @@ export interface ICopySourceCodeAction {
     copied: {
         copiedType: string
     };
+    meta: IAnalyticsTrack<ICopySourceCodeEventPayLoad>;
 }
 
 
@@ -111,6 +141,18 @@ export const showModalAction = (modalType: string, modalProps: any): Action => {
         modals: {
             modalType,
             modalProps
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.SHOW_MODAL,
+                    properties: {
+                        modalType,
+                        modalProps
+                    },
+                },
+            },
         }
     };
 };
@@ -124,7 +166,15 @@ export const showModalAction = (modalType: string, modalProps: any): Action => {
  */
 export const closeModalAction = (): Action => {
     return {
-        type: types.CLOSE_MODAL
+        type: types.CLOSE_MODAL,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CLOSE_MODAL
+                },
+            },
+        }
     };
 };
 
@@ -142,6 +192,17 @@ export const changeAtomDetailsTabAction = (tab: string): Action => {
             atomDetailsTab: {
                 tab
             }
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CHANGE_ATOM_DETAILS_TAB,
+                    properties: {
+                        tab
+                    },
+                },
+            },
         }
     };
 };
@@ -160,6 +221,17 @@ export const changeSourceCodeTabAction = (tab: string): Action => {
             sourceCodeTab: {
                 tab
             }
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CHANGE_SOURCE_CODE_TAB,
+                    properties: {
+                        tab
+                    },
+                },
+            },
         }
     };
 };
@@ -176,6 +248,17 @@ export const copySourceCodeAction = (copiedType: string): Action => {
         type: types.COPY_SOURCE_CODE,
         copied: {
             copiedType
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.COPY_SOURCE_CODE,
+                    properties: {
+                        copiedType
+                    },
+                },
+            },
         }
     };
 };
