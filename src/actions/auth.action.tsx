@@ -8,7 +8,7 @@ import axios from 'axios';
 import { IAnalyticsTrack, IAnalyticsIdentify } from './../core/interfaces/interfaces';
 
 import { User } from '../models/user/user.model';
-import * as types from '../constants/action.types';
+import * as types from '../core/constants/action.types';
 
 import { config } from './../config/config';
 

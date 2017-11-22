@@ -1,7 +1,8 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import * as types from '../constants/action.types';
+import * as appConfig from '../core/constants/app.constants';
+import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
 
 
@@ -10,7 +11,21 @@ import { Action } from '../actions/ui.action';
 /************************************/
 
 export interface IUiState {
-    showModal: boolean;
+    modals: {
+        modalType: string,
+        modalProps: any
+    };
+    tabs: {
+        atomDetailsTab?: {
+            tab: string
+        },
+        sourceCodeTab?: {
+            tab: string
+        }
+    };
+    copied: {
+        copiedType: string
+    };
 }
 
 /************************************/
@@ -18,7 +33,16 @@ export interface IUiState {
 /************************************/
 
 const defaultState: IUiState = {
-    showModal: false
+    modals: null,
+    tabs: {
+        atomDetailsTab: {
+            tab: null
+        },
+        sourceCodeTab: {
+            tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+        }
+    },
+    copied: null
 };
 
 // -----------------------------------
@@ -39,15 +63,69 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         /***********************************/
 
         case types.CLEAR_UI: {
-            return {...state, showModal: false};
+            return {
+                ...state, 
+                modals: null,
+                tabs: {
+                    atomDetailsTab: {
+                        tab: null
+                    },
+                    sourceCodeTab: {
+                        tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                    }
+                },
+                copied: null
+            };
         }
 
         case types.SHOW_MODAL: {
-            return {...state, showModal: true};
+            return {
+                ...state,
+                modals: {
+                    modalType: action.modals.modalType,
+                    modalProps: action.modals.modalProps
+                }
+            };
         }
 
         case types.CLOSE_MODAL: {
-            return {...state, showModal: false};
+            return {
+                ...state, 
+                modals: null
+            };
+        }
+
+        case types.CHANGE_ATOM_DETAILS_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    atomDetailsTab: {
+                        tab: action.tabs.atomDetailsTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_SOURCE_CODE_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    sourceCodeTab: {
+                        tab: action.tabs.sourceCodeTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.COPY_SOURCE_CODE: {
+            return {
+                ...state,
+                copied: {
+                    copiedType: action.copied.copiedType
+                }
+            };
         }
             
         default:

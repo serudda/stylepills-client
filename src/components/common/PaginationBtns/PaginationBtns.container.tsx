@@ -5,7 +5,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import * as appConfig from '../../../constants/app.constants';
+import * as appConfig from '../../../core/constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { IPaginationState } from '../../../reducer/pagination.reducer';
@@ -71,10 +71,11 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
      * @desc Handle Next Button Click
      * @method _handleNextClick
      * @example this._handleNextClick()
-     * @private 
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleNextClick (e: any) {
+    private _handleNextClick (e: React.FormEvent<{}>) {
         // VARIABLES
         let queryArgs: IPaginationState = null;
 
@@ -97,10 +98,11 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
      * @desc Handle Prev Button Click
      * @method _handlePrevClick
      * @example this._handlePrevClick()
-     * @private 
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handlePrevClick (e: any) {
+    private _handlePrevClick (e: React.FormEvent<{}>) {
         // VARIABLES
         let queryArgs: IPaginationState = null;
 

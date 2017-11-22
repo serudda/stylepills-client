@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
-import AtomBox from '../AtomBox/AtomBox';
+import AtomBox from '../AtomBox/AtomBox.container';
 import AtomInfoSection from '../AtomBox/AtomInfoSection/AtomInfoSection';
 
 // -----------------------------------

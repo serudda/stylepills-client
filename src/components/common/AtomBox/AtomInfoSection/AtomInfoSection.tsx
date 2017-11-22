@@ -27,10 +27,10 @@ interface AtomInfoSectionProps extends Atom {}
  */
 const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
     name, 
-    likes, 
-    stores,
-    comments, 
-    views,
+    likes = 0, 
+    stores = 0,
+    comments = 0, 
+    views = 0,
     author
 }) => {
 
@@ -72,16 +72,12 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
                         <span className="fontSize-sm fontWeight-9 color-silver">{likes}</span>
                     </div>
 
-                    {/*
-                    // TODO: Traer count desde Sequelize: 
-                        http://static.html-js.com/sequelizejs/index.html#
                     <div className="comment sp-stats__item">
                         <Icon icon="messageCircle"
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">{comments}</span>
+                        <span className="fontSize-sm fontWeight-9 color-silver">0</span>
                     </div>
-                    */}
 
                     <div className="store sp-stats__item">
                         <Icon icon="package"

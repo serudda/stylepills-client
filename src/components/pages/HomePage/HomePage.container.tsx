@@ -4,6 +4,8 @@
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 
+import Icon from './../../common/Icon/Icon';
+
 import PuvSection from './Sections/PuvSection/PuvSection';
 import HostComponentSection from './Sections/HostComponentSection/HostComponentSection';
 import FeedRepositorySection from './Sections/FeedRepositorySection/FeedRepositorySection';
@@ -12,7 +14,6 @@ import CreateStyleguideSection from './Sections/CreateStyleguideSection/CreateSt
 import AttachSection from './Sections/AttachSection/AttachSection';
 import JoinSection from './Sections/JoinSection/JoinSection';
 
-const logo = require('../../../resources/images/Stylepills-main-short-logo.svg');
 const PUV_IMAGE_URL = require('../../../resources/images/puv_page.png');
 const HOST_COMPONENT_IMAGE_URL = require('../../../resources/images/add_component_page.png');
 const PRIVATE_COMPONENT_IMAGE_URL = require('../../../resources/images/private_component_page.png');
@@ -69,7 +70,9 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
      * @desc HandleWaypointEnter
      * @method _handleWaypointEnter
      * @example this._handleWaypointEnter()
-     * @private 
+     * @private
+     * @param {string} section - section id (e.g. '1' = PUV Section)
+     * @param {any} e - Event
      * @returns {void}
      */
     private _handleWaypointEnter = (section: string) => (e: any) => {
@@ -126,9 +129,12 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
                         <div className="leftSide__header__content">
                             {/* Logo and Burguer Icon */}
                             <div className="float-left">
-                                <a className="Header__logo m-0 link-reset" href="/">
-                                    <img src={logo} alt="Stylepills" width="28px"/>
-                                    <span className="fontFamily-quicksand fontWeight-9 color-black">Stylepills</span>
+                                {/* Logo */}
+                                <a className="sp-logo sp-logo--sm sp-logo--black m-0 link-reset" href="/">
+                                    <Icon icon="logo" 
+                                        iconClass="mr-2"
+                                        width="20" height="20"/>
+                                    <span>Stylepills</span>
                                 </a>
                             </div>
                         </div>

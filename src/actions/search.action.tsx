@@ -1,7 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import * as types from '../constants/action.types';
+import * as types from '../core/constants/action.types';
 import { IAtomQueryArgs } from '../models/atom/atom.query';
 
 
