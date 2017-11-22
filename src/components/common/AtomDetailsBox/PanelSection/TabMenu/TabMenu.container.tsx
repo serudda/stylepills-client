@@ -107,17 +107,17 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         });
 
         // Comments Btn Classes
-        const commentsBtnClasses = classNames({
+        /* const commentsBtnClasses = classNames({
             'sp-iconTabMenu__button': true, 
             'sp-iconTabMenu__button--active': tab === 'comments'
-        });
+        });*/
 
         // Comments Icon on Btn Classes
-        const commentsIconClasses = classNames({
+        /* const commentsIconClasses = classNames({
             'strokeWidth-2': true, 
             'stroke-darkSecondary': tab === 'comments',
             'stroke-slate': tab !== 'comments'
-        });
+        });*/
 
         // Code Btn Classes
         const codeBtnClasses = classNames({
@@ -137,35 +137,36 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         /***************************/
         return (
             <div className={tabMenuClasses}>
-                <button className="sp-iconTabMenu__button">
+                {/* TODO: Ir agregando uno por uno al momento de implementarlo */}
+                {/*<button className="sp-iconTabMenu__button">
                     <div className="inner">
                         <Icon icon="heartFull"
                             iconClass="strokeWidth-2"
                             width="22" height="22"/>
                     </div>
-                </button>
-                <button className="sp-iconTabMenu__button">
+                </button>*/}
+                {/*<button className="sp-iconTabMenu__button">
                     <div className="inner">
                         <Icon icon="share"
                             iconClass="strokeWidth-2 stroke-slate"
                             width="22" height="22"/>
                     </div>
-                </button>
-                <button className={commentsBtnClasses}>
+                </button>*/}
+                {/*<button className={commentsBtnClasses}>
                     <div className="inner"
                         onClick={this._handleTabClick('comments')}>
                         <Icon icon="messageCircle"
                             iconClass={commentsIconClasses}
                             width="22" height="22"/>
                     </div>
-                </button>
-                <button className="sp-iconTabMenu__button">
+                </button>*/}
+                {/*<button className="sp-iconTabMenu__button">
                     <div className="inner">
                         <Icon icon="download"
                             iconClass="strokeWidth-2 stroke-slate"
                             width="22" height="22"/>
                     </div>
-                </button>
+                </button>*/}
                 <button className={codeBtnClasses}>
                     <div className="inner"
                         onClick={this._handleTabClick('code')}>
@@ -174,13 +175,13 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="25" height="16"/>
                     </div>
                 </button>
-                <button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__button">
                     <div className="inner">
                         <Icon icon="package"
                             iconClass="strokeWidth-2 stroke-slate"
                             width="22" height="22"/>
                     </div>
-                </button>
+                </button>*/}
             </div>
         );
     }
