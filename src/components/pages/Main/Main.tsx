@@ -5,10 +5,10 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from '../HomePage/HomePage.container';
-import AtomsListPage from '../AtomsListPage/AtomsListPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
+import UserProfilePage from '../UserProfilePage/UserProfilePage.container';
 
 
 /************************************/
@@ -29,9 +29,9 @@ const Main: React.SFC<IMainProps> = () => {
             <div className="AppContent">
                 <Switch>
                     <Route exact={true} path="/" component={HomePage} />
-                    <Route path="/components" component={AtomsListPage} />
                     <Route path="/styleguide" component={StyleguidePage} />
                     <Route path="/explore" component={ExplorePage} />
+                    <Route path="/user/:username" component={UserProfilePage} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </div>

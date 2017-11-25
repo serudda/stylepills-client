@@ -1,0 +1,26 @@
+Boostrap 4 agrega unos mixins que permites asociarlos a sus breakpoints:
+
+// Large devices (desktops, less than 1200px)
+@include media-breakpoint-down(lg) {...}
+
+// Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {...}
+
+// Small devices (landscape phones, less than 768px)
+@include media-breakpoint-down(sm) {...}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) {...}
+
+
+Esto es lo mismo que invocar a los media queries, simplemente que ya nos tenemos que 
+despreocupar por los valores de quiembre (breakpoints). Simplemente especificando 
+xs, sm, md, lg, el ya sabe que breakpoint manejar:
+
+xs: Mobiles,
+sm: Tablets,
+md: Desktops cuadrados
+lg: Desktops comunes y más grandes.
+
+NOTA: El orden en el que se colocan los @include, altera el resultado, asi que respetar este
+mismo orden: media breakpoint down, de lg hasta xs.

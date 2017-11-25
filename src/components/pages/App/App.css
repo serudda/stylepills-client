@@ -654,7 +654,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs {
   font-size: 12px; }
 
-.fontSize-sm, .AtomDetailsModal .sp-close-icon::after {
+.fontSize-sm, .AtomDetailsModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
 .fontSize-md {
@@ -1342,6 +1342,9 @@ NOTE: Boostrap 4 has a flex set
   .sp-avatar--xxl {
     width: 115px;
     height: 115px; }
+  .sp-avatar--xxxl {
+    width: 150px;
+    height: 150px; }
   .sp-avatar--empty {
     background: "https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg"; }
   .sp-avatar img {
@@ -1888,35 +1891,6 @@ NOTE: Boostrap 4 has a flex set
     width: 100%;
     margin-right: 0 !important; } }
 
-/*@media (max-width: 830px) {
-    
-    .AtomsList {
-        .atomBox-container {
-            width: 49%;
-
-            &:nth-child(2n) {
-                margin-right: 0;
-            }
-
-            &:nth-child(3n) {
-                margin-right: 2%;
-            }
-
-        }
-
-    }
-
-}*/
-/*@media (max-width: 550px) {
-
-    .AtomsList {
-        .atomBox-container {
-            width: 100%;
-            margin-right: 0 !important;
-        }
-    }
-
-}*/
 /**
  * FOOTER COMPONENT
  * ----------------- 
@@ -2045,3 +2019,15 @@ body.atomDetailsModal-open .ui.dimmer {
       color: #FFFFFF;
       text-decoration: none;
       border-bottom: 2px solid #FEEB6A; }
+
+/**********************************************************/
+/*              USER STATS (USER PROFILE PAGE)            */
+/**********************************************************/
+.UserProfilePage .UserStats {
+  display: flex;
+  list-style: none;
+  justify-content: center; }
+
+@media (max-width: 575px) {
+  .UserProfilePage .UserStats__item__text {
+    font-size: 12px; } }

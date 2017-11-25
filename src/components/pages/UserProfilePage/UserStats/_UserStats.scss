@@ -1,0 +1,29 @@
+/**********************************************************/
+/*              USER STATS (USER PROFILE PAGE)            */
+/**********************************************************/
+
+.UserProfilePage {
+    .UserStats {
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        &__item {
+            &__text {
+                @extend .fontSize-sm;
+            }
+        }
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) {
+    .UserProfilePage {
+        .UserStats {
+            &__item {
+                &__text {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
