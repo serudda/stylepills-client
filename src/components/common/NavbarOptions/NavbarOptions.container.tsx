@@ -5,6 +5,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { NavLink, Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import { Dropdown } from 'semantic-ui-react';
 
 import { config } from './../../../config/config';
@@ -39,7 +40,8 @@ type DispatchProps = {
     actions: {
         auth: {
             logout: () => void;
-        }
+        },
+        navigateTo: (location: string) => void;
     };
 };
 
@@ -59,6 +61,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
         // Bind methods
         this._handleLogoutClick = this._handleLogoutClick.bind(this);
+        this._handlerNavigateTo = this._handlerNavigateTo.bind(this);
     }
 
 
@@ -90,6 +93,10 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
      */
     private _logout() {
         this.props.actions.auth.logout();
+    }
+
+    private _handlerNavigateTo = (location: string) => (e: any) => { 
+        this.props.actions.navigateTo(location);
     }
 
     
@@ -125,11 +132,11 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             userLinks = (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item mx-3">
-                        <NavLink className="nav-link color-slate fontSize-sm"
-                            activeClassName="active"
+                        <Link className="nav-link color-slate fontSize-sm"
+                            onClick={this._handlerNavigateTo(`/explore`)}
                             to={`/explore`}>
                             Explore
-                        </NavLink>
+                        </Link>
                     </li>
                     <li className="nav-item mx-3">
                         <Dropdown trigger={trigger} 
@@ -138,7 +145,9 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                                 className="sp-dropdown sp-dropdown--userMenu">
                             <Dropdown.Menu>
                                 <Dropdown.Item>
-                                    <Link className="link-reset" to={`/user/${user.username}`}>
+                                    <Link className="link-reset" 
+                                        onClick={this._handlerNavigateTo(`/user/${user.username}`)}
+                                        to={`/user/${user.username}`}>
                                         My Profile
                                     </Link>
                                 </Dropdown.Item>
@@ -227,7 +236,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             // NOTE: #1
             auth: {
                 logout: () => dispatch(logoutAction())
-            }
+            },
+            navigateTo: (url) => dispatch(push(url))
         }
     };
 }
