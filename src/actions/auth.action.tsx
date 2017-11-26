@@ -11,6 +11,7 @@ import { User } from '../models/user/user.model';
 import * as types from '../core/constants/action.types';
 
 import { config } from './../config/config';
+import { setTimeout } from 'timers';
 
 
 
@@ -71,6 +72,7 @@ export interface IReceiveLogoutAction {
     type: types.LOGOUT_SUCCESS;
     loading: boolean;
     isAuthenticated: boolean;
+    user: null;
     meta: IAnalyticsTrack<IAuthEventPayLoad>;
 }
 
@@ -191,6 +193,8 @@ export const setTokenAndIdAction = (token: string, user: User) => {
         dispatch(requestLoginAction());
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+        // Remove token from url
+        location.search = 'received=true';
         dispatch(receiveLoginAction(user));
     };
 };
@@ -231,6 +235,7 @@ export const receiveLogoutAction = (): Action => {
         type: types.LOGOUT_SUCCESS,
         loading: false,
         isAuthenticated: false,
+        user: null,
         meta: {
             analytics: {
                 eventType: EventTypes.track,
@@ -301,9 +306,10 @@ export const logoutAction = () => {
                     // Logout Failure
                     dispatch(logoutFailureAction(response.message));
                 } else {
-                    // Logout Received
-                    dispatch(receiveLogoutAction());
-                    return response;
+                    // Logout Received (refresh current page)
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 0);
                 }
             }
         ).catch(

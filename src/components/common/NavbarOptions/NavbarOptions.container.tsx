@@ -11,6 +11,8 @@ import { config } from './../../../config/config';
 
 import { IRootState } from '../../../reducer/reducer.config';
 
+import { User as UserModel } from '../../../models/user/user.model';
+
 import { logoutAction } from '../../../actions/auth.action';
 
 // -----------------------------------
@@ -29,6 +31,7 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     isAuthenticated: boolean;
+    user: UserModel;
 };
 
 /* Mapped Dispatches to Props */
@@ -97,55 +100,72 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
         // Get server config object
         const serverConfig = config.getServerConfig();
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated = false, user = null } = this.props;
+        let trigger = null;
+        let userLinks = null;
+        let guestLinks =  null;
 
-        // user logged menu dropdown trigger
-        const trigger = (
-            <div className="sp-avatar sp-avatar--xxs borderRadius-circle position-relative" style={{top: '5px'}}>
-                <img width="25" height="25" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Sergio" />
-            </div>
-        );
+        
+        // If user is logged in
+        if (user) {
 
-        const userLinks = (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item mx-3 active">
-                    <Link className="nav-link color-slate fontSize-sm"
-                        to={`/explore`}>
-                        Explore
-                    </Link>
-                </li>
-                <li className="nav-item mx-3">
-                    <Dropdown trigger={trigger} 
-                            pointing="top right" 
-                            icon={null} 
-                            className="sp-dropdown sp-dropdown--userMenu">
-                        <Dropdown.Menu>
-                            <Dropdown.Item>
-                                <Link className="link-reset" to={`/user/seruda`}>
-                                    My Profile
-                                </Link>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <Link className="link-reset" to={`/dashboard`}>
-                                    My Dashboard
-                                </Link>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <Link className="link-reset" to={`/dashboard/account`}>
-                                    Settings
-                                </Link>
-                            </Dropdown.Item>
-                            <Dropdown.Divider />
-                            <Dropdown.Item onClick={this._handleLogoutClick}>
-                                Log out
-                            </Dropdown.Item>
-                        </ Dropdown.Menu>
-                    </Dropdown>
-                </li>
-            </ul>
-        );
+            // Dropdown of the logged in user (trigger)
+            // TODO: Remove inline styles
+            trigger = (
+                <div className="sp-avatar sp-avatar--xxs borderRadius-circle position-relative" 
+                     style={{top: '5px'}}>
+                    <img width="25" 
+                        height="25" 
+                        src={user.avatar} 
+                        alt={`${user.firstname} ${user.lastname}`} />
+                </div>
+            );
 
-        const guestLinks = (
+            // User logged in links options
+            userLinks = (
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item mx-3 active">
+                        <Link className="nav-link color-slate fontSize-sm"
+                            to={`/explore`}>
+                            Explore
+                        </Link>
+                    </li>
+                    <li className="nav-item mx-3">
+                        <Dropdown trigger={trigger} 
+                                pointing="top right" 
+                                icon={null} 
+                                className="sp-dropdown sp-dropdown--userMenu">
+                            <Dropdown.Menu>
+                                <Dropdown.Item>
+                                    <Link className="link-reset" to={`/user/${user.username}`}>
+                                        My Profile
+                                    </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <Link className="link-reset" to={`/dashboard`}>
+                                        My Dashboard
+                                    </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <Link className="link-reset" to={`/dashboard/account`}>
+                                        Settings
+                                    </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={this._handleLogoutClick}>
+                                    Log out
+                                </Dropdown.Item>
+                            </ Dropdown.Menu>
+                        </Dropdown>
+                    </li>
+                </ul>
+            );
+
+        }
+
+
+        // Guest user links options
+        guestLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item mx-3 active">
                     <Link className="nav-link color-slate fontSize-sm"
@@ -188,9 +208,10 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    const { isAuthenticated } = state.auth;
+    const { isAuthenticated, user } = state.auth;
     return {
-        isAuthenticated
+        isAuthenticated,
+        user
     };
 }
 
