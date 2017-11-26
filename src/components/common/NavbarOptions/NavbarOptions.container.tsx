@@ -135,16 +135,15 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             userLinks = (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item mx-3">
-                        <a href="" 
+                        {/* <a href="" 
                             onClick={this._handlerNavigateTo(`/explore`)}
                             className="color-black">
                             Explore
-                        </a>
-                        {/*<Link className="nav-link color-slate fontSize-sm"
-                            onClick={this._handlerNavigateTo(`/explore`)}
+                        </a> */}
+                        <NavLink className="nav-link color-slate fontSize-sm"
                             to={`/explore`}>
                             Explore
-                        </Link>*/}
+                        </NavLink>
                     </li>
                     <li className="nav-item mx-3">
                         <Dropdown trigger={trigger} 
