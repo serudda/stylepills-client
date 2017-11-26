@@ -161,33 +161,34 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                 </ul>
             );
 
+        } else {
+
+            // Guest user links options
+            guestLinks = (
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item mx-3 active">
+                        <Link className="nav-link color-slate fontSize-sm"
+                            to={`/explore`}>
+                            Explore
+                        </Link>
+                    </li>
+                    <li className="nav-item ml-3">
+                        <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
+                            Sign Up
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <span className="color-smoke fontSize-sm d-block py-2 px-2">|</span>
+                    </li>
+                    <li className="nav-item">
+                        <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
+                            Log In
+                        </a>
+                    </li>
+                </ul>
+            );
+            
         }
-
-
-        // Guest user links options
-        guestLinks = (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item mx-3 active">
-                    <Link className="nav-link color-slate fontSize-sm"
-                        to={`/explore`}>
-                        Explore
-                    </Link>
-                </li>
-                <li className="nav-item ml-3">
-                    <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
-                        Sign Up
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <span className="color-smoke fontSize-sm d-block py-2 px-2">|</span>
-                </li>
-                <li className="nav-item">
-                    <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
-                        Log In
-                    </a>
-                </li>
-            </ul>
-        );
             
         
         /*         MARKUP          */
