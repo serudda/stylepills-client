@@ -95,7 +95,10 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         this.props.actions.auth.logout();
     }
 
-    private _handlerNavigateTo = (location: string) => (e: any) => { 
+
+    // TODO: Es una solucion temporal para mantener la navegacion. FNo fue posible solucionar
+    private _handlerNavigateTo = (location: string) => (e: React.FormEvent<{}>) => {
+        e.preventDefault();
         this.props.actions.navigateTo(location);
     }
 
@@ -132,11 +135,16 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             userLinks = (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item mx-3">
-                        <Link className="nav-link color-slate fontSize-sm"
+                        <a href="" 
+                            onClick={this._handlerNavigateTo(`/explore`)}
+                            className="color-black">
+                            Explore
+                        </a>
+                        {/*<Link className="nav-link color-slate fontSize-sm"
                             onClick={this._handlerNavigateTo(`/explore`)}
                             to={`/explore`}>
                             Explore
-                        </Link>
+                        </Link>*/}
                     </li>
                     <li className="nav-item mx-3">
                         <Dropdown trigger={trigger} 

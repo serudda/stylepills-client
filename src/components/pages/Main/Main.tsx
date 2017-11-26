@@ -30,8 +30,7 @@ const Main: React.SFC<IMainProps> = () => {
                 <Switch>
                     <Route exact={true} path="/" component={HomePage} />
                     <Route exact={true} path="/styleguide" component={StyleguidePage} />
-                    <Route exact={true} path="/explore" render={
-                        props => <ExplorePage location={props.location} />} />
+                    <Route exact={true} path="/explore" component={ExplorePage} />
                     <Route exact={true} path="/user/:username" component={UserProfilePage} />
                     <Route component={NotFoundPage} />
                 </Switch>
