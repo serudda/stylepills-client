@@ -29,9 +29,9 @@ const Main: React.SFC<IMainProps> = () => {
             <div className="AppContent">
                 <Switch>
                     <Route exact={true} path="/" component={HomePage} />
-                    <Route path="/styleguide" component={StyleguidePage} />
-                    <Route path="/explore" component={ExplorePage} />
-                    <Route path="/user/:username" component={UserProfilePage} />
+                    <Route exact={true} path="/styleguide" component={StyleguidePage} />
+                    <Route exact={true} path="/explore" component={ExplorePage} />
+                    <Route exact={true} path="/user/:username" component={UserProfilePage} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </div>
