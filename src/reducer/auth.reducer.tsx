@@ -71,7 +71,8 @@ export default function (state: IAuthState = defaultState, action: Action): IAut
             return {
                 ...state,
                 loading: false,
-                isAuthenticated: false
+                isAuthenticated: false,
+                user: null
             };
         }
 
