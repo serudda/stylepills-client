@@ -1,0 +1,44 @@
+/**********************************************************/
+/*                       DROPDOWN                         */
+/**********************************************************/
+
+/* Dropdown with pointing (Semamtic UI) */
+.ui.pointing.sp-dropdown {
+        
+
+    /// MODIFIERS
+    &--userMenu {
+
+        /* User Menu Dropdown (top right position) */
+        &.top.right {
+            .menu {
+                right: -9px;
+            }
+        }
+
+        /* User Menu Dropdown (menu) */
+        .menu {
+            @extend .borderRadius-0;
+
+            .item {
+                padding: 15px 25px!important;
+                @extend .color-silver;
+
+                &:hover {
+                    @extend .fontWeight-9;
+                    @extend .color-slate;
+                    @extend .sp-bg-snow;
+                }
+            }
+
+            .divider {
+                @extend .borderTop-1;
+                @extend .borderTopStyle-dashed;
+                @extend .borderColor-smoke;
+                @extend .margin-0;
+            }
+        }
+
+    }
+
+}

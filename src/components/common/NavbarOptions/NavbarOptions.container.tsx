@@ -4,6 +4,8 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
 
 import { config } from './../../../config/config';
 
@@ -97,35 +99,70 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         const serverConfig = config.getServerConfig();
         const { isAuthenticated } = this.props;
 
+        // user logged menu dropdown trigger
+        const trigger = (
+            <div className="sp-avatar sp-avatar--xxs borderRadius-circle position-relative" style={{top: '5px'}}>
+                <img width="25" height="25" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Sergio" />
+            </div>
+        );
+
         const userLinks = (
             <ul className="navbar-nav ml-auto">
-                <li className="nav-item mx-2 active">
-                    <a className="nav-link color-slate fontSize-sm" href="">
+                <li className="nav-item mx-3 active">
+                    <Link className="nav-link color-slate fontSize-sm"
+                        to={`/explore`}>
                         Explore
-                    </a>
+                    </Link>
                 </li>
-                <li className="nav-item mx-2">
-                    <a onClick={this._handleLogoutClick} href="" className="nav-link color-slate fontSize-sm">
-                        Log out
-                    </a>
+                <li className="nav-item mx-3">
+                    <Dropdown trigger={trigger} 
+                            pointing="top right" 
+                            icon={null} 
+                            className="sp-dropdown sp-dropdown--userMenu">
+                        <Dropdown.Menu>
+                            <Dropdown.Item>
+                                <Link className="link-reset" to={`/user/seruda`}>
+                                    My Profile
+                                </Link>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                                <Link className="link-reset" to={`/dashboard`}>
+                                    My Dashboard
+                                </Link>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                                <Link className="link-reset" to={`/dashboard/account`}>
+                                    Settings
+                                </Link>
+                            </Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item onClick={this._handleLogoutClick}>
+                                Log out
+                            </Dropdown.Item>
+                        </ Dropdown.Menu>
+                    </Dropdown>
                 </li>
             </ul>
         );
 
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
-                <li className="nav-item mx-2 active">
-                    <a className="nav-link color-slate fontSize-sm" href="">
+                <li className="nav-item mx-3 active">
+                    <Link className="nav-link color-slate fontSize-sm"
+                        to={`/explore`}>
                         Explore
-                    </a>
+                    </Link>
                 </li>
-                <li className="nav-item mx-2">
-                    <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
+                <li className="nav-item ml-3">
+                    <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
                         Sign Up
                     </a>
                 </li>
-                <li className="nav-item mx-2">
-                    <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
+                <li className="nav-item">
+                    <span className="color-smoke fontSize-sm d-block py-2 px-2">|</span>
+                </li>
+                <li className="nav-item">
+                    <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
                         Log In
                     </a>
                 </li>
