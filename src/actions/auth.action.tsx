@@ -11,8 +11,6 @@ import { User } from '../models/user/user.model';
 import * as types from '../core/constants/action.types';
 
 import { config } from './../config/config';
-import { setTimeout } from 'timers';
-
 
 
 // -----------------------------------
@@ -307,9 +305,7 @@ export const logoutAction = () => {
                     dispatch(logoutFailureAction(response.message));
                 } else {
                     // Logout Received (refresh current page)
-                    setTimeout(() => {
-                        window.location.reload(true);
-                    }, 0);
+                    window.location.reload(true);
                 }
             }
         ).catch(
