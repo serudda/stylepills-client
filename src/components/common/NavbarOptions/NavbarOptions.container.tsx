@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
 import { config } from './../../../config/config';
@@ -124,11 +124,12 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             // User logged in links options
             userLinks = (
                 <ul className="navbar-nav ml-auto">
-                    <li className="nav-item mx-3 active">
-                        <Link className="nav-link color-slate fontSize-sm"
+                    <li className="nav-item mx-3">
+                        <NavLink className="nav-link color-slate fontSize-sm"
+                            activeClassName="active"
                             to={`/explore`}>
                             Explore
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="nav-item mx-3">
                         <Dropdown trigger={trigger} 
@@ -166,11 +167,12 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             // Guest user links options
             guestLinks = (
                 <ul className="navbar-nav ml-auto">
-                    <li className="nav-item mx-3 active">
-                        <Link className="nav-link color-slate fontSize-sm"
+                    <li className="nav-item mx-3">
+                        <NavLink className="nav-link color-slate fontSize-sm"
+                            activeClassName="active"
                             to={`/explore`}>
                             Explore
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="nav-item ml-3">
                         <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
