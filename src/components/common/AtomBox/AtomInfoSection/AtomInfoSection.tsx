@@ -49,7 +49,7 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
             <div className="AtomInfo__user">
 
                 <Link className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate"
-                      to={`estudiar_url`}>
+                      to={`user/${author.username}`}>
                     <span className="ml-1 order-3">{author.firstname} {author.lastname}</span>
                     <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-1 order-2">
                         <img width="22" height="22"

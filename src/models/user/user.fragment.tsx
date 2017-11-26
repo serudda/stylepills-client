@@ -25,7 +25,8 @@ export const USER_FRAGMENT: any = gql`
 
 export const AUTHOR_ATOM_FRAGMENT: any = gql`
 fragment AuthorAtomFragment on User {
-    id 
+    id
+    username
     firstname
     lastname
     avatar
