@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
 import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user.query';
 
@@ -109,7 +110,7 @@ const appConnect = connect(mapStateToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose<any>(
+export default withRouter(compose<any>(
     appConnect,
     getUserByIdQuery
-)(App);
+)(App));
