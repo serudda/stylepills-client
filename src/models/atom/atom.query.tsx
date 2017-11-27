@@ -169,8 +169,8 @@ export type SearchAtomsLegacyResponse = {
  * @returns {Array<Atom>} Atoms List based on a filter parameters: e.g category, user's input text
  */
 export const SEARCH_ATOMS_QUERY = gql`
-query searchAtoms ($pagination: PaginationInput!, $filter: AtomFilter!, $sortBy: String) {
-    searchAtoms(pagination: $pagination, filter: $filter, sortBy: $sortBy) {
+query searchAtoms ($pagination: PaginationInput!, $filter: AtomFilter!, $include: AtomInclude, $sortBy: String) {
+    searchAtoms(pagination: $pagination, filter: $filter, include: $include, sortBy: $sortBy) {
         results {
             ...AtomFragment
         },
