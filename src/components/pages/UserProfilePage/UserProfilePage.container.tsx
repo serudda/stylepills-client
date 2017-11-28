@@ -2,15 +2,15 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { compose, ChildProps } from 'react-apollo';
-import { connect } from 'react-redux';
+import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from '../../../reducer/reducer.config';
+import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from '../../../models/user/user.query';
 
 import Icon from './../../common/Icon/Icon';
 import NavbarOptions from './../../common/NavbarOptions/NavbarOptions.container';
 import UserStats from './UserStats/UserStats';
-import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
+import AtomsListContainer from './AtomsList/AtomsList.container';
+import NotFound from './../NotFoundPage/NotFoundPage';
 
 // -----------------------------------
 
@@ -33,7 +33,7 @@ type StateProps = {};
 /*              CLASS DEFINITION               */
 /***********************************************/
 class UserProfilePage 
-extends React.Component<ChildProps<UserProfilePageProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsernameResponse>, LocalStates> {
 
 
     /********************************/
@@ -48,6 +48,28 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, {}>, Local
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const {
+            data: {loading, error, userByUsername},
+        } = this.props;
+
+
+        /*       VALIDATIONS       */
+        /***************************/
+        if (loading) {
+            return (<div>Loading</div>);
+        }
+
+        if (error) {
+            return (<p>{error.message}</p>);
+        }
+
+        if (userByUsername === null) {
+            return (<NotFound />);
+        }
 
 
         /*         MARKUP          */
@@ -85,13 +107,13 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, {}>, Local
                                 <div className="UserInfoContainer">
                                     {/* Avatar Container */}
                                     <div className="sp-avatar sp-avatar--xxxl borderRadius-circle">
-                                        <img width="150" height="150" src="https://s3.amazonaws.com/waysily-img/stylepill/rands-avatar.jpg" alt="Rosita" />
+                                        <img width="150" height="150" src={userByUsername.avatar} alt={userByUsername.username} />
                                     </div>
 
                                     {/* Basic User Information */}
-                                    <h1 className="color-black">Sergio Ruiz Davila</h1>
+                                    <h1 className="color-black">{userByUsername.firstname} {userByUsername.lastname}</h1>
                                     <p className="fontSize-lg color-black">
-                                        Soy un desarrollador Web me encanta desarrollar cosas y diseñar cosas con mis cosas de la casa.
+                                        {userByUsername.about}
                                     </p>
 
                                     {/* User Stats */}
@@ -110,7 +132,7 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, {}>, Local
                 </header>
 
                 {/* Atoms list container */}
-                <AtomsListContainer />
+                <AtomsListContainer username={userByUsername.username}/>
 
             </div>
         );
@@ -118,25 +140,38 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, {}>, Local
 
 }
 
+// Params types
+type InputProps = {
+    match: {
+        params: {
+            username: string
+        }
+    }
+};
+
+// Query options
+const config = {
+    options: (ownProps: InputProps) => (
+        { 
+            variables: 
+            { 
+                username: ownProps.match.params.username
+            } 
+        }
+    )
+};
+
 
 /********************************/
-/*      MAP STATE TO PROPS      */
+/*            QUERY             */
 /********************************/
-function mapStateToProps(state: IRootState): StateProps {
-    return {
-        search: state.search
-    };
-}
-
-
-/********************************/
-/*         REDUX CONNECT        */
-/********************************/
-const userProfilePageConnect = connect(mapStateToProps, null); 
+const getUserByUsernameQuery = graphql<GetByUsernameResponse, UserProfilePageProps>(
+    GET_USER_BY_USERNAME_QUERY, config
+);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    userProfilePageConnect
+    getUserByUsernameQuery
 )(UserProfilePage);
