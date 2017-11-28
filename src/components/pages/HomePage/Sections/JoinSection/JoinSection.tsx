@@ -56,12 +56,12 @@ const JoinSection: React.SFC<JoinSectionProps> = () => {
                                     SIGN UP
                                 </a>
                             </div>
-                            <div className="col mb-2">
+                            {/* <div className="col mb-2">
                                 <Link to={`/explore`} 
                                     className="sp-btn sp-btn--md sp-btn--neutral borderRadius-md fontWeight-9 fontFamily-openSans">
                                     See Components
                                 </Link>
-                            </div>
+                            </div> */}
                         </div>
                     
                     </div>
