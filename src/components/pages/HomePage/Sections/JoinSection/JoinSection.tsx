@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const explanationImage = require('../../../../../resources/images/join_page.png');
 
@@ -56,12 +56,12 @@ const JoinSection: React.SFC<JoinSectionProps> = () => {
                                     SIGN UP
                                 </a>
                             </div>
-                            {/*<div className="col mb-2">
-                                <Link to={`/components`} 
+                            <div className="col mb-2">
+                                <Link to={`/explore`} 
                                     className="sp-btn sp-btn--md sp-btn--neutral borderRadius-md fontWeight-9 fontFamily-openSans">
                                     See Components
                                 </Link>
-                            </div>*/}
+                            </div>
                         </div>
                     
                     </div>
