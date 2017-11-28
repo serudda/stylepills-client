@@ -79,10 +79,19 @@ const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
             return !ownProps.isAuthenticated;
         },
         options:  (ownProps: AppProps & StateProps) => {
+            // TODO: PARCHE: Es una solucion antes de migrar react-apollo a v2
+            // https://github.com/apollographql/react-apollo/blob/master/Changelog.md
+            // https://github.com/apollographql/react-apollo/pull/1181
+            let id = null;
+
+            if (ownProps.user) {
+                id = ownProps.user.id;
+            }
+
             return {
                 variables:
                 { 
-                   id:  ownProps.user.id
+                   id
                }
             };
         }

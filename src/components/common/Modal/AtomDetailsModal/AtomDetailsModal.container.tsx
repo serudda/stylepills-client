@@ -154,7 +154,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
                     <div className="mt-2">
 
                         <Link className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-5 color-silver text-truncate"
-                            to={`user/${atom.author.username}`} target="_blank">
+                            to={`/user/${atom.author.username}`} target="_blank">
                             <span className="order-1">by</span>
                             <span className="ml-2 order-3">{atom.author.firstname} {atom.author.lastname}</span>
                             <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-2 order-2">
