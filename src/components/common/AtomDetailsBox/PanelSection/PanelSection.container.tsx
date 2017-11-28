@@ -92,7 +92,7 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
                     <div className="col-auto">
 
                         {/* Tab Menu */}
-                        <TabMenu />
+                        <TabMenu atomId={atom.id}/>
 
                     </div>
                 </div>
