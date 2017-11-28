@@ -128,6 +128,7 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                     },
                     include: {
                         model: 'User',
+                        as: 'Owner',
                         where: {
                             username: ownProps.username 
                         }
