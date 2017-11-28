@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
 import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user.query';
 
@@ -78,10 +79,19 @@ const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
             return !ownProps.isAuthenticated;
         },
         options:  (ownProps: AppProps & StateProps) => {
+            // TODO: PARCHE: Es una solucion antes de migrar react-apollo a v2
+            // https://github.com/apollographql/react-apollo/blob/master/Changelog.md
+            // https://github.com/apollographql/react-apollo/pull/1181
+            let id = null;
+
+            if (ownProps.user) {
+                id = ownProps.user.id;
+            }
+
             return {
                 variables:
                 { 
-                   id:  ownProps.user.id
+                   id
                }
             };
         }
@@ -109,7 +119,7 @@ const appConnect = connect(mapStateToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose<any>(
+export default withRouter(compose<any>(
     appConnect,
     getUserByIdQuery
-)(App);
+)(App));

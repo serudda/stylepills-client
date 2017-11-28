@@ -153,7 +153,6 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                             <Dropdown.Menu>
                                 <Dropdown.Item>
                                     <Link className="link-reset" 
-                                        onClick={this._handlerNavigateTo(`/user/${user.username}`)}
                                         to={`/user/${user.username}`}>
                                         My Profile
                                     </Link>
