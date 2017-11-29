@@ -3,7 +3,8 @@
 /************************************/
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { graphql, compose, ChildProps } from 'react-apollo';
+import { compose, ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
@@ -13,8 +14,6 @@ import { User as UserModel } from './../../../../../models/user/user.model';
 import Icon from './../../../Icon/Icon';
 
 import { changeAtomDetailsTabAction, duplicateAtomAction } from './../../../../../actions/ui.action';
-
-import { DUPLICATE_ATOM_MUTATION } from './../../../../../models/atom/atom.mutation';
 
 // -----------------------------------
 
@@ -34,6 +33,10 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     tab: string;
+    duplicated: {
+        atomId: number,
+        isDuplicated: boolean;
+    };
     isAuthenticated: boolean;
     user: UserModel;
 };
@@ -97,7 +100,13 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      */
     private _handleDuplicateClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._duplicateAtom();
+
+        const { isDuplicated } = this.props.duplicated;
+
+        if (!isDuplicated) {
+            this._duplicateAtom();
+        }
+
     }
 
     /**
@@ -140,7 +149,9 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     render() {
 
         // Destructuring props
-        const { tab } = this.props;
+        const { tab, duplicated } = this.props;
+        const { isDuplicated } = duplicated;
+        
 
         // Tab Menu Classes
         const tabMenuClasses = classNames({
@@ -174,6 +185,12 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
             'strokeWidth-2': true, 
             'stroke-darkPrimary': tab === 'code',
             'stroke-slate': tab !== 'code'
+        });
+
+        // Duplicate Btn Classes
+        const duplicateClasses = classNames({
+            'sp-iconTabMenu__button': true, 
+            'sp-iconTabMenu__button--disabled': isDuplicated
         });
 
 
@@ -219,14 +236,25 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="25" height="16"/>
                     </div>
                 </button>
-                <button className="sp-iconTabMenu__button"
-                        onClick={this._handleDuplicateClick}>
-                    <div className="inner">
-                        <Icon icon="package"
-                            iconClass="strokeWidth-2 stroke-slate"
-                            width="22" height="22"/>
-                    </div>
-                </button>
+
+                {/* Duplicate button */}
+                {/* TODO: Mover a una funcion para tener más organizado */}
+                <Popup trigger={
+                    <button className={duplicateClasses}
+                    onClick={this._handleDuplicateClick}>
+                        <div className="inner">
+                            <Icon icon="package"
+                                iconClass="strokeWidth-2 stroke-slate"
+                                width="22" height="22"/>
+                        </div>
+                    </button>}
+                    size="small"
+                    inverted={true}>
+                    {isDuplicated ?
+                        <span className="color-primary fontWeight-9">DUPLICATED!</span> :
+                        <span className="fontWeight-9">Duplicate component</span> }
+                </Popup>
+
             </div>
         );
     }
@@ -239,7 +267,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
 
-    const { tabs } = state.ui;
+    const { tabs, duplicated } = state.ui;
     const { atomDetailsTab } = tabs;
     const { tab } = atomDetailsTab;
     const { isAuthenticated, user } = state.auth;
@@ -247,7 +275,8 @@ function mapStateToProps(state: IRootState): StateProps {
     return {
         tab,
         isAuthenticated,
-        user
+        user,
+        duplicated
     };
 }
 
@@ -268,14 +297,6 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 
 
 /********************************/
-/*           MUTATION           */
-/********************************/
-const duplicateAtomMutation = graphql<any, any>(
-    DUPLICATE_ATOM_MUTATION
-);
-
-
-/********************************/
 /*         REDUX CONNECT        */
 /********************************/
 const tabMenuConnect = connect(mapStateToProps, mapDispatchToProps);
@@ -284,6 +305,5 @@ const tabMenuConnect = connect(mapStateToProps, mapDispatchToProps);
 /*         EXPORT          */
 /***************************/
 export default compose(
-    duplicateAtomMutation,
     tabMenuConnect
 )(TabMenu);

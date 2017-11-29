@@ -41,7 +41,8 @@ interface ICopySourceCodeEventPayLoad {
 interface IDuplicateAtomEventPayLoad {
     event: string;
     properties: {
-        atomId: number
+        atomId: number,
+        isDuplicated: boolean
     };
 }
 
@@ -57,7 +58,10 @@ export interface IClearUiAction {
         }
     };
     copied: null;
-    duplicated: null;
+    duplicated: {
+        atomId: number,
+        isDuplicated: boolean
+    };
 }
 
 export interface IShowModalAction {
@@ -106,6 +110,7 @@ export interface IRequestDuplicateAtomAction {
     type: types.DUPLICATE_ATOM_REQUEST;
     duplicated: {
         atomId: number;
+        isDuplicated: boolean;
     };
     meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
 }
@@ -114,6 +119,7 @@ export interface IReceiveDuplicateAtomAction {
     type: types.DUPLICATE_ATOM_SUCCESS;
     duplicated: {
         atomId: number;
+        isDuplicated: boolean;
     };
     meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
 }
@@ -122,6 +128,7 @@ export interface IDuplicateAtomFailureAction {
     type: types.DUPLICATE_ATOM_FAILURE;
     duplicated: {
         atomId: number;
+        isDuplicated: boolean;
     };
     message: string;
     meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
@@ -165,7 +172,10 @@ export const clearUiAction = (): Action => {
             }
         },
         copied: null,
-        duplicated: null
+        duplicated: {
+            atomId: null,
+            isDuplicated: false
+        }
     };
 };
 
@@ -314,7 +324,8 @@ export const requestDuplicateAtomAction = (atomId: number): Action => {
     return {
         type: types.DUPLICATE_ATOM_REQUEST,
         duplicated: {
-            atomId
+            atomId,
+            isDuplicated: false
         },
         meta: {
             analytics: {
@@ -322,7 +333,8 @@ export const requestDuplicateAtomAction = (atomId: number): Action => {
                 eventPayload: {
                     event: types.DUPLICATE_ATOM_REQUEST,
                     properties: {
-                        atomId
+                        atomId,
+                        isDuplicated: false
                     },
                 },
             },
@@ -340,7 +352,8 @@ export const receiveDuplicateAtomAction = (atomId: number): Action => {
     return {
         type: types.DUPLICATE_ATOM_SUCCESS,
         duplicated: {
-            atomId
+            atomId,
+            isDuplicated: true
         },
         meta: {
             analytics: {
@@ -348,7 +361,8 @@ export const receiveDuplicateAtomAction = (atomId: number): Action => {
                 eventPayload: {
                     event: types.DUPLICATE_ATOM_SUCCESS,
                     properties: {
-                        atomId
+                        atomId,
+                        isDuplicated: true
                     },
                 },
             },
@@ -366,7 +380,8 @@ export const duplicateAtomFailureAction = (atomId: number, message: string): Act
     return {
         type: types.DUPLICATE_ATOM_FAILURE,
         duplicated: {
-            atomId
+            atomId,
+            isDuplicated: false
         },
         message,
         meta: {
@@ -376,6 +391,7 @@ export const duplicateAtomFailureAction = (atomId: number, message: string): Act
                     event: types.DUPLICATE_ATOM_FAILURE,
                     properties: {
                         atomId,
+                        isDuplicated: false,
                         message
                     },
                 },

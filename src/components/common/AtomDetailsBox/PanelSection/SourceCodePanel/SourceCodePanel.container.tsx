@@ -242,12 +242,11 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                     <div className="col position-relative">
 
                         {/* Copy Source Code Button */}
+                        {/* TODO: Creo que no es necesario hacer esto dos veces solo con enviar como parametro: type: html, o type: css, ya con eso discrimino de que tipo es */}
                         <div className="copyBtnContainer zIndex-footer">
-
                             {tab === 'html' && this._getCopyToClipboardBtn(html, 'html')}
 
                             {tab === 'css' && this._getCopyToClipboardBtn(css, 'css')}
-
                         </div>
 
                         {/* Source Code */}
