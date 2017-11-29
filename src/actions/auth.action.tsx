@@ -13,7 +13,6 @@ import * as types from '../core/constants/action.types';
 import { config } from './../config/config';
 
 
-
 // -----------------------------------
 
 // Get server config object
@@ -71,6 +70,7 @@ export interface IReceiveLogoutAction {
     type: types.LOGOUT_SUCCESS;
     loading: boolean;
     isAuthenticated: boolean;
+    user: null;
     meta: IAnalyticsTrack<IAuthEventPayLoad>;
 }
 
@@ -191,6 +191,8 @@ export const setTokenAndIdAction = (token: string, user: User) => {
         dispatch(requestLoginAction());
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+        // Remove token from url
+        location.search = 'received=true';
         dispatch(receiveLoginAction(user));
     };
 };
@@ -231,6 +233,7 @@ export const receiveLogoutAction = (): Action => {
         type: types.LOGOUT_SUCCESS,
         loading: false,
         isAuthenticated: false,
+        user: null,
         meta: {
             analytics: {
                 eventType: EventTypes.track,
@@ -301,9 +304,8 @@ export const logoutAction = () => {
                     // Logout Failure
                     dispatch(logoutFailureAction(response.message));
                 } else {
-                    // Logout Received
-                    dispatch(receiveLogoutAction());
-                    return response;
+                    // Logout Received (refresh current page)
+                    window.location.reload(true);
                 }
             }
         ).catch(

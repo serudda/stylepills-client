@@ -57,29 +57,6 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
 
 
     /********************************/
-    /*     COMPONENT_WILL_MOUNT     */
-    /********************************/
-    componentWillMount() { 
-        // VARIABLES
-        // let queryArgs: ISearchState = null;
-        
-        // Build the filter set
-        /* queryArgs = {
-            searchAtoms: {
-                filter: {
-                    text: this.props.search.searchAtoms.filter.text,
-                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
-                },
-                sortBy: this.props.search.searchAtoms.sortBy
-            }
-        }; */
-
-        // Trigger searchAtoms action in order to save 'limit' value on Store
-        // this.props.actions.search.searchAtoms(queryArgs);
-    }
-
-
-    /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {

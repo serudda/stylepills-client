@@ -4,6 +4,7 @@
 import { combineReducers } from 'redux';
 import { ApolloClient } from 'react-apollo';
 import { Store } from 'apollo-client/store';
+import { routerReducer as router, RouterState } from 'react-router-redux';
 
 import auth, { IAuthState } from './auth.reducer';
 import ui, { IUiState } from './ui.reducer';
@@ -12,6 +13,7 @@ import pagination, { IPaginationState } from './pagination.reducer';
 
 // Initialize Client
 const client = new ApolloClient();
+
 
 /************************************/
 /*            INTERFACES            */
@@ -23,6 +25,7 @@ export interface IRootState {
     ui: IUiState;
     search: ISearchState;
     pagination: IPaginationState;
+    router: RouterState;
 }
 
 /************************************/
@@ -34,7 +37,8 @@ const rootReducer = combineReducers<IRootState>({
     auth,
     ui,
     search,
-    pagination
+    pagination,
+    router
 });
 
 /* Export */

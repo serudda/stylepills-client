@@ -26,6 +26,10 @@ export interface IUiState {
     copied: {
         copiedType: string
     };
+    duplicated: {
+        atomId: number
+    };
+    message?: string;
 }
 
 /************************************/
@@ -42,7 +46,8 @@ const defaultState: IUiState = {
             tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
         }
     },
-    copied: null
+    copied: null,
+    duplicated: null
 };
 
 // -----------------------------------
@@ -74,7 +79,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                         tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
                     }
                 },
-                copied: null
+                copied: null,
+                duplicated: null
             };
         }
 
@@ -125,6 +131,34 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 copied: {
                     copiedType: action.copied.copiedType
                 }
+            };
+        }
+
+        case types.DUPLICATE_ATOM_REQUEST: {
+            return {
+                ...state,
+                duplicated: {
+                    atomId: action.duplicated.atomId
+                }
+            };
+        }
+
+        case types.DUPLICATE_ATOM_SUCCESS: {
+            return {
+                ...state,
+                duplicated: {
+                    atomId: action.duplicated.atomId
+                }
+            };
+        }
+
+        case types.DUPLICATE_ATOM_FAILURE: {
+            return {
+                ...state,
+                duplicated: {
+                    atomId: action.duplicated.atomId
+                },
+                message: action.message
             };
         }
             

@@ -30,8 +30,8 @@
 @import '../../../theme/components/avatar';
 // Button Basic Component Style
 @import '../../../theme/components/button';
-// Icon Tab Menu Component Style
-@import '../../../theme/components/tab';
+// Dropdown Basic Component Style
+@import '../../../theme/components/dropdown';
 // Input Basic Component Style
 @import '../../../theme/components/input';
 // Link Basic Component Style
@@ -40,7 +40,8 @@
 @import '../../../theme/components/logo';
 // Stats Basic Component Style
 @import '../../../theme/components/stats';
-
+// Icon Tab Menu Component Style
+@import '../../../theme/components/tab';
 
 // React Components (Header, Modals, etc)
 // --------------------------------------------------
@@ -77,5 +78,7 @@
 
 // Home Page Style
 @import '../HomePage/HomePage';
+// User Stats Style (UserProfilePage)
+@import '../UserProfilePage/UserStats/UserStats';
 
 

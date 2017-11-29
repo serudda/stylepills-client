@@ -182,7 +182,7 @@ NOTE: Boostrap 4 has a flex set
  *  SPACING
  */
 /* Margin scale */
-.margin-0 {
+.margin-0, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   margin: 0; }
 
 .margin-1 {
@@ -560,6 +560,13 @@ NOTE: Boostrap 4 has a flex set
 /**
  *  TEXT MANIPULATION
  */
+.link-reset {
+  color: inherit;
+  text-decoration: none !important; }
+  .link-reset:hover {
+    color: inherit;
+    text-decoration: none !important; }
+
 .fontFamily-openSans {
   font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
@@ -620,10 +627,10 @@ NOTE: Boostrap 4 has a flex set
 .color-steel {
   color: #273444; }
 
-.color-slate {
+.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover {
   color: #3C4858; }
 
-.color-silver {
+.color-silver, .ui.pointing.sp-dropdown--userMenu .menu .item {
   color: #8492A6; }
 
 .color-smoke {
@@ -654,7 +661,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs {
   font-size: 12px; }
 
-.fontSize-sm, .AtomDetailsModal .sp-close-icon::after {
+.fontSize-sm, .AtomDetailsModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
 .fontSize-md {
@@ -700,7 +707,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-8 {
   font-weight: 800; }
 
-.fontWeight-9, .AtomDetailsModal .sp-close-icon::after {
+.fontWeight-9, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .AtomDetailsModal .sp-close-icon::after {
   font-weight: 900; }
 
 /* Line Height scale */
@@ -767,9 +774,6 @@ NOTE: Boostrap 4 has a flex set
 .fontStyle-normal {
   font-style: normal; }
 
-.link-reset {
-  text-decoration: none !important; }
-
 .fontSmoothing-reset {
   -webkit-font-smoothing: initial; }
 
@@ -804,7 +808,7 @@ NOTE: Boostrap 4 has a flex set
 .borderTop-0 {
   border-top: 0 hidden transparent; }
 
-.borderTop-1 {
+.borderTop-1, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top: 1px solid; }
 
 .borderTop-2 {
@@ -886,7 +890,7 @@ NOTE: Boostrap 4 has a flex set
   border-right: 6px solid; }
 
 /* Border types */
-.borderTopStyle-dashed {
+.borderTopStyle-dashed, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top-style: dashed; }
 
 .borderTopStyle-dotted {
@@ -970,7 +974,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-silver {
   border-color: #8492A6; }
 
-.borderColor-smoke {
+.borderColor-smoke, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-color: #E0E6ED; }
 
 .borderColor-darkSmoke {
@@ -992,6 +996,11 @@ NOTE: Boostrap 4 has a flex set
   border-color: #FFFFFF; }
 
 /* Border radius scale */
+.borderRadius-0, .ui.pointing.sp-dropdown--userMenu .menu {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
+
 .borderRadius-sm {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1197,7 +1206,7 @@ NOTE: Boostrap 4 has a flex set
   .sp-bg-extraDarkSmoke--hover:hover {
     background-color: #C0CCDA; }
 
-.sp-bg-snow {
+.sp-bg-snow, .ui.pointing.sp-dropdown--userMenu .menu .item:hover {
   background-color: #F9FAFC; }
   .sp-bg-snow--hover:hover {
     background-color: #F9FAFC; }
@@ -1342,6 +1351,9 @@ NOTE: Boostrap 4 has a flex set
   .sp-avatar--xxl {
     width: 115px;
     height: 115px; }
+  .sp-avatar--xxxl {
+    width: 150px;
+    height: 150px; }
   .sp-avatar--empty {
     background: "https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg"; }
   .sp-avatar img {
@@ -1518,103 +1530,16 @@ NOTE: Boostrap 4 has a flex set
       outline: none; }
 
 /**********************************************************/
-/*                        TAB MENU                        */
+/*                       DROPDOWN                         */
 /**********************************************************/
-.sp-tabMenu {
-  background-color: #FFFFFF;
-  white-space: nowrap;
-  display: inline-flex; }
-  .sp-tabMenu--is-reversed {
-    background-color: #141619; }
-    .sp-tabMenu--is-reversed .sp-tabMenu__button {
-      -webkit-tap-highlight-color: #141619;
-      color: #FFFFFF; }
-      .sp-tabMenu--is-reversed .sp-tabMenu__button:hover {
-        background-color: #1F2D3D; }
-      .sp-tabMenu--is-reversed .sp-tabMenu__button--active {
-        border-bottom: 4px solid #288784; }
-  .sp-tabMenu__button {
-    border: 10px;
-    box-sizing: border-box;
-    display: inline-block;
-    font-family: Roboto, sans-serif;
-    -webkit-tap-highlight-color: #FFFFFF;
-    cursor: pointer;
-    text-decoration: none;
-    margin: 0px;
-    padding: 0px;
-    outline: none !important;
-    font-size: 14px;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-    color: #3C4858;
-    min-width: 100px;
-    text-transform: uppercase;
-    background: none;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0; }
-    .sp-tabMenu__button:hover {
-      background-color: #E5E9F2; }
-    .sp-tabMenu__button--active {
-      border-bottom: 4px solid #288784;
-      color: #288784; }
-    .sp-tabMenu__button .inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 48px; }
-
-/**********************************************************/
-/*                      ICON TAB MENU                     */
-/**********************************************************/
-.sp-iconTabMenu {
-  background-color: #FFFFFF;
-  white-space: nowrap;
-  display: inline-flex; }
-  .sp-iconTabMenu--is-reversed {
-    background-color: #24292e; }
-    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button {
-      -webkit-tap-highlight-color: #24292e;
-      color: #3C4858; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
-        background-color: #1F2D3D; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
-        border-top: 4px solid #FCD85E; }
-  .sp-iconTabMenu__button {
-    border: 10px;
-    box-sizing: border-box;
-    display: inline-block;
-    font-family: Roboto, sans-serif;
-    -webkit-tap-highlight-color: #FFFFFF;
-    cursor: pointer;
-    text-decoration: none;
-    margin: 0px;
-    padding: 0px;
-    outline: none !important;
-    font-size: 14px;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-    color: #3C4858;
-    width: 60px;
-    text-transform: uppercase;
-    background: none;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0; }
-    .sp-iconTabMenu__button:hover {
-      background-color: #E5E9F2; }
-    .sp-iconTabMenu__button--active {
-      border-top: 4px solid #288784; }
-    .sp-iconTabMenu__button .inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 48px; }
+/* Dropdown with pointing (Semamtic UI) */
+.ui.pointing.sp-dropdown--userMenu {
+  /* User Menu Dropdown (top right position) */
+  /* User Menu Dropdown (menu) */ }
+  .ui.pointing.sp-dropdown--userMenu.top.right .menu {
+    right: -9px; }
+  .ui.pointing.sp-dropdown--userMenu .menu .item {
+    padding: 15px 25px !important; }
 
 /**********************************************************/
 /*                         INPUTS                         */
@@ -1784,6 +1709,105 @@ NOTE: Boostrap 4 has a flex set
     align-items: center; }
 
 /**********************************************************/
+/*                        TAB MENU                        */
+/**********************************************************/
+.sp-tabMenu {
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-flex; }
+  .sp-tabMenu--is-reversed {
+    background-color: #141619; }
+    .sp-tabMenu--is-reversed .sp-tabMenu__button {
+      -webkit-tap-highlight-color: #141619;
+      color: #FFFFFF; }
+      .sp-tabMenu--is-reversed .sp-tabMenu__button:hover {
+        background-color: #1F2D3D; }
+      .sp-tabMenu--is-reversed .sp-tabMenu__button--active {
+        border-bottom: 4px solid #288784; }
+  .sp-tabMenu__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #3C4858;
+    min-width: 100px;
+    text-transform: uppercase;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    .sp-tabMenu__button:hover {
+      background-color: #E5E9F2; }
+    .sp-tabMenu__button--active {
+      border-bottom: 4px solid #288784;
+      color: #288784; }
+    .sp-tabMenu__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+/**********************************************************/
+/*                      ICON TAB MENU                     */
+/**********************************************************/
+.sp-iconTabMenu {
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  display: inline-flex; }
+  .sp-iconTabMenu--is-reversed {
+    background-color: #24292e; }
+    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button {
+      -webkit-tap-highlight-color: #24292e;
+      color: #3C4858; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
+        background-color: #1F2D3D; }
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
+        border-top: 4px solid #FCD85E; }
+  .sp-iconTabMenu__button {
+    border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    outline: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #3C4858;
+    width: 60px;
+    text-transform: uppercase;
+    background: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    .sp-iconTabMenu__button:hover {
+      background-color: #E5E9F2; }
+    .sp-iconTabMenu__button--active {
+      border-top: 4px solid #288784; }
+    .sp-iconTabMenu__button .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 48px; }
+
+/**********************************************************/
 /*                        ATOM BOX                        */
 /**********************************************************/
 .AtomBox {
@@ -1888,35 +1912,6 @@ NOTE: Boostrap 4 has a flex set
     width: 100%;
     margin-right: 0 !important; } }
 
-/*@media (max-width: 830px) {
-    
-    .AtomsList {
-        .atomBox-container {
-            width: 49%;
-
-            &:nth-child(2n) {
-                margin-right: 0;
-            }
-
-            &:nth-child(3n) {
-                margin-right: 2%;
-            }
-
-        }
-
-    }
-
-}*/
-/*@media (max-width: 550px) {
-
-    .AtomsList {
-        .atomBox-container {
-            width: 100%;
-            margin-right: 0 !important;
-        }
-    }
-
-}*/
 /**
  * FOOTER COMPONENT
  * ----------------- 
@@ -1985,9 +1980,10 @@ body.atomDetailsModal-open .ui.dimmer {
 /**********************************************************/
 /*                     NAVBAR OPTIONS                     */
 /**********************************************************/
-.NavbarOptions .nav-item.active {
+.NavbarOptions .nav-link.active {
   border-bottom: 3px solid #33ADA9;
-  font-weight: 900; }
+  font-weight: 900;
+  outline: none; }
 
 .PaginationBtns {
   position: absolute;
@@ -2045,3 +2041,15 @@ body.atomDetailsModal-open .ui.dimmer {
       color: #FFFFFF;
       text-decoration: none;
       border-bottom: 2px solid #FEEB6A; }
+
+/**********************************************************/
+/*              USER STATS (USER PROFILE PAGE)            */
+/**********************************************************/
+.UserProfilePage .UserStats {
+  display: flex;
+  list-style: none;
+  justify-content: center; }
+
+@media (max-width: 575px) {
+  .UserProfilePage .UserStats__item__text {
+    font-size: 12px; } }

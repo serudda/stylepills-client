@@ -93,7 +93,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @param {any} e - Event
      * @returns {void}
      */
-    private _handleCopyClick = (type: string) => (e: any) => { 
+    private _handleCopyClick = (type: string) => (e: any) => {
         this._copySourceCode(type);
     }
 

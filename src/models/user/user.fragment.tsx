@@ -3,6 +3,8 @@
 /********************************/
 import gql from 'graphql-tag';
 
+// import { ATOM_FRAGMENT } from './../atom/atom.fragment';
+
 
 /********************************/
 /*           FRAGMENT           */
@@ -14,7 +16,6 @@ export const USER_FRAGMENT: any = gql`
         username
         firstname
         lastname
-        email
         website
         avatar
         about
@@ -25,7 +26,8 @@ export const USER_FRAGMENT: any = gql`
 
 export const AUTHOR_ATOM_FRAGMENT: any = gql`
 fragment AuthorAtomFragment on User {
-    id 
+    id
+    username
     firstname
     lastname
     avatar

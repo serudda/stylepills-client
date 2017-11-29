@@ -35,7 +35,7 @@ const AtomsList: React.SFC<AtomsListProps> = ({ atoms = [] }) => {
     return (
         <div className="AtomsList row pt-5 pb-5 margin-0 no-gutters">
             <div className="col">
-                <div className="d-sm-flex flex-wrap width-wrapper">
+                <div className="d-sm-flex flex-wrap width-wrapper"> 
 
                     {/* Atom Box */}
                     {atoms.map((atom: AtomModel) => (

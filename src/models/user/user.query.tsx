@@ -48,3 +48,27 @@ export const GET_USER_BY_ID_QUERY = gql`
 export type GetByIdResponse = {
     userById: UserModel;
 };
+
+
+/**
+ * @desc Get User by Username
+ * @method Method userByUsername
+ * @public
+ * @param {string} $username - User's username
+ * @returns {User} User entity
+ */
+export const GET_USER_BY_USERNAME_QUERY = gql`
+    query getUserByUsername ($username: String!) {
+        userByUsername(username: $username) {
+            ...UserFragment
+        }
+    }
+    ${USER_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type GetByUsernameResponse = {
+    userByUsername: UserModel;
+};

@@ -5,14 +5,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { SEARCH_ATOMS_QUERY, SearchAtomsResponse } from '../../../models/atom/atom.query';
+import { SEARCH_ATOMS_QUERY, SearchAtomsResponse } from '../../../../models/atom/atom.query';
 
-import { IRootState } from '../../../reducer/reducer.config';
-import { ISearchState } from '../../../reducer/search.reducer';
-import { IPaginationState } from '../../../reducer/pagination.reducer';
+import { IRootState } from '../../../../reducer/reducer.config';
+import { ISearchState } from '../../../../reducer/search.reducer';
+import { IPaginationState } from '../../../../reducer/pagination.reducer';
 
-import AtomsList from './AtomsList';
-import PaginationBtnsContainer from '../../common/PaginationBtns/PaginationBtns.container';
+import AtomsList from './../../../common/AtomsList/AtomsList';
+import PaginationBtnsContainer from '../../../common/PaginationBtns/PaginationBtns.container';
 
 
 // -----------------------------------
@@ -23,7 +23,9 @@ import PaginationBtnsContainer from '../../common/PaginationBtns/PaginationBtns.
 /********************************/
 
 /* Own Props */
-type AtomsListProps = {};
+type AtomsListProps = {
+    username: string;
+};
 
 /* Own States */
 type LocalStates = {};
@@ -109,8 +111,8 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
 /********************************/
 const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
     SEARCH_ATOMS_QUERY, {
-        options:  (ownProps: StateProps) => (
-            { 
+        options:  (ownProps: AtomsListProps & StateProps) => (
+            {
                 variables: 
                 {
                     pagination: {
@@ -124,10 +126,17 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                         text: ownProps.search.searchAtoms.filter.text,
                         atomCategoryId: ownProps.search.searchAtoms.filter.atomCategoryId
                     },
+                    include: {
+                        model: 'User',
+                        as: 'Owner',
+                        where: {
+                            username: ownProps.username 
+                        }
+                    },
                     sortBy: ownProps.search.searchAtoms.sortBy
                 }
             }
-        )
+        )       
     }
 );
 
@@ -151,7 +160,7 @@ const atomsListConnect = connect(mapStateToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose(
+export default compose<any>(
     atomsListConnect,
     searchAtomsQuery
 )(AtomsListContainer);

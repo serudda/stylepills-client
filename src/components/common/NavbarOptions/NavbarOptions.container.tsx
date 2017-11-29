@@ -4,10 +4,16 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import { Dropdown } from 'semantic-ui-react';
+import * as classNames from 'classnames';
 
 import { config } from './../../../config/config';
 
 import { IRootState } from '../../../reducer/reducer.config';
+
+import { User as UserModel } from '../../../models/user/user.model';
 
 import { logoutAction } from '../../../actions/auth.action';
 
@@ -27,6 +33,8 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     isAuthenticated: boolean;
+    user: UserModel;
+    location: any;
 };
 
 /* Mapped Dispatches to Props */
@@ -34,7 +42,8 @@ type DispatchProps = {
     actions: {
         auth: {
             logout: () => void;
-        }
+        },
+        navigateTo: (location: string) => void;
     };
 };
 
@@ -54,6 +63,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
         // Bind methods
         this._handleLogoutClick = this._handleLogoutClick.bind(this);
+        this._handlerNavigateTo = this._handlerNavigateTo.bind(this);
     }
 
 
@@ -87,6 +97,13 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         this.props.actions.auth.logout();
     }
 
+
+    // TODO: Es una solucion temporal para mantener la navegacion. FNo fue posible solucionar
+    private _handlerNavigateTo = (location: string) => (e: React.FormEvent<{}>) => {
+        e.preventDefault();
+        this.props.actions.navigateTo(location);
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -95,42 +112,105 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
         // Get server config object
         const serverConfig = config.getServerConfig();
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated = false, user = null } = this.props;
+        const { location } = this.props;
+        let trigger = null;
+        let userLinks = null;
+        let guestLinks =  null;
 
-        const userLinks = (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item mx-2 active">
-                    <a className="nav-link color-slate fontSize-sm" href="">
-                        Explore
-                    </a>
-                </li>
-                <li className="nav-item mx-2">
-                    <a onClick={this._handleLogoutClick} href="" className="nav-link color-slate fontSize-sm">
-                        Log out
-                    </a>
-                </li>
-            </ul>
-        );
+        // Explore Nav Link Classes
+        const exploreNavLinkClasses = classNames({
+            'nav-link': true, 
+            'color-slate': true,
+            'fontSize-sm': true,
+            'active': location.pathname === '/explore'
+        });
 
-        const guestLinks = (
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item mx-2 active">
-                    <a className="nav-link color-slate fontSize-sm" href="">
-                        Explore
-                    </a>
-                </li>
-                <li className="nav-item mx-2">
-                    <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
-                        Sign Up
-                    </a>
-                </li>
-                <li className="nav-item mx-2">
-                    <a href={serverConfig.authGoogleUrl} className="nav-link color-slate fontSize-sm">
-                        Log In
-                    </a>
-                </li>
-            </ul>
-        );
+        
+        // If user is logged in
+        if (user) {
+
+            // Dropdown of the logged in user (trigger)
+            // TODO: Remove inline styles
+            trigger = (
+                <div className="sp-avatar sp-avatar--xxs borderRadius-circle position-relative" 
+                     style={{top: '5px'}}>
+                    <img width="25" 
+                        height="25" 
+                        src={user.avatar} 
+                        alt={`${user.firstname} ${user.lastname}`} />
+                </div>
+            );
+
+            // User logged in links options
+            userLinks = (
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item mx-3">
+                        <Link className={exploreNavLinkClasses}
+                            to={`/explore`}>
+                            Explore
+                        </Link>
+                    </li>
+                    <li className="nav-item mx-3">
+                        <Dropdown trigger={trigger} 
+                                pointing="top right" 
+                                icon={null} 
+                                className="sp-dropdown sp-dropdown--userMenu">
+                            <Dropdown.Menu>
+                                <Dropdown.Item>
+                                    <Link className="link-reset" 
+                                        to={`/user/${user.username}`}>
+                                        My Profile
+                                    </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <Link className="link-reset" to={`/dashboard`}>
+                                        My Dashboard
+                                    </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <Link className="link-reset" to={`/dashboard/account`}>
+                                        Settings
+                                    </Link>
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={this._handleLogoutClick}>
+                                    Log out
+                                </Dropdown.Item>
+                            </ Dropdown.Menu>
+                        </Dropdown>
+                    </li>
+                </ul>
+            );
+
+        } else {
+
+            // Guest user links options
+            guestLinks = (
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item mx-3">
+                        <Link className={exploreNavLinkClasses}
+                            to={`/explore`}>
+                            Explore
+                        </Link>
+                    </li>
+                    <li className="nav-item ml-3">
+                        <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
+                            Sign Up
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <span className="color-smoke fontSize-sm d-block py-2 px-2">|</span>
+                    </li>
+                    <li className="nav-item">
+                        <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
+                            Log In
+                        </a>
+                    </li>
+                </ul>
+            );
+            
+        }
             
         
         /*         MARKUP          */
@@ -151,9 +231,12 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    const { isAuthenticated } = state.auth;
+    const { isAuthenticated, user } = state.auth;
+    const { location } = state.router;
     return {
-        isAuthenticated
+        isAuthenticated,
+        user,
+        location
     };
 }
 
@@ -166,7 +249,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             // NOTE: #1
             auth: {
                 logout: () => dispatch(logoutAction())
-            }
+            },
+            // TODO: Remove if we do not need it
+            navigateTo: (url) => dispatch(push(url))
         }
     };
 }

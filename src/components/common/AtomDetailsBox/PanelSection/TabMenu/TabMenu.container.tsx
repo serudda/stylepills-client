@@ -3,15 +3,18 @@
 /************************************/
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { compose, ChildProps } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
 
 import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
+import { User as UserModel } from './../../../../../models/user/user.model';
 
 import Icon from './../../../Icon/Icon';
 
-import { changeAtomDetailsTabAction } from './../../../../../actions/ui.action';
+import { changeAtomDetailsTabAction, duplicateAtomAction } from './../../../../../actions/ui.action';
+
+import { DUPLICATE_ATOM_MUTATION } from './../../../../../models/atom/atom.mutation';
 
 // -----------------------------------
 
@@ -21,7 +24,9 @@ import { changeAtomDetailsTabAction } from './../../../../../actions/ui.action';
 /********************************/
 
 /* Own Props */
-type TabMenuProps = {};
+type TabMenuProps = {
+    atomId: number;
+};
 
 /* Own States */
 type LocalStates = {};
@@ -29,6 +34,8 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     tab: string;
+    isAuthenticated: boolean;
+    user: UserModel;
 };
 
 /* Mapped Dispatches to Props */
@@ -36,6 +43,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: string) => void;
+            duplicateAtom: (atomId: number, userId: number) => void;
         }
     };
 };
@@ -56,6 +64,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
+        this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
     }
 
 
@@ -65,10 +74,10 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
 
     /**
-     * @desc HandleClick
-     * @method _handleClick
-     * @example this._handleClick()
-     * @private 
+     * @desc HandleTabClick
+     * @method _handleTabClick
+     * @example this._handleTabClick()
+     * @private
      * @param {string} tab - string tab id (e.g. 'comments', 'code', etc) 
      * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
@@ -76,6 +85,19 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
+    }
+
+    /**
+     * @desc HandleDuplicateClick
+     * @method _handleDuplicateClick
+     * @example this._handleDuplicateClick()
+     * @private 
+     * @param {React.FormEvent<{}>} e - Click Event
+     * @returns {void}
+     */
+    private _handleDuplicateClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._duplicateAtom();
     }
 
     /**
@@ -87,6 +109,28 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      */
     private _changeTab(tab: string) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
+    }
+
+    /**
+     * @desc Duplicate Atom
+     * @method _duplicateAtom
+     * @example this._duplicateAtom()
+     * @private 
+     * @returns {void}
+     */
+    private _duplicateAtom() {
+
+        const {isAuthenticated, user} = this.props;
+        const { atomId } = this.props;
+
+        if (isAuthenticated && user) {
+
+            this.props.actions.ui.duplicateAtom(atomId, user.id);
+
+        } else {
+            alert('You should be logged in to store this component in your repo.');
+        }
+
     }
 
 
@@ -167,21 +211,22 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>*/}
-                <button className={codeBtnClasses}>
-                    <div className="inner"
+                <button className={codeBtnClasses}
                         onClick={this._handleTabClick('code')}>
+                    <div className="inner">
                         <Icon icon="code"
                             iconClass={codeIconClasses}
                             width="25" height="16"/>
                     </div>
                 </button>
-                {/*<button className="sp-iconTabMenu__button">
+                <button className="sp-iconTabMenu__button"
+                        onClick={this._handleDuplicateClick}>
                     <div className="inner">
                         <Icon icon="package"
                             iconClass="strokeWidth-2 stroke-slate"
                             width="22" height="22"/>
                     </div>
-                </button>*/}
+                </button>
             </div>
         );
     }
@@ -197,9 +242,12 @@ function mapStateToProps(state: IRootState): StateProps {
     const { tabs } = state.ui;
     const { atomDetailsTab } = tabs;
     const { tab } = atomDetailsTab;
+    const { isAuthenticated, user } = state.auth;
 
     return {
-        tab
+        tab,
+        isAuthenticated,
+        user
     };
 }
 
@@ -211,11 +259,20 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab))
+                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab)),
+                duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId))
             }
         }
     };
 }
+
+
+/********************************/
+/*           MUTATION           */
+/********************************/
+const duplicateAtomMutation = graphql<any, any>(
+    DUPLICATE_ATOM_MUTATION
+);
 
 
 /********************************/
@@ -227,5 +284,6 @@ const tabMenuConnect = connect(mapStateToProps, mapDispatchToProps);
 /*         EXPORT          */
 /***************************/
 export default compose(
+    duplicateAtomMutation,
     tabMenuConnect
 )(TabMenu);

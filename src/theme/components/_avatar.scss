@@ -69,6 +69,11 @@ $avatar-sizes: (
         height: 115px;
     }
 
+    &--xxxl {
+        width: 150px;
+        height: 150px;
+    }
+
     &--empty {
         background: $avatar-default-path;
     }
