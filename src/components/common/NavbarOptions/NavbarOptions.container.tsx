@@ -4,9 +4,10 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Dropdown } from 'semantic-ui-react';
+import * as classNames from 'classnames';
 
 import { config } from './../../../config/config';
 
@@ -33,6 +34,7 @@ type LocalStates = {};
 type StateProps = {
     isAuthenticated: boolean;
     user: UserModel;
+    location: any;
 };
 
 /* Mapped Dispatches to Props */
@@ -111,9 +113,18 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
         // Get server config object
         const serverConfig = config.getServerConfig();
         const { isAuthenticated = false, user = null } = this.props;
+        const { location } = this.props;
         let trigger = null;
         let userLinks = null;
         let guestLinks =  null;
+
+        // Explore Nav Link Classes
+        const exploreNavLinkClasses = classNames({
+            'nav-link': true, 
+            'color-slate': true,
+            'fontSize-sm': true,
+            'active': location.pathname === '/explore'
+        });
 
         
         // If user is logged in
@@ -135,15 +146,10 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             userLinks = (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item mx-3">
-                        {/* <a href="" 
-                            onClick={this._handlerNavigateTo(`/explore`)}
-                            className="color-black">
-                            Explore
-                        </a> */}
-                        <NavLink className="nav-link color-slate fontSize-sm"
+                        <Link className={exploreNavLinkClasses}
                             to={`/explore`}>
                             Explore
-                        </NavLink>
+                        </Link>
                     </li>
                     <li className="nav-item mx-3">
                         <Dropdown trigger={trigger} 
@@ -183,11 +189,10 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             guestLinks = (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item mx-3">
-                        <NavLink className="nav-link color-slate fontSize-sm"
-                            activeClassName="active"
+                        <Link className={exploreNavLinkClasses}
                             to={`/explore`}>
                             Explore
-                        </NavLink>
+                        </Link>
                     </li>
                     <li className="nav-item ml-3">
                         <a href={serverConfig.authGoogleUrl} className="nav-link fontSize-sm">
@@ -227,9 +232,11 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     const { isAuthenticated, user } = state.auth;
+    const { location } = state.router;
     return {
         isAuthenticated,
-        user
+        user,
+        location
     };
 }
 
@@ -243,6 +250,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             auth: {
                 logout: () => dispatch(logoutAction())
             },
+            // TODO: Remove if we do not need it
             navigateTo: (url) => dispatch(push(url))
         }
     };

@@ -3,9 +3,13 @@
 /************************************/
 import { EventTypes } from 'redux-segment';
 
+import { client } from './../index';
+
 import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
+
+import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
 
 
 /************************************/
@@ -34,6 +38,13 @@ interface ICopySourceCodeEventPayLoad {
     };
 }
 
+interface IDuplicateAtomEventPayLoad {
+    event: string;
+    properties: {
+        atomId: number
+    };
+}
+
 export interface IClearUiAction {
     type: types.CLEAR_UI;
     modals: null;
@@ -46,6 +57,7 @@ export interface IClearUiAction {
         }
     };
     copied: null;
+    duplicated: null;
 }
 
 export interface IShowModalAction {
@@ -90,6 +102,31 @@ export interface ICopySourceCodeAction {
     meta: IAnalyticsTrack<ICopySourceCodeEventPayLoad>;
 }
 
+export interface IRequestDuplicateAtomAction {
+    type: types.DUPLICATE_ATOM_REQUEST;
+    duplicated: {
+        atomId: number;
+    };
+    meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
+}
+
+export interface IReceiveDuplicateAtomAction {
+    type: types.DUPLICATE_ATOM_SUCCESS;
+    duplicated: {
+        atomId: number;
+    };
+    meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
+}
+
+export interface IDuplicateAtomFailureAction {
+    type: types.DUPLICATE_ATOM_FAILURE;
+    duplicated: {
+        atomId: number;
+    };
+    message: string;
+    meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
+}
+
 
 export type Action =
     // UI interaction
@@ -98,7 +135,10 @@ export type Action =
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
-|   ICopySourceCodeAction;
+|   ICopySourceCodeAction
+|   IRequestDuplicateAtomAction
+|   IReceiveDuplicateAtomAction
+|   IDuplicateAtomFailureAction;
 
 
 
@@ -124,7 +164,8 @@ export const clearUiAction = (): Action => {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
             }
         },
-        copied: null
+        copied: null,
+        duplicated: null
     };
 };
 
@@ -261,4 +302,123 @@ export const copySourceCodeAction = (copiedType: string): Action => {
             },
         }
     };
+};
+
+
+/**
+ * @desc Return an action type, DUPLICATE_ATOM_REQUEST to start duplication process
+ * @function requestDuplicateAtomAction
+ * @returns {Action}
+ */
+export const requestDuplicateAtomAction = (atomId: number): Action => {
+    return {
+        type: types.DUPLICATE_ATOM_REQUEST,
+        duplicated: {
+            atomId
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.DUPLICATE_ATOM_REQUEST,
+                    properties: {
+                        atomId
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, DUPLICATE_ATOM_SUCCESS after a successful duplication process
+ * @function receiveDuplicateAtomAction
+ * @returns {Action}
+ */
+export const receiveDuplicateAtomAction = (atomId: number): Action => {
+    return {
+        type: types.DUPLICATE_ATOM_SUCCESS,
+        duplicated: {
+            atomId
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.DUPLICATE_ATOM_SUCCESS,
+                    properties: {
+                        atomId
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, DUPLICATE_ATOM_FAILURE after a failure duplication process
+ * @function duplicateAtomFailureAction
+ * @returns {Action}
+ */
+export const duplicateAtomFailureAction = (atomId: number, message: string): Action => {
+    return {
+        type: types.DUPLICATE_ATOM_FAILURE,
+        duplicated: {
+            atomId
+        },
+        message,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.DUPLICATE_ATOM_FAILURE,
+                    properties: {
+                        atomId,
+                        message
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Current user requested Log out 
+ * @function duplicateAtomAction
+ * @returns {Promise<any>}
+ */
+export const duplicateAtomAction = (atomId: number, userId: number) => {
+    return (dispatch: Function) => {
+
+        // Request Duplicate Atom
+        dispatch(requestDuplicateAtomAction(atomId));
+
+        client.mutate({
+            mutation: DUPLICATE_ATOM_MUTATION,
+            variables: { atomId, userId }
+        }).then(
+            (response: any) => {
+                // TODO: Typar esta respuesta ya que no se que propiedades devuelve
+                let { message, ok } = response.data.duplicateAtom;
+
+                if (ok) {
+                    // Duplicated Successful
+                    dispatch(receiveDuplicateAtomAction(atomId));
+                } else {
+                    // Duplicated Failure
+                    dispatch(duplicateAtomFailureAction(atomId, message));
+                }
+            }
+        ).catch(
+            (response) => {
+                // Duplicated Failure
+                dispatch(duplicateAtomFailureAction(atomId, response));
+            }
+        );
+
+    };
+
 };
