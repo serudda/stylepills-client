@@ -3,8 +3,9 @@
 /**********************************************************/
 
 .NavbarOptions {
-    .nav-item.active {
+    .nav-link.active {
         border-bottom: 3px solid map-get($color, secondary);
         font-weight: 900;
+        outline: none;
     }
 }

@@ -1980,9 +1980,10 @@ body.atomDetailsModal-open .ui.dimmer {
 /**********************************************************/
 /*                     NAVBAR OPTIONS                     */
 /**********************************************************/
-.NavbarOptions .nav-item.active {
+.NavbarOptions .nav-link.active {
   border-bottom: 3px solid #33ADA9;
-  font-weight: 900; }
+  font-weight: 900;
+  outline: none; }
 
 .PaginationBtns {
   position: absolute;

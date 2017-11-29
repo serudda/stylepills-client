@@ -12,7 +12,7 @@ import { User as UserModel } from './../../../../../models/user/user.model';
 
 import Icon from './../../../Icon/Icon';
 
-import { changeAtomDetailsTabAction } from './../../../../../actions/ui.action';
+import { changeAtomDetailsTabAction, duplicateAtomAction } from './../../../../../actions/ui.action';
 
 import { DUPLICATE_ATOM_MUTATION } from './../../../../../models/atom/atom.mutation';
 
@@ -43,6 +43,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: string) => void;
+            duplicateAtom: (atomId: number, userId: number) => void;
         }
     };
 };
@@ -122,29 +123,12 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         const {isAuthenticated, user} = this.props;
         const { atomId } = this.props;
 
-        // TODO: Hay que validar si el usuario esta logueado, sino mostrar el tooltip
         if (isAuthenticated && user) {
-            this.props.mutate({
-                variables: { atomId, userId: user.id }
-            }).then(
-                (response: any) => {
 
-                    let { message, status } = response.data.duplicateAtom;
+            this.props.actions.ui.duplicateAtom(atomId, user.id);
 
-                    if (status === 'ok') {
-                        // TODO: Llamar al componente de notificaciones flotantes
-                        alert(message);
-                    } else {
-                        alert(message);
-                    }
-                }
-            ).catch(
-                (response) => {
-                    alert(response.message);
-                }
-            );
         } else {
-            alert('Debes loguearte');
+            alert('You should be logged in to store this component in your repo.');
         }
 
     }
@@ -275,7 +259,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab))
+                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab)),
+                duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId))
             }
         }
     };

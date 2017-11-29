@@ -28,7 +28,8 @@ let serverConfig = config.getServerConfig();
 
 
 // Initialize apollo client
-const client = new ApolloClient({
+// TODO: Hacer más disciente que estoy exportando el 'client'
+export const client = new ApolloClient({
     networkInterface: createNetworkInterface({
         uri: serverConfig.dataBaseUrl
     }),
