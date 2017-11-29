@@ -1800,6 +1800,11 @@ NOTE: Boostrap 4 has a flex set
       background-color: #E5E9F2; }
     .sp-iconTabMenu__button--active {
       border-top: 4px solid #288784; }
+    .sp-iconTabMenu__button--disabled {
+      opacity: 0.3;
+      cursor: default; }
+      .sp-iconTabMenu__button--disabled:hover {
+        background: none; }
     .sp-iconTabMenu__button .inner {
       display: flex;
       flex-direction: column;

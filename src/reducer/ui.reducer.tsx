@@ -27,7 +27,8 @@ export interface IUiState {
         copiedType: string
     };
     duplicated: {
-        atomId: number
+        atomId: number,
+        isDuplicated: boolean;
     };
     message?: string;
 }
@@ -47,7 +48,10 @@ const defaultState: IUiState = {
         }
     },
     copied: null,
-    duplicated: null
+    duplicated: {
+        atomId: null,
+        isDuplicated: false
+    }
 };
 
 // -----------------------------------
@@ -80,7 +84,10 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     }
                 },
                 copied: null,
-                duplicated: null
+                duplicated: {
+                    atomId: null,
+                    isDuplicated: false
+                }
             };
         }
 
@@ -138,7 +145,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state,
                 duplicated: {
-                    atomId: action.duplicated.atomId
+                    atomId: action.duplicated.atomId,
+                    isDuplicated: false
                 }
             };
         }
@@ -147,7 +155,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state,
                 duplicated: {
-                    atomId: action.duplicated.atomId
+                    atomId: action.duplicated.atomId,
+                    isDuplicated: true
                 }
             };
         }
@@ -156,7 +165,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state,
                 duplicated: {
-                    atomId: action.duplicated.atomId
+                    atomId: action.duplicated.atomId,
+                    isDuplicated: false
                 },
                 message: action.message
             };

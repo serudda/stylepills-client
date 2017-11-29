@@ -128,6 +128,14 @@
             border-top: 4px solid map-get($color, darkSecondary);
         }
 
+        &--disabled {
+            opacity: 0.3;
+            cursor: default;
+            &:hover {
+                background: none;
+            }
+        }
+
         .inner {
             display: flex;
             flex-direction: column;
