@@ -77,7 +77,11 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         }
 
         if (data.searchAtoms.results.length === 0) {
-            return (<div>No data</div>);
+            return (
+                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
+                    You don't have components yet!
+                </div>
+            );
         }
             
         
