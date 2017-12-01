@@ -8,12 +8,14 @@ import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
+import * as appConfig from './../../../../../core/constants/app.constants';
+
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
 
 import Icon from './../../../Icon/Icon';
 
-import { changeAtomDetailsTabAction, duplicateAtomAction } from './../../../../../actions/ui.action';
+import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
 // -----------------------------------
 
@@ -46,7 +48,8 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: string) => void;
-            duplicateAtom: (atomId: number, userId: number) => void;
+            // duplicateAtom: (atomId: number, userId: number) => void;
+            showModal: (modalType: string, modalProps: any) => void;
         }
     };
 };
@@ -104,9 +107,32 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         const { isDuplicated } = this.props.duplicated;
 
         if (!isDuplicated) {
-            this._duplicateAtom();
+            // this._duplicateAtom();
+            this._showDuplicateModal();
         }
 
+    }
+
+    /**
+     * @desc Show Modal 
+     * @method _showModal
+     * @example this._showModal()
+     * @private
+     * @param {AtomModel} atom - atom data
+     * @returns {void}
+     */
+    private _showDuplicateModal() {
+        const {isAuthenticated, user} = this.props;
+        const { atomId } = this.props;
+
+        if (isAuthenticated && user) {
+
+            // this.props.actions.ui.duplicateAtom(atomId, user.id);
+            this.props.actions.ui.showModal(appConfig.DUPLICATE_MODAL_TYPE, {atomId, userId: user.id});
+
+        } else {
+            alert('You should be logged in to store this component in your repo.');
+        }
     }
 
     /**
@@ -127,7 +153,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      * @private 
      * @returns {void}
      */
-    private _duplicateAtom() {
+    /*private _duplicateAtom() {
 
         const {isAuthenticated, user} = this.props;
         const { atomId } = this.props;
@@ -140,7 +166,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
             alert('You should be logged in to store this component in your repo.');
         }
 
-    }
+    }*/
 
 
     /********************************/
@@ -289,7 +315,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab)),
-                duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId))
+                // duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId)),
+                showModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
             }
         }
     };

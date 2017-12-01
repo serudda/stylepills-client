@@ -11,10 +11,7 @@ import { Action } from '../actions/ui.action';
 /************************************/
 
 export interface IUiState {
-    modals: {
-        modalType: string,
-        modalProps: any
-    };
+    modals: Array<{modalType: string, modalProps: any}>;
     tabs: {
         atomDetailsTab?: {
             tab: string
@@ -38,7 +35,7 @@ export interface IUiState {
 /************************************/
 
 const defaultState: IUiState = {
-    modals: null,
+    modals: [],
     tabs: {
         atomDetailsTab: {
             tab: null
@@ -74,7 +71,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.CLEAR_UI: {
             return {
                 ...state, 
-                modals: null,
+                modals: [],
                 tabs: {
                     atomDetailsTab: {
                         tab: null
@@ -94,17 +91,32 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.SHOW_MODAL: {
             return {
                 ...state,
-                modals: {
+                /*modals: {
                     modalType: action.modals.modalType,
                     modalProps: action.modals.modalProps
-                }
+                },*/
+                // Always pushing a new modal onto the stack
+                modals: state.modals.concat({
+                    modalType: action.modals.modalType,
+                    modalProps: action.modals.modalProps
+                })
             };
         }
 
         case types.CLOSE_MODAL: {
+
+            const newModalsState = state.modals.slice();
+            // tslint:disable-next-line:no-console
+            console.log('state.modals: ', state.modals);
+            // tslint:disable-next-line:no-console
+            console.log('newModalState: ', newModalsState);
+            // tslint:disable-next-line:no-console
+            console.log('newModalState.pop: ', newModalsState.pop());
             return {
-                ...state, 
-                modals: null
+                ...state,
+                modals: [
+                    newModalsState.pop()
+                ]
             };
         }
 

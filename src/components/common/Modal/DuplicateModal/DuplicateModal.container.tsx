@@ -4,14 +4,11 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Link } from 'react-router-dom';
 import { Modal } from 'semantic-ui-react';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
-
-import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 
 // -----------------------------------
 
@@ -21,8 +18,9 @@ import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 /********************************/
 
 /* Own Props */
-type AtomDetailsModalProps = {
-    atom: any
+type DuplicateModalProps = {
+    atomId: number,
+    userId: number
 };
 
 /* Own States */
@@ -45,8 +43,8 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomDetailsModal 
-extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>, LocalStates> {
+class DuplicateModal 
+extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchProps, {}>, LocalStates> {
 
     
     /********************************/
@@ -105,9 +103,9 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
      */
     private _closeModal() {
         this.props.actions.ui.closeModal();
+        document.body.classList.remove('duplicateModal-open');
         // Clean tabs states and other ui states
-        this.props.actions.ui.clearUi();
-        document.body.classList.remove('atomDetailsModal-open');
+        // this.props.actions.ui.clearUi();
     }
 
 
@@ -120,7 +118,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
      * @returns {void}
      */
     private _appendModalOpenClassToBody() {
-        document.body.classList.add('atomDetailsModal-open');
+        document.body.classList.add('duplicateModal-open');
     }
 
     
@@ -130,7 +128,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
     render() {
         
         // Destructuring props
-        const { atom } = this.props;
+        // const { atomId, userId } = this.props;
 
         
         /*         MARKUP          */
@@ -143,34 +141,39 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
             open={true}
             onClose={this._handleCloseClick}
             size="fullscreen"
-            className="scrolling AtomDetailsModal">
+            className="scrolling DuplicateModal">
                 <Modal.Content>
 
-                    {/* Atom name */}
-                    <div className="fontFamily-openSans fontWeight-9 fontSize-xl color-silver mt-5">
-                        {atom.name}
+                    {/* Title */}
+                    <div className="fontFamily-openSans fontWeight-5 fontSize-sm color-silver mt-5 text-center">
+                        DUPLICATE COMPONENT
                     </div>
 
-                    {/* Designed by */}
-                    <div className="mt-2">
+                    {/* Subtitle */}
+                    <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2 text-center">
+                        Choose an option
+                    </div>
 
-                        <Link className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-5 color-silver text-truncate"
-                            to={`/user/${atom.author.username}`} target="_blank">
-                            <span className="order-1">by</span>
-                            <span className="ml-2 order-3">{atom.author.firstname} {atom.author.lastname}</span>
-                            <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-2 order-2">
-                                <img width="22" height="22"
-                                    src={atom.author.avatar} 
-                                    alt={atom.author.username} />
+                    {/* Duplicate options */}
+                    <ul className="duplicateOptionsList marginTop-12">
+
+                        {/* Duplicate original version option */}
+                        <li className="duplicateOption">
+                            <div className="duplicateOption__icon mt-4 mb-5" />
+                            <div className="duplicateOption__text">
+                                Duplicate original version
                             </div>
-                        </Link>
+                        </li>
 
-                    </div>
+                        {/* Duplicate modified version option */}
+                        <li className="duplicateOption ml-sm-5">
+                            <div className="duplicateOption__icon mt-4 mb-5" />
+                            <div className="duplicateOption__text">
+                                Duplicate including your changes
+                            </div>
+                        </li>
 
-                    {/* Atom Details Container */}
-                    <div className="mt-5">
-                        <AtomDetailsBox atom={atom}/>
-                    </div>
+                    </ul>
 
                 </Modal.Content>
             </Modal>
@@ -199,11 +202,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const atomDetailsModalConnect = connect(null, mapDispatchToProps); 
+const duplicateModalConnect = connect(null, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose( 
-    atomDetailsModalConnect
-)(AtomDetailsModal);
+    duplicateModalConnect
+)(DuplicateModal);
