@@ -91,10 +91,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.SHOW_MODAL: {
             return {
                 ...state,
-                /*modals: {
-                    modalType: action.modals.modalType,
-                    modalProps: action.modals.modalProps
-                },*/
                 // Always pushing a new modal onto the stack
                 modals: state.modals.concat({
                     modalType: action.modals.modalType,
@@ -106,17 +102,10 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.CLOSE_MODAL: {
 
             const newModalsState = state.modals.slice();
-            // tslint:disable-next-line:no-console
-            console.log('state.modals: ', state.modals);
-            // tslint:disable-next-line:no-console
-            console.log('newModalState: ', newModalsState);
-            // tslint:disable-next-line:no-console
-            console.log('newModalState.pop: ', newModalsState.pop());
+            newModalsState.pop();
             return {
                 ...state,
-                modals: [
-                    newModalsState.pop()
-                ]
+                modals: newModalsState
             };
         }
 
