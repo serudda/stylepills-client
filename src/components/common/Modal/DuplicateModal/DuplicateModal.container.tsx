@@ -5,10 +5,12 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Modal } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import { IRootState } from './../../../../reducer/reducer.config';
+import { User as UserModel } from './../../../../models/user/user.model';
 
-import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
+import { closeModalAction, duplicateAtomAction } from './../../../../actions/ui.action';
 
 // -----------------------------------
 
@@ -19,22 +21,28 @@ import { closeModalAction, clearUiAction } from './../../../../actions/ui.action
 
 /* Own Props */
 type DuplicateModalProps = {
-    atomId: number,
-    userId: number
+    atomId: number
 };
 
 /* Own States */
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    duplicated: {
+        atomId: number,
+        isDuplicated: boolean
+    };
+    isAuthenticated: boolean;
+    user: UserModel;
+};
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         ui: { 
             closeModal: () => void;
-            clearUi: () => void;
+            duplicateAtom: (atomId: number, userId: number) => void;
         }
     };
 };
@@ -55,6 +63,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
 
         // Bind methods
         this._handleCloseClick = this._handleCloseClick.bind(this);
+        this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
     }
 
 
@@ -81,6 +90,49 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
 
 
     /**
+     * @desc HandleDuplicateClick
+     * @method _handleDuplicateClick
+     * @example this._handleDuplicateClick()
+     * @private 
+     * @param {React.FormEvent<{}>} e - Click Event
+     * @returns {void}
+     */
+    private _handleDuplicateClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+
+        const { isDuplicated } = this.props.duplicated;
+
+        if (!isDuplicated) {
+            this._duplicateAtom();            
+        }
+
+    }
+
+
+    /**
+     * @desc Duplicate Atom
+     * @method _duplicateAtom
+     * @example this._duplicateAtom()
+     * @private 
+     * @returns {void}
+     */
+    private _duplicateAtom() {
+
+        const { isAuthenticated, user } = this.props;
+        const { atomId } = this.props;        
+
+        if (isAuthenticated && user) {            
+
+            this.props.actions.ui.duplicateAtom(atomId, user.id);
+
+        } else {
+            alert('You should be logged in to store this component in your repo.');
+        }
+
+    }
+
+
+    /**
      * @desc HandleCloseClick
      * @method _handleCloseClick
      * @example this._handleCloseClick()
@@ -103,9 +155,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
      */
     private _closeModal() {
         this.props.actions.ui.closeModal();
-        document.body.classList.remove('duplicateModal-open');
-        // Clean tabs states and other ui states
-        // this.props.actions.ui.clearUi();
+        document.body.classList.remove('duplicateModal-open'); 
     }
 
 
@@ -128,7 +178,9 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
     render() {
         
         // Destructuring props
-        // const { atomId, userId } = this.props;
+        const { user } = this.props;
+        const { duplicated } = this.props;
+        const { isDuplicated } = duplicated;
 
         
         /*         MARKUP          */
@@ -149,31 +201,66 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                         DUPLICATE COMPONENT
                     </div>
 
-                    {/* Subtitle */}
-                    <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2 text-center">
-                        Choose an option
-                    </div>
+                    {/* Modal Duplicate content */}
+                    {!isDuplicated ? 
+                        <div className="duplicateContent">
 
-                    {/* Duplicate options */}
-                    <ul className="duplicateOptionsList marginTop-12">
+                        {/* Subtitle */}
+                        <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2 text-center">
+                            Choose an option
+                        </div>
 
-                        {/* Duplicate original version option */}
-                        <li className="duplicateOption">
-                            <div className="duplicateOption__icon mt-4 mb-5" />
-                            <div className="duplicateOption__text">
-                                Duplicate original version
-                            </div>
-                        </li>
+                        {/* Duplicate options */}
+                        <ul className="duplicateOptionsList marginTop-12">
 
-                        {/* Duplicate modified version option */}
-                        <li className="duplicateOption ml-sm-5">
-                            <div className="duplicateOption__icon mt-4 mb-5" />
-                            <div className="duplicateOption__text">
-                                Duplicate including your changes
-                            </div>
-                        </li>
+                            {/* Duplicate original version option */}
+                            <li className="duplicateOption"
+                                onClick={this._handleDuplicateClick}>
+                                <div className="duplicateOption__icon mt-4 mb-5" />
+                                <div className="duplicateOption__text">
+                                    Duplicate original version
+                                </div>
+                            </li>
 
-                    </ul>
+                            {/* Duplicate modified version option */}
+                            <li className="duplicateOption duplicateOption--disabled ml-sm-5">
+                                <div className="duplicateOption__icon mt-4 mb-5" />
+                                <div className="duplicateOption__text">
+                                    Duplicate including your changes
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div> 
+                    
+                    :
+
+                    <div className="duplicateContent">
+
+                        {/* Subtitle */}
+                        <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-positive mt-2 text-center">
+                            Duplicated successfully!
+                        </div>
+
+                        {/* Duplicate options */}
+                        <ul className="duplicateOptionsList m-4">
+
+                            {/* Duplicated successfully message */}
+                            <li className="duplicateResult">
+                                <div className="duplicateResult__icon mt-4 mb-5" />
+                                <div className="duplicateResult__text mb-4">
+                                    A new component just arrived on your dashboard.
+                                </div>
+                                <Link className="sp-btn sp-btn--md sp-btn--secondary-ghost"
+                                      to={`/user/${user.username}`}>
+                                    Go to your dashboard
+                                </Link>
+                            </li>
+
+                        </ul>
+
+                    </div>  }
 
                 </Modal.Content>
             </Modal>
@@ -185,6 +272,22 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
 
 
 /********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    
+        const { duplicated } = state.ui;
+        const { isAuthenticated, user } = state.auth;
+    
+        return {
+            isAuthenticated,
+            user,
+            duplicated
+        };
+    }
+
+
+/********************************/
 /*     MAP DISPATCH TO PROPS    */
 /********************************/
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
@@ -192,7 +295,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
-                clearUi: () => dispatch(clearUiAction())
+                duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId)),
             }
         }
     };
@@ -202,7 +305,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const duplicateModalConnect = connect(null, mapDispatchToProps); 
+const duplicateModalConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */

@@ -48,7 +48,6 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: string) => void;
-            // duplicateAtom: (atomId: number, userId: number) => void;
             showModal: (modalType: string, modalProps: any) => void;
         }
     };
@@ -107,7 +106,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         const { isDuplicated } = this.props.duplicated;
 
         if (!isDuplicated) {
-            // this._duplicateAtom();
             this._showDuplicateModal();
         }
 
@@ -127,8 +125,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         if (isAuthenticated && user) {
 
-            // this.props.actions.ui.duplicateAtom(atomId, user.id);
-            this.props.actions.ui.showModal(appConfig.DUPLICATE_MODAL_TYPE, {atomId, userId: user.id});
+            this.props.actions.ui.showModal(appConfig.DUPLICATE_MODAL_TYPE, {atomId});
 
         } else {
             alert('You should be logged in to store this component in your repo.');
@@ -145,28 +142,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     private _changeTab(tab: string) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
     }
-
-    /**
-     * @desc Duplicate Atom
-     * @method _duplicateAtom
-     * @example this._duplicateAtom()
-     * @private 
-     * @returns {void}
-     */
-    /*private _duplicateAtom() {
-
-        const {isAuthenticated, user} = this.props;
-        const { atomId } = this.props;
-
-        if (isAuthenticated && user) {
-
-            this.props.actions.ui.duplicateAtom(atomId, user.id);
-
-        } else {
-            alert('You should be logged in to store this component in your repo.');
-        }
-
-    }*/
 
 
     /********************************/
@@ -315,7 +290,6 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab)),
-                // duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId)),
                 showModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
             }
         }

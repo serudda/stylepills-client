@@ -54,6 +54,16 @@
                     @extend .boxShadow-float;
                 }
 
+                &--disabled {
+                    cursor: default;
+                    opacity: 0.3;
+
+                    &:hover {
+                        background-color: transparent;
+                        box-shadow: none;
+                    }
+                }
+
                 &__icon {
                     background-image: url('./../../../resources/images/devices.svg');
                     background-repeat: no-repeat;
@@ -62,6 +72,32 @@
                     overflow: hidden;
                     width: 260px;
                     height: 142px;
+                    display: inline-block;
+                }
+
+                &__text {
+                    @extend .fontSize-xl;
+                    @extend .color-slate;
+                }
+            }
+
+            .duplicateResult {
+                display: inline-block;
+                vertical-align: middle;
+                box-sizing: border-box;
+                padding: 25px;
+                width: 320px;
+                min-height: 320px;
+                @extend .borderRadius-lg;
+
+                &__icon {
+                    background-image: url('./../../../resources/images/box.svg');
+                    background-repeat: no-repeat;
+                    background-position: 0 0;
+                    background-size: cover;
+                    overflow: hidden;
+                    width: 260px;
+                    height: 213px;
                     display: inline-block;
                 }
 

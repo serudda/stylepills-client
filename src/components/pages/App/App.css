@@ -627,7 +627,7 @@ NOTE: Boostrap 4 has a flex set
 .color-steel {
   color: #273444; }
 
-.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .DuplicateModal .duplicateOptionsList .duplicateOption__text {
+.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .DuplicateModal .duplicateOptionsList .duplicateOption__text, .DuplicateModal .duplicateOptionsList .duplicateResult__text {
   color: #3C4858; }
 
 .color-silver, .ui.pointing.sp-dropdown--userMenu .menu .item {
@@ -670,7 +670,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-lg {
   font-size: 18px; }
 
-.fontSize-xl, .DuplicateModal .duplicateOptionsList .duplicateOption__text {
+.fontSize-xl, .DuplicateModal .duplicateOptionsList .duplicateOption__text, .DuplicateModal .duplicateOptionsList .duplicateResult__text {
   font-size: 20px; }
 
 .fontSize-xxl {
@@ -1011,7 +1011,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-.borderRadius-lg, .DuplicateModal .duplicateOptionsList .duplicateOption {
+.borderRadius-lg, .DuplicateModal .duplicateOptionsList .duplicateOption, .DuplicateModal .duplicateOptionsList .duplicateResult {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px; }
@@ -2019,6 +2019,12 @@ body.atomDetailsModal-open .ui.dimmer {
     cursor: pointer; }
     .DuplicateModal .duplicateOptionsList .duplicateOption:hover {
       background-color: #FFFFFF; }
+    .DuplicateModal .duplicateOptionsList .duplicateOption--disabled {
+      cursor: default;
+      opacity: 0.3; }
+      .DuplicateModal .duplicateOptionsList .duplicateOption--disabled:hover {
+        background-color: transparent;
+        box-shadow: none; }
     .DuplicateModal .duplicateOptionsList .duplicateOption__icon {
       background-image: url("./../../../resources/images/devices.svg");
       background-repeat: no-repeat;
@@ -2027,6 +2033,22 @@ body.atomDetailsModal-open .ui.dimmer {
       overflow: hidden;
       width: 260px;
       height: 142px;
+      display: inline-block; }
+  .DuplicateModal .duplicateOptionsList .duplicateResult {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 25px;
+    width: 320px;
+    min-height: 320px; }
+    .DuplicateModal .duplicateOptionsList .duplicateResult__icon {
+      background-image: url("./../../../resources/images/box.svg");
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: cover;
+      overflow: hidden;
+      width: 260px;
+      height: 213px;
       display: inline-block; }
 
 /* DIMMER (MODAL BACKDROP) */
