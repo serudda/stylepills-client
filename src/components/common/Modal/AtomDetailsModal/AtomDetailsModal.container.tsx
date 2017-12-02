@@ -107,6 +107,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
         this.props.actions.ui.closeModal();
         // Clean tabs states and other ui states
         this.props.actions.ui.clearUi();
+        document.body.classList.remove('atomDetailsModal-open');
     }
 
 

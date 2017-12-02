@@ -576,7 +576,7 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-poppins {
   font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
-.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after {
+.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
   font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
 .fontFamily-courierNew {
@@ -627,7 +627,7 @@ NOTE: Boostrap 4 has a flex set
 .color-steel {
   color: #273444; }
 
-.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover {
+.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .DuplicateModal .duplicateOptionsList .duplicateOption__text, .DuplicateModal .duplicateOptionsList .duplicateResult__text {
   color: #3C4858; }
 
 .color-silver, .ui.pointing.sp-dropdown--userMenu .menu .item {
@@ -661,7 +661,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs {
   font-size: 12px; }
 
-.fontSize-sm, .AtomDetailsModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
+.fontSize-sm, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
 .fontSize-md {
@@ -670,7 +670,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-lg {
   font-size: 18px; }
 
-.fontSize-xl {
+.fontSize-xl, .DuplicateModal .duplicateOptionsList .duplicateOption__text, .DuplicateModal .duplicateOptionsList .duplicateResult__text {
   font-size: 20px; }
 
 .fontSize-xxl {
@@ -707,7 +707,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-8 {
   font-weight: 800; }
 
-.fontWeight-9, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .AtomDetailsModal .sp-close-icon::after {
+.fontWeight-9, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
   font-weight: 900; }
 
 /* Line Height scale */
@@ -1011,7 +1011,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-.borderRadius-lg {
+.borderRadius-lg, .DuplicateModal .duplicateOptionsList .duplicateOption, .DuplicateModal .duplicateOptionsList .duplicateResult {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px; }
@@ -1128,7 +1128,7 @@ NOTE: Boostrap 4 has a flex set
 .boxShadow-raised {
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
 
-.boxShadow-float {
+.boxShadow-float, .DuplicateModal .duplicateOptionsList .duplicateOption:hover {
   box-shadow: 0 5px 15px -2px rgba(10, 16, 34, 0.4); }
 
 /**
@@ -1980,6 +1980,79 @@ NOTE: Boostrap 4 has a flex set
 
 /* DIMMER (MODAL BACKDROP) */
 body.atomDetailsModal-open .ui.dimmer {
+  background-color: #EFF2F7; }
+
+/**********************************************************/
+/*                     DUPLICATE MODAL                    */
+/**********************************************************/
+.DuplicateModal .sp-close-icon {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  top: 1.0535rem;
+  right: 1rem;
+  position: absolute;
+  z-index: 1;
+  opacity: .5; }
+  .DuplicateModal .sp-close-icon::after {
+    content: "ESC";
+    color: #3C4858;
+    position: relative;
+    top: 28px; }
+  .DuplicateModal .sp-close-icon:hover {
+    background-color: #D3DCE6;
+    border: 5px solid #D3DCE6;
+    opacity: 1; }
+  .DuplicateModal .sp-close-icon:hover:after {
+    right: 4px; }
+
+.DuplicateModal .duplicateOptionsList {
+  text-align: center;
+  padding: 0; }
+  .DuplicateModal .duplicateOptionsList .duplicateOption {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 25px;
+    width: 320px;
+    min-height: 320px;
+    cursor: pointer; }
+    .DuplicateModal .duplicateOptionsList .duplicateOption:hover {
+      background-color: #FFFFFF; }
+    .DuplicateModal .duplicateOptionsList .duplicateOption--disabled {
+      cursor: default;
+      opacity: 0.3; }
+      .DuplicateModal .duplicateOptionsList .duplicateOption--disabled:hover {
+        background-color: transparent;
+        box-shadow: none; }
+    .DuplicateModal .duplicateOptionsList .duplicateOption__icon {
+      background-image: url("./../../../resources/images/devices.svg");
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: cover;
+      overflow: hidden;
+      width: 260px;
+      height: 142px;
+      display: inline-block; }
+  .DuplicateModal .duplicateOptionsList .duplicateResult {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 25px;
+    width: 320px;
+    min-height: 320px; }
+    .DuplicateModal .duplicateOptionsList .duplicateResult__icon {
+      background-image: url("./../../../resources/images/box.svg");
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: cover;
+      overflow: hidden;
+      width: 260px;
+      height: 213px;
+      display: inline-block; }
+
+/* DIMMER (MODAL BACKDROP) */
+body.duplicateModal-open .ui.dimmer {
   background-color: #EFF2F7; }
 
 /**********************************************************/

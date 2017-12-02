@@ -26,6 +26,8 @@ type AtomsListProps = {
  * @function AtomsList
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
+ * TODO: Reestructurar componente ya que este es un componente bobo, y esta llamando a
+ * un componente inteligente (AtomBox), y eso no es posible.
  */
 const AtomsList: React.SFC<AtomsListProps> = ({ atoms = [] }) => {
     
