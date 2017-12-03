@@ -21,7 +21,11 @@ interface IAtomsProps {
 }
 
 export interface IAtomState {
-    atoms: Array<IAtomsProps>;
+    edited: {
+        atoms: Array<IAtomsProps>;
+        watchingChanges: boolean;
+        isEdited: boolean;
+    };
 }
 
 /************************************/
@@ -29,7 +33,11 @@ export interface IAtomState {
 /************************************/
 
 const defaultState: IAtomState = {
-    atoms: [],
+    edited: {
+        atoms: [],
+        watchingChanges: false,
+        isEdited: false
+    }
 };
 
 // -----------------------------------
@@ -54,10 +62,10 @@ const atom = (state: IAtomsProps, action: Action) => {
 
     switch (action.type) {
 
-        case types.EDIT_ATOM_REQUEST: {
-            const { atoms } = action;
-            const { atomCode } = atoms;
-            const { codeType } = atomCode;
+        case types.ATOM_DETAILS_CHANGED: {
+            const { atoms } = action.edited;
+            const { id, name, atomCode } = atoms;
+            const { codeType, codeProps } = atomCode;
             let newAtomCodeState = state.atomCode.slice();
 
             // To know if atomCode already exists on atom state
@@ -78,14 +86,14 @@ const atom = (state: IAtomsProps, action: Action) => {
                 );
             } else {
                 newAtomCodeState.push({
-                    codeType: action.atoms.atomCode.codeType,
-                    codeProps: action.atoms.atomCode.codeProps
+                    codeType,
+                    codeProps
                 });
             }
 
             return {
-                id: action.atoms.id,
-                name: action.atoms.name,
+                id,
+                name,
                 atomCode: newAtomCodeState
             };
 
@@ -113,18 +121,29 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
         /***********************************/
 
         case types.EDIT_ATOM_REQUEST: {
-            const { atoms } = action;
-            const { id } = atoms;
+            return {
+                ...state,
+                edited: {
+                    atoms: [],
+                    watchingChanges: true,
+                    isEdited: false
+                }
+            };
+        }
+
+        case types.ATOM_DETAILS_CHANGED: {
+            const { atoms } = action.edited;
+            const { id, name, atomCode } = atoms;
             let newAtomCode: Array<any> = [];
-            let newAtomsState = state.atoms.slice();
+            let newAtomsState = state.edited.atoms.slice();
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = inArray(state.atoms, 'id', id);
+            let atomAlreadyExists = inArray(state.edited.atoms, 'id', id);
 
             if (atomAlreadyExists) {
-                newAtomsState = state.atoms.map(
+                newAtomsState = state.edited.atoms.map(
                     (a: IAtomsProps) => {
-                        if (a.id === action.atoms.id) {
+                        if (a.id === id) {
                             return atom(a, action);
                         }
                         return a;
@@ -135,15 +154,19 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                 // para no mutar el original, pero para evitar crear copias,
                 // deberia usar concat.
                 newAtomsState.push({
-                    id: action.atoms.id,
-                    name: action.atoms.name,
-                    atomCode: newAtomCode.concat(action.atoms.atomCode)
+                    id,
+                    name,
+                    atomCode: newAtomCode.concat(atomCode)
                 });
             }
 
             return {
                 ...state,
-                atoms: newAtomsState
+                edited: {
+                    watchingChanges: true,
+                    isEdited: true,
+                    atoms: newAtomsState
+                }
             };
         }
             

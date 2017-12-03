@@ -24,13 +24,21 @@ interface IAtomEventPayLoad {
 
 export interface IRequestEditAtomAction {
     type: types.EDIT_ATOM_REQUEST;
-    atoms: IAtomEditProperties;
+    edited: {
+        watchingChanges: boolean,
+        isEdited: boolean,
+        atoms: IAtomEditProperties
+    };
     meta: IAnalyticsTrack<IAtomEventPayLoad>;
 }
 
 export interface IChangedAtomDetailsAction {
     type: types.ATOM_DETAILS_CHANGED;
-    atoms: IAtomEditProperties;
+    edited: {
+        watchingChanges: boolean,
+        isEdited: boolean,
+        atoms: IAtomEditProperties
+    };
 }
 
 
@@ -52,20 +60,21 @@ export type Action =
  * @function requestEditAtomAction
  * @returns {Action}
  */
-export const requestEditAtomAction = (
-    id: number, 
-    name: string, 
-    codeType: string, 
-    codeProps: any): Action => {
+export const requestEditAtomAction = 
+    (id: number, name: string, codeType: string, codeProps: any): Action => {
 
     return {
         type: types.EDIT_ATOM_REQUEST,
-        atoms: {
-            id,
-            name,
-            atomCode: {
-                codeType,
-                codeProps
+        edited: {
+            watchingChanges: true,
+            isEdited: false,
+            atoms: {
+                id,
+                name,
+                atomCode: {
+                    codeType,
+                    codeProps
+                }
             }
         },
         meta: {
@@ -95,20 +104,21 @@ export const requestEditAtomAction = (
  * @function changedAtomDetailsAction
  * @returns {Action}
  */
-export const changedAtomDetailsAction = (
-    id: number, 
-    name: string, 
-    codeType: string, 
-    codeProps: any): Action => {
+export const changedAtomDetailsAction = 
+    (id: number, name: string, codeType: string, codeProps: any): Action => {
 
     return {
         type: types.ATOM_DETAILS_CHANGED,
-        atoms: {
-            id,
-            name,
-            atomCode: {
-                codeType,
-                codeProps
+        edited: {
+            watchingChanges: true,
+            isEdited: true,
+            atoms: {
+                id,
+                name,
+                atomCode: {
+                    codeType,
+                    codeProps
+                }
             }
         }
     };
