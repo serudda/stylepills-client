@@ -101,6 +101,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CLOSE_MODAL: {
 
+            // Always popping the last modal off the stack
             const newModalsState = state.modals.slice();
             newModalsState.pop();
             return {

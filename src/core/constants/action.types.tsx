@@ -49,7 +49,6 @@ export type LOGOUT_FAILURE = typeof LOGOUT_FAILURE;
 export const SEARCH_ATOMS = 'SEARCH_ATOMS';
 export type SEARCH_ATOMS = typeof SEARCH_ATOMS;
 
-
 /* Pagination Actions Type */
 export const NEXT_PAGE_ATOMS = 'NEXT_PAGE_ATOMS';
 export type NEXT_PAGE_ATOMS = typeof NEXT_PAGE_ATOMS;
@@ -57,6 +56,11 @@ export type NEXT_PAGE_ATOMS = typeof NEXT_PAGE_ATOMS;
 export const PREV_PAGE_ATOMS = 'PREV_PAGE_ATOMS';
 export type PREV_PAGE_ATOMS = typeof PREV_PAGE_ATOMS;
 
+/* Atom Actions Type */
+export const EDIT_ATOM_REQUEST = 'EDIT_ATOM_REQUEST';
+export type EDIT_ATOM_REQUEST = typeof EDIT_ATOM_REQUEST;
+export const ATOM_DETAILS_CHANGED = 'ATOM_DETAILS_CHANGED';
+export type ATOM_DETAILS_CHANGED = typeof ATOM_DETAILS_CHANGED;
 
 
 /*
