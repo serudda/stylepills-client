@@ -64,7 +64,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
             <div className="AtomDetailsBox">
                 
                 {/* Preview Section */}
-                <PreviewSection html={atom.html} style={atom.css} contextualBg={atom.contextualBg}/>
+                <PreviewSection atomId={atom.id} html={atom.html} style={atom.css} contextualBg={atom.contextualBg}/>
 
                 {/* Panel Section */}
                 <PanelSection atom={atom}/>

@@ -9,12 +9,12 @@ import { Action } from '../actions/atom.action';
 /*            INTERFACES            */
 /************************************/
 
-interface IAtomCodeProps {
+export interface IAtomCodeProps {
     code: string;
     libs?: Array<string>;
 }
 
-interface IAtomsProps {
+export interface IAtomsProps {
     id: any;
     name: string;
     atomCode: Array<{codeType: string, codeProps: IAtomCodeProps}>;
@@ -80,7 +80,7 @@ const atom = (state: IAtomsProps, action: Action) => {
 
                         return {
                             ...code,
-                            atomCode
+                            codeProps
                         };
                     }
                 );

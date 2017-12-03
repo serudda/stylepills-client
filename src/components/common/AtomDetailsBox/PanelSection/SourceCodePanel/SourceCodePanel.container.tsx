@@ -10,6 +10,7 @@ import * as classNames from 'classnames';
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
+import { changedAtomDetailsAction } from './../../../../../actions/atom.action';
 
 import { Popup } from 'semantic-ui-react';
 import * as CopyToClipboard from 'react-copy-to-clipboard';
@@ -33,13 +34,17 @@ import 'codemirror/addon/display/autorefresh';
 
 /* Own Props */
 type SourceCodePanelProps = {
+    atomId: number,
+    name: string,
     html: string,
     css: string
 };
 
 /* Own States */
 type LocalStates = {
-    copied: boolean
+    copied?: boolean,
+    html?: string,
+    css?: string
 };
 
 /* Mapped State to Props */
@@ -53,6 +58,9 @@ type DispatchProps = {
         ui: { 
             changeSourceCodeTab: (tab: string) => void;
             copySourceCode: (type: string) => void;
+        },
+        atomState: {
+            changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
         }
     };
 };
@@ -68,21 +76,47 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: SourceCodePanelProps & StateProps & DispatchProps) {
+        super(props);
 
         // Init local state
-        this.state = {copied: false};
+        this.state = {
+            copied: false,
+            html: props.html,
+            css: props.css
+        };
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
         this._handleCopyClick = this._handleCopyClick.bind(this);
+        this.handleOnChange = this.handleOnChange.bind(this);
+    }
+
+
+    /********************************/
+    /*        PUBLIC METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc HandleOnChange
+     * @method _handleOnChange
+     * @example this._handleOnChange()
+     * @private
+     * @param {string} type - source code type (e.g. 'html', 'css')
+     * @param {string} newCode - new source code
+     * @param {any} e - Event
+     * @returns {void}
+     */
+    handleOnChange (newCode: string) {
+        this._updateCode(this.props.tab, newCode);
     }
 
 
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
 
     /**
      * @desc HandleCopyClick
@@ -152,6 +186,29 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     }
 
     /**
+     * @desc Update Code
+     * @method _updateCode
+     * @example this._updateCode()
+     * @private
+     * @param {string} type - source code type (e.g. 'html', 'css')
+     * @param {string} newCode - new source code
+     * @returns {void}
+     */
+    private _updateCode(type: string, newCode: string) {
+        // Destructuring props
+        const { atomId, name } = this.props;
+        
+        // Update local state
+        this.setState({
+            [type]: newCode
+        });
+
+        // Launch Atom details changed Action
+        this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
+        
+    }
+
+    /**
      * @desc Get CopyToClipboard Btn
      * @method _getCopyToClipboardBtn
      * @example this._getCopyToClipboardBtn()
@@ -204,7 +261,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         const codeMirrorOptions = {
             scrollbarStyle: 'overlay',
             lineNumbers: true,
-            readOnly: 'on',
+            // readOnly: 'on',
             mode: tab === 'html' ? 'xml' : 'css',
             theme: 'material',
             autoRefresh: true
@@ -251,8 +308,8 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
-                            {tab === 'html' && <CodeMirror value={html} options={codeMirrorOptions}/>}
-                            {tab === 'css' && <CodeMirror value={css} options={codeMirrorOptions}/>}
+                            {tab === 'html' && <CodeMirror value={this.state.html} options={codeMirrorOptions} onChange={this.handleOnChange}/>}
+                            {tab === 'css' && <CodeMirror value={this.state.css} options={codeMirrorOptions} onChange={this.handleOnChange}/>}
                         </div>
 
                     </div>
@@ -289,6 +346,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             ui: {
                 changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab)),
                 copySourceCode: (type) => dispatch(copySourceCodeAction(type)),
+            },
+            atomState: {
+                changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps))
             }
         }
     };
