@@ -13,7 +13,7 @@ import * as React from 'react';
 /* Own Props */
 type IframeProps = {
     html: string;
-    style: string;
+    css: string;
     background?: string;
 };
 
@@ -79,7 +79,7 @@ class Iframe extends React.Component<IframeProps, {}> {
      * @method _inlineHtml
      * @example this._inlineHtml(html, iframe.document)
      * @private
-     * @param {string} style - name param description
+     * @param {string} html - name param description
      * @param {HTMLDocument} container - document content of the iframe
      * @returns {void}
      */
@@ -110,7 +110,7 @@ class Iframe extends React.Component<IframeProps, {}> {
             this._inlineHtml(this.props.html, iframe);
             
             // Append Style
-            this._inlineStylesheet(this.props.style, iframe);
+            this._inlineStylesheet(this.props.css, iframe);
 
             /* 
              Hide scroll in html 

@@ -21,14 +21,14 @@ import Iframe from '../../Iframe/Iframe.container';
 type PreviewSectionProps = {
     atomId: number,
     html: string,
-    style: string,
+    css: string,
     contextualBg: string
 };
 
 /* Own States */
 type LocalStates = {
     html?: string,
-    style?: string
+    css?: string
 };
 
 /* Mapped State to Props */
@@ -53,18 +53,25 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
 
         this.state = {
             html: props.html,
-            style: props.style
+            css: props.css
         };
 
         // tslint:disable-next-line:no-console
-        console.log('PreviewSection is active');
+        console.log('PreviewSection is active: ', this.state);
     }
 
-    componentDidMount() {
-        const { atoms } = this.props;
+    /********************************/
+    /*     COMPONENT DID MOUNT      */
+    /********************************/
+    componentWillReceiveProps(nextProps: PreviewSectionProps & StateProps) {   
+        const { atoms } = nextProps;
+        
+        // tslint:disable-next-line:no-console
+        console.log('PreviewSection componentWillReceiveProps', atoms);
 
         this.getAtomState(atoms);
     }
+
 
     // TODO: Mover a una parte global ya que esto lo voy a tener que hacer en varias partes
     getAtomState (array: Array<IAtomsProps>) {
@@ -77,15 +84,12 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         });
 
         if (atomState) {
+            let obj = {};
             atomState.atomCode.forEach((code) => {
-                this.setState({
-                    [code.codeType]: code.codeProps
-                });
+                obj[code.codeType] = code.codeProps.code;
             });
+            this.setState(obj);
         }
-
-        // tslint:disable-next-line:no-console
-        console.log('this.state: ', this.state);
     }
 
 
@@ -94,8 +98,11 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
     /********************************/
     render() {
 
-        // Destructuring props
+        // Destructuring props 
         const { contextualBg } = this.props;
+
+        // tslint:disable-next-line:no-console
+        console.log('PreviewSection render');
 
 
         /*         MARKUP          */
@@ -103,7 +110,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         return (
             <div className="PreviewSection boxShadow-raised sp-rounded-top-md sp-bg-white border-6 borderColor-white">
                 <div className="PreviewSection__content borderRadius-xs">    
-                    <Iframe html={this.state.html} style={this.state.style} background={contextualBg} />
+                    <Iframe html={this.state.html} css={this.state.css} background={contextualBg} />
                 </div>
             </div>
         );

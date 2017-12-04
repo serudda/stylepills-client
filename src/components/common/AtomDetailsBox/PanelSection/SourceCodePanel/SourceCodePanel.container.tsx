@@ -242,7 +242,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     render() {
 
         // Destructuring props
-        const { html, css } = this.props;
+        // const { html, css } = this.props;
         const { tab } = this.props;
 
         // Html Tab Btn Classes
@@ -301,9 +301,9 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                         {/* Copy Source Code Button */}
                         {/* TODO: Creo que no es necesario hacer esto dos veces solo con enviar como parametro: type: html, o type: css, ya con eso discrimino de que tipo es */}
                         <div className="copyBtnContainer zIndex-footer">
-                            {tab === 'html' && this._getCopyToClipboardBtn(html, 'html')}
+                            {tab === 'html' && this._getCopyToClipboardBtn(this.state.html, 'html')}
 
-                            {tab === 'css' && this._getCopyToClipboardBtn(css, 'css')}
+                            {tab === 'css' && this._getCopyToClipboardBtn(this.state.css, 'css')}
                         </div>
 
                         {/* Source Code */}

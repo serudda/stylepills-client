@@ -72,7 +72,7 @@ const atom = (state: IAtomsProps, action: Action) => {
             let atomCodeAlreadyExists = inArray(state.atomCode, 'codeType', codeType);
 
             if (atomCodeAlreadyExists) {
-                newAtomCodeState = state.atomCode.map(
+                newAtomCodeState = newAtomCodeState.map(
                     code => {
                         if (code.codeType !== codeType) {
                             return code;
@@ -85,13 +85,14 @@ const atom = (state: IAtomsProps, action: Action) => {
                     }
                 );
             } else {
-                newAtomCodeState.push({
+                newAtomCodeState = state.atomCode.concat({
                     codeType,
                     codeProps
                 });
             }
 
             return {
+                ...state,
                 id,
                 name,
                 atomCode: newAtomCodeState
@@ -124,6 +125,7 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             return {
                 ...state,
                 edited: {
+                    ...state.edited,
                     atoms: [],
                     watchingChanges: true,
                     isEdited: false
@@ -136,12 +138,14 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             const { id, name, atomCode } = atoms;
             let newAtomCode: Array<any> = [];
             let newAtomsState = state.edited.atoms.slice();
+            // tslint:disable-next-line:no-console
+            console.log('state.edited.atoms.slice(): ', newAtomsState);
 
             // To know if atom already exists on atoms state
             let atomAlreadyExists = inArray(state.edited.atoms, 'id', id);
 
             if (atomAlreadyExists) {
-                newAtomsState = state.edited.atoms.map(
+                newAtomsState = newAtomsState.map(
                     (a: IAtomsProps) => {
                         if (a.id === id) {
                             return atom(a, action);
@@ -153,16 +157,19 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                 // TODO: Analizar por que tengo una mezcla aqui: creo un nuevo objeto
                 // para no mutar el original, pero para evitar crear copias,
                 // deberia usar concat.
-                newAtomsState.push({
+                newAtomsState = state.edited.atoms.concat({
                     id,
                     name,
                     atomCode: newAtomCode.concat(atomCode)
                 });
+                // tslint:disable-next-line:no-console
+                console.log('newAtomsState.concat: ', newAtomsState);
             }
 
             return {
                 ...state,
                 edited: {
+                    ...state.edited,
                     watchingChanges: true,
                     isEdited: true,
                     atoms: newAtomsState
