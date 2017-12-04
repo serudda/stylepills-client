@@ -996,7 +996,7 @@ NOTE: Boostrap 4 has a flex set
   border-color: #FFFFFF; }
 
 /* Border radius scale */
-.borderRadius-0, .ui.pointing.sp-dropdown--userMenu .menu {
+.borderRadius-0, .sp-btnGroup__container .sp-btn, .ui.pointing.sp-dropdown--userMenu .menu {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0; }
@@ -1529,14 +1529,22 @@ NOTE: Boostrap 4 has a flex set
     .sp-btn--combo-neutral-ghost:focus {
       outline: none; }
 
+.sp-btn[disabled] {
+  opacity: .3;
+  cursor: default; }
+  .sp-btn[disabled]:hover {
+    background-color: initial; }
+
 /* BUTTON GROUP */
 .sp-btnGroup__container {
   display: inline-block; }
-  .sp-btnGroup__container .sp-btn {
-    border-radius: 0; }
   .sp-btnGroup__container:first-child .sp-btn {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px; }
   .sp-btnGroup__container:last-child .sp-btn {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0; }
 
 /**********************************************************/

@@ -34,7 +34,6 @@ class Iframe extends React.Component<IframeProps, {}> {
     /********************************/
     constructor() {    
         super();
-        // tslint:disable-next-line:no-console
         console.log('IFrame is actived');
     }
 
@@ -43,7 +42,6 @@ class Iframe extends React.Component<IframeProps, {}> {
     /*     COMPONENT DID MOUNT      */
     /********************************/
     componentDidMount() {
-        // tslint:disable-next-line:no-console
         console.log('IFrame: componentDidMount');
         this._buildFrame();
     }
@@ -53,7 +51,6 @@ class Iframe extends React.Component<IframeProps, {}> {
     /*     COMPONENT DID UPDATE     */
     /********************************/
     componentDidUpdate() {
-        // tslint:disable-next-line:no-console
         console.log('IFrame: componentDidUpdate');
         this._buildFrame();
     }

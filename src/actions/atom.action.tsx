@@ -14,7 +14,7 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 interface IAtomEditProperties {
     id: number;
     name: string;
-    atomCode: {codeType: string, codeProps: any};
+    atomCode?: {codeType: string, codeProps: any};
 }
 
 interface IAtomEventPayLoad {
@@ -26,8 +26,7 @@ export interface IRequestEditAtomAction {
     type: types.EDIT_ATOM_REQUEST;
     edited: {
         watchingChanges: boolean,
-        isEdited: boolean,
-        atoms: IAtomEditProperties
+        isEdited: boolean
     };
     meta: IAnalyticsTrack<IAtomEventPayLoad>;
 }
@@ -61,21 +60,13 @@ export type Action =
  * @returns {Action}
  */
 export const requestEditAtomAction = 
-    (id: number, name: string, codeType: string, codeProps: any): Action => {
+    (id: number, name: string): Action => {
 
     return {
         type: types.EDIT_ATOM_REQUEST,
         edited: {
             watchingChanges: true,
-            isEdited: false,
-            atoms: {
-                id,
-                name,
-                atomCode: {
-                    codeType,
-                    codeProps
-                }
-            }
+            isEdited: false
         },
         meta: {
             analytics: {
@@ -84,11 +75,7 @@ export const requestEditAtomAction =
                     event: types.EDIT_ATOM_REQUEST,
                     properties: {
                         id,
-                        name,
-                        atomCode: {
-                            codeType,
-                            codeProps
-                        }
+                        name
                     },
                 },
             },

@@ -11,7 +11,7 @@ import * as classNames from 'classnames';
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
-import { changedAtomDetailsAction } from './../../../../../actions/atom.action';
+import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
 import { Popup } from 'semantic-ui-react';
 import Icon from './../../../Icon/Icon';
@@ -45,12 +45,16 @@ type SourceCodePanelProps = {
 type LocalStates = {
     copied?: boolean,
     html?: string,
-    css?: string
+    css?: string,
+    codeMirror?: {
+        readOnly: string
+    }
 };
 
 /* Mapped State to Props */
 type StateProps = {
     tab: string;
+    watchingChanges: boolean;
 };
 
 /* Mapped Dispatches to Props */
@@ -62,6 +66,7 @@ type DispatchProps = {
         },
         atomState: {
             changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
+            activeEditMode: (id: number, name: string) => void;
         }
     };
 };
@@ -84,12 +89,16 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         this.state = {
             copied: false,
             html: props.html,
-            css: props.css
+            css: props.css,
+            codeMirror: {
+                readOnly: 'on'
+            }
         };
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
         this._handleCopyClick = this._handleCopyClick.bind(this);
+        this._handleEditClick = this._handleEditClick.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
     }
 
@@ -112,11 +121,45 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     handleOnChange (newCode: string) {
         this._updateCode(this.props.tab, newCode);
     }
+    
+
+    /**********************************/
+    /*  COMPONENT WILL RECEIVE PROPS  */
+    /**********************************/
+    componentWillReceiveProps(nextProps: SourceCodePanelProps & StateProps) {   
+        
+        console.log('SourceCodePanel componentWillReceiveProps');
+
+        if (this.props.watchingChanges !== nextProps.watchingChanges &&
+            nextProps.watchingChanges) {
+            // Active Edit Mode after launch user's action
+            this.setState({
+                codeMirror: {
+                    readOnly: 'off'
+                }
+            });
+        }
+    }
 
 
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
+
+    /**
+     * @desc HandleEditClick
+     * @method _handleEditClick
+     * @example this._handleEditClick()
+     * @private
+     * @param {string} tab - source code tab (e.g. 'html', 'css')
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleEditClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._activeEditMode();
+    }
 
 
     /**
@@ -134,9 +177,9 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
 
     /**
-     * @desc HandleClick
-     * @method _handleClick
-     * @example this._handleClick()
+     * @desc HandleTabClick
+     * @method _handleTabClick
+     * @example this._handleTabClick()
      * @private
      * @param {string} tab - source code tab (e.g. 'html', 'css')
      * @param {React.FormEvent<{}>} e - Event
@@ -184,6 +227,22 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             this.setState({ copied: false });
         }, TIMEOUT_COPIED_MESSAGE);
 
+    }
+
+    /**
+     * @desc Active Edit Mode
+     * @method _activeEditMode
+     * @example this._activeEditMode()
+     * @private
+     * @returns {void}
+     */
+    private _activeEditMode() {
+        // Destructuring props
+        const { atomId, name } = this.props;
+
+        // Launch active edit mode Action
+        this.props.actions.atomState.activeEditMode(atomId, name);
+        
     }
 
     /**
@@ -242,9 +301,11 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     /********************************/
     render() {
 
+        console.log('SourceCodePanel render');
+
         // Destructuring props
-        // const { html, css } = this.props;
         const { tab } = this.props;
+        const { watchingChanges } = this.props;
 
         // Html Tab Btn Classes
         const htmlTabBtnClasses = classNames({
@@ -262,7 +323,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         const codeMirrorOptions = {
             scrollbarStyle: 'overlay',
             lineNumbers: true,
-            // readOnly: 'on',
+            readOnly: this.state.codeMirror.readOnly,
             mode: tab === 'html' ? 'xml' : 'css',
             theme: 'material',
             autoRefresh: true
@@ -303,8 +364,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                         <div className="sp-btnGroup zIndex-footer">
                             {/* Edit Source Code Button */}
                             <div className="sp-btnGroup__container">
-                                <button className="sp-btn sp-btn--secondary sp-btn--md">
-                                    Edit
+                                <button className="sp-btn sp-btn--secondary sp-btn--md"
+                                        onClick={this._handleEditClick}
+                                        disabled={watchingChanges}>
+                                    {watchingChanges ? 'Edit: ON' : 'Edit'}
                                 </button>
                             </div> 
                             {/* Copy Source Code Button */}
@@ -325,10 +388,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
                     <div className="col-12 position-relative">
                         {/* Bottom Message */}
-                        <div className="bg-info w-100 p-3 py-4 d-flex align-items-center">
-                            <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
-                            <span className="fontSize-md color-white fontWeight-9">You could edit right now, but you couldn't save the changes. You could duplicate this component including your new changes.</span>
-                        </div>
+                        { watchingChanges && 
+                            <div className="bg-info w-100 p-3 py-4 d-flex align-items-center">
+                                <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
+                                <span className="fontSize-md color-white fontWeight-9">You could edit right now, but you couldn't save the changes. You could duplicate this component including your new changes.</span>
+                            </div>
+                        }
                     </div>
                 </div>
 
@@ -347,9 +412,11 @@ function mapStateToProps(state: IRootState): StateProps {
     const { tabs } = state.ui;
     const { sourceCodeTab } = tabs;
     const { tab } = sourceCodeTab;
+    const { watchingChanges } = state.atomState.edited;
 
     return {
-        tab 
+        tab,
+        watchingChanges
     };
 }
 
@@ -365,7 +432,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 copySourceCode: (type) => dispatch(copySourceCodeAction(type)),
             },
             atomState: {
-                changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps))
+                changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps)),
+                activeEditMode: (id, name) => dispatch(requestEditAtomAction(id, name))
             }
         }
     };

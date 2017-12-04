@@ -56,17 +56,15 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
             css: props.css
         };
 
-        // tslint:disable-next-line:no-console
         console.log('PreviewSection is active: ', this.state);
     }
 
-    /********************************/
-    /*     COMPONENT DID MOUNT      */
-    /********************************/
+    /**********************************/
+    /*  COMPONENT WILL RECEIVE PROPS  */
+    /**********************************/
     componentWillReceiveProps(nextProps: PreviewSectionProps & StateProps) {   
         const { atoms } = nextProps;
         
-        // tslint:disable-next-line:no-console
         console.log('PreviewSection componentWillReceiveProps', atoms);
 
         this.getAtomState(atoms);
