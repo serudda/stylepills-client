@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import * as CopyToClipboard from 'react-copy-to-clipboard';
 
 import * as classNames from 'classnames';
 
@@ -13,7 +14,7 @@ import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../.
 import { changedAtomDetailsAction } from './../../../../../actions/atom.action';
 
 import { Popup } from 'semantic-ui-react';
-import * as CopyToClipboard from 'react-copy-to-clipboard';
+import Icon from './../../../Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
 // TODO: Remover cuando no se necesite
@@ -222,7 +223,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             <Popup
             trigger={
                 <CopyToClipboard text={code} onCopy={this._handleCopyClick(type)}>
-                    <button className="sp-btn sp-btn--secondary sp-btn--md">
+                    <button className="sp-btn sp-btn--neutral sp-btn--md">
                         Copy
                     </button>
                 </CopyToClipboard>}
@@ -296,14 +297,22 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
                 {/* Source Code Panel */}
                 <div className="row no-gutters w-100 sp-bg-mirage">
-                    <div className="col position-relative">
+                    <div className="col-12 position-relative">
 
-                        {/* Copy Source Code Button */}
-                        {/* TODO: Creo que no es necesario hacer esto dos veces solo con enviar como parametro: type: html, o type: css, ya con eso discrimino de que tipo es */}
-                        <div className="copyBtnContainer zIndex-footer">
-                            {tab === 'html' && this._getCopyToClipboardBtn(this.state.html, 'html')}
+                        {/* Button Group */}
+                        <div className="sp-btnGroup zIndex-footer">
+                            {/* Edit Source Code Button */}
+                            <div className="sp-btnGroup__container">
+                                <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                    Edit
+                                </button>
+                            </div> 
+                            {/* Copy Source Code Button */}
+                            <div className="sp-btnGroup__container">
+                                {tab === 'html' && this._getCopyToClipboardBtn(this.state.html, 'html')}
 
-                            {tab === 'css' && this._getCopyToClipboardBtn(this.state.css, 'css')}
+                                {tab === 'css' && this._getCopyToClipboardBtn(this.state.css, 'css')}
+                            </div>
                         </div>
 
                         {/* Source Code */}
@@ -312,6 +321,14 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                             {tab === 'css' && <CodeMirror value={this.state.css} options={codeMirrorOptions} onChange={this.handleOnChange}/>}
                         </div>
 
+                    </div>
+
+                    <div className="col-12 position-relative">
+                        {/* Bottom Message */}
+                        <div className="bg-info w-100 p-3 py-4 d-flex align-items-center">
+                            <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
+                            <span className="fontSize-md color-white fontWeight-9">You could edit right now, but you couldn't save the changes. You could duplicate this component including your new changes.</span>
+                        </div>
                     </div>
                 </div>
 

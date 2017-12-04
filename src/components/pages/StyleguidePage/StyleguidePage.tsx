@@ -256,6 +256,51 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         Black Ghost medium block button
                     </button>
 
+                    <br/><br/>
+
+                    {/* Button Groups Subtitle */}
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Button Group</h2>
+
+                    {/* Button Group */}
+                    <div className="sp-btnGroup">
+                        {/* First Button */}
+                        <div className="sp-btnGroup__container">
+                            <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                Edit
+                            </button>
+                        </div>
+                        {/* Second Button */}
+                        <div className="sp-btnGroup__container">
+                            <button className="sp-btn sp-btn--neutral sp-btn--md">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <br/><br/>
+
+                    {/* Button Group */}
+                    <div className="sp-btnGroup">
+                        {/* First Button */}
+                        <div className="sp-btnGroup__container">
+                            <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                Edit
+                            </button>
+                        </div>
+                        {/* Second Button */}
+                        <div className="sp-btnGroup__container">
+                            <button className="sp-btn sp-btn--primary sp-btn--md">
+                                Other
+                            </button>
+                        </div>
+                        {/* Third Button */}
+                        <div className="sp-btnGroup__container">
+                            <button className="sp-btn sp-btn--neutral sp-btn--md">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
