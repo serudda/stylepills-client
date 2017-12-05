@@ -14,6 +14,7 @@ import { IAtomsProps, IAtomCodeProps } from './../../../../reducer/atom.reducer'
 import { User as UserModel } from './../../../../models/user/user.model';
 
 import { closeModalAction, duplicateAtomAction } from './../../../../actions/ui.action';
+import { clearAtomStateAction } from './../../../../actions/atom.action';
 
 // -----------------------------------
 
@@ -45,9 +46,12 @@ type StateProps = {
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        ui: { 
+        ui: {
             closeModal: () => void;
             duplicateAtom: (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => void;
+        },
+        atomState: {
+            clearAtomState: () => void;
         }
     };
 };
@@ -170,6 +174,8 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
      */
     private _closeModal() {
         this.props.actions.ui.closeModal();
+        // Clean atom states (close source code edition)
+        this.props.actions.atomState.clearAtomState();
         document.body.classList.remove('duplicateModal-open'); 
     }
 
@@ -323,6 +329,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
                 duplicateAtom: (atomId, userId, atomCode) => dispatch(duplicateAtomAction(atomId, userId, atomCode)),
+            },
+            atomState: {
+                clearAtomState: () => dispatch(clearAtomStateAction())
             }
         }
     };

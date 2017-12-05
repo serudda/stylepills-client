@@ -8,6 +8,9 @@
 
 
 /* UI Actions Type */
+export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+export type LOCATION_CHANGE = typeof LOCATION_CHANGE;
+
 export const CLEAR_UI = 'CLEAR_UI';
 export type CLEAR_UI = typeof CLEAR_UI;
 
@@ -46,17 +49,22 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export type LOGOUT_FAILURE = typeof LOGOUT_FAILURE;
 
 /* Search Actions Type */
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+export type CLEAR_SEARCH = typeof CLEAR_SEARCH;
 export const SEARCH_ATOMS = 'SEARCH_ATOMS';
 export type SEARCH_ATOMS = typeof SEARCH_ATOMS;
 
 /* Pagination Actions Type */
+export const CLEAR_PAGINATION = 'CLEAR_PAGINATION';
+export type CLEAR_PAGINATION = typeof CLEAR_PAGINATION;
 export const NEXT_PAGE_ATOMS = 'NEXT_PAGE_ATOMS';
 export type NEXT_PAGE_ATOMS = typeof NEXT_PAGE_ATOMS;
-
 export const PREV_PAGE_ATOMS = 'PREV_PAGE_ATOMS';
 export type PREV_PAGE_ATOMS = typeof PREV_PAGE_ATOMS;
 
 /* Atom Actions Type */
+export const CLEAR_ATOM_STATE = 'CLEAR_ATOM_STATE';
+export type CLEAR_ATOM_STATE = typeof CLEAR_ATOM_STATE;
 export const EDIT_ATOM_REQUEST = 'EDIT_ATOM_REQUEST';
 export type EDIT_ATOM_REQUEST = typeof EDIT_ATOM_REQUEST;
 export const ATOM_DETAILS_CHANGED = 'ATOM_DETAILS_CHANGED';

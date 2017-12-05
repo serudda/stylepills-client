@@ -45,6 +45,17 @@ export default function (state: IPaginationState = defaultState, action: Action)
         /***********************************/
         /*       SEARCH ATOMS ACTIONS      */
         /***********************************/
+        case types.CLEAR_PAGINATION: {
+            return {
+                ...state,
+                paginationAtoms: {
+                    first: appConfig.ATOM_SEARCH_LIMIT,
+                    after: null,
+                    last: null,
+                    before: null
+                }
+            };
+        }
 
         case types.NEXT_PAGE_ATOMS: {
             return {

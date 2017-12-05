@@ -26,6 +26,15 @@ interface IAtomEventPayLoad {
     properties?: IAtomEditProperties;
 }
 
+export interface IClearAtomStateAction {
+    type: types.CLEAR_ATOM_STATE;
+    edited: { 
+        atoms: null,
+        watchingChanges: boolean,
+        isEdited: boolean
+    };
+}
+
 export interface IRequestEditAtomAction {
     type: types.EDIT_ATOM_REQUEST;
     edited: {
@@ -47,7 +56,8 @@ export interface IChangedAtomDetailsAction {
 
 export type Action =
     // Atom interaction
-    IRequestEditAtomAction
+    IClearAtomStateAction
+|   IRequestEditAtomAction
 |   IChangedAtomDetailsAction;
 
 
@@ -55,6 +65,23 @@ export type Action =
 /************************************/
 /*             ACTIONS              */
 /************************************/
+
+
+/**
+ * @desc Return an action type, CLEAR_ATOM_STATE to reset Atom states
+ * @function clearAtomStateAction
+ * @returns {Action}
+ */
+export const clearAtomStateAction = (): Action => {
+    return {
+        type: types.CLEAR_ATOM_STATE,
+        edited: {
+            atoms: null,
+            watchingChanges: false,
+            isEdited: false
+        }
+    };
+};
 
 
 /**

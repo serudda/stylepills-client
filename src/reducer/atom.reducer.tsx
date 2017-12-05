@@ -122,6 +122,18 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
         /*           ATOM ACTIONS          */
         /***********************************/
 
+        case types.CLEAR_ATOM_STATE: {
+            return {
+                ...state,
+                edited: {
+                    ...state.edited,
+                    atoms: [],
+                    watchingChanges: false,
+                    isEdited: false
+                }
+            };
+        }
+
         case types.EDIT_ATOM_REQUEST: {
             return {
                 ...state,

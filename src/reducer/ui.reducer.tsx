@@ -67,7 +67,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         /***********************************/
         /*            UI ACTIONS           */
         /***********************************/
-
+        case types.LOCATION_CHANGE:
         case types.CLEAR_UI: {
             return {
                 ...state, 

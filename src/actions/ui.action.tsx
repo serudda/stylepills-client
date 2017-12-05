@@ -47,6 +47,24 @@ interface IDuplicateAtomEventPayLoad {
     };
 }
 
+export interface ILocationChangeAction {
+    type: types.LOCATION_CHANGE;
+    modals: null;
+    tabs: {
+        atomDetailsTab: {
+            tab: string | null
+        },
+        sourceCodeTab: {
+            tab: string | null
+        }
+    };
+    copied: null;
+    duplicated: {
+        atomId: number,
+        isDuplicated: boolean
+    };
+}
+
 export interface IClearUiAction {
     type: types.CLEAR_UI;
     modals: null;
@@ -138,7 +156,8 @@ export interface IDuplicateAtomFailureAction {
 
 export type Action =
     // UI interaction
-    IClearUiAction
+    ILocationChangeAction
+|   IClearUiAction
 |   IShowModalAction
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
