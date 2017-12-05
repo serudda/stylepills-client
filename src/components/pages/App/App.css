@@ -1530,8 +1530,9 @@ NOTE: Boostrap 4 has a flex set
       outline: none; }
 
 .sp-btn[disabled] {
-  opacity: .3;
-  cursor: default; }
+  opacity: .4;
+  cursor: default;
+  pointer-events: none; }
   .sp-btn[disabled]:hover {
     background-color: initial; }
 

@@ -283,7 +283,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @desc Get CopyToClipboard Btn
      * @method _getCopyToClipboardBtn
      * @example this._getCopyToClipboardBtn()
-     * @private 
+     * @private
      * @param {string} code - source code block
      * @param {string} type - source code type (e.g. 'html', 'css')
      * @returns {JSX.Element} <Popup />
