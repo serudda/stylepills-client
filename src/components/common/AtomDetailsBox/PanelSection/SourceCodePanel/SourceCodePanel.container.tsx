@@ -44,6 +44,7 @@ type SourceCodePanelProps = {
 };
 
 /* Own States */
+// TODO: Mirar si es posible remover los ?, no tiene sentido
 type LocalStates = {
     copied?: boolean,
     html?: string,

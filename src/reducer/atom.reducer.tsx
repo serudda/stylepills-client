@@ -4,6 +4,8 @@
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/atom.action';
 
+import { functionsUtil } from './../core/utils/functionsUtil';
+
 
 /************************************/
 /*            INTERFACES            */
@@ -50,23 +52,14 @@ const defaultState: IAtomState = {
 
 // -----------------------------------
 
-// TODO: Pasar a un functionUtils (basarse en server)
-// To know if an element already exists on an Array
-function inArray(array: Array<any>, comparisonProp: string, comparisonValue: any) {
 
-    for (let i = 0; i < array.length; i++) {
-        if (array[i][comparisonProp] === comparisonValue) {
-            return true;
-        }
-    }
-
-    return false;
-
-}
-
-// TODO: No me convence esta descomposicion, ya que siento que puede llegar a enredar un poco.
-// Si decido dejarla, agregar una description bien detallada de por que descompuse atoms
-const atom = (state: IAtomsProps, action: Action) => {
+/** 
+ * @desc Descomposition of atoms state on Store
+ * @param {IAtomState} state 
+ * @param {Action} action 
+ * @returns {IAtomsProps} 
+ */
+const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
 
     switch (action.type) {
 
@@ -77,7 +70,7 @@ const atom = (state: IAtomsProps, action: Action) => {
             let newAtomCodeState = state.atomCode.slice();
 
             // To know if atomCode already exists on atom state
-            let atomCodeAlreadyExists = inArray(state.atomCode, 'codeType', codeType);
+            let atomCodeAlreadyExists = functionsUtil.inArray(state.atomCode, 'codeType', codeType);
 
             if (atomCodeAlreadyExists) {
                 newAtomCodeState = newAtomCodeState.map(
@@ -148,7 +141,7 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             let newAtomsState = state.edited.atoms.slice();
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = inArray(state.edited.atoms, 'atomId', atomId);
+            let atomAlreadyExists = functionsUtil.inArray(state.edited.atoms, 'atomId', atomId);
 
             if (atomAlreadyExists) {
                 newAtomsState = newAtomsState.map(
@@ -160,9 +153,6 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                     }
                 );
             } else {
-                // TODO: Analizar por que tengo una mezcla aqui: creo un nuevo objeto
-                // para no mutar el original, pero para evitar crear copias,
-                // deberia usar concat.
                 newAtomsState = state.edited.atoms.concat({
                     atomId,
                     name,
