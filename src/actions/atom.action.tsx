@@ -12,7 +12,7 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 /************************************/
 
 interface IAtomEditProperties {
-    id: number;
+    atomId: number;
     name: string;
     atomCode?: {codeType: string, codeProps: any};
 }
@@ -60,7 +60,7 @@ export type Action =
  * @returns {Action}
  */
 export const requestEditAtomAction = 
-    (id: number, name: string): Action => {
+    (atomId: number, name: string): Action => {
 
     return {
         type: types.EDIT_ATOM_REQUEST,
@@ -74,7 +74,7 @@ export const requestEditAtomAction =
                 eventPayload: {
                     event: types.EDIT_ATOM_REQUEST,
                     properties: {
-                        id,
+                        atomId,
                         name
                     },
                 },
@@ -92,7 +92,7 @@ export const requestEditAtomAction =
  * @returns {Action}
  */
 export const changedAtomDetailsAction = 
-    (id: number, name: string, codeType: string, codeProps: any): Action => {
+    (atomId: number, name: string, codeType: string, codeProps: any): Action => {
 
     return {
         type: types.ATOM_DETAILS_CHANGED,
@@ -100,7 +100,7 @@ export const changedAtomDetailsAction =
             watchingChanges: true,
             isEdited: true,
             atoms: {
-                id,
+                atomId,
                 name,
                 atomCode: {
                     codeType,

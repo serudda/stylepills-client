@@ -79,7 +79,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         let atomState: IAtomsProps = null;
 
         array.forEach((atom) => {
-            if (atom.id === this.props.atomId) { 
+            if (atom.atomId === this.props.atomId) { 
                 atomState = atom;
             }
         });

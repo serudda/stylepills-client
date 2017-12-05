@@ -15,7 +15,7 @@ export interface IAtomCodeProps {
 }
 
 export interface IAtomsProps {
-    id: any;
+    atomId: any;
     name: string;
     atomCode: Array<{codeType: string, codeProps: IAtomCodeProps}>;
 }
@@ -64,7 +64,7 @@ const atom = (state: IAtomsProps, action: Action) => {
 
         case types.ATOM_DETAILS_CHANGED: {
             const { atoms } = action.edited;
-            const { id, name, atomCode } = atoms;
+            const { atomId, name, atomCode } = atoms;
             const { codeType, codeProps } = atomCode;
             let newAtomCodeState = state.atomCode.slice();
 
@@ -93,7 +93,7 @@ const atom = (state: IAtomsProps, action: Action) => {
 
             return {
                 ...state,
-                id,
+                atomId,
                 name,
                 atomCode: newAtomCodeState
             };
@@ -135,19 +135,19 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
 
         case types.ATOM_DETAILS_CHANGED: {
             const { atoms } = action.edited;
-            const { id, name, atomCode } = atoms;
+            const { atomId, name, atomCode } = atoms;
             let newAtomCode: Array<any> = [];
             let newAtomsState = state.edited.atoms.slice();
             // tslint:disable-next-line:no-console
             console.log('state.edited.atoms.slice(): ', newAtomsState);
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = inArray(state.edited.atoms, 'id', id);
+            let atomAlreadyExists = inArray(state.edited.atoms, 'id', atomId);
 
             if (atomAlreadyExists) {
                 newAtomsState = newAtomsState.map(
                     (a: IAtomsProps) => {
-                        if (a.id === id) {
+                        if (a.atomId === atomId) {
                             return atom(a, action);
                         }
                         return a;
@@ -158,7 +158,7 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                 // para no mutar el original, pero para evitar crear copias,
                 // deberia usar concat.
                 newAtomsState = state.edited.atoms.concat({
-                    id,
+                    atomId,
                     name,
                     atomCode: newAtomCode.concat(atomCode)
                 });
