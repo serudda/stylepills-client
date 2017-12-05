@@ -10,11 +10,15 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 /************************************/
 /*            INTERFACES            */
 /************************************/
+export interface IAtomCodeProps {
+    code: string;
+    libs?: Array<string>;
+}
 
 interface IAtomEditProperties {
     atomId: number;
     name: string;
-    atomCode?: {codeType: string, codeProps: any};
+    atomCode?: {codeType: string, codeProps: IAtomCodeProps};
 }
 
 interface IAtomEventPayLoad {

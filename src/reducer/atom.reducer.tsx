@@ -9,15 +9,20 @@ import { Action } from '../actions/atom.action';
 /*            INTERFACES            */
 /************************************/
 
-export interface IAtomCodeProps {
+export interface ICodeProps {
     code: string;
     libs?: Array<string>;
+}
+
+export interface IAtomCodeProps {
+    codeType: string;
+    codeProps: ICodeProps;
 }
 
 export interface IAtomsProps {
     atomId: any;
     name: string;
-    atomCode: Array<{codeType: string, codeProps: IAtomCodeProps}>;
+    atomCode: Array<IAtomCodeProps>;
 }
 
 export interface IAtomState {

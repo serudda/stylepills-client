@@ -402,9 +402,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                     <div className="col-12 position-relative">
                         {/* Bottom Message */}
                         { watchingChanges && 
-                            <div className="bg-info w-100 p-3 py-4 d-flex align-items-center">
-                                <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
-                                <span className="fontSize-md color-white fontWeight-9">You could edit right now, but you couldn't save the changes. You could duplicate this component including your new changes.</span>
+                            <div className="bg-info w-100 p-3 px-4 d-flex align-items-center">
+                                {/*<Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>*/}
+                                <span className="fontSize-md color-white fontWeight-9">
+                                    You can now edit the code live. To keep your changes, duplicate the component by pressing the button:
+                                </span>
+                                <Icon icon="package" iconClass="strokeWidth-2 stroke-white ml-3" width="22" height="22"/>
                             </div>
                         }
                     </div>

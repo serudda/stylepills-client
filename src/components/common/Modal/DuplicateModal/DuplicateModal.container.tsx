@@ -7,6 +7,8 @@ import { compose, ChildProps } from 'react-apollo';
 import { Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import * as classNames from 'classnames';
+
 import { IRootState } from './../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../models/user/user.model';
 
@@ -35,6 +37,7 @@ type StateProps = {
     };
     isAuthenticated: boolean;
     user: UserModel;
+    isEdited: boolean;
 };
 
 /* Mapped Dispatches to Props */
@@ -121,7 +124,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
         const { isAuthenticated, user } = this.props;
         const { atomId } = this.props;        
 
-        if (isAuthenticated && user) {            
+        if (isAuthenticated && user) {         
 
             this.props.actions.ui.duplicateAtom(atomId, user.id);
 
@@ -181,6 +184,14 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
         const { user } = this.props;
         const { duplicated } = this.props;
         const { isDuplicated } = duplicated;
+        const { isEdited } = this.props;
+
+        // Duplicate modified version Classes
+        const duplicateModifiedVersionClasses = classNames({
+            'duplicateOption': true,
+            'ml-sm-5': true,
+            'duplicateOption--disabled': !isEdited
+        });
 
         
         /*         MARKUP          */
@@ -223,8 +234,8 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                             </li>
 
                             {/* Duplicate modified version option */}
-                            <li className="duplicateOption duplicateOption--disabled ml-sm-5">
-                                <div className="duplicateOption__icon mt-4 mb-5" />
+                            <li className={duplicateModifiedVersionClasses}>
+                                <div className="duplicateOption__icon duplicateOption__icon--edited mt-4 mb-5" />
                                 <div className="duplicateOption__text">
                                     Duplicate including your changes
                                 </div>
@@ -278,11 +289,13 @@ function mapStateToProps(state: IRootState): StateProps {
     
         const { duplicated } = state.ui;
         const { isAuthenticated, user } = state.auth;
+        const { isEdited } = state.atomState.edited;
     
         return {
             isAuthenticated,
             user,
-            duplicated
+            duplicated,
+            isEdited
         };
     }
 

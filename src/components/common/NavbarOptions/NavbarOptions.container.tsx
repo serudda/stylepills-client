@@ -7,6 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Dropdown } from 'semantic-ui-react';
+
 import * as classNames from 'classnames';
 
 import { config } from './../../../config/config';

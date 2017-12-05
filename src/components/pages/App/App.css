@@ -2046,7 +2046,7 @@ body.atomDetailsModal-open .ui.dimmer {
         background-color: transparent;
         box-shadow: none; }
     .DuplicateModal .duplicateOptionsList .duplicateOption__icon {
-      background-image: url("./../../../resources/images/devices.svg");
+      background-image: url("./../../../resources/images/originalCode.svg");
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: cover;
@@ -2054,6 +2054,8 @@ body.atomDetailsModal-open .ui.dimmer {
       width: 260px;
       height: 142px;
       display: inline-block; }
+      .DuplicateModal .duplicateOptionsList .duplicateOption__icon--edited {
+        background-image: url("./../../../resources/images/codeEdited.svg"); }
   .DuplicateModal .duplicateOptionsList .duplicateResult {
     display: inline-block;
     vertical-align: middle;
@@ -2062,13 +2064,13 @@ body.atomDetailsModal-open .ui.dimmer {
     width: 320px;
     min-height: 320px; }
     .DuplicateModal .duplicateOptionsList .duplicateResult__icon {
-      background-image: url("./../../../resources/images/box.svg");
+      background-image: url("./../../../resources/images/newComponent.svg");
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: cover;
       overflow: hidden;
       width: 260px;
-      height: 213px;
+      height: 245px;
       display: inline-block; }
 
 /* DIMMER (MODAL BACKDROP) */
