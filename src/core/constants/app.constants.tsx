@@ -4,6 +4,9 @@
  * @type constants
  */
 
+/* DEBUG */
+export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
+
 /* Environments */
 export const LOCAL = 'local';
 export const DEV = 'development';

@@ -3,6 +3,8 @@
 /********************************/
 import * as React from 'react';
 
+import { functionsUtil } from '../../../core/utils/functionsUtil';
+
 // -----------------------------------
 
 
@@ -34,7 +36,8 @@ class Iframe extends React.Component<IframeProps, {}> {
     /********************************/
     constructor() {    
         super();
-        console.log('IFrame is actived');
+        // LOG
+        functionsUtil.consoleLog('IFrame container actived');
     }
 
 
@@ -42,7 +45,6 @@ class Iframe extends React.Component<IframeProps, {}> {
     /*     COMPONENT DID MOUNT      */
     /********************************/
     componentDidMount() {
-        console.log('IFrame: componentDidMount');
         this._buildFrame();
     }
 
@@ -51,7 +53,6 @@ class Iframe extends React.Component<IframeProps, {}> {
     /*     COMPONENT DID UPDATE     */
     /********************************/
     componentDidUpdate() {
-        console.log('IFrame: componentDidUpdate');
         this._buildFrame();
     }
 
@@ -135,9 +136,6 @@ class Iframe extends React.Component<IframeProps, {}> {
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-
-        // tslint:disable-next-line:no-console
-        console.log('IFrame re render');
 
         /*         MARKUP          */
         /***************************/

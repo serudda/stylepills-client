@@ -10,6 +10,8 @@ import * as classNames from 'classnames';
 
 import * as appConfig from './../../../../../core/constants/app.constants';
 
+import { functionsUtil } from '../../../../../core/utils/functionsUtil';
+
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
 
@@ -66,6 +68,9 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /********************************/
     constructor() {
         super();
+
+        // LOG
+        functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);

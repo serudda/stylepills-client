@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { functionsUtil } from '../../../../core/utils/functionsUtil';
+
 import { IRootState } from './../../../../reducer/reducer.config';
 import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
@@ -56,7 +58,8 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
             css: props.css
         };
 
-        console.log('PreviewSection is active: ', this.state);
+        // LOG
+        functionsUtil.consoleLog('PreviewSection container actived');
     }
 
     /**********************************/
@@ -99,9 +102,6 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         // Destructuring props 
         const { contextualBg } = this.props;
 
-        // tslint:disable-next-line:no-console
-        console.log('PreviewSection render');
-
 
         /*         MARKUP          */
         /***************************/
@@ -123,9 +123,6 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
 function mapStateToProps(state: IRootState): StateProps {
     
     const { atoms } = state.atomState.edited;
-
-    // tslint:disable-next-line:no-console
-    console.log('Atoms Changed: ', atoms);
 
     return {
         atoms

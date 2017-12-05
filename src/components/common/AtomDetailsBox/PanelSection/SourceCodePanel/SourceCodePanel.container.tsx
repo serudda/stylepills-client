@@ -8,6 +8,8 @@ import * as CopyToClipboard from 'react-copy-to-clipboard';
 
 import * as classNames from 'classnames';
 
+import { functionsUtil } from '../../../../../core/utils/functionsUtil';
+
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
@@ -47,7 +49,7 @@ type LocalStates = {
     html?: string,
     css?: string,
     codeMirror?: {
-        readOnly: string
+        readOnly: boolean
     }
 };
 
@@ -85,13 +87,16 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     constructor(props: SourceCodePanelProps & StateProps & DispatchProps) {
         super(props);
 
+        // LOG
+        functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> SourceCodePanel container actived');
+
         // Init local state
         this.state = {
             copied: false,
             html: props.html,
             css: props.css,
             codeMirror: {
-                readOnly: 'on'
+                readOnly: true
             }
         };
 
@@ -132,12 +137,18 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
         if (this.props.watchingChanges !== nextProps.watchingChanges &&
             nextProps.watchingChanges) {
+            
+            console.log('readOnly will change to: ', this.state.codeMirror.readOnly);
+            
             // Active Edit Mode after launch user's action
             this.setState({
                 codeMirror: {
-                    readOnly: 'off'
+                    readOnly: false
                 }
+            }, () => {
+                console.log('readOnly has changed to: ', this.state.codeMirror.readOnly);
             });
+
         }
     }
 
@@ -328,6 +339,8 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             theme: 'material',
             autoRefresh: true
         };
+
+        console.log('new codeMirrorOptions: ', codeMirrorOptions);
 
 
         /*         MARKUP          */

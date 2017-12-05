@@ -12,6 +12,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import rootReducer from '../reducer/reducer.config';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import immutableStateInvariantMiddleware from 'redux-immutable-state-invariant';
 
 
 // Initialize Client
@@ -32,9 +33,27 @@ const configureStore = () => {
     const thunkMiddleware = thunk;
     const routerMiddlewareInstance = routerMiddleware(history);
     const tracker = createTracker();
+    const immutableMiddleware = immutableStateInvariantMiddleware();
 
-    // Apply middleware
-    const middleware = applyMiddleware(apolloMiddleware, thunkMiddleware, routerMiddlewareInstance, tracker, logger);
+    let middleware;
+
+    // Apply middleware depends of the environment
+    if (process.env.NODE_ENV !== 'production') {
+        middleware = applyMiddleware(
+            apolloMiddleware, 
+            thunkMiddleware, 
+            routerMiddlewareInstance, 
+            tracker, 
+            logger, 
+            immutableMiddleware);
+    } else {
+        middleware = applyMiddleware(
+            apolloMiddleware, 
+            thunkMiddleware, 
+            routerMiddlewareInstance, 
+            tracker);
+    }
+
     return {
         ...createStore(rootReducer, composeWithDevTools(middleware))
     };

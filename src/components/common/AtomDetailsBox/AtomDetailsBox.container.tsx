@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { functionsUtil } from './../../../core/utils/functionsUtil';
+
 import { IRootState } from './../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
@@ -46,6 +48,8 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
     /********************************/
     constructor() {
         super();
+        // LOG
+        functionsUtil.consoleLog('AtomDetailsBox container actived');
     }
 
 
