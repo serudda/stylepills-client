@@ -9,6 +9,9 @@ import { Action } from '../actions/atom.action';
 /*            INTERFACES            */
 /************************************/
 
+/* TODO: Estas mismas interfaces estan en atom.action, cuando quise importarla desde afuera
+    me sugirio importarla de aqui y de action, eso esta mal. Deberia estar centralizada en 
+    un solo lugar */
 export interface ICodeProps {
     code: string;
     libs?: Array<string>;
@@ -147,7 +150,7 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             console.log('state.edited.atoms.slice(): ', newAtomsState);
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = inArray(state.edited.atoms, 'id', atomId);
+            let atomAlreadyExists = inArray(state.edited.atoms, 'atomId', atomId);
 
             if (atomAlreadyExists) {
                 newAtomsState = newAtomsState.map(
