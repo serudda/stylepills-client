@@ -7,7 +7,10 @@ import { compose, ChildProps } from 'react-apollo';
 import { Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import * as classNames from 'classnames';
+
 import { IRootState } from './../../../../reducer/reducer.config';
+import { IAtomsProps, IAtomCodeProps } from './../../../../reducer/atom.reducer';
 import { User as UserModel } from './../../../../models/user/user.model';
 
 import { closeModalAction, duplicateAtomAction } from './../../../../actions/ui.action';
@@ -35,6 +38,8 @@ type StateProps = {
     };
     isAuthenticated: boolean;
     user: UserModel;
+    isEdited: boolean;
+    atoms: Array<IAtomsProps>;
 };
 
 /* Mapped Dispatches to Props */
@@ -42,7 +47,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             closeModal: () => void;
-            duplicateAtom: (atomId: number, userId: number) => void;
+            duplicateAtom: (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => void;
         }
     };
 };
@@ -119,11 +124,21 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
     private _duplicateAtom() {
 
         const { isAuthenticated, user } = this.props;
-        const { atomId } = this.props;        
+        const { atomId } = this.props;
+        const { atoms } = this.props;
+        let atomCode: Array<IAtomCodeProps> = null;
 
-        if (isAuthenticated && user) {            
+        if (isAuthenticated && user) {
+            
+            if (atoms.length > 0) {
+                atoms.forEach(atom => {
+                    if (atom.atomId === atomId) {
+                        atomCode = atom.atomCode;
+                    }
+                });
+            }
 
-            this.props.actions.ui.duplicateAtom(atomId, user.id);
+            this.props.actions.ui.duplicateAtom(atomId, user.id, atomCode);
 
         } else {
             alert('You should be logged in to store this component in your repo.');
@@ -181,6 +196,14 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
         const { user } = this.props;
         const { duplicated } = this.props;
         const { isDuplicated } = duplicated;
+        const { isEdited } = this.props;
+
+        // Duplicate modified version Classes
+        const duplicateModifiedVersionClasses = classNames({
+            'duplicateOption': true,
+            'ml-sm-5': true,
+            'duplicateOption--disabled': !isEdited
+        });
 
         
         /*         MARKUP          */
@@ -223,8 +246,9 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                             </li>
 
                             {/* Duplicate modified version option */}
-                            <li className="duplicateOption duplicateOption--disabled ml-sm-5">
-                                <div className="duplicateOption__icon mt-4 mb-5" />
+                            <li className={duplicateModifiedVersionClasses}
+                                onClick={this._handleDuplicateClick}>
+                                <div className="duplicateOption__icon duplicateOption__icon--edited mt-4 mb-5" />
                                 <div className="duplicateOption__text">
                                     Duplicate including your changes
                                 </div>
@@ -278,11 +302,14 @@ function mapStateToProps(state: IRootState): StateProps {
     
         const { duplicated } = state.ui;
         const { isAuthenticated, user } = state.auth;
+        const { isEdited, atoms } = state.atomState.edited;
     
         return {
             isAuthenticated,
             user,
-            duplicated
+            duplicated,
+            isEdited,
+            atoms
         };
     }
 
@@ -295,7 +322,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
-                duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId)),
+                duplicateAtom: (atomId, userId, atomCode) => dispatch(duplicateAtomAction(atomId, userId, atomCode)),
             }
         }
     };

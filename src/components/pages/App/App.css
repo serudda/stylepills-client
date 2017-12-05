@@ -996,7 +996,7 @@ NOTE: Boostrap 4 has a flex set
   border-color: #FFFFFF; }
 
 /* Border radius scale */
-.borderRadius-0, .ui.pointing.sp-dropdown--userMenu .menu {
+.borderRadius-0, .sp-btnGroup__container .sp-btn, .ui.pointing.sp-dropdown--userMenu .menu {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0; }
@@ -1529,6 +1529,25 @@ NOTE: Boostrap 4 has a flex set
     .sp-btn--combo-neutral-ghost:focus {
       outline: none; }
 
+.sp-btn[disabled] {
+  opacity: .4;
+  cursor: default;
+  pointer-events: none; }
+  .sp-btn[disabled]:hover {
+    background-color: initial; }
+
+/* BUTTON GROUP */
+.sp-btnGroup__container {
+  display: inline-block; }
+  .sp-btnGroup__container:first-child .sp-btn {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px; }
+  .sp-btnGroup__container:last-child .sp-btn {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0; }
+
 /**********************************************************/
 /*                       DROPDOWN                         */
 /**********************************************************/
@@ -1767,14 +1786,14 @@ NOTE: Boostrap 4 has a flex set
   display: inline-flex; }
   .sp-iconTabMenu--is-reversed {
     background-color: #24292e; }
-    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button {
+    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__btn {
       -webkit-tap-highlight-color: #24292e;
       color: #3C4858; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__btn:hover {
         background-color: #1F2D3D; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__btn--active {
         border-top: 4px solid #FCD85E; }
-  .sp-iconTabMenu__button {
+  .sp-iconTabMenu__btn {
     border: 10px;
     box-sizing: border-box;
     display: inline-block;
@@ -1796,21 +1815,26 @@ NOTE: Boostrap 4 has a flex set
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0; }
-    .sp-iconTabMenu__button:hover {
+    .sp-iconTabMenu__btn:hover {
       background-color: #E5E9F2; }
-    .sp-iconTabMenu__button--active {
+    .sp-iconTabMenu__btn--active {
       border-top: 4px solid #288784; }
-    .sp-iconTabMenu__button--disabled {
+    .sp-iconTabMenu__btn--disabled {
       opacity: 0.3;
       cursor: default; }
-      .sp-iconTabMenu__button--disabled:hover {
+      .sp-iconTabMenu__btn--disabled:hover {
         background: none; }
-    .sp-iconTabMenu__button .inner {
+    .sp-iconTabMenu__btn--inner-btn:hover {
+      background: none; }
+    .sp-iconTabMenu__btn .inner {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 48px; }
+      .sp-iconTabMenu__btn .inner__btn {
+        padding: 6px 13px;
+        border-radius: 3px; }
 
 /**********************************************************/
 /*                        ATOM BOX                        */
@@ -1839,10 +1863,6 @@ NOTE: Boostrap 4 has a flex set
 .AtomDetailsBox {
   position: relative;
   z-index: 0; }
-  .AtomDetailsBox .copyBtnContainer {
-    position: absolute;
-    top: 10px;
-    right: 10px; }
 
 /**********************************************************/
 /*           ATOM DETAILS BOX (PREVIEW SECTION)           */
@@ -1856,6 +1876,11 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 /*     SOURCE CODE (ATOM DETAILS BOX - PREVIEW SECTION)   */
 /**********************************************************/
+.AtomDetailsBox .sp-btnGroup {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
 .AtomDetailsBox .SourceCode {
   height: 500px; }
   .AtomDetailsBox .SourceCode .ReactCodeMirror {
@@ -2026,7 +2051,7 @@ body.atomDetailsModal-open .ui.dimmer {
         background-color: transparent;
         box-shadow: none; }
     .DuplicateModal .duplicateOptionsList .duplicateOption__icon {
-      background-image: url("./../../../resources/images/devices.svg");
+      background-image: url("./../../../resources/images/originalCode.svg");
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: cover;
@@ -2034,6 +2059,8 @@ body.atomDetailsModal-open .ui.dimmer {
       width: 260px;
       height: 142px;
       display: inline-block; }
+      .DuplicateModal .duplicateOptionsList .duplicateOption__icon--edited {
+        background-image: url("./../../../resources/images/codeEdited.svg"); }
   .DuplicateModal .duplicateOptionsList .duplicateResult {
     display: inline-block;
     vertical-align: middle;
@@ -2042,13 +2069,13 @@ body.atomDetailsModal-open .ui.dimmer {
     width: 320px;
     min-height: 320px; }
     .DuplicateModal .duplicateOptionsList .duplicateResult__icon {
-      background-image: url("./../../../resources/images/box.svg");
+      background-image: url("./../../../resources/images/newComponent.svg");
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: cover;
       overflow: hidden;
       width: 260px;
-      height: 213px;
+      height: 245px;
       display: inline-block; }
 
 /* DIMMER (MODAL BACKDROP) */

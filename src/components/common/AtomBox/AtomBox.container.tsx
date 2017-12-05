@@ -107,7 +107,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
             <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
                 <div className="AtomBox__content borderRadius-xs">
                     <div onClick={this._handleClick(atom)} className="cover-link"/>
-                    <Iframe html={atom.html} style={atom.css} background={atom.contextualBg} />
+                    <Iframe html={atom.html} css={atom.css} background={atom.contextualBg} />
                 </div>
             </div>
         );

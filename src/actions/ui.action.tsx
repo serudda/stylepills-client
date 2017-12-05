@@ -10,6 +10,7 @@ import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
+import { IAtomCodeProps } from '../reducer/atom.reducer';
 
 
 /************************************/
@@ -406,7 +407,8 @@ export const duplicateAtomFailureAction = (atomId: number, message: string): Act
  * @function duplicateAtomAction
  * @returns {Promise<any>}
  */
-export const duplicateAtomAction = (atomId: number, userId: number) => {
+// TODO: Mover todo lo alusivo a Atom a su respectivo 'action' file
+export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => {
     return (dispatch: Function) => {
 
         // Request Duplicate Atom
@@ -414,7 +416,7 @@ export const duplicateAtomAction = (atomId: number, userId: number) => {
 
         client.mutate({
             mutation: DUPLICATE_ATOM_MUTATION,
-            variables: { atomId, userId }
+            variables: { atomId, userId, atomCode }
         }).then(
             (response: any) => {
                 // TODO: Typar esta respuesta ya que no se que propiedades devuelve

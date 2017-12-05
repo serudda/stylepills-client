@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="275px" height="260px" viewBox="0 0 275 260" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>NewComponent</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="NewComponent">
+            <g id="futuro_icons_update_104">
+                <path d="M256,128 C256,198.695 198.695,256 128,256 C57.305,256 0,198.695 0,128 C0,57.305 57.305,0 128,0 C198.695,0 256,57.305 256,128 Z" id="Shape" fill-opacity="0.5" fill="#74C080" fill-rule="nonzero"></path>
+                <g id="Group" transform="translate(4.000000, 16.000000)">
+                    <polyline id="Shape" fill="#F59D15" fill-rule="nonzero" points="124 116 124 220 36 188 36 84"></polyline>
+                    <polyline id="Shape" fill="#F59D15" fill-rule="nonzero" points="212 84 212 188 124 220 124 116"></polyline>
+                    <polygon id="Shape" fill="#FFC469" fill-rule="nonzero" points="212 84 124 116 36 84 124 52"></polygon>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 52 160 16 248 48 212 84"></polyline>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 52 88 16 0 48 36 84"></polyline>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="124 116 124 220 36 188 36 84"></polyline>
+                    <polygon id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="212 84 212 188 124 220 124 116"></polygon>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 116 88 172 0 140 36 84"></polyline>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 116 160 172 248 140 212 84"></polyline>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="124 116 88 172 0 140 36 84"></polyline>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="124 116 160 172 248 140 212 84"></polyline>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="136 56 212 84 124 116 36 84 112 56"></polyline>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="136 40 160 16 248 48 212 84"></polyline>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="112 40 88 16 0 48 36 84"></polyline>
+                    <path d="M124,0 L124,88" id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round"></path>
+                    <polyline id="Shape" stroke="#5F6465" stroke-width="8" stroke-linejoin="round" points="140 76 124 92 108 76"></polyline>
+                </g>
+            </g>
+            <g id="Group" transform="translate(171.000000, 155.000000)">
+                <circle id="Oval" stroke="#5F6465" stroke-width="8" fill="#74C080" fill-rule="nonzero" cx="50" cy="50.053125" r="50"></circle>
+                <polyline id="Shape" stroke="#FFFFFF" stroke-width="10" points="79.5 31.5 43 67.553125 23.2089844 47.6914062"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

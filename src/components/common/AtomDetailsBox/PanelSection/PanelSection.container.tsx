@@ -99,7 +99,7 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
 
                 {/* Source Code Section */}
                 {tab === 'code' && 
-                <SourceCodePanel html={atom.html} css={atom.css}/>}
+                <SourceCodePanel atomId={atom.id} name={atom.name} html={atom.html} css={atom.css}/>}
 
             </div>
         );

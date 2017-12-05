@@ -2,6 +2,13 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
+
+import { functionsUtil } from '../../../../core/utils/functionsUtil';
+
+import { IRootState } from './../../../../reducer/reducer.config';
+import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
 import Iframe from '../../Iframe/Iframe.container';
 
@@ -14,28 +21,74 @@ import Iframe from '../../Iframe/Iframe.container';
 
 /* Own Props */
 type PreviewSectionProps = {
+    atomId: number,
     html: string,
-    style: string,
+    css: string,
     contextualBg: string
 };
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    html?: string,
+    css?: string
+};
+
+/* Mapped State to Props */
+type StateProps = {
+    atoms: Array<IAtomsProps>;
+};
 
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class PreviewSection 
-extends React.Component<PreviewSectionProps, LocalStates> {
+class PreviewSection
+extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: PreviewSectionProps & StateProps) {
+        super(props);
+
+        this.state = {
+            html: props.html,
+            css: props.css
+        };
+
+        // LOG
+        functionsUtil.consoleLog('PreviewSection container actived');
+    }
+
+    /**********************************/
+    /*  COMPONENT WILL RECEIVE PROPS  */
+    /**********************************/
+    componentWillReceiveProps(nextProps: PreviewSectionProps & StateProps) {   
+        const { atoms } = nextProps;
+
+        this.getAtomState(atoms);
+    }
+
+
+    // TODO: Mover a una parte global ya que esto lo voy a tener que hacer en varias partes
+    getAtomState (array: Array<IAtomsProps>) {
+        let atomState: IAtomsProps = null;
+
+        array.forEach((atom) => {
+            if (atom.atomId === this.props.atomId) { 
+                atomState = atom;
+            }
+        });
+
+        if (atomState) {
+            let obj = {};
+            atomState.atomCode.forEach((code) => {
+                obj[code.codeType] = code.codeProps.code;
+            });
+            this.setState(obj);
+        }
     }
 
 
@@ -44,8 +97,8 @@ extends React.Component<PreviewSectionProps, LocalStates> {
     /********************************/
     render() {
 
-        // Destructuring props
-        const { html, style, contextualBg } = this.props;
+        // Destructuring props 
+        const { contextualBg } = this.props;
 
 
         /*         MARKUP          */
@@ -53,7 +106,7 @@ extends React.Component<PreviewSectionProps, LocalStates> {
         return (
             <div className="PreviewSection boxShadow-raised sp-rounded-top-md sp-bg-white border-6 borderColor-white">
                 <div className="PreviewSection__content borderRadius-xs">    
-                    <Iframe html={html} style={style} background={contextualBg} />
+                    <Iframe html={this.state.html} css={this.state.css} background={contextualBg} />
                 </div>
             </div>
         );
@@ -62,6 +115,27 @@ extends React.Component<PreviewSectionProps, LocalStates> {
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    
+    const { atoms } = state.atomState.edited;
+
+    return {
+        atoms
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const previewSectionConnect = connect(mapStateToProps);
+
+
 /*         EXPORT          */
 /***************************/
-export default PreviewSection;
+export default compose(
+    previewSectionConnect
+)(PreviewSection);

@@ -11,6 +11,7 @@ import { User } from '../models/user/user.model';
 import * as types from '../core/constants/action.types';
 
 import { config } from './../config/config';
+import { functionsUtil } from './../core/utils/functionsUtil';
 
 
 // -----------------------------------
@@ -109,13 +110,13 @@ export type Action =
         .then(
             (response) => {
                 // tslint:disable-next-line:no-console
-                console.log('RESPONSE: ', response);
+                functionsUtil.consoleLog('RESPONSE: ', response);
                 return response;
             }
         ).catch(
             (err) => {
                 // tslint:disable-next-line:no-console
-                console.log(err);
+                functionsUtil.consoleLog(err);
                 return err;
             }
         );
@@ -310,8 +311,7 @@ export const logoutAction = () => {
             }
         ).catch(
             (err) => {
-                // tslint:disable-next-line:no-console
-                console.log(err);
+                functionsUtil.consoleLog(err);
                 return err;
             }
         );

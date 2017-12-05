@@ -65,7 +65,7 @@
                 }
 
                 &__icon {
-                    background-image: url('./../../../resources/images/devices.svg');
+                    background-image: url('./../../../resources/images/originalCode.svg');
                     background-repeat: no-repeat;
                     background-position: 0 0;
                     background-size: cover;
@@ -73,6 +73,10 @@
                     width: 260px;
                     height: 142px;
                     display: inline-block;
+
+                    &--edited {
+                        background-image: url('./../../../resources/images/codeEdited.svg');
+                    }
                 }
 
                 &__text {
@@ -91,13 +95,13 @@
                 @extend .borderRadius-lg;
 
                 &__icon {
-                    background-image: url('./../../../resources/images/box.svg');
+                    background-image: url('./../../../resources/images/newComponent.svg');
                     background-repeat: no-repeat;
                     background-position: 0 0;
                     background-size: cover;
                     overflow: hidden;
                     width: 260px;
-                    height: 213px;
+                    height: 245px;
                     display: inline-block;
                 }
 

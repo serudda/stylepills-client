@@ -101,6 +101,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CLOSE_MODAL: {
 
+            // Always popping the last modal off the stack
             const newModalsState = state.modals.slice();
             newModalsState.pop();
             return {
@@ -142,6 +143,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+        // TODO: Mover todo lo alusivo a Atom a su respectivo 'reducer' file
         case types.DUPLICATE_ATOM_REQUEST: {
             return {
                 ...state,
