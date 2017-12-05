@@ -67,8 +67,6 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
     /**********************************/
     componentWillReceiveProps(nextProps: PreviewSectionProps & StateProps) {   
         const { atoms } = nextProps;
-        
-        console.log('PreviewSection componentWillReceiveProps', atoms);
 
         this.getAtomState(atoms);
     }

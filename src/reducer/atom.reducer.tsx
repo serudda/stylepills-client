@@ -146,8 +146,6 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             const { atomId, name, atomCode } = atoms;
             let newAtomCode: Array<any> = [];
             let newAtomsState = state.edited.atoms.slice();
-            // tslint:disable-next-line:no-console
-            console.log('state.edited.atoms.slice(): ', newAtomsState);
 
             // To know if atom already exists on atoms state
             let atomAlreadyExists = inArray(state.edited.atoms, 'atomId', atomId);
@@ -170,8 +168,6 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                     name,
                     atomCode: newAtomCode.concat(atomCode)
                 });
-                // tslint:disable-next-line:no-console
-                console.log('newAtomsState.concat: ', newAtomsState);
             }
 
             return {

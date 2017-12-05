@@ -8,7 +8,7 @@ import * as appConfig from './../constants/app.constants';
 /*            INTERFACES            */
 /************************************/    
 interface IFunctionUtil {
-    consoleLog: (message: string) => void;
+    consoleLog: (message: string, value?: any) => void;
 }
 
 
@@ -35,9 +35,9 @@ class FunctionsUtil implements IFunctionUtil {
      * @return {void}
      */
 
-    consoleLog(message: string): void {
+    consoleLog(message: string, value: any = ''): void {
         if (appConfig.DEBUG) {
-            console.log(message);
+            console.log(message, value);
         }
     }
 

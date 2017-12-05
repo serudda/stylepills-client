@@ -132,21 +132,15 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: SourceCodePanelProps & StateProps) {   
-        
-        console.log('SourceCodePanel componentWillReceiveProps');
 
         if (this.props.watchingChanges !== nextProps.watchingChanges &&
             nextProps.watchingChanges) {
-            
-            console.log('readOnly will change to: ', this.state.codeMirror.readOnly);
             
             // Active Edit Mode after launch user's action
             this.setState({
                 codeMirror: {
                     readOnly: false
                 }
-            }, () => {
-                console.log('readOnly has changed to: ', this.state.codeMirror.readOnly);
             });
 
         }
@@ -312,8 +306,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     /********************************/
     render() {
 
-        console.log('SourceCodePanel render');
-
         // Destructuring props
         const { tab } = this.props;
         const { watchingChanges } = this.props;
@@ -339,8 +331,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             theme: 'material',
             autoRefresh: true
         };
-
-        console.log('new codeMirrorOptions: ', codeMirrorOptions);
 
 
         /*         MARKUP          */
