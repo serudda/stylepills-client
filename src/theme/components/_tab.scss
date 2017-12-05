@@ -82,7 +82,7 @@
     &--is-reversed {
         background-color: map-get($color, black);
 
-        .sp-iconTabMenu__button {
+        .sp-iconTabMenu__btn {
             -webkit-tap-highlight-color: map-get($color, black ); 
             color: map-get($color, slate);
 
@@ -97,7 +97,7 @@
     }
 
     /// ELEMENTS
-    &__button {
+    &__btn {
         border: 10px;
         box-sizing: border-box;
         display: inline-block;
@@ -136,12 +136,23 @@
             }
         }
 
+        &--inner-btn {
+            &:hover {
+                background: none;
+            }
+        }
+
         .inner {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 48px;
+
+            &__btn {
+                padding: 6px 13px;
+                border-radius: 3px;
+            }
         }
     }
 }

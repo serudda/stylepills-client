@@ -853,35 +853,35 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
                     {/* Tab Menu (is Reversed) */}
                     <div className="sp-iconTabMenu sp-iconTabMenu--is-reversed fontSmoothing-reset">
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="heartFull"
                                     iconClass="strokeWidth-2"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="share"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
+                        <button className="sp-iconTabMenu__btn sp-iconTabMenu__btn--active">
                             <div className="inner">
                                 <Icon icon="messageCircle"
                                     iconClass="strokeWidth-2 stroke-darkPrimary"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="download"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="package"
                                     iconClass="strokeWidth-2 stroke-slate"
@@ -894,35 +894,35 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
                     {/* Tab Menu */}
                     <div className="sp-iconTabMenu fontSmoothing-reset">
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="heart"
                                     iconClass="strokeWidth-2"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="share"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button sp-iconTabMenu__button--active">
+                        <button className="sp-iconTabMenu__btn sp-iconTabMenu__btn--active">
                             <div className="inner">
                                 <Icon icon="messageCircle"
                                     iconClass="strokeWidth-2 stroke-darkSecondary"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="download"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
                         </button>
-                        <button className="sp-iconTabMenu__button">
+                        <button className="sp-iconTabMenu__btn">
                             <div className="inner">
                                 <Icon icon="package"
                                     iconClass="strokeWidth-2 stroke-slate"

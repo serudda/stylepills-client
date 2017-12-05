@@ -1786,14 +1786,14 @@ NOTE: Boostrap 4 has a flex set
   display: inline-flex; }
   .sp-iconTabMenu--is-reversed {
     background-color: #24292e; }
-    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button {
+    .sp-iconTabMenu--is-reversed .sp-iconTabMenu__btn {
       -webkit-tap-highlight-color: #24292e;
       color: #3C4858; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button:hover {
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__btn:hover {
         background-color: #1F2D3D; }
-      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__button--active {
+      .sp-iconTabMenu--is-reversed .sp-iconTabMenu__btn--active {
         border-top: 4px solid #FCD85E; }
-  .sp-iconTabMenu__button {
+  .sp-iconTabMenu__btn {
     border: 10px;
     box-sizing: border-box;
     display: inline-block;
@@ -1815,21 +1815,26 @@ NOTE: Boostrap 4 has a flex set
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0; }
-    .sp-iconTabMenu__button:hover {
+    .sp-iconTabMenu__btn:hover {
       background-color: #E5E9F2; }
-    .sp-iconTabMenu__button--active {
+    .sp-iconTabMenu__btn--active {
       border-top: 4px solid #288784; }
-    .sp-iconTabMenu__button--disabled {
+    .sp-iconTabMenu__btn--disabled {
       opacity: 0.3;
       cursor: default; }
-      .sp-iconTabMenu__button--disabled:hover {
+      .sp-iconTabMenu__btn--disabled:hover {
         background: none; }
-    .sp-iconTabMenu__button .inner {
+    .sp-iconTabMenu__btn--inner-btn:hover {
+      background: none; }
+    .sp-iconTabMenu__btn .inner {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 48px; }
+      .sp-iconTabMenu__btn .inner__btn {
+        padding: 6px 13px;
+        border-radius: 3px; }
 
 /**********************************************************/
 /*                        ATOM BOX                        */

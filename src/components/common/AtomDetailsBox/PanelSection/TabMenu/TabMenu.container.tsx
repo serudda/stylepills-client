@@ -169,8 +169,8 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Comments Btn Classes
         /* const commentsBtnClasses = classNames({
-            'sp-iconTabMenu__button': true, 
-            'sp-iconTabMenu__button--active': tab === 'comments'
+            'sp-iconTabMenu__btn': true, 
+            'sp-iconTabMenu__btn--active': tab === 'comments'
         });*/
 
         // Comments Icon on Btn Classes
@@ -182,8 +182,8 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Code Btn Classes
         const codeBtnClasses = classNames({
-            'sp-iconTabMenu__button': true, 
-            'sp-iconTabMenu__button--active': tab === 'code'
+            'sp-iconTabMenu__btn': true, 
+            'sp-iconTabMenu__btn--active': tab === 'code'
         });
 
         // Code Icon on Btn Classes
@@ -195,8 +195,9 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Duplicate Btn Classes
         const duplicateClasses = classNames({
-            'sp-iconTabMenu__button': true, 
-            'sp-iconTabMenu__button--disabled': isDuplicated
+            'sp-iconTabMenu__btn': true,
+            'sp-iconTabMenu__btn--inner-btn': true,
+            'sp-iconTabMenu__btn--disabled': isDuplicated
         });
 
 
@@ -205,14 +206,14 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         return (
             <div className={tabMenuClasses}>
                 {/* TODO: Ir agregando uno por uno al momento de implementarlo */}
-                {/*<button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__btn">
                     <div className="inner">
                         <Icon icon="heartFull"
                             iconClass="strokeWidth-2"
                             width="22" height="22"/>
                     </div>
                 </button>*/}
-                {/*<button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__btn">
                     <div className="inner">
                         <Icon icon="share"
                             iconClass="strokeWidth-2 stroke-slate"
@@ -227,7 +228,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>*/}
-                {/*<button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__btn">
                     <div className="inner">
                         <Icon icon="download"
                             iconClass="strokeWidth-2 stroke-slate"
@@ -249,9 +250,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                     <button className={duplicateClasses}
                     onClick={this._handleDuplicateClick}>
                         <div className="inner">
-                            <Icon icon="package"
-                                iconClass="strokeWidth-2 stroke-slate"
-                                width="22" height="22"/>
+                            <button className="inner__btn sp-btn sp-btn--md sp-btn--secondary">
+                                <Icon icon="package"
+                                    iconClass="strokeWidth-2 stroke-white"
+                                    width="22" height="22"/>
+                            </button>
                         </div>
                     </button>}
                     size="small"
