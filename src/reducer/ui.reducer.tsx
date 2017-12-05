@@ -143,6 +143,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+        // TODO: Mover todo lo alusivo a Atom a su respectivo 'reducer' file
         case types.DUPLICATE_ATOM_REQUEST: {
             return {
                 ...state,

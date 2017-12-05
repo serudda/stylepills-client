@@ -407,6 +407,7 @@ export const duplicateAtomFailureAction = (atomId: number, message: string): Act
  * @function duplicateAtomAction
  * @returns {Promise<any>}
  */
+// TODO: Mover todo lo alusivo a Atom a su respectivo 'action' file
 export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => {
     return (dispatch: Function) => {
 
