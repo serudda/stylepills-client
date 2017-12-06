@@ -3,6 +3,7 @@
 /************************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import Icon from './../../common/Icon/Icon';
 
@@ -37,7 +38,8 @@ const Waypoint = require('react-waypoint');
 type HomePageProps = {/**/};
 
 type LocalStates = { 
-    explanationImage: string
+    explanationImage: string,
+    isAlphaorBeta: boolean
 };
 
 
@@ -52,9 +54,16 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
     constructor() {
         super();
 
+        let isAlphaorBeta = true;
+
+        if (document.URL.indexOf('stylepills.co') > -1) {
+            isAlphaorBeta = false;
+        }
+
         // Init local state
         this.state = {
-            explanationImage: PUV_IMAGE_URL
+            explanationImage: PUV_IMAGE_URL,
+            isAlphaorBeta
         };
         
         // Bind methods
@@ -113,6 +122,40 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
         
     }
 
+    private _buildNavBarOptions() {
+        if (!this.state.isAlphaorBeta) {
+            return (
+                <div>
+                    <a className="sp-link sp-link--box sp-link--box--primary fontSize-sm fontWeight-9 mr-3" 
+                        href="https://stylepill.carrd.co/" 
+                        target="_blank">
+                        Open
+                    </a>
+
+                    <a className="sp-link sp-link--box sp-link--box--white fontSize-sm fontWeight-9" 
+                        href="https://rdmap.co/roadmap/218" 
+                        target="_blank">
+                        Now
+                    </a>
+
+                    <span className="textWeight-9 color-white mr-3 ml-3">|</span>
+
+                    <a className="sp-btn sp-btn--sm sp-btn--white-ghost borderRadius-sm fontWeight-9" 
+                        href="http://eepurl.com/c1fttz">
+                        Sign Up
+                    </a>
+                </div>
+            );
+        } else {
+            return (
+                <Link className="sp-btn sp-btn--sm sp-btn--white-ghost borderRadius-sm fontWeight-9"
+                    to={`/explore`}>
+                    Explore
+                </Link>
+            );
+        }
+    }
+
 
     /********************************/
     /*        RENDER MARKUP         */
@@ -134,7 +177,7 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
                                     <Icon icon="logo" 
                                         iconClass="mr-2"
                                         width="20" height="20"/>
-                                    <span>Stylepills</span>
+                                    <span>Stylepill</span>
                                 </a>
                             </div>
                         </div>
@@ -204,26 +247,7 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
                         <div className="rightSide__content__header pl-4 pr-4 position-absolute w-100">
                             <div className="w-100">
                                 <div className="HeaderNavlink px-0 py-2 m-0 float-right">
-    
-                                    <a className="sp-link sp-link--box sp-link--box--primary fontSize-sm fontWeight-9 mr-3" 
-                                        href="https://stylepill.carrd.co/" 
-                                        target="_blank">
-                                        Open
-                                    </a>
-    
-                                    <a className="sp-link sp-link--box sp-link--box--white fontSize-sm fontWeight-9" 
-                                        href="https://rdmap.co/roadmap/218" 
-                                        target="_blank">
-                                        Now
-                                    </a>
-    
-                                    <span className="textWeight-9 color-white mr-3 ml-3">|</span>
-    
-                                    <a className="sp-btn sp-btn--sm sp-btn--white-ghost borderRadius-sm fontWeight-9" 
-                                        href="http://eepurl.com/c1fttz">
-                                        Sign Up
-                                    </a>
-    
+                                    {this._buildNavBarOptions()}
                                 </div>
     
                             </div>
