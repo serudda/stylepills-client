@@ -46,6 +46,7 @@
     "redux-saga": "^0.15.6",
     "redux-segment": "^1.6.2",
     "redux-thunk": "^2.2.0",
+    "redux-immutable-state-invariant": "^2.1.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.76.0"
   },
@@ -61,7 +62,6 @@
     "@types/enzyme": "^2.8.6",
     "enzyme": "^2.9.1",
     "node-sass-chokidar": "0.0.3",
-    "react-addons-test-utils": "^15.6.0",
-    "redux-immutable-state-invariant": "^2.1.0"
+    "react-addons-test-utils": "^15.6.0"
   }
 }
