@@ -22,6 +22,7 @@ export interface ICursor {
 }
 
 export interface IAtomPaginated {
+    count: number;
     results: Array<AtomModel>;
     cursors: ICursor;
 }

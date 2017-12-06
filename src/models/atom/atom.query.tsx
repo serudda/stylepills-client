@@ -171,6 +171,7 @@ export type SearchAtomsLegacyResponse = {
 export const SEARCH_ATOMS_QUERY = gql`
 query searchAtoms ($pagination: PaginationInput!, $filter: AtomFilter!, $include: AtomInclude, $sortBy: String) {
     searchAtoms(pagination: $pagination, filter: $filter, include: $include, sortBy: $sortBy) {
+        count,
         results {
             ...AtomFragment
         },

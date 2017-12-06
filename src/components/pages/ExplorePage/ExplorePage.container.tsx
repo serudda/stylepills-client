@@ -2,13 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { compose, ChildProps } from 'react-apollo';
-import { connect, Dispatch } from 'react-redux';
-
-import { IRootState } from '../../../reducer/reducer.config';
-import { ISearchState } from '../../../reducer/search.reducer';
-
-import { searchAtomsAction } from '../../../actions/search.action';
+import { ChildProps } from 'react-apollo';
 
 import Header from '../../common/Header/Header.container';
 import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
@@ -27,25 +21,14 @@ type ExplorePageProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {
-    search: ISearchState;
-};
-
-/* Mapped Dispatches to Props */
-type DispatchProps = {
-    actions: {
-        search: {
-            searchAtoms: (filters: any) => void;
-        }
-    };
-};
+type StateProps = {};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ExplorePage 
-extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<ExplorePageProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
@@ -80,38 +63,6 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
 }
 
 
-/********************************/
-/*      MAP STATE TO PROPS      */
-/********************************/
-function mapStateToProps(state: IRootState): StateProps {
-    return {
-        search: state.search
-    };
-}
-
-
-/********************************/
-/*     MAP DISPATCH TO PROPS    */
-/********************************/
-function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
-    return {
-        actions: {
-            search: {
-                searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
-            }
-        }
-    };
-}
-
-
-/********************************/
-/*         REDUX CONNECT        */
-/********************************/
-const explorePageConnect = connect(mapStateToProps, mapDispatchToProps); 
-
-
 /*         EXPORT          */
 /***************************/
-export default compose(
-    explorePageConnect
-)(ExplorePage);
+export default ExplorePage;
