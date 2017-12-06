@@ -3,6 +3,8 @@
 /************************************/
 import { EventTypes } from 'redux-segment';
 
+import * as appConfig from '../core/constants/app.constants';
+
 import * as types from '../core/constants/action.types';
 import { IAtomPaginationArgs } from '../models/atom/atom.query';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
@@ -16,6 +18,16 @@ interface IPaginationEventPayLoad {
     event: string;
     properties: {
         paginationAtoms: IAtomPaginationArgs;
+    };
+}
+
+export interface IClearPaginationAction {
+    type: types.CLEAR_PAGINATION;
+    paginationAtoms: {
+        first: number,
+        after: null,
+        last: null,
+        before: null
     };
 }
 
@@ -34,13 +46,32 @@ export interface IPrevPageAtomAction {
 
 export type Action = 
     // Pagination interaction
-    INextPageAtomAction
+    IClearPaginationAction
+|   INextPageAtomAction
 |   IPrevPageAtomAction;
 
 
 /************************************/
 /*             ACTIONS              */
 /************************************/
+
+
+/**
+ * @desc Return an action type, CLEAR_PAGINATION to reset Pagination states
+ * @function clearPaginationAction
+ * @returns {Action}
+ */
+export const clearPaginationAction = (): Action => {
+    return {
+        type: types.CLEAR_PAGINATION,
+        paginationAtoms: {
+            first: appConfig.ATOM_SEARCH_LIMIT,
+            after: null,
+            last: null,
+            before: null
+        }
+    };
+};
 
 
 /**

@@ -11,10 +11,7 @@ import { Action } from '../actions/ui.action';
 /************************************/
 
 export interface IUiState {
-    modals: {
-        modalType: string,
-        modalProps: any
-    };
+    modals: Array<{modalType: string, modalProps: any}>;
     tabs: {
         atomDetailsTab?: {
             tab: string
@@ -38,7 +35,7 @@ export interface IUiState {
 /************************************/
 
 const defaultState: IUiState = {
-    modals: null,
+    modals: [],
     tabs: {
         atomDetailsTab: {
             tab: null
@@ -70,11 +67,11 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         /***********************************/
         /*            UI ACTIONS           */
         /***********************************/
-
+        case types.LOCATION_CHANGE:
         case types.CLEAR_UI: {
             return {
                 ...state, 
-                modals: null,
+                modals: [],
                 tabs: {
                     atomDetailsTab: {
                         tab: null
@@ -94,17 +91,22 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.SHOW_MODAL: {
             return {
                 ...state,
-                modals: {
+                // Always pushing a new modal onto the stack
+                modals: state.modals.concat({
                     modalType: action.modals.modalType,
                     modalProps: action.modals.modalProps
-                }
+                })
             };
         }
 
         case types.CLOSE_MODAL: {
+
+            // Always popping the last modal off the stack
+            const newModalsState = state.modals.slice();
+            newModalsState.pop();
             return {
-                ...state, 
-                modals: null
+                ...state,
+                modals: newModalsState
             };
         }
 
@@ -141,6 +143,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+        // TODO: Mover todo lo alusivo a Atom a su respectivo 'reducer' file
         case types.DUPLICATE_ATOM_REQUEST: {
             return {
                 ...state,

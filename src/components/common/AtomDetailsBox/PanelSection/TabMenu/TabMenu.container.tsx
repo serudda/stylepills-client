@@ -8,12 +8,16 @@ import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
+import * as appConfig from './../../../../../core/constants/app.constants';
+
+import { functionsUtil } from '../../../../../core/utils/functionsUtil';
+
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
 
 import Icon from './../../../Icon/Icon';
 
-import { changeAtomDetailsTabAction, duplicateAtomAction } from './../../../../../actions/ui.action';
+import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
 // -----------------------------------
 
@@ -46,7 +50,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: string) => void;
-            duplicateAtom: (atomId: number, userId: number) => void;
+            showModal: (modalType: string, modalProps: any) => void;
         }
     };
 };
@@ -64,6 +68,9 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /********************************/
     constructor() {
         super();
+
+        // LOG
+        functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
@@ -104,9 +111,30 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         const { isDuplicated } = this.props.duplicated;
 
         if (!isDuplicated) {
-            this._duplicateAtom();
+            this._showDuplicateModal();
         }
 
+    }
+
+    /**
+     * @desc Show Modal 
+     * @method _showModal
+     * @example this._showModal()
+     * @private
+     * @param {AtomModel} atom - atom data
+     * @returns {void}
+     */
+    private _showDuplicateModal() {
+        const {isAuthenticated, user} = this.props;
+        const { atomId } = this.props;
+
+        if (isAuthenticated && user) {
+
+            this.props.actions.ui.showModal(appConfig.DUPLICATE_MODAL_TYPE, {atomId});
+
+        } else {
+            alert('You should be logged in to store this component in your repo.');
+        }
     }
 
     /**
@@ -118,28 +146,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      */
     private _changeTab(tab: string) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
-    }
-
-    /**
-     * @desc Duplicate Atom
-     * @method _duplicateAtom
-     * @example this._duplicateAtom()
-     * @private 
-     * @returns {void}
-     */
-    private _duplicateAtom() {
-
-        const {isAuthenticated, user} = this.props;
-        const { atomId } = this.props;
-
-        if (isAuthenticated && user) {
-
-            this.props.actions.ui.duplicateAtom(atomId, user.id);
-
-        } else {
-            alert('You should be logged in to store this component in your repo.');
-        }
-
     }
 
 
@@ -163,8 +169,8 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Comments Btn Classes
         /* const commentsBtnClasses = classNames({
-            'sp-iconTabMenu__button': true, 
-            'sp-iconTabMenu__button--active': tab === 'comments'
+            'sp-iconTabMenu__btn': true, 
+            'sp-iconTabMenu__btn--active': tab === 'comments'
         });*/
 
         // Comments Icon on Btn Classes
@@ -176,8 +182,8 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Code Btn Classes
         const codeBtnClasses = classNames({
-            'sp-iconTabMenu__button': true, 
-            'sp-iconTabMenu__button--active': tab === 'code'
+            'sp-iconTabMenu__btn': true, 
+            'sp-iconTabMenu__btn--active': tab === 'code'
         });
 
         // Code Icon on Btn Classes
@@ -189,8 +195,9 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
         // Duplicate Btn Classes
         const duplicateClasses = classNames({
-            'sp-iconTabMenu__button': true, 
-            'sp-iconTabMenu__button--disabled': isDuplicated
+            'sp-iconTabMenu__btn': true,
+            'sp-iconTabMenu__btn--inner-btn': true,
+            'sp-iconTabMenu__btn--disabled': isDuplicated
         });
 
 
@@ -199,14 +206,14 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         return (
             <div className={tabMenuClasses}>
                 {/* TODO: Ir agregando uno por uno al momento de implementarlo */}
-                {/*<button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__btn">
                     <div className="inner">
                         <Icon icon="heartFull"
                             iconClass="strokeWidth-2"
                             width="22" height="22"/>
                     </div>
                 </button>*/}
-                {/*<button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__btn">
                     <div className="inner">
                         <Icon icon="share"
                             iconClass="strokeWidth-2 stroke-slate"
@@ -221,7 +228,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>*/}
-                {/*<button className="sp-iconTabMenu__button">
+                {/*<button className="sp-iconTabMenu__btn">
                     <div className="inner">
                         <Icon icon="download"
                             iconClass="strokeWidth-2 stroke-slate"
@@ -243,9 +250,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                     <button className={duplicateClasses}
                     onClick={this._handleDuplicateClick}>
                         <div className="inner">
-                            <Icon icon="package"
-                                iconClass="strokeWidth-2 stroke-slate"
-                                width="22" height="22"/>
+                            <div className="inner__btn sp-btn sp-btn--md sp-btn--secondary">
+                                <Icon icon="package"
+                                    iconClass="strokeWidth-2 stroke-white"
+                                    width="22" height="22"/>
+                            </div>
                         </div>
                     </button>}
                     size="small"
@@ -289,7 +298,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab)),
-                duplicateAtom: (atomId, userId) => dispatch(duplicateAtomAction(atomId, userId))
+                showModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
             }
         }
     };

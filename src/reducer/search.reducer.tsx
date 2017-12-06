@@ -47,6 +47,19 @@ export default function (state: ISearchState = defaultState, action: Action): IS
         /*       SEARCH ATOMS ACTIONS      */
         /***********************************/
 
+        case types.CLEAR_SEARCH: {
+            return {
+                ...state,
+                searchAtoms: {
+                    filter: {
+                        text: '',
+                        atomCategoryId: null
+                    },
+                    sortBy: appConfig.ATOM_SEARCH_ORDER_BY_DEFAULT
+                }
+            };
+        }
+
         case types.SEARCH_ATOMS: {
             return {
                 ...state,

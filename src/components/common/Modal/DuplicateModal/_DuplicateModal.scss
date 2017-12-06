@@ -1,0 +1,122 @@
+/**********************************************************/
+/*                     DUPLICATE MODAL                    */
+/**********************************************************/
+
+.DuplicateModal {
+    
+        .sp-close-icon {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            top: 1.0535rem;
+            right: 1rem;
+            position: absolute;
+            z-index: 1;
+            opacity: .5;
+            
+            &::after {
+                content: "ESC";
+                color: map-get($color, slate);
+                position: relative;
+                top: 28px;
+                @extend .fontFamily-quicksand;
+                @extend .fontWeight-9;
+                @extend .fontSize-sm;
+            }
+    
+            &:hover {
+                background-color: map-get($color, darkSmoke);
+                border: 5px solid map-get($color, darkSmoke);
+                opacity: 1;
+            }
+    
+            &:hover:after {
+                right: 4px;
+            }
+        }
+
+        .duplicateOptionsList {
+            text-align: center;
+            padding: 0;
+
+            .duplicateOption {
+                display: inline-block;
+                vertical-align: middle;
+                box-sizing: border-box;
+                padding: 25px;
+                width: 320px;
+                min-height: 320px;
+                @extend .borderRadius-lg;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: map-get($color, white);
+                    @extend .boxShadow-float;
+                }
+
+                &--disabled {
+                    cursor: default;
+                    opacity: 0.3;
+
+                    &:hover {
+                        background-color: transparent;
+                        box-shadow: none;
+                    }
+                }
+
+                &__icon {
+                    background-image: url('./../../../resources/images/originalCode.svg');
+                    background-repeat: no-repeat;
+                    background-position: 0 0;
+                    background-size: cover;
+                    overflow: hidden;
+                    width: 260px;
+                    height: 142px;
+                    display: inline-block;
+
+                    &--edited {
+                        background-image: url('./../../../resources/images/codeEdited.svg');
+                    }
+                }
+
+                &__text {
+                    @extend .fontSize-xl;
+                    @extend .color-slate;
+                }
+            }
+
+            .duplicateResult {
+                display: inline-block;
+                vertical-align: middle;
+                box-sizing: border-box;
+                padding: 25px;
+                width: 320px;
+                min-height: 320px;
+                @extend .borderRadius-lg;
+
+                &__icon {
+                    background-image: url('./../../../resources/images/newComponent.svg');
+                    background-repeat: no-repeat;
+                    background-position: 0 0;
+                    background-size: cover;
+                    overflow: hidden;
+                    width: 260px;
+                    height: 245px;
+                    display: inline-block;
+                }
+
+                &__text {
+                    @extend .fontSize-xl;
+                    @extend .color-slate;
+                }
+            }
+        }
+    
+    }
+    
+    /* DIMMER (MODAL BACKDROP) */
+    body.duplicateModal-open { 
+        .ui.dimmer {
+            background-color: map-get($color, darkSnow);
+        }
+    }

@@ -8,12 +8,14 @@ import { compose, ChildProps } from 'react-apollo';
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import AtomDetailsModal from './../AtomDetailsModal/AtomDetailsModal.container';
+import DuplicateModal from './../DuplicateModal/DuplicateModal.container';
 
 // -----------------------------------
 
 /* Here are all modal components */
 const modalComponentList = {
-    AtomDetailsModal
+    AtomDetailsModal,
+    DuplicateModal
 };
 
 
@@ -29,7 +31,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    currentModal: any;
+    currentModals: Array<{modalType: string, modalProps: any}>;
 };
 
 /* Mapped Dispatches to Props */
@@ -57,8 +59,9 @@ extends React.Component<ChildProps<ModalManagerProps & StateProps & DispatchProp
     render() {
 
         // Destructuring props
-        const { currentModal } = this.props;
+        const { currentModals } = this.props;
 
+        /* LEGACY
         let renderedModal;
 
         if (currentModal) {
@@ -67,12 +70,21 @@ extends React.Component<ChildProps<ModalManagerProps & StateProps & DispatchProp
 
             renderedModal = <ModalComponent {...modalProps} />;
         }
+        */
+
+        const renderedModals = currentModals.map(
+            (modalDescription, index) => {
+                const { modalType, modalProps = {} } = modalDescription;
+                const ModalComponent = modalComponentList[modalType];
+                return <ModalComponent {...modalProps} key={modalType + index} />;
+            }
+        );
             
         
         /*         MARKUP          */
         /***************************/
         return (
-            <span>{renderedModal}</span>
+            <span>{renderedModals}</span>
         );
 
     }
@@ -87,7 +99,7 @@ extends React.Component<ChildProps<ModalManagerProps & StateProps & DispatchProp
 function mapStateToProps(state: IRootState): StateProps {
     const { modals } = state.ui;
     return {
-        currentModal: modals
+        currentModals: modals
     };
 }
 

@@ -229,4 +229,44 @@
             outline: none;
         }
     }
+
+}
+
+
+/// BUTTON DISABLED
+
+.sp-btn[disabled] {
+    opacity: .4;
+    cursor: default;
+    pointer-events: none;
+    &:hover {
+        background-color: initial;
+    }
+}
+
+/* BUTTON GROUP */
+.sp-btnGroup {
+    &__container {
+        display: inline-block;
+
+        .sp-btn {
+            @extend .borderRadius-0;
+        }
+
+        &:first-child {
+            .sp-btn {
+                -webkit-border-radius: 4px 0 0 4px;
+                -moz-border-radius: 4px 0 0 4px;
+                border-radius: 4px 0 0 4px;
+            }
+        }
+
+        &:last-child {
+            .sp-btn {
+                -webkit-border-radius: 0 4px 4px 0;
+                -moz-border-radius: 0 4px 4px 0;
+                border-radius: 0 4px 4px 0;
+            }
+        }
+    }
 }
