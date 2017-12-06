@@ -81,7 +81,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                             <Icon icon="logo" 
                                 iconClass="mr-2"
                                 width="20" height="20"/>
-                            <span>Stylepills</span>
+                            <span>Stylepill</span>
                         </a>
 
                         {/* Navbar options */}
