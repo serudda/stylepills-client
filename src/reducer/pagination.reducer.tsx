@@ -45,6 +45,7 @@ export default function (state: IPaginationState = defaultState, action: Action)
         /***********************************/
         /*       SEARCH ATOMS ACTIONS      */
         /***********************************/
+        case types.LOCATION_CHANGE:
         case types.CLEAR_PAGINATION: {
             return {
                 ...state,

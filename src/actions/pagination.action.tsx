@@ -21,6 +21,16 @@ interface IPaginationEventPayLoad {
     };
 }
 
+interface ILocationChangeAction {
+    type: types.LOCATION_CHANGE;
+    paginationAtoms: {
+        first: number,
+        after: null,
+        last: null,
+        before: null
+    };
+}
+
 export interface IClearPaginationAction {
     type: types.CLEAR_PAGINATION;
     paginationAtoms: {
@@ -46,7 +56,8 @@ export interface IPrevPageAtomAction {
 
 export type Action = 
     // Pagination interaction
-    IClearPaginationAction
+    ILocationChangeAction
+|   IClearPaginationAction
 |   INextPageAtomAction
 |   IPrevPageAtomAction;
 
