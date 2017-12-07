@@ -47,6 +47,7 @@ export default function (state: ISearchState = defaultState, action: Action): IS
         /*       SEARCH ATOMS ACTIONS      */
         /***********************************/
 
+        case types.LOCATION_CHANGE:
         case types.CLEAR_SEARCH: {
             return {
                 ...state,

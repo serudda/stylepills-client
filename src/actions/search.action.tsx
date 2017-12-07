@@ -10,6 +10,16 @@ import * as appConfig from '../core/constants/app.constants';
 /************************************/
 /*            INTERFACES            */
 /************************************/
+interface ILocationChangeAction {
+    type: types.LOCATION_CHANGE;
+    searchAtoms: {
+        filter: {
+            text: string,
+            atomCategoryId: null
+        },
+        sortBy: string
+    };
+}
 
 export interface IClearSearchAction {
     type: types.CLEAR_SEARCH;
@@ -30,7 +40,8 @@ export interface ISearchAtomsAction {
 
 export type Action = 
     // Search interaction
-    IClearSearchAction
+    ILocationChangeAction
+|   IClearSearchAction
 |   ISearchAtomsAction;
 
 

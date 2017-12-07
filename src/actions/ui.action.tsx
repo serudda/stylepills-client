@@ -47,7 +47,7 @@ interface IDuplicateAtomEventPayLoad {
     };
 }
 
-export interface ILocationChangeAction {
+interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     modals: null;
     tabs: {
