@@ -11,6 +11,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 
 import { searchAtomsAction } from '../../../actions/search.action';
+import { clearPaginationAction } from '../../../actions/pagination.action';
 
 import Icon from '../Icon/Icon';
 
@@ -40,6 +41,9 @@ type DispatchProps = {
     actions: {
         search: {
             searchAtoms: (filters: any) => void;
+        },
+        pagination: {
+            clearPagination: () => void;
         }
     };
 };
@@ -84,13 +88,16 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+        // Destructuring props
+        const { filter } = this.props.search.searchAtoms;
+        const { text, atomCategoryId } = filter;
 
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
-                    text: this.props.search.searchAtoms.filter.text,
-                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
+                    text,
+                    atomCategoryId
                 },
                 sortBy: value
             }
@@ -100,6 +107,9 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         this.setState((previousState) => {
             return { ...previousState, value };
         });
+
+        // Trigger Clean Pagination Action
+        this.props.actions.pagination.clearPagination();
         
         // Trigger Search Atoms Action
         this.props.actions.search.searchAtoms(queryArgs);
@@ -155,6 +165,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             search: {
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
+            },
+            pagination: {
+                clearPagination: () => dispatch(clearPaginationAction())
             }
         }
     };

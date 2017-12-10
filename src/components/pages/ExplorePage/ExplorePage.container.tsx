@@ -68,7 +68,7 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
             <div className="ExplorePage sp-bg-darkSnow h-100">
                 
                 {/* Header */}
-                <Header />
+                <Header showFilterSection={true} />
 
                 {/* Atoms list container */}
                 <AtomsListContainer />
