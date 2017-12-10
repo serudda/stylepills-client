@@ -84,13 +84,16 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+        // Destructuring props
+        const { filter } = this.props.search.searchAtoms;
+        const { text, atomCategoryId } = filter;
 
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
-                    text: this.props.search.searchAtoms.filter.text,
-                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
+                    text,
+                    atomCategoryId
                 },
                 sortBy: value
             }

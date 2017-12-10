@@ -8,6 +8,7 @@ import * as appConfig from './../constants/app.constants';
 /*            INTERFACES            */
 /************************************/    
 interface IFunctionUtil {
+    inArray: (array: Array<any>, comparisonProp: string, comparisonValue: any) => boolean;
     consoleLog: (message: string, value?: any) => void;
 }
 

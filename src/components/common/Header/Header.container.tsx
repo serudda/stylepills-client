@@ -12,9 +12,9 @@ import { clearUiAction } from '../../../actions/ui.action';
 
 import Icon from '../Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
-// import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
-// import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
-// import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
+import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
+import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
+import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
 
 
 // -----------------------------------
@@ -25,7 +25,9 @@ import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
 /********************************/
 
 /* Own Props */
-type HeaderProps = {};
+type HeaderProps = {
+    showFilterSection?: boolean
+};
 
 /* Own States */
 type LocalStates = {};
@@ -64,6 +66,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+        // Destructuring props
+        const { showFilterSection = false } = this.props;
             
         
         /*         MARKUP          */
@@ -90,35 +95,25 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                     </div>
 
                     {/* Filter section */}
-                {/* <div className="FilterSection row align-items-center">
+                    {showFilterSection && 
+                    <div className="FilterSection row align-items-center">
                         <div className="col-9">
 
-                            // Search Box
+                            {/* Search Box */}
                             <AtomSearchContainer />
 
                         </div>
 
                         <div className="col-3 d-flex align-content-center justify-content-end">
 
-                            // Category Select List
+                            {/* Category Select List */}
                             <AtomCategoryFilterContainer />
                             
-                            // Sort by section 
+                            {/* Sort by section  */}
                             <SortBySelectListContainer />
 
-                            // Sort by section (Section commented)
-                            /*<div className="SortBy d-flex align-items-center">
-                                <span className="fontSize-sm color-silver mr-2">sort by</span>
-                                // filter btn
-                                <button className="sp-btn sp-btn--combo-neutral-ghost sp-btn--sm">
-                                    <span>Likes</span>
-                                    <Icon icon="chevronDown" 
-                                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                                        width="15" height="15"/>
-                                </button>
-                            </div>*
                         </div>
-                    </div> */}
+                    </div>}
 
                 </div>
                 

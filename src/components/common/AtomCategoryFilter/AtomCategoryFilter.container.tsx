@@ -86,6 +86,9 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+        // Destructuring props
+        const { filter, sortBy } = this.props.search.searchAtoms;
+        const { text } = filter;
 
         // CONSTANTS
         const RADIX = 10;
@@ -100,10 +103,10 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         queryArgs = {
             searchAtoms: {
                 filter: {
-                    text: this.props.search.searchAtoms.filter.text,
+                    text,
                     atomCategoryId: value
                 },
-                sortBy: this.props.search.searchAtoms.sortBy
+                sortBy
             }
         };
 
