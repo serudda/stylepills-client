@@ -9,6 +9,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 
 import { searchAtomsAction } from '../../../actions/search.action';
+import { clearPaginationAction } from '../../../actions/pagination.action';
 
 import Icon from '../../common/Icon/Icon';
 
@@ -38,6 +39,9 @@ type DispatchProps = {
     actions: {
         search: {
             searchAtoms: (filters: any) => void;
+        },
+        pagination: {
+            clearPagination: () => void;
         }
     };
 };
@@ -99,6 +103,9 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
             return { ...previousState, text: value };
         });
         
+        // Trigger Clean Pagination Action
+        this.props.actions.pagination.clearPagination();
+
         // Trigger Search Atoms Action
         this.props.actions.search.searchAtoms(queryArgs);
     }
@@ -122,12 +129,6 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
                     value={this.state.text} onChange={this._handleChange}
                     placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
                     className="sp-search__input sp-input sp-input--md sp-input--block" />
-                {/*<button className="sp-search__btn sp-btn sp-btn--combo sp-btn--sm fontSmoothing-reset">
-                    <span>Category</span>
-                    <Icon icon="chevronDown" 
-                          iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                          width="15" height="15"/>
-                </button>*/}
             </div>
             </div>
         );
@@ -155,6 +156,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             search: {
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
+            },
+            pagination: {
+                clearPagination: () => dispatch(clearPaginationAction())
             }
         }
     };

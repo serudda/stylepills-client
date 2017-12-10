@@ -11,6 +11,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 
 import { searchAtomsAction } from '../../../actions/search.action';
+import { clearPaginationAction } from '../../../actions/pagination.action';
 
 import Icon from '../Icon/Icon';
 
@@ -40,6 +41,9 @@ type DispatchProps = {
     actions: {
         search: {
             searchAtoms: (filters: any) => void;
+        },
+        pagination: {
+            clearPagination: () => void;
         }
     };
 };
@@ -103,6 +107,9 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         this.setState((previousState) => {
             return { ...previousState, value };
         });
+
+        // Trigger Clean Pagination Action
+        this.props.actions.pagination.clearPagination();
         
         // Trigger Search Atoms Action
         this.props.actions.search.searchAtoms(queryArgs);
@@ -158,6 +165,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             search: {
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
+            },
+            pagination: {
+                clearPagination: () => dispatch(clearPaginationAction())
             }
         }
     };
