@@ -56,8 +56,8 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Bind methods
         this._handleCloseClick = this._handleCloseClick.bind(this);

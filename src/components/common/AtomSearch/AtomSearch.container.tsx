@@ -57,8 +57,8 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomSearchProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Init state
         this.state = {

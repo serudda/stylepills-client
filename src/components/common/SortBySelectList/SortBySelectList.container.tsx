@@ -59,8 +59,8 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<SortBySelectListProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Init state
         this.state = {

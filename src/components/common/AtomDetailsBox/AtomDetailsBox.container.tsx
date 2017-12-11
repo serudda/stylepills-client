@@ -46,8 +46,8 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomDetailsBoxProps & StateProps & DispatchProps, {}>) {
+        super(props);
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox container actived');
     }

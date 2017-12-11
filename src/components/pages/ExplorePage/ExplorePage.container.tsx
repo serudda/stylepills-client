@@ -51,8 +51,8 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<ExplorePageProps & StateProps & DispatchProps, {}>) {
+        super(props);
     }
 
 

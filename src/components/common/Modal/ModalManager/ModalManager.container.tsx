@@ -48,8 +48,8 @@ extends React.Component<ChildProps<ModalManagerProps & StateProps & DispatchProp
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<ModalManagerProps & StateProps & DispatchProps, {}>) {
+        super(props);
     }
 
     

@@ -39,8 +39,8 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<UserProfilePageProps & StateProps, GetByUsernameResponse>) {
+        super(props);
     }
 
 

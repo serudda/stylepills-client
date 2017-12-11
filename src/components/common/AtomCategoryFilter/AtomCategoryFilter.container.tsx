@@ -60,8 +60,8 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomCategoryFilterProps & StateProps & DispatchProps, GetAllResponse>) {
+        super(props);
 
         // Init state
         this.state = {

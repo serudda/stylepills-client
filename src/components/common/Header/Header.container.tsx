@@ -57,8 +57,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<HeaderProps & StateProps & DispatchProps, {}>) {
+        super(props);
     }
 
     
