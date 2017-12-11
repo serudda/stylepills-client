@@ -45,8 +45,8 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomsListProps & StateProps, SearchAtomsResponse>) {
+        super(props);
     }
 
     

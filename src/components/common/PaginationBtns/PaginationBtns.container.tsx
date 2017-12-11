@@ -54,8 +54,8 @@ extends React.Component<ChildProps<PaginationBtnsProps & StateProps & DispatchPr
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<PaginationBtnsProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Bind methods
         this._handleNextClick = this._handleNextClick.bind(this);

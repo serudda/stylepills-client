@@ -53,8 +53,8 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomBoxProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Bind methods
         this._handleClick = this._handleClick.bind(this);

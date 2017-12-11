@@ -67,8 +67,8 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<DuplicateModalProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Bind methods
         this._handleCloseClick = this._handleCloseClick.bind(this);

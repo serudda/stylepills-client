@@ -34,8 +34,8 @@ class Iframe extends React.Component<IframeProps, {}> {
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {    
-        super();
+    constructor(props: IframeProps) {    
+        super(props);
         // LOG
         functionsUtil.consoleLog('IFrame container actived');
     }

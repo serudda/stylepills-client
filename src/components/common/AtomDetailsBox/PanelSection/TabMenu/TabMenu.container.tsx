@@ -66,8 +66,8 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<TabMenuProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');

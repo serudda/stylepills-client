@@ -48,8 +48,8 @@ extends React.Component<ChildProps<AppProps & StateProps, GetByIdResponse>, Loca
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AppProps & StateProps, GetByIdResponse>) {
+        super(props);
     }
 
 

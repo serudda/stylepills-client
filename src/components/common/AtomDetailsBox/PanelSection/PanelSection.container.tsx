@@ -46,8 +46,8 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<PanelSectionProps & StateProps, {}>) {
+        super(props);
     }
 
 
