@@ -782,7 +782,6 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                     <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
                                         <div className="AtomBox__content borderRadius-xs">
                                             <Link to={`/styleguide`} className="cover-link" />
-                                            {/*<Iframe html="<div></div>" css="css" background="#FFFFFF"/>*/}
                                             <div className="Iframe-wrapper">
                                                 <Iframe children="<div></div>" css="css" title="TEST IFRAME" />
                                             </div>
