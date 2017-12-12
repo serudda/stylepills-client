@@ -41,7 +41,7 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
         <div className="AtomInfo px-1">
 
             {/* Atom Name */}
-            <p className="m-0 fontWeight-9 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">
+            <p className="m-0 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">
                 {name}
             </p>
 
@@ -69,28 +69,28 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
                         <Icon icon="heart" 
                             iconClass="stroke-silver strokeWidth-2 mr-1"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">{likes}</span>
+                        <span className="fontSize-sm fontWeight-7 color-silver">{likes}</span>
                     </div>
 
                     <div className="comment sp-stats__item">
                         <Icon icon="messageCircle"
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">0</span>
+                        <span className="fontSize-sm fontWeight-7 color-silver">0</span>
                     </div>
 
                     <div className="store sp-stats__item">
                         <Icon icon="package"
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">{stores}</span>
+                        <span className="fontSize-sm fontWeight-7 color-silver">{stores}</span>
                     </div>
 
                     <div className="view sp-stats__item">
                         <Icon icon="eye" 
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
-                        <span className="fontSize-sm fontWeight-9 color-silver">{views}</span>
+                        <span className="fontSize-sm fontWeight-7 color-silver">{views}</span>
                     </div>
 
                 </div>
