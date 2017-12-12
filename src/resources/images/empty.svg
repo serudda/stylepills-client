@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>newComponent</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M256,128 C256,198.695 198.695,256 128,256 C57.305,256 0,198.695 0,128 C0,57.305 57.305,0 128,0 C198.695,0 256,57.305 256,128 Z" id="path-1"></path>
+        <filter x="-1.4%" y="-1.4%" width="102.7%" height="102.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="3" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.179008152 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-150.000000, -77.000000)" opacity="0.695708786">
+        <g id="newComponent" transform="translate(150.000000, 77.000000)">
+            <g id="futuro_icons_update_104" opacity="0.376754982">
+                <g id="Shape" fill-rule="nonzero">
+                    <use fill="#CFD9E9" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                </g>
+                <g id="Group" transform="translate(4.000000, 32.000000)">
+                    <polyline id="Shape" fill="#F3F3F4" fill-rule="nonzero" points="124 100 124 204 36 172 36 68"></polyline>
+                    <text id="F3F3F4" font-family="Quicksand-Regular, Quicksand" font-size="12" font-weight="normal" fill="#000000">
+                        <tspan x="106" y="105">F3F3F4</tspan>
+                    </text>
+                    <polyline id="Shape" fill="#F3F3F4" fill-rule="nonzero" points="212 68 212 172 124 204 124 100"></polyline>
+                    <polygon id="Shape" fill="#E0E0E0" fill-rule="nonzero" points="212 68 124 100 36 68 124 36"></polygon>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 36 160 0 248 32 212 68"></polyline>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 36 88 0 0 32 36 68"></polyline>
+                    <polyline id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="124 100 124 204 36 172 36 68"></polyline>
+                    <polygon id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="212 68 212 172 124 204 124 100"></polygon>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 100 88 156 0 124 36 68"></polyline>
+                    <polyline id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="124 100 160 156 248 124 212 68"></polyline>
+                    <polyline id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="124 100 88 156 0 124 36 68"></polyline>
+                    <polyline id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="124 100 160 156 248 124 212 68"></polyline>
+                    <polyline id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="136 40 212 68 124 100 36 68 112 40"></polyline>
+                    <polyline id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="136 24 160 0 248 32 212 68"></polyline>
+                    <polyline id="Shape" stroke="#C0CCDA" stroke-width="8" stroke-linejoin="round" points="112 24 88 0 0 32 36 68"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

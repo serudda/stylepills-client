@@ -90,7 +90,7 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                                 <Icon icon="logo" 
                                     iconClass="mr-2"
                                     width="20" height="20"/>
-                                <span>Stylepills</span>
+                                <span>Stylepill</span>
                             </a>
 
                             {/* Navbar options */}
@@ -132,7 +132,9 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                 </header>
 
                 {/* Atoms list container */}
-                <AtomsListContainer username={userByUsername.username}/>
+                <AtomsListContainer firstname={userByUsername.firstname} 
+                                    lastname={userByUsername.lastname} 
+                                    username={userByUsername.username}/>
 
             </div>
         );
