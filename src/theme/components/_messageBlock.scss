@@ -1,0 +1,75 @@
+/**********************************************************/
+/*                    MESSAGE BLOCK                       */
+/**********************************************************/
+
+.sp-messageBlock {
+    text-align: center;
+    padding: 0;
+
+    &__container {
+        display: inline-block;
+        vertical-align: middle;
+        box-sizing: border-box;
+        padding: 25px;
+        
+        &--sm {
+            width: 200px;
+            min-height: 200px;
+        }
+
+        &--md {
+            width: 320px;
+            min-height: 320px;
+        }
+
+        &--lg {
+            width: 380px;
+            min-height: 380px;
+        }
+
+        .icon {
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            background-size: cover;
+            overflow: hidden;
+            display: inline-block;
+
+            &--sm {
+                width: 180px;
+                height: 180px;
+            }
+
+            &--md {
+                width: 245px;
+                height: 245px;
+            }
+
+            &--lg {
+                width: 320px;
+                height: 320px;
+            }
+
+            &--empty {
+                background-image: url('./../../../resources/images/empty.svg');
+            }
+
+            &--noResult {
+                background-image: url('./../../../resources/images/noResult.svg');
+            }
+        
+        }
+
+        .text {
+            &--sm {
+                font-size: 23px;
+                line-height: 30px;
+            }
+
+            &--md {
+                font-size: 30px;
+                line-height: 37px;
+            }
+        }
+
+    }
+}
