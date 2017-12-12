@@ -58,6 +58,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
 
         // Bind methods
         this._handleClick = this._handleClick.bind(this);
+        this.onLoad = this.onLoad.bind(this);
     }
 
 
@@ -92,6 +93,14 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
         this.props.actions.ui.showModal(appConfig.ATOM_DETAILS_MODAL_TYPE, {atom});
     }
 
+    /**
+     * connect frame and you component
+     * @param {HTMLElement} document
+     */
+    onLoad () {
+        console.log('render Iframe from parent'); // output <p>hello world</p>
+    }
+
 
     /********************************/
     /*        RENDER MARKUP         */
@@ -107,7 +116,13 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
             <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
                 <div className="AtomBox__content borderRadius-xs">
                     <div onClick={this._handleClick(atom)} className="cover-link"/>
-                    <Iframe html={atom.html} css={atom.css} background={atom.contextualBg} />
+                    {/*<Iframe html={atom.html} css={atom.css} background={atom.contextualBg} />*/}
+                    <div className="Iframe-wrapper">
+                        <Iframe onLoad={this.onLoad} 
+                                children={atom.html} 
+                                css={atom.css} 
+                                title="TEST IFRAME" />
+                    </div>
                 </div>
             </div>
         );
