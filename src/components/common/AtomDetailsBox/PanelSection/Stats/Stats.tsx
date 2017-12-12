@@ -45,7 +45,7 @@ const Stats: React.SFC<StatsProps> = ({
                 <Icon icon="heart" 
                     iconClass="stroke-silver strokeWidth-2 mr-1"
                     width="16" height="16"/>
-                <span className="fontSize-md fontWeight-9 color-silver">
+                <span className="fontSize-md fontWeight-7 color-silver">
                     {likes}
                 </span>
             </div>
@@ -53,7 +53,7 @@ const Stats: React.SFC<StatsProps> = ({
                 <Icon icon="messageCircle"
                     iconClass="stroke-silver strokeWidth-2 mr-1 ml-3"
                     width="16" height="16"/>
-                <span className="fontSize-md fontWeight-9 color-silver">
+                <span className="fontSize-md fontWeight-7 color-silver">
                     {comments}
                 </span>
             </div>
@@ -61,7 +61,7 @@ const Stats: React.SFC<StatsProps> = ({
                 <Icon icon="package"
                     iconClass="stroke-silver strokeWidth-2 mr-1 ml-3"
                     width="16" height="16"/>
-                <span className="fontSize-md fontWeight-9 color-silver">
+                <span className="fontSize-md fontWeight-7 color-silver">
                     {stores}
                 </span>
             </div>
@@ -69,7 +69,7 @@ const Stats: React.SFC<StatsProps> = ({
                 <Icon icon="eye" 
                     iconClass="stroke-silver strokeWidth-2 mr-1 ml-3"
                     width="16" height="16"/>
-                <span className="fontSize-md fontWeight-9 color-silver">
+                <span className="fontSize-md fontWeight-7 color-silver">
                     {views}
                 </span>
             </div>

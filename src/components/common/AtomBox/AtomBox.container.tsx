@@ -127,7 +127,9 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                         <Iframe onLoad={this.onLoad} 
                                 children={atom.html} 
                                 css={atom.css} 
-                                title={atom.name} />
+                                title={atom.name}
+                                background={atom.contextualBg}
+                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
                     </div>
                 </div>
             </div>
