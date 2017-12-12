@@ -106,7 +106,6 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         return (
             <div className="PreviewSection boxShadow-raised sp-rounded-top-md sp-bg-white border-6 borderColor-white">
                 <div className="PreviewSection__content borderRadius-xs">    
-                    {/*<Iframe html={this.state.html} css={this.state.css} background={contextualBg} />*/}
                     <div className="Iframe-wrapper">
                         <Iframe children={this.state.html} css={this.state.css} title="TEST IFRAME" background={contextualBg}/>
                     </div>

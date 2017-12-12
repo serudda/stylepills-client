@@ -266,5 +266,5 @@ export default Iframe;
 
 /*
     Component built from 'react-sandbox-frame'
-    reference: https://github.com/brunocarvalhodearaujo/react-sandbox-frame
+    reference: https://github.com/npm-dom/iframe/blob/master/index.js
 */
