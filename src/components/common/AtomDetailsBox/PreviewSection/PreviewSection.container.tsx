@@ -22,6 +22,7 @@ import Iframe from '../../Iframe/Iframe.container';
 /* Own Props */
 type PreviewSectionProps = {
     atomId: number,
+    name: string,
     html: string,
     css: string,
     contextualBg: string
@@ -98,7 +99,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
     render() {
 
         // Destructuring props 
-        const { contextualBg } = this.props;
+        const { name, contextualBg } = this.props;
 
 
         /*         MARKUP          */
@@ -106,7 +107,13 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         return (
             <div className="PreviewSection boxShadow-raised sp-rounded-top-md sp-bg-white border-6 borderColor-white">
                 <div className="PreviewSection__content borderRadius-xs">    
-                    <Iframe html={this.state.html} css={this.state.css} background={contextualBg} />
+                    <div className="Iframe-wrapper">
+                        <Iframe children={this.state.html} 
+                                css={this.state.css} 
+                                title={name}
+                                background={contextualBg}
+                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
+                    </div>
                 </div>
             </div>
         );

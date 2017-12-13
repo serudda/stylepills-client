@@ -45,8 +45,8 @@ class Icon extends React.Component<IconProps, {}> {
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: IconProps) {
+        super(props);
     }
 
 

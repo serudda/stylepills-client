@@ -5,7 +5,7 @@
 .NavbarOptions {
     .nav-link.active {
         border-bottom: 3px solid map-get($color, secondary);
-        font-weight: 900;
+        font-weight: 600;
         outline: none;
     }
 }

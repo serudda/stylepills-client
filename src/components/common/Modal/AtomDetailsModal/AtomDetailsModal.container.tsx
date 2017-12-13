@@ -56,8 +56,8 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Bind methods
         this._handleCloseClick = this._handleCloseClick.bind(this);
@@ -153,7 +153,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
                 <Modal.Content>
 
                     {/* Atom name */}
-                    <div className="fontFamily-openSans fontWeight-9 fontSize-xl color-silver mt-5">
+                    <div className="fontFamily-openSans fontWeight-7 fontSize-xl color-silver mt-5">
                         {atom.name}
                     </div>
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="305px" height="305px" viewBox="0 0 305 305" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="152.5" cy="152.5" r="152.5"></circle>
+        <filter x="-1.1%" y="-1.1%" width="102.3%" height="102.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="3" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.180848053 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-114.000000, -57.000000)" opacity="0.701822917">
+        <g id="Group" transform="translate(114.000000, 57.000000)">
+            <g id="Oval-2" opacity="0.381793478">
+                <use fill="#CFD9E9" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            </g>
+            <g id="futuro_icons_358" transform="translate(25.000000, 19.000000)">
+                <circle id="Oval" fill="#33ADA9" fill-rule="nonzero" cx="68" cy="64" r="64"></circle>
+                <rect id="Rectangle-path" fill="#FEEB6A" fill-rule="nonzero" x="124" y="196" width="16" height="24"></rect>
+                <rect id="Rectangle-path" fill="#FEEB6A" fill-rule="nonzero" x="204" y="196" width="16" height="24"></rect>
+                <rect id="Rectangle-path" fill="#FEEB6A" fill-rule="nonzero" x="104" y="140" width="136" height="32"></rect>
+                <path d="M0,220 L256,220" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M220,220 L220,196" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M204,220 L204,196" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M140,220 L140,196" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M124,220 L124,196" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M96,196 L248,196" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M96,172 L248,172" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M96,156 L248,156" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M96,140 L248,140" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M132,192 L132,140" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M212,192 L212,140" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M68,220 L68,44" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M68,76 L88,56" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                <path d="M68,100 L48,80" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

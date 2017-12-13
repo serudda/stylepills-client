@@ -45,8 +45,8 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomsListProps & StateProps, SearchAtomsResponse>) {
+        super(props);
     }
 
     
@@ -64,7 +64,7 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /***************************/
         if (data.loading) {
             return (
-                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
+                <div className="fontSize-xxl fontFamily-poppins color-silver fontSmoothing-reset flex-center mt-5">
                     Loading...
                 </div>
             );
@@ -75,7 +75,16 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         }
 
         if (data.searchAtoms.results.length === 0) {
-            return (<div>No data</div>);
+            return (
+                <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                        <div className="icon icon--md icon--noResult mt-4 mb-3" />
+                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                            We couldn’t find any component that match.
+                        </div>
+                    </li>
+                </ul>
+            );
         }
             
         

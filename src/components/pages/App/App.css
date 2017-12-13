@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import 'https://fonts.googleapis.com/css?family=Open+Sans';
 @import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
 @import 'https://fonts.googleapis.com/css?family=Poppins';
@@ -16,6 +17,7 @@ body.mainApp {
   height: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0; }
   body.mainApp .sp-close-icon {
     background-image: url("./../../../resources/images/x.svg");
@@ -1611,8 +1613,7 @@ NOTE: Boostrap 4 has a flex set
 /* SELECT LIST */
 .sp-select-container {
   position: relative;
-  display: inline-flex;
-  align-items: center; }
+  display: inline-flex; }
   .sp-select-container .sp-select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1649,7 +1650,11 @@ NOTE: Boostrap 4 has a flex set
       width: 100%; }
   .sp-select-container .icon {
     position: absolute;
-    right: 10px; }
+    /* TODO: Este margin top esta quemado para los select md 
+        deberia variar dependiendo el tamaño */
+    margin-top: 12px;
+    right: 10px;
+    float: right; }
 
 /**********************************************************/
 /*                         LINKS                          */
@@ -1715,6 +1720,52 @@ NOTE: Boostrap 4 has a flex set
     color: #FFFFFF; }
     .sp-logo--white:hover {
       color: #FEEB6A; }
+
+/**********************************************************/
+/*                    MESSAGE BLOCK                       */
+/**********************************************************/
+.sp-messageBlock {
+  text-align: center;
+  padding: 0; }
+  .sp-messageBlock__container {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 25px; }
+    .sp-messageBlock__container--sm {
+      width: 200px;
+      min-height: 200px; }
+    .sp-messageBlock__container--md {
+      width: 320px;
+      min-height: 320px; }
+    .sp-messageBlock__container--lg {
+      width: 380px;
+      min-height: 380px; }
+    .sp-messageBlock__container .icon {
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: cover;
+      overflow: hidden;
+      display: inline-block; }
+      .sp-messageBlock__container .icon--sm {
+        width: 180px;
+        height: 180px; }
+      .sp-messageBlock__container .icon--md {
+        width: 245px;
+        height: 245px; }
+      .sp-messageBlock__container .icon--lg {
+        width: 320px;
+        height: 320px; }
+      .sp-messageBlock__container .icon--empty {
+        background-image: url("./../../../resources/images/empty.svg"); }
+      .sp-messageBlock__container .icon--noResult {
+        background-image: url("./../../../resources/images/noResult.svg"); }
+    .sp-messageBlock__container .text--sm {
+      font-size: 23px;
+      line-height: 30px; }
+    .sp-messageBlock__container .text--md {
+      font-size: 30px;
+      line-height: 37px; }
 
 /**********************************************************/
 /*                         STATS                          */
@@ -2087,7 +2138,7 @@ body.duplicateModal-open .ui.dimmer {
 /**********************************************************/
 .NavbarOptions .nav-link.active {
   border-bottom: 3px solid #33ADA9;
-  font-weight: 900;
+  font-weight: 600;
   outline: none; }
 
 .PaginationBtns {

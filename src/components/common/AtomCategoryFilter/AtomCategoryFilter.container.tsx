@@ -12,6 +12,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
 
 import { searchAtomsAction } from '../../../actions/search.action';
+import { clearPaginationAction } from '../../../actions/pagination.action';
 
 import Icon from '../Icon/Icon';
 
@@ -41,6 +42,9 @@ type DispatchProps = {
     actions: {
         search: {
             searchAtoms: (filters: any) => void;
+        },
+        pagination: {
+            clearPagination: () => void;
         }
     };
 };
@@ -56,8 +60,8 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomCategoryFilterProps & StateProps & DispatchProps, GetAllResponse>) {
+        super(props);
 
         // Init state
         this.state = {
@@ -86,6 +90,9 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+        // Destructuring props
+        const { filter, sortBy } = this.props.search.searchAtoms;
+        const { text } = filter;
 
         // CONSTANTS
         const RADIX = 10;
@@ -100,10 +107,10 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         queryArgs = {
             searchAtoms: {
                 filter: {
-                    text: this.props.search.searchAtoms.filter.text,
+                    text,
                     atomCategoryId: value
                 },
-                sortBy: this.props.search.searchAtoms.sortBy
+                sortBy
             }
         };
 
@@ -111,6 +118,9 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         this.setState((previousState) => {
             return { ...previousState, value };
         });
+
+        // Trigger Clean Pagination Action
+        this.props.actions.pagination.clearPagination();
         
         // Trigger Search Atoms Action
         this.props.actions.search.searchAtoms(queryArgs);
@@ -185,6 +195,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             search: {
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
+            },
+            pagination: {
+                clearPagination: () => dispatch(clearPaginationAction())
             }
         }
     };

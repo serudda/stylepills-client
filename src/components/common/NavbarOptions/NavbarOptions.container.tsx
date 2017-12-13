@@ -59,8 +59,8 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<NavbarOptionsProps & StateProps & DispatchProps, {}>) {
+        super(props);
 
         // Bind methods
         this._handleLogoutClick = this._handleLogoutClick.bind(this);

@@ -74,7 +74,7 @@
 .sp-select-container {
     position: relative;
     display: inline-flex;
-    align-items: center;
+    // align-items: center;
 
     .sp-select {
         -webkit-appearance: none;
@@ -118,6 +118,10 @@
 
     .icon {
         position: absolute;
+        /* TODO: Este margin top esta quemado para los select md 
+        deberia variar dependiendo el tamaño */
+        margin-top: 12px;
         right: 10px;
+        float: right;
     }
 }

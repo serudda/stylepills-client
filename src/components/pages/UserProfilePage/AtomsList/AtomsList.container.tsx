@@ -24,6 +24,8 @@ import PaginationBtnsContainer from '../../../common/PaginationBtns/PaginationBt
 
 /* Own Props */
 type AtomsListProps = {
+    firstname: string;
+    lastname: string;
     username: string;
 };
 
@@ -47,8 +49,8 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomsListProps & StateProps, SearchAtomsResponse>) {
+        super(props);
     }
 
     
@@ -60,6 +62,7 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /*       PROPERTIES       */
         /**************************/
         const {...data} = this.props.data;
+        const {firstname, lastname} = this.props;
         
         
         /*       VALIDATIONS       */
@@ -78,9 +81,14 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
 
         if (data.searchAtoms.results.length === 0) {
             return (
-                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
-                    You don't have components yet!
-                </div>
+                <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                    <li className="sp-messageBlock__container sp-messageBlock__container--lg">
+                        <div className="icon icon--sm icon--empty mt-4 mb-3" />
+                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                            {firstname} {lastname} doesn't have any public component yet.
+                        </div>
+                    </li>
+                </ul>
             );
         }
             

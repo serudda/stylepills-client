@@ -51,8 +51,8 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<HomePageProps, {}>) {
+        super(props);
 
         let isAlphaorBeta = true;
 

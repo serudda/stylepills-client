@@ -8,7 +8,7 @@ import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from '../../../mode
 
 import Icon from './../../common/Icon/Icon';
 import NavbarOptions from './../../common/NavbarOptions/NavbarOptions.container';
-import UserStats from './UserStats/UserStats';
+// import UserStats from './UserStats/UserStats';
 import AtomsListContainer from './AtomsList/AtomsList.container';
 import NotFound from './../NotFoundPage/NotFoundPage';
 
@@ -39,8 +39,8 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<UserProfilePageProps & StateProps, GetByUsernameResponse>) {
+        super(props);
     }
 
 
@@ -90,7 +90,7 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                                 <Icon icon="logo" 
                                     iconClass="mr-2"
                                     width="20" height="20"/>
-                                <span>Stylepills</span>
+                                <span>Stylepill</span>
                             </a>
 
                             {/* Navbar options */}
@@ -117,8 +117,8 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                                     </p>
 
                                     {/* User Stats */}
-                                    <div className="mt-5">
-                                        <UserStats components={0} followers={0} following={0}/>
+                                    <div className="mt-5 d-none">
+                                        {/*<UserStats components={0} followers={0} following={0}/>*/}
                                     </div>
                                 </div>
 
@@ -132,7 +132,9 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                 </header>
 
                 {/* Atoms list container */}
-                <AtomsListContainer username={userByUsername.username}/>
+                <AtomsListContainer firstname={userByUsername.firstname} 
+                                    lastname={userByUsername.lastname} 
+                                    username={userByUsername.username}/>
 
             </div>
         );

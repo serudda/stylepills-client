@@ -6,6 +6,7 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import * as appConfig from './../../../core/constants/app.constants';
+import { functionsUtil } from '../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../reducer/reducer.config';
 
@@ -53,11 +54,15 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomBoxProps & StateProps & DispatchProps, {}>) {
+        super(props);
+
+        // LOG
+        functionsUtil.consoleLog('AtomBox container actived');
 
         // Bind methods
         this._handleClick = this._handleClick.bind(this);
+        this.onLoad = this.onLoad.bind(this);
     }
 
 
@@ -80,6 +85,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
         this._showModal(atom);
     }
 
+
     /**
      * @desc Show Modal 
      * @method _showModal
@@ -90,6 +96,16 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
      */
     private _showModal(atom: AtomModel) {
         this.props.actions.ui.showModal(appConfig.ATOM_DETAILS_MODAL_TYPE, {atom});
+    }
+
+
+    /**
+     * @desc Connect frame with this component
+     * method sample
+     */
+    onLoad(): void {
+        // LOG
+        functionsUtil.consoleLog('IFrame connected with AtomBox component');
     }
 
 
@@ -107,7 +123,14 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
             <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
                 <div className="AtomBox__content borderRadius-xs">
                     <div onClick={this._handleClick(atom)} className="cover-link"/>
-                    <Iframe html={atom.html} css={atom.css} background={atom.contextualBg} />
+                    <div className="Iframe-wrapper">
+                        <Iframe onLoad={this.onLoad} 
+                                children={atom.html} 
+                                css={atom.css} 
+                                title={atom.name}
+                                background={atom.contextualBg}
+                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
+                    </div>
                 </div>
             </div>
         );

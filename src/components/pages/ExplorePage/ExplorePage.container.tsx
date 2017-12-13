@@ -51,8 +51,8 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<ExplorePageProps & StateProps & DispatchProps, {}>) {
+        super(props);
     }
 
 
@@ -68,7 +68,7 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
             <div className="ExplorePage sp-bg-darkSnow h-100">
                 
                 {/* Header */}
-                <Header />
+                <Header showFilterSection={true} />
 
                 {/* Atoms list container */}
                 <AtomsListContainer />

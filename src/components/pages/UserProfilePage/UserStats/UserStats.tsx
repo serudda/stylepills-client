@@ -31,17 +31,17 @@ const UserStats: React.SFC<UserStatsProps> = ({ followers = 0, following = 0, co
     /***************************/
     return (
         <ul className="UserStats color-slate p-0 m-0">
-            <li className="UserStats__item pr-3 borderRight-1 borderColor-smoke text-center d-none">
-                <div className="fontWeight-9 mb-1">{followers}</div>
+            <li className="UserStats__item pr-3 borderRight-1 borderColor-smoke text-center">
+                <div className="mb-1">{followers}</div>
                 <span className="UserStats__item__text fontSmoothing-reset color-silver">FOLLOWERS</span>
             </li>
-            <li className="pr-3 ml-3 borderRight-1 borderColor-smoke text-center d-none">
-                <div className="fontWeight-9 mb-1">{following}</div>
+            <li className="pr-3 ml-3 borderRight-1 borderColor-smoke text-center">
+                <div className="mb-1">{following}</div>
                 <span className="UserStats__item__text fontSmoothing-reset color-silver">FOLLOWING</span>
             </li>
             {/* <li className="ml-3 text-center"> */}
             <li className="text-center">
-                <div className="fontWeight-9 mb-1">{components}</div>
+                <div className="mb-1">{components}</div>
                 <span className="UserStats__item__text fontSmoothing-reset color-silver">COMPONENTS</span>
             </li>
         </ul>

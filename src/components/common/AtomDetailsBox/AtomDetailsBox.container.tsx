@@ -46,8 +46,8 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor() {
-        super();
+    constructor(props: ChildProps<AtomDetailsBoxProps & StateProps & DispatchProps, {}>) {
+        super(props);
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox container actived');
     }
@@ -68,7 +68,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
             <div className="AtomDetailsBox">
                 
                 {/* Preview Section */}
-                <PreviewSection atomId={atom.id} html={atom.html} css={atom.css} contextualBg={atom.contextualBg}/>
+                <PreviewSection atomId={atom.id} name={atom.name} html={atom.html} css={atom.css} contextualBg={atom.contextualBg}/>
 
                 {/* Panel Section */}
                 <PanelSection atom={atom}/>
