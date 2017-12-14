@@ -4038,7 +4038,10 @@ body.duplicateModal-open .ui.dimmer {
   flex-grow: 1;
   overflow: hidden; }
   .SidebarWrapper .Sidebar {
-    position: relative;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
     display: flex;
     flex-direction: column;
     flex-basis: 220px;
@@ -4070,6 +4073,13 @@ body.duplicateModal-open .ui.dimmer {
         cursor: pointer; }
         .SidebarWrapper .Sidebar__content .option:hover {
           background-color: #feeb6a36; }
+    .SidebarWrapper .Sidebar__footer {
+      border: 1px solid #000000; }
+      .SidebarWrapper .Sidebar__footer__btn {
+        color: #FFFFFF;
+        cursor: pointer; }
+        .SidebarWrapper .Sidebar__footer__btn:hover {
+          background-color: #1F2D3D; }
     .SidebarWrapper .Sidebar .divider {
       height: 0;
       margin: .5rem 0;
@@ -4080,7 +4090,8 @@ body.duplicateModal-open .ui.dimmer {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    min-width: 1px; }
+    min-width: 1px;
+    margin-left: 206px; }
 
 .HomePage .leftSide__header {
   height: 75px;

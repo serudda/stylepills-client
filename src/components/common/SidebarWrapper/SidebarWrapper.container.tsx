@@ -125,6 +125,8 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
         return (
             <div className="SidebarWrapper">
                 <div className="Sidebar">
+
+                    {/* Sidebar Header */}
                     <div className="Sidebar__header px-3 mt-3">
                         {/* Logo */}
                         <a className="sp-logo sp-logo--sm sp-logo--white m-0 link-reset" href="/">
@@ -137,6 +139,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
 
                     <div className="divider m-3" />
 
+                    {/* Sidebar Content */}
                     <div className="Sidebar__content">
                         <div className="title px-3 py-2">
                             Components (100)
@@ -183,7 +186,18 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                             </span>
                         </div>
 
+                    </div>
 
+                    {/* Sidebar Footer */}
+                    <div className="Sidebar__footer">
+                        <div className="Sidebar__footer__btn d-flex align-items-center sp-bg-black p-4">
+                            <Icon icon="plus"
+                                    iconClass="stroke-white strokeWidth-5"
+                                    width="20" height="20"/>
+                            <span className="fontSize-md fontWeight-6 ml-3">
+                                New component
+                            </span>
+                        </div>
                     </div>
 
                 </div>

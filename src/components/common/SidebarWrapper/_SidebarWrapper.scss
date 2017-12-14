@@ -8,7 +8,10 @@
     overflow: hidden;
 
     .Sidebar {
-        position: relative;
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
         display: flex;
         flex-direction: column;
         flex-basis: 220px;
@@ -58,6 +61,18 @@
             }
         }
 
+        &__footer { 
+            border: 1px solid #000000;
+
+            &__btn {
+                color: map-get($color, white);
+                cursor: pointer;
+                &:hover {
+                    background-color: map-get($color, mirage);
+                }
+            }
+        }
+
         .divider {
             height: 0;
             margin: .5rem 0;
@@ -72,5 +87,6 @@
         flex-direction: column;
         flex-grow: 1;
         min-width: 1px;
+        margin-left: 206px;
     }
 }
