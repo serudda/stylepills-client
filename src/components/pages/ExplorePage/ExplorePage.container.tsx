@@ -11,7 +11,7 @@ import { ISearchState } from '../../../reducer/search.reducer';
 import { searchAtomsAction } from '../../../actions/search.action';
 
 import Header from '../../common/Header/Header.container';
-import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper';
+import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper.container';
 import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
 
 // -----------------------------------

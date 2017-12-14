@@ -37,14 +37,21 @@
                 color: map-get($color, extraDarkSmoke);
                 @extend .fontSize-xs;
                 @extend .fontWeight-7;
-                // @extend .mb-2;
+                
+                &__icon {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: map-get($color, secondary);
+                        @extend .borderRadius-sm;
+                    }
+                }
             }
 
             .option {
                 display: flex;
                 align-items: center;
                 cursor: pointer;
-                // @extend .mb-3;
+
                 &:hover {
                     background-color: #feeb6a36;
                 }

@@ -2884,7 +2884,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm {
+.borderRadius-sm, .SidebarWrapper .Sidebar__content .title__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -4060,6 +4060,10 @@ body.duplicateModal-open .ui.dimmer {
       overflow: hidden; }
       .SidebarWrapper .Sidebar__content .title {
         color: #C0CCDA; }
+        .SidebarWrapper .Sidebar__content .title__icon {
+          cursor: pointer; }
+          .SidebarWrapper .Sidebar__content .title__icon:hover {
+            background-color: #33ADA9; }
       .SidebarWrapper .Sidebar__content .option {
         display: flex;
         align-items: center;

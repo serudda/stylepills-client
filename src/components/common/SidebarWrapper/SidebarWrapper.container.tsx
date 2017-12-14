@@ -3,6 +3,9 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
+
+import { functionsUtil } from '../../../core/utils/functionsUtil';
 
 import Icon from '../Icon/Icon';
 
@@ -38,6 +41,9 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
     /********************************/
     constructor(props: ChildProps<SidebarWrapperProps & StateProps, {}>) {
         super(props);
+
+        // LOG
+        functionsUtil.consoleLog('SidebarWrapper container actived');
 
         // Init state
         this.state = {
@@ -81,6 +87,32 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
         });
     }
 
+
+    /**
+     * @desc Get Create Project Btn
+     * @method _getCreateProjectBtn
+     * @example this._getCreateProjectBtn()
+     * @private
+     * @returns {JSX.Element} <Popup />
+     */
+    private _getCreateProjectBtn(): JSX.Element {
+        return (
+            <Popup
+            trigger={
+                <span className="ml-auto">
+                    <Icon icon="plus"
+                    iconClass="title__icon stroke-white strokeWidth-4"
+                    width="18" height="18"/>
+                </span>
+            }
+            position="top center"
+            size="tiny"
+            inverted={true}>
+                Create a project
+            </Popup>
+        );
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -120,8 +152,11 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
 
                         <div className="divider m-3 mt-4" />
 
-                        <div className="title px-3 py-2">
-                            Projects (2)
+                        <div className="title px-3 py-2 d-flex align-items-center">
+                            <span>
+                                Projects (3)
+                            </span>
+                            {this._getCreateProjectBtn()}
                         </div>
                         <div className="option px-3 py-1">
                             <Icon icon="chevronRight"
