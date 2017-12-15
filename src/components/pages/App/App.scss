@@ -1,20 +1,12 @@
+
 //               APP MAIN SASS STYLES
 // --------------------------------------------------
 
-// Third-Party
-// --------------------------------------------------
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../node_modules/bootstrap/scss/mixins';
+@import '../../../../node_modules/bootstrap/scss/utilities';
 
-// Fonts
-// --------------------------------------------------
-@import 'https://fonts.googleapis.com/css?family=Open+Sans';
-@import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
-@import 'https://fonts.googleapis.com/css?family=Poppins';
-@import 'https://fonts.googleapis.com/css?family=Quicksand';
-// Source Code Editor
-@import 'https://fonts.googleapis.com/css?family=Fira+Mono';
 
 
 // All Core Sass files goes into the theme/core files (variables, globals)
@@ -74,6 +66,8 @@
 @import '../../common/NavbarOptions/NavbarOptions';
 // Pagination Buttons Component Style
 @import '../../common/PaginationBtns/PaginationBtns';
+// SidebarWrapper Component Style
+@import '../../common/SidebarWrapper/SidebarWrapper';
 
 
 
