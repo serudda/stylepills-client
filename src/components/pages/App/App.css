@@ -4063,7 +4063,9 @@ body.duplicateModal-open .ui.dimmer {
       flex-direction: column;
       overflow: hidden; }
       .SidebarWrapper .Sidebar__content .title {
-        color: #FFFFFF; }
+        color: #FFFFFF;
+        display: flex;
+        align-items: center; }
         .SidebarWrapper .Sidebar__content .title__icon {
           cursor: pointer; }
           .SidebarWrapper .Sidebar__content .title__icon:hover {
@@ -4080,6 +4082,12 @@ body.duplicateModal-open .ui.dimmer {
         cursor: pointer; }
         .SidebarWrapper .Sidebar__content .option:hover {
           background-color: #feeb6a36; }
+        .SidebarWrapper .Sidebar__content .option--disabled {
+          cursor: default;
+          color: #8492A6;
+          opacity: 0.5; }
+          .SidebarWrapper .Sidebar__content .option--disabled:hover {
+            background-color: none; }
     .SidebarWrapper .Sidebar__footer {
       border: 1px solid #000000; }
       .SidebarWrapper .Sidebar__footer__btn {

@@ -39,6 +39,8 @@
 
             .title {
                 color: map-get($color, white);
+                display: flex;
+                align-items: center;
                 @extend .fontSize-md;
                 @extend .fontWeight-6;
                 
@@ -72,6 +74,16 @@
 
                 &:hover {
                     background-color: #feeb6a36;
+                }
+
+                &--disabled {
+                    cursor: default;
+                    color: map-get($color, silver);
+                    opacity: 0.5;
+                    
+                    &:hover {
+                        background-color: none;
+                    }
                 }
             }
         }

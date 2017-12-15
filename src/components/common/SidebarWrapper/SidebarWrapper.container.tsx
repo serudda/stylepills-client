@@ -3,11 +3,13 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
-import { Popup } from 'semantic-ui-react';
 
 import { functionsUtil } from '../../../core/utils/functionsUtil';
 
 import Icon from '../Icon/Icon';
+import ComponentsSection from './ComponentsSection/ComponentsSection';
+import ProjectsListSection from './ProjectsListSection/ProjectsListSection';
+import ProjectDetailsSection from './ProjectDetailsSection/ProjectDetailsSection';
 
 
 // -----------------------------------
@@ -87,64 +89,12 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
         });
     }
 
-
-    /**
-     * @desc Get Create Project Btn
-     * @method _getCreateProjectBtn
-     * @example this._getCreateProjectBtn()
-     * @private
-     * @returns {JSX.Element} <Popup />
-     */
-    private _getCreateProjectBtn(): JSX.Element {
-        return (
-            <Popup
-            trigger={
-                <span className="d-flex align-content-center ml-auto">
-                    <Icon icon="plus"
-                    iconClass="title__icon stroke-white strokeWidth-4"
-                    width="18" height="18"/>
-                </span>
-            }
-            position="top center"
-            size="tiny"
-            inverted={true}>
-                Create a project
-            </Popup>
-        );
-    }
-
-
-    /**
-     * @desc Get Close Btn
-     * @method _getCloseBtn
-     * @example this._getCloseBtn()
-     * @private
-     * @returns {JSX.Element} <Popup />
-     */
-    private _getCloseBtn(): JSX.Element {
-        return (
-            <Popup
-            trigger={
-                <span className="d-flex align-content-center ml-auto">
-                    <Icon icon="close"
-                    iconClass="title__icon stroke-white strokeWidth-4"
-                    width="18" height="18"/>
-                </span>
-            }
-            position="top center"
-            size="tiny"
-            inverted={true}>
-                Close project
-            </Popup>
-        );
-    }
-
     
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-            
+         
         
         /*         MARKUP          */
         /***************************/
@@ -169,113 +119,15 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                     <div className="Sidebar__content">
 
                         {/* Components Section */}
-                        <div className="ComponentsSection d-none">
-                            <div className="subtitle px-3 py-2">
-                                Components (100)
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="layer"
-                                    iconClass="stroke-white strokeWidth-2 ml-2 mr-3"
-                                    width="14" height="14"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    All
-                                </span>
-                            </div>
-                        </div>
+                        <ComponentsSection />
 
-                        <div className="divider m-3 mt-4 d-none" />
+                        <div className="divider m-3 mt-4" />
 
-                        {/* Projects Section */}
-                        <div className="ProjectsSection d-none">
-                            <div className="subtitle px-3 py-2 d-flex align-items-center">
-                                <span>
-                                    Projects (3)
-                                </span>
-                                {this._getCreateProjectBtn()}
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="chevronRight"
-                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                    width="16" height="16"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    Stylepill
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="chevronRight"
-                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                    width="16" height="16"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    Waysily
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="chevronRight"
-                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                    width="16" height="16"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    Steroidesign
-                                </span>
-                            </div>
-                        </div>
+                        {/* Projects List Section */}
+                        <ProjectsListSection />
 
                         {/* Project Details Section */}
-                        <div className="ProjectDetailsSection">
-                            <div className="title px-3 py-2 d-flex align-items-center">
-                                <span>
-                                    Stylepill
-                                </span>
-                                {this._getCloseBtn()}
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="chevronDown"
-                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                    width="16" height="16"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    base
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="color"
-                                    iconClass="stroke-white strokeWidth-2 ml-4 mr-2"
-                                    width="14" height="14"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    color palette
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="font"
-                                    iconClass="stroke-white strokeWidth-2 ml-4 mr-2"
-                                    width="14" height="14"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    fonts
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="image"
-                                    iconClass="stroke-white strokeWidth-2 ml-4 mr-2"
-                                    width="14" height="14"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    logo
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="chevronRight"
-                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                    width="16" height="16"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    components
-                                </span>
-                            </div>
-                            <div className="option px-3 py-1">
-                                <Icon icon="chevronRight"
-                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                    width="16" height="16"/>
-                                <span className="fontSize-sm fontWeight-6 color-white">
-                                    organisms
-                                </span>
-                            </div>
-                        </div>
+                        <ProjectDetailsSection />
 
                     </div>
 
