@@ -2541,13 +2541,13 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xxs {
   font-size: 10px; }
 
-.fontSize-xs, .SidebarWrapper .Sidebar__content .title {
+.fontSize-xs, .SidebarWrapper .Sidebar__content .subtitle {
   font-size: 12px; }
 
 .fontSize-sm, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
-.fontSize-md {
+.fontSize-md, .SidebarWrapper .Sidebar__content .title {
   font-size: 16px; }
 
 .fontSize-lg {
@@ -2581,10 +2581,10 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-5 {
   font-weight: 500; }
 
-.fontWeight-6 {
+.fontWeight-6, .SidebarWrapper .Sidebar__content .title {
   font-weight: 600; }
 
-.fontWeight-7, .SidebarWrapper .Sidebar__content .title {
+.fontWeight-7, .SidebarWrapper .Sidebar__content .subtitle {
   font-weight: 700; }
 
 .fontWeight-8 {
@@ -2884,7 +2884,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .SidebarWrapper .Sidebar__content .title__icon:hover {
+.borderRadius-sm, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -4048,6 +4048,7 @@ body.duplicateModal-open .ui.dimmer {
     flex-shrink: 0;
     min-width: 1px;
     max-width: 260px;
+    width: 220px;
     background: #3C4858;
     box-sizing: content-box;
     visibility: visible; }
@@ -4062,10 +4063,16 @@ body.duplicateModal-open .ui.dimmer {
       flex-direction: column;
       overflow: hidden; }
       .SidebarWrapper .Sidebar__content .title {
-        color: #C0CCDA; }
+        color: #FFFFFF; }
         .SidebarWrapper .Sidebar__content .title__icon {
           cursor: pointer; }
           .SidebarWrapper .Sidebar__content .title__icon:hover {
+            background-color: #33ADA9; }
+      .SidebarWrapper .Sidebar__content .subtitle {
+        color: #C0CCDA; }
+        .SidebarWrapper .Sidebar__content .subtitle__icon {
+          cursor: pointer; }
+          .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
             background-color: #33ADA9; }
       .SidebarWrapper .Sidebar__content .option {
         display: flex;
@@ -4091,7 +4098,7 @@ body.duplicateModal-open .ui.dimmer {
     flex-direction: column;
     flex-grow: 1;
     min-width: 1px;
-    margin-left: 206px; }
+    margin-left: 220px; }
 
 .HomePage .leftSide__header {
   height: 75px;

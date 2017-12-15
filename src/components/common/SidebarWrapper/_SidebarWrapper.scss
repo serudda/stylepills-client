@@ -18,6 +18,7 @@
         flex-shrink: 0;
         min-width: 1px;
         max-width: 260px;
+        width: 220px;
         background: map-get($color, slate);
         box-sizing: content-box;
         @extend .zIndex-footer;
@@ -37,6 +38,20 @@
             overflow: hidden;
 
             .title {
+                color: map-get($color, white);
+                @extend .fontSize-md;
+                @extend .fontWeight-6;
+                
+                &__icon {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: map-get($color, secondary);
+                        @extend .borderRadius-sm;
+                    }
+                }
+            }
+
+            .subtitle {
                 color: map-get($color, extraDarkSmoke);
                 @extend .fontSize-xs;
                 @extend .fontWeight-7;
@@ -87,6 +102,6 @@
         flex-direction: column;
         flex-grow: 1;
         min-width: 1px;
-        margin-left: 206px;
+        margin-left: 220px;
     }
 }

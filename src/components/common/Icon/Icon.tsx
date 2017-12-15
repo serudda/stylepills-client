@@ -16,11 +16,15 @@ interface IconType {
     arrowDown: () => JSX.Element;
     chevronDown: () => JSX.Element;
     chevronRight: () => JSX.Element;
+    close: () => JSX.Element;
     code: () => JSX.Element;
+    color: () => JSX.Element;
     download: () => JSX.Element;
     eye: () => JSX.Element;
+    font: () => JSX.Element;
     heart: () => JSX.Element;
     heartFull: () => JSX.Element;
+    image: () => JSX.Element;
     layer: () => JSX.Element;
     logo: () => JSX.Element;
     messageCircle: () => JSX.Element;
@@ -137,6 +141,23 @@ class Icon extends React.Component<IconProps, {}> {
                     </svg>
                 );
             },
+            close: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                         <line x1="18" y1="6" x2="6" y2="18" />
+                         <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                );
+            },
             code: () => {
                 return (
                     <svg className={iconClass}
@@ -153,6 +174,22 @@ class Icon extends React.Component<IconProps, {}> {
                         <path d="M11,13.2862598 L15.3169675,0"/>
                         <polyline transform="translate(6.146880, 6.608451) scale(1, -1) rotate(-130.000000) translate(-6.146880, -6.608451) " points="2.36089108 5.08392329 9.93286796 2.4375663 9.14841836 10.7793349" />
                         <polyline transform="translate(20.146880, 6.608451) scale(-1, -1) rotate(-130.000000) translate(-20.146880, -6.608451) " points="16.3608911 5.08392329 23.932868 2.4375663 23.1484184 10.7793349" />
+                    </svg>
+                );
+            },
+            color: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
                     </svg>
                 );
             },
@@ -191,6 +228,24 @@ class Icon extends React.Component<IconProps, {}> {
                     </svg>
                 );
             },
+            font: () => {
+                return(
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                         <polyline points="4 7 4 4 20 4 20 7" />
+                         <line x1="9" y1="20" x2="15" y2="20" />
+                         <line x1="12" y1="4" x2="12" y2="20" />
+                    </svg>
+                );
+            },
             heart: () => {
                 return (
                     <svg className={iconClass}
@@ -220,6 +275,24 @@ class Icon extends React.Component<IconProps, {}> {
                          strokeLinejoin="round"
                          xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                );
+            },
+            image: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
                     </svg>
                 );
             },
