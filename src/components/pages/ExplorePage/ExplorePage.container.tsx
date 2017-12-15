@@ -68,7 +68,8 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
         return (
             <div className="ExplorePage sp-bg-darkSnow h-100">
 
-                {/* SidebarWrapper */}
+                {/* SidebarWrapper 
+                TODO: REMOVER CUANDO SE TERMINE DE IMPLEMENTAR */}
                 <SidebarWrapper>
                 
                     {/* Header */}
