@@ -1,0 +1,119 @@
+/**********************************************************/
+/*                     SIDEBAR WRAPPER                    */
+/**********************************************************/
+
+.SidebarWrapper {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+
+    .Sidebar {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        display: flex;
+        flex-direction: column;
+        flex-basis: 220px;
+        flex-shrink: 0;
+        min-width: 1px;
+        max-width: 260px;
+        width: 220px;
+        background: map-get($color, slate);
+        box-sizing: content-box;
+        @extend .zIndex-footer;
+        visibility: visible;
+
+        &__header {
+            flex-basis: 30px;
+            flex-shrink: 0;
+        }
+
+        &__content {
+            float: left;
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+
+            .title {
+                color: map-get($color, white);
+                display: flex;
+                align-items: center;
+                @extend .fontSize-md;
+                @extend .fontWeight-6;
+                
+                &__icon {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: map-get($color, secondary);
+                        @extend .borderRadius-sm;
+                    }
+                }
+            }
+
+            .subtitle {
+                color: map-get($color, extraDarkSmoke);
+                @extend .fontSize-xs;
+                @extend .fontWeight-7;
+                
+                &__icon {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: map-get($color, secondary);
+                        @extend .borderRadius-sm;
+                    }
+                }
+            }
+
+            .option {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #feeb6a36;
+                }
+
+                &--disabled {
+                    cursor: default;
+                    color: map-get($color, silver);
+                    opacity: 0.5;
+                    
+                    &:hover {
+                        background-color: none;
+                    }
+                }
+            }
+        }
+
+        &__footer { 
+            border: 1px solid #000000;
+
+            &__btn {
+                color: map-get($color, white);
+                cursor: pointer;
+                &:hover {
+                    background-color: map-get($color, mirage);
+                }
+            }
+        }
+
+        .divider {
+            height: 0;
+            margin: .5rem 0;
+            overflow: hidden;
+            border-top: 1px solid map-get($color, steel);
+        }
+    }
+
+    .MainContainer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-width: 1px;
+        margin-left: 220px;
+    }
+}

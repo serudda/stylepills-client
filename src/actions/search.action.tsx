@@ -1,8 +1,11 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { EventTypes } from 'redux-segment';
+
 import * as types from '../core/constants/action.types';
 import { IAtomQueryArgs } from '../models/atom/atom.query';
+import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import * as appConfig from '../core/constants/app.constants';
 
@@ -10,6 +13,17 @@ import * as appConfig from '../core/constants/app.constants';
 /************************************/
 /*            INTERFACES            */
 /************************************/
+interface ISearchEventPayLoad {
+    event: string;
+    properties?: {
+        filter: {
+            text: string,
+            atomCategoryId: number
+        },
+        sortBy: string
+    };
+}
+
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     searchAtoms: {
@@ -35,6 +49,7 @@ export interface IClearSearchAction {
 export interface ISearchAtomsAction {
     type: types.SEARCH_ATOMS;
     searchAtoms: IAtomQueryArgs;
+    meta: IAnalyticsTrack<ISearchEventPayLoad>;
 }
 
 
@@ -85,6 +100,21 @@ export const searchAtomsAction = ({ searchAtoms }: ISearchAtomsAction): Action =
                 atomCategoryId: searchAtoms.filter.atomCategoryId
             },
             sortBy: searchAtoms.sortBy
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.SEARCH_ATOMS,
+                    properties: {
+                        filter: {
+                            text: searchAtoms.filter.text,
+                            atomCategoryId: searchAtoms.filter.atomCategoryId
+                        },
+                        sortBy: searchAtoms.sortBy
+                    },
+                },
+            },
         }
     };
 };
