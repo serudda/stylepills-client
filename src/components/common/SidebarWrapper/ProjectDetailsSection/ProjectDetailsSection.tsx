@@ -85,7 +85,7 @@ extends React.Component<ChildProps<ProjectDetailsSectionProps & StateProps, {}>,
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ProjectDetailsSection">
+            <div className="ProjectDetailsSection d-none">
                 <div className="title px-3 py-2 d-flex align-items-center">
                     <span>
                         Stylepill
