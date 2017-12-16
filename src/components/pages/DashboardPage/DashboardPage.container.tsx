@@ -58,6 +58,7 @@ extends React.Component<ChildProps<DashboardPageProps & StateProps, {}>, LocalSt
                 <SidebarWrapper>
                 
                     <Switch>
+                        {/* Default route: /dashboard/components */}
                         <Redirect exact={true} from="/dashboard" to="/dashboard/components" />
                         <Route path="/dashboard/projects" component={ProjectsPage} />
                         <Route path="/dashboard/components" component={ComponentsPage} />
