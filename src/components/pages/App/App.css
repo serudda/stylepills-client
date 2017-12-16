@@ -4088,6 +4088,8 @@ body.duplicateModal-open .ui.dimmer {
           opacity: 0.5; }
           .SidebarWrapper .Sidebar__content .option--disabled:hover {
             background-color: none; }
+        .SidebarWrapper .Sidebar__content .option.active {
+          background-color: #feeb6a36; }
     .SidebarWrapper .Sidebar__footer {
       border: 1px solid #000000; }
       .SidebarWrapper .Sidebar__footer__btn {

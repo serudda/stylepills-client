@@ -3,10 +3,9 @@
 /********************************/
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { graphql, compose, ChildProps } from 'react-apollo';
+import { compose, ChildProps } from 'react-apollo';
 
-import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
-import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
+import * as appConfig from '../../../core/constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
@@ -25,7 +24,7 @@ import Icon from '../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type AtomCategoryFilterProps = {};
+type TypeSelectListProps = {};
 
 /* Own States */
 type LocalStates = {
@@ -53,19 +52,19 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomCategoryFilterContainer 
-extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & DispatchProps, GetAllResponse>, LocalStates> {
+class TypeSelectListContainer 
+extends React.Component<ChildProps<TypeSelectListProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<AtomCategoryFilterProps & StateProps & DispatchProps, GetAllResponse>) {
+    constructor(props: ChildProps<TypeSelectListProps & StateProps & DispatchProps, {}>) {
         super(props);
 
         // Init state
         this.state = {
-            value: '0'
+            value: appConfig.ATOM_SEARCH_TYPE_DEFAULT
         };
 
         // Bind methods
@@ -81,8 +80,7 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
      * @desc Handle Select List Change
      * @method _handleChange
      * @example this._handleChange()
-     * @private 
-     * @param {AtomModel} atom - atom data
+     * @private
      * @param {any} e - Event
      * @returns {void}
      */
@@ -91,26 +89,17 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         let value = e.target.value;
         let queryArgs: ISearchState = null;
         // Destructuring props
-        const { filter, sortBy } = this.props.search.searchAtoms;
-        const { text } = filter;
-
-        // CONSTANTS
-        const RADIX = 10;
-
-
-        // Parse to Int if value is String
-        if (typeof value === 'string') {
-            parseInt(value, RADIX);
-        }
+        const { filter } = this.props.search.searchAtoms;
+        const { text, atomCategoryId } = filter;
 
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
                     text,
-                    atomCategoryId: value
+                    atomCategoryId
                 },
-                sortBy
+                sortBy: value
             }
         };
 
@@ -131,31 +120,21 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-
-        /*       PROPERTIES       */
-        /**************************/
-        const {...data} = this.props.data;
-        
-        
-        /*       VALIDATIONS       */
-        /***************************/
-        if (data.loading) {
-            return (<option>loading</option>);
-        }
             
         
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomCategoryFilter">
+            <div className="TypeSelectList">
                 <div className="sp-select-container">
                     <select value={this.state.value} onChange={this._handleChange}
                             className="sp-select sp-select--md sp-select--input"
-                            name="categories">
-                        <option key="0" value="0">All</option>
-                        {data.allAtomCategories.map((atom: AtomCategoryModel) => (
-                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
-                        ))}
+                            name="type">
+                        <option value="all">All</option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                        <option value="stores">Stores</option>
+                        <option value="likes">Likes</option>
                     </select>
                     <Icon icon="chevronDown"
                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
@@ -167,14 +146,6 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
     }
 
 }
-
-
-/********************************/
-/*            QUERY             */
-/********************************/
-const getAllAtomCategoriesQuery = graphql<GetAllResponse, AtomCategoryFilterProps>(
-    GET_ALL_ATOM_CATEGORIES_QUERY
-);
 
 
 /********************************/
@@ -207,12 +178,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const atomCategoryFilterConnect = connect(mapStateToProps, mapDispatchToProps); 
+const typeSelectListConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    getAllAtomCategoriesQuery,
-    atomCategoryFilterConnect
-)(AtomCategoryFilterContainer);
+    typeSelectListConnect
+)(TypeSelectListContainer);

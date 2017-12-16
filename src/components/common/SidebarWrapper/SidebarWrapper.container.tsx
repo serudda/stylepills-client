@@ -2,9 +2,11 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
+import { IRootState } from '../../../reducer/reducer.config';
 import { functionsUtil } from '../../../core/utils/functionsUtil';
 
 import Icon from '../Icon/Icon';
@@ -29,7 +31,9 @@ type LocalStates = {
 };
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    location: any;
+};
 
 
 /***********************************************/
@@ -95,6 +99,9 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+        // Destructuring props
+        const { location } = this.props;
          
         
         /*         MARKUP          */
@@ -120,7 +127,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                     <div className="Sidebar__content">
 
                         {/* Components Section */}
-                        <ComponentsSection />
+                        <ComponentsSection isActive={location.pathname === '/dashboard/components'}/>
 
                         <div className="divider m-3 mt-4" />
 
@@ -157,6 +164,26 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
 }
 
 
+
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    const { location } = state.router;
+    return {
+        location
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const siebarWrapperConnect = connect(mapStateToProps); 
+
+
 /*         EXPORT          */
 /***************************/
-export default SidebarWrapper;
+export default compose(
+    siebarWrapperConnect
+)(SidebarWrapper);

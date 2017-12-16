@@ -5,9 +5,9 @@ import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { ChildProps } from 'react-apollo';
 
-import ComponentNew from './new/ComponentNew.container';
-import ComponentList from './list/ComponentList.container';
-import ComponentDetails from './details/ComponentDetails.container';
+import ComponentNew from './New/ComponentNew.container';
+import ComponentList from './List/ComponentList.container';
+import ComponentDetails from './Details/ComponentDetails.container';
 
 // -----------------------------------
 

@@ -4,6 +4,8 @@
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 
+import Header from './../Header/Header';
+
 // -----------------------------------
 
 
@@ -44,8 +46,15 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, {}>, LocalSt
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ComponentList">
-                Hello component list
+            <div>
+
+                {/* Header */}
+                <Header />
+
+                <div className="ComponentList">
+                    Hello component list
+                </div>
+
             </div>
         );
 
