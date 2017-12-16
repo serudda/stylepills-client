@@ -3,6 +3,7 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import { functionsUtil } from '../../../core/utils/functionsUtil';
 
@@ -133,14 +134,15 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
 
                     {/* Sidebar Footer */}
                     <div className="Sidebar__footer">
-                        <div className="Sidebar__footer__btn d-flex align-items-center sp-bg-black p-4">
+                        <Link className="Sidebar__footer__btn link-reset d-flex align-items-center sp-bg-black p-4"
+                            to="/dashboard/components/new">
                             <Icon icon="plus"
-                                    iconClass="stroke-white strokeWidth-5"
-                                    width="20" height="20"/>
+                                iconClass="stroke-white strokeWidth-5"
+                                width="20" height="20"/>
                             <span className="fontSize-md fontWeight-6 ml-2">
                                 New component
                             </span>
-                        </div>
+                        </Link>
                     </div>
 
                 </div>

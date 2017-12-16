@@ -3,6 +3,7 @@
 /************************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
@@ -57,14 +58,14 @@ extends React.Component<ChildProps<ComponentsSectionProps & StateProps, {}>, Loc
                 <div className="subtitle px-3 py-2">
                     Components (100)
                 </div>
-                <div className="option px-3 py-1">
+                <Link className="link-reset option px-3 py-1" to="/dashboard/components">
                     <Icon icon="layer"
                         iconClass="stroke-white strokeWidth-2 ml-2 mr-3"
                         width="14" height="14"/>
                     <span className="fontSize-sm fontWeight-6 color-white">
                         All
                     </span>
-                </div>
+                </Link>
             </div>
         );
     }

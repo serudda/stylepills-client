@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 import { Popup } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
@@ -60,11 +61,12 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
         return (
             <Popup
             trigger={
-                <span className="d-flex align-content-center ml-auto">
+                <Link className="link-reset d-flex align-content-center ml-auto"
+                      to="/dashboard/projects/new">
                     <Icon icon="plus"
-                    iconClass="title__icon stroke-white strokeWidth-4"
-                    width="18" height="18"/>
-                </span>
+                          iconClass="title__icon stroke-white strokeWidth-4"
+                          width="18" height="18"/>
+                </Link>
             }
             position="top center"
             size="tiny"
