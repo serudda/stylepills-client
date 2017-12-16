@@ -47,7 +47,6 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, {}>, LocalS
             <div className="ProjectDetails">
                 Hello project details
             </div>
-
         );
 
     }

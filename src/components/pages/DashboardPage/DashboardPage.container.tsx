@@ -9,6 +9,7 @@ import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper.container
 import ComponentsPage from '../ComponentsPage/ComponentsPage';
 import ProjectsPage from './../ProjectsPage/ProjectsPage';
 import NotFoundPage from './../NotFoundPage/NotFoundPage';
+import { Redirect } from 'react-router';
 
 // -----------------------------------
 
@@ -57,7 +58,7 @@ extends React.Component<ChildProps<DashboardPageProps & StateProps, {}>, LocalSt
                 <SidebarWrapper>
                 
                     <Switch>
-                        <Route exact={true} path="/dashboard" component={ProjectsPage} />
+                        <Redirect exact={true} from="/dashboard" to="/dashboard/components" />
                         <Route path="/dashboard/projects" component={ProjectsPage} />
                         <Route path="/dashboard/components" component={ComponentsPage} />
                         <Route component={NotFoundPage} />
