@@ -2,10 +2,12 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
+
+import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from './../../../../models/user/user.query';
 
 import Header from './../Header/Header';
-
+import AtomsListContainer from './../../UserProfilePage/AtomsList/AtomsList.container';
 // -----------------------------------
 
 
@@ -27,13 +29,13 @@ type StateProps = {};
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ComponentList
-extends React.Component<ChildProps<ComponentListProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<ComponentListProps & StateProps, GetByUsernameResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ComponentListProps & StateProps, {}>) {
+    constructor(props: ChildProps<ComponentListProps & StateProps, GetByUsernameResponse>) {
         super(props);
     }
 
@@ -42,6 +44,28 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, {}>, LocalSt
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const {
+            data: { userByUsername, loading, error },
+        } = this.props;
+
+        /*       VALIDATIONS       */
+        /***************************/
+        if (loading) {
+            return (
+                <div className="fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
+                    Loading...
+                </div>
+            );
+        }
+
+        if (error) {
+            return (<p>{error.message}</p>);
+        }
+
         
         /*         MARKUP          */
         /***************************/
@@ -51,9 +75,10 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, {}>, LocalSt
                 {/* Header */}
                 <Header />
 
-                <div className="ComponentList">
-                    Hello component list
-                </div>
+                {/* Atoms list container */}
+                <AtomsListContainer firstname={userByUsername.firstname} 
+                lastname={userByUsername.lastname} 
+                username={userByUsername.username}/>
 
             </div>
         );
@@ -62,7 +87,30 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, {}>, LocalSt
 
 }
 
+// Query options
+// TODO: Analizar de donde se deberia sacar este username
+const config = {
+    options: (ownProps: any) => (
+        { 
+            variables: 
+            { 
+                username: 'sergior-1834020'
+            } 
+        }
+    )
+};
+
+
+/********************************/
+/*            QUERY             */
+/********************************/
+const getUserByUsernameQuery = graphql<GetByUsernameResponse, ComponentListProps>(
+    GET_USER_BY_USERNAME_QUERY, config
+);
+
 
 /*         EXPORT          */
 /***************************/
-export default ComponentList;
+export default compose(
+    getUserByUsernameQuery
+)(ComponentList);
