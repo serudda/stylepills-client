@@ -2581,7 +2581,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-5 {
   font-weight: 500; }
 
-.fontWeight-6, .SidebarWrapper .Sidebar__content .title {
+.fontWeight-6, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .SidebarWrapper .Sidebar__content .title {
   font-weight: 600; }
 
 .fontWeight-7, .SidebarWrapper .Sidebar__content .subtitle {
@@ -2590,7 +2590,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-8 {
   font-weight: 800; }
 
-.fontWeight-9, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
+.fontWeight-9, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
   font-weight: 900; }
 
 /* Line Height scale */

@@ -11,7 +11,6 @@ import { ISearchState } from '../../../reducer/search.reducer';
 import { searchAtomsAction } from '../../../actions/search.action';
 
 import Header from '../../common/Header/Header.container';
-import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper.container';
 import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
 
 // -----------------------------------
@@ -68,17 +67,11 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps & DispatchProps
         return (
             <div className="ExplorePage sp-bg-darkSnow h-100">
 
-                {/* SidebarWrapper 
-                TODO: REMOVER CUANDO SE TERMINE DE IMPLEMENTAR */}
-                <SidebarWrapper>
-                
-                    {/* Header */}
-                    <Header showFilterSection={true} />
+                {/* Header */}
+                <Header showFilterSection={true} />
 
-                    {/* Atoms list container */}
-                    <AtomsListContainer />
-
-                </SidebarWrapper>
+                {/* Atoms list container */}
+                <AtomsListContainer />
 
             </div>
         );

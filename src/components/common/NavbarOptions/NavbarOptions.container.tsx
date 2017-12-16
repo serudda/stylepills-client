@@ -164,7 +164,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                                         My Profile
                                     </Link>
                                 </Dropdown.Item>
-                                {/* <Dropdown.Item>
+                                <Dropdown.Item>
                                     <Link className="link-reset" to={`/dashboard`}>
                                         My Dashboard
                                     </Link>
@@ -173,7 +173,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                                     <Link className="link-reset" to={`/dashboard/account`}>
                                         Settings
                                     </Link>
-                                </Dropdown.Item> */}
+                                </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item onClick={this._handleLogoutClick}>
                                     Log out
