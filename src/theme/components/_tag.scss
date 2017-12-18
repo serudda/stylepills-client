@@ -1,0 +1,86 @@
+/**********************************************************/
+/*                          TAGS                          */
+/**********************************************************/
+
+.sp-tag {
+    display: inline-block;
+    border: 1px solid transparent;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+    transition: background 300ms ease-out;
+    outline: none;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+
+    /// TAG-SIZE
+    &--xs {
+        padding: 1px 5px;
+        font-size: 12px;
+    }
+
+
+    /// TAG-COLOR
+
+    &--primary {
+        background-color: map-get($color, primary);
+        color: map-get($color, black);
+        font-weight: 900;
+    }
+
+    &--secondary {
+        background-color: map-get($color, secondary);
+        color: map-get($color, white);
+        font-weight: 900;
+    }
+
+    &--info {
+        background-color: map-get($color, info);
+        color: map-get($color, white);
+    }
+
+    &--neutral {
+        background-color: map-get($color, smoke);
+        color: map-get($color, black);
+        font-weight: 900;
+    }
+
+    &--primary-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, primary);
+        color: map-get($color, primary);
+        font-weight: 900;
+    }
+
+    &--secondary-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, secondary);
+        color: map-get($color, secondary);
+        font-weight: 900;
+    }
+
+    &--white-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, white);
+        color: map-get($color, white);
+        font-weight: 900;
+    }
+
+    &--black-ghost {
+        background: 0 0;
+        border: 2px solid map-get($color, black);
+        color: map-get($color, black);
+        font-weight: 900;
+    }
+
+}

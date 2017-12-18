@@ -3769,6 +3769,67 @@ NOTE: Boostrap 4 has a flex set
         border-radius: 3px; }
 
 /**********************************************************/
+/*                          TAGS                          */
+/**********************************************************/
+.sp-tag {
+  display: inline-block;
+  border: 1px solid transparent;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  transition: background 300ms ease-out;
+  outline: none;
+  box-shadow: none;
+  text-shadow: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
+  .sp-tag--xs {
+    padding: 1px 5px;
+    font-size: 12px; }
+  .sp-tag--primary {
+    background-color: #FEEB6A;
+    color: #24292e;
+    font-weight: 900; }
+  .sp-tag--secondary {
+    background-color: #33ADA9;
+    color: #FFFFFF;
+    font-weight: 900; }
+  .sp-tag--info {
+    background-color: #408FEC;
+    color: #FFFFFF; }
+  .sp-tag--neutral {
+    background-color: #E0E6ED;
+    color: #24292e;
+    font-weight: 900; }
+  .sp-tag--primary-ghost {
+    background: 0 0;
+    border: 2px solid #FEEB6A;
+    color: #FEEB6A;
+    font-weight: 900; }
+  .sp-tag--secondary-ghost {
+    background: 0 0;
+    border: 2px solid #33ADA9;
+    color: #33ADA9;
+    font-weight: 900; }
+  .sp-tag--white-ghost {
+    background: 0 0;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    font-weight: 900; }
+  .sp-tag--black-ghost {
+    background: 0 0;
+    border: 2px solid #24292e;
+    color: #24292e;
+    font-weight: 900; }
+
+/**********************************************************/
 /*                        ATOM BOX                        */
 /**********************************************************/
 .AtomBox {
@@ -3788,6 +3849,38 @@ NOTE: Boostrap 4 has a flex set
       bottom: 0;
       border: 0 !important;
       z-index: 1; }
+
+/**********************************************************/
+/*                        ATOM BOX                        */
+/**********************************************************/
+.ComponentsPage .AtomBox {
+  position: relative;
+  z-index: 0;
+  cursor: pointer; }
+  .ComponentsPage .AtomBox__content {
+    height: 0;
+    padding-top: 65%;
+    overflow: hidden;
+    position: relative; }
+    .ComponentsPage .AtomBox__content .cover-link {
+      background-color: #fffffff0;
+      padding: 8px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      border: 0 !important;
+      z-index: 1;
+      opacity: 0; }
+      .ComponentsPage .AtomBox__content .cover-link.active {
+        opacity: 1; }
+      .ComponentsPage .AtomBox__content .cover-link .icon {
+        opacity: 0.5; }
+        .ComponentsPage .AtomBox__content .cover-link .icon:hover {
+          opacity: 1; }
+        .ComponentsPage .AtomBox__content .cover-link .icon.active {
+          opacity: 1; }
 
 /**********************************************************/
 /*                   ATOM BOX DETAILS                     */

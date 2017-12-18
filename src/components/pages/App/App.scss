@@ -36,12 +36,16 @@
 @import '../../../theme/components/stats';
 // Icon Tab Menu Component Style
 @import '../../../theme/components/tab';
+// Tag Basic Component Style
+@import '../../../theme/components/tag';
 
 // React Components (Header, Modals, etc)
 // --------------------------------------------------
 
 // Component Box Component Style
 @import '../../common/AtomBox/AtomBox';
+// Component Box Component Style (ComponentsPage)
+@import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
 // Component Details Box Component (PreviewSection) Style

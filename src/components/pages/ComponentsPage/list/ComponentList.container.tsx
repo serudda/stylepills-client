@@ -7,7 +7,7 @@ import { graphql, compose, ChildProps } from 'react-apollo';
 import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from './../../../../models/user/user.query';
 
 import Header from './../Header/Header';
-import AtomsListContainer from './../../UserProfilePage/AtomsList/AtomsList.container';
+import AtomsListContainer from './AtomsList/AtomsList.container';
 // -----------------------------------
 
 
@@ -70,7 +70,7 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, GetByUsernam
         /*         MARKUP          */
         /***************************/
         return (
-            <div>
+            <div className="ComponentsPage">
 
                 {/* Header */}
                 <Header />
