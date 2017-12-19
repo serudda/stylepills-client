@@ -2,12 +2,13 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import HomePage from '../HomePage/HomePage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
+import DashboardPage from '../DashboardPage/DashboardPage.container';
 import UserProfilePage from '../UserProfilePage/UserProfilePage.container';
 
 
@@ -31,6 +32,7 @@ const Main: React.SFC<IMainProps> = () => {
                     <Route exact={true} path="/" component={HomePage} />
                     <Route exact={true} path="/styleguide" component={StyleguidePage} />
                     <Route exact={true} path="/explore" component={ExplorePage} />
+                    <Route path="/dashboard" component={DashboardPage} />
                     <Route exact={true} path="/user/:username" component={UserProfilePage} />
                     <Route component={NotFoundPage} />
                 </Switch>
@@ -41,4 +43,4 @@ const Main: React.SFC<IMainProps> = () => {
 
 
 /* Export */
-export default Main;
+export default withRouter(Main);
