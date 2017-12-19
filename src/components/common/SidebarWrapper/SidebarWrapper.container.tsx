@@ -119,6 +119,9 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                                 iconClass="mr-2"
                                 width="20" height="20"/>
                             <span>Stylepill</span>
+                            <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset ml-2">
+                                Alpha
+                            </span>
                         </a>
                     </div>
 

@@ -87,6 +87,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                                 iconClass="mr-2"
                                 width="20" height="20"/>
                             <span>Stylepill</span>
+                            <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset ml-2">
+                                Alpha
+                            </span>
                         </a>
 
                         {/* Navbar options */}

@@ -90,6 +90,9 @@ extends React.Component<ChildProps<ProjectDetailsSectionProps & StateProps, {}>,
                     <span>
                         Stylepill
                     </span>
+                    <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset ml-2">
+                        Alpha
+                    </span>
                     {this._getCloseBtn()}
                 </div>
 
