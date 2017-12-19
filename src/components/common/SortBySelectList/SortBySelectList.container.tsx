@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
 
 import * as appConfig from '../../../core/constants/app.constants';
 
@@ -115,17 +116,18 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         this.props.actions.search.searchAtoms(queryArgs);
     }
 
-    
-    /********************************/
-    /*        RENDER MARKUP         */
-    /********************************/
-    render() {
-            
-        
-        /*         MARKUP          */
-        /***************************/
+
+    /**
+     * @desc Get Sort by List
+     * @method _getSortByList
+     * @example this._getSortByList()
+     * @private
+     * @returns {JSX.Element} <Popup />
+     */
+    private _getSortByList (): JSX.Element {
         return (
-            <div className="SortBySelectList">
+            <Popup
+            trigger={
                 <div className="sp-select-container">
                     <select value={this.state.value} onChange={this._handleChange}
                             className="sp-select sp-select--md sp-select--input"
@@ -139,6 +141,27 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
                         width="15" height="15"/>
                 </div>
+            }
+            position="top center"
+            size="tiny"
+            inverted={true}>
+                Sort by
+            </Popup>
+        );
+    }
+
+    
+    /********************************/
+    /*        RENDER MARKUP         */
+    /********************************/
+    render() {
+            
+        
+        /*         MARKUP          */
+        /***************************/
+        return (
+            <div className="SortBySelectList">
+                {this._getSortByList()}
             </div>
         );
 

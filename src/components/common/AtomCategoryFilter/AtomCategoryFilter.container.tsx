@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
 
 import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
 import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
@@ -126,6 +127,41 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         this.props.actions.search.searchAtoms(queryArgs);
     }
 
+
+    /**
+     * @desc Get Categories Filter List
+     * @method _getCategoriesFilterList
+     * @example this._getCategoriesFilterList(categories)
+     * @private
+     * @param data - all Atom Categories
+     * @returns {JSX.Element} <Popup />
+     */
+    private _getCategoriesFilterList (categories: Array<AtomCategoryModel>): JSX.Element {
+        return (
+            <Popup
+            trigger={
+                <div className="sp-select-container">
+                    <select value={this.state.value} onChange={this._handleChange}
+                            className="sp-select sp-select--md sp-select--input"
+                            name="categories">
+                        <option key="0" value="0">All</option>
+                        {categories.map((atom: AtomCategoryModel) => (
+                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
+                        ))}
+                    </select>
+                    <Icon icon="chevronDown"
+                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                        width="15" height="15"/>
+                </div>
+            }
+            position="top center"
+            size="tiny"
+            inverted={true}>
+                Filter by category
+            </Popup>
+        );
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -148,19 +184,7 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         /***************************/
         return (
             <div className="AtomCategoryFilter">
-                <div className="sp-select-container">
-                    <select value={this.state.value} onChange={this._handleChange}
-                            className="sp-select sp-select--md sp-select--input"
-                            name="categories">
-                        <option key="0" value="0">All</option>
-                        {data.allAtomCategories.map((atom: AtomCategoryModel) => (
-                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
-                        ))}
-                    </select>
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                        width="15" height="15"/>
-                </div>
+                {this._getCategoriesFilterList(data.allAtomCategories)}
             </div>
         );
 
