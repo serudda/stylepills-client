@@ -3482,8 +3482,7 @@ NOTE: Boostrap 4 has a flex set
   position: relative; }
   .sp-search__input {
     padding-left: 36px;
-    box-sizing: border-box;
-    padding-right: 105px; }
+    box-sizing: border-box; }
   .sp-search__btn {
     position: absolute;
     right: 5px; }
