@@ -3261,7 +3261,7 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 .sp-btn {
   display: inline-block;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -3773,7 +3773,7 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 .sp-tag {
   display: inline-block;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -3795,39 +3795,41 @@ NOTE: Boostrap 4 has a flex set
     font-size: 12px; }
   .sp-tag--primary {
     background-color: #FEEB6A;
-    color: #24292e;
-    font-weight: 900; }
+    color: #24292e; }
   .sp-tag--secondary {
     background-color: #33ADA9;
-    color: #FFFFFF;
-    font-weight: 900; }
+    color: #FFFFFF; }
   .sp-tag--info {
     background-color: #408FEC;
     color: #FFFFFF; }
+  .sp-tag--positive {
+    background-color: #74C080;
+    color: #FFFFFF; }
+  .sp-tag--warning {
+    background-color: #FFC82C;
+    color: #FFFFFF; }
+  .sp-tag--negative {
+    background-color: #FF4949;
+    color: #FFFFFF; }
   .sp-tag--neutral {
     background-color: #E0E6ED;
-    color: #24292e;
-    font-weight: 900; }
+    color: #24292e; }
   .sp-tag--primary-ghost {
     background: 0 0;
     border: 2px solid #FEEB6A;
-    color: #FEEB6A;
-    font-weight: 900; }
+    color: #FEEB6A; }
   .sp-tag--secondary-ghost {
     background: 0 0;
     border: 2px solid #33ADA9;
-    color: #33ADA9;
-    font-weight: 900; }
+    color: #33ADA9; }
   .sp-tag--white-ghost {
     background: 0 0;
     border: 2px solid #FFFFFF;
-    color: #FFFFFF;
-    font-weight: 900; }
+    color: #FFFFFF; }
   .sp-tag--black-ghost {
     background: 0 0;
     border: 2px solid #24292e;
-    color: #24292e;
-    font-weight: 900; }
+    color: #24292e; }
 
 /**********************************************************/
 /*                        ATOM BOX                        */

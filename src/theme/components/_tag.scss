@@ -4,7 +4,7 @@
 
 .sp-tag {
     display: inline-block;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     text-align: center;
     vertical-align: middle;
     -webkit-user-select: none;
@@ -35,13 +35,11 @@
     &--primary {
         background-color: map-get($color, primary);
         color: map-get($color, black);
-        font-weight: 900;
     }
 
     &--secondary {
         background-color: map-get($color, secondary);
         color: map-get($color, white);
-        font-weight: 900;
     }
 
     &--info {
@@ -49,38 +47,48 @@
         color: map-get($color, white);
     }
 
+    &--positive {
+        background-color: map-get($color, positive);
+        color: map-get($color, white);
+    }
+
+    &--warning {
+        background-color: map-get($color, warning);
+        color: map-get($color, white);
+    }
+
+    &--negative {
+        background-color: map-get($color, negative);
+        color: map-get($color, white);
+    }
+
     &--neutral {
         background-color: map-get($color, smoke);
         color: map-get($color, black);
-        font-weight: 900;
     }
 
     &--primary-ghost {
         background: 0 0;
         border: 2px solid map-get($color, primary);
         color: map-get($color, primary);
-        font-weight: 900;
     }
 
     &--secondary-ghost {
         background: 0 0;
         border: 2px solid map-get($color, secondary);
         color: map-get($color, secondary);
-        font-weight: 900;
     }
 
     &--white-ghost {
         background: 0 0;
         border: 2px solid map-get($color, white);
         color: map-get($color, white);
-        font-weight: 900;
     }
 
     &--black-ghost {
         background: 0 0;
         border: 2px solid map-get($color, black);
         color: map-get($color, black);
-        font-weight: 900;
     }
 
 }
