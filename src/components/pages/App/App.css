@@ -3773,7 +3773,6 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 .sp-tag {
   display: inline-block;
-  border: 2px solid transparent;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -3790,9 +3789,13 @@ NOTE: Boostrap 4 has a flex set
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
+  .sp-tag--xxs {
+    padding: 0 3px;
+    font-size: 12px; }
   .sp-tag--xs {
     padding: 1px 5px;
-    font-size: 12px; }
+    font-size: 12px;
+    border: 2px solid transparent; }
   .sp-tag--primary {
     background-color: #FEEB6A;
     color: #24292e; }

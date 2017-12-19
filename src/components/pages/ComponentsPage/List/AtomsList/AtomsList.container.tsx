@@ -62,7 +62,6 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /*       PROPERTIES       */
         /**************************/
         const {...data} = this.props.data;
-        const {firstname, lastname} = this.props;
         
         
         /*       VALIDATIONS       */
@@ -82,10 +81,10 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         if (data.searchAtoms.results.length === 0) {
             return (
                 <ul className="sp-messageBlock m-0 mx-4 mt-4">
-                    <li className="sp-messageBlock__container sp-messageBlock__container--lg">
-                        <div className="icon icon--sm icon--empty mt-4 mb-3" />
+                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                        <div className="icon icon--md icon--noResult mt-4 mb-3" />
                         <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
-                            {firstname} {lastname} doesn't have any public component yet.
+                            We couldn’t find any component that match.
                         </div>
                     </li>
                 </ul>
