@@ -5,8 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
 import { Dropdown } from 'semantic-ui-react';
+import { Location } from 'history';
 
 import * as classNames from 'classnames';
 
@@ -35,7 +35,7 @@ type LocalStates = {};
 type StateProps = {
     isAuthenticated: boolean;
     user: UserModel;
-    location: any;
+    location: Location;
 };
 
 /* Mapped Dispatches to Props */
@@ -43,8 +43,7 @@ type DispatchProps = {
     actions: {
         auth: {
             logout: () => void;
-        },
-        navigateTo: (location: string) => void;
+        }
     };
 };
 
@@ -64,7 +63,6 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
 
         // Bind methods
         this._handleLogoutClick = this._handleLogoutClick.bind(this);
-        this._handlerNavigateTo = this._handlerNavigateTo.bind(this);
     }
 
 
@@ -96,13 +94,6 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
      */
     private _logout() {
         this.props.actions.auth.logout();
-    }
-
-
-    // TODO: Es una solucion temporal para mantener la navegacion. FNo fue posible solucionar
-    private _handlerNavigateTo = (location: string) => (e: React.FormEvent<{}>) => {
-        e.preventDefault();
-        this.props.actions.navigateTo(location);
     }
 
     
@@ -250,9 +241,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             // NOTE: #1
             auth: {
                 logout: () => dispatch(logoutAction())
-            },
-            // TODO: Remove if we do not need it
-            navigateTo: (url) => dispatch(push(url))
+            }
         }
     };
 }

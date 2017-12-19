@@ -5,6 +5,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import { Location } from 'history';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { functionsUtil } from '../../../core/utils/functionsUtil';
@@ -32,7 +33,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    location: any;
+    location: Location;
 };
 
 
@@ -179,11 +180,11 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const siebarWrapperConnect = connect(mapStateToProps); 
+const sidebarWrapperConnect = connect(mapStateToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    siebarWrapperConnect
+    sidebarWrapperConnect
 )(SidebarWrapper);
