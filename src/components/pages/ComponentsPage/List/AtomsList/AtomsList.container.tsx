@@ -5,7 +5,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { SEARCH_ATOMS_QUERY, SearchAtomsResponse } from '../../../../../models/atom/atom.query';
+import { SEARCH_ATOMS_QUERY, SearchAtomQueryOptions, SearchAtomsResponse } from '../../../../../models/atom/atom.query';
 
 import { IRootState } from '../../../../../reducer/reducer.config';
 import { ISearchState } from '../../../../../reducer/search.reducer';
@@ -122,32 +122,43 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
 /********************************/
 const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
     SEARCH_ATOMS_QUERY, {
-        options:  (ownProps: AtomsListProps & StateProps) => (
-            {
+        options:  (ownProps: AtomsListProps & StateProps): SearchAtomQueryOptions => {
+
+            // Destructuring props
+            const { pagination, search, username } = ownProps;
+            const { first, last, after, before } = pagination.paginationAtoms;
+            const { filter, sortBy } = search.searchAtoms;
+            const { type, text, atomCategoryId } = filter;
+            const { isDuplicated, isPrivate } = type;
+
+            return {
                 variables: 
                 {
                     pagination: {
-                        first: ownProps.pagination.paginationAtoms.first,
-                        after: ownProps.pagination.paginationAtoms.after,
-                        last: ownProps.pagination.paginationAtoms.last,
-                        before: ownProps.pagination.paginationAtoms.before
+                        first,
+                        after,
+                        last,
+                        before
                     },
                     filter: {
-                        isPrivate: false,
-                        text: ownProps.search.searchAtoms.filter.text,
-                        atomCategoryId: ownProps.search.searchAtoms.filter.atomCategoryId
+                        type: {
+                            isDuplicated,
+                            isPrivate
+                        },
+                        text,
+                        atomCategoryId
                     },
                     include: {
                         model: 'User',
                         as: 'Owner',
                         where: {
-                            username: ownProps.username 
+                            username
                         }
                     },
-                    sortBy: ownProps.search.searchAtoms.sortBy
+                    sortBy
                 }
-            }
-        )       
+            };
+        }    
     }
 );
 

@@ -251,7 +251,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                     onClick={this._handleDuplicateClick}>
                         <div className="inner">
                             <div className="inner__btn sp-btn sp-btn--md sp-btn--secondary">
-                                <Icon icon="package"
+                                <Icon icon="duplicate"
                                     iconClass="strokeWidth-2 stroke-white"
                                     width="22" height="22"/>
                             </div>

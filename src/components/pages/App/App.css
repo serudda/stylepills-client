@@ -3765,7 +3765,9 @@ NOTE: Boostrap 4 has a flex set
       height: 48px; }
       .sp-iconTabMenu__btn .inner__btn {
         padding: 6px 13px;
-        border-radius: 3px; }
+        border-radius: 3px;
+        display: flex;
+        align-content: center; }
 
 /**********************************************************/
 /*                          TAGS                          */
@@ -3867,7 +3869,6 @@ NOTE: Boostrap 4 has a flex set
     overflow: hidden;
     position: relative; }
     .ComponentsPage .AtomBox__content .cover-link {
-      background-color: #fffffff0;
       padding: 8px;
       position: absolute;
       top: 0;

@@ -23,6 +23,10 @@ export interface ISearchState {
 const defaultState: ISearchState = {
     searchAtoms: {
         filter: {
+            type: {
+                isDuplicated: null,
+                isPrivate: null
+            },
             text: '',
             atomCategoryId: null
         },
@@ -53,6 +57,10 @@ export default function (state: ISearchState = defaultState, action: Action): IS
                 ...state,
                 searchAtoms: {
                     filter: {
+                        type: {
+                            isDuplicated: null,
+                            isPrivate: null
+                        },
                         text: '',
                         atomCategoryId: null
                     },
@@ -66,6 +74,10 @@ export default function (state: ISearchState = defaultState, action: Action): IS
                 ...state,
                 searchAtoms: {
                     filter: {
+                        type: {
+                            isDuplicated: action.searchAtoms.filter.type.isDuplicated,
+                            isPrivate: action.searchAtoms.filter.type.isPrivate
+                        },
                         text: action.searchAtoms.filter.text, 
                         atomCategoryId: action.searchAtoms.filter.atomCategoryId, 
                     },

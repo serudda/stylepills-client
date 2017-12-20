@@ -152,6 +152,8 @@
             &__btn {
                 padding: 6px 13px;
                 border-radius: 3px;
+                display: flex;
+                align-content: center;
             }
         }
     }

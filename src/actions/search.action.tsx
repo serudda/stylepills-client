@@ -17,6 +17,10 @@ interface ISearchEventPayLoad {
     event: string;
     properties?: {
         filter: {
+            type: {
+                isDuplicated: boolean,
+                isPrivate: boolean
+            }
             text: string,
             atomCategoryId: number
         },
@@ -28,6 +32,10 @@ interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     searchAtoms: {
         filter: {
+            type: {
+                isDuplicated: boolean,
+                isPrivate: boolean
+            },
             text: string,
             atomCategoryId: null
         },
@@ -76,6 +84,10 @@ export const clearSearchAction = (): Action => {
         type: types.CLEAR_SEARCH,
         searchAtoms: {
             filter: {
+                type: {
+                    isDuplicated: null,
+                    isPrivate: null
+                },
                 text: '',
                 atomCategoryId: null
             },
@@ -96,6 +108,10 @@ export const searchAtomsAction = ({ searchAtoms }: ISearchAtomsAction): Action =
         type: types.SEARCH_ATOMS,
         searchAtoms: {
             filter: {
+                type: {
+                    isDuplicated: searchAtoms.filter.type.isDuplicated,
+                    isPrivate: searchAtoms.filter.type.isPrivate
+                },
                 text: searchAtoms.filter.text,
                 atomCategoryId: searchAtoms.filter.atomCategoryId
             },
@@ -108,6 +124,10 @@ export const searchAtomsAction = ({ searchAtoms }: ISearchAtomsAction): Action =
                     event: types.SEARCH_ATOMS,
                     properties: {
                         filter: {
+                            type: {
+                                isDuplicated: searchAtoms.filter.type.isDuplicated,
+                                isPrivate: searchAtoms.filter.type.isPrivate
+                            },
                             text: searchAtoms.filter.text,
                             atomCategoryId: searchAtoms.filter.atomCategoryId
                         },

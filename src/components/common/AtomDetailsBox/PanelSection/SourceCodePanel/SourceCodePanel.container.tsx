@@ -398,7 +398,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                                 <span className="fontSize-md color-white fontWeight-9">
                                     You can now edit the code live. To keep your changes, duplicate the component by pressing the button:
                                 </span>
-                                <Icon icon="package" iconClass="strokeWidth-2 stroke-white ml-3" width="22" height="22"/>
+                                <Icon icon="duplicate" iconClass="strokeWidth-2 stroke-white ml-3" width="22" height="22"/>
                             </div>
                         }
                     </div>

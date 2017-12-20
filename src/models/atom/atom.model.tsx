@@ -19,6 +19,7 @@ export type Atom = {
     stores: number;
     views: number;
     likes: number;
+    duplicated: boolean;
     comments: Array<Comment>;
     download: string;
     active: boolean;
