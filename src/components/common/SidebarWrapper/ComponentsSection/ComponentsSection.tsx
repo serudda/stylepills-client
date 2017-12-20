@@ -70,7 +70,7 @@ extends React.Component<ChildProps<ComponentsSectionProps & StateProps, {}>, Loc
         return (
             <div className="ComponentsSection">
                 <div className="subtitle px-3 py-2">
-                    Components (100)
+                    Components
                 </div>
                 <Link className={exploreNavLinkClasses} to="/dashboard/components">
                     <Icon icon="layer"
