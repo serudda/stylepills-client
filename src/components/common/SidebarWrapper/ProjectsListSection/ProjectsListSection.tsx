@@ -89,7 +89,7 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
             <div className="ProjectsSection">
                 <div className="subtitle px-3 py-2 d-flex align-items-center">
                     <span>
-                        Projects (3)
+                        Projects
                     </span>
                     {this._getCreateProjectBtn()}
                 </div>
