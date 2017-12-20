@@ -91,6 +91,9 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                                     iconClass="mr-2"
                                     width="20" height="20"/>
                                 <span>Stylepill</span>
+                                <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset ml-2">
+                                    Alpha
+                                </span>
                             </a>
 
                             {/* Navbar options */}

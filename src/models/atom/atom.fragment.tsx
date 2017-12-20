@@ -22,6 +22,7 @@ export const ATOM_FRAGMENT = gql`
         stores
         views
         likes
+        duplicated
         comments {
             ...CommentFragment
         }

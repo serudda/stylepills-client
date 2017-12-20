@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
 
 import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
 import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
@@ -41,7 +42,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         search: {
-            searchAtoms: (filters: any) => void;
+            searchAtoms: (filters: ISearchState) => void;
         },
         pagination: {
             clearPagination: () => void;
@@ -90,9 +91,11 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+
         // Destructuring props
         const { filter, sortBy } = this.props.search.searchAtoms;
-        const { text } = filter;
+        const { type, text } = filter;
+        const { isDuplicated, isPrivate } = type;
 
         // CONSTANTS
         const RADIX = 10;
@@ -107,6 +110,10 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         queryArgs = {
             searchAtoms: {
                 filter: {
+                    type: {
+                        isDuplicated,
+                        isPrivate
+                    },
                     text,
                     atomCategoryId: value
                 },
@@ -124,6 +131,41 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         
         // Trigger Search Atoms Action
         this.props.actions.search.searchAtoms(queryArgs);
+    }
+
+
+    /**
+     * @desc Get Categories Filter List
+     * @method _getCategoriesFilterList
+     * @example this._getCategoriesFilterList(categories)
+     * @private
+     * @param data - all Atom Categories
+     * @returns {JSX.Element} <Popup />
+     */
+    private _getCategoriesFilterList (categories: Array<AtomCategoryModel>): JSX.Element {
+        return (
+            <Popup
+            trigger={
+                <div className="sp-select-container">
+                    <select value={this.state.value} onChange={this._handleChange}
+                            className="sp-select sp-select--md sp-select--input"
+                            name="categories">
+                        <option key="0" value="0">All</option>
+                        {categories.map((atom: AtomCategoryModel) => (
+                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
+                        ))}
+                    </select>
+                    <Icon icon="chevronDown"
+                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                        width="15" height="15"/>
+                </div>
+            }
+            position="top center"
+            size="tiny"
+            inverted={true}>
+                Filter by category
+            </Popup>
+        );
     }
 
     
@@ -148,19 +190,7 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
         /***************************/
         return (
             <div className="AtomCategoryFilter">
-                <div className="sp-select-container mr-4">
-                    <select value={this.state.value} onChange={this._handleChange}
-                            className="sp-select sp-select--md sp-select--input"
-                            name="categories">
-                        <option key="0" value="0">All</option>
-                        {data.allAtomCategories.map((atom: AtomCategoryModel) => (
-                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
-                        ))}
-                    </select>
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                        width="15" height="15"/>
-                </div>
+                {this._getCategoriesFilterList(data.allAtomCategories)}
             </div>
         );
 
@@ -194,6 +224,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
+                // TODO: Agregar el tipo correspondiente
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             },
             pagination: {

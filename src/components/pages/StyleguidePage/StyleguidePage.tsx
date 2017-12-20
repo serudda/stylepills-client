@@ -420,7 +420,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             <span className="fontSize-sm fontWeight-9 color-silver">999</span>
                         </div>
                         <div className="store sp-stats__item">
-                            <Icon icon="package"
+                            <Icon icon="duplicate"
                                 iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
                                 width="14" height="14"/>
                             <span className="fontSize-sm fontWeight-9 color-silver">999</span>
@@ -450,7 +450,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             <span className="fontSize-md fontWeight-9 color-silver">999</span>
                         </div>
                         <div className="store sp-stats__item">
-                            <Icon icon="package"
+                            <Icon icon="duplicate"
                                 iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
                                 width="16" height="16"/>
                             <span className="fontSize-md fontWeight-9 color-silver">999</span>
@@ -480,7 +480,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             <span className="fontSize-lg fontWeight-9 color-silver">999</span>
                         </div>
                         <div className="store sp-stats__item">
-                            <Icon icon="package"
+                            <Icon icon="duplicate"
                                 iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
                                 width="18" height="18"/>
                             <span className="fontSize-lg fontWeight-9 color-silver">999</span>
@@ -824,7 +824,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                                     <span className="fontSize-sm fontWeight-9 color-silver">999</span>
                                                 </div>
                                                 <div className="store sp-stats__item">
-                                                    <Icon icon="package"
+                                                    <Icon icon="duplicate"
                                                         iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                                                         width="14" height="14"/>
                                                     <span className="fontSize-sm fontWeight-9 color-silver">999</span>
@@ -885,7 +885,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </button>
                         <button className="sp-iconTabMenu__btn">
                             <div className="inner">
-                                <Icon icon="package"
+                                <Icon icon="duplicate"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
@@ -926,11 +926,63 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </button>
                         <button className="sp-iconTabMenu__btn">
                             <div className="inner">
-                                <Icon icon="package"
+                                <Icon icon="duplicate"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
                         </button>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* Tags */}
+            <div className="row mb-5 no-gutters">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Tags</h2>
+
+                    <div className="sp-bg-slate d-inline-flex p-4">
+
+                        <span className="sp-tag sp-tag--primary sp-tag--xs fontSmoothing-reset mr-2">
+                            Private
+                        </span>
+
+                        <span className="sp-tag sp-tag--primary-ghost sp-tag--xs fontSmoothing-reset mr-2">
+                            Private
+                        </span>
+
+                        <span className="sp-tag sp-tag--secondary sp-tag--xs fontSmoothing-reset mr-2">
+                            NEW
+                        </span>
+
+                        <span className="sp-tag sp-tag--secondary-ghost sp-tag--xs fontSmoothing-reset mr-2">
+                            NEW
+                        </span>
+
+                        <span className="sp-tag sp-tag--white-ghost sp-tag--xs fontSmoothing-reset mr-2">
+                            white
+                        </span>
+
+                        <span className="sp-tag sp-tag--black-ghost sp-tag--xs fontSmoothing-reset mr-2">
+                            black
+                        </span>
+
+                        <span className="sp-tag sp-tag--info sp-tag--xs fontSmoothing-reset mr-2">
+                            info
+                        </span>
+
+                        <span className="sp-tag sp-tag--positive sp-tag--xs fontSmoothing-reset mr-2">
+                            positive
+                        </span>
+
+                        <span className="sp-tag sp-tag--negative sp-tag--xs fontSmoothing-reset mr-2">
+                            alert
+                        </span>
+
+                        <span className="sp-tag sp-tag--warning sp-tag--xs fontSmoothing-reset">
+                            warning
+                        </span>
+
                     </div>
 
                 </div>

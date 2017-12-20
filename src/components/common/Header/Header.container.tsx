@@ -87,6 +87,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                                 iconClass="mr-2"
                                 width="20" height="20"/>
                             <span>Stylepill</span>
+                            <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset ml-2">
+                                Alpha
+                            </span>
                         </a>
 
                         {/* Navbar options */}
@@ -107,7 +110,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                         <div className="col-3 d-flex align-content-center justify-content-end">
 
                             {/* Category Select List */}
-                            <AtomCategoryFilterContainer />
+                            <div className="mr-4">
+                                <AtomCategoryFilterContainer />
+                            </div>
                             
                             {/* Sort by section  */}
                             <SortBySelectListContainer />

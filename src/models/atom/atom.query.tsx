@@ -28,11 +28,29 @@ export interface IAtomPaginationArgs {
 }
 
 /**
+ * Arguments passed to Atom include model
+ */
+interface IAtomIncludeArgs {
+    model: string;
+    as: string | null;
+    where: any;
+}
+
+/**
+ * Arguments passed to Atom type
+ */
+export interface IAtomTypeArgs {
+    isDuplicated: boolean | null;
+    isPrivate: boolean | null;
+}
+
+/**
  * Arguments passed to Atom filter
  */
 interface IAtomFilterArgs {
     text?: string;
     atomCategoryId?: number;
+    type?: IAtomTypeArgs;
 }
 
 /**
@@ -42,6 +60,7 @@ export interface IAtomQueryArgs {
     id?: number;
     pagination?: IAtomPaginationArgs;
     filter?: IAtomFilterArgs;
+    include?: IAtomIncludeArgs;
     sortBy: string;
 }
 
@@ -132,34 +151,6 @@ export type GetByCategoryResponse = {
 // --------------------------------
 
 
-/** TODO: Remove when it is no longer necessary
- * @desc Get Atoms by an user's input text (including category filter)
- * @method Method searchAtomsLegacy
- * @public
- * @param {AtomFilter} $filter - a set of filters
- * @param {string} $limit - limit number of results returned
- * @returns {Array<Atom>} Atoms List based on a filter parameters: e.g category, user's input text
- */
-export const SEARCH_ATOMS_QUERY_LEGACY = gql`
-query searchAtomsLegacy ($filter: AtomFilter!, $sortBy: String, $limit: Int) {
-    searchAtoms(filter: $filter, sortBy: $sortBy, limit: $limit) {
-        ...AtomFragment
-    }
-}
-${ATOM_FRAGMENT}
-`;
-
-/*        TYPE         */
-/***********************/
-
-export type SearchAtomsLegacyResponse = {
-    searchAtoms: Array<AtomModel>;
-};
-
-
-// --------------------------------
-
-
 /**
  * @desc Get Atoms by an user's input text (including category filter and pagination)
  * @method Method searchAtoms
@@ -185,6 +176,9 @@ ${CURSOR_FRAGMENT}
 
 /*        TYPE         */
 /***********************/
+export type SearchAtomQueryOptions = {
+    variables: IAtomQueryArgs
+};
 
 export type SearchAtomsResponse = {
     searchAtoms: IAtomPaginated;

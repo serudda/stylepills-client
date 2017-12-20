@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
 
 import * as appConfig from '../../../core/constants/app.constants';
 
@@ -40,7 +41,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         search: {
-            searchAtoms: (filters: any) => void;
+            searchAtoms: (filters: ISearchState) => void;
         },
         pagination: {
             clearPagination: () => void;
@@ -88,14 +89,20 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+
         // Destructuring props
         const { filter } = this.props.search.searchAtoms;
-        const { text, atomCategoryId } = filter;
+        const { type, text, atomCategoryId } = filter;
+        const { isDuplicated, isPrivate } = type;
 
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
+                    type: {
+                        isDuplicated,
+                        isPrivate
+                    },
                     text,
                     atomCategoryId
                 },
@@ -115,6 +122,40 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         this.props.actions.search.searchAtoms(queryArgs);
     }
 
+
+    /**
+     * @desc Get Sort by List
+     * @method _getSortByList
+     * @example this._getSortByList()
+     * @private
+     * @returns {JSX.Element} <Popup />
+     */
+    private _getSortByList (): JSX.Element {
+        return (
+            <Popup
+            trigger={
+                <div className="sp-select-container">
+                    <select value={this.state.value} onChange={this._handleChange}
+                            className="sp-select sp-select--md sp-select--input"
+                            name="sortBy">
+                        {/* TODO: Hacer de este select list un enum (usar mismos nombres que en BE) */}
+                        <option value="created_at">Recent</option>
+                        <option value="likes">Likes</option>
+                        <option value="stores">Duplicated</option>
+                    </select>
+                    <Icon icon="chevronDown"
+                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                        width="15" height="15"/>
+                </div>
+            }
+            position="top center"
+            size="tiny"
+            inverted={true}>
+                Sort by
+            </Popup>
+        );
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -126,19 +167,7 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         /***************************/
         return (
             <div className="SortBySelectList">
-                <div className="sp-select-container">
-                    <select value={this.state.value} onChange={this._handleChange}
-                            className="sp-select sp-select--md sp-select--input"
-                            name="sortBy">
-                        {/* TODO: Hacer de este select list un enum (usar mismos nombres que en BE) */}
-                        <option value="created_at">Recent</option>
-                        <option value="likes">Likes</option>
-                        <option value="stores">Stores</option>
-                    </select>
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                        width="15" height="15"/>
-                </div>
+                {this._getSortByList()}
             </div>
         );
 
@@ -164,6 +193,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
+                // TODO: Agregar el tipo correspondiente
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             },
             pagination: {

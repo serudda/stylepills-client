@@ -1,8 +1,11 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { EventTypes } from 'redux-segment';
+
 import * as types from '../core/constants/action.types';
 import { IAtomQueryArgs } from '../models/atom/atom.query';
+import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import * as appConfig from '../core/constants/app.constants';
 
@@ -10,10 +13,29 @@ import * as appConfig from '../core/constants/app.constants';
 /************************************/
 /*            INTERFACES            */
 /************************************/
+interface ISearchEventPayLoad {
+    event: string;
+    properties?: {
+        filter: {
+            type: {
+                isDuplicated: boolean,
+                isPrivate: boolean
+            }
+            text: string,
+            atomCategoryId: number
+        },
+        sortBy: string
+    };
+}
+
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     searchAtoms: {
         filter: {
+            type: {
+                isDuplicated: boolean,
+                isPrivate: boolean
+            },
             text: string,
             atomCategoryId: null
         },
@@ -35,6 +57,7 @@ export interface IClearSearchAction {
 export interface ISearchAtomsAction {
     type: types.SEARCH_ATOMS;
     searchAtoms: IAtomQueryArgs;
+    meta: IAnalyticsTrack<ISearchEventPayLoad>;
 }
 
 
@@ -61,6 +84,10 @@ export const clearSearchAction = (): Action => {
         type: types.CLEAR_SEARCH,
         searchAtoms: {
             filter: {
+                type: {
+                    isDuplicated: null,
+                    isPrivate: null
+                },
                 text: '',
                 atomCategoryId: null
             },
@@ -81,10 +108,33 @@ export const searchAtomsAction = ({ searchAtoms }: ISearchAtomsAction): Action =
         type: types.SEARCH_ATOMS,
         searchAtoms: {
             filter: {
+                type: {
+                    isDuplicated: searchAtoms.filter.type.isDuplicated,
+                    isPrivate: searchAtoms.filter.type.isPrivate
+                },
                 text: searchAtoms.filter.text,
                 atomCategoryId: searchAtoms.filter.atomCategoryId
             },
             sortBy: searchAtoms.sortBy
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.SEARCH_ATOMS,
+                    properties: {
+                        filter: {
+                            type: {
+                                isDuplicated: searchAtoms.filter.type.isDuplicated,
+                                isPrivate: searchAtoms.filter.type.isPrivate
+                            },
+                            text: searchAtoms.filter.text,
+                            atomCategoryId: searchAtoms.filter.atomCategoryId
+                        },
+                        sortBy: searchAtoms.sortBy
+                    },
+                },
+            },
         }
     };
 };

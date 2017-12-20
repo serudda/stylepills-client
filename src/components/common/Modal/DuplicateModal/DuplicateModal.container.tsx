@@ -199,7 +199,6 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
     render() {
         
         // Destructuring props
-        const { user } = this.props;
         const { duplicated } = this.props;
         const { isDuplicated } = duplicated;
         const { isEdited } = this.props;
@@ -283,7 +282,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                                     A new component just arrived on your dashboard.
                                 </div>
                                 <Link className="sp-btn sp-btn--md sp-btn--secondary-ghost"
-                                      to={`/user/${user.username}`}>
+                                      to={`/dashboard`}>
                                     Go to your dashboard
                                 </Link>
                             </li>
