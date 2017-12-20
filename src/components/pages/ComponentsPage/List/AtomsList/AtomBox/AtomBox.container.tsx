@@ -178,20 +178,26 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
         return (
             <div className="AtomBox boxShadow-raised borderRadius-md sp-bg-white border-6 borderColor-white mb-2">
                 <div className="AtomBox__content borderRadius-xs">
+
                     <div onClick={this._handleCoverClick(atom)} 
                         onMouseEnter={this._handleMouseHover}
                         onMouseLeave={this._handleMouseHover}
                         className={coverLinkClasses}>
-                        <span className="sp-tag sp-tag--xs sp-tag--info fontSmoothing-reset">
-                            Stylepill
-                        </span>
+
+                        {atom.duplicated &&
+                        <span className="sp-tag sp-tag--xs sp-tag--primary fontSmoothing-reset">
+                            Duplicated
+                        </span>}
+
                         <div className="icon-container float-right"
                              onClick={this._handleLikeClick(atom)}>
                             <Icon icon={liked ? 'heartFull' : 'heart'}
                                 iconClass={likeBtnClasses}
                                 width="23" height="23"/>
                         </div>
+                        
                     </div>
+
                     <div className="Iframe-wrapper">
                         <Iframe onLoad={this.onLoad} 
                                 children={atom.html} 
@@ -200,6 +206,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                                 background={atom.contextualBg}
                                 stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
                     </div>
+
                 </div>
             </div>
         );

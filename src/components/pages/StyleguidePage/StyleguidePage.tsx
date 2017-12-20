@@ -420,7 +420,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             <span className="fontSize-sm fontWeight-9 color-silver">999</span>
                         </div>
                         <div className="store sp-stats__item">
-                            <Icon icon="package"
+                            <Icon icon="duplicate"
                                 iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
                                 width="14" height="14"/>
                             <span className="fontSize-sm fontWeight-9 color-silver">999</span>
@@ -450,7 +450,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             <span className="fontSize-md fontWeight-9 color-silver">999</span>
                         </div>
                         <div className="store sp-stats__item">
-                            <Icon icon="package"
+                            <Icon icon="duplicate"
                                 iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
                                 width="16" height="16"/>
                             <span className="fontSize-md fontWeight-9 color-silver">999</span>
@@ -480,7 +480,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             <span className="fontSize-lg fontWeight-9 color-silver">999</span>
                         </div>
                         <div className="store sp-stats__item">
-                            <Icon icon="package"
+                            <Icon icon="duplicate"
                                 iconClass="stroke-black strokeWidth-3 mr-1 ml-3"
                                 width="18" height="18"/>
                             <span className="fontSize-lg fontWeight-9 color-silver">999</span>
@@ -824,7 +824,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                                     <span className="fontSize-sm fontWeight-9 color-silver">999</span>
                                                 </div>
                                                 <div className="store sp-stats__item">
-                                                    <Icon icon="package"
+                                                    <Icon icon="duplicate"
                                                         iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                                                         width="14" height="14"/>
                                                     <span className="fontSize-sm fontWeight-9 color-silver">999</span>
@@ -885,7 +885,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </button>
                         <button className="sp-iconTabMenu__btn">
                             <div className="inner">
-                                <Icon icon="package"
+                                <Icon icon="duplicate"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>
@@ -926,7 +926,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </button>
                         <button className="sp-iconTabMenu__btn">
                             <div className="inner">
-                                <Icon icon="package"
+                                <Icon icon="duplicate"
                                     iconClass="strokeWidth-2 stroke-slate"
                                     width="22" height="22"/>
                             </div>

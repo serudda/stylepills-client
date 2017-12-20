@@ -80,7 +80,7 @@ const AtomInfoSection: React.SFC<AtomInfoSectionProps> = ({
                     </div>
 
                     <div className="store sp-stats__item">
-                        <Icon icon="package"
+                        <Icon icon="duplicate"
                             iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                             width="14" height="14"/>
                         <span className="fontSize-sm fontWeight-7 color-silver">{stores}</span>

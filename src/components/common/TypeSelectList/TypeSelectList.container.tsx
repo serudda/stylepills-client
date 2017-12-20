@@ -10,6 +10,7 @@ import * as appConfig from '../../../core/constants/app.constants';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { ISearchState } from '../../../reducer/search.reducer';
+import { IAtomTypeArgs } from './../../../models/atom/atom.query';
 
 import { searchAtomsAction } from '../../../actions/search.action';
 import { clearPaginationAction } from '../../../actions/pagination.action';
@@ -41,7 +42,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         search: {
-            searchAtoms: (filters: any) => void;
+            searchAtoms: (filters: ISearchState) => void;
         },
         pagination: {
             clearPagination: () => void;
@@ -86,21 +87,45 @@ extends React.Component<ChildProps<TypeSelectListProps & StateProps & DispatchPr
      * @returns {void}
      */
     private _handleChange (e: any) {
+
         // VARIABLES
         let value = e.target.value;
+        let typeArgs: IAtomTypeArgs = {
+            isDuplicated: null,
+            isPrivate: null
+        };
         let queryArgs: ISearchState = null;
+
         // Destructuring props
-        const { filter } = this.props.search.searchAtoms;
+        const { filter, sortBy } = this.props.search.searchAtoms;
         const { text, atomCategoryId } = filter;
+
+        // Build type filter
+
+        if (value === 'public') {
+            typeArgs.isPrivate = false;
+        }
+
+        if (value === 'private') {
+            typeArgs.isPrivate = true;
+        }
+
+        if (value === 'duplicated') {
+            typeArgs.isDuplicated = true;
+        }
 
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
+                    type: {
+                        isDuplicated: typeArgs.isDuplicated,
+                        isPrivate: typeArgs.isPrivate
+                    },
                     text,
                     atomCategoryId
                 },
-                sortBy: value
+                sortBy
             }
         };
 
@@ -135,8 +160,8 @@ extends React.Component<ChildProps<TypeSelectListProps & StateProps & DispatchPr
                         <option value="all">All</option>
                         <option value="public">Public</option>
                         <option value="private">Private</option>
-                        <option value="stores">Stores</option>
-                        <option value="likes">Likes</option>
+                        <option value="duplicated">Duplicated</option>
+                        {/*<option value="likes">Likes</option>*/}
                     </select>
                     <Icon icon="chevronDown"
                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
@@ -188,6 +213,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
+                // TODO: Agregar el tipo correspondiente
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             },
             pagination: {

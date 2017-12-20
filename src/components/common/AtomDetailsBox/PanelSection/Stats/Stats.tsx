@@ -58,7 +58,7 @@ const Stats: React.SFC<StatsProps> = ({
                 </span>
             </div>
             <div className="store sp-stats__item">
-                <Icon icon="package"
+                <Icon icon="duplicate"
                     iconClass="stroke-silver strokeWidth-2 mr-1 ml-3"
                     width="16" height="16"/>
                 <span className="fontSize-md fontWeight-7 color-silver">

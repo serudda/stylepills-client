@@ -41,7 +41,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         search: {
-            searchAtoms: (filters: any) => void;
+            searchAtoms: (filters: ISearchState) => void;
         },
         pagination: {
             clearPagination: () => void;
@@ -89,14 +89,20 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
         // VARIABLES
         let value = e.target.value;
         let queryArgs: ISearchState = null;
+
         // Destructuring props
         const { filter } = this.props.search.searchAtoms;
-        const { text, atomCategoryId } = filter;
+        const { type, text, atomCategoryId } = filter;
+        const { isDuplicated, isPrivate } = type;
 
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
+                    type: {
+                        isDuplicated,
+                        isPrivate
+                    },
                     text,
                     atomCategoryId
                 },
@@ -135,7 +141,7 @@ extends React.Component<ChildProps<SortBySelectListProps & StateProps & Dispatch
                         {/* TODO: Hacer de este select list un enum (usar mismos nombres que en BE) */}
                         <option value="created_at">Recent</option>
                         <option value="likes">Likes</option>
-                        <option value="stores">Stores</option>
+                        <option value="stores">Duplicated</option>
                     </select>
                     <Icon icon="chevronDown"
                         iconClass="icon stroke-secondary strokeWidth-3 ml-1"
@@ -187,6 +193,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
+                // TODO: Agregar el tipo correspondiente
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             },
             pagination: {

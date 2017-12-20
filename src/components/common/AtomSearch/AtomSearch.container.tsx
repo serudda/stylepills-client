@@ -38,7 +38,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         search: {
-            searchAtoms: (filters: any) => void;
+            searchAtoms: (filters: ISearchState) => void;
         },
         pagination: {
             clearPagination: () => void;
@@ -87,14 +87,23 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
         let value = e.target.value;
         let queryArgs: ISearchState = null;
 
+        // Destructuring props
+        const { filter, sortBy } = this.props.search.searchAtoms;
+        const { type, atomCategoryId } = filter;
+        const { isDuplicated, isPrivate } = type;
+
         // Build the filter set
         queryArgs = {
             searchAtoms: {
                 filter: {
+                    type: {
+                        isDuplicated,
+                        isPrivate
+                    },
                     text: value,
-                    atomCategoryId: this.props.search.searchAtoms.filter.atomCategoryId
+                    atomCategoryId
                 },
-                sortBy: this.props.search.searchAtoms.sortBy
+                sortBy
             }
         };
 
@@ -155,6 +164,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             search: {
+                // TODO: Agregar el tipo correspondiente
                 searchAtoms: (queryArgs: any) => dispatch(searchAtomsAction(queryArgs))
             },
             pagination: {
