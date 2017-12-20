@@ -93,7 +93,7 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
                     </span>
                     {this._getCreateProjectBtn()}
                 </div>
-                <div className="option px-3 py-1">
+                {/*<div className="option px-3 py-1">
                     <Icon icon="chevronRight"
                         iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
                         width="16" height="16"/>
@@ -116,7 +116,7 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
                     <span className="fontSize-sm fontWeight-6 color-white">
                         Steroidesign
                     </span>
-                </div>
+                </div>*/}
             </div>
         );
     }

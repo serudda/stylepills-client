@@ -3640,6 +3640,8 @@ NOTE: Boostrap 4 has a flex set
         background-image: url("./../../../resources/images/empty.svg"); }
       .sp-messageBlock__container .icon--noResult {
         background-image: url("./../../../resources/images/noResult.svg"); }
+      .sp-messageBlock__container .icon--working {
+        background-image: url("./../../../resources/images/working.svg"); }
     .sp-messageBlock__container .text--sm {
       font-size: 23px;
       line-height: 30px; }

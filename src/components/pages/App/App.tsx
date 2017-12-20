@@ -70,32 +70,36 @@ extends React.Component<ChildProps<AppProps & StateProps, GetByIdResponse>, Loca
 }
 
 
+// Query config object
+const config = {
+    skip: (ownProps: AppProps & StateProps) => {
+        return !ownProps.isAuthenticated;
+    },
+    options:  (ownProps: AppProps & StateProps) => {
+        // TODO: PARCHE: Es una solucion antes de migrar react-apollo a v2
+        // https://github.com/apollographql/react-apollo/blob/master/Changelog.md
+        // https://github.com/apollographql/react-apollo/pull/1181
+        let id = null;
+
+        if (ownProps.user) {
+            id = ownProps.user.id;
+        }
+
+        return {
+            variables:
+            { 
+               id
+           }
+        };
+    }
+};
+
+
 /********************************/
 /*            QUERY             */
 /********************************/
 const getUserByIdQuery = graphql<GetByIdResponse, AppProps>(
-    GET_USER_BY_ID_QUERY, {
-        skip: (ownProps: AppProps & StateProps) => {
-            return !ownProps.isAuthenticated;
-        },
-        options:  (ownProps: AppProps & StateProps) => {
-            // TODO: PARCHE: Es una solucion antes de migrar react-apollo a v2
-            // https://github.com/apollographql/react-apollo/blob/master/Changelog.md
-            // https://github.com/apollographql/react-apollo/pull/1181
-            let id = null;
-
-            if (ownProps.user) {
-                id = ownProps.user.id;
-            }
-
-            return {
-                variables:
-                { 
-                   id
-               }
-            };
-        }
-    }
+    GET_USER_BY_ID_QUERY, config
 );
 
 

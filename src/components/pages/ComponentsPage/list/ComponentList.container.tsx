@@ -2,7 +2,12 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
+
+import { IRootState } from './../../../../reducer/reducer.config';
+
+import { User } from './../../../../models/user/user.model';
 
 import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from './../../../../models/user/user.query';
 
@@ -22,7 +27,10 @@ type ComponentListProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    isAuthenticated: boolean;
+    user: User;
+};
 
 
 /***********************************************/
@@ -87,19 +95,48 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, GetByUsernam
 
 }
 
-// Query options
-// TODO: Analizar de donde se deberia sacar este username
+
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    const { isAuthenticated, user } = state.auth; 
+    return {
+        isAuthenticated,
+        user
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const dashboardPageConnect = connect(mapStateToProps); 
+
+
+// Query config object
 const config = {
-    options: (ownProps: any) => (
-        { 
+    skip: (ownProps: ComponentListProps & StateProps) => {
+        return !ownProps.isAuthenticated;
+    },
+    options: (ownProps: ComponentListProps & StateProps) => {
+        // TODO: PARCHE: Es una solucion antes de migrar react-apollo a v2
+        // https://github.com/apollographql/react-apollo/blob/master/Changelog.md
+        // https://github.com/apollographql/react-apollo/pull/1181
+        let username = null;
+        
+        if (ownProps.user) {
+            username = ownProps.user.username;
+        }
+
+        return {
             variables: 
             { 
-                username: 'sergior-1834020'
-            } 
-        }
-    )
+                username
+            }
+        };
+    }
 };
-
 
 /********************************/
 /*            QUERY             */
@@ -111,6 +148,7 @@ const getUserByUsernameQuery = graphql<GetByUsernameResponse, ComponentListProps
 
 /*         EXPORT          */
 /***************************/
-export default compose(
+export default compose<any>(
+    dashboardPageConnect,
     getUserByUsernameQuery
 )(ComponentList);
