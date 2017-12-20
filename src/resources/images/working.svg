@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="305px" height="305px" viewBox="0 0 305 305" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.703068388">
+        <g id="Group-2">
+            <circle id="path-1" fill="#CFD9E9" fill-rule="nonzero" cx="152.5" cy="152.5" r="152.5"></circle>
+            <g id="futuro_icons_173" transform="translate(62.000000, 34.000000)">
+                <g id="Group" transform="translate(104.000000, 0.000000)">
+                    <path d="M16,236 L16,0 L40,0 L40,236 C40,242.625 34.625,248 28,248 C21.375,248 16,242.625 16,236 Z" id="Shape" fill="#FFB957" fill-rule="nonzero"></path>
+                    <path d="M16,236 L16,0 L40,0 L40,236 C40,242.625 34.625,248 28,248 C21.375,248 16,242.625 16,236 Z" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                    <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="112 92 52 76 0 76 0 16 52 16 112 0"></polygon>
+                    <polygon id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" points="112 92 52 76 0 76 0 16 52 16 112 0"></polygon>
+                    <path d="M16,28 L16,64" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                    <path d="M88,8 L88,84" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                </g>
+                <g id="Group">
+                    <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="80 0 48 0 16 160 16 188 80 188"></polygon>
+                    <polygon id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" points="80 0 48 0 16 160 16 188 80 188"></polygon>
+                    <path d="M32,160 L0,192 L0,248 L16,248 L16,240 L72,240 L72,248 L88,248 L88,160 L32,160 Z M72,224 L16,224 L16,212 L40,188 L72,188 L72,224 Z" id="Shape" fill="#ACF0F2" fill-rule="nonzero"></path>
+                    <polygon id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" points="88 160 32 160 0 192 0 248 16 248 16 240 72 240 72 248 88 248"></polygon>
+                    <polygon id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" points="72 188 40 188 16 212 16 224 72 224"></polygon>
+                    <path d="M64,20 L64,140" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
