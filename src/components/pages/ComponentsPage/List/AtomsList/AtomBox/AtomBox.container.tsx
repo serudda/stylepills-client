@@ -185,7 +185,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                         className={coverLinkClasses}>
 
                         {atom.duplicated &&
-                        <span className="sp-tag sp-tag--xs sp-tag--primary fontSmoothing-reset">
+                        <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset">
                             Duplicated
                         </span>}
 

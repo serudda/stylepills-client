@@ -153,8 +153,12 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
                 <Modal.Content>
 
                     {/* Atom name */}
-                    <div className="fontFamily-openSans fontWeight-7 fontSize-xl color-silver mt-5">
+                    <div className="d-flex align-items-center fontFamily-openSans fontWeight-7 fontSize-xl color-silver mt-5">
                         {atom.name}
+                        {atom.duplicated &&
+                        <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset ml-2">
+                            Duplicated
+                        </span>}
                     </div>
 
                     {/* Designed by */}
