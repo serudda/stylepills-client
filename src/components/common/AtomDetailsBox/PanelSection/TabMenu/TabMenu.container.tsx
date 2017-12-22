@@ -32,7 +32,9 @@ type TabMenuProps = {
 };
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    isToggleCode: boolean
+};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -49,7 +51,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            changeAtomDetailsTab: (tab: string) => void;
+            changeAtomDetailsTab: (tab: string | null) => void;
             showModal: (modalType: string, modalProps: any) => void;
         }
     };
@@ -69,11 +71,15 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     constructor(props: ChildProps<TabMenuProps & StateProps & DispatchProps, {}>) {
         super(props);
 
+        // Init state
+        this.state = { isToggleCode: false };
+
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
+        this._handleCodeClick = this._handleCodeClick.bind(this);
         this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
     }
 
@@ -81,6 +87,26 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
+    /**
+     * @desc HandleCodeClick
+     * @method _handleCodeClick
+     * @example this._handleCodeClick()
+     * @private
+     * @returns {void}
+     */
+    private _handleCodeClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this.setState((prevState: LocalStates) => ({
+            isToggleCode: !prevState.isToggleCode
+        }), () => {
+            if (this.state.isToggleCode) {
+                this._changeTab('code');
+            } else {
+                this._changeTab(null);
+            }
+        });
+    }
 
 
     /**
@@ -144,7 +170,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      * @private 
      * @returns {void}
      */
-    private _changeTab(tab: string) {
+    private _changeTab(tab: string | null) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
     }
 
@@ -236,7 +262,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                     </div>
                 </button>*/}
                 <button className={codeBtnClasses}
-                        onClick={this._handleTabClick('code')}>
+                        onClick={this._handleCodeClick}>
                     <div className="inner">
                         <Icon icon="code"
                             iconClass={codeIconClasses}
