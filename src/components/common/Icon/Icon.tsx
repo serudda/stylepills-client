@@ -14,6 +14,7 @@ import * as React from 'react';
 interface IconType {
     alert: () => JSX.Element;
     arrowDown: () => JSX.Element;
+    arrowLeft: () => JSX.Element;
     chevronDown: () => JSX.Element;
     chevronRight: () => JSX.Element;
     close: () => JSX.Element;
@@ -107,6 +108,23 @@ class Icon extends React.Component<IconProps, {}> {
                          xmlns="http://www.w3.org/2000/svg">
                          <line x1="12" y1="4" x2="12" y2="20" />
                          <polyline points="18 14 12 20 6 14" />
+                    </svg>
+                );
+            },
+            arrowLeft: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round" 
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="20" y1="12" x2="4" y2="12" />
+                        <polyline points="10 18 4 12 10 6" />
                     </svg>
                 );
             },

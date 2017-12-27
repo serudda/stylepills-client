@@ -44,18 +44,13 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps, {}>, LocalSta
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ComponentNew">
-                <ul className="sp-messageBlock m-0 mx-4 mt-4">
-                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
-                        <div className="icon icon--md icon--working mt-4 mb-3" />
-                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
-                            <div>Coming soon!!</div>
-                            <div>We're working hard to finish this as soon as possible.</div>
-                        </div>
-                    </li>
-                </ul>
+            <div className="ComponentNew StepByStep">
+                <div className="StepByStep__header">
+                    <div className="sp-close-icon" />
+                </div>
+                <div className="StepByStep__content" />
+                <div className="StepByStep__footer" />
             </div>
-
         );
 
     }

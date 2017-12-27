@@ -2657,6 +2657,9 @@ NOTE: Boostrap 4 has a flex set
 .fontStyle-normal {
   font-style: normal; }
 
+.textDecoration {
+  text-decoration: underline !important; }
+
 .fontSmoothing-reset {
   -webkit-font-smoothing: initial; }
 
@@ -3457,6 +3460,12 @@ NOTE: Boostrap 4 has a flex set
   border-radius: 3px;
   color: #3C4858;
   display: block; }
+  .sp-input::-moz-placeholder  {
+    color: #C0CCDA; }
+  .sp-input::-webkit-input-placeholder {
+    color: #C0CCDA; }
+  .sp-input::placeholder {
+    color: #C0CCDA; }
   .sp-input:focus {
     border-color: #33ADA9;
     outline: 0; }
@@ -3659,6 +3668,19 @@ NOTE: Boostrap 4 has a flex set
   .sp-stats__item {
     display: flex;
     align-items: center; }
+
+/**********************************************************/
+/*               STEP BY STEP PAGE COMPONENT              */
+/**********************************************************/
+.StepByStep__header .nav-section .iconContainer {
+  cursor: pointer; }
+  .StepByStep__header .nav-section .iconContainer:hover .icon {
+    border-radius: 50%;
+    background-color: #D3DCE6;
+    border: 5px solid #D3DCE6;
+    stroke: #3C4858; }
+  .StepByStep__header .nav-section .iconContainer:hover .label {
+    color: #3C4858; }
 
 /**********************************************************/
 /*                        TAB MENU                        */
@@ -4032,7 +4054,7 @@ NOTE: Boostrap 4 has a flex set
     background-color: #D3DCE6;
     border: 5px solid #D3DCE6;
     opacity: 1; }
-  .AtomDetailsModal .sp-close-icon:hover:after {
+  .AtomDetailsModal .sp-close-icon:hover::after {
     right: 4px; }
 
 /* DIMMER (MODAL BACKDROP) */

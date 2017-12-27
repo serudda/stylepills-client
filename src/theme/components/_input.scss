@@ -18,6 +18,18 @@
 .sp-input {
     @include input;
 
+    &::-moz-placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &::-webkit-input-placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &::placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
     &:focus {
         border-color: map-get($color, secondary);
         outline: 0;
