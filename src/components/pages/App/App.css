@@ -2694,7 +2694,7 @@ NOTE: Boostrap 4 has a flex set
 .borderTop-0 {
   border-top: 0 hidden transparent; }
 
-.borderTop-1, .ui.pointing.sp-dropdown--userMenu .menu .divider {
+.borderTop-1, .sp-divider, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top: 1px solid; }
 
 .borderTop-2 {
@@ -2776,13 +2776,13 @@ NOTE: Boostrap 4 has a flex set
   border-right: 6px solid; }
 
 /* Border types */
-.borderTopStyle-dashed, .ui.pointing.sp-dropdown--userMenu .menu .divider {
+.borderTopStyle-dashed, .sp-divider--dashed, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top-style: dashed; }
 
 .borderTopStyle-dotted {
   border-top-style: dotted; }
 
-.borderTopStyle-solid {
+.borderTopStyle-solid, .sp-divider--solid {
   border-top-style: solid; }
 
 .borderBottomStyle-dashed {
@@ -2816,7 +2816,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-lightPrimary {
   border-color: #FDF980; }
 
-.borderColor-primary {
+.borderColor-primary, .sp-divider--primary {
   border-color: #FEEB6A; }
 
 .borderColor-darkPrimary {
@@ -2825,7 +2825,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-lightSecondary {
   border-color: #3CDAD5; }
 
-.borderColor-secondary {
+.borderColor-secondary, .sp-divider--secondary {
   border-color: #33ADA9; }
 
 .borderColor-darkSecondary {
@@ -2860,7 +2860,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-silver {
   border-color: #8492A6; }
 
-.borderColor-smoke, .ui.pointing.sp-dropdown--userMenu .menu .divider {
+.borderColor-smoke, .sp-divider--smoke, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-color: #E0E6ED; }
 
 .borderColor-darkSmoke {
@@ -3435,6 +3435,13 @@ NOTE: Boostrap 4 has a flex set
     border-radius: 0 4px 4px 0; }
 
 /**********************************************************/
+/*                        DIVIDER                         */
+/**********************************************************/
+.sp-divider {
+  height: 0;
+  overflow: hidden; }
+
+/**********************************************************/
 /*                       DROPDOWN                         */
 /**********************************************************/
 /* Dropdown with pointing (Semamtic UI) */
@@ -3683,6 +3690,8 @@ NOTE: Boostrap 4 has a flex set
       overflow: hidden;
       width: 100%;
       padding: 5px; }
+      .sp-list--simple .item:last-child {
+        border-bottom: 0 hidden transparent; }
       .sp-list--simple .item .sample-color {
         background-color: #EFF2F7;
         padding: 20px 35px; }
@@ -3706,8 +3715,6 @@ NOTE: Boostrap 4 has a flex set
           background-color: #33ADA9; }
           .sp-list--simple .item .icon-container:hover .icon {
             stroke: #FFFFFF; }
-    .sp-list--simple:first-child {
-      border-top: 1px solid #D3DCE6; }
 
 /**********************************************************/
 /*                         LOGO                           */

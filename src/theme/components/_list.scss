@@ -21,6 +21,10 @@
             width: 100%;
             padding: 5px;
 
+            &:last-child {
+                border-bottom: 0 hidden transparent;
+            }
+
             .sample-color {
                 background-color: map-get($color, darkSnow);
                 padding: 20px 35px;
@@ -64,10 +68,6 @@
                     }
                 }
             }
-        }
-
-        &:first-child {
-            border-top: 1px solid map-get($color, darkSmoke);
         }
 
     }

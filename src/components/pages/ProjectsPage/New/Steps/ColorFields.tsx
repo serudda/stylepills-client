@@ -161,33 +161,224 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                 {/* STEP BY STEP: CONTENT */}
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
-                    {/* First step: Basic Project Information */}
                     <form>
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                            PROJECT NAME
-                        </label>
-                        <input type="text" 
-                                className="sp-input sp-input--md sp-input--block"
-                                placeholder="e.g. Airbnb"/>
-                        
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
-                            PROJECT WEBSITE
-                        </label>
-                        <input type="text" 
-                                className="sp-input sp-input--md sp-input--block" 
-                                placeholder="e.g. https://www.airbnb.com"/>
 
-                        <div className="switchContainer d-flex align-items-center mt-5">
+                        {/* Add Primary colors */}
+                        <div className="d-flex flex-column mb-3">
+                            <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                                PRIMARY COLORS
+                            </div>
+                            <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
+                                These are the colors that define your brand.
+                            </div>
+                        </div>
+
+
+                        <div className="d-flex align-items-center">
+
+                            {/* Input: Color */}
+                            <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--md mr-3">
+                                <div className="context" />
+                                <input type="text" placeholder="#FFFFFF" className="input" />
+                            </div>
+
+                            {/* Input: Color Name */}
+                            <div className="sp-inputGroup sp-inputGroup--label sp-inputGroup--label--md mr-3">
+                                <span className="context">
+                                    Name
+                                </span>
+                                <input type="text" placeholder="Gold" className="input" />
+                            </div>
+
+                            {/* Add Button */}
+                            <button className="sp-btn sp-btn--secondary sp-btn--md">
+                                Add
+                            </button>
+
+                        </div>
+
+
+                        <ul className="sp-list sp-list--simple mt-4 d-none">
+                            <li className="item">
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FDF980'}}/>
+                                <span className="text">
+                                    Light Primary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #FDF980
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FEEB6A'}}/>
+                                <span className="text">
+                                    Primary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #FEEB6A
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FCD85E'}}/>
+                                <span className="text">
+                                    Dark Primary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #FCD85E
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#3CDAD5'}}/>
+                                <span className="text">
+                                    Light Secondary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #3CDAD5
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#33ADA9'}}/>
+                                <span className="text">
+                                    Secondary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #33ADA9
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+                        </ul>  
+
+
+                        <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
+
+
+                        {/* Add Secondary colors */}
+                        <div className="d-flex align-items-center">
                             <div className="d-flex flex-column">
                                 <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                                    MAKE THIS PROJECT PRIVATE
+                                    SECONDARY COLORS <span className="color-extraDarkSmoke ml-2">(optional)</span>
                                 </div>
                                 <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                                    Hide this project from the public
+                                    These are the colors that define your brand.
                                 </div>
                             </div>
-                            <button className="sp-btn sp-btn--primary sp-btn--sm ml-auto">
-                                Make private
+                            <button className="d-flex sp-btn sp-btn--md sp-btn--secondary ml-auto p-1">
+                                <Icon icon="plus"
+                                    iconClass="stroke-white strokeWidth-3"
+                                    width="20" height="20"/>
+                            </button>
+                        </div>
+
+
+                        <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
+
+
+                        {/* Add Grayscale colors */}
+                        <div className="d-flex align-items-center">
+                            <div className="d-flex flex-column">
+                                <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                                    GRAYSCALE COLORS <span className="color-extraDarkSmoke ml-2">(optional)</span>
+                                </div>
+                                <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
+                                    A selection of grayscale colors for background or text color use.
+                                </div>
+                            </div>
+                            <button className="d-flex sp-btn sp-btn--md sp-btn--secondary ml-auto p-1">
+                                <Icon icon="plus"
+                                    iconClass="stroke-white strokeWidth-3"
+                                    width="20" height="20"/>
                             </button>
                         </div>
 
