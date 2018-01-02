@@ -2,9 +2,12 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+
+import { IRootState } from './../../../../../reducer/reducer.config';
 
 import Icon from '../../../../common/Icon/Icon';
 
@@ -29,7 +32,10 @@ type LocalStates = {
 };
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    name: string,
+    website: string
+};
 
 
 /***********************************************/
@@ -50,8 +56,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         // Init local state
         this.state = {
             fields: {
-                name: '',
-                website: ''
+                name: props.name || '',
+                website: props.website || ''
             }
         };
 
@@ -112,13 +118,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      */
     private _nextStep() {
         // Get values via this.refs
-        let data = {
+        let fieldValues = {
             name: this.state.fields.name,
             website: this.state.fields.website
         };
 
         // this.props.saveValues(data);
-        this.props.nextStep(data);
+        this.props.nextStep(fieldValues);
     }
 
     
@@ -136,13 +142,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 <div className="StepByStep__header mb-5">
 
                     <div className="nav-section d-flex">
-                        {/* Back button */}
-                        <div className="iconContainer d-inline-flex flex-column align-items-center">
-                            <Icon icon="arrowLeft" 
-                                iconClass="icon stroke-silver strokeWidth-2"
-                                width="26" height="26"/>
-                            <div className="label fontSize-xs color-silver fontWeight-7">BACK</div>
-                        </div>
                         {/* Close button */}
                         <div className="iconContainer d-inline-flex flex-column align-items-center ml-auto">
                             <Icon icon="close"
@@ -209,9 +208,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <a className="link-reset fontSize-sm color-silver fontWeight-6 textDecoration ml-2" href="#">
-                        Skip this step
-                    </a>
                     <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto"
                             onClick={this._handleNextClick}>
                         Next
@@ -227,6 +223,29 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    
+    const { fields } = state.form.projectForm;
+    const { name, website } = fields;
+
+    return {
+        name, 
+        website
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const basicFieldsConnect = connect(mapStateToProps);
+
+
 /*         EXPORT          */
 /***************************/
-export default BasicFields;
+export default compose(
+    basicFieldsConnect
+)(BasicFields);

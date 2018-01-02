@@ -3,6 +3,9 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+
+import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+
 import Icon from '../../../../common/Icon/Icon';
 
 // -----------------------------------
@@ -14,8 +17,8 @@ import Icon from '../../../../common/Icon/Icon';
 
 /* Own Props */
 type ColorFieldsProps = {
-    nextStep: any,
-    previousStep: any
+    nextStep: Function,
+    previousStep: Function
 };
 
 /* Own States */
@@ -36,6 +39,77 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     /********************************/
     constructor(props: ChildProps<ColorFieldsProps & StateProps, {}>) {
         super(props);
+
+        // LOG
+        functionsUtil.consoleLog('ProjectNew -> Step: 2 - ColorFields actived');
+
+        // Bind methods
+        this._handlePrevClick =  this._handlePrevClick.bind(this);
+        this._handleNextClick =  this._handleNextClick.bind(this);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc HandlePrevClick
+     * @method _handlePrevClick
+     * @example this._handlePrevClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handlePrevClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._previousStep();
+    }
+
+
+    /**
+     * @desc HandleNextClick
+     * @method _handleNextClick
+     * @example this._handleNextClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleNextClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._nextStep();
+    }
+
+
+    /**
+     * @desc Previous Step
+     * @method _previousStep
+     * @example this._previousStep()
+     * @private
+     * @returns {void}
+     */
+    private _previousStep() {
+        this.props.previousStep();
+    }
+
+
+    /**
+     * @desc Next Step
+     * @method _nextStep
+     * @example this._nextStep()
+     * @private
+     * @returns {void}
+     */
+    private _nextStep() {
+        // Get values via this.refs
+        /*let fieldValues = {
+            name: this.state.fields.name,
+            website: this.state.fields.website
+        };*/
+
+        // this.props.saveValues(data);
+        // this.props.nextStep(fieldValues);
     }
 
     
@@ -54,7 +128,8 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 
                     <div className="nav-section d-flex">
                         {/* Back button */}
-                        <div className="iconContainer d-inline-flex flex-column align-items-center">
+                        <div className="iconContainer d-inline-flex flex-column align-items-center"
+                            onClick={this._handlePrevClick}>
                             <Icon icon="arrowLeft" 
                                 iconClass="icon stroke-silver strokeWidth-2"
                                 width="26" height="26"/>
@@ -76,7 +151,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                         </div>
                         {/* Subtitle */}
                         <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2">
-                            Basic project information
+                            Color palette of the project
                         </div>
                     </div>
 
