@@ -1140,7 +1140,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                     <div className="sp-bg-white p-4">
                         <ul className="sp-list sp-list--simple">
                             <li className="item">
-                                <span className="sample-color" style={{backgroundColor: '#FDF980'}}/>
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FDF980'}}/>
                                 <span className="text">
                                     Light Primary Color
                                 </span>
@@ -1160,7 +1160,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container mr-2 ml-auto">
+                                <span className="icon-container ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -1168,7 +1168,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             </li>
 
                             <li className="item">
-                                <span className="sample-color" style={{backgroundColor: '#FEEB6A'}}/>
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FEEB6A'}}/>
                                 <span className="text">
                                     Primary Color
                                 </span>
@@ -1188,7 +1188,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container mr-2 ml-auto">
+                                <span className="icon-container ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -1196,7 +1196,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             </li>
 
                             <li className="item">
-                                <span className="sample-color" style={{backgroundColor: '#FCD85E'}}/>
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FCD85E'}}/>
                                 <span className="text">
                                     Dark Primary Color
                                 </span>
@@ -1216,7 +1216,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container mr-2 ml-auto">
+                                <span className="icon-container ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -1224,7 +1224,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             </li>
 
                             <li className="item">
-                                <span className="sample-color" style={{backgroundColor: '#3CDAD5'}}/>
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#3CDAD5'}}/>
                                 <span className="text">
                                     Light Secondary Color
                                 </span>
@@ -1244,7 +1244,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container mr-2 ml-auto">
+                                <span className="icon-container ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -1252,7 +1252,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             </li>
 
                             <li className="item">
-                                <span className="sample-color" style={{backgroundColor: '#33ADA9'}}/>
+                                <span className="sample-color borderRadius-sm" style={{backgroundColor: '#33ADA9'}}/>
                                 <span className="text">
                                     Secondary Color
                                 </span>
@@ -1272,7 +1272,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container mr-2 ml-auto">
+                                <span className="icon-container ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>

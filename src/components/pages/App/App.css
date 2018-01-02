@@ -3679,14 +3679,13 @@ NOTE: Boostrap 4 has a flex set
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      border-bottom: 1px solid #C0CCDA;
+      border-bottom: 1px solid #D3DCE6;
       overflow: hidden;
-      width: 100%; }
+      width: 100%;
+      padding: 5px; }
       .sp-list--simple .item .sample-color {
         background-color: #EFF2F7;
-        padding: 22px 35px;
-        border-right: 1px solid #C0CCDA;
-        border-left: 1px solid #C0CCDA; }
+        padding: 20px 35px; }
       .sp-list--simple .item .text {
         padding: 0 20px;
         min-width: 200px; }
@@ -3708,7 +3707,7 @@ NOTE: Boostrap 4 has a flex set
           .sp-list--simple .item .icon-container:hover .icon {
             stroke: #FFFFFF; }
     .sp-list--simple:first-child {
-      border-top: 1px solid #C0CCDA; }
+      border-top: 1px solid #D3DCE6; }
 
 /**********************************************************/
 /*                         LOGO                           */
