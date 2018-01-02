@@ -2,8 +2,19 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
-import Icon from '../../../common/Icon/Icon';
+import { connect, Dispatch } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
+
+import { functionsUtil } from './../../../../core/utils/functionsUtil';
+
+import { IProjectFormFields } from './../../../../core/interfaces/interfaces';
+
+import { IRootState } from './../../../../reducer/reducer.config';
+
+import { nextStepProjectAction, prevStepProjectAction, skipStepProjectAction } from './../../../../actions/form.action';
+
+import BasicFields from './Steps/BasicFields';
+import ColorFields from './Steps/ColorFields';
 
 // -----------------------------------
 
@@ -19,20 +30,114 @@ type ProjectNewProps = {};
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    step: number
+};
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        form: {
+            nextStepProject: (fieldValues: IProjectFormFields) => void;
+            prevStepProject: () => void;
+            skipStepProject: () => void;
+        }
+    };
+};
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ProjectNew
-extends React.Component<ChildProps<ProjectNewProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectNewProps & StateProps, {}>) {
+    constructor(props: ChildProps<ProjectNewProps & StateProps & DispatchProps, {}>) {
         super(props);
+
+        // LOG
+        functionsUtil.consoleLog('DashboardPage -> ProjectsPage -> ProjectNew container actived');
+
+        // Bind methods
+        this.nextStep = this.nextStep.bind(this);
+        this.previousStep = this.previousStep.bind(this);
+        this.skipStep = this.skipStep.bind(this);
+    }
+
+
+    /********************************/
+    /*        PUBLIC METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc Next Step
+     * @method nextStep
+     * @example this.nextStep()
+     * @public
+     * @returns {void}
+     */
+    nextStep(fieldValues: IProjectFormFields) {
+        this.props.actions.form.nextStepProject(fieldValues);
+    }
+
+
+    /**
+     * @desc Previous Step
+     * @method previousStep
+     * @example this.previousStep()
+     * @public
+     * @returns {void}
+     */
+    previousStep() {
+        this.props.actions.form.prevStepProject();
+    }
+
+
+    /**
+     * @desc Skip Step
+     * @method skipStep
+     * @example this.skipStep()
+     * @public
+     * @returns {void}
+     */
+    skipStep() {
+        this.props.actions.form.skipStepProject();
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc Get Step
+     * @method _getStep
+     * @example this._getStep()
+     * @private
+     * @returns {JSX.Element} Next Step
+     */
+    private _getStep(): JSX.Element {
+
+        switch (this.props.step) {
+            case 1:
+                return (
+                    <BasicFields nextStep={this.nextStep} />
+                );
+            case 2:
+                return (
+                    <ColorFields nextStep={this.nextStep}
+                                 previousStep={this.previousStep} />
+                );
+            default:
+                return (
+                    <BasicFields nextStep={this.nextStep} />
+                );
+        }
+
     }
 
     
@@ -45,89 +150,8 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps, {}>, LocalState
         /***************************/
         return (
             <div className="ProjectNew StepByStep p-4">
-
-                {/* STEP BY STEP: HEADER */}
-                <div className="StepByStep__header mb-5">
-
-                    <div className="nav-section d-flex">
-                        {/* Back button */}
-                        <div className="iconContainer d-inline-flex flex-column align-items-center">
-                            <Icon icon="arrowLeft" 
-                                iconClass="icon stroke-silver strokeWidth-2"
-                                width="26" height="26"/>
-                            <div className="label fontSize-xs color-silver fontWeight-7">BACK</div>
-                        </div>
-                        {/* Close button */}
-                        <div className="iconContainer d-inline-flex flex-column align-items-center ml-auto">
-                            <Icon icon="close"
-                                iconClass="icon stroke-silver strokeWidth-2"
-                                width="26" height="26"/>
-                            <div className="label fontSize-xs color-silver fontWeight-7">ESC</div>
-                        </div>
-                    </div>
-
-                    <div className="title-section text-center">
-                        {/* Title */}
-                        <div className="fontFamily-openSans fontWeight-5 fontSize-sm color-silver mt-5">
-                            CREATE NEW PROJECT
-                        </div>
-                        {/* Subtitle */}
-                        <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2">
-                            Basic project information
-                        </div>
-                    </div>
-
-                </div>
-
-
-                {/* STEP BY STEP: CONTENT */}
-                <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
-
-                    {/* First step: Basic Project Information */}
-                    <form>
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                            PROJECT NAME
-                        </label>
-                        <input type="text" 
-                                className="sp-input sp-input--md sp-input--block"
-                                placeholder="e.g. Airbnb"/>
-                        
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
-                            PROJECT WEBSITE
-                        </label>
-                        <input type="text" 
-                                className="sp-input sp-input--md sp-input--block" 
-                                placeholder="e.g. https://www.airbnb.com"/>
-
-                        <div className="switchContainer d-flex align-items-center mt-5">
-                            <div className="d-flex flex-column">
-                                <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                                    MAKE THIS PROJECT PRIVATE
-                                </div>
-                                <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                                    Hide this project from the public
-                                </div>
-                            </div>
-                            <button className="sp-btn sp-btn--primary sp-btn--sm ml-auto">
-                                Make private
-                            </button>
-                        </div>
-
-                    </form>
-
-                </div>
-
-                <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <a className="link-reset fontSize-sm color-silver fontWeight-6 textDecoration ml-2" href="#">
-                        Skip this step
-                    </a>
-                    <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto">
-                        Next
-                    </button>
-                </div>
-
+                {this._getStep()}
             </div>
-
         );
 
     }
@@ -135,6 +159,43 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps, {}>, LocalState
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    
+    const { step } = state.form.projectForm;
+
+    return {
+        step
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            form: {
+                nextStepProject: (fieldValues) => dispatch(nextStepProjectAction(fieldValues)),
+                prevStepProject: () => dispatch(prevStepProjectAction()),
+                skipStepProject: () => dispatch(skipStepProjectAction())
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const projectNewConnect = connect(mapStateToProps, mapDispatchToProps);
+
+
 /*         EXPORT          */
 /***************************/
-export default ProjectNew;
+export default compose(
+    projectNewConnect
+)(ProjectNew);

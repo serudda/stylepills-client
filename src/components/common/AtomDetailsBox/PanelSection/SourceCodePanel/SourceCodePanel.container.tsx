@@ -158,7 +158,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @method _handleEditClick
      * @example this._handleEditClick()
      * @private
-     * @param {string} tab - source code tab (e.g. 'html', 'css')
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
@@ -196,6 +195,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         this._changeTab(tab);
     }
 
+
     /**
      * @desc Change Tab
      * @method _changeTab
@@ -207,6 +207,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     private _changeTab(tab: string) {
         this.props.actions.ui.changeSourceCodeTab(tab);
     }
+
 
     /**
      * @desc Copy Source Code
@@ -235,6 +236,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
     }
 
+
     /**
      * @desc Active Edit Mode
      * @method _activeEditMode
@@ -250,6 +252,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         this.props.actions.atomState.activeEditMode(atomId, name);
         
     }
+
 
     /**
      * @desc Update Code
@@ -273,6 +276,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
         
     }
+
 
     /**
      * @desc Get CopyToClipboard Btn

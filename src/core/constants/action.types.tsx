@@ -48,6 +48,16 @@ export type LOGOUT_SUCCESS = typeof LOGOUT_SUCCESS;
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export type LOGOUT_FAILURE = typeof LOGOUT_FAILURE;
 
+/* Form Actions Type */
+export const CLEAR_FORM = 'CLEAR_FORM';
+export type CLEAR_FORM = typeof CLEAR_FORM;
+export const NEXT_STEP_PROJECT = 'NEXT_STEP_PROJECT';
+export type NEXT_STEP_PROJECT = typeof NEXT_STEP_PROJECT;
+export const PREV_STEP_PROJECT = 'PREV_STEP_PROJECT';
+export type PREV_STEP_PROJECT = typeof PREV_STEP_PROJECT;
+export const SKIP_STEP_PROJECT = 'SKIP_STEP_PROJECT';
+export type SKIP_STEP_PROJECT = typeof SKIP_STEP_PROJECT;
+
 /* Search Actions Type */
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export type CLEAR_SEARCH = typeof CLEAR_SEARCH;

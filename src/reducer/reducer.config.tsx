@@ -10,6 +10,7 @@ import auth, { IAuthState } from './auth.reducer';
 import ui, { IUiState } from './ui.reducer';
 import search, { ISearchState } from './search.reducer';
 import pagination, { IPaginationState } from './pagination.reducer';
+import form, { IFormState } from './form.reducer';
 import atomState, { IAtomState } from './atom.reducer';
 
 // Initialize Client
@@ -26,6 +27,7 @@ export interface IRootState {
     ui: IUiState;
     search: ISearchState;
     pagination: IPaginationState;
+    form: IFormState;
     atomState: IAtomState;
     router: RouterState;
 }
@@ -40,6 +42,7 @@ const rootReducer = combineReducers<IRootState>({
     ui,
     search,
     pagination,
+    form,
     atomState,
     router
 });

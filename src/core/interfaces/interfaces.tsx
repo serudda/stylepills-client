@@ -7,6 +7,15 @@
 
 
 /******************************************/
+/*            FORMS INTERFACES            */
+/******************************************/
+export interface IProjectFormFields {
+    name: string;
+    website: string;
+}
+
+
+/******************************************/
 /*       REDUX SEGMENT (TRACK EVENT)      */
 /******************************************/
 export interface IAnalyticsTrack<eventPayload> {
