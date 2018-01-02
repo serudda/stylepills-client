@@ -136,3 +136,147 @@
         float: right;
     }
 }
+
+/* INPUT GROUP */
+.sp-inputGroup {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .input {
+        @extend .sp-input;
+    }
+
+    &--label {
+        
+        .context {
+            background-color: map-get($color, darkSnow);
+            color: map-get($color, silver);
+            border: 1px solid map-get($color, extraDarkSmoke);
+            border-right: 0 hidden transparent;
+            margin-left: 1px;
+            font-weight: 700;
+        }
+
+        .input {
+            -webkit-border-top-left-radius: 0;
+            -moz-border-top-left-radius: 0;
+            border-top-left-radius: 0;
+            -webkit-border-bottom-left-radius: 0;
+            -moz-border-bottom-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &--sm {
+
+            .input {
+                padding: 0 10px;
+                height: 30px;
+                font-size: 13px;
+            }
+
+            .context {
+                padding: 0 10px;
+                font-size: 13px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &--md {
+
+            .input {
+                padding: 0 14px;
+                height: 40px;
+                font-size: 15px;
+            }
+
+            .context {
+                padding: 0 14px;
+                font-size: 15px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &--lg {
+
+            .input {
+                padding: 0 16px;
+                height: 50px;
+                font-size: 16px;
+            }
+
+            .context {
+                padding: 0 16px;
+                font-size: 16px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+    }
+
+    &--color {
+
+        .context {
+            background-color: map-get($color, primary);
+            border-right: 1px solid map-get($color, extraDarkSmoke);
+            position: absolute;
+            margin-left: 1px;
+            cursor: pointer;
+        }
+
+        &--sm {
+
+            .input {
+                height: 30px;
+                font-size: 13px;
+                width: 110px;
+                padding-left: 40px;
+                padding-right: 0;
+            }
+
+            .context {
+                padding: 14px;
+            }
+        }
+
+        &--md {
+
+            .input {
+                width: 135px;
+                padding-left: 50px;
+                padding-right: 0;
+                height: 40px;
+                font-size: 15px;
+            }
+
+            .context {
+                padding: 19px;
+            }
+        }
+
+        &--lg {
+
+            .input {
+                width: 150px;
+                padding-left: 60px;
+                padding-right: 0;
+                height: 50px;
+                font-size: 16px;
+            }
+
+            .context {
+                padding: 24px;
+            }
+        }
+    }
+
+    
+
+    
+}

@@ -20,7 +20,7 @@
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-
+    border: 2px solid transparent;
 
     /// TAG-SIZE
     &--xxs {
@@ -31,7 +31,6 @@
     &--xs {
         padding: 1px 5px;
         font-size: 12px;
-        border: 2px solid transparent;
     }
 
 
@@ -45,6 +44,11 @@
     &--secondary {
         background-color: map-get($color, secondary);
         color: map-get($color, white);
+    }
+
+    &--neutral {
+        background-color: map-get($color, darkSnow);
+        color: map-get($color, silver);
     }
 
     &--info {
@@ -65,11 +69,6 @@
     &--negative {
         background-color: map-get($color, negative);
         color: map-get($color, white);
-    }
-
-    &--neutral {
-        background-color: map-get($color, smoke);
-        color: map-get($color, black);
     }
 
     &--primary-ghost {

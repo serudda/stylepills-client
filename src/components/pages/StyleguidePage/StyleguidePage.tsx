@@ -532,7 +532,95 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                 </div>
             </div>
 
-            {/* Select List */}
+
+            {/* Inputs with Context */}
+            <div className="row mb-5">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Inputs with Context</h2>
+
+                    {/* small text input (color context) */}
+                    <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--sm">
+                        <div className="context" />
+                        <input type="text" placeholder="#FFFFFF" className="input" />
+                    </div>
+
+                    <br/>
+
+                    {/* medium text input (color context) */}
+                    <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--md">
+                        <div className="context" />
+                        <input type="text" placeholder="#FFFFFF" className="input" />
+                    </div>
+
+                    <br/>
+
+                    {/* large text input (color context) */}
+                    <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--lg">
+                        <div className="context" />
+                        <input type="text" placeholder="#FFFFFF" className="input" />
+                    </div>
+
+                    <br/>
+
+                    {/* small text input (label context) */}
+                    <div className="sp-inputGroup sp-inputGroup--label sp-inputGroup--label--sm">
+                        <span className="context">
+                            Name
+                        </span>
+                        <input type="text" placeholder="Gold" className="input" />
+                    </div>
+
+                    <br/>
+
+                    {/* medium text input (label context) */}
+                    <div className="sp-inputGroup sp-inputGroup--label sp-inputGroup--label--md">
+                        <span className="context">
+                            Name
+                        </span>
+                        <input type="text" placeholder="Gold" className="input" />
+                    </div>
+
+                    <br/>
+
+                    {/* large text input (label context) */}
+                    <div className="sp-inputGroup sp-inputGroup--label sp-inputGroup--label--lg">
+                        <span className="context">
+                            Name
+                        </span>
+                        <input type="text" placeholder="Gold" className="input" />
+                    </div>
+
+                    <br/>
+
+                    {/* medium text input */}
+                    <input type="text" placeholder="Medium text input" className="sp-input sp-input--md" />
+
+                    <br/>
+
+                    {/* large text input */}
+                    <input type="text" placeholder="Large text input" className="sp-input sp-input--lg" />
+
+                    <br/>
+
+                    {/* medium block text input */}
+                    <input type="text" placeholder="Medium block text input" className="sp-input sp-input--md sp-input--block" />
+
+                    <br/>
+
+                    {/* medium block search input */}
+                    <div className="sp-search sp-search--md">
+                        <Icon icon="search"
+                              iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
+                              width="14" height="14"/>
+                        <input type="text" placeholder="Search" className="sp-search__input sp-input sp-input--md sp-input--block" />
+                    </div>
+
+                </div>
+            </div>
+
+
+            {/* Select List 
+                FIXME: Los iconos de los Select List estan mal ubicados, arreglar eso */}
             <div className="row mb-5">
                 <div className="col">
                 <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Select List</h2>
@@ -587,7 +675,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
             </div>
 
             {/* Avatars */}
-            < div className="row mb-5">
+            <div className="row mb-5">
 
                 <div className="col-12">
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">
@@ -690,7 +778,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
             </div>
 
             {/* Logo */}
-            < div className="row mb-5" >
+            <div className="row mb-5" >
                 <div className="col">
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Logos</h2>
 
@@ -768,7 +856,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
             </div>
 
             {/* Atoms List Section */}
-            < div className="row mb-5 no-gutters">
+            <div className="row mb-5 no-gutters">
                 <div className="col">
                 <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Atoms List</h2>
 
@@ -943,6 +1031,56 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
                     <div className="sp-bg-slate d-inline-flex p-4">
 
+                        <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset mr-2">
+                            Private
+                        </span>
+
+                        <span className="sp-tag sp-tag--primary-ghost sp-tag--xxs fontSmoothing-reset mr-2">
+                            Private
+                        </span>
+
+                        <span className="sp-tag sp-tag--secondary sp-tag--xxs fontSmoothing-reset mr-2">
+                            NEW
+                        </span>
+
+                        <span className="sp-tag sp-tag--secondary-ghost sp-tag--xxs fontSmoothing-reset mr-2">
+                            NEW
+                        </span>
+
+                        <span className="sp-tag sp-tag--white-ghost sp-tag--xxs fontSmoothing-reset mr-2">
+                            white
+                        </span>
+
+                        <span className="sp-tag sp-tag--black-ghost sp-tag--xxs fontSmoothing-reset mr-2">
+                            black
+                        </span>
+
+                        <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                            HEX
+                        </span>
+
+                        <span className="sp-tag sp-tag--info sp-tag--xxs fontSmoothing-reset mr-2">
+                            info
+                        </span>
+
+                        <span className="sp-tag sp-tag--positive sp-tag--xxs fontSmoothing-reset mr-2">
+                            positive
+                        </span>
+
+                        <span className="sp-tag sp-tag--negative sp-tag--xxs fontSmoothing-reset mr-2">
+                            alert
+                        </span>
+
+                        <span className="sp-tag sp-tag--warning sp-tag--xxs fontSmoothing-reset">
+                            warning
+                        </span>
+
+                    </div>
+
+                    <br/>
+
+                    <div className="sp-bg-slate d-inline-flex p-4">
+
                         <span className="sp-tag sp-tag--primary sp-tag--xs fontSmoothing-reset mr-2">
                             Private
                         </span>
@@ -967,6 +1105,10 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                             black
                         </span>
 
+                        <span className="sp-tag sp-tag--neutral sp-tag--xs fontWeight-7 mr-2">
+                            HEX
+                        </span>
+
                         <span className="sp-tag sp-tag--info sp-tag--xs fontSmoothing-reset mr-2">
                             info
                         </span>
@@ -988,6 +1130,159 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                 </div>
             </div>
 
+            {/* Color List */}
+            <div className="row mb-5 no-gutters">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">
+                        Color List
+                    </h2>
+
+                    <div className="sp-bg-white p-4">
+                        <ul className="sp-list sp-list--simple">
+                            <li className="item">
+                                <span className="sample-color" style={{backgroundColor: '#FDF980'}}/>
+                                <span className="text">
+                                    Light Primary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #FDF980
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container mr-2 ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color" style={{backgroundColor: '#FEEB6A'}}/>
+                                <span className="text">
+                                    Primary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #FEEB6A
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container mr-2 ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color" style={{backgroundColor: '#FCD85E'}}/>
+                                <span className="text">
+                                    Dark Primary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #FCD85E
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container mr-2 ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color" style={{backgroundColor: '#3CDAD5'}}/>
+                                <span className="text">
+                                    Light Secondary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #3CDAD5
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container mr-2 ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+
+                            <li className="item">
+                                <span className="sample-color" style={{backgroundColor: '#33ADA9'}}/>
+                                <span className="text">
+                                    Secondary Color
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        HEX
+                                    </span>
+                                    <span className="text">
+                                        #33ADA9
+                                    </span>
+                                </span>
+                                <span className="text-tag">
+                                    <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                                        RGB
+                                    </span>
+                                    <span className="text">
+                                        254, 254, 254
+                                    </span>
+                                </span>
+                                <span className="icon-container mr-2 ml-auto">
+                                    <Icon icon="close"
+                                        iconClass="icon stroke-silver strokeWidth-3"
+                                        width="18" height="18"/>
+                                </span>
+                            </li>
+                        </ul>  
+                    </div>
+
+                </div>
+            </div>
 
         </div >
     );
