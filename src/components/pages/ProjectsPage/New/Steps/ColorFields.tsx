@@ -3,10 +3,13 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import { SketchPicker } from 'react-color';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
 import Icon from '../../../../common/Icon/Icon';
+
+const ntc = require('ntcjs');
 
 // -----------------------------------
 
@@ -15,6 +18,13 @@ import Icon from '../../../../common/Icon/Icon';
 /*      INTERFACES & TYPES      */
 /********************************/
 
+type ColorRGBA = {
+    r: number,
+    g: number,
+    b: number,
+    a: number
+};
+
 /* Own Props */
 type ColorFieldsProps = {
     nextStep: Function,
@@ -22,7 +32,12 @@ type ColorFieldsProps = {
 };
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    displayColorPicker: boolean,
+    colorRgba: ColorRGBA,
+    colorHex: string,
+    colorName: string
+};
 
 /* Mapped State to Props */
 type StateProps = {};
@@ -43,15 +58,78 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         // LOG
         functionsUtil.consoleLog('ProjectNew -> Step: 2 - ColorFields actived');
 
+        // Init local state
+        this.state = {
+            displayColorPicker: false,
+            colorRgba: {
+                r: 253,
+                g: 249,
+                b: 128,
+                a: 100
+            },
+            colorHex: '',
+            colorName: ''
+        };
+
         // Bind methods
+        this._handleColorClick = this._handleColorClick.bind(this);
+        this._handleColorChange = this._handleColorChange.bind(this);
+        this._handleColorCloseClick = this._handleColorCloseClick.bind(this);
         this._handlePrevClick =  this._handlePrevClick.bind(this);
         this._handleNextClick =  this._handleNextClick.bind(this);
+        
     }
 
 
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
+
+    /**
+     * @desc HandleColorClick
+     * @method _handleColorClick
+     * @example this._handleColorClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleColorClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this.setState({ displayColorPicker: !this.state.displayColorPicker });
+    }
+
+
+    /**
+     * @desc HandleColorChange
+     * @method _handleColorChange
+     * @example this._handleColorChange()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleColorChange(color: any) {
+        const nameMatch = ntc.name(color.hex);
+
+        this.setState({ 
+            colorRgba: color.rgb, 
+            colorHex: color.hex,
+            colorName: nameMatch[1] 
+        });
+    }
+
+    
+    /**
+     * @desc HandleColorCloseClick
+     * @method _handleColorCloseClick
+     * @example this._handleColorCloseClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleColorCloseClick (e: React.FormEvent<{}>) {
+        this.setState({ displayColorPicker: false });
+    }
 
 
     /**
@@ -117,6 +195,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
         
         /*         MARKUP          */
         /***************************/
@@ -178,16 +257,49 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 
                             {/* Input: Color */}
                             <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--md mr-3">
-                                <div className="context" />
-                                <input type="text" placeholder="#FFFFFF" className="input" />
+                                
+                                <div className="context" 
+                                    onClick={this._handleColorClick}
+                                    style={{
+                                        background: `rgba(${ this.state.colorRgba.r }, ${ this.state.colorRgba.g }, ${ this.state.colorRgba.b }, ${ this.state.colorRgba.a })`
+                                        }}/>
+                                
+                                <input type="text" 
+                                       placeholder="#FDF980" 
+                                       className="input" 
+                                       value={this.state.colorHex}
+                                       onClick={this._handleColorClick}
+                                       readOnly={true}/>
+                                
+                                {/* Color Picker */}
+                                {this.state.displayColorPicker && 
+                                <div style={{
+                                    position: 'absolute',
+                                    zIndex: 2,
+                                    left: '50px'
+                                }}>
+                                    <div style={{
+                                            position: 'fixed',
+                                            top: '0px',
+                                            right: '0px',
+                                            bottom: '0px',
+                                            left: '0px',
+                                        }} onClick={this._handleColorCloseClick}/>
+                                    <SketchPicker color={this.state.colorRgba} onChange={this._handleColorChange}/>
+                                </div>}
+
                             </div>
+                            
 
                             {/* Input: Color Name */}
                             <div className="sp-inputGroup sp-inputGroup--label sp-inputGroup--label--md mr-3">
                                 <span className="context">
                                     Name
                                 </span>
-                                <input type="text" placeholder="Gold" className="input" />
+                                <input type="text" 
+                                        placeholder="Light Primary" 
+                                        className="input" 
+                                        value={this.state.colorName} />
                             </div>
 
                             {/* Add Button */}
@@ -198,7 +310,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                         </div>
 
 
-                        <ul className="sp-list sp-list--simple mt-4 d-none">
+                        <ul className="sp-list sp-list--simple mt-4">
                             <li className="item">
                                 <span className="sample-color borderRadius-sm" style={{backgroundColor: '#FDF980'}}/>
                                 <span className="text">
