@@ -1,0 +1,29 @@
+/**********************************************************/
+/*                        DIVIDER                         */
+/**********************************************************/
+
+.sp-divider {
+    height: 0;
+    overflow: hidden;
+    @extend .borderTop-1;
+
+    &--solid {
+        @extend .borderTopStyle-solid;
+    }
+
+    &--dashed {
+        @extend .borderTopStyle-dashed;
+    }
+
+    &--primary {
+        @extend .borderColor-primary;
+    }
+
+    &--secondary {
+        @extend .borderColor-secondary;
+    }
+
+    &--smoke {
+        @extend .borderColor-smoke;
+    }
+}

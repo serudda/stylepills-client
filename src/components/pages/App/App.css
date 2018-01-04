@@ -20,49 +20,65 @@
 .bg-primary {
   background-color: #007bff !important; }
 
-a.bg-primary:focus, a.bg-primary:hover {
+a.bg-primary:focus, a.bg-primary:hover,
+button.bg-primary:focus,
+button.bg-primary:hover {
   background-color: #0062cc !important; }
 
 .bg-secondary {
   background-color: #868e96 !important; }
 
-a.bg-secondary:focus, a.bg-secondary:hover {
+a.bg-secondary:focus, a.bg-secondary:hover,
+button.bg-secondary:focus,
+button.bg-secondary:hover {
   background-color: #6c757d !important; }
 
 .bg-success {
   background-color: #28a745 !important; }
 
-a.bg-success:focus, a.bg-success:hover {
+a.bg-success:focus, a.bg-success:hover,
+button.bg-success:focus,
+button.bg-success:hover {
   background-color: #1e7e34 !important; }
 
 .bg-info {
   background-color: #17a2b8 !important; }
 
-a.bg-info:focus, a.bg-info:hover {
+a.bg-info:focus, a.bg-info:hover,
+button.bg-info:focus,
+button.bg-info:hover {
   background-color: #117a8b !important; }
 
 .bg-warning {
   background-color: #ffc107 !important; }
 
-a.bg-warning:focus, a.bg-warning:hover {
+a.bg-warning:focus, a.bg-warning:hover,
+button.bg-warning:focus,
+button.bg-warning:hover {
   background-color: #d39e00 !important; }
 
 .bg-danger {
   background-color: #dc3545 !important; }
 
-a.bg-danger:focus, a.bg-danger:hover {
+a.bg-danger:focus, a.bg-danger:hover,
+button.bg-danger:focus,
+button.bg-danger:hover {
   background-color: #bd2130 !important; }
 
 .bg-light {
   background-color: #f8f9fa !important; }
 
-a.bg-light:focus, a.bg-light:hover {
+a.bg-light:focus, a.bg-light:hover,
+button.bg-light:focus,
+button.bg-light:hover {
   background-color: #dae0e5 !important; }
 
 .bg-dark {
   background-color: #343a40 !important; }
 
-a.bg-dark:focus, a.bg-dark:hover {
+a.bg-dark:focus, a.bg-dark:hover,
+button.bg-dark:focus,
+button.bg-dark:hover {
   background-color: #1d2124 !important; }
 
 .bg-white {
@@ -2510,7 +2526,7 @@ NOTE: Boostrap 4 has a flex set
 .color-steel {
   color: #273444; }
 
-.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .DuplicateModal .duplicateOptionsList .duplicateOption__text, .DuplicateModal .duplicateOptionsList .duplicateResult__text {
+.color-slate, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .sp-list--simple .item .text, .DuplicateModal .duplicateOptionsList .duplicateOption__text, .DuplicateModal .duplicateOptionsList .duplicateResult__text {
   color: #3C4858; }
 
 .color-silver, .ui.pointing.sp-dropdown--userMenu .menu .item {
@@ -2522,7 +2538,7 @@ NOTE: Boostrap 4 has a flex set
 .color-darkSmoke {
   color: #D3DCE6; }
 
-.color-extraDarkSmoke {
+.color-extraDarkSmoke, .sp-list--simple .item .text-tag .text {
   color: #C0CCDA; }
 
 .color-snow {
@@ -2544,10 +2560,10 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs, .SidebarWrapper .Sidebar__content .subtitle {
   font-size: 12px; }
 
-.fontSize-sm, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
+.fontSize-sm, .sp-list--simple .item .text, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
-.fontSize-md, .SidebarWrapper .Sidebar__content .title {
+.fontSize-md, .sp-list--simple .item .text-tag .text, .SidebarWrapper .Sidebar__content .title {
   font-size: 16px; }
 
 .fontSize-lg {
@@ -2581,10 +2597,10 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-5 {
   font-weight: 500; }
 
-.fontWeight-6, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .SidebarWrapper .Sidebar__content .title {
+.fontWeight-6, .ui.pointing.sp-dropdown--userMenu .menu .item:hover, .sp-list--simple .item .text-tag .text, .SidebarWrapper .Sidebar__content .title {
   font-weight: 600; }
 
-.fontWeight-7, .SidebarWrapper .Sidebar__content .subtitle {
+.fontWeight-7, .sp-list--simple .item .text, .SidebarWrapper .Sidebar__content .subtitle {
   font-weight: 700; }
 
 .fontWeight-8 {
@@ -2657,6 +2673,9 @@ NOTE: Boostrap 4 has a flex set
 .fontStyle-normal {
   font-style: normal; }
 
+.textDecoration {
+  text-decoration: underline !important; }
+
 .fontSmoothing-reset {
   -webkit-font-smoothing: initial; }
 
@@ -2691,7 +2710,7 @@ NOTE: Boostrap 4 has a flex set
 .borderTop-0 {
   border-top: 0 hidden transparent; }
 
-.borderTop-1, .ui.pointing.sp-dropdown--userMenu .menu .divider {
+.borderTop-1, .sp-divider, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top: 1px solid; }
 
 .borderTop-2 {
@@ -2773,13 +2792,13 @@ NOTE: Boostrap 4 has a flex set
   border-right: 6px solid; }
 
 /* Border types */
-.borderTopStyle-dashed, .ui.pointing.sp-dropdown--userMenu .menu .divider {
+.borderTopStyle-dashed, .sp-divider--dashed, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top-style: dashed; }
 
 .borderTopStyle-dotted {
   border-top-style: dotted; }
 
-.borderTopStyle-solid {
+.borderTopStyle-solid, .sp-divider--solid {
   border-top-style: solid; }
 
 .borderBottomStyle-dashed {
@@ -2813,7 +2832,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-lightPrimary {
   border-color: #FDF980; }
 
-.borderColor-primary {
+.borderColor-primary, .sp-divider--primary {
   border-color: #FEEB6A; }
 
 .borderColor-darkPrimary {
@@ -2822,7 +2841,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-lightSecondary {
   border-color: #3CDAD5; }
 
-.borderColor-secondary {
+.borderColor-secondary, .sp-divider--secondary {
   border-color: #33ADA9; }
 
 .borderColor-darkSecondary {
@@ -2857,7 +2876,7 @@ NOTE: Boostrap 4 has a flex set
 .borderColor-silver {
   border-color: #8492A6; }
 
-.borderColor-smoke, .ui.pointing.sp-dropdown--userMenu .menu .divider {
+.borderColor-smoke, .sp-divider--smoke, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-color: #E0E6ED; }
 
 .borderColor-darkSmoke {
@@ -2884,7 +2903,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
+.borderRadius-sm, .sp-list--simple .item .icon-btn:hover, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -3432,6 +3451,13 @@ NOTE: Boostrap 4 has a flex set
     border-radius: 0 4px 4px 0; }
 
 /**********************************************************/
+/*                        DIVIDER                         */
+/**********************************************************/
+.sp-divider {
+  height: 0;
+  overflow: hidden; }
+
+/**********************************************************/
 /*                       DROPDOWN                         */
 /**********************************************************/
 /* Dropdown with pointing (Semamtic UI) */
@@ -3446,7 +3472,7 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 /*                         INPUTS                         */
 /**********************************************************/
-.sp-input {
+.sp-input, .sp-inputGroup .input {
   border: 1px solid #C0CCDA;
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
@@ -3457,7 +3483,13 @@ NOTE: Boostrap 4 has a flex set
   border-radius: 3px;
   color: #3C4858;
   display: block; }
-  .sp-input:focus {
+  .sp-input::-moz-placeholder , .sp-inputGroup .input::-moz-placeholder  {
+    color: #C0CCDA; }
+  .sp-input::-webkit-input-placeholder, .sp-inputGroup .input::-webkit-input-placeholder {
+    color: #C0CCDA; }
+  .sp-input::placeholder, .sp-inputGroup .input::placeholder {
+    color: #C0CCDA; }
+  .sp-input:focus, .sp-inputGroup .input:focus {
     border-color: #33ADA9;
     outline: 0; }
   .sp-input--sm {
@@ -3536,6 +3568,92 @@ NOTE: Boostrap 4 has a flex set
     right: 10px;
     float: right; }
 
+/* INPUT GROUP */
+.sp-inputGroup {
+  display: flex;
+  align-items: center;
+  position: relative; }
+  .sp-inputGroup--label .context {
+    background-color: #EFF2F7;
+    color: #8492A6;
+    border: 1px solid #C0CCDA;
+    border-right: 0 hidden transparent;
+    margin-left: 1px;
+    font-weight: 700;
+    -webkit-border-top-left-radius: 3px;
+    -moz-border-top-left-radius: 3px;
+    border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 3px; }
+  .sp-inputGroup--label .input {
+    -webkit-border-top-left-radius: 0;
+    -moz-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0; }
+  .sp-inputGroup--label--sm .input {
+    padding: 0 10px;
+    height: 30px;
+    font-size: 13px; }
+  .sp-inputGroup--label--sm .context {
+    padding: 0 10px;
+    font-size: 13px;
+    height: 30px;
+    display: flex;
+    align-items: center; }
+  .sp-inputGroup--label--md .input {
+    padding: 0 14px;
+    height: 40px;
+    font-size: 15px; }
+  .sp-inputGroup--label--md .context {
+    padding: 0 14px;
+    font-size: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center; }
+  .sp-inputGroup--label--lg .input {
+    padding: 0 16px;
+    height: 50px;
+    font-size: 16px; }
+  .sp-inputGroup--label--lg .context {
+    padding: 0 16px;
+    font-size: 16px;
+    height: 50px;
+    display: flex;
+    align-items: center; }
+  .sp-inputGroup--color .context {
+    background-color: #FEEB6A;
+    border-right: 1px solid #C0CCDA;
+    position: absolute;
+    margin-left: 1px;
+    cursor: pointer; }
+  .sp-inputGroup--color--sm .input {
+    height: 30px;
+    font-size: 13px;
+    width: 110px;
+    padding-left: 40px;
+    padding-right: 0; }
+  .sp-inputGroup--color--sm .context {
+    padding: 14px; }
+  .sp-inputGroup--color--md .input {
+    width: 135px;
+    padding-left: 50px;
+    padding-right: 0;
+    height: 40px;
+    font-size: 15px; }
+  .sp-inputGroup--color--md .context {
+    padding: 19px; }
+  .sp-inputGroup--color--lg .input {
+    width: 150px;
+    padding-left: 60px;
+    padding-right: 0;
+    height: 50px;
+    font-size: 16px; }
+  .sp-inputGroup--color--lg .context {
+    padding: 24px; }
+
 /**********************************************************/
 /*                         LINKS                          */
 /**********************************************************/
@@ -3575,6 +3693,55 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none; }
     .sp-link--box--black:focus {
       text-decoration: none; }
+
+/**********************************************************/
+/*                          LISTS                         */
+/**********************************************************/
+.sp-list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  align-content: center; }
+  .sp-list--simple {
+    flex-direction: column; }
+    .sp-list--simple .item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-bottom: 1px solid #D3DCE6;
+      overflow: hidden;
+      width: 100%;
+      height: 51px;
+      padding: 5px;
+      /* Sample color block */
+      /* Simple text */
+      /* Simple text + tag */
+      /* Icon button */ }
+      .sp-list--simple .item:last-child {
+        border-bottom: 0 hidden transparent; }
+      .sp-list--simple .item .sample-color {
+        background-color: #EFF2F7;
+        padding: 20px 35px; }
+      .sp-list--simple .item .text {
+        padding: 0 20px;
+        min-width: 200px; }
+      .sp-list--simple .item .text-tag {
+        display: flex;
+        align-items: center;
+        min-width: 110px;
+        padding: 0;
+        padding-left: 10px; }
+        .sp-list--simple .item .text-tag .text {
+          min-width: 150px;
+          padding: 0; }
+      .sp-list--simple .item .icon-btn {
+        display: flex;
+        align-items: center;
+        cursor: pointer; }
+        .sp-list--simple .item .icon-btn:hover {
+          background-color: #33ADA9; }
+          .sp-list--simple .item .icon-btn:hover .icon {
+            stroke: #FFFFFF; }
 
 /**********************************************************/
 /*                         LOGO                           */
@@ -3659,6 +3826,19 @@ NOTE: Boostrap 4 has a flex set
   .sp-stats__item {
     display: flex;
     align-items: center; }
+
+/**********************************************************/
+/*               STEP BY STEP PAGE COMPONENT              */
+/**********************************************************/
+.StepByStep__header .nav-section .iconContainer {
+  cursor: pointer; }
+  .StepByStep__header .nav-section .iconContainer:hover .icon {
+    border-radius: 50%;
+    background-color: #D3DCE6;
+    border: 5px solid #D3DCE6;
+    stroke: #3C4858; }
+  .StepByStep__header .nav-section .iconContainer:hover .label {
+    color: #3C4858; }
 
 /**********************************************************/
 /*                        TAB MENU                        */
@@ -3791,20 +3971,23 @@ NOTE: Boostrap 4 has a flex set
   text-shadow: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  border-radius: 3px; }
+  border-radius: 3px;
+  border: 2px solid transparent; }
   .sp-tag--xxs {
     padding: 0 3px;
     font-size: 12px; }
   .sp-tag--xs {
     padding: 1px 5px;
-    font-size: 12px;
-    border: 2px solid transparent; }
+    font-size: 12px; }
   .sp-tag--primary {
     background-color: #FEEB6A;
     color: #24292e; }
   .sp-tag--secondary {
     background-color: #33ADA9;
     color: #FFFFFF; }
+  .sp-tag--neutral {
+    background-color: #EFF2F7;
+    color: #8492A6; }
   .sp-tag--info {
     background-color: #408FEC;
     color: #FFFFFF; }
@@ -3817,9 +4000,6 @@ NOTE: Boostrap 4 has a flex set
   .sp-tag--negative {
     background-color: #FF4949;
     color: #FFFFFF; }
-  .sp-tag--neutral {
-    background-color: #E0E6ED;
-    color: #24292e; }
   .sp-tag--primary-ghost {
     background: 0 0;
     border: 2px solid #FEEB6A;
@@ -3961,7 +4141,7 @@ NOTE: Boostrap 4 has a flex set
   .AtomsList .atomBox-container:nth-child(3n) {
     margin-right: 0; }
 
-@media (max-width: 991px) {
+@media (max-width: 991.99px) {
   .AtomsList .atomBox-container {
     width: 49%; }
     .AtomsList .atomBox-container:nth-child(2n) {
@@ -3969,7 +4149,7 @@ NOTE: Boostrap 4 has a flex set
     .AtomsList .atomBox-container:nth-child(3n) {
       margin-right: 2%; } }
 
-@media (max-width: 575px) {
+@media (max-width: 575.99px) {
   .AtomsList .atomBox-container {
     width: 100%;
     margin-right: 0 !important; } }
@@ -4032,7 +4212,7 @@ NOTE: Boostrap 4 has a flex set
     background-color: #D3DCE6;
     border: 5px solid #D3DCE6;
     opacity: 1; }
-  .AtomDetailsModal .sp-close-icon:hover:after {
+  .AtomDetailsModal .sp-close-icon:hover::after {
     right: 4px; }
 
 /* DIMMER (MODAL BACKDROP) */
@@ -4267,6 +4447,6 @@ body.duplicateModal-open .ui.dimmer {
   list-style: none;
   justify-content: center; }
 
-@media (max-width: 575px) {
+@media (max-width: 575.99px) {
   .UserProfilePage .UserStats__item__text {
     font-size: 12px; } }

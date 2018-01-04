@@ -131,14 +131,14 @@ extends React.Component<ChildProps<AtomSearchProps & StateProps & DispatchProps,
         return (
             <div className="AtomSearch">
                 <div className="sp-search sp-search--md w-100">
-                <Icon icon="search"
-                    iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
-                    width="14" height="14"/>
-                <input type="text" 
-                    value={this.state.text} onChange={this._handleChange}
-                    placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
-                    className="sp-search__input sp-input sp-input--md sp-input--block" />
-            </div>
+                    <Icon icon="search"
+                        iconClass="sp-search__icon stroke-slate strokeWidth-2 mr-1"
+                        width="14" height="14"/>
+                    <input type="text" 
+                        value={this.state.text} onChange={this._handleChange}
+                        placeholder="Type a component name (e.g. primary button, secondary input, large select...)" 
+                        className="sp-search__input sp-input sp-input--md sp-input--block" />
+                </div>
             </div>
         );
 

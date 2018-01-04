@@ -1,0 +1,32 @@
+/**********************************************************/
+/*               STEP BY STEP PAGE COMPONENT              */
+/**********************************************************/
+
+.StepByStep {
+
+    &__header {
+
+        .nav-section {
+
+            .iconContainer {
+                cursor: pointer;
+                
+                &:hover {
+
+                    .icon {
+                        border-radius: 50%;
+                        background-color: map-get($color, darkSmoke);
+                        border: 5px solid map-get($color, darkSmoke);
+                        stroke: map-get($color, slate );
+                    }
+                    .label {
+                        color: map-get($color, slate );
+                    }
+                }
+            }
+
+        }
+
+    }
+
+}
