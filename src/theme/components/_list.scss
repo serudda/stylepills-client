@@ -19,17 +19,20 @@
             border-bottom: 1px solid map-get($color, darkSmoke);
             overflow: hidden;
             width: 100%;
-            padding: 5px;
+            height: 51px;
+            padding: 5px;            
 
             &:last-child {
                 border-bottom: 0 hidden transparent;
             }
 
+            /* Sample color block */
             .sample-color {
                 background-color: map-get($color, darkSnow);
                 padding: 20px 35px;
             }
 
+            /* Simple text */
             .text {
                 @extend .fontSize-sm;
                 @extend .fontWeight-7;
@@ -38,6 +41,7 @@
                 min-width: 200px;
             }
 
+            /* Simple text + tag */
             .text-tag {
                 display: flex;
                 align-items: center;
@@ -54,7 +58,8 @@
                 }
             }
 
-            .icon-container {
+            /* Icon button */
+            .icon-btn {
                 display: flex;
                 align-items: center;
                 cursor: pointer;

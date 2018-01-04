@@ -332,7 +332,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container ml-auto">
+                                <span className="icon-btn ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -360,7 +360,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container ml-auto">
+                                <span className="icon-btn ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -388,7 +388,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container ml-auto">
+                                <span className="icon-btn ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -416,7 +416,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container ml-auto">
+                                <span className="icon-btn ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>
@@ -444,7 +444,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                                         254, 254, 254
                                     </span>
                                 </span>
-                                <span className="icon-container ml-auto">
+                                <span className="icon-btn ml-auto">
                                     <Icon icon="close"
                                         iconClass="icon stroke-silver strokeWidth-3"
                                         width="18" height="18"/>

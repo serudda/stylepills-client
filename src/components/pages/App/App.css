@@ -2903,7 +2903,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .sp-list--simple .item .icon-container:hover, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
+.borderRadius-sm, .sp-list--simple .item .icon-btn:hover, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -3711,7 +3711,12 @@ NOTE: Boostrap 4 has a flex set
       border-bottom: 1px solid #D3DCE6;
       overflow: hidden;
       width: 100%;
-      padding: 5px; }
+      height: 51px;
+      padding: 5px;
+      /* Sample color block */
+      /* Simple text */
+      /* Simple text + tag */
+      /* Icon button */ }
       .sp-list--simple .item:last-child {
         border-bottom: 0 hidden transparent; }
       .sp-list--simple .item .sample-color {
@@ -3729,13 +3734,13 @@ NOTE: Boostrap 4 has a flex set
         .sp-list--simple .item .text-tag .text {
           min-width: 150px;
           padding: 0; }
-      .sp-list--simple .item .icon-container {
+      .sp-list--simple .item .icon-btn {
         display: flex;
         align-items: center;
         cursor: pointer; }
-        .sp-list--simple .item .icon-container:hover {
+        .sp-list--simple .item .icon-btn:hover {
           background-color: #33ADA9; }
-          .sp-list--simple .item .icon-container:hover .icon {
+          .sp-list--simple .item .icon-btn:hover .icon {
             stroke: #FFFFFF; }
 
 /**********************************************************/
