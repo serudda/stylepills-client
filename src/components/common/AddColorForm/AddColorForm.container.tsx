@@ -80,6 +80,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
         // Bind methods
         this._handleAddClick = this._handleAddClick.bind(this);
+        this._handleDeleteColorClick = this._handleDeleteColorClick.bind(this);
         this._handleShowFormClick = this._handleShowFormClick.bind(this);
         this._handleColorClick = this._handleColorClick.bind(this);
         this._handleColorChange = this._handleColorChange.bind(this);
