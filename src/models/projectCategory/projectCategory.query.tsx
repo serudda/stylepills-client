@@ -19,7 +19,7 @@ import { ProjectCategory as ProjectCategoryModel } from './projectCategory.model
  * @param {Int} $limit - limit number of results returned
  * @returns {Array<ProjectCategory>} Project's categories list
  */
-export const GET_ALL_ATOM_CATEGORIES_QUERY = gql`
+export const GET_ALL_PROJECT_CATEGORIES_QUERY = gql`
 query getAllProjectCategories {
     allProjectCategories {
         ...ProjectCategoryFragment
