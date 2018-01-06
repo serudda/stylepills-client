@@ -116,9 +116,9 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
     /**
      * @desc HandleOnChange
-     * @method _handleOnChange
-     * @example this._handleOnChange()
-     * @private
+     * @method handleOnChange
+     * @example this.handleOnChange()
+     * @public
      * @param {string} type - source code type (e.g. 'html', 'css')
      * @param {string} newCode - new source code
      * @param {any} e - Event
