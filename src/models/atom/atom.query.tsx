@@ -130,6 +130,7 @@ export type GetAllResponse = {
  * @param {AtomFilter} $filter - a set of filters
  * @param {Int} $limit - limit number of results returned
  * @returns {Array<Atom>} Atoms List of a specific category (Buttons, Inputs, Labels, etc.)
+ * TODO: Remover si no se esta usando
  */
 export const GET_ATOMS_BY_CATEGORY_QUERY = gql`
 query getAtomsByCategory ($filter: AtomFilter!, $limit: Int) {
