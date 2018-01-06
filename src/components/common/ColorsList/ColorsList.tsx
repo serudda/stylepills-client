@@ -17,6 +17,7 @@ import Icon from './../Icon/Icon';
 /* Own Props */
 type ColorsListProps = {
     colors: Array<ColorModel>;
+    onDelete: (color: ColorModel) => any;
 };
 
 
@@ -26,7 +27,7 @@ type ColorsListProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ColorsList: React.SFC<ColorsListProps> = ({ colors = [] }) => {
+const ColorsList: React.SFC<ColorsListProps> = ({ colors = [], onDelete }) => {
     
 
     /*         MARKUP          */
@@ -56,7 +57,7 @@ const ColorsList: React.SFC<ColorsListProps> = ({ colors = [] }) => {
                             {color.rgba.r}, {color.rgba.g}, {color.rgba.b}, {color.rgba.a}
                         </span>
                     </span>
-                    <span className="icon-btn ml-auto">
+                    <span className="icon-btn ml-auto" onClick={onDelete(color)}>
                         <Icon icon="close"
                             iconClass="icon stroke-silver strokeWidth-3"
                             width="18" height="18"/>

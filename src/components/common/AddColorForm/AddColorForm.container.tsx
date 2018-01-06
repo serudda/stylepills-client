@@ -168,6 +168,28 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
 
     /**
+     * @desc HandleDeleteColorClick
+     * @method _handleDeleteColorClick
+     * @example this._handleDeleteColorClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleDeleteColorClick = (color: ColorModel) => (e: React.FormEvent<{}>) => {
+        e.preventDefault();
+        
+        let colorArray = this.state.colors.filter(function (candidateColor: ColorModel) {
+            return candidateColor !== color;
+        });
+
+        this.setState({
+            colors: colorArray
+        });
+
+    }
+
+
+    /**
      * @desc Add Color
      * @method _addColor
      * @example this._addColor()
@@ -316,7 +338,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
                 }
                 
-                <ColorsList colors={colors}/>
+                <ColorsList colors={colors} onDelete={this._handleDeleteColorClick}/>
 
             </form>
         );
