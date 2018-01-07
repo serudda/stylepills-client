@@ -15,6 +15,8 @@ import { nextStepProjectAction, prevStepProjectAction, skipStepProjectAction } f
 
 import BasicFields from './Steps/BasicFields';
 import ColorFields from './Steps/ColorFields';
+import Confirmation from './Steps/Confirmation';
+import Success from './Steps/Success';
 
 // -----------------------------------
 
@@ -75,6 +77,7 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
         this.nextStep = this.nextStep.bind(this);
         this.previousStep = this.previousStep.bind(this);
         this.skipStep = this.skipStep.bind(this);
+        this.submitCreation = this.submitCreation.bind(this);
     }
 
 
@@ -90,7 +93,7 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
      * @public
      * @returns {void}
      */
-    nextStep(fieldValues: IProjectFormFields) {
+    nextStep(fieldValues: IProjectFormFields | Object = {}) {
 
         let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
 
@@ -127,6 +130,21 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
     }
 
 
+    /**
+     * @desc Submit Creation
+     * @method submitCreation
+     * @example this.submitCreation()
+     * @public
+     * @returns {void}
+     */
+    submitCreation() {
+
+        // TODO: Llamar a createProject mutation
+        this.nextStep();
+
+    }
+
+
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
@@ -150,6 +168,14 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
                 return (
                     <ColorFields nextStep={this.nextStep}
                                  previousStep={this.previousStep} />
+                );
+            case 3:
+                return (
+                    <Confirmation submitCreation={this.submitCreation} />
+                );
+            case 4:
+                return (
+                    <Success />
                 );
             default:
                 return (

@@ -422,11 +422,12 @@ export const duplicateAtomFailureAction = (atomId: number, message: string): Act
 
 
 /**
- * @desc Current user requested Log out 
+ * @desc Duplicate Atom Action
  * @function duplicateAtomAction
  * @returns {Promise<any>}
  */
 // TODO: Mover todo lo alusivo a Atom a su respectivo 'action' file
+// TODO: Agregar params en la comment description
 export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => {
     return (dispatch: Function) => {
 
@@ -437,8 +438,11 @@ export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Ar
             mutation: DUPLICATE_ATOM_MUTATION,
             variables: { atomId, userId, atomCode }
         }).then(
+            /* TODO: Typar esta respuesta ya que no se que propiedades devuelve,
+                poner un breakpoint justo dentro para ver que devuelve: response, 
+                y con base a eso typar.
+            */
             (response: any) => {
-                // TODO: Typar esta respuesta ya que no se que propiedades devuelve
                 let { message, ok } = response.data.duplicateAtom;
 
                 if (ok) {
