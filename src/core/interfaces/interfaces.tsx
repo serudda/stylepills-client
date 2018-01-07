@@ -1,7 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-
+import { Color as ColorModel } from './../../models/color/color.model';
 
 // -----------------------------------
 
@@ -12,6 +12,7 @@
 export interface IProjectFormFields {
     name: string;
     website: string;
+    colors: Array<ColorModel>;
 }
 
 

@@ -27,7 +27,9 @@ import ColorFields from './Steps/ColorFields';
 type ProjectNewProps = {};
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    fieldValues: IProjectFormFields
+};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -60,6 +62,15 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
         // LOG
         functionsUtil.consoleLog('DashboardPage -> ProjectsPage -> ProjectNew container actived');
 
+        // Init local state
+        this.state = {
+            fieldValues: {
+                name: null,
+                website: null,
+                colors: []
+            }
+        };
+
         // Bind methods
         this.nextStep = this.nextStep.bind(this);
         this.previousStep = this.previousStep.bind(this);
@@ -80,7 +91,15 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
      * @returns {void}
      */
     nextStep(fieldValues: IProjectFormFields) {
-        this.props.actions.form.nextStepProject(fieldValues);
+
+        let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
+
+        // Update local state
+        this.setState({ fieldValues: newFieldValues },
+        () => {
+            this.props.actions.form.nextStepProject(this.state.fieldValues);
+        });
+
     }
 
 
@@ -199,3 +218,8 @@ const projectNewConnect = connect(mapStateToProps, mapDispatchToProps);
 export default compose(
     projectNewConnect
 )(ProjectNew);
+
+
+/*
+    reference: https://www.viget.com/articles/building-a-multi-step-registration-form-with-react
+ */

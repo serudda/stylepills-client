@@ -79,7 +79,8 @@ export const clearFormAction = (): Action => {
         projectForm: {
             fields: {
                 name: null,
-                website: null
+                website: null,
+                colors: []
             },
             step: 1
         }
@@ -94,22 +95,17 @@ export const clearFormAction = (): Action => {
  * @returns {Action}
  */
 export const nextStepProjectAction = (fieldValues: IProjectFormFields): Action => {
+
     return {
         type: types.NEXT_STEP_PROJECT,
-        fieldValues: {
-            name: fieldValues.name,
-            website: fieldValues.website
-        },
+        fieldValues,
         meta: {
             analytics: {
                 eventType: EventTypes.track,
                 eventPayload: {
                     event: types.NEXT_STEP_PROJECT,
                     properties: {
-                        fieldValues: {
-                            name: fieldValues.name,
-                            website: fieldValues.website
-                        }
+                        fieldValues
                     },
                 },
             },

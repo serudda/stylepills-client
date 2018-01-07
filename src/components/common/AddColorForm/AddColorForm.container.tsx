@@ -29,7 +29,10 @@ type ColorRGBA = {
 type AddColorFormProps = {
     title: string,
     description: string,
-    type: string
+    type: string,
+    colors: Array<ColorModel>,
+    onAddClick: (newColor: ColorModel) => void;
+    onDeleteClick: (color: ColorModel) => void;
 };
 
 /* Own States */
@@ -38,8 +41,7 @@ type LocalStates = {
     rgba: ColorRGBA,
     hex: string,
     name: string,
-    showForm: boolean,
-    colors: Array<ColorModel>
+    showForm: boolean
 };
 
 /* Mapped State to Props */
@@ -74,13 +76,12 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
             },
             hex: '',
             name: '',
-            showForm: props.type === 'primary' ? true : false,
-            colors: []
+            showForm: props.type === 'primary' ? true : false
         };
 
         // Bind methods
         this._handleAddClick = this._handleAddClick.bind(this);
-        this._handleDeleteColorClick = this._handleDeleteColorClick.bind(this);
+        this._handleDeleteClick = this._handleDeleteClick.bind(this);
         this._handleShowFormClick = this._handleShowFormClick.bind(this);
         this._handleColorClick = this._handleColorClick.bind(this);
         this._handleColorChange = this._handleColorChange.bind(this);
@@ -119,11 +120,16 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
         const { rgb, hex } = color;
         const nameMatch = ntc.name(color.hex);
 
-        this.setState({ 
-            rgba: rgb, 
-            hex,
-            name: nameMatch[1]
+         // Update the state
+         this.setState((previousState) => {
+            return {
+                ...previousState, 
+                rgba: rgb, 
+                hex,
+                name: nameMatch[1] 
+            };
         });
+        
     }
 
 
@@ -136,6 +142,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
      * @returns {void}
      */
     private _handleColorCloseClick (e: React.FormEvent<{}>) {
+        e.preventDefault();
         this.setState({ displayColorPicker: false });
     }
 
@@ -164,47 +171,12 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
      */
     private _handleAddClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._addColor();
-    }
 
-
-    /**
-     * @desc HandleDeleteColorClick
-     * @method _handleDeleteColorClick
-     * @example this._handleDeleteColorClick()
-     * @private
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    private _handleDeleteColorClick = (color: ColorModel) => (e: React.FormEvent<{}>) => {
-        e.preventDefault();
-        
-        let colorArray = this.state.colors.filter(function (candidateColor: ColorModel) {
-            return candidateColor !== color;
-        });
-
-        this.setState({
-            colors: colorArray
-        });
-
-    }
-
-
-    /**
-     * @desc Add Color
-     * @method _addColor
-     * @example this._addColor()
-     * @private 
-     * @returns {void}
-     */
-    private _addColor() {
-
-        // Destructuring props
-        const { type  } = this.props;
+        const { type } = this.props;
         const { name, hex, rgba } = this.state;
         const { r, g, b, a } = rgba;
 
-        let colorArray = this.state.colors;
+        // Create new color instance
         let color: ColorModel = {
             id: (new Date()).getTime(),
             name,
@@ -219,16 +191,26 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
             },
             active: true
         };
- 
-        if (hex !== '') {
-            
-            /* Add new color to the beginning of colors array */
-            colorArray.unshift(color);
         
-            this.setState({
-                colors: colorArray
-            });
+        if (this.props.onAddClick) {
+            this.props.onAddClick(color);
+        }
+    }
 
+
+    /**
+     * @desc HandleDeleteClick
+     * @method _handleDeleteClick
+     * @example this._handleDeleteClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    private _handleDeleteClick = (color: ColorModel) => (e: React.FormEvent<{}>) => {
+        e.preventDefault();
+        
+        if (this.props.onDeleteClick) {
+            this.props.onDeleteClick(color);
         }
 
     }
@@ -240,10 +222,9 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
     render() {
 
         // Destructuring props & states
-        const { type, title, description  } = this.props;
+        const { type, title, description, colors } = this.props;
         const { name, hex, rgba } = this.state;
         const { showForm, displayColorPicker } = this.state;
-        const { colors } = this.state;
         const { r, g, b, a } = rgba;
 
         
@@ -339,7 +320,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
                 }
                 
-                <ColorsList colors={colors} onDelete={this._handleDeleteColorClick}/>
+                <ColorsList colors={colors} onDelete={this._handleDeleteClick}/>
 
             </form>
         );

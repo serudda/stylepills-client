@@ -25,7 +25,8 @@ const defaultState: IFormState = {
     projectForm: {
         fields: {
             name: null,
-            website: null
+            website: null,
+            colors: []
         },
         step: 1
     }
@@ -56,7 +57,8 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                 projectForm: {
                     fields: {
                         name: null,
-                        website: null
+                        website: null,
+                        colors: []
                     },
                     step: 1
                 }
@@ -69,8 +71,10 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                 projectForm: {
                     ...state.projectForm,
                     fields: {
+                        ...state.projectForm.fields,
                         name: action.fieldValues.name,
-                        website: action.fieldValues.website
+                        website: action.fieldValues.website,
+                        colors: action.fieldValues.colors
                     },
                     step: state.projectForm.step + 1
                 } 

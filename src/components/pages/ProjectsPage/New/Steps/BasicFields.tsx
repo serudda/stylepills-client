@@ -117,14 +117,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _nextStep() {
-        // Get values via this.refs
-        let fieldValues = {
-            name: this.state.fields.name,
-            website: this.state.fields.website
-        };
+        // Destructuring state
+        const { fields } = this.state;
 
-        // this.props.saveValues(data);
-        this.props.nextStep(fieldValues);
+        this.props.nextStep(fields);
     }
 
     
