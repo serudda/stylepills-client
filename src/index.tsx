@@ -13,7 +13,7 @@ import * as jwtDecode from 'jwt-decode';
 import { config } from './config/config';
 import configureStore from './store/store.config';
 
-import { IJwtDecoded } from './auth/auth';
+import { IJwtDecoded } from './core/auth/auth';
 import { setTokenAndIdAction, receiveLoginAction } from './actions/auth.action';
 
 import App from './components/pages/App/App';

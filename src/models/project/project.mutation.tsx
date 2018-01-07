@@ -13,7 +13,7 @@ export const CREATE_PROJECT_MUTATION = gql`
         $userId: ID!, 
         $name: String!,
         $website: String,
-        $colorPalette: [CreateColorPaletteInput],
+        $colorPalette: [CreateColorInput],
         $private: Boolean!,
         $categoryId: Int
         ) {
