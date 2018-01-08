@@ -10,6 +10,7 @@ import { GET_PROJECT_BY_ID_QUERY, GetByIdResponse } from './../../../../models/p
 
 import Header from './../Header/Header';
 import ColorBoxesList from './../../../common/ColorBoxesList/ColorBoxesList';
+import AtomsListContainer from './AtomsList/AtomsList.container';
 import NotFound from './../../NotFoundPage/NotFoundPage';
 
 // -----------------------------------
@@ -108,7 +109,11 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
         /*       VALIDATIONS       */
         /***************************/
         if (loading) {
-            return (<div>Loading</div>);
+            return (
+                <div className="color-slate fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5 h-100">
+                    Loading project...
+                </div>
+            );
         }
 
         if (error) {
@@ -147,6 +152,24 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
 
                     {/* Grayscale Colors Section */}
                     {this._buildColorTypeSection('grayscale')}
+
+                </div>
+
+
+                <div className="sp-divider sp-divider--smoke sp-divider--border-2 my-5 mx-4 width-wrapper" />
+
+
+                {/* Components Section */}
+                <div className="ComponentsSection">
+
+                    <div className="width-wrapper mb-5">
+                        <h2 className="color-silver fontWeight-7 fontFamily-openSans fontSize-xl">
+                            Components
+                        </h2>
+                    </div>
+
+                    {/* Atoms list container */}
+                    <AtomsListContainer projectId={projectById.id}/>
 
                 </div>
 

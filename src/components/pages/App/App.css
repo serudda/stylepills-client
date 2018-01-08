@@ -2713,7 +2713,7 @@ NOTE: Boostrap 4 has a flex set
 .borderTop-1, .sp-divider, .ui.pointing.sp-dropdown--userMenu .menu .divider {
   border-top: 1px solid; }
 
-.borderTop-2 {
+.borderTop-2, .sp-divider--border-2 {
   border-top: 2px solid; }
 
 .borderTop-3 {
