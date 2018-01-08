@@ -178,18 +178,15 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
         // Create new color instance
         let color: ColorModel = {
-            id: (new Date()).getTime(),
             name,
             hex,
             type,
             rgba: {
-                id: (new Date()).getTime(),
                 r,
                 g,
                 b,
                 a
-            },
-            active: true
+            }
         };
         
         if (this.props.onAddClick) {

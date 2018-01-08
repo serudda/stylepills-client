@@ -3,6 +3,12 @@
 /********************************/
 import gql from 'graphql-tag';
 
+import { Color as ColorModel } from './../color/color.model';
+
+
+/************************************/
+/*            INTERFACES            */
+/************************************/
 
 
 /********************************/
@@ -10,13 +16,27 @@ import gql from 'graphql-tag';
 /********************************/
 export const CREATE_PROJECT_MUTATION = gql`
     mutation createProject($input: CreateProjectInput!) {
-        createProject(input: $input){
+        createProject(input: $input) {
             ok
             message
         }
     }
 `;
 
+/*        TYPE         */
+/***********************/
+
+export type CreateProjectInput = {
+    authorId: number;
+    name: string;
+    website?: string;
+    colorPalette: Array<ColorModel>;
+    private: boolean;
+    projectCategoryId: number;
+};
+
+
+// --------------------------------
 
 
 /*

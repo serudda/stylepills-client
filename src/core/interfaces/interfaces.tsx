@@ -10,9 +10,12 @@ import { Color as ColorModel } from './../../models/color/color.model';
 /*            FORMS INTERFACES            */
 /******************************************/
 export interface IProjectFormFields {
+    authorId: number;
     name: string;
     website: string;
-    colors: Array<ColorModel>;
+    colorPalette: Array<ColorModel>;
+    private: boolean;
+    projectCategoryId: number;
 }
 
 

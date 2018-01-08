@@ -12,6 +12,8 @@ import { IProjectFormFields } from './../../../../core/interfaces/interfaces';
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { nextStepProjectAction, prevStepProjectAction, skipStepProjectAction } from './../../../../actions/form.action';
+import { createProjectAction } from './../../../../actions/project.action';
+import { CreateProjectInput } from './../../../../models/project/project.mutation';
 
 import BasicFields from './Steps/BasicFields';
 import ColorFields from './Steps/ColorFields';
@@ -35,7 +37,8 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    step: number
+    step: number,
+    fields: IProjectFormFields
 };
 
 /* Mapped Dispatches to Props */
@@ -45,6 +48,9 @@ type DispatchProps = {
             nextStepProject: (fieldValues: IProjectFormFields) => void;
             prevStepProject: () => void;
             skipStepProject: () => void;
+        },
+        projectState: {
+            createProject: (input: CreateProjectInput) => void;
         }
     };
 };
@@ -67,9 +73,12 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
         // Init local state
         this.state = {
             fieldValues: {
+                authorId: null,
                 name: null,
                 website: null,
-                colors: []
+                colorPalette: [],
+                private: false,
+                projectCategoryId: 1 // TODO: Magic number
             }
         };
 
@@ -137,11 +146,15 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
      * @public
      * @returns {void}
      */
-    submitCreation() {
+    submitCreation(authorId: number) {
 
-        // TODO: Llamar a createProject mutation
+        // Copy fields
+        let fieldValues = Object.assign({}, this.props.fields);
+
+        fieldValues.authorId = authorId;
+
+        this.props.actions.projectState.createProject(fieldValues);
         this.nextStep();
-
     }
 
 
@@ -209,9 +222,10 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const { step } = state.form.projectForm;
+    const { step, fields } = state.form.projectForm;
 
     return {
+        fields,
         step
     };
 }
@@ -227,6 +241,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 nextStepProject: (fieldValues) => dispatch(nextStepProjectAction(fieldValues)),
                 prevStepProject: () => dispatch(prevStepProjectAction()),
                 skipStepProject: () => dispatch(skipStepProjectAction())
+            },
+            projectState: {
+                createProject: (input: CreateProjectInput) => dispatch(createProjectAction(input))
             }
         }
     };

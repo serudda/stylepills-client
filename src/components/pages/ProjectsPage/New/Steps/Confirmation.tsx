@@ -2,9 +2,14 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+
+import { IRootState } from './../../../../../reducer/reducer.config';
+import { User } from './../../../../../models/user/user.model';
 
 // -----------------------------------
 
@@ -15,14 +20,17 @@ import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
 /* Own Props */
 type ConfirmationProps = {
-    submitCreation: Function
+    submitCreation: (authorId: number) => void;
 };
 
 /* Own States */
 type LocalStates = {};
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    isAuthenticated: boolean,
+    user: User
+};
 
 
 /***********************************************/
@@ -46,7 +54,9 @@ extends React.Component<ChildProps<ConfirmationProps & StateProps, {}>, LocalSta
     /*     COMPONENT DID MOUNT      */
     /********************************/
     componentDidMount() {
-        this.props.submitCreation();
+        if (this.props.isAuthenticated) {
+            this.props.submitCreation(this.props.user.id);
+        }
     }
 
 
@@ -54,6 +64,21 @@ extends React.Component<ChildProps<ConfirmationProps & StateProps, {}>, LocalSta
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const { isAuthenticated } = this.props;
+        
+        
+        /*       VALIDATIONS       */
+        /***************************/
+        if (!isAuthenticated) {
+            return (
+                <Redirect to="/explore"/>
+            );
+        }
+
 
         /*         MARKUP          */
         /***************************/
@@ -63,6 +88,28 @@ extends React.Component<ChildProps<ConfirmationProps & StateProps, {}>, LocalSta
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    
+    const { isAuthenticated, user } = state.auth;
+
+    return {
+        isAuthenticated,
+        user
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const confirmationConnect = connect(mapStateToProps);
+
+
 /*         EXPORT          */
 /***************************/
-export default Confirmation;
+export default compose(
+    confirmationConnect
+)(Confirmation);

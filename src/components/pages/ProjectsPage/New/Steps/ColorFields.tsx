@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
@@ -30,13 +31,14 @@ type ColorFieldsProps = {
 /* Own States */
 type LocalStates = {
     fields: {
-        colors: Array<ColorModel>
+        colorPalette: Array<ColorModel>
     }
 };
 
 /* Mapped State to Props */
 type StateProps = {
-    colors: Array<ColorModel>
+    colorPalette: Array<ColorModel>,
+    isAuthenticated: boolean
 };
 
 
@@ -58,7 +60,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         // Init local state
         this.state = {
             fields: {
-                colors: [...props.colors] || []
+                colorPalette: [...props.colorPalette] || []
             }
         };
 
@@ -128,9 +130,9 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     handleDeleteColorClick(color: ColorModel) {
 
         // Destructuring state
-        const { colors } = this.state.fields;
+        const { colorPalette } = this.state.fields;
         
-        let colorArray = colors.filter(function (candidateColor: ColorModel) {
+        let colorArray = colorPalette.filter(function (candidateColor: ColorModel) {
             return candidateColor !== color;
         });
 
@@ -138,7 +140,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
             ...previousState,
             fields: {
                 ...previousState.fields,
-                colors: colorArray
+                colorPalette: colorArray
             }
         }));
 
@@ -157,7 +159,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         // Copy state
         let fieldValues = Object.assign({}, this.state.fields);
 
-        let colorArray = fieldValues.colors;
+        let colorArray = fieldValues.colorPalette;
  
         if (newColor.hex !== '') {
             
@@ -168,7 +170,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                 ...previousState,
                 fields: {
                     ...previousState.fields,
-                    colors: colorArray
+                    colorPalette: colorArray
                 }
             }));
 
@@ -187,7 +189,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     private _buildAddColorForm(type: string): JSX.Element {
 
         // Destructuring state
-        const { colors } = this.state.fields;
+        const { colorPalette } = this.state.fields;
 
         // VARIABLES
         let newColorsArray: Array<ColorModel> = [];
@@ -204,8 +206,8 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         };
 
         // Create new colors array based on type
-        if (colors.length > 0) {
-            newColorsArray = colors.filter((color: ColorModel) => {
+        if (colorPalette.length > 0) {
+            newColorsArray = colorPalette.filter((color: ColorModel) => {
                 return color.type === type;
             });
         }
@@ -253,6 +255,20 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const { isAuthenticated } = this.props;
+        
+        
+        /*       VALIDATIONS       */
+        /***************************/
+        if (!isAuthenticated) {
+            return (
+                <Redirect to="/explore"/>
+            );
+        }
 
         
         /*         MARKUP          */
@@ -342,10 +358,12 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 function mapStateToProps(state: IRootState): StateProps {
     
     const { fields } = state.form.projectForm;
-    const { colors } = fields;
+    const { colorPalette } = fields;
+    const { isAuthenticated } = state.auth;
 
     return {
-        colors
+        colorPalette,
+        isAuthenticated
     };
 }
 

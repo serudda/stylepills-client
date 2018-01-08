@@ -78,9 +78,12 @@ export const clearFormAction = (): Action => {
         type: types.CLEAR_FORM,
         projectForm: {
             fields: {
+                authorId: null,
                 name: null,
                 website: null,
-                colors: []
+                colorPalette: [],
+                private: false,
+                projectCategoryId: 1 // TODO: Magic number
             },
             step: 1
         }
