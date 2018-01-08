@@ -1,0 +1,59 @@
+/**********************************************************/
+/*                     COLOR BOXS LIST                    */
+/**********************************************************/
+
+.ColorBoxesList {
+
+    .colorBox-container {
+        margin: 0 2% 25px 0;
+        position: relative;
+
+        /* &:nth-child(8n) {
+            margin-right: 0;
+        } */
+
+    }
+
+}
+
+
+// Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+    .ColorBoxesList {
+        .colorBox-container {
+            /* &:nth-child(2n) {
+                margin-right: 0;
+            }
+    
+            &:nth-child(3n) {
+                margin-right: 2%;
+            } */
+        }
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) { 
+    .ColorBoxesList {
+
+        .colorBox-container {
+            margin-right: 5%;
+            margin-bottom: 25px;
+
+            .ColorBox {
+                width: 100px;
+            }
+
+            /* &:nth-child(2n) {
+                // margin: auto;
+                margin-right: 5%;
+            }
+
+            &:nth-child(3n) {
+                // margin: auto;
+                margin-right: 0;
+            } */
+        }
+    }
+}
+

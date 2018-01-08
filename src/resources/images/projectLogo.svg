@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="240px" height="256px" viewBox="0 0 240 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>futuro_icons_248</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="futuro_icons_248" transform="translate(4.000000, 0.000000)">
+            <circle id="Oval" fill="#ACF0F2" fill-rule="nonzero" cx="116" cy="136" r="116"></circle>
+            <path d="M180,116 L142,154 L76,88 L2.781,161.219 C3.054,162.461 3.324,163.703 3.636,164.93 C16.492,214.992 61.926,252 116,252 C149.449,252 179.574,237.82 200.742,215.172 C213.902,201.094 223.601,183.746 228.469,164.469 L180,116 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <path d="M168.023,32.293 C205.965,51.363 232,90.641 232,136 C232,200.063 180.062,252 116,252 C51.938,252 0,200.063 0,136 C0,101.008 15.496,69.633 40,48.363" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+            <polyline id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" points="4 160 76 88 200 212"></polyline>
+            <polyline id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" points="144 152 180 116 228 164"></polyline>
+            <rect id="Rectangle-path" fill="#FEEB6A" fill-rule="nonzero" x="76" y="0" width="60" height="40"></rect>
+            <path d="M76,88 L76,0" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+            <path d="M168,212 C153.207,222.156 135.297,228 116,228 C74.957,228 39.848,201.117 28,164" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+            <path d="M76,108 L76,116" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+            <path d="M76,124 L76,132" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+            <path d="M76,140 L76,148" id="Shape" stroke="#4D5152" stroke-width="8" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>
