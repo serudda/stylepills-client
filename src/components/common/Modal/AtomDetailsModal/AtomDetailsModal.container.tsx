@@ -12,6 +12,8 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
 import { clearAtomStateAction } from './../../../../actions/atom.action';
 
+import { Atom as AtomModel } from './../../../../models/atom/atom.model';
+
 import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 
 // -----------------------------------
@@ -23,7 +25,7 @@ import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 
 /* Own Props */
 type AtomDetailsModalProps = {
-    atom: any
+    atom: AtomModel
 };
 
 /* Own States */

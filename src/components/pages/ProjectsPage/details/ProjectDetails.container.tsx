@@ -2,7 +2,15 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
+
+import { Color as ColorModel } from '../../../../models/color/color.model';
+
+import { GET_PROJECT_BY_ID_QUERY, GetByIdResponse } from './../../../../models/project/project.query';
+
+import Header from './../Header/Header';
+import ColorBoxesList from './../../../common/ColorBoxesList/ColorBoxesList';
+import NotFound from './../../NotFoundPage/NotFoundPage';
 
 // -----------------------------------
 
@@ -25,14 +33,62 @@ type StateProps = {};
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ProjectDetails
-extends React.Component<ChildProps<ProjectDetailsProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectDetailsProps & StateProps, {}>) {
+    constructor(props: ChildProps<ProjectDetailsProps & StateProps, GetByIdResponse>) {
         super(props);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc Build Color type sction component
+     * @method _buildColorTypeSection
+     * @example this._buildColorTypeSection()
+     * @private
+     * @returns {JSX.Element} <AddColorForm />
+     */
+    private _buildColorTypeSection(type: string): JSX.Element {
+
+        // Destructuring state
+        const { colorPalette } = this.props.data.projectById;
+
+        // VARIABLES
+        let newColorsArray: Array<ColorModel> = [];
+        let title = {
+            primary: 'Primary colors',
+            secondary: 'Secondary colors',
+            grayscale: 'Grayscale colors'
+        };
+
+        // Create new colors array based on type
+        if (colorPalette.length > 0) {
+            newColorsArray = colorPalette.filter((color: ColorModel) => {
+                return color.type === type;
+            });
+        }
+
+        return (
+            <div className="mt-4">
+
+                {/* Title Section */}
+                <div className="width-wrapper">
+                    <h3 className="color-silver">{title[type]}</h3>
+                </div>
+
+                {/* Color Boxes List */}
+                <ColorBoxesList colorPalette={newColorsArray}/>
+
+            </div>
+        );
     }
 
     
@@ -40,20 +96,60 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, {}>, LocalS
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const {
+            data: {loading, error, projectById},
+        } = this.props;
+
+
+        /*       VALIDATIONS       */
+        /***************************/
+        if (loading) {
+            return (<div>Loading</div>);
+        }
+
+        if (error) {
+            return (<p>{error.message}</p>);
+        }
+
+        if (projectById === null) {
+            return (<NotFound />);
+        }
+
         
         /*         MARKUP          */
         /***************************/
         return (
             <div className="ProjectDetails">
-                <ul className="sp-messageBlock m-0 mx-4 mt-4">
-                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
-                        <div className="icon icon--md icon--working mt-4 mb-3" />
-                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
-                            <div>Coming soon!!</div>
-                            <div>We're working hard to finish this as soon as possible.</div>
-                        </div>
-                    </li>
-                </ul>
+
+                {/* Header */}
+                <div className="mb-5">
+                    <Header projectName={projectById.name} isPrivate={projectById.private} />
+                </div>
+
+                {/* Color Palette Section */}
+                <div className="ColorPaletteSection">
+                    
+                    <div className="width-wrapper mb-5">
+                        <h2 className="color-silver fontWeight-7 fontFamily-openSans fontSize-xl">
+                            Color Palette
+                        </h2>
+                    </div>
+
+                    {/* Primary Colors Section */}
+                    {this._buildColorTypeSection('primary')}
+
+                    {/* Secondary Colors Section */}
+                    {this._buildColorTypeSection('secondary')}
+
+                    {/* Grayscale Colors Section */}
+                    {this._buildColorTypeSection('grayscale')}
+
+                </div>
+
             </div>
         );
 
@@ -62,6 +158,39 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, {}>, LocalS
 }
 
 
+/********************************/
+/*            QUERY             */
+/********************************/
+
+// Params types
+type InputProps = {
+    match: {
+        params: {
+            id: number
+        }
+    }
+};
+
+// Query options
+const config = {
+    options: (ownProps: InputProps) => (
+        { 
+            variables: 
+            { 
+                id: ownProps.match.params.id
+            } 
+        }
+    )
+};
+
+// Query
+const getProjectByIdQuery = graphql<GetByIdResponse, ProjectDetailsProps>(
+    GET_PROJECT_BY_ID_QUERY, config
+);
+
+
 /*         EXPORT          */
 /***************************/
-export default ProjectDetails;
+export default compose(
+    getProjectByIdQuery
+)(ProjectDetails);

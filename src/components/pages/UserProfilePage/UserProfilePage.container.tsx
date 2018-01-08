@@ -145,6 +145,11 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
 
 }
 
+
+/********************************/
+/*            QUERY             */
+/********************************/
+
 // Params types
 type InputProps = {
     match: {
@@ -166,10 +171,7 @@ const config = {
     )
 };
 
-
-/********************************/
-/*            QUERY             */
-/********************************/
+// Query
 const getUserByUsernameQuery = graphql<GetByUsernameResponse, UserProfilePageProps>(
     GET_USER_BY_USERNAME_QUERY, config
 );

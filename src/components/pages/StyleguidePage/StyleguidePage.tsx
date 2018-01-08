@@ -42,6 +42,9 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Typograph</h2>
                     <h1>Main Heading</h1>
                     <h2>Subpage title</h2>
+                    <h2 className="color-silver fontWeight-7 fontFamily-openSans fontSize-xl">
+                        Title section
+                    </h2>
                     <h3>Section header</h3>
                     <h4>Sub section heading</h4>
                     <p className="m-0 fontWeight-9">Bold content within body or form labels</p>
@@ -1281,6 +1284,375 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                         </ul>  
                     </div>
 
+                </div>
+            </div>
+
+
+            {/* Color Palette Section */}
+            <div className="row mb-5 no-gutters">
+                <div className="col">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">
+                        Color Palette Section
+                    </h2>
+
+                    <div className="ColorPaletteSection">
+                    
+                        <h2 className="color-silver fontWeight-7 fontFamily-openSans fontSize-xl mb-4">
+                            Color Palette
+                        </h2>
+
+                        <div className="ColorBoxesList row pt-5 pb-5 m-0 no-gutters">
+                            <div className="col">
+
+                                <div className="d-flex flex-wrap width-wrapper justify-content-center">
+                                
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="colorBox-container">
+
+                                        <div className="ColorBox boxShadow-raised borderRadius-md p-2 text-center fontSize-md bg-white">
+                                            <div className="ColorBox__color borderColor-smoke" 
+                                                style={{backgroundColor: '#07C27C'}} />
+                                            <p className="ColorBox__label fontFamily-poppins fontSize-md fontWeight-5 mt-2 color-silver">
+                                                #07C27C
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-2">
+                                            <p className="fontFamily-poppins fontSize-md color-silver">
+                                                Light Primary
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

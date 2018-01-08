@@ -35,7 +35,7 @@ const AtomsList: React.SFC<AtomsListProps> = ({ atoms = [] }) => {
     /*         MARKUP          */
     /***************************/
     return (
-        <div className="AtomsList row pt-5 pb-5 margin-0 no-gutters">
+        <div className="AtomsList row pt-5 pb-5 m-0 no-gutters">
             <div className="col">
                 <div className="d-sm-flex flex-wrap width-wrapper"> 
 
