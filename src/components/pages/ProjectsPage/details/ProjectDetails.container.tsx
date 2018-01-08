@@ -138,7 +138,7 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
                 {/* Color Palette Section */}
                 <div className="ColorPaletteSection">
                     
-                    <div className="width-wrapper mb-5">
+                    <div className="width-wrapper mb-4">
                         <h2 className="color-silver fontWeight-7 fontFamily-openSans fontSize-xl">
                             Color Palette
                         </h2>
@@ -162,7 +162,7 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
                 {/* Components Section */}
                 <div className="ComponentsSection">
 
-                    <div className="width-wrapper mb-5">
+                    <div className="width-wrapper mb-4">
                         <h2 className="color-silver fontWeight-7 fontFamily-openSans fontSize-xl">
                             Components
                         </h2>
