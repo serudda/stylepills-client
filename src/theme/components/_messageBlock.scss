@@ -60,10 +60,19 @@
             &--working {
                 background-image: url('./../../../resources/images/working.svg');
             }
+
+            &--newProject {
+                background-image: url('./../../../resources/images/newProject.svg');
+            }
         
         }
 
         .text {
+            &--xs {
+                font-size: 20px;
+                line-height: 30px;
+            }
+
             &--sm {
                 font-size: 23px;
                 line-height: 30px;
