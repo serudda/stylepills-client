@@ -124,6 +124,34 @@ export type GetAllResponse = {
 
 
 /**
+ * @desc Get Atoms by Project Id
+ * @method Method atomsByProjectId
+ * @public
+ * @param {AtomFilter} $filter - a set of filters
+ * @param {Int} $limit - limit number of results returned
+ * @returns {Array<Atom>} Atoms List of a specific project (Buttons, Inputs, Labels, etc.)
+ */
+export const GET_ATOMS_BY_PROJECT_ID_QUERY = gql`
+query getAtomsByProjectId ($filter: AtomFilter!, $limit: Int) {
+    atomsByProjectId(filter: $filter, limit: $limit) {
+        ...AtomFragment
+    }
+}
+${ATOM_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type GetByProjectIdResponse = {
+    atomsByProjectId: Array<AtomModel>;
+};
+
+
+// --------------------------------
+
+
+/**
  * @desc Get Atoms by Category
  * @method Method atomsByCategory
  * @public
