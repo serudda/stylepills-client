@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
@@ -34,7 +35,8 @@ type LocalStates = {
 /* Mapped State to Props */
 type StateProps = {
     name: string,
-    website: string
+    website: string,
+    isAuthenticated: boolean
 };
 
 
@@ -117,13 +119,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _nextStep() {
-        // Get values via this.refs
-        let fieldValues = {
-            name: this.state.fields.name,
-            website: this.state.fields.website
-        };
+        // Copy state
+        let fieldValues = Object.assign({}, this.state.fields);
 
-        // this.props.saveValues(data);
         this.props.nextStep(fieldValues);
     }
 
@@ -132,6 +130,19 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+        /*       PROPERTIES       */
+        /**************************/
+        const { isAuthenticated } = this.props;
+        
+        
+        /*       VALIDATIONS       */
+        /***************************/
+        if (!isAuthenticated) {
+            return (
+                <Redirect to="/explore"/>
+            );
+        }
         
         /*         MARKUP          */
         /***************************/
@@ -230,10 +241,12 @@ function mapStateToProps(state: IRootState): StateProps {
     
     const { fields } = state.form.projectForm;
     const { name, website } = fields;
+    const { isAuthenticated } = state.auth;
 
     return {
         name, 
-        website
+        website,
+        isAuthenticated
     };
 }
 

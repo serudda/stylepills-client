@@ -9,10 +9,10 @@ import { RgbaColor } from '../rgbaColor/rgbaColor.model';
 /************************************/
 
 export type Color = {
-    id: number | null;
+    id?: number | null;
     name: string;
     hex: string;
     rgba: RgbaColor;
     type: string;
-    active: boolean;
+    active?: boolean;
 };

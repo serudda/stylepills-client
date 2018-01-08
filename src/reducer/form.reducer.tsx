@@ -24,8 +24,12 @@ export interface IFormState {
 const defaultState: IFormState = {
     projectForm: {
         fields: {
+            authorId: null,
             name: null,
-            website: null
+            website: null,
+            colorPalette: [],
+            private: false,
+            projectCategoryId: 1 // TODO: Magic number
         },
         step: 1
     }
@@ -55,8 +59,12 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                 ...state,
                 projectForm: {
                     fields: {
+                        authorId: null,
                         name: null,
-                        website: null
+                        website: null,
+                        colorPalette: [],
+                        private: false,
+                        projectCategoryId: 1 // TODO: Magic number
                     },
                     step: 1
                 }
@@ -69,8 +77,11 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                 projectForm: {
                     ...state.projectForm,
                     fields: {
+                        ...state.projectForm.fields,
+                        authorId: action.fieldValues.authorId,
                         name: action.fieldValues.name,
-                        website: action.fieldValues.website
+                        website: action.fieldValues.website,
+                        colorPalette: action.fieldValues.colorPalette
                     },
                     step: state.projectForm.step + 1
                 } 

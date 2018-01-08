@@ -12,9 +12,13 @@ import { IProjectFormFields } from './../../../../core/interfaces/interfaces';
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { nextStepProjectAction, prevStepProjectAction, skipStepProjectAction } from './../../../../actions/form.action';
+import { createProjectAction } from './../../../../actions/project.action';
+import { CreateProjectInput } from './../../../../models/project/project.mutation';
 
 import BasicFields from './Steps/BasicFields';
 import ColorFields from './Steps/ColorFields';
+import Confirmation from './Steps/Confirmation';
+import Success from './Steps/Success';
 
 // -----------------------------------
 
@@ -27,11 +31,14 @@ import ColorFields from './Steps/ColorFields';
 type ProjectNewProps = {};
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    fieldValues: IProjectFormFields
+};
 
 /* Mapped State to Props */
 type StateProps = {
-    step: number
+    step: number,
+    fields: IProjectFormFields
 };
 
 /* Mapped Dispatches to Props */
@@ -41,6 +48,9 @@ type DispatchProps = {
             nextStepProject: (fieldValues: IProjectFormFields) => void;
             prevStepProject: () => void;
             skipStepProject: () => void;
+        },
+        projectState: {
+            createProject: (input: CreateProjectInput) => void;
         }
     };
 };
@@ -60,10 +70,23 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
         // LOG
         functionsUtil.consoleLog('DashboardPage -> ProjectsPage -> ProjectNew container actived');
 
+        // Init local state
+        this.state = {
+            fieldValues: {
+                authorId: null,
+                name: null,
+                website: null,
+                colorPalette: [],
+                private: false,
+                projectCategoryId: 1 // TODO: Magic number
+            }
+        };
+
         // Bind methods
         this.nextStep = this.nextStep.bind(this);
         this.previousStep = this.previousStep.bind(this);
         this.skipStep = this.skipStep.bind(this);
+        this.submitCreation = this.submitCreation.bind(this);
     }
 
 
@@ -79,8 +102,16 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
      * @public
      * @returns {void}
      */
-    nextStep(fieldValues: IProjectFormFields) {
-        this.props.actions.form.nextStepProject(fieldValues);
+    nextStep(fieldValues: IProjectFormFields | Object = {}) {
+
+        let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
+
+        // Update local state
+        this.setState({ fieldValues: newFieldValues },
+        () => {
+            this.props.actions.form.nextStepProject(this.state.fieldValues);
+        });
+
     }
 
 
@@ -108,6 +139,25 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
     }
 
 
+    /**
+     * @desc Submit Creation
+     * @method submitCreation
+     * @example this.submitCreation()
+     * @public
+     * @returns {void}
+     */
+    submitCreation(authorId: number) {
+
+        // Copy fields
+        let fieldValues = Object.assign({}, this.props.fields);
+
+        fieldValues.authorId = authorId;
+
+        this.props.actions.projectState.createProject(fieldValues);
+        this.nextStep();
+    }
+
+
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
@@ -131,6 +181,14 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
                 return (
                     <ColorFields nextStep={this.nextStep}
                                  previousStep={this.previousStep} />
+                );
+            case 3:
+                return (
+                    <Confirmation submitCreation={this.submitCreation} />
+                );
+            case 4:
+                return (
+                    <Success />
                 );
             default:
                 return (
@@ -164,9 +222,10 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const { step } = state.form.projectForm;
+    const { step, fields } = state.form.projectForm;
 
     return {
+        fields,
         step
     };
 }
@@ -182,6 +241,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 nextStepProject: (fieldValues) => dispatch(nextStepProjectAction(fieldValues)),
                 prevStepProject: () => dispatch(prevStepProjectAction()),
                 skipStepProject: () => dispatch(skipStepProjectAction())
+            },
+            projectState: {
+                createProject: (input: CreateProjectInput) => dispatch(createProjectAction(input))
             }
         }
     };
@@ -199,3 +261,8 @@ const projectNewConnect = connect(mapStateToProps, mapDispatchToProps);
 export default compose(
     projectNewConnect
 )(ProjectNew);
+
+
+/*
+    reference: https://www.viget.com/articles/building-a-multi-step-registration-form-with-react
+ */

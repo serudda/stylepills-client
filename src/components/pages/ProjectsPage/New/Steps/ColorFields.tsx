@@ -2,11 +2,16 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
+import { IRootState } from './../../../../../reducer/reducer.config';
+
 import Icon from '../../../../common/Icon/Icon';
+import { Color as ColorModel } from './../../../../../models/color/color.model';
 import AddColorForm from './../../../../common/AddColorForm/AddColorForm.container';
 
 
@@ -24,10 +29,17 @@ type ColorFieldsProps = {
 };
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    fields: {
+        colorPalette: Array<ColorModel>
+    }
+};
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    colorPalette: Array<ColorModel>,
+    isAuthenticated: boolean
+};
 
 
 /***********************************************/
@@ -45,9 +57,18 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         // LOG
         functionsUtil.consoleLog('ProjectNew -> Step: 2 - ColorFields actived');
 
+        // Init local state
+        this.state = {
+            fields: {
+                colorPalette: [...props.colorPalette] || []
+            }
+        };
+
         // Bind methods
         this._handlePrevClick =  this._handlePrevClick.bind(this);
         this._handleNextClick =  this._handleNextClick.bind(this);
+        this.handleAddColorClick = this.handleAddColorClick.bind(this);
+        this.handleDeleteColorClick = this.handleDeleteColorClick.bind(this);
         
     }
 
@@ -86,6 +107,123 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 
 
     /**
+     * @desc HandleAddColorClick
+     * @method _handleAddColorClick
+     * @example this._handleAddColorClick()
+     * @private 
+     * @param {ColorModel} newColor - new color to add on the colors array
+     * @returns {void}
+     */
+    handleAddColorClick(newColor: ColorModel) {
+        this._addColor(newColor);
+    }
+
+
+    /**
+     * @desc HandleDeleteColorClick
+     * @method _handleDeleteColorClick
+     * @example this._handleDeleteColorClick()
+     * @private
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    handleDeleteColorClick(color: ColorModel) {
+
+        // Destructuring state
+        const { colorPalette } = this.state.fields;
+        
+        let colorArray = colorPalette.filter(function (candidateColor: ColorModel) {
+            return candidateColor !== color;
+        });
+
+        this.setState((previousState: LocalStates) => ({
+            ...previousState,
+            fields: {
+                ...previousState.fields,
+                colorPalette: colorArray
+            }
+        }));
+
+    }
+
+
+    /**
+     * @desc Add Color
+     * @method _addColor
+     * @example this._addColor()
+     * @private 
+     * @returns {void}
+     */
+    private _addColor(newColor: ColorModel) {
+
+        // Copy state
+        let fieldValues = Object.assign({}, this.state.fields);
+
+        let colorArray = fieldValues.colorPalette;
+ 
+        if (newColor.hex !== '') {
+            
+            /* Add new color to the beginning of colors array */
+            colorArray.unshift(newColor);
+
+            this.setState((previousState: LocalStates) => ({
+                ...previousState,
+                fields: {
+                    ...previousState.fields,
+                    colorPalette: colorArray
+                }
+            }));
+
+        }
+
+    }
+
+
+    /**
+     * @desc Build Add Color Form component
+     * @method _buildAddColorForm
+     * @example this._buildAddColorForm()
+     * @private
+     * @returns {JSX.Element} <AddColorForm />
+     */
+    private _buildAddColorForm(type: string): JSX.Element {
+
+        // Destructuring state
+        const { colorPalette } = this.state.fields;
+
+        // VARIABLES
+        let newColorsArray: Array<ColorModel> = [];
+        let title = {
+            primary: 'PRIMARY COLORS',
+            secondary: 'SECONDARY COLORS',
+            grayscale: 'GRAYSCALE COLORS'
+        };
+
+        let description = {
+            primary: 'These are the colors that define your brand.',
+            secondary: 'These colors are support to accompany the primary colors.',
+            grayscale: 'A selection of grayscale colors for background or text color use.'
+        };
+
+        // Create new colors array based on type
+        if (colorPalette.length > 0) {
+            newColorsArray = colorPalette.filter((color: ColorModel) => {
+                return color.type === type;
+            });
+        }
+
+        return (
+            <AddColorForm title={title[type]}
+                        description={description[type]}
+                        colors={newColorsArray}
+                        onAddClick={this.handleAddColorClick}
+                        onDeleteClick={this.handleDeleteColorClick}
+                        type={type}/>
+        );
+    }
+
+
+    /**
      * @desc Previous Step
      * @method _previousStep
      * @example this._previousStep()
@@ -105,14 +243,11 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _nextStep() {
-        // Get values via this.refs
-        /*let fieldValues = {
-            name: this.state.fields.name,
-            website: this.state.fields.website
-        };*/
 
-        // this.props.saveValues(data);
-        // this.props.nextStep(fieldValues);
+        // Destructuring state
+        const { fields } = this.state;
+
+        this.props.nextStep(fields);
     }
 
     
@@ -120,6 +255,20 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     /*        RENDER MARKUP         */
     /********************************/
     render() {
+
+
+        /*       PROPERTIES       */
+        /**************************/
+        const { isAuthenticated } = this.props;
+        
+        
+        /*       VALIDATIONS       */
+        /***************************/
+        if (!isAuthenticated) {
+            return (
+                <Redirect to="/explore"/>
+            );
+        }
 
         
         /*         MARKUP          */
@@ -165,32 +314,22 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                 {/* STEP BY STEP: CONTENT */}
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
-                    <form>
-
-                        {/* Add Primary colors */}
-                        <AddColorForm title="PRIMARY COLORS" 
-                                      description="These are the colors that define your brand."
-                                      type="primary"/>
+                    {/* Add Primary colors */}
+                    {this._buildAddColorForm('primary')}
 
 
-                        <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
+                    <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
 
-                        {/* Add Secondary colors */}
-                        <AddColorForm title="SECONDARY COLORS" 
-                                      description="These colors are support to accompany the primary colors."
-                                      type="secondary"/>
+                    {/* Add Secondary colors */}
+                    {this._buildAddColorForm('secondary')}
 
 
-                        <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
+                    <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
 
-                        {/* Add Grayscale colors */}
-                        <AddColorForm title="GRAYSCALE COLORS" 
-                                      description="A selection of grayscale colors for background or text color use."
-                                      type="grayscale"/>
-
-                    </form>
+                    {/* Add Grayscale colors */}
+                    {this._buildAddColorForm('grayscale')}
 
                 </div>
 
@@ -198,7 +337,8 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                     <a className="link-reset fontSize-sm color-silver fontWeight-6 textDecoration ml-2" href="#">
                         Skip this step
                     </a>
-                    <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto">
+                    <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto"
+                            onClick={this._handleNextClick}>
                         Next
                     </button>
                 </div>
@@ -212,6 +352,30 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    
+    const { fields } = state.form.projectForm;
+    const { colorPalette } = fields;
+    const { isAuthenticated } = state.auth;
+
+    return {
+        colorPalette,
+        isAuthenticated
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const colorFieldsConnect = connect(mapStateToProps);
+
+
 /*         EXPORT          */
 /***************************/
-export default ColorFields;
+export default compose(
+    colorFieldsConnect
+)(ColorFields);

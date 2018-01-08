@@ -36,7 +36,7 @@ const ColorsList: React.SFC<ColorsListProps> = ({ colors = [], onDelete }) => {
         <ul className="ColorsList sp-list sp-list--simple mt-4">
 
             {colors.map((color: ColorModel) => (
-                <li key={color.id} className="item">
+                <li key={(new Date()).getTime()} className="item">
                     <span className="sample-color borderRadius-sm" style={{backgroundColor: color.hex}}/>
                     <span className="text">
                         {color.name}

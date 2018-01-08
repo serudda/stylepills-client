@@ -3,7 +3,7 @@
 /************************************/
 
 export type RgbaColor = {
-    id: number | null;
+    id?: number | null;
     r: number;
     g: number;
     b: number;
