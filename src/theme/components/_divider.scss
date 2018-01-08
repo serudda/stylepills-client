@@ -26,4 +26,8 @@
     &--smoke {
         @extend .borderColor-smoke;
     }
+
+    &--border-2 {
+        @extend .borderTop-2;
+    }
 }

@@ -86,11 +86,11 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                                 {projectName}
                             </h1>
                             {isPrivate ? 
-                                <span className="sp-tag sp-tag--primary sp-tag--xs fontSmoothing-reset ml-3">
+                                <span className="sp-tag sp-tag--primary sp-tag--xs fontWeight-7 fontSmoothing-reset ml-3">
                                     Private
                                 </span>
                                 :
-                                <span className="sp-tag sp-tag--neutral sp-tag--xs fontSmoothing-reset ml-3">
+                                <span className="sp-tag sp-tag--neutral sp-tag--xs fontWeight-7 fontSmoothing-reset ml-3">
                                     Public
                                 </span>
                             }

@@ -50,6 +50,7 @@ export interface IAtomTypeArgs {
 interface IAtomFilterArgs {
     text?: string;
     atomCategoryId?: number;
+    projectId?: number;
     type?: IAtomTypeArgs;
 }
 
