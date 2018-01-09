@@ -2,11 +2,14 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
+import { push } from 'react-router-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 import { Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
+import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Basic } from './../../../../models/project/project.model';
 
@@ -32,22 +35,34 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {};
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        router: {
+            goToProjectDetail: (projectId: number) => void;
+        }
+    };
+};
+
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ProjectsListSection
-extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
+extends React.Component<ChildProps<ProjectsListSectionProps & StateProps & DispatchProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectsListSectionProps & StateProps, GetBasicProjectsByUserIdResponse>) {
+    constructor(props: ChildProps<ProjectsListSectionProps & StateProps & DispatchProps, GetBasicProjectsByUserIdResponse>) {
         super(props);
 
         // LOG
         functionsUtil.consoleLog('SidebarWrapper -> ProjectsListSection actived');
+
+        // Bind methods
+        this._handleClick = this._handleClick.bind(this);
 
     }
 
@@ -55,6 +70,22 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, GetBas
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
+    /**
+     * @desc Handle click
+     * @method _handleClick
+     * @example this._handleClick()
+     * @private
+     * @param {number} projectId - Project Id
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     * // TODO: Implementar cuando sea posible, por ahora se continuamos usando Link. NOTE: 1
+     */
+    private _handleClick = (projectId: number) => (e: React.FormEvent<{}>) => {
+        e.preventDefault();
+        this.props.actions.router.goToProjectDetail(projectId);
+    }
+
 
     /**
      * @desc Get Create Project Btn
@@ -125,14 +156,15 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, GetBas
 
                 {/* Create Projects List */}
                 {data.basicProjectsByUserId.map((basicProject: Basic) => (
-                    <div key={basicProject.id} className="option px-3 py-1">
+                    <Link key={basicProject.id} 
+                    to={`/dashboard/projects/${basicProject.id}`} className="option px-3 py-1">
                         <Icon icon="chevronRight"
                             iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
                             width="16" height="16"/>
                         <span className="fontSize-sm fontWeight-6 color-white">
                             {basicProject.name}
                         </span>
-                    </div>
+                    </Link>
                 ))}
             </div>
         );
@@ -159,8 +191,40 @@ const getBasicProjectsByUserIdQuery = graphql<GetBasicProjectsByUserIdResponse, 
 );
 
 
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+// TODO: Implementar cuando sea posible, por ahora se continuamos usando Link. NOTE: 1
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            router: {
+                goToProjectDetail: (projectId) => dispatch(push(`/dashboard/projects/${projectId}`))
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const projectsListSectionConnect = connect(null, mapDispatchToProps); 
+
+
 /*         EXPORT          */
 /***************************/
-export default compose(
+export default compose<any>(
+    projectsListSectionConnect,
     getBasicProjectsByUserIdQuery
 )(ProjectsListSection);
+
+
+/*
+
+(1) - Por alguna razón al lanzar la Action: dispatch(push(`/dashboard/projects/${projectId}`)), si cambia la url
+pero no se dispara la Action (No se ve en Redux DevTools console). Volvi a implementar Link, dejo una referencia
+que deberiamos aplicar para cambiar las rutas a través de Actions:
+reference: https://blog.marvelapp.com/managing-the-url-in-a-redux-app/
+
+*/

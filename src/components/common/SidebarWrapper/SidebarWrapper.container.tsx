@@ -134,7 +134,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                     <div className="Sidebar__content">
 
                         {/* Components Section */}
-                        <ComponentsSection isActive={location.pathname === '/dashboard/components'}/>
+                        <ComponentsSection isActive={location.pathname === '/dashboard/components'} />
 
                         <div className="divider m-3 mt-4" />
 
@@ -142,8 +142,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                         <ProjectsListSection userId={user.id}/>
 
                         {/* Project Details Section */}
-                        <ProjectDetailsSection />
-
+                        {location.pathname === '/dashboard/projects/:id' && <ProjectDetailsSection />}
                     </div>
 
                     {/* Sidebar Footer */}
