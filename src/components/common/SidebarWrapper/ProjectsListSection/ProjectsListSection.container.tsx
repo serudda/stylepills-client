@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { push } from 'react-router-redux';
-import { graphql, compose, ChildProps } from 'react-apollo';
+import { compose, ChildProps } from 'react-apollo';
 import { Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,6 @@ import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Basic } from './../../../../models/project/project.model';
 
-import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse } from './../../../../models/project/project.query';
 
 import Icon from './../../Icon/Icon';
 
@@ -26,7 +25,7 @@ import Icon from './../../Icon/Icon';
 
 /* Own Props */
 type ProjectsListSectionProps = {
-    userId: number
+    basicProjects: Array<Basic>
 };
 
 /* Own States */
@@ -49,13 +48,13 @@ type DispatchProps = {
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ProjectsListSection
-extends React.Component<ChildProps<ProjectsListSectionProps & StateProps & DispatchProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
+extends React.Component<ChildProps<ProjectsListSectionProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectsListSectionProps & StateProps & DispatchProps, GetBasicProjectsByUserIdResponse>) {
+    constructor(props: ChildProps<ProjectsListSectionProps & StateProps & DispatchProps, {}>) {
         super(props);
 
         // LOG
@@ -119,34 +118,18 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps & Dispa
     /********************************/
     render() {
 
-        /*       PROPERTIES       */
+
+         /*       PROPERTIES       */
         /**************************/
-        const {...data} = this.props.data;
 
-
-        /*       VALIDATIONS       */
-        /***************************/
-        if (data.loading) {
-            return (
-                <div className="ProjectsSection">
-                <div className="subtitle px-3 py-2 d-flex align-items-center">
-                    <span>
-                        Loading...
-                    </span>
-                </div>
-            </div>
-            );
-        }
-
-        if (data.error) {
-            return (<p>{data.error.message}</p>);
-        }
+        // Destructuring props
+        const { basicProjects } = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ProjectsSection">
+            <div className="ProjectsSection d-none">
                 <div className="subtitle px-3 py-2 d-flex align-items-center">
                     <span>
                         Projects
@@ -155,14 +138,14 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps & Dispa
                 </div>
 
                 {/* Create Projects List */}
-                {data.basicProjectsByUserId.map((basicProject: Basic) => (
-                    <Link key={basicProject.id} 
-                    to={`/dashboard/projects/${basicProject.id}`} className="option px-3 py-1">
+                {basicProjects.map((project: Basic) => (
+                    <Link key={project.id} 
+                    to={`/dashboard/projects/${project.id}`} className="option px-3 py-1">
                         <Icon icon="chevronRight"
                             iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
                             width="16" height="16"/>
                         <span className="fontSize-sm fontWeight-6 color-white">
-                            {basicProject.name}
+                            {project.name}
                         </span>
                     </Link>
                 ))}
@@ -171,24 +154,6 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps & Dispa
     }
     
 }
-
-
-// Query options
-const config = {
-    options: (ownProps: ProjectsListSectionProps & StateProps) => {
-        return { 
-            variables: 
-            { 
-                userId: ownProps.userId
-            } 
-        };
-    }
-};
-
-// Query
-const getBasicProjectsByUserIdQuery = graphql<GetBasicProjectsByUserIdResponse, ProjectsListSectionProps>(
-    GET_BASIC_PROJECTS_BY_USER_ID_QUERY, config
-);
 
 
 /********************************/
@@ -214,9 +179,8 @@ const projectsListSectionConnect = connect(null, mapDispatchToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose<any>(
-    projectsListSectionConnect,
-    getBasicProjectsByUserIdQuery
+export default compose(
+    projectsListSectionConnect
 )(ProjectsListSection);
 
 

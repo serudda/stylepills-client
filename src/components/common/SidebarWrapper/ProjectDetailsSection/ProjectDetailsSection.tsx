@@ -18,7 +18,10 @@ import BaseFolder from './BaseFolder/BaseFolder';
 /********************************/
 
 /* Own Props */
-type ProjectDetailsSectionProps = {};
+type ProjectDetailsSectionProps = {
+    projectId: number;
+    projectName: string;
+};
 
 /* Own States */
 type LocalStates = {};
@@ -81,6 +84,9 @@ extends React.Component<ChildProps<ProjectDetailsSectionProps & StateProps, {}>,
     /********************************/
     render() {
 
+        // Destructuring props
+        const { projectId, projectName } = this.props;
+
 
         /*         MARKUP          */
         /***************************/
@@ -88,15 +94,12 @@ extends React.Component<ChildProps<ProjectDetailsSectionProps & StateProps, {}>,
             <div className="ProjectDetailsSection">
                 <div className="title px-3 py-2 d-flex align-items-center">
                     <span>
-                        Stylepill
-                    </span>
-                    <span className="sp-tag sp-tag--primary sp-tag--xxs fontSmoothing-reset ml-2">
-                        Alpha
+                        {projectName}
                     </span>
                     {this._getCloseBtn()}
                 </div>
 
-                <BaseFolder />
+                <BaseFolder projectId={projectId} />
 
                 <div className="option px-3 py-1">
                     <Icon icon="chevronRight"
