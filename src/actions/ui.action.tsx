@@ -9,7 +9,7 @@ import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
-import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
+// NOTE: 1 - import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
 import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
 import { IAtomCodeProps } from '../reducer/atom.reducer';
 

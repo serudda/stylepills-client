@@ -10,6 +10,11 @@ import { ProjectCategory } from '../projectCategory/projectCategory.model';
 /*         TYPE & INTERFACES        */
 /************************************/
 
+export type Basic = {
+    id: number | null;
+    name: string;
+};
+
 export type Project = {
     id: number | null;
     name: string;

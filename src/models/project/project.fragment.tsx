@@ -12,10 +12,17 @@ import { PROJECT_CATEGORY_FRAGMENT } from './../projectCategory/projectCategory.
 /*           FRAGMENT           */
 /********************************/
 
-export const PROJECT_FRAGMENT = gql`
-    fragment ProjectFragment on Project {
+export const BASIC_PROJECT_FRAGMENT = gql`
+    fragment BasicProjectFragment on Project {
         id
         name
+        __typename
+    }
+`;
+
+export const PROJECT_FRAGMENT = gql`
+    fragment ProjectFragment on Project {
+        ...BasicProjectFragment
         website
         colorPalette {
             ...ColorFragment
