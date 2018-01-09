@@ -123,7 +123,7 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, GetBas
                     {this._getCreateProjectBtn()}
                 </div>
 
-                {/* Atom Box */}
+                {/* Create Projects List */}
                 {data.basicProjectsByUserId.map((basicProject: Basic) => (
                     <div key={basicProject.id} className="option px-3 py-1">
                         <Icon icon="chevronRight"
