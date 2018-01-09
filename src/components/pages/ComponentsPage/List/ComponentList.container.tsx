@@ -115,6 +115,8 @@ const dashboardPageConnect = connect(mapStateToProps);
 
 
 // Query config object
+/* TODO: Analizar si esto es necesario ya que solo lo estoy haciendo para obetener el firstname, 
+    lastname, y username del usuario (el cual ya tengo en el Store) */
 const config = {
     skip: (ownProps: ComponentListProps & StateProps) => {
         return !ownProps.isAuthenticated;

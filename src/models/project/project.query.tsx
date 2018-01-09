@@ -3,8 +3,8 @@
 /********************************/
 import gql from 'graphql-tag';
 
-import { PROJECT_FRAGMENT } from './project.fragment';
-import { Project as ProjectModel } from './project.model';
+import { PROJECT_FRAGMENT, BASIC_PROJECT_FRAGMENT } from './project.fragment';
+import { Project as ProjectModel, Basic } from './project.model';
 
 
 // -----------------------------------
@@ -103,4 +103,30 @@ ${PROJECT_FRAGMENT}
 
 export type GetByCategoryResponse = {
     projectsByCategory: Array<ProjectModel>;
+};
+
+
+// --------------------------------
+
+
+/**
+ * @desc Get Projects by User Id (Basic Info)
+ * @method Method basicProjectsByUserId
+ * @public
+ * @returns {Array<Project>} Projects List of a specific user
+ */
+export const GET_BASIC_PROJECTS_BY_USER_ID_QUERY = gql`
+query getBasicProjectsByUserId ($userId: ID!) {
+    basicProjectsByUserId(userId: $userId) {
+        ...BasicProjectFragment
+    }
+}
+${BASIC_PROJECT_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type GetBasicProjectsByUserIdResponse = {
+    basicProjectsByUserId: Array<Basic>;
 };

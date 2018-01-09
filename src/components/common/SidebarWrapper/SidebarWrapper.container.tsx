@@ -10,9 +10,11 @@ import { Location } from 'history';
 import { IRootState } from '../../../reducer/reducer.config';
 import { functionsUtil } from '../../../core/utils/functionsUtil';
 
+import { User as UserModel } from './../../../models/user/user.model';
+
 import Icon from '../Icon/Icon';
 import ComponentsSection from './ComponentsSection/ComponentsSection';
-import ProjectsListSection from './ProjectsListSection/ProjectsListSection';
+import ProjectsListSection from './ProjectsListSection/ProjectsListSection.container';
 import ProjectDetailsSection from './ProjectDetailsSection/ProjectDetailsSection';
 
 
@@ -33,7 +35,8 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    location: Location;
+    location: Location,
+    user: UserModel
 };
 
 
@@ -102,7 +105,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
     render() {
 
         // Destructuring props
-        const { location } = this.props;
+        const { location, user } = this.props;
          
         
         /*         MARKUP          */
@@ -136,7 +139,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                         <div className="divider m-3 mt-4" />
 
                         {/* Projects List Section */}
-                        <ProjectsListSection />
+                        <ProjectsListSection userId={user.id}/>
 
                         {/* Project Details Section */}
                         <ProjectDetailsSection />
@@ -174,8 +177,10 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     const { location } = state.router;
+    const { user } = state.auth;
     return {
-        location
+        location,
+        user
     };
 }
 

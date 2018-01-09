@@ -2,11 +2,15 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
 import { Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
+
+import { Basic } from './../../../../models/project/project.model';
+
+import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse } from './../../../../models/project/project.query';
 
 import Icon from './../../Icon/Icon';
 
@@ -18,7 +22,9 @@ import Icon from './../../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type ProjectsListSectionProps = {};
+type ProjectsListSectionProps = {
+    userId: number
+};
 
 /* Own States */
 type LocalStates = {};
@@ -31,13 +37,13 @@ type StateProps = {};
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ProjectsListSection
-extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectsListSectionProps & StateProps, {}>) {
+    constructor(props: ChildProps<ProjectsListSectionProps & StateProps, GetBasicProjectsByUserIdResponse>) {
         super(props);
 
         // LOG
@@ -82,6 +88,29 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
     /********************************/
     render() {
 
+        /*       PROPERTIES       */
+        /**************************/
+        const {...data} = this.props.data;
+
+
+        /*       VALIDATIONS       */
+        /***************************/
+        if (data.loading) {
+            return (
+                <div className="ProjectsSection">
+                <div className="subtitle px-3 py-2 d-flex align-items-center">
+                    <span>
+                        Loading...
+                    </span>
+                </div>
+            </div>
+            );
+        }
+
+        if (data.error) {
+            return (<p>{data.error.message}</p>);
+        }
+
 
         /*         MARKUP          */
         /***************************/
@@ -93,30 +122,18 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
                     </span>
                     {this._getCreateProjectBtn()}
                 </div>
-                {/*<div className="option px-3 py-1">
-                    <Icon icon="chevronRight"
-                        iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                        width="16" height="16"/>
-                    <span className="fontSize-sm fontWeight-6 color-white">
-                        Stylepill
-                    </span>
-                </div>
-                <div className="option px-3 py-1">
-                    <Icon icon="chevronRight"
-                        iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                        width="16" height="16"/>
-                    <span className="fontSize-sm fontWeight-6 color-white">
-                        Waysily
-                    </span>
-                </div>
-                <div className="option px-3 py-1">
-                    <Icon icon="chevronRight"
-                        iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                        width="16" height="16"/>
-                    <span className="fontSize-sm fontWeight-6 color-white">
-                        Steroidesign
-                    </span>
-                </div>*/}
+
+                {/* Atom Box */}
+                {data.basicProjectsByUserId.map((basicProject: Basic) => (
+                    <div key={basicProject.id} className="option px-3 py-1">
+                        <Icon icon="chevronRight"
+                            iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
+                            width="16" height="16"/>
+                        <span className="fontSize-sm fontWeight-6 color-white">
+                            {basicProject.name}
+                        </span>
+                    </div>
+                ))}
             </div>
         );
     }
@@ -124,6 +141,26 @@ extends React.Component<ChildProps<ProjectsListSectionProps & StateProps, {}>, L
 }
 
 
+// Query options
+const config = {
+    options: (ownProps: ProjectsListSectionProps & StateProps) => {
+        return { 
+            variables: 
+            { 
+                userId: ownProps.userId
+            } 
+        };
+    }
+};
+
+// Query
+const getBasicProjectsByUserIdQuery = graphql<GetBasicProjectsByUserIdResponse, ProjectsListSectionProps>(
+    GET_BASIC_PROJECTS_BY_USER_ID_QUERY, config
+);
+
+
 /*         EXPORT          */
 /***************************/
-export default ProjectsListSection;
+export default compose(
+    getBasicProjectsByUserIdQuery
+)(ProjectsListSection);
