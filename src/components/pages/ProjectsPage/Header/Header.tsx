@@ -74,7 +74,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                     {/* Filter section */}
                     <div className="FilterSection row align-items-center">
 
-                        <div className="d-flex col-12 mt-3 mb-4 align-items-center pl-4">
+                        <div className="d-flex col-12 my-3 align-items-center pl-4">
                             
                             {/* Logo */}
                             <div className="sp-avatar sp-avatar--md borderRadius-circle mr-4">
