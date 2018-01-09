@@ -77,19 +77,24 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
             });
         }
 
-        return (
-            <div className="mt-4">
-
-                {/* Title Section */}
-                <div className="width-wrapper">
-                    <h3 className="color-silver">{title[type]}</h3>
+        if (newColorsArray.length > 0) {
+            return (
+                <div className="mt-4">
+    
+                    {/* Title Section */}
+                    <div className="width-wrapper">
+                        <h3 className="color-silver">{title[type]}</h3>
+                    </div>
+    
+                    {/* Color Boxes List */}
+                    <ColorBoxesList colorPalette={newColorsArray}/>
+    
                 </div>
+            );
+        }
 
-                {/* Color Boxes List */}
-                <ColorBoxesList colorPalette={newColorsArray}/>
-
-            </div>
-        );
+        return (<div />);
+        
     }
 
     

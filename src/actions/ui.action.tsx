@@ -9,6 +9,7 @@ import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
+import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
 import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
 import { IAtomCodeProps } from '../reducer/atom.reducer';
 
@@ -436,7 +437,21 @@ export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Ar
 
         client.mutate({
             mutation: DUPLICATE_ATOM_MUTATION,
-            variables: { atomId, userId, atomCode }
+            variables: { atomId, userId, atomCode },
+            /*
+            // NOTE: 1
+            update: (proxy, { data: { duplicateAtom } }: any) => {
+
+                // Read the data from our cache for this query.
+                const data: any = proxy.readQuery({ query: SEARCH_ATOMS_QUERY });
+            
+                // Add our todo from the mutation to the end.
+                data.searchAtoms.push(duplicateAtom);
+            
+                // Write our data back to the cache.
+                proxy.writeQuery({ query: SEARCH_ATOMS_QUERY, data });
+            },
+            */
         }).then(
             /* TODO: Typar esta respuesta ya que no se que propiedades devuelve,
                 poner un breakpoint justo dentro para ver que devuelve: response, 
@@ -463,3 +478,14 @@ export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Ar
     };
 
 };
+
+
+/* 
+(1) Este es el metodo que usa Apollo para actualizar el cache de Apollo despues
+de hacer una mutation, es decir: e.g. Cuando duplico un Atom, y le doy en ir a: Dashboard
+no logro ver de inmediato el nuevo Atom duplicado, tengo que refrescar para poderlo ver.
+Con este 'update' actualizo el store cache de Apollo y puedo ver inmediatamente el nuevo
+Atom agregado en mi lista.
+(NOTA: Hay varias formas de hacerlo, pero la más recomendada por ellos es usar el metodo 'update')
+references: https://www.apollographql.com/docs/react/features/cache-updates.html
+*/

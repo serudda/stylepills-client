@@ -339,7 +339,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                     </a>
                     <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto"
                             onClick={this._handleNextClick}>
-                        Next
+                        Save
                     </button>
                 </div>
 
