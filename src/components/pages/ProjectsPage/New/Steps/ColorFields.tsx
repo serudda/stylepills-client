@@ -152,6 +152,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
      * @method _addColor
      * @example this._addColor()
      * @private 
+     * @param {ColorModel} newColor - new color to add in the list
      * @returns {void}
      */
     private _addColor(newColor: ColorModel) {
@@ -182,8 +183,9 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     /**
      * @desc Build Add Color Form component
      * @method _buildAddColorForm
-     * @example this._buildAddColorForm()
+     * @example this._buildAddColorForm('primary')
      * @private
+     * @param {string} type - type color section (primary, secondary or grayscale)
      * @returns {JSX.Element} <AddColorForm />
      */
     private _buildAddColorForm(type: string): JSX.Element {

@@ -3,6 +3,7 @@
 /************************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import { Accordion } from 'semantic-ui-react';
 import * as classNames from 'classnames';
 
@@ -18,7 +19,9 @@ import Icon from './../../../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type BaseFolderProps = {};
+type BaseFolderProps = {
+    projectId: number
+};
 
 /* Own States */
 type LocalStates = {
@@ -85,7 +88,8 @@ extends React.Component<ChildProps<BaseFolderProps & StateProps, {}>, LocalState
     /********************************/
     render() {
 
-        // Destructuring state
+        // Destructuring props & state
+        const { projectId } = this.props;
         const { activeIndex } = this.state;
 
         // Accordion Title Icon Classes
@@ -110,14 +114,15 @@ extends React.Component<ChildProps<BaseFolderProps & StateProps, {}>, LocalState
                 </Accordion.Title>
 
                 <Accordion.Content className="p-0" active={activeIndex === 0}>
-                    <div className="option px-3 py-1">
+                    <Link className="option px-3 py-1"
+                        to={`/dashboard/projects/${projectId}/base/color-palette`}>
                         <Icon icon="color"
                             iconClass="stroke-white strokeWidth-2 ml-4 mr-2"
                             width="14" height="14"/>
                         <span className="fontSize-sm fontWeight-6 color-white">
                             color palette
                         </span>
-                    </div>
+                    </Link>
                     <div className="option px-3 py-1 option--disabled">
                         <Icon icon="font"
                             iconClass="stroke-white strokeWidth-2 ml-4 mr-2"

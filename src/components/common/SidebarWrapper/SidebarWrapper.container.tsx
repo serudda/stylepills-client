@@ -3,7 +3,7 @@
 /********************************/
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { compose, ChildProps } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { Location } from 'history';
 
@@ -12,10 +12,11 @@ import { functionsUtil } from '../../../core/utils/functionsUtil';
 
 import { User as UserModel } from './../../../models/user/user.model';
 
+import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse } from './../../../models/project/project.query';
+
 import Icon from '../Icon/Icon';
 import ComponentsSection from './ComponentsSection/ComponentsSection';
-import ProjectsListSection from './ProjectsListSection/ProjectsListSection.container';
-import ProjectDetailsSection from './ProjectDetailsSection/ProjectDetailsSection';
+import ProjectsSection from './ProjectsSection/ProjectsSection.container';
 
 
 // -----------------------------------
@@ -26,7 +27,13 @@ import ProjectDetailsSection from './ProjectDetailsSection/ProjectDetailsSection
 /********************************/
 
 /* Own Props */
-type SidebarWrapperProps = {};
+type SidebarWrapperProps = {
+    match: {
+        params: {
+            id: number
+        }
+    }
+};
 
 /* Own States */
 type LocalStates = {
@@ -44,13 +51,13 @@ type StateProps = {
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SidebarWrapper
-extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SidebarWrapperProps & StateProps, {}>) {
+    constructor(props: ChildProps<SidebarWrapperProps & StateProps, GetBasicProjectsByUserIdResponse>) {
         super(props);
 
         // LOG
@@ -104,8 +111,33 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
     /********************************/
     render() {
 
+
+        /*       PROPERTIES       */
+        /**************************/
+
         // Destructuring props
-        const { location, user } = this.props;
+        const { location } = this.props;
+        const {...data} = this.props.data;
+
+
+        /*       VALIDATIONS       */
+        /***************************/
+        if (data.loading) {
+            return (
+                // TODO: El loading deberia ser como el de Slack (los rectangulos y cuadritos)
+                <div className="SidebarWrapper">
+                <div className="subtitle px-3 py-2 d-flex align-items-center">
+                    <span>
+                        Loading...
+                    </span>
+                </div>
+            </div>
+            );
+        }
+
+        if (data.error) {
+            return (<p>{data.error.message}</p>);
+        }
          
         
         /*         MARKUP          */
@@ -134,15 +166,12 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
                     <div className="Sidebar__content">
 
                         {/* Components Section */}
-                        <ComponentsSection isActive={location.pathname === '/dashboard/components'}/>
+                        <ComponentsSection isActive={location.pathname === '/dashboard/components'} />
 
                         <div className="divider m-3 mt-4" />
-
+                        
                         {/* Projects List Section */}
-                        <ProjectsListSection userId={user.id}/>
-
-                        {/* Project Details Section */}
-                        <ProjectDetailsSection />
+                        <ProjectsSection basicProjects={data.basicProjectsByUserId} />
 
                     </div>
 
@@ -171,6 +200,24 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, {}>, LocalS
 }
 
 
+// Query options
+const config = {
+    options: (ownProps: SidebarWrapperProps & StateProps) => {
+        return { 
+            variables: 
+            { 
+                userId: ownProps.user.id
+            } 
+        };
+    }
+};
+
+// Query
+const getBasicProjectsByUserIdQuery = graphql<GetBasicProjectsByUserIdResponse, SidebarWrapperProps>(
+    GET_BASIC_PROJECTS_BY_USER_ID_QUERY, config
+);
+
+
 
 /********************************/
 /*      MAP STATE TO PROPS      */
@@ -193,6 +240,7 @@ const sidebarWrapperConnect = connect(mapStateToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose(
-    sidebarWrapperConnect
+export default compose<any>(
+    sidebarWrapperConnect,
+    getBasicProjectsByUserIdQuery
 )(SidebarWrapper);

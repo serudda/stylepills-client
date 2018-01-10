@@ -36,6 +36,7 @@ export const PROJECT_FRAGMENT = gql`
         }
         __typename
     }
+    ${BASIC_PROJECT_FRAGMENT}
     ${COLOR_FRAGMENT}
     ${PROJECT_CATEGORY_FRAGMENT}
     ${AUTHOR_PROJECT_FRAGMENT}
