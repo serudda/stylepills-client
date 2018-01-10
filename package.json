@@ -58,8 +58,7 @@
     "redux-thunk": "^2.2.0",
     "scriptjs": "^2.5.8",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.76.0",
-    "url-pattern": "^1.0.3"
+    "semantic-ui-react": "^0.76.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",

@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { matchPath } from 'react-router';
 import { connect, Dispatch } from 'react-redux';
 import { routerActions } from 'react-router-redux';
 import { compose, ChildProps } from 'react-apollo';
@@ -15,8 +16,6 @@ import { Basic } from './../../../../models/project/project.model';
 
 import BaseFolder from './BaseFolder/BaseFolder';
 import Icon from './../../Icon/Icon';
-
-let UrlPattern = require('url-pattern');
 
 // -----------------------------------
 
@@ -88,28 +87,34 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
     /********************************/
     componentDidMount() {      
         const { basicProjects, pathname } = this.props;
-        // const DASHBOARD_PROJECT_DETAILS_URI_REGEX = /^\/dashboard\/projects\/:id\/[\s\S]+/g;
-        // const REG = /^\/dashboard\/projects\/:id$/;
-        const REG = '/dashboard/projects/:id';
-        // Create a pattern to compare
-        let pattern = new UrlPattern(REG);
+        const DASHBOARD_PROJECT_DETAILS_URI = '/dashboard/projects/:id';
 
         // Get project id from current url location: e.g. {id: <number>}
-        let value = pattern.match(pathname);
+        const match: any = matchPath(pathname, {
+            path: DASHBOARD_PROJECT_DETAILS_URI,
+            exact: false,
+            strict: false
+        });
 
-        if (value && !this.state.currentProject.id) {
+        if (match && !this.state.currentProject.id) {
 
-            let currentProject: any = {id: value.id, name: null};
+            const { params } = match;
+            const { id } = params;
 
-            basicProjects.forEach(project => {
-                if (project.id === currentProject.id) {
-                    currentProject.name = project.name;
-                }
-            });
+            if (id) {
+                let currentProject: any = {id: params.id, name: null};
 
-            this.setState({
-                currentProject
-            });
+                basicProjects.forEach(project => {
+                    if (project.id === currentProject.id) {
+                        currentProject.name = project.name;
+                    }
+                });
+
+                this.setState({
+                    currentProject
+                });                
+            }
+
         }
 
         console.log(pathname);
