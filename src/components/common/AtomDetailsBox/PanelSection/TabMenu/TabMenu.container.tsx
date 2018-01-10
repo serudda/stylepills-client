@@ -15,7 +15,7 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
 
 import Duplicate from './../../../TabMenu/TabOptions/Duplicate/Duplicate';
-import Icon from './../../../Icon/Icon';
+import ShowCode from './../../../TabMenu/TabOptions/ShowCode/ShowCode';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
@@ -206,19 +206,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
             'stroke-slate': tab !== 'comments'
         });*/
 
-        // Code Btn Classes
-        const codeBtnClasses = classNames({
-            'sp-iconTabMenu__btn': true, 
-            'sp-iconTabMenu__btn--active': tab === 'code'
-        });
-
-        // Code Icon on Btn Classes
-        const codeIconClasses = classNames({
-            'strokeWidth-2': true, 
-            'stroke-darkPrimary': tab === 'code',
-            'stroke-slate': tab !== 'code'
-        });
-
 
         /*         MARKUP          */
         /***************************/
@@ -254,16 +241,11 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                             width="22" height="22"/>
                     </div>
                 </button>*/}
-                <button className={codeBtnClasses}
-                        onClick={this._handleCodeClick}>
-                    <div className="inner">
-                        <Icon icon="code"
-                            iconClass={codeIconClasses}
-                            width="25" height="16"/>
-                    </div>
-                </button>
 
-                {/* Duplicate button */}
+                {/* Show Code option */}
+                <ShowCode currentOption={tab} onShowCodeClick={this._handleCodeClick}/>
+
+                {/* Duplicate option */}
                 <Duplicate type="component" 
                             isDuplicated={isDuplicated} 
                             onDuplicateClick={this._handleDuplicateClick}/>
