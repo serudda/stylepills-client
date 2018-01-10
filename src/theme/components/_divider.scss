@@ -7,6 +7,8 @@
     overflow: hidden;
     @extend .borderTop-1;
 
+    /// TYPE MODIFIERS
+
     &--solid {
         @extend .borderTopStyle-solid;
     }
@@ -14,6 +16,9 @@
     &--dashed {
         @extend .borderTopStyle-dashed;
     }
+
+
+    /// COLOR MODIFIERS
 
     &--primary {
         @extend .borderColor-primary;

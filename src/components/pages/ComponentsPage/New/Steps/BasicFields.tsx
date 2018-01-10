@@ -53,7 +53,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         super(props);
 
         // LOG
-        functionsUtil.consoleLog('ProjectNew -> Step: 1 - BasicFields actived');
+        functionsUtil.consoleLog('ComponentNew -> Step: 1 - BasicFields actived');
 
         // Init local state
         this.state = {
@@ -165,11 +165,11 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                     <div className="title-section text-center">
                         {/* Title */}
                         <div className="fontFamily-openSans fontWeight-5 fontSize-sm color-silver mt-5">
-                            CREATE NEW PROJECT
+                            CREATE NEW COMPONENT
                         </div>
                         {/* Subtitle */}
                         <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2">
-                            Basic project information
+                            Basic component information
                         </div>
                     </div>
 
@@ -181,7 +181,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
                     <form>
                         <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                            PROJECT NAME
+                            COMPONENT NAME
                         </label>
                         <input type="text"
                                 name="name"
@@ -199,6 +199,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                 onChange={this._handleInputChange}
                                 className="sp-input sp-input--md sp-input--block" 
                                 placeholder="e.g. https://www.airbnb.com"/>
+
+                        <div className="sp-divider sp-divider--dashed sp-divider--smoke sp-divider--border-2 my-5" />
 
                         <div className="switchContainer d-flex align-items-center mt-5">
                             <div className="d-flex flex-column">
@@ -219,9 +221,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto"
+                    <button className="sp-btn sp-btn--secondary sp-btn--lg ml-auto"
                             onClick={this._handleNextClick}>
-                        Next
+                        Create
                     </button>
                 </div>
 

@@ -6,8 +6,6 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import * as CopyToClipboard from 'react-copy-to-clipboard';
 
-import * as classNames from 'classnames';
-
 import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
@@ -16,6 +14,7 @@ import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../.
 import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
 import { Popup } from 'semantic-ui-react';
+import TabMenu from './../../../SourceCodePanel/TabMenu/TabMenu';
 import Icon from './../../../Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -315,18 +314,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         const { tab } = this.props;
         const { watchingChanges } = this.props;
 
-        // Html Tab Btn Classes
-        const htmlTabBtnClasses = classNames({
-            'sp-tabMenu__button': true, 
-            'sp-tabMenu__button--active': tab === 'html'
-        });
-
-        // Css Tab Btn Classes
-        const cssTabBtnClasses = classNames({
-            'sp-tabMenu__button': true, 
-            'sp-tabMenu__button--active': tab === 'css'
-        });
-
         // Code Mirror HTML default options
         const codeMirrorOptions = {
             scrollbarStyle: 'overlay',
@@ -343,26 +330,8 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         return (
             <div className="SourceCodePanel row no-gutters sp-bg-black borderTop-1 border-dark overflow-hidden">
             
-                {/* Source Code Tab Menu TODO: Remover estos style inline */}
-                <div className="row no-gutters w-100" style={{backgroundColor: '#141619', borderTop: '1px solid #000000'}}>
-                    <div className="col">
-
-                        <div className="sp-tabMenu sp-tabMenu--is-reversed fontSmoothing-reset">
-                            <button className={htmlTabBtnClasses}
-                                    onClick={this._handleTabClick('html')}>
-                                <div className="inner">
-                                    HTML
-                                </div>
-                            </button>
-                            <button className={cssTabBtnClasses}
-                                    onClick={this._handleTabClick('css')}>
-                                <div className="inner">
-                                    CSS
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {/* Source Code Tab Menu */}
+                <TabMenu tab={tab} onTabClick={this._handleTabClick}/>
 
                 {/* Source Code Panel */}
                 <div className="row no-gutters w-100 sp-bg-mirage">
