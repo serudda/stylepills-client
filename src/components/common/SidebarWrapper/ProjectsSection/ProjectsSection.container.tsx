@@ -110,14 +110,13 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
                     }
                 });
 
+                // Update local state in order to show Project Details
                 this.setState({
                     currentProject
                 });                
             }
 
         }
-
-        console.log(pathname);
 
     }
 
