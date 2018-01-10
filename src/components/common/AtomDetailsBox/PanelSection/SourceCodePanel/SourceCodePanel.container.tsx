@@ -13,7 +13,7 @@ import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../.
 import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
 import TabMenu from './../../../SourceCodePanel/TabMenu/TabMenu';
-import CopyToClipboardBtn from './../../../Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
+import BtnGroupContainer from './BtnGroup/BtnGroup.container';
 import Icon from './../../../Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -101,8 +101,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
-        this._handleCopyClick = this._handleCopyClick.bind(this);
-        this._handleEditClick = this._handleEditClick.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
     }
 
@@ -152,34 +150,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
 
     /**
-     * @desc HandleEditClick
-     * @method _handleEditClick
-     * @example this._handleEditClick()
-     * @private
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    private _handleEditClick(e: React.FormEvent<{}>) {
-        e.preventDefault();
-        this._activeEditMode();
-    }
-
-
-    /**
-     * @desc HandleCopyClick
-     * @method _handleCopyClick
-     * @example this._handleClick()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @param {any} e - Event
-     * @returns {void}
-     */
-    private _handleCopyClick = (type: string) => (e: any) => {
-        this._copySourceCode(type);
-    }
-
-
-    /**
      * @desc HandleTabClick
      * @method _handleTabClick
      * @example this._handleTabClick()
@@ -204,51 +174,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      */
     private _changeTab(tab: string) {
         this.props.actions.ui.changeSourceCodeTab(tab);
-    }
-
-
-    /**
-     * @desc Copy Source Code
-     * @method _copySourceCode
-     * @example this._copySourceCode()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @returns {void}
-     */
-    private _copySourceCode(type: string) {
-
-        const TIMEOUT_COPIED_MESSAGE = 1000;
-        
-        // Show COPIED! message
-        this.setState({
-            copied: true
-        });
-
-        // Launch Copy Source Action
-        this.props.actions.ui.copySourceCode(type);
-
-        // Hide COPIED! message after 'TIMEOUT_COPIED_MESSAGE' time
-        setTimeout(() => {
-            this.setState({ copied: false });
-        }, TIMEOUT_COPIED_MESSAGE);
-
-    }
-
-
-    /**
-     * @desc Active Edit Mode
-     * @method _activeEditMode
-     * @example this._activeEditMode()
-     * @private
-     * @returns {void}
-     */
-    private _activeEditMode() {
-        // Destructuring props
-        const { atomId, name } = this.props;
-
-        // Launch active edit mode Action
-        this.props.actions.atomState.activeEditMode(atomId, name);
-        
     }
 
 
@@ -282,9 +207,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     render() {
 
         // Destructuring props & state
+        const { atomId, name } = this.props;
         const { tab } = this.props;
         const { watchingChanges } = this.props;
-        const { html, css, copied } = this.state;
+        const { html, css } = this.state;
 
         // Code Mirror HTML default options
         const codeMirrorOptions = {
@@ -309,22 +235,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                 <div className="row no-gutters w-100 sp-bg-mirage">
                     <div className="col-12 position-relative">
 
-                        {/* Button Group */}
-                        <div className="sp-btnGroup zIndex-footer">
-                            {/* Edit Source Code Button */}
-                            <div className="sp-btnGroup__container">
-                                <button className="sp-btn sp-btn--secondary sp-btn--md"
-                                        onClick={this._handleEditClick}
-                                        disabled={watchingChanges}>
-                                    {watchingChanges ? 'Edit: ON' : 'Edit'}
-                                </button>
-                            </div> 
-                            {/* Copy Source Code Button */}
-                            <div className="sp-btnGroup__container">
-                                {tab === 'html' && <CopyToClipboardBtn text={html} copied={copied} onCopy={this._handleCopyClick} type="html"/>}
-                                {tab === 'css' && <CopyToClipboardBtn text={css} copied={copied} onCopy={this._handleCopyClick} type="css"/>}
-                            </div>
-                        </div>
+                        {/* Button Group Container */}
+                        <BtnGroupContainer atomId={atomId} 
+                                           atomName={name} 
+                                           atomHtml={html} 
+                                           atomCss={css}
+                                           currentTab={tab} />
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
