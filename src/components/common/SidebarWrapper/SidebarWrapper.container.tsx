@@ -16,8 +16,7 @@ import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse }
 
 import Icon from '../Icon/Icon';
 import ComponentsSection from './ComponentsSection/ComponentsSection';
-import ProjectsListSection from './ProjectsListSection/ProjectsListSection.container';
-import ProjectDetailsSection from './ProjectDetailsSection/ProjectDetailsSection';
+import ProjectsSection from './ProjectsSection/ProjectsSection.container';
 
 
 // -----------------------------------
@@ -106,29 +105,6 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicPro
         });
     }
 
-
-    /**
-     * @desc Build Project Details Section component
-     * @method _buildProjectDetailsSection
-     * @example this._buildProjectDetailsSection()
-     * @private
-     * @returns {JSX.Element} <AddColorForm />
-     */
-    private _buildProjectDetailsSection(): JSX.Element {
-
-        // Destructuring props
-        const { location } = this.props;
-
-        // VARIABLES
-        let currentUrl = location.pathname;
-
-        console.log(currentUrl);
-
-        return (
-            <ProjectDetailsSection projectName={'Stylepill'} projectId={5} />
-        );
-    }
-
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -193,12 +169,9 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicPro
                         <ComponentsSection isActive={location.pathname === '/dashboard/components'} />
 
                         <div className="divider m-3 mt-4" />
-
+                        
                         {/* Projects List Section */}
-                        <ProjectsListSection basicProjects={data.basicProjectsByUserId} />
-
-                        {/* Project Details Section */}
-                        {this._buildProjectDetailsSection()}
+                        <ProjectsSection basicProjects={data.basicProjectsByUserId} />
 
                     </div>
 
