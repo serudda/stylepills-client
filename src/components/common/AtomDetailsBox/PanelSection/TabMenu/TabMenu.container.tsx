@@ -5,17 +5,15 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import * as classNames from 'classnames';
-
 import * as appConfig from './../../../../../core/constants/app.constants';
 
 import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
+import { Options as DetailsTabMenuOptions } from './../../../Tabs/DetailsTabMenu/DetailsTabMenu';
 
-import Duplicate from './../../../TabMenu/TabOptions/Duplicate/Duplicate';
-import ShowCode from './../../../TabMenu/TabOptions/ShowCode/ShowCode';
+import DetailsTabMenu from './../../../Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
@@ -78,7 +76,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');
 
         // Bind methods
-        this._handleTabClick = this._handleTabClick.bind(this);
         this._handleCodeClick = this._handleCodeClick.bind(this);
         this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
     }
@@ -110,20 +107,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 
 
     /**
-     * @desc HandleTabClick
-     * @method _handleTabClick
-     * @example this._handleTabClick()
-     * @private
-     * @param {string} tab - string tab id (e.g. 'comments', 'code', etc) 
-     * @param {React.FormEvent<{}>} e - Click Event
-     * @returns {void}
-     */
-    private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
-        e.preventDefault();
-        this._changeTab(tab);
-    }
-
-    /**
      * @desc HandleDuplicateClick
      * @method _handleDuplicateClick
      * @example this._handleDuplicateClick()
@@ -141,6 +124,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         }
 
     }
+    
 
     /**
      * @desc Show Modal 
@@ -163,6 +147,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         }
     }
 
+
     /**
      * @desc Change Tab
      * @method _changeTab
@@ -175,80 +160,50 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     }
 
 
+    /**
+     * @desc Build Tab Menu component
+     * @method _buildTabMenu
+     * @example this._buildTabMenu()
+     * @private
+     * @returns {JSX.Element} <AddColorForm />
+     */
+    private _buildTabMenu(): JSX.Element {
+
+        // Destructuring props
+        const { tab, duplicated } = this.props;
+        const { isDuplicated } = duplicated;
+
+        // VARIABLES
+        let options: Array<DetailsTabMenuOptions> = [
+            DetailsTabMenuOptions.showCode,
+            DetailsTabMenuOptions.duplicate
+        ];
+
+        return (
+            <DetailsTabMenu options={options}
+                            isReversed={true}
+                            isDuplicated={isDuplicated}
+                            currentOption={tab}
+                            onDuplicateClick={this._handleDuplicateClick}
+                            onShowCodeClick={this._handleCodeClick}/>
+        );
+        
+    }
+
+
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
 
-        // Destructuring props
-        const { tab, duplicated } = this.props;
-        const { isDuplicated } = duplicated;
-        
-
-        // Tab Menu Classes
-        const tabMenuClasses = classNames({
-            'TabMenu': true, 
-            'sp-iconTabMenu': true, 
-            'fontSmoothing-reset': true,
-            'sp-iconTabMenu--is-reversed': tab === 'code'
-        });
-
-        // Comments Btn Classes
-        /* const commentsBtnClasses = classNames({
-            'sp-iconTabMenu__btn': true, 
-            'sp-iconTabMenu__btn--active': tab === 'comments'
-        });*/
-
-        // Comments Icon on Btn Classes
-        /* const commentsIconClasses = classNames({
-            'strokeWidth-2': true, 
-            'stroke-darkSecondary': tab === 'comments',
-            'stroke-slate': tab !== 'comments'
-        });*/
-
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className={tabMenuClasses}>
-                {/* TODO: Ir agregando uno por uno al momento de implementarlo */}
-                {/*<button className="sp-iconTabMenu__btn">
-                    <div className="inner">
-                        <Icon icon="heartFull"
-                            iconClass="strokeWidth-2"
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                {/*<button className="sp-iconTabMenu__btn">
-                    <div className="inner">
-                        <Icon icon="share"
-                            iconClass="strokeWidth-2 stroke-slate"
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                {/*<button className={commentsBtnClasses}>
-                    <div className="inner"
-                        onClick={this._handleTabClick('comments')}>
-                        <Icon icon="messageCircle"
-                            iconClass={commentsIconClasses}
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                {/*<button className="sp-iconTabMenu__btn">
-                    <div className="inner">
-                        <Icon icon="download"
-                            iconClass="strokeWidth-2 stroke-slate"
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
+            <div className="TabMenuContainer">
 
-                {/* Show Code option */}
-                <ShowCode currentOption={tab} onShowCodeClick={this._handleCodeClick}/>
-
-                {/* Duplicate option */}
-                <Duplicate type="component" 
-                            isDuplicated={isDuplicated} 
-                            onDuplicateClick={this._handleDuplicateClick}/>
+                {/* Build Tab Menu Options */}
+                {this._buildTabMenu()}
 
             </div>
         );

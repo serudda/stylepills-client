@@ -6,7 +6,7 @@ import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
-import Icon from './../../../Icon/Icon';
+import Icon from './../../../../Icon/Icon';
 
 // -----------------------------------
 
@@ -19,7 +19,7 @@ import Icon from './../../../Icon/Icon';
 type DuplicateProps = {
     type: string;
     isDuplicated: boolean;
-    onDuplicateClick: (e: React.FormEvent<{}>) => any;
+    onClick: (e: React.FormEvent<{}>) => any;
 };
 
 
@@ -29,7 +29,7 @@ type DuplicateProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const Duplicate: React.SFC<DuplicateProps> = ({ type, isDuplicated, onDuplicateClick }) => {
+const Duplicate: React.SFC<DuplicateProps> = ({ type, isDuplicated, onClick }) => {
 
     // Duplicate Btn Classes
     const duplicateClasses = classNames({
@@ -44,7 +44,7 @@ const Duplicate: React.SFC<DuplicateProps> = ({ type, isDuplicated, onDuplicateC
     return (
         <Popup trigger={
             <button className={duplicateClasses}
-            onClick={onDuplicateClick}>
+            onClick={onClick}>
                 <div className="inner">
                     <div className="inner__btn sp-btn sp-btn--md sp-btn--secondary">
                         <Icon icon="duplicate"

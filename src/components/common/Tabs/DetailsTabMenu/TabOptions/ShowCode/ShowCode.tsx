@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 
-import Icon from './../../../Icon/Icon';
+import Icon from './../../../../Icon/Icon';
 
 // -----------------------------------
 
@@ -17,7 +17,7 @@ import Icon from './../../../Icon/Icon';
 /* Own Props */
 type ShowCodeProps = {
     currentOption: string;
-    onShowCodeClick: (e: React.FormEvent<{}>) => any;
+    onClick: (e: React.FormEvent<{}>) => any;
 };
 
 
@@ -27,7 +27,7 @@ type ShowCodeProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const ShowCode: React.SFC<ShowCodeProps> = ({ currentOption, onShowCodeClick }) => {
+const ShowCode: React.SFC<ShowCodeProps> = ({ currentOption, onClick }) => {
 
     // Code Btn Classes
     const codeBtnClasses = classNames({
@@ -47,7 +47,7 @@ const ShowCode: React.SFC<ShowCodeProps> = ({ currentOption, onShowCodeClick }) 
     /***************************/
     return (
         <button className={codeBtnClasses}
-                onClick={onShowCodeClick}>
+                onClick={onClick}>
             <div className="inner">
                 <Icon icon="code"
                     iconClass={codeIconClasses}
