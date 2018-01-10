@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import * as CopyToClipboard from 'react-copy-to-clipboard';
 
 import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
@@ -13,8 +12,8 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
 import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
-import { Popup } from 'semantic-ui-react';
 import TabMenu from './../../../SourceCodePanel/TabMenu/TabMenu';
+import CopyToClipboardBtn from './../../../Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
 import Icon from './../../../Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -277,42 +276,15 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     }
 
 
-    /**
-     * @desc Get CopyToClipboard Btn
-     * @method _getCopyToClipboardBtn
-     * @example this._getCopyToClipboardBtn()
-     * @private
-     * @param {string} code - source code block
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @returns {JSX.Element} <Popup />
-     */
-    private _getCopyToClipboardBtn(code: string, type: string): JSX.Element {
-        return (
-            <Popup
-            trigger={
-                <CopyToClipboard text={code} onCopy={this._handleCopyClick(type)}>
-                    <button className="sp-btn sp-btn--neutral sp-btn--md">
-                        Copy
-                    </button>
-                </CopyToClipboard>}
-            position="top right"
-            size="small">
-                {this.state.copied ? 
-                <span className="color-secondary fontWeight-9">COPIED!</span> : 
-                <span>Copy <strong className="color-darkSecondary textTransform-uppercase">{type}</strong> to clipboard</span>}
-            </Popup>
-        );
-    }
-
-
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
 
-        // Destructuring props
+        // Destructuring props & state
         const { tab } = this.props;
         const { watchingChanges } = this.props;
+        const { html, css, copied } = this.state;
 
         // Code Mirror HTML default options
         const codeMirrorOptions = {
@@ -349,9 +321,8 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                             </div> 
                             {/* Copy Source Code Button */}
                             <div className="sp-btnGroup__container">
-                                {tab === 'html' && this._getCopyToClipboardBtn(this.state.html, 'html')}
-
-                                {tab === 'css' && this._getCopyToClipboardBtn(this.state.css, 'css')}
+                                {tab === 'html' && <CopyToClipboardBtn text={html} copied={copied} onCopy={this._handleCopyClick} type="html"/>}
+                                {tab === 'css' && <CopyToClipboardBtn text={css} copied={copied} onCopy={this._handleCopyClick} type="css"/>}
                             </div>
                         </div>
 
