@@ -16,6 +16,8 @@ import { Basic } from './../../../../models/project/project.model';
 import BaseFolder from './BaseFolder/BaseFolder';
 import Icon from './../../Icon/Icon';
 
+let UrlPattern = require('url-pattern');
+
 // -----------------------------------
 
 
@@ -82,9 +84,43 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
 
 
     /********************************/
+    /*     COMPONENT_WILL_MOUNT     */
+    /********************************/
+    componentDidMount() {      
+        const { basicProjects, pathname } = this.props;
+        // const DASHBOARD_PROJECT_DETAILS_URI_REGEX = /^\/dashboard\/projects\/:id\/[\s\S]+/g;
+        // const REG = /^\/dashboard\/projects\/:id$/;
+        const REG = '/dashboard/projects/:id';
+        // Create a pattern to compare
+        let pattern = new UrlPattern(REG);
+
+        // Get project id from current url location: e.g. {id: <number>}
+        let value = pattern.match(pathname);
+
+        if (value && !this.state.currentProject.id) {
+
+            let currentProject: any = {id: value.id, name: null};
+
+            basicProjects.forEach(project => {
+                if (project.id === currentProject.id) {
+                    currentProject.name = project.name;
+                }
+            });
+
+            this.setState({
+                currentProject
+            });
+        }
+
+        console.log(pathname);
+
+    }
+
+
+    /********************************/
     /*     COMPONENT_DID_UPDATE     */
     /********************************/
-    componentDidUpdate() {        
+    componentDidUpdate() {      
         const { pathname } = this.props;
 
         let isProjectFolder = pathname.indexOf('/dashboard/projects') !== -1;
@@ -246,7 +282,7 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
                 {/* Project Details */}
                 {this.state.currentProject.id &&
                     <div className="ProjectDetails">
-                        <div className="title px-3 py-2 d-flex align-items-center">
+                        <div className="title px-3 pt-2 pb-3 d-flex align-items-center">
                             <span>
                                 {this.state.currentProject.name}
                             </span>
