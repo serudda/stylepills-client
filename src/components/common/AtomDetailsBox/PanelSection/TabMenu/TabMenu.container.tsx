@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
@@ -15,6 +14,7 @@ import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
 
+import Duplicate from './../../../TabMenu/TabOptions/Duplicate/Duplicate';
 import Icon from './../../../Icon/Icon';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
@@ -219,13 +219,6 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
             'stroke-slate': tab !== 'code'
         });
 
-        // Duplicate Btn Classes
-        const duplicateClasses = classNames({
-            'sp-iconTabMenu__btn': true,
-            'sp-iconTabMenu__btn--inner-btn': true,
-            'sp-iconTabMenu__btn--disabled': isDuplicated
-        });
-
 
         /*         MARKUP          */
         /***************************/
@@ -271,24 +264,9 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
                 </button>
 
                 {/* Duplicate button */}
-                {/* TODO: Mover a una funcion para tener más organizado */}
-                <Popup trigger={
-                    <button className={duplicateClasses}
-                    onClick={this._handleDuplicateClick}>
-                        <div className="inner">
-                            <div className="inner__btn sp-btn sp-btn--md sp-btn--secondary">
-                                <Icon icon="duplicate"
-                                    iconClass="strokeWidth-2 stroke-white"
-                                    width="22" height="22"/>
-                            </div>
-                        </div>
-                    </button>}
-                    size="small"
-                    inverted={true}>
-                    {isDuplicated ?
-                        <span className="color-primary fontWeight-9">DUPLICATED!</span> :
-                        <span className="fontWeight-9">Duplicate component</span> }
-                </Popup>
+                <Duplicate type="component" 
+                            isDuplicated={isDuplicated} 
+                            onDuplicateClick={this._handleDuplicateClick}/>
 
             </div>
         );
