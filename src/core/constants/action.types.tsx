@@ -44,6 +44,14 @@ export type LOGOUT_FAILURE = typeof LOGOUT_FAILURE;
 /* Form Actions Type */
 export const CLEAR_FORM = 'CLEAR_FORM';
 export type CLEAR_FORM = typeof CLEAR_FORM;
+
+export const NEXT_STEP_ATOM = 'NEXT_STEP_ATOM';
+export type NEXT_STEP_ATOM = typeof NEXT_STEP_ATOM;
+export const PREV_STEP_ATOM = 'PREV_STEP_ATOM';
+export type PREV_STEP_ATOM = typeof PREV_STEP_ATOM;
+export const SKIP_STEP_ATOM = 'SKIP_STEP_ATOM';
+export type SKIP_STEP_ATOM = typeof SKIP_STEP_ATOM;
+
 export const NEXT_STEP_PROJECT = 'NEXT_STEP_PROJECT';
 export type NEXT_STEP_PROJECT = typeof NEXT_STEP_PROJECT;
 export const PREV_STEP_PROJECT = 'PREV_STEP_PROJECT';

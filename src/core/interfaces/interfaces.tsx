@@ -9,6 +9,17 @@ import { Color as ColorModel } from './../../models/color/color.model';
 /******************************************/
 /*            FORMS INTERFACES            */
 /******************************************/
+export interface IAtomFormFields {
+    authorId: number;
+    name: string;
+    html: string;
+    css: string;
+    contextualBg: string;
+    projectId: number;
+    atomCategoryId: number;
+    private: boolean;
+}
+
 export interface IProjectFormFields {
     authorId: number;
     name: string;

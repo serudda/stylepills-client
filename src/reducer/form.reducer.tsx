@@ -4,7 +4,7 @@
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/form.action';
 
-import { IProjectFormFields } from './../core/interfaces/interfaces';
+import { IAtomFormFields, IProjectFormFields } from './../core/interfaces/interfaces';
 
 
 /************************************/
@@ -13,6 +13,10 @@ import { IProjectFormFields } from './../core/interfaces/interfaces';
 export interface IFormState {
     projectForm: {
         fields: IProjectFormFields,
+        step: number
+    };
+    atomForm: {
+        fields: IAtomFormFields,
         step: number
     };
 }
@@ -30,6 +34,19 @@ const defaultState: IFormState = {
             colorPalette: [],
             private: false,
             projectCategoryId: 1 // TODO: Magic number
+        },
+        step: 1
+    },
+    atomForm: {
+        fields: {
+            authorId: null,
+            name: null,
+            html: null,
+            css: null,
+            contextualBg: null,
+            private: false,
+            projectId: null,
+            atomCategoryId: 0
         },
         step: 1
     }
@@ -67,7 +84,59 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         projectCategoryId: 1 // TODO: Magic number
                     },
                     step: 1
+                },
+                atomForm: {
+                    fields: {
+                        authorId: null,
+                        name: null,
+                        html: null,
+                        css: null,
+                        contextualBg: null,
+                        private: false,
+                        projectId: null,
+                        atomCategoryId: 0
+                    },
+                    step: 1
                 }
+            };
+        }
+
+        case types.NEXT_STEP_ATOM: {
+            return {
+                ...state,
+                atomForm: {
+                    ...state.atomForm,
+                    fields: {
+                        ...state.atomForm.fields,
+                        authorId: action.fieldValues.authorId,
+                        name: action.fieldValues.name,
+                        html: action.fieldValues.html,
+                        css: action.fieldValues.css,
+                        contextualBg: action.fieldValues.contextualBg,
+                        projectId: action.fieldValues.projectId
+                    },
+                    step: state.atomForm.step + 1
+                } 
+            };
+        }
+
+        case types.PREV_STEP_ATOM: {
+            return {
+                ...state,
+                atomForm: {
+                    ...state.atomForm,
+                    step: state.atomForm.step - 1
+                } 
+            };
+        }
+
+        case types.SKIP_STEP_ATOM: {
+            return {
+                ...state,
+                atomForm: {
+                    ...state.atomForm,
+                    step: state.atomForm.step + 1
+                } 
             };
         }
 
