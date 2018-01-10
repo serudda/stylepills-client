@@ -43,7 +43,7 @@ const defaultState: IFormState = {
             name: null,
             html: null,
             css: null,
-            contextualBg: null,
+            contextualBg: '#FFFFFF',
             private: false,
             projectId: null,
             atomCategoryId: 0
@@ -91,7 +91,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         name: null,
                         html: null,
                         css: null,
-                        contextualBg: null,
+                        contextualBg: '#FFFFFF',
                         private: false,
                         projectId: null,
                         atomCategoryId: 0

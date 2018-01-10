@@ -120,7 +120,7 @@ export const clearFormAction = (): Action => {
                 name: null,
                 html: null,
                 css: null,
-                contextualBg: null,
+                contextualBg: '#FFFFFF',
                 private: false,
                 projectId: null,
                 atomCategoryId: 0
