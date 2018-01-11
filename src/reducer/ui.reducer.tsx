@@ -5,6 +5,8 @@ import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
 
+import { Basic as BasicColorModel } from '../models/color/color.model';
+
 
 /************************************/
 /*            INTERFACES            */
@@ -19,6 +21,9 @@ export interface IUiState {
         sourceCodeTab?: {
             tab: string
         }
+    };
+    colorPicker: {
+        currentColor: BasicColorModel
     };
     copied: {
         copiedType: string
@@ -42,6 +47,12 @@ const defaultState: IUiState = {
         },
         sourceCodeTab: {
             tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+        }
+    },
+    colorPicker: {
+        currentColor: {
+            hex: appConfig.SECONDARY_COLOR_HEX,
+            rgba: appConfig.SECONDARY_COLOR_RGBA
         }
     },
     copied: null,
@@ -78,6 +89,12 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     },
                     sourceCodeTab: {
                         tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                    }
+                },
+                colorPicker: {
+                    currentColor: {
+                        hex: appConfig.SECONDARY_COLOR_HEX,
+                        rgba: appConfig.SECONDARY_COLOR_RGBA
                     }
                 },
                 copied: null,
@@ -129,6 +146,20 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.tabs,
                     sourceCodeTab: {
                         tab: action.tabs.sourceCodeTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_COLOR: {
+            return {
+                ...state,
+                colorPicker: {
+                    ...state.colorPicker,
+                    currentColor: {
+                        ...state.colorPicker.currentColor,
+                        hex: action.colorPicker.currentColor.hex,
+                        rgba: action.colorPicker.currentColor.rgba
                     }
                 }
             };

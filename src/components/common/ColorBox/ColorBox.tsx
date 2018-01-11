@@ -3,8 +3,7 @@
 /************************************/
 import * as React from 'react';
 
-import { RgbaColor } from '../../../models/rgbaColor/rgbaColor.model';
-
+import { Basic as BasicColorModel } from '../../../models/color/color.model';
 
 // -----------------------------------
 
@@ -14,10 +13,7 @@ import { RgbaColor } from '../../../models/rgbaColor/rgbaColor.model';
 /********************************/
 
 /* Own Props */
-type ColorBoxProps = {
-    hex: string,
-    rgba: RgbaColor
-};
+type ColorBoxProps = BasicColorModel;
 
 
 /**

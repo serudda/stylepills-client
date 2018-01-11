@@ -29,6 +29,9 @@ export type CHANGE_SOURCE_CODE_TAB = typeof CHANGE_SOURCE_CODE_TAB;
 export const COPY_SOURCE_CODE = 'COPY_SOURCE_CODE';
 export type COPY_SOURCE_CODE = typeof COPY_SOURCE_CODE;
 
+export const CHANGE_COLOR = 'COLOR_PICKER::CHANGE_COLOR';
+export type CHANGE_COLOR = typeof CHANGE_COLOR;
+
 /* Auth Actions Type */
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export type LOGIN_REQUEST = typeof LOGIN_REQUEST;

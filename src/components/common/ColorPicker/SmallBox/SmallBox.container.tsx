@@ -3,7 +3,12 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
-import { TwitterPicker } from 'react-color';
+import { TwitterPicker, ColorResult } from 'react-color';
+
+import * as appConfig from './../../../../core/constants/app.constants';
+
+import { Basic as BasicColorModel } from './../../../../models/color/color.model';
+import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
 import Icon from './../../Icon/Icon';
 
@@ -16,14 +21,15 @@ import Icon from './../../Icon/Icon';
 
 /* Own Props */
 type SmallBoxContainerProps = {
-    defaultColor?: string;
-    onChange: (color: string) => void;
+    defaultHexColor?: string;
+    defaultRgbaColor?: RgbaColorModel;
+    onChange: (color: BasicColorModel) => void;
 };
 
 /* Own States */
 type LocalStates = {
     displayColorPicker: boolean;
-    color: string
+    color: BasicColorModel
 };
 
 /* Mapped State to Props */
@@ -45,7 +51,10 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
 
         this.state = {
             displayColorPicker: false,
-            color: props.defaultColor || '#33ADA9',
+            color: {
+                hex: props.defaultHexColor || appConfig.SECONDARY_COLOR_HEX,
+                rgba: props.defaultRgbaColor || null
+            }
         };
 
         // Bind methods
@@ -94,9 +103,14 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
      * @private
      * @returns {void}
      */
-    private _handleChange(color: any) {
-        this.setState({ color: color.hex }, () => {
-            this.props.onChange(color.hex);
+    private _handleChange(color: ColorResult) {
+        this.setState({ 
+            color: {
+                hex: color.hex,
+                rgba: color.rgb
+            }
+        }, () => {
+            this.props.onChange(this.state.color);
         });
     }
 
@@ -109,6 +123,7 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
 
         // Destructuring state
         const { color, displayColorPicker } = this.state;
+        const { hex } = color;
         
         
         /*         MARKUP          */
@@ -118,7 +133,7 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
 
                 <div className="SmallBox__swatch" onClick={this._handleClick}>
                     <div className="SmallBox__swatch__color"
-                         style={{backgroundColor: `${ color }`}} />
+                         style={{backgroundColor: `${ hex }`}} />
                     <Icon icon="chevronDown"
                         iconClass="icon stroke-secondary strokeWidth-3 ml-2"
                         width="15" height="15"/>
@@ -127,7 +142,7 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
                 { displayColorPicker &&
                     <div className="SmallBox__popover">
                         <div className="SmallBox__popover__cover" onClick={this._handleClose}/>
-                        <TwitterPicker color={color} onChange={this._handleChange} triangle="top-right"/>
+                        <TwitterPicker color={hex} onChange={this._handleChange} triangle="top-right"/>
                     </div>
                 }
 

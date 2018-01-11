@@ -2,7 +2,14 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect, Dispatch } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
+
+import { IRootState } from './../../../../../../../reducer/reducer.config';
+
+import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
+
+import { changeColorAction } from '../../../../../../../actions/ui.action';
 
 import SmallBoxContainer from './../../../../../../common/ColorPicker/SmallBox/SmallBox.container';
 import Iframe from './../../../../../../common/Iframe/Iframe.container';
@@ -30,18 +37,26 @@ type LocalStates = {
 /* Mapped State to Props */
 type StateProps = {};
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        ui: {
+            changeColor: (color: BasicColorModel) => void;
+        }
+    };
+};
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class PreviewSection
-extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: PreviewSectionProps & StateProps) {
+    constructor(props: PreviewSectionProps & StateProps & DispatchProps) {
         super(props);
 
         // Init local state
@@ -67,9 +82,8 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
      * @public
      * @returns {void}
      */
-    handleColorChange(color: string) {
-        // TODO: Enviar Action para que el Iframe se actualice
-        console.log(color);
+    handleColorChange(color: BasicColorModel) {
+        this.props.actions.ui.changeColor(color);
     }
 
 
@@ -90,7 +104,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
 
                 <div className="float-color-picker">
                     <SmallBoxContainer onChange={this.handleColorChange} 
-                                        defaultColor="#F9FAFC"/>
+                                        defaultHexColor="#F9FAFC"/>
                 </div>
                 
                 <div className="PreviewSection__content">
@@ -117,5 +131,38 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
 }
 
 
-/* Export */
-export default PreviewSection;
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    return {
+        search: state.search
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color))
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const previewSectionConnect = connect(mapStateToProps, mapDispatchToProps); 
+
+
+/*         EXPORT          */
+/***************************/
+export default compose(
+    previewSectionConnect
+)(PreviewSection);

@@ -5,8 +5,11 @@ import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 import { SketchPicker } from 'react-color';
 
+import * as appConfig from './../../../core/constants/app.constants';
+
 import Icon from './../../common/Icon/Icon';
 import { Color as ColorModel } from '../../../models/color/color.model';
+import { RgbaColor as RgbaColorModel } from './../../../models/rgbaColor/rgbaColor.model';
 import ColorsList from './../ColorsList/ColorsList';
 
 const ntc = require('ntcjs');
@@ -17,13 +20,6 @@ const ntc = require('ntcjs');
 /********************************/
 /*      INTERFACES & TYPES      */
 /********************************/
-
-type ColorRGBA = {
-    r: number,
-    g: number,
-    b: number,
-    a: number
-};
 
 /* Own Props */
 type AddColorFormProps = {
@@ -38,7 +34,7 @@ type AddColorFormProps = {
 /* Own States */
 type LocalStates = {
     displayColorPicker: boolean,
-    rgba: ColorRGBA,
+    rgba: RgbaColorModel,
     hex: string,
     name: string,
     showForm: boolean
@@ -68,12 +64,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
         // Init local state
         this.state = {
             displayColorPicker: false,
-            rgba: {
-                r: 253,
-                g: 249,
-                b: 128,
-                a: 100
-            },
+            rgba: appConfig.SECONDARY_COLOR_RGBA,
             hex: '',
             name: '',
             showForm: props.type === 'primary' ? true : false
@@ -260,7 +251,8 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
                     <div className="d-flex align-items-center mt-3">
 
-                        {/* Input: Color */}
+                        {/* Input: Color 
+                            TODO: Volverlo un common component: ColorPicker */}
                         <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--md mr-3">
                             
                             <div className="context" 
@@ -270,7 +262,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
                                     }}/>
                             
                             <input type="text" 
-                                    placeholder="#FDF980" 
+                                    placeholder={`${appConfig.SECONDARY_COLOR_HEX}`} 
                                     className="input" 
                                     value={hex}
                                     onClick={this._handleColorClick}

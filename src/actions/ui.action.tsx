@@ -9,6 +9,8 @@ import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
+import { Basic as BasicColorModel } from '../models/color/color.model';
+
 // NOTE: 1 - import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
 import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
 import { IAtomCodeProps } from '../reducer/atom.reducer';
@@ -59,6 +61,9 @@ interface ILocationChangeAction {
             tab: string | null
         }
     };
+    colorPicker: {
+        currentColor: BasicColorModel
+    };
     copied: null;
     duplicated: {
         atomId: number,
@@ -76,6 +81,9 @@ export interface IClearUiAction {
         sourceCodeTab: {
             tab: string | null
         }
+    };
+    colorPicker: {
+        currentColor: BasicColorModel
     };
     copied: null;
     duplicated: {
@@ -116,6 +124,13 @@ export interface IChangeSourceCodeTabAction {
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
+}
+
+export interface IChangeColorAction {
+    type: types.CHANGE_COLOR;
+    colorPicker: {
+        currentColor: BasicColorModel
+    };
 }
 
 export interface ICopySourceCodeAction {
@@ -163,6 +178,7 @@ export type Action =
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
+|   IChangeColorAction
 |   ICopySourceCodeAction
 |   IRequestDuplicateAtomAction
 |   IReceiveDuplicateAtomAction
@@ -190,6 +206,12 @@ export const clearUiAction = (): Action => {
             },
             sourceCodeTab: {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            }
+        },
+        colorPicker: {
+            currentColor: {
+                hex: appConfig.SECONDARY_COLOR_HEX,
+                rgba: appConfig.SECONDARY_COLOR_RGBA
             }
         },
         copied: null,
@@ -304,6 +326,25 @@ export const changeSourceCodeTabAction = (tab: string): Action => {
                     },
                 },
             },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_COLOR 
+ * to indicate that user wants to change color on colorPicker
+ * @function changeColorAction
+ * @returns {Action}
+ */
+export const changeColorAction = (color: BasicColorModel): Action => {
+    return {
+        type: types.CHANGE_COLOR,
+        colorPicker: {
+            currentColor: {
+                hex: color.hex,
+                rgba: color.rgba
+            }
         }
     };
 };

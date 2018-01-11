@@ -3,6 +3,7 @@
  * (e.g. server urls, domain, google Map Key, accessKeyIdS3, etc.)
  * @type constants
  */
+import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
 
 /* DEBUG */
 export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
@@ -51,3 +52,21 @@ export const DUPLICATE_MODAL_TYPE = 'DuplicateModal';
 
 /* Source Code Tabs (Atom Details) */
 export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';
+
+/* PRIMARY COLOR */
+export const PRIMARY_COLOR_HEX = '#FEEB6A';
+export const PRIMARY_COLOR_RGBA: RgbaColorModel = {
+    r: 254,
+    g: 235,
+    b: 106,
+    a: 1
+};
+
+/* SECONDARY COLOR: HEX */
+export const SECONDARY_COLOR_HEX = '#33ADA9';
+export const SECONDARY_COLOR_RGBA: RgbaColorModel = {
+    r: 51,
+    g: 173,
+    b: 169,
+    a: 1
+};
