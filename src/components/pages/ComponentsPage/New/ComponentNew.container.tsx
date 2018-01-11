@@ -15,7 +15,7 @@ import { nextStepAtomAction, prevStepAtomAction, skipStepAtomAction } from './..
 // import { createProjectAction } from './../../../../actions/project.action';
 // import { CreateProjectInput } from './../../../../models/project/project.mutation';
 
-import BasicFields from './Steps/BasicFields';
+import BasicFields from './Steps/BasicFields/BasicFields';
 import Confirmation from './Steps/Confirmation';
 import Success from './Steps/Success';
 

@@ -78,6 +78,8 @@
 @import '../../common/Modal/DuplicateModal/DuplicateModal';
 // NavbarOptions Component Style
 @import '../../common/NavbarOptions/NavbarOptions';
+// SmallBox (ColorPicker) Component Style
+@import '../../common/ColorPicker/SmallBox/SmallBox';
 // Pagination Buttons Component Style
 @import '../../common/PaginationBtns/PaginationBtns';
 // SidebarWrapper Component Style
@@ -94,5 +96,10 @@
 @import '../HomePage/HomePage';
 // User Stats Style (UserProfilePage)
 @import '../UserProfilePage/UserStats/UserStats';
+// Preview Section (ComponentNew)
+@import '../ComponentsPage/New/Steps/BasicFields/PreviewSection/PreviewSection';
+// Source Code Panel (ComponentNew)
+@import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/SourceCodePanel';
+
 
 

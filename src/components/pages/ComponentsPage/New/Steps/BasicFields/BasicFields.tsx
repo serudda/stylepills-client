@@ -6,11 +6,13 @@ import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
-import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 
-import { IRootState } from './../../../../../reducer/reducer.config';
+import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import Icon from '../../../../common/Icon/Icon';
+import PreviewSection from './PreviewSection/PreviewSection';
+import PanelSectionContainer from './PanelSection/PanelSection.container';
+import Icon from './../../../../../common/Icon/Icon';
 
 // -----------------------------------
 
@@ -27,15 +29,18 @@ type BasicFieldsProps = {
 /* Own States */
 type LocalStates = {
     fields: {
-        name: string,
-        website: string
+        name: string;
+        html: string;
+        css: string;
+        contextualBg: string;
+        projectId: number;
+        atomCategoryId: number;
+        private: boolean;
     }
 };
 
 /* Mapped State to Props */
 type StateProps = {
-    name: string,
-    website: string,
     isAuthenticated: boolean
 };
 
@@ -58,8 +63,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         // Init local state
         this.state = {
             fields: {
-                name: props.name || '',
-                website: props.website || ''
+                name: '',
+                html: '',
+                css: '',
+                contextualBg: '#FFFFFF',
+                projectId: null,
+                atomCategoryId: 0,
+                private: false
             }
         };
 
@@ -177,9 +187,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
 
                 {/* STEP BY STEP: CONTENT */}
-                <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
+                <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md">
 
-                    <form>
+                    {/* Basic information Form */}
+                    <form className="px-5 pt-5">
                         <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
                             COMPONENT NAME
                         </label>
@@ -188,42 +199,29 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                 value={this.state.fields.name}
                                 onChange={this._handleInputChange}
                                 className="sp-input sp-input--md sp-input--block"
-                                placeholder="e.g. Airbnb"/>
-                        
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
-                            PROJECT WEBSITE
-                        </label>
-                        <input type="text"
-                                name="website"
-                                value={this.state.fields.website}
-                                onChange={this._handleInputChange}
-                                className="sp-input sp-input--md sp-input--block" 
-                                placeholder="e.g. https://www.airbnb.com"/>
-
-                        <div className="sp-divider sp-divider--dashed sp-divider--smoke sp-divider--border-2 my-5" />
-
-                        <div className="switchContainer d-flex align-items-center mt-5">
-                            <div className="d-flex flex-column">
-                                <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                                    MAKE THIS PROJECT PRIVATE
-                                </div>
-                                <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                                    Hide this project from the public
-                                </div>
-                            </div>
-                            <button className="sp-btn sp-btn--primary sp-btn--sm ml-auto">
-                                Make private
-                            </button>
-                        </div>
+                                placeholder="e.g. Primary Button, Secondary Input"/>
 
                     </form>
+
+
+                    <div className="sp-divider sp-divider--dashed sp-divider--smoke sp-divider--border-2 mt-5" />
+
+
+                    {/* Preview Atom Section */}
+                    <PreviewSection html={this.state.fields.html}
+                                    css={this.state.fields.css} 
+                                    contextualBg={this.state.fields.contextualBg}/>
+
+                    {/* Panel Atom Section */}
+                    <PanelSectionContainer html={this.state.fields.html}
+                                           css={this.state.fields.css}/>
 
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
                     <button className="sp-btn sp-btn--secondary sp-btn--lg ml-auto"
                             onClick={this._handleNextClick}>
-                        Create
+                        Save
                     </button>
                 </div>
 
@@ -241,13 +239,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const { fields } = state.form.projectForm;
-    const { name, website } = fields;
     const { isAuthenticated } = state.auth;
 
     return {
-        name, 
-        website,
         isAuthenticated
     };
 }

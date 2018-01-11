@@ -2056,10 +2056,10 @@ NOTE: Boostrap 4 has a flex set
 .zIndex-modal {
   z-index: 9000; }
 
-.zIndex-overlay {
+.zIndex-overlay, .ComponentNew .PreviewSection .float-color-picker {
   z-index: 8000; }
 
-.zIndex-dropdown {
+.zIndex-dropdown, .ComponentNew .PreviewSection__content .cover-link {
   z-index: 7000; }
 
 .zIndex-header {
@@ -2903,7 +2903,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .sp-list--simple .item .icon-btn:hover, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
+.borderRadius-sm, .sp-list--simple .item .icon-btn:hover, .SmallBox__swatch, .SmallBox__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -4358,6 +4358,32 @@ body.duplicateModal-open .ui.dimmer {
   font-weight: 600;
   outline: none; }
 
+/**********************************************************/
+/*                SMALL BOX (COLOR PICKER)                */
+/**********************************************************/
+.SmallBox__swatch {
+  padding: 4px;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  cursor: pointer; }
+  .SmallBox__swatch__color {
+    width: 36px;
+    height: 25px; }
+
+.SmallBox__popover {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 45px; }
+  .SmallBox__popover__cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+
 .PaginationBtns {
   position: absolute;
   bottom: 20px;
@@ -4513,3 +4539,50 @@ body.duplicateModal-open .ui.dimmer {
 @media (max-width: 575.99px) {
   .UserProfilePage .UserStats__item__text {
     font-size: 12px; } }
+
+/**********************************************************/
+/*           ATOM DETAILS BOX (PREVIEW SECTION)           */
+/**********************************************************/
+.ComponentNew .PreviewSection {
+  position: relative; }
+  .ComponentNew .PreviewSection .float-color-picker {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
+  .ComponentNew .PreviewSection__content {
+    height: 0;
+    padding-top: 20%;
+    overflow: hidden;
+    position: relative; }
+    .ComponentNew .PreviewSection__content .cover-link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      border: 0 !important; }
+
+/**********************************************************/
+/*      SOURCE CODE (COMPONENT NEW - PREVIEW SECTION)     */
+/**********************************************************/
+.ComponentNew .CopyBtnContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
+.ComponentNew .SourceCode {
+  height: 450px; }
+  .ComponentNew .SourceCode .ReactCodeMirror {
+    height: 100%; }
+    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror {
+      font-size: 15px;
+      -webkit-font-smoothing: initial;
+      height: 100%;
+      background-color: #273444;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-gutters {
+      background-color: #273444; }
+    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
+      color: #3C4858; }

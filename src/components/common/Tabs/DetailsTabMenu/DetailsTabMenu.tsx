@@ -67,7 +67,6 @@ const DetailsTabMenu: React.SFC<DetailsTabMenuProps> = ({ ...props }) => {
         'TabMenu': true, 
         'sp-iconTabMenu': true, 
         'fontSmoothing-reset': true,
-        // 'sp-iconTabMenu--is-reversed': tab === 'code'
         'sp-iconTabMenu--is-reversed': props.isReversed
     });
 

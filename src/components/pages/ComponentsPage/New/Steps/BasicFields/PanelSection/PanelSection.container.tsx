@@ -7,11 +7,8 @@ import { compose, ChildProps } from 'react-apollo';
 
 import * as classNames from 'classnames';
 
-import { IRootState } from './../../../../reducer/reducer.config';
+import { IRootState } from './../../../../../../../reducer/reducer.config';
 
-import { Atom as AtomModel } from './../../../../models/atom/atom.model';
-
-import Stats from './Stats/Stats';
 import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
 
@@ -23,8 +20,9 @@ import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
 /********************************/
 
 /* Own Props */
-type PanelSectionProps = {
-    atom: AtomModel
+type PanelSectionContainerProps = {
+    html: string;
+    css: string;
 };
 
 /* Own States */
@@ -39,14 +37,14 @@ type StateProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class PanelSection 
-extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalStates> {
+class PanelSectionContainer 
+extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<PanelSectionProps & StateProps, {}>) {
+    constructor(props: ChildProps<PanelSectionContainerProps & StateProps, {}>) {
         super(props);
     }
 
@@ -57,7 +55,7 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
     render() {
 
         // Destructuring props
-        const { atom } = this.props;
+        const { html, css } = this.props;
         const { tab } = this.props;
 
         // Tab Menu Row Classes
@@ -81,25 +79,18 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
 
                 {/* Stats and Tab Menu Row */}
                 <div className={tabMenuRowClasses}>
-                    
-                    <div className="col-auto mr-auto">
-
-                        {/* Stats */}
-                        <Stats likes={atom.likes} stores={atom.stores} views={atom.views}/>
-
-                    </div>
 
                     <div className="col-auto">
 
                         {/* Tab Menu */}
-                        <TabMenuContainer atomId={atom.id}/>
+                        <TabMenuContainer />
 
                     </div>
                 </div>
 
                 {/* Source Code Section */}
                 {tab === 'code' && 
-                <SourceCodePanel atomId={atom.id} name={atom.name} html={atom.html} css={atom.css}/>}
+                <SourceCodePanel html={html} css={css}/>}
 
             </div>
         );
@@ -126,11 +117,11 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const panelSectionConnect = connect(mapStateToProps);
+const panelSectionContainerConnect = connect(mapStateToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    panelSectionConnect
-)(PanelSection);
+    panelSectionContainerConnect
+)(PanelSectionContainer);

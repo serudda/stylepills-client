@@ -1,0 +1,36 @@
+/**********************************************************/
+/*           ATOM DETAILS BOX (PREVIEW SECTION)           */
+/**********************************************************/
+
+.ComponentNew {
+
+    .PreviewSection {
+        position: relative;
+
+        .float-color-picker {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            @extend .zIndex-overlay;
+        }
+
+        &__content {
+            height: 0;
+            padding-top: 20%;
+            overflow: hidden;
+            position: relative;
+
+            .cover-link {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                border: 0 !important;
+                @extend .zIndex-dropdown;
+            }
+        }
+
+    }
+
+}
