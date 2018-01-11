@@ -195,18 +195,20 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                 
                 <div className="PreviewSection__content">
 
-                    <div className="d-flex align-items-center justify-content-center fontSize-xxl color-darkSmoke fontWeight-7 cover-link">
-                        <span>
-                            Component preview
-                        </span>
-                    </div>
+                    {html === '' && 
+                        <div className="d-flex align-items-center justify-content-center fontSize-xxl color-darkSmoke fontWeight-7 cover-link">
+                            <span>
+                                Component preview
+                            </span>
+                        </div>
+                    }
 
                     <div className="Iframe-wrapper">
                         <Iframe children={html} 
                                 css={css}
                                 title={'new'}
                                 background={hex}
-                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
+                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css']} />
                     </div>
 
                 </div>
