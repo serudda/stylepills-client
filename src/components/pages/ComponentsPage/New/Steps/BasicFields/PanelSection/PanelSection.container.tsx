@@ -80,10 +80,12 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
                 {/* Stats and Tab Menu Row */}
                 <div className={tabMenuRowClasses}>
 
-                    <div className="col-auto">
+                    <div className="d-flex col">
 
                         {/* Tab Menu */}
-                        <TabMenuContainer />
+                        <div className="ml-auto">
+                            <TabMenuContainer />
+                        </div>
 
                     </div>
                 </div>
