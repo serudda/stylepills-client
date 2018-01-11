@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
+import { Popup } from 'semantic-ui-react';
 
 import { IRootState } from './../../../../../../../reducer/reducer.config';
 
@@ -144,8 +145,20 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
             <div className="PreviewSection sp-bg-white border-6 borderColor-white">
 
                 <div className="float-color-picker">
-                    <SmallBoxContainer onChange={this.handleColorChange} 
+
+                    <Popup
+                        trigger={
+                            <div>
+                                <SmallBoxContainer onChange={this.handleColorChange} 
                                         defaultHexColor={this._DEFAULT_COLOR_HEX}/>
+                            </div>
+                        }
+                        position="top left"
+                        size="tiny"
+                        inverted={true}>
+                            Contextual background
+                    </Popup>
+
                 </div>
                 
                 <div className="PreviewSection__content">
