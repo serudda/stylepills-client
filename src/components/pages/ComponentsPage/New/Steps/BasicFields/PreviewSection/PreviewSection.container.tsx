@@ -22,10 +22,9 @@ import Iframe from './../../../../../../common/Iframe/Iframe.container';
 /********************************/
 
 /* Own Props */
-type PreviewSectionProps = {
+type PreviewSectionContainerProps = {
     html: string;
     css: string;
-    contextualBg: string;
 };
 
 /* Own States */
@@ -35,7 +34,9 @@ type LocalStates = {
 };
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    hex: string;
+};
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
@@ -49,14 +50,19 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class PreviewSection
-extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchProps, {}>, LocalStates> {
+class PreviewSectionContainer
+extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+
+    /********************************/
+    /*         STATIC PROPS         */
+    /********************************/
+    private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: PreviewSectionProps & StateProps & DispatchProps) {
+    constructor(props: PreviewSectionContainerProps & StateProps & DispatchProps) {
         super(props);
 
         // Init local state
@@ -67,6 +73,26 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchPr
 
         // Bind methods
         this.handleColorChange = this.handleColorChange.bind(this);
+    }
+
+
+    /********************************/
+    /*       COMPONENTDIDMOUNT      */
+    /********************************/
+    componentDidMount() {
+        
+        const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
+        const DEFAULT_COLOR_RGBA = {
+            r: 249, g: 250, b: 252, a: 1
+        };
+
+        const defaultColor: BasicColorModel = {
+            hex: DEFAULT_COLOR_HEX,
+            rgba: DEFAULT_COLOR_RGBA
+
+        };
+
+        this._changeColor(defaultColor);
     }
 
 
@@ -83,6 +109,21 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchPr
      * @returns {void}
      */
     handleColorChange(color: BasicColorModel) {
+        this._changeColor(color);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+    /**
+     * @desc Change Color of Color Picker
+     * @method _changeColor
+     * @example this._changeColor()
+     * @private 
+     * @returns {void}
+     */
+    private _changeColor(color: BasicColorModel) {
         this.props.actions.ui.changeColor(color);
     }
 
@@ -94,7 +135,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchPr
 
         // Destructuring state & props 
         const { html, css } = this.state;
-        const { contextualBg } = this.props;
+        const { hex } = this.props;
 
 
         /*         MARKUP          */
@@ -104,7 +145,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchPr
 
                 <div className="float-color-picker">
                     <SmallBoxContainer onChange={this.handleColorChange} 
-                                        defaultHexColor="#F9FAFC"/>
+                                        defaultHexColor={this._DEFAULT_COLOR_HEX}/>
                 </div>
                 
                 <div className="PreviewSection__content">
@@ -119,7 +160,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchPr
                         <Iframe children={html} 
                                 css={css}
                                 title={'new'}
-                                background={contextualBg}
+                                background={hex}
                                 stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
                     </div>
 
@@ -135,8 +176,15 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps & DispatchPr
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
+
+    // Destructuring state 
+    const { ui } = state;
+    const { colorPicker } = ui;
+    const { currentColor } = colorPicker;
+    const { hex } = currentColor;
+
     return {
-        search: state.search
+        hex
     };
 }
 
@@ -158,11 +206,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const previewSectionConnect = connect(mapStateToProps, mapDispatchToProps); 
+const previewSectionContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    previewSectionConnect
-)(PreviewSection);
+    previewSectionContainerConnect
+)(PreviewSectionContainer);

@@ -10,7 +10,7 @@ import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import PreviewSection from './PreviewSection/PreviewSection';
+import PreviewSection from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import Icon from './../../../../../common/Icon/Icon';
 
@@ -209,8 +209,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
                     {/* Preview Atom Section */}
                     <PreviewSection html={this.state.fields.html}
-                                    css={this.state.fields.css} 
-                                    contextualBg={this.state.fields.contextualBg}/>
+                                    css={this.state.fields.css}/>
 
                     {/* Panel Atom Section */}
                     <PanelSectionContainer html={this.state.fields.html}
