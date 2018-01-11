@@ -20,36 +20,6 @@ import { IAtomCodeProps } from '../reducer/atom.reducer';
 /*            INTERFACES            */
 /************************************/
 
-interface IModalEventPayLoad {
-    event: string;
-    properties?: {
-        modalType: string,
-        modalProps: any
-    };
-}
-
-interface IChangeTabEventPayLoad {
-    event: string;
-    properties: {
-        tab: string
-    };
-}
-
-interface ICopySourceCodeEventPayLoad {
-    event: string;
-    properties: {
-        copiedType: string
-    };
-}
-
-interface IDuplicateAtomEventPayLoad {
-    event: string;
-    properties: {
-        atomId: number,
-        isDuplicated: boolean
-    };
-}
-
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     modals: null;
@@ -92,6 +62,20 @@ export interface IClearUiAction {
     };
 }
 
+
+/* 
+    MODALS ACTIONS
+    state: modals
+*/
+
+interface IModalEventPayLoad {
+    event: string;
+    properties?: {
+        modalType: string,
+        modalProps: any
+    };
+}
+
 export interface IShowModalAction {
     type: types.SHOW_MODAL;
     modals: {
@@ -104,6 +88,18 @@ export interface IShowModalAction {
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
     meta: IAnalyticsTrack<IModalEventPayLoad>;
+}
+
+/* 
+    TABS ACTIONS
+    state: tabs
+*/
+
+interface IChangeTabEventPayLoad {
+    event: string;
+    properties: {
+        tab: string
+    };
 }
 
 export interface IChangeAtomDetailsTabAction {
@@ -126,10 +122,16 @@ export interface IChangeSourceCodeTabAction {
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
-export interface IChangeColorAction {
-    type: types.CHANGE_COLOR;
-    colorPicker: {
-        currentColor: BasicColorModel
+
+/* 
+    COPY ACTIONS
+    state: copied
+*/
+
+interface ICopySourceCodeEventPayLoad {
+    event: string;
+    properties: {
+        copiedType: string
     };
 }
 
@@ -139,6 +141,59 @@ export interface ICopySourceCodeAction {
         copiedType: string
     };
     meta: IAnalyticsTrack<ICopySourceCodeEventPayLoad>;
+}
+
+
+/* 
+    COLOR PICKER ACTIONS
+    state: colorPicker
+*/
+
+export interface IChangeColorAction {
+    type: types.CHANGE_COLOR;
+    colorPicker: {
+        currentColor: BasicColorModel
+    };
+}
+
+
+/* 
+    SOURCE CODE PANEL ACTIONS
+    state: sourceCodePanel
+*/
+
+export interface ICodeProps {
+    code: string;
+    libs?: Array<string>;
+}
+
+export interface ICurrentCode {
+    codeType: string; 
+    codeProps: ICodeProps;
+}
+
+export interface ISourceCodePanel {
+    currentCode: ICurrentCode;
+}
+
+export interface IChangeSourceCodeAction {
+    type: types.CHANGE_SOURCE_CODE;
+    sourceCodePanel: ISourceCodePanel;
+}
+
+
+/* 
+    ATOM ACTIONS
+    state: duplicated
+    TODO: Mover a atom.action
+*/
+
+interface IDuplicateAtomEventPayLoad {
+    event: string;
+    properties: {
+        atomId: number,
+        isDuplicated: boolean
+    };
 }
 
 export interface IRequestDuplicateAtomAction {
@@ -179,6 +234,7 @@ export type Action =
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
 |   IChangeColorAction
+|   IChangeSourceCodeAction
 |   ICopySourceCodeAction
 |   IRequestDuplicateAtomAction
 |   IReceiveDuplicateAtomAction
@@ -332,25 +388,6 @@ export const changeSourceCodeTabAction = (tab: string): Action => {
 
 
 /**
- * @desc Return an action type, CHANGE_COLOR 
- * to indicate that user wants to change color on colorPicker
- * @function changeColorAction
- * @returns {Action}
- */
-export const changeColorAction = (color: BasicColorModel): Action => {
-    return {
-        type: types.CHANGE_COLOR,
-        colorPicker: {
-            currentColor: {
-                hex: color.hex,
-                rgba: color.rgba
-            }
-        }
-    };
-};
-
-
-/**
  * @desc Return an action type, COPY_SOURCE_CODE 
  * to indicate that user wants to copy a source code block
  * @function copySourceCodeAction
@@ -372,6 +409,47 @@ export const copySourceCodeAction = (copiedType: string): Action => {
                     },
                 },
             },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_COLOR 
+ * to indicate that user wants to change color on colorPicker
+ * @function changeColorAction
+ * @param {BasicColorModel} color - new color object: hex and rgba properties
+ * @returns {Action}
+ */
+export const changeColorAction = (color: BasicColorModel): Action => {
+    return {
+        type: types.CHANGE_COLOR,
+        colorPicker: {
+            currentColor: {
+                hex: color.hex,
+                rgba: color.rgba
+            }
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * to indicate that user wants to change source code on SourceCodePanel
+ * @function changeSourceCodeAction
+ * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {any} codeProps - code properties (e.g. code, libs, etc)
+ * @returns {Action}
+ */
+export const changeSourceCodeAction = (codeType: string, codeProps: any): Action => {
+    return {
+        type: types.CHANGE_SOURCE_CODE,
+        sourceCodePanel: {
+            currentCode: {
+                codeType,
+                codeProps
+            }
         }
     };
 };

@@ -7,8 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../../../../../reducer/reducer.config';
 
-import { changeSourceCodeTabAction } from './../../../../../../../../actions/ui.action';
-import { changedAtomDetailsAction } from './../../../../../../../../actions/atom.action';
+import { changeSourceCodeTabAction, changeSourceCodeAction } from './../../../../../../../../actions/ui.action';
 
 import TabMenu from './../../../../../../../common/SourceCodePanel/TabMenu/TabMenu';
 import CopyBtnContainer from './CopyBtn/CopyBtn.container';
@@ -54,9 +53,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeSourceCodeTab: (tab: string) => void;
-        },
-        atomState: {
-            changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
+            changeSourceCode: (codeType: string, codeProps: any) => void;
         }
     };
 };
@@ -160,8 +157,8 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             [type]: newCode
         });
 
-        // Launch Atom details changed Action
-        // this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
+        // Launch Change Source Code UI Action
+        this.props.actions.ui.changeSourceCode(type, {code: newCode});
         
     }
 
@@ -205,10 +202,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
-                            {tab === 'html' && <CodeMirror value={this.state.html} 
+                            {tab === 'html' && <CodeMirror value={html} 
                                                             options={codeMirrorOptions} 
                                                             onChange={this.handleOnChange}/>}
-                            {tab === 'css' && <CodeMirror value={this.state.css} 
+                            {tab === 'css' && <CodeMirror value={css} 
                                                             options={codeMirrorOptions} 
                                                             onChange={this.handleOnChange}/>}
                         </div>
@@ -246,10 +243,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab))
-            },
-            atomState: {
-                changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps))
+                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab)),
+                changeSourceCode: (codeType, codeProps) => dispatch(changeSourceCodeAction(codeType, codeProps)),
             }
         }
     };

@@ -72,6 +72,8 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
             // To know if atomCode already exists on atom state
             let atomCodeAlreadyExists = functionsUtil.inArray(state.atomCode, 'codeType', codeType);
 
+            /* TODO: Todo este fragmento esta repetido en reducers/ui.reducer, deberiamos crear una funcion
+            global que haga esta operación */
             if (atomCodeAlreadyExists) {
                 newAtomCodeState = newAtomCodeState.map(
                     code => {
@@ -91,6 +93,8 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
                     codeProps
                 });
             }
+            /* TODO: Fin del fragmento */
+
 
             return {
                 ...state,
