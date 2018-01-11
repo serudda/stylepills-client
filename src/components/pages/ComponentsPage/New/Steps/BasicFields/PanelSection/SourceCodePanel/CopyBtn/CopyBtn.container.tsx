@@ -27,9 +27,7 @@ type CopyBtnContainerProps = {
 
 /* Own States */
 type LocalStates = {
-    copied: boolean,
-    html: string,
-    css: string
+    copied: boolean
 };
 
 /* Mapped State to Props */
@@ -60,9 +58,7 @@ extends React.Component<ChildProps<CopyBtnContainerProps & StateProps & Dispatch
 
         // Init local state
         this.state = {
-            copied: false,
-            html: props.atomHtml,
-            css: props.atomCss
+            copied: false
         };
 
         // Bind methods
@@ -123,16 +119,16 @@ extends React.Component<ChildProps<CopyBtnContainerProps & StateProps & Dispatch
     render() {
 
         // Destructuring props & state
-        const { currentTab } = this.props;
-        const { html, css, copied } = this.state;
+        const { currentTab, atomHtml, atomCss } = this.props;
+        const { copied } = this.state;
 
 
         /*         MARKUP          */
         /***************************/
         return (
             <div className="CopyBtnContainer zIndex-footer">
-                {currentTab === 'html' && <CopyToClipboardBtn text={html} copied={copied} onCopy={this._handleCopyClick} type="html"/>}
-                {currentTab === 'css' && <CopyToClipboardBtn text={css} copied={copied} onCopy={this._handleCopyClick} type="css"/>}
+                {currentTab === 'html' && <CopyToClipboardBtn text={atomHtml} copied={copied} onCopy={this._handleCopyClick} type="html"/>}
+                {currentTab === 'css' && <CopyToClipboardBtn text={atomCss} copied={copied} onCopy={this._handleCopyClick} type="css"/>}
             </div>
         );
     }

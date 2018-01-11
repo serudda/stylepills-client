@@ -38,7 +38,6 @@ type SourceCodePanelProps = {
 /* Own States */
 // TODO: Mirar si es posible remover los ?, no tiene sentido
 type LocalStates = {
-    copied?: boolean,
     html?: string,
     css?: string
 };
@@ -72,14 +71,13 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     constructor(props: SourceCodePanelProps & StateProps & DispatchProps) {
         super(props);
 
-        const DEFAULT_HTML_CODE = '<!-- Put your HTML code here -->';
-        const DEFAULT_CSS_CODE = '/* Put your CSS code here */';
+        // const DEFAULT_HTML_CODE = '<!-- Put your HTML code here -->';
+        // const DEFAULT_CSS_CODE = '/* Put your CSS code here */';
 
         // Init local state
-        this.state = {
-            copied: false,
-            html: props.html || DEFAULT_HTML_CODE,
-            css: props.css || DEFAULT_CSS_CODE
+        this.state = { 
+            html: props.html,
+            css: props.css
         };
 
         // Bind methods
@@ -155,10 +153,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         // Update local state
         this.setState({
             [type]: newCode
+        }, () => {
+            // Launch Change Source Code UI Action
+            this.props.actions.ui.changeSourceCode(type, {code: newCode});
         });
-
-        // Launch Change Source Code UI Action
-        this.props.actions.ui.changeSourceCode(type, {code: newCode});
         
     }
 
