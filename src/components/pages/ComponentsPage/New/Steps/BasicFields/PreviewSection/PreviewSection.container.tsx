@@ -59,6 +59,18 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*         STATIC PROPS         */
     /********************************/
     private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
+    private _DEFAULT_COLORS_LIST: Array<string> = [
+        '#273444', 
+        '#3C4858', 
+        '#8492A6', 
+        '#E0E6ED', 
+        '#EFF2F7',
+        '#976B55',
+        '#7BDCB5', 
+        '#0693E3', 
+        '#FFF78A', 
+        '#EC7D7D'
+    ];
 
 
     /********************************/
@@ -182,7 +194,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                         trigger={
                             <div>
                                 <SmallBoxContainer onChange={this.handleColorChange} 
-                                        defaultHexColor={this._DEFAULT_COLOR_HEX}/>
+                                        defaultHexColor={this._DEFAULT_COLOR_HEX}
+                                        defaultColors={this._DEFAULT_COLORS_LIST}/>
                             </div>
                         }
                         position="top left"

@@ -23,13 +23,15 @@ import Icon from './../../Icon/Icon';
 type SmallBoxContainerProps = {
     defaultHexColor?: string;
     defaultRgbaColor?: RgbaColorModel;
+    defaultColors?: Array<string>;
     onChange: (color: BasicColorModel) => void;
 };
 
 /* Own States */
 type LocalStates = {
     displayColorPicker: boolean;
-    color: BasicColorModel
+    color: BasicColorModel;
+    defaultColors: Array<string>;
 };
 
 /* Mapped State to Props */
@@ -54,7 +56,8 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
             color: {
                 hex: props.defaultHexColor || appConfig.SECONDARY_COLOR_HEX,
                 rgba: props.defaultRgbaColor || null
-            }
+            },
+            defaultColors: props.defaultColors
         };
 
         // Bind methods
@@ -122,7 +125,7 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
 
 
         // Destructuring state
-        const { color, displayColorPicker } = this.state;
+        const { color, defaultColors, displayColorPicker } = this.state;
         const { hex } = color;
         
         
@@ -142,7 +145,10 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
                 { displayColorPicker &&
                     <div className="SmallBox__popover">
                         <div className="SmallBox__popover__cover" onClick={this._handleClose}/>
-                        <TwitterPicker color={hex} onChange={this._handleChange} triangle="top-right"/>
+                        <TwitterPicker color={hex} 
+                                        colors={defaultColors}
+                                        onChange={this._handleChange} 
+                                        triangle="top-right"/>
                     </div>
                 }
 
