@@ -2903,7 +2903,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .sp-list--simple .item .icon-btn:hover, .SmallBox__swatch, .SmallBox__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
+.borderRadius-sm, .sp-switch-btn--square, .sp-switch-btn--square .inner-btn, .sp-list--simple .item .icon-btn:hover, .SmallBox__swatch, .SmallBox__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -2918,7 +2918,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 10px;
   border-radius: 10px; }
 
-.borderRadius-circle {
+.borderRadius-circle, .sp-switch-btn--circle .inner-btn {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%; }
@@ -3449,6 +3449,84 @@ NOTE: Boostrap 4 has a flex set
     -webkit-border-radius: 0 4px 4px 0;
     -moz-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0; }
+
+/* SWITCH BUTTON */
+.sp-switch-btn {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  -webkit-transition: background-color .40s ease-in-out;
+  -moz-transition: background-color .40s ease-in-out;
+  -o-transition: background-color .40s ease-in-out;
+  transition: background-color .40s ease-in-out; }
+  .sp-switch-btn--sm {
+    width: 55px;
+    height: 30px; }
+    .sp-switch-btn--sm.active .inner-btn {
+      left: 31px; }
+    .sp-switch-btn--sm .inner-btn {
+      width: 18px;
+      height: 18px;
+      left: 6px;
+      margin-top: -9px; }
+  .sp-switch-btn--md {
+    width: 70px;
+    height: 40px; }
+    .sp-switch-btn--md.active .inner-btn {
+      left: 37px; }
+    .sp-switch-btn--md .inner-btn {
+      width: 26px;
+      height: 26px;
+      left: 7px;
+      margin-top: -13px; }
+  .sp-switch-btn--lg {
+    width: 90px;
+    height: 48px; }
+    .sp-switch-btn--lg.active .inner-btn {
+      left: 48px; }
+    .sp-switch-btn--lg .inner-btn {
+      width: 34px;
+      height: 34px;
+      left: 7px;
+      margin-top: -17px; }
+  .sp-switch-btn--on-primary.active {
+    background-color: #FEEB6A; }
+    .sp-switch-btn--on-primary.active .inner-btn {
+      background-color: #FFFFFF; }
+  .sp-switch-btn--on-secondary.active {
+    background-color: #33ADA9; }
+    .sp-switch-btn--on-secondary.active .inner-btn {
+      background-color: #FFFFFF; }
+  .sp-switch-btn--off-neutral {
+    background-color: #E0E6ED; }
+    .sp-switch-btn--off-neutral .inner-btn {
+      background-color: #FFFFFF; }
+  .sp-switch-btn--off-white {
+    background-color: #FFFFFF; }
+    .sp-switch-btn--off-white .inner-btn {
+      background-color: #D3DCE6; }
+  .sp-switch-btn--circle {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px; }
+  .sp-switch-btn .inner-btn {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: all .30s ease-in-out;
+    -moz-transition: all .30s ease-in-out;
+    -o-transition: all .30s ease-in-out;
+    transition: all .30s ease-in-out; }
+  .sp-switch-btn .cb-value {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 9;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; }
 
 /**********************************************************/
 /*                        DIVIDER                         */

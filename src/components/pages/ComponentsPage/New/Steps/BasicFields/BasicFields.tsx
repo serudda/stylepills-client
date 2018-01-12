@@ -271,7 +271,18 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
                 </div>
 
-                <div className="StepByStep__footer d-flex align-items-start mt-4">
+                <div className="StepByStep__footer d-flex align-items-center mt-4">
+
+                    <div className="make-it-private-container d-flex align-items-center">
+                        <div className="sp-switch-btn sp-switch-btn--md sp-switch-btn--on-primary sp-switch-btn--off-white boxShadow-close sp-switch-btn--circle">
+                            <input type="checkbox"  checked={false} className="cb-value" />
+                            <span className="inner-btn boxShadow-subtle" />
+                        </div>
+                        <span className="fontFamily-openSans fontWeight-6 fontSize-sm color-silver ml-3">
+                            Hide this component from the public
+                        </span>
+                    </div>
+
                     <button className="sp-btn sp-btn--secondary sp-btn--lg ml-auto"
                             onClick={this._handleNextClick}>
                         Save

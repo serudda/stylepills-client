@@ -209,9 +209,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                     Hide this project from the public
                                 </div>
                             </div>
-                            <button className="sp-btn sp-btn--primary sp-btn--sm ml-auto">
-                                Make private
-                            </button>
+                            <div className="sp-switch-btn sp-switch-btn--sm sp-switch-btn--on-primary sp-switch-btn--off-neutral sp-switch-btn--circle ml-auto active">
+                                <input type="checkbox"  checked={false} className="cb-value" />
+                                <span className="inner-btn boxShadow-subtle" />
+                            </div>
                         </div>
 
                     </form>

@@ -71,13 +71,13 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     constructor(props: SourceCodePanelProps & StateProps & DispatchProps) {
         super(props);
 
-        // const DEFAULT_HTML_CODE = '<!-- Put your HTML code here -->';
-        // const DEFAULT_CSS_CODE = '/* Put your CSS code here */';
+        const DEFAULT_HTML_CODE = '<!-- Put your HTML code here -->';
+        const DEFAULT_CSS_CODE = '/* Put your CSS code here */';
 
         // Init local state
         this.state = { 
-            html: props.html,
-            css: props.css
+            html: props.html || DEFAULT_HTML_CODE,
+            css: props.css || DEFAULT_CSS_CODE
         };
 
         // Bind methods
