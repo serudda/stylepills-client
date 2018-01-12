@@ -74,6 +74,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
             fieldValues: {
                 authorId: null,
                 name: null,
+                description: null,
                 html: null,
                 css: null,
                 contextualBg: '#FFFFFF',

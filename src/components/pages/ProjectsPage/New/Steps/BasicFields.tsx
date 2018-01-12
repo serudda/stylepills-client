@@ -28,7 +28,8 @@ type BasicFieldsProps = {
 type LocalStates = {
     fields: {
         name: string,
-        website: string
+        website: string,
+        description: string
     }
 };
 
@@ -36,6 +37,7 @@ type LocalStates = {
 type StateProps = {
     name: string,
     website: string,
+    description: string,
     isAuthenticated: boolean
 };
 
@@ -59,7 +61,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         this.state = {
             fields: {
                 name: props.name || '',
-                website: props.website || ''
+                website: props.website || '',
+                description: props.description || ''
             }
         };
 
@@ -179,43 +182,50 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 {/* STEP BY STEP: CONTENT */}
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
-                    <form>
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                            PROJECT NAME
-                        </label>
-                        <input type="text"
-                                name="name"
-                                value={this.state.fields.name}
-                                onChange={this._handleInputChange}
-                                className="sp-input sp-input--md sp-input--block"
-                                placeholder="e.g. Airbnb"/>
-                        
-                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
-                            PROJECT WEBSITE
-                        </label>
-                        <input type="text"
-                                name="website"
-                                value={this.state.fields.website}
-                                onChange={this._handleInputChange}
-                                className="sp-input sp-input--md sp-input--block" 
-                                placeholder="e.g. https://www.airbnb.com"/>
+                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                        PROJECT NAME
+                    </label>
+                    <input type="text"
+                            name="name"
+                            value={this.state.fields.name}
+                            onChange={this._handleInputChange}
+                            className="sp-input sp-input--md sp-input--block"
+                            placeholder="e.g. Airbnb"/>
+                    
+                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
+                        PROJECT WEBSITE
+                    </label>
+                    <input type="text"
+                            name="website"
+                            value={this.state.fields.website}
+                            onChange={this._handleInputChange}
+                            className="sp-input sp-input--md sp-input--block" 
+                            placeholder="e.g. https://www.airbnb.com"/>
+                    
+                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
+                        DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
+                    </label>
+                    <textarea name="description"
+                            value={this.state.fields.description}
+                            onChange={this._handleInputChange}
+                            className="sp-textarea sp-textarea--md sp-textarea--block"
+                            placeholder="e.g. Airbnb is a trusted community marketplace for people to list, discover, and book unique accommodation around the world"
+                            rows={3} cols={40} />
 
-                        <div className="switchContainer d-flex align-items-center mt-5">
-                            <div className="d-flex flex-column">
-                                <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                                    MAKE THIS PROJECT PRIVATE
-                                </div>
-                                <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                                    Hide this project from the public
-                                </div>
+                    <div className="switchContainer d-flex align-items-center mt-5">
+                        <div className="d-flex flex-column">
+                            <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                                MAKE THIS PROJECT PRIVATE
                             </div>
-                            <div className="sp-switch-btn sp-switch-btn--sm sp-switch-btn--on-primary sp-switch-btn--off-neutral sp-switch-btn--circle ml-auto active">
-                                <input type="checkbox"  checked={false} className="cb-value" />
-                                <span className="inner-btn boxShadow-subtle" />
+                            <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
+                                Hide this project from the public
                             </div>
                         </div>
-
-                    </form>
+                        <div className="sp-switch-btn sp-switch-btn--sm sp-switch-btn--on-primary sp-switch-btn--off-neutral sp-switch-btn--circle ml-auto active">
+                            <input type="checkbox"  checked={false} className="cb-value" />
+                            <span className="inner-btn boxShadow-subtle" />
+                        </div>
+                    </div>
 
                 </div>
 
@@ -241,12 +251,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 function mapStateToProps(state: IRootState): StateProps {
     
     const { fields } = state.form.projectForm;
-    const { name, website } = fields;
+    const { name, website, description } = fields;
     const { isAuthenticated } = state.auth;
 
     return {
         name, 
         website,
+        description,
         isAuthenticated
     };
 }

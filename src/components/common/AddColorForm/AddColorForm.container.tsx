@@ -220,7 +220,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
         /***************************/
         return (
 
-            <form className="AddColorForm">
+            <div className="AddColorForm">
 
                 <div className="d-flex align-items-center">
 
@@ -311,7 +311,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
                 
                 <ColorsList colors={colors} onDelete={this._handleDeleteClick}/>
 
-            </form>
+            </div>
         );
 
     }

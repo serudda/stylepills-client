@@ -76,6 +76,7 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
                 authorId: null,
                 name: null,
                 website: null,
+                description: null,
                 colorPalette: [],
                 private: false,
                 projectCategoryId: 1 // TODO: Magic number
