@@ -6,8 +6,8 @@ import gql from 'graphql-tag';
 import { IAtomPaginated } from '../global/pagination.interface';
 
 import { CURSOR_FRAGMENT } from '../global/pagination.fragment';
-import { ATOM_FRAGMENT } from './atom.fragment';
-import { Atom as AtomModel } from './atom.model';
+import { ATOM_FRAGMENT, BASIC_ATOM_FRAGMENT } from './atom.fragment';
+import { Atom as AtomModel, Basic } from './atom.model';
 
 
 // -----------------------------------
@@ -212,4 +212,30 @@ export type SearchAtomQueryOptions = {
 
 export type SearchAtomsResponse = {
     searchAtoms: IAtomPaginated;
+};
+
+
+// --------------------------------
+
+
+/**
+ * @desc Get Atoms by User Id (Basic Info)
+ * @method Method basicAtomsByUserId
+ * @public
+ * @returns {Array<Atom>} Atoms List of a specific user
+ */
+export const GET_BASIC_ATOMS_BY_USER_ID_QUERY = gql`
+query getBasicAtomsByUserId ($userId: ID!) {
+    basicAtomsByUserId(userId: $userId) {
+        ...BasicAtomFragment
+    }
+}
+${BASIC_ATOM_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type GetBasicAtomsByUserIdResponse = {
+    basicAtomsByUserId: Array<Basic>;
 };
