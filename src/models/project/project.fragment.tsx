@@ -24,6 +24,7 @@ export const PROJECT_FRAGMENT = gql`
     fragment ProjectFragment on Project {
         ...BasicProjectFragment
         website
+        description
         colorPalette {
             ...ColorFragment
         }

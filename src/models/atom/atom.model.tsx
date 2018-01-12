@@ -13,6 +13,7 @@ import { AtomCategory } from '../atomCategory/atomCategory.model';
 export type Atom = {
     id: number | null;
     name: string;
+    description: string;
     html: string;
     css: string;
     contextualBg: string;

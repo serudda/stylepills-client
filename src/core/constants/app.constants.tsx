@@ -53,6 +53,15 @@ export const DUPLICATE_MODAL_TYPE = 'DuplicateModal';
 /* Source Code Tabs (Atom Details) */
 export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';
 
+/* WHITE COLOR */
+export const WHITE_COLOR_HEX = '#FFFFFF';
+export const WHITE_COLOR_RGBA: RgbaColorModel = {
+    r: 255,
+    g: 255,
+    b: 255,
+    a: 1
+};
+
 /* PRIMARY COLOR */
 export const PRIMARY_COLOR_HEX = '#FEEB6A';
 export const PRIMARY_COLOR_RGBA: RgbaColorModel = {
@@ -62,7 +71,7 @@ export const PRIMARY_COLOR_RGBA: RgbaColorModel = {
     a: 1
 };
 
-/* SECONDARY COLOR: HEX */
+/* SECONDARY COLOR */
 export const SECONDARY_COLOR_HEX = '#33ADA9';
 export const SECONDARY_COLOR_RGBA: RgbaColorModel = {
     r: 51,

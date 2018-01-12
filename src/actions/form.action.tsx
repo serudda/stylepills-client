@@ -108,6 +108,7 @@ export const clearFormAction = (): Action => {
                 authorId: null,
                 name: null,
                 website: null,
+                description: null,
                 colorPalette: [],
                 private: false,
                 projectCategoryId: 1 // TODO: Magic number
@@ -118,6 +119,7 @@ export const clearFormAction = (): Action => {
             fields: {
                 authorId: null,
                 name: null,
+                description: null,
                 html: null,
                 css: null,
                 contextualBg: '#FFFFFF',

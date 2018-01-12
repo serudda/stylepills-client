@@ -16,6 +16,7 @@ export const ATOM_FRAGMENT = gql`
     fragment AtomFragment on Atom {
         id
         name
+        description
         html
         css
         contextualBg

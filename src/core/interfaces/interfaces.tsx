@@ -12,6 +12,7 @@ import { Color as ColorModel } from './../../models/color/color.model';
 export interface IAtomFormFields {
     authorId: number;
     name: string;
+    description: string;
     html: string;
     css: string;
     contextualBg: string;
@@ -23,6 +24,7 @@ export interface IAtomFormFields {
 export interface IProjectFormFields {
     authorId: number;
     name: string;
+    description: string;
     website: string;
     colorPalette: Array<ColorModel>;
     private: boolean;

@@ -4,6 +4,8 @@
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/form.action';
 
+import * as appConfig from '../core/constants/app.constants';
+
 import { IAtomFormFields, IProjectFormFields } from './../core/interfaces/interfaces';
 
 
@@ -31,6 +33,7 @@ const defaultState: IFormState = {
             authorId: null,
             name: null,
             website: null,
+            description: null,
             colorPalette: [],
             private: false,
             projectCategoryId: 1 // TODO: Magic number
@@ -41,9 +44,10 @@ const defaultState: IFormState = {
         fields: {
             authorId: null,
             name: null,
+            description: null,
             html: null,
             css: null,
-            contextualBg: '#FFFFFF',
+            contextualBg: appConfig.WHITE_COLOR_HEX,
             private: false,
             projectId: null,
             atomCategoryId: 0
@@ -79,6 +83,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         authorId: null,
                         name: null,
                         website: null,
+                        description: null,
                         colorPalette: [],
                         private: false,
                         projectCategoryId: 1 // TODO: Magic number
@@ -89,9 +94,10 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                     fields: {
                         authorId: null,
                         name: null,
+                        description: null,
                         html: null,
                         css: null,
-                        contextualBg: '#FFFFFF',
+                        contextualBg: appConfig.WHITE_COLOR_HEX,
                         private: false,
                         projectId: null,
                         atomCategoryId: 0
@@ -110,6 +116,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         ...state.atomForm.fields,
                         authorId: action.fieldValues.authorId,
                         name: action.fieldValues.name,
+                        description: action.fieldValues.description,
                         html: action.fieldValues.html,
                         css: action.fieldValues.css,
                         contextualBg: action.fieldValues.contextualBg,
@@ -150,6 +157,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         authorId: action.fieldValues.authorId,
                         name: action.fieldValues.name,
                         website: action.fieldValues.website,
+                        description: action.fieldValues.description,
                         colorPalette: action.fieldValues.colorPalette
                     },
                     step: state.projectForm.step + 1
