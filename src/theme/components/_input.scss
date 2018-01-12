@@ -58,6 +58,49 @@
     }
 }
 
+
+/* TEXTAREA INPUT */
+.sp-textarea {
+    @include input;
+
+    &::-moz-placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &::-webkit-input-placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &::placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &:focus {
+        border-color: map-get($color, secondary);
+        outline: 0;
+    }
+
+    &--sm {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    &--md {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+
+    &--lg {
+        padding: 16px;
+        font-size: 16px;
+    }
+
+    &--block {
+        width: 100%;
+    }
+
+}
+
 /* SEARCH INPUT */
 .sp-search {
     display: flex;

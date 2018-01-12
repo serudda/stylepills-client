@@ -3507,6 +3507,39 @@ NOTE: Boostrap 4 has a flex set
   .sp-input--block {
     width: 100%; }
 
+/* TEXTAREA INPUT */
+.sp-textarea {
+  border: 1px solid #C0CCDA;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  background-color: #FFFFFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #3C4858;
+  display: block; }
+  .sp-textarea::-moz-placeholder  {
+    color: #C0CCDA; }
+  .sp-textarea::-webkit-input-placeholder {
+    color: #C0CCDA; }
+  .sp-textarea::placeholder {
+    color: #C0CCDA; }
+  .sp-textarea:focus {
+    border-color: #33ADA9;
+    outline: 0; }
+  .sp-textarea--sm {
+    padding: 10px;
+    font-size: 13px; }
+  .sp-textarea--md {
+    padding: 10px 14px;
+    font-size: 15px; }
+  .sp-textarea--lg {
+    padding: 16px;
+    font-size: 16px; }
+  .sp-textarea--block {
+    width: 100%; }
+
 /* SEARCH INPUT */
 .sp-search {
   display: flex;

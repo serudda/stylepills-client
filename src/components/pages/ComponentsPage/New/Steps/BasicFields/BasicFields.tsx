@@ -30,6 +30,7 @@ type BasicFieldsProps = {
 type LocalStates = {
     fields: {
         name: string;
+        description: string;
         html: string;
         css: string;
         contextualBg: string;
@@ -64,6 +65,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         this.state = {
             fields: {
                 name: '',
+                description: '',
                 html: '',
                 css: '',
                 contextualBg: '#FFFFFF',
@@ -200,6 +202,58 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                 onChange={this._handleInputChange}
                                 className="sp-input sp-input--md sp-input--block"
                                 placeholder="e.g. Primary Button, Secondary Input"/>
+                        
+                        <div className="row mt-4">
+                            <div className="col-6">
+                                <div className="d-flex flex-column">
+                                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                                        CATEGORY
+                                    </label>
+                                    <div className="sp-select-container d-flex flex-row">
+                                        <select className="sp-select sp-select--md sp-select--input w-100"
+                                                name="categories">
+                                            <option value="All">All</option>
+                                            <option value="Buttons" selected={true}>Buttons</option>
+                                            <option value="Inputs">Inputs</option>
+                                            <option value="Navbars">Navbars Options Large</option>
+                                        </select>
+                                        <Icon icon="chevronDown"
+                                            iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                                            width="15" height="15"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-6">
+                                <div className="d-flex flex-column">
+                                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                                        PROJECT
+                                    </label>
+                                    <div className="sp-select-container d-flex flex-row">
+                                        <select className="sp-select sp-select--md sp-select--input w-100"
+                                                name="categories">
+                                            <option value="All">All</option>
+                                            <option value="Buttons" selected={true}>Buttons</option>
+                                            <option value="Inputs">Inputs</option>
+                                            <option value="Navbars">Navbars Options Large</option>
+                                        </select>
+                                        <Icon icon="chevronDown"
+                                            iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                                            width="15" height="15"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
+                            DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
+                        </label>
+                        <textarea name="description"
+                                value={this.state.fields.description}
+                                onChange={this._handleInputChange}
+                                className="sp-textarea sp-textarea--md sp-textarea--block"
+                                placeholder="e.g. Primary Button, Secondary Input"
+                                rows={3} cols={40} />
 
                     </form>
 
