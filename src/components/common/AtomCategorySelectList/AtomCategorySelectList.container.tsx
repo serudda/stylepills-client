@@ -96,7 +96,19 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
         /*       VALIDATIONS       */
         /***************************/
         if (data.loading) {
-            return (<option>loading</option>);
+            return (
+                <div className="AtomCategorySelectList">
+                    <div className="sp-select-container d-flex flex-row">
+                        <select className="sp-select sp-select--md sp-select--input w-100"
+                                name="atomCategoryId">
+                            <option value="0" disabled={true}>Loading</option>
+                        </select>
+                        <Icon icon="chevronDown"
+                            iconClass="icon stroke-secondary strokeWidth-3 ml-1"
+                            width="15" height="15"/>
+                    </div>
+                </div>
+            );
         }
             
         

@@ -273,7 +273,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                             </div>
 
                             <div className="col-6">
-                                <div className="d-flex flex-column">
+                                <div className="d-flex flex-column h-100">
                                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
                                         PROJECT
                                     </label>
