@@ -255,7 +255,7 @@ function mapStateToProps(state: IRootState): StateProps {
     const { isAuthenticated } = state.auth;
 
     return {
-        name, 
+        name,
         website,
         description,
         isAuthenticated

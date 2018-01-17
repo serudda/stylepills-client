@@ -10,8 +10,11 @@ import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
+import { ICurrentCode } from './../../../../../../actions/ui.action';
+
 import PreviewSection from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
+import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
 import Icon from './../../../../../common/Icon/Icon';
 
 // -----------------------------------
@@ -42,6 +45,16 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
+    name: string,
+    description: string,
+    html: string,
+    css: string,
+    contextualBg: string,
+    projectId: number | null,
+    atomCategoryId: number,
+    private: boolean,
+    currentCode: Array<ICurrentCode>,
+    hex: string,
     isAuthenticated: boolean
 };
 
@@ -64,20 +77,58 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         // Init local state
         this.state = {
             fields: {
-                name: '',
-                description: '',
-                html: '',
-                css: '',
-                contextualBg: '#FFFFFF',
-                projectId: null,
-                atomCategoryId: 0,
-                private: false
+                name: props.name || '',
+                description: props.description || '',
+                html: props.html || '',
+                css: props.css || '',
+                contextualBg: props.hex || '#FFFFFF',
+                projectId: props.projectId || null,
+                atomCategoryId: props.atomCategoryId || 0,
+                private: props.private || false
             }
         };
 
         // Bind methods
         this._handleInputChange = this._handleInputChange.bind(this);
         this._handleNextClick =  this._handleNextClick.bind(this);
+        this.handleAtomCategoryChange =  this.handleAtomCategoryChange.bind(this);
+    }
+
+
+    /********************************/
+    /*        PUBLIC METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc Handle Atom Category Change
+     * @method handleAtomCategoryChange
+     * @public
+     * @param {any} e - Event
+     * @returns {void}
+     */
+    handleAtomCategoryChange (e: React.ChangeEvent<HTMLSelectElement>) {
+
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
+
+        // CONSTANTS
+        const RADIX = 10;
+
+
+        // Parse to Int if value is String
+        if (typeof value === 'string') {
+            parseInt(value, RADIX);
+        }        
+
+        this.setState((previousState: LocalStates) => ({
+            ...previousState,
+            fields: {
+                ...previousState.fields,
+                [name]: value
+            }
+        }));
     }
 
 
@@ -206,21 +257,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                         <div className="row mt-4">
                             <div className="col-6">
                                 <div className="d-flex flex-column">
+
                                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
                                         CATEGORY
                                     </label>
-                                    <div className="sp-select-container d-flex flex-row">
-                                        <select className="sp-select sp-select--md sp-select--input w-100"
-                                                name="categories">
-                                            <option value="All">All</option>
-                                            <option value="Buttons" selected={true}>Buttons</option>
-                                            <option value="Inputs">Inputs</option>
-                                            <option value="Navbars">Navbars Options Large</option>
-                                        </select>
-                                        <Icon icon="chevronDown"
-                                            iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                                            width="15" height="15"/>
-                                    </div>
+
+                                    <AtomCategorySelectList onChange={this.handleAtomCategoryChange}/>
+
                                 </div>
                             </div>
 
@@ -303,9 +346,30 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
+    // Destructuring state 
+    const { ui } = state;
+    const { colorPicker } = ui;
+    const { currentColor } = colorPicker;
+    const { hex } = currentColor;
+
+    const { fields } = state.form.atomForm;
+    const { name, description, html, css, contextualBg, projectId, atomCategoryId } = fields;
+
     const { isAuthenticated } = state.auth;
 
+    const { currentCode } = state.ui.sourceCodePanel;
+
     return {
+        name,
+        description,
+        html,
+        css,
+        contextualBg,
+        projectId,
+        atomCategoryId,
+        private: fields.private,
+        currentCode,
+        hex,
         isAuthenticated
     };
 }

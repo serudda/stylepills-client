@@ -7,6 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 import { Popup } from 'semantic-ui-react';
 
 import { IRootState } from './../../../../../../../reducer/reducer.config';
+import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
 
@@ -116,7 +117,9 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     componentWillReceiveProps(nextProps: PreviewSectionContainerProps & StateProps) {   
         const { currentCode } = nextProps;
 
-        this._getSourceCode(currentCode);
+        let obj = functionsUtil.sourceCodeArrayToObj(currentCode);
+
+        this.setState(obj);
     }
 
 
@@ -151,25 +154,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
      */
     private _changeColor(color: BasicColorModel) {
         this.props.actions.ui.changeColor(color);
-    }
-
-
-    /**
-     * @desc Get Source Code from currentCode (sourceCodePanel state on Store)
-     * @method _getSourceCode
-     * @example this._getSourceCode()
-     * @private 
-     * @returns {void}
-     */
-    private _getSourceCode(currentCode: Array<ICurrentCode>) {
-
-        let obj = {};
-
-        currentCode.forEach((code) => {
-            obj[code.codeType] = code.codeProps.code;
-        });
-
-        this.setState(obj);
     }
 
 

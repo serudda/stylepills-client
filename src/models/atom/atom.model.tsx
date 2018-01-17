@@ -15,6 +15,11 @@ export type Basic = {
     name: string;
 };
 
+export type SourceCode = {
+    html: string,
+    css: string
+};
+
 export type Atom = {
     id: number | null;
     name: string;
