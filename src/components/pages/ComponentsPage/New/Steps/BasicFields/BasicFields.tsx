@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
+import * as classNames from 'classnames';
+
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
@@ -137,9 +139,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @param {any} e - Event
      * @returns {void}
      */
-    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
         const target = e.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState((previousState: LocalStates) => ({
@@ -157,10 +159,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @method _handleNextClick
      * @example this._handleNextClick()
      * @private
-     * @param {React.FormEvent<{}>} e - Event
+     * @param {React.MouseEvent<HTMLButtonElement>} e - Event
      * @returns {void}
      */
-    private _handleNextClick(e: React.FormEvent<{}>) {
+    private _handleNextClick(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         this._nextStep();
     }
@@ -176,6 +178,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
     private _nextStep() {
         // Copy state
         let fieldValues = Object.assign({}, this.state.fields);
+
+        console.log(this.state.fields);
 
         this.props.nextStep(fieldValues);
     }
@@ -198,6 +202,15 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 <Redirect to="/explore"/>
             );
         }
+
+        // Private Switch Classes
+        const privateSwitchClasses = classNames({
+            'sp-switch-btn sp-switch-btn--md sp-switch-btn--circle':  true,
+            'sp-switch-btn--on-primary': true,
+            'sp-switch-btn--off-white': true, 
+            'boxShadow-close': true, 
+            'active': this.state.fields.private
+        });
         
         /*         MARKUP          */
         /***************************/
@@ -298,8 +311,12 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 <div className="StepByStep__footer d-flex align-items-center mt-4">
 
                     <div className="make-it-private-container d-flex align-items-center">
-                        <div className="sp-switch-btn sp-switch-btn--md sp-switch-btn--on-primary sp-switch-btn--off-white boxShadow-close sp-switch-btn--circle">
-                            <input type="checkbox"  checked={false} className="cb-value" />
+                        <div className={privateSwitchClasses}>
+                            <input name="private" 
+                                   type="checkbox"
+                                   checked={this.state.fields.private}
+                                   onChange={this._handleInputChange}
+                                   className="cb-value" />
                             <span className="inner-btn boxShadow-subtle" />
                         </div>
                         <span className="fontFamily-openSans fontWeight-6 fontSize-sm color-silver ml-3">
