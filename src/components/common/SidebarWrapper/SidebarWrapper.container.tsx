@@ -200,6 +200,10 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicPro
 }
 
 
+/********************************/
+/*            QUERY             */
+/********************************/
+
 // Query options
 const config = {
     options: (ownProps: SidebarWrapperProps & StateProps) => {

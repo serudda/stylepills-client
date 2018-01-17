@@ -12,9 +12,12 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 
 import { ICurrentCode } from './../../../../../../actions/ui.action';
 
+import { User as UserModel }  from './../../../../../../models/user/user.model';
+
 import PreviewSection from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
+import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
 import Icon from './../../../../../common/Icon/Icon';
 
 // -----------------------------------
@@ -55,6 +58,7 @@ type StateProps = {
     private: boolean,
     currentCode: Array<ICurrentCode>,
     hex: string,
+    user: UserModel,
     isAuthenticated: boolean
 };
 
@@ -91,7 +95,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         // Bind methods
         this._handleInputChange = this._handleInputChange.bind(this);
         this._handleNextClick =  this._handleNextClick.bind(this);
-        this.handleAtomCategoryChange =  this.handleAtomCategoryChange.bind(this);
+        this.handleSelectListChange =  this.handleSelectListChange.bind(this);
     }
 
 
@@ -101,26 +105,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
 
     /**
-     * @desc Handle Atom Category Change
-     * @method handleAtomCategoryChange
+     * @desc Handle Select List Change
+     * @method handleSelectListChange
      * @public
-     * @param {any} e - Event
+     * @param {string} name - select list name (e.g. atomCategoryId, projectId)
+     * @param {string} value - select list value (e.g. "2")
      * @returns {void}
      */
-    handleAtomCategoryChange (e: React.ChangeEvent<HTMLSelectElement>) {
-
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-
-        // CONSTANTS
-        const RADIX = 10;
-
-
-        // Parse to Int if value is String
-        if (typeof value === 'string') {
-            parseInt(value, RADIX);
-        }        
+    handleSelectListChange (name: string, value: string) {
 
         this.setState((previousState: LocalStates) => ({
             ...previousState,
@@ -145,7 +137,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @param {any} e - Event
      * @returns {void}
      */
-    private _handleInputChange(e: any) {
+    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -196,7 +188,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
         /*       PROPERTIES       */
         /**************************/
-        const { isAuthenticated } = this.props;
+        const { user, isAuthenticated } = this.props;
         
         
         /*       VALIDATIONS       */
@@ -262,7 +254,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                         CATEGORY
                                     </label>
 
-                                    <AtomCategorySelectList onChange={this.handleAtomCategoryChange}/>
+                                    <AtomCategorySelectList onChange={this.handleSelectListChange}/>
 
                                 </div>
                             </div>
@@ -272,18 +264,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
                                         PROJECT
                                     </label>
-                                    <div className="sp-select-container d-flex flex-row">
-                                        <select className="sp-select sp-select--md sp-select--input w-100"
-                                                name="categories">
-                                            <option value="All">All</option>
-                                            <option value="Buttons" selected={true}>Buttons</option>
-                                            <option value="Inputs">Inputs</option>
-                                            <option value="Navbars">Navbars Options Large</option>
-                                        </select>
-                                        <Icon icon="chevronDown"
-                                            iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                                            width="15" height="15"/>
-                                    </div>
+                                    <ProjectSelectList userId={user.id} onChange={this.handleSelectListChange}/>
                                 </div>
                             </div>
                         </div>
@@ -355,7 +336,7 @@ function mapStateToProps(state: IRootState): StateProps {
     const { fields } = state.form.atomForm;
     const { name, description, html, css, contextualBg, projectId, atomCategoryId } = fields;
 
-    const { isAuthenticated } = state.auth;
+    const { user, isAuthenticated } = state.auth;
 
     const { currentCode } = state.ui.sourceCodePanel;
 
@@ -370,6 +351,7 @@ function mapStateToProps(state: IRootState): StateProps {
         private: fields.private,
         currentCode,
         hex,
+        user,
         isAuthenticated
     };
 }

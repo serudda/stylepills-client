@@ -4,8 +4,8 @@
 import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
-import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
+import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse  } from './../../../models/project/project.query';
+import { Basic as BasicProjectModel } from '../../../models/project/project.model';
 
 import Icon from '../Icon/Icon';
 
@@ -18,7 +18,8 @@ import Icon from '../Icon/Icon';
 /********************************/
 
 /* Own Props */
-type AtomCategorySelectListProps = {
+type ProjectSelectListProps = {
+    userId: number,
     onChange: (name: string, value: string) => void
 };
 
@@ -34,14 +35,14 @@ type StateProps = {};
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomCategorySelectListContainer 
-extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, GetAllResponse>, LocalStates> {
+class ProjectSelectListContainer 
+extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<AtomCategorySelectListProps & StateProps, GetAllResponse>) {
+    constructor(props: ChildProps<ProjectSelectListProps & StateProps, GetBasicProjectsByUserIdResponse>) {
         super(props);
 
         // Init state
@@ -51,6 +52,7 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
 
         // Bind methods
         this._handleChange = this._handleChange.bind(this);
+
     }
 
 
@@ -69,7 +71,7 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
      */
     private _handleChange (e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault();
-        
+
         // VARIABLES
         let value = e.target.value;
         let name = e.target.name;
@@ -80,6 +82,7 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
         }, () => {
             this.props.onChange(name, value);
         });
+
     }
 
     
@@ -103,13 +106,14 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomCategorySelectList">
+            <div className="ProjectSelectList">
                 <div className="sp-select-container d-flex flex-row">
                     <select value={this.state.value} onChange={this._handleChange}
                             className="sp-select sp-select--md sp-select--input w-100"
-                            name="atomCategoryId">
-                        {data.allAtomCategories.map((atom: AtomCategoryModel) => (
-                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
+                            name="projectId">
+                        <option key="0" value="0">No project</option>
+                        {data.basicProjectsByUserId.map((project: BasicProjectModel) => (
+                            <option key={project.id} value={project.id}>{project.name}</option>    
                         ))}
                     </select>
                     <Icon icon="chevronDown"
@@ -127,13 +131,28 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
 /********************************/
 /*            QUERY             */
 /********************************/
-const getAllAtomCategoriesQuery = graphql<GetAllResponse, AtomCategorySelectListProps>(
-    GET_ALL_ATOM_CATEGORIES_QUERY
+
+// Query options
+const config = {
+    options: (ownProps: ProjectSelectListProps & StateProps) => {
+        return { 
+            variables: 
+            { 
+                userId: ownProps.userId
+            } 
+        };
+    }
+};
+
+// Query
+const getBasicProjectsByUserIdQuery = graphql<GetBasicProjectsByUserIdResponse, ProjectSelectListProps>(
+    GET_BASIC_PROJECTS_BY_USER_ID_QUERY, config
 );
+
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    getAllAtomCategoriesQuery
-)(AtomCategorySelectListContainer);
+    getBasicProjectsByUserIdQuery
+)(ProjectSelectListContainer);
