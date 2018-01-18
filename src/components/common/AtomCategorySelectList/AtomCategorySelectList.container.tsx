@@ -120,6 +120,7 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
                     <select value={this.state.value} onChange={this._handleChange}
                             className="sp-select sp-select--md sp-select--input w-100"
                             name="atomCategoryId">
+                        <option key="0" value="0">Other</option>
                         {data.allAtomCategories.map((atom: AtomCategoryModel) => (
                             <option key={atom.id} value={atom.id}>{atom.name}</option>    
                         ))}

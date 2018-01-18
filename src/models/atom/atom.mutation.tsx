@@ -31,7 +31,6 @@ export type CreateAtomInput = {
     css: string;
     html: string;
     contextualBg: string;
-    download: string;
     private: boolean;
     atomCategoryId: number;
     projectId: number;

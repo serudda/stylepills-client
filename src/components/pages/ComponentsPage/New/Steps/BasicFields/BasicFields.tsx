@@ -101,6 +101,30 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
     }
 
 
+    /**********************************/
+    /*  COMPONENT WILL RECEIVE PROPS  */
+    /**********************************/
+    componentWillReceiveProps(nextProps: BasicFieldsProps & StateProps) {   
+        const { currentCode } = nextProps;
+
+        if (this.props.currentCode !== nextProps.currentCode) {
+            
+            let obj = functionsUtil.sourceCodeArrayToObj(currentCode);
+
+            this.setState((previousState: LocalStates) => ({
+                ...previousState,
+                fields: {
+                    ...previousState.fields,
+                    html: obj.html || '',
+                    css: obj.css || ''
+                }
+            }));
+            
+        }
+
+    }
+
+
     /********************************/
     /*        PUBLIC METHODS        */
     /********************************/
@@ -178,8 +202,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
     private _nextStep() {
         // Copy state
         let fieldValues = Object.assign({}, this.state.fields);
-
-        console.log(this.state.fields);
 
         this.props.nextStep(fieldValues);
     }

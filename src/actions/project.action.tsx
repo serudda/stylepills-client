@@ -83,7 +83,7 @@ export type Action =
 export const clearProjectStateAction = (): Action => {
     return {
         type: types.CLEAR_PROJECT_STATE,
-        created: { 
+        created: {
             projectId: null,
             isCreated: false
         }

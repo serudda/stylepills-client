@@ -12,8 +12,8 @@ import { IAtomFormFields } from './../../../../core/interfaces/interfaces';
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { nextStepAtomAction, prevStepAtomAction, skipStepAtomAction } from './../../../../actions/form.action';
-// import { createProjectAction } from './../../../../actions/project.action';
-// import { CreateProjectInput } from './../../../../models/project/project.mutation';
+import { createAtomAction } from './../../../../actions/atom.action';
+import { CreateAtomInput } from './../../../../models/atom/atom.mutation';
 
 import BasicFields from './Steps/BasicFields/BasicFields';
 import Confirmation from './Steps/Confirmation';
@@ -48,9 +48,9 @@ type DispatchProps = {
             prevStepAtom: () => void;
             skipStepAtom: () => void;
         },
-        /*atomState: {
+        atomState: {
             createAtom: (input: CreateAtomInput) => void;
-        }*/
+        }
     };
 };
 
@@ -155,7 +155,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
 
         fieldValues.authorId = authorId;
 
-        // this.props.actions.atomState.createAtom(fieldValues);
+        this.props.actions.atomState.createAtom(fieldValues);
         this.nextStep();
     }
 
@@ -239,9 +239,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 prevStepAtom: () => dispatch(prevStepAtomAction()),
                 skipStepAtom: () => dispatch(skipStepAtomAction())
             },
-            /*atomState: {
+            atomState: {
                 createAtom: (input: CreateAtomInput) => dispatch(createAtomAction(input))
-            }*/
+            }
         }
     };
 }

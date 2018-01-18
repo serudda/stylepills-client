@@ -36,6 +36,11 @@ export interface IAtomState {
         watchingChanges: boolean;
         isEdited: boolean;
     };
+    created: {
+        atomId?: number;
+        isCreated: boolean;
+    };
+    message?: string;
 }
 
 /************************************/
@@ -47,10 +52,131 @@ const defaultState: IAtomState = {
         atoms: [],
         watchingChanges: false,
         isEdited: false
+    },
+    created: {
+        atomId: null,
+        isCreated: false
     }
 };
 
 // -----------------------------------
+
+
+/** 
+ * @desc This function takes Atom actions and return a new state 
+ * @param {IAtomState} [state=defaultState] 
+ * @param {Action} action 
+ * @returns {IAtomState} 
+ */
+export default function (state: IAtomState = defaultState, action: Action): IAtomState {
+
+    switch (action.type) {
+
+        /***********************************/
+        /*           ATOM ACTIONS          */
+        /***********************************/
+
+        case types.CLEAR_ATOM_STATE: {
+            return {
+                ...state,
+                edited: {
+                    ...state.edited,
+                    atoms: [],
+                    watchingChanges: false,
+                    isEdited: false
+                },
+                created: {
+                    ...state.created,
+                    atomId: null,
+                    isCreated: false
+                }
+            };
+        }
+
+        case types.CREATE_ATOM_REQUEST: {
+            return {
+                ...state,
+                created: { 
+                    isCreated: false
+                }
+            };
+        }
+
+        case types.CREATE_ATOM_SUCCESS: {
+            return {
+                ...state,
+                created: {
+                    ...state.created,
+                    atomId: action.created.atomId,
+                    isCreated: true
+                }
+            };
+        }
+
+        case types.CREATE_ATOM_FAILURE: {
+            return {
+                ...state,
+                created: {
+                    isCreated: false
+                },
+                message: action.message
+            };
+        }
+
+        case types.EDIT_ATOM_REQUEST: {
+            return {
+                ...state,
+                edited: {
+                    ...state.edited,
+                    atoms: [],
+                    watchingChanges: true,
+                    isEdited: false
+                }
+            };
+        }
+
+        case types.ATOM_DETAILS_CHANGED: {
+            const { atoms } = action.edited;
+            const { atomId, name, atomCode } = atoms;
+            let newAtomCode: Array<any> = [];
+            let newAtomsState = state.edited.atoms.slice();
+
+            // To know if atom already exists on atoms state
+            let atomAlreadyExists = functionsUtil.inArray(state.edited.atoms, 'atomId', atomId);
+
+            if (atomAlreadyExists) {
+                newAtomsState = newAtomsState.map(
+                    (a: IAtomsProps) => {
+                        if (a.atomId === atomId) {
+                            return atom(a, action);
+                        }
+                        return a;
+                    }
+                );
+            } else {
+                newAtomsState = state.edited.atoms.concat({
+                    atomId,
+                    name,
+                    atomCode: newAtomCode.concat(atomCode)
+                });
+            }
+
+            return {
+                ...state,
+                edited: {
+                    ...state.edited,
+                    watchingChanges: true,
+                    isEdited: true,
+                    atoms: newAtomsState
+                }
+            };
+        }
+            
+        default:
+            return state;  
+    }
+}
+
 
 
 /** 
@@ -110,84 +236,3 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
     }
     
 };
-
-
-/** 
- * @desc This function takes Atom actions and return a new state 
- * @param {IAtomState} [state=defaultState] 
- * @param {Action} action 
- * @returns {IAtomState} 
- */
-export default function (state: IAtomState = defaultState, action: Action): IAtomState {
-
-    switch (action.type) {
-
-        /***********************************/
-        /*           ATOM ACTIONS          */
-        /***********************************/
-
-        case types.CLEAR_ATOM_STATE: {
-            return {
-                ...state,
-                edited: {
-                    ...state.edited,
-                    atoms: [],
-                    watchingChanges: false,
-                    isEdited: false
-                }
-            };
-        }
-
-        case types.EDIT_ATOM_REQUEST: {
-            return {
-                ...state,
-                edited: {
-                    ...state.edited,
-                    atoms: [],
-                    watchingChanges: true,
-                    isEdited: false
-                }
-            };
-        }
-
-        case types.ATOM_DETAILS_CHANGED: {
-            const { atoms } = action.edited;
-            const { atomId, name, atomCode } = atoms;
-            let newAtomCode: Array<any> = [];
-            let newAtomsState = state.edited.atoms.slice();
-
-            // To know if atom already exists on atoms state
-            let atomAlreadyExists = functionsUtil.inArray(state.edited.atoms, 'atomId', atomId);
-
-            if (atomAlreadyExists) {
-                newAtomsState = newAtomsState.map(
-                    (a: IAtomsProps) => {
-                        if (a.atomId === atomId) {
-                            return atom(a, action);
-                        }
-                        return a;
-                    }
-                );
-            } else {
-                newAtomsState = state.edited.atoms.concat({
-                    atomId,
-                    name,
-                    atomCode: newAtomCode.concat(atomCode)
-                });
-            }
-
-            return {
-                ...state,
-                edited: {
-                    ...state.edited,
-                    watchingChanges: true,
-                    isEdited: true,
-                    atoms: newAtomsState
-                }
-            };
-        }
-            
-        default:
-            return state;  
-    }
-}
