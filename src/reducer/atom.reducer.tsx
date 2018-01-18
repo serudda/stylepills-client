@@ -36,6 +36,11 @@ export interface IAtomState {
         watchingChanges: boolean;
         isEdited: boolean;
     };
+    created: {
+        atomId?: number;
+        isCreated: boolean;
+    };
+    message?: string;
 }
 
 /************************************/
@@ -47,65 +52,14 @@ const defaultState: IAtomState = {
         atoms: [],
         watchingChanges: false,
         isEdited: false
+    },
+    created: {
+        atomId: null,
+        isCreated: false
     }
 };
 
 // -----------------------------------
-
-
-/** 
- * @desc Descomposition of atoms state on Store
- * @param {IAtomState} state 
- * @param {Action} action 
- * @returns {IAtomsProps} 
- */
-const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
-
-    switch (action.type) {
-
-        case types.ATOM_DETAILS_CHANGED: {
-            const { atoms } = action.edited;
-            const { atomId, name, atomCode } = atoms;
-            const { codeType, codeProps } = atomCode;
-            let newAtomCodeState = state.atomCode.slice();
-
-            // To know if atomCode already exists on atom state
-            let atomCodeAlreadyExists = functionsUtil.inArray(state.atomCode, 'codeType', codeType);
-
-            if (atomCodeAlreadyExists) {
-                newAtomCodeState = newAtomCodeState.map(
-                    code => {
-                        if (code.codeType !== codeType) {
-                            return code;
-                        }
-
-                        return {
-                            ...code,
-                            codeProps
-                        };
-                    }
-                );
-            } else {
-                newAtomCodeState = state.atomCode.concat({
-                    codeType,
-                    codeProps
-                });
-            }
-
-            return {
-                ...state,
-                atomId,
-                name,
-                atomCode: newAtomCodeState
-            };
-
-        }
-
-        default:
-            return state;
-    }
-    
-};
 
 
 /** 
@@ -130,7 +84,42 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                     atoms: [],
                     watchingChanges: false,
                     isEdited: false
+                },
+                created: {
+                    ...state.created,
+                    atomId: null,
+                    isCreated: false
                 }
+            };
+        }
+
+        case types.CREATE_ATOM_REQUEST: {
+            return {
+                ...state,
+                created: { 
+                    isCreated: false
+                }
+            };
+        }
+
+        case types.CREATE_ATOM_SUCCESS: {
+            return {
+                ...state,
+                created: {
+                    ...state.created,
+                    atomId: action.created.atomId,
+                    isCreated: true
+                }
+            };
+        }
+
+        case types.CREATE_ATOM_FAILURE: {
+            return {
+                ...state,
+                created: {
+                    isCreated: false
+                },
+                message: action.message
             };
         }
 
@@ -187,3 +176,63 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             return state;  
     }
 }
+
+
+
+/** 
+ * @desc Descomposition of atoms state on Store
+ * @param {IAtomState} state 
+ * @param {Action} action 
+ * @returns {IAtomsProps} 
+ */
+const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
+
+    switch (action.type) {
+
+        case types.ATOM_DETAILS_CHANGED: {
+            const { atoms } = action.edited;
+            const { atomId, name, atomCode } = atoms;
+            const { codeType, codeProps } = atomCode;
+            let newAtomCodeState = state.atomCode.slice();
+
+            // To know if atomCode already exists on atom state
+            let atomCodeAlreadyExists = functionsUtil.inArray(state.atomCode, 'codeType', codeType);
+
+            /* TODO: Todo este fragmento esta repetido en reducers/ui.reducer, deberiamos crear una funcion
+            global que haga esta operación */
+            if (atomCodeAlreadyExists) {
+                newAtomCodeState = newAtomCodeState.map(
+                    code => {
+                        if (code.codeType !== codeType) {
+                            return code;
+                        }
+
+                        return {
+                            ...code,
+                            codeProps
+                        };
+                    }
+                );
+            } else {
+                newAtomCodeState = state.atomCode.concat({
+                    codeType,
+                    codeProps
+                });
+            }
+            /* TODO: Fin del fragmento */
+
+
+            return {
+                ...state,
+                atomId,
+                name,
+                atomCode: newAtomCodeState
+            };
+
+        }
+
+        default:
+            return state;
+    }
+    
+};

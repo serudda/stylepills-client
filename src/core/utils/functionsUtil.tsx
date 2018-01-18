@@ -3,6 +3,9 @@
 /************************************/
 import * as appConfig from './../constants/app.constants';
 
+import { ICurrentCode } from './../../actions/ui.action';
+import { SourceCode } from './../../models/atom/atom.model';
+
 
 /************************************/
 /*            INTERFACES            */
@@ -10,6 +13,7 @@ import * as appConfig from './../constants/app.constants';
 interface IFunctionUtil {
     inArray: (array: Array<any>, comparisonProp: string, comparisonValue: any) => boolean;
     consoleLog: (message: string, value?: any) => void;
+    sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
 }
 
 
@@ -28,8 +32,8 @@ class FunctionsUtil implements IFunctionUtil {
 
     /**
      * inArray
-     * @description - To know if an element already exists on an Array
-     * @use - functionsUtil.inArray(array, 'id', 36);
+     * @desc - To know if an element already exists on an Array
+     * @example - functionsUtil.inArray(array, 'id', 36);
      * @function
      * @param {Array<any>} array - array to analyze
      * @param {string} comparisonProp - field to use in order to compare (e.g. 'id')
@@ -54,7 +58,7 @@ class FunctionsUtil implements IFunctionUtil {
     /**
      * consoleLog
      * @description - generic console log 
-     * @use - this.consoleLog('AtomDetailsBox is actived');
+     * @example - this.consoleLog('AtomDetailsBox is actived');
      * @function
      * @param {string} message - console log message
      * @param {any} value - values or object to show on console.log
@@ -65,6 +69,27 @@ class FunctionsUtil implements IFunctionUtil {
         if (appConfig.DEBUG) {
             console.log(message, value);
         }
+    }
+
+
+
+    /**
+     * @desc Get Source Code from currentCode (sourceCodePanel state on Store)
+     * @function
+     * @method sourceCodeArrayToObj
+     * @example this.sourceCodeArrayToObj(currentCode)
+     * @private 
+     * @returns {Object} obj - object parsed (e.g. obj = { "html": "<html>...</html>", "css": ".class {color: red}" })
+     */
+    sourceCodeArrayToObj(sourceCode: Array<ICurrentCode>): SourceCode {
+
+        let obj: any = {};
+
+        sourceCode.forEach((code) => {
+            obj[code.codeType] = code.codeProps.code;
+        });
+
+        return obj;
     }
 
 }

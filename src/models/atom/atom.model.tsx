@@ -10,9 +10,20 @@ import { AtomCategory } from '../atomCategory/atomCategory.model';
 /*         TYPE & INTERFACES        */
 /************************************/
 
+export type Basic = {
+    id: number | null;
+    name: string;
+};
+
+export type SourceCode = {
+    html: string,
+    css: string
+};
+
 export type Atom = {
     id: number | null;
     name: string;
+    description: string;
     html: string;
     css: string;
     contextualBg: string;

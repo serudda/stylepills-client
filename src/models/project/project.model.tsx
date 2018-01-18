@@ -18,6 +18,7 @@ export type Basic = {
 export type Project = {
     id: number | null;
     name: string;
+    description: string;
     website: string;
     colorPalette: Array<Color>;
     atoms: Array<Atom>;

@@ -17,6 +17,7 @@ import { Color as ColorModel } from './../color/color.model';
 export const CREATE_PROJECT_MUTATION = gql`
     mutation createProject($input: CreateProjectInput!) {
         createProject(input: $input) {
+            id
             ok
             message
         }
@@ -30,6 +31,7 @@ export type CreateProjectInput = {
     authorId: number;
     name: string;
     website?: string;
+    description?: string;
     colorPalette: Array<ColorModel>;
     private: boolean;
     projectCategoryId: number;
@@ -55,6 +57,7 @@ Query Variables:
         "authorId": 2,
         "name": "Airbnb 50",
         "website": "https://www.airbnb.com",
+        "description": "Explaining the component behavior",
         "colorPalette":[
             { 
                 "name": "light primary 50",

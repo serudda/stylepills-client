@@ -12,10 +12,18 @@ import { ATOM_CATEGORY_FRAGMENT } from './../atomCategory/atomCategory.fragment'
 /*           FRAGMENT           */
 /********************************/
 
-export const ATOM_FRAGMENT = gql`
-    fragment AtomFragment on Atom {
+export const BASIC_ATOM_FRAGMENT = gql`
+    fragment BasicAtomFragment on Atom {
         id
         name
+        __typename
+    }
+`;
+
+export const ATOM_FRAGMENT = gql`
+    fragment AtomFragment on Atom {
+        ...BasicAtomFragment
+        description
         html
         css
         contextualBg
@@ -36,6 +44,7 @@ export const ATOM_FRAGMENT = gql`
         }
         __typename
     }
+    ${BASIC_ATOM_FRAGMENT}
     ${COMMENT_FRAGMENT}
     ${ATOM_CATEGORY_FRAGMENT}
     ${AUTHOR_ATOM_FRAGMENT}

@@ -83,7 +83,7 @@ export type Action =
 export const clearProjectStateAction = (): Action => {
     return {
         type: types.CLEAR_PROJECT_STATE,
-        created: { 
+        created: {
             projectId: null,
             isCreated: false
         }
@@ -187,12 +187,12 @@ export const createProjectFailureAction = (message: string): Action => {
  * @returns {Promise<any>}
  */
 export const createProjectAction = (input: CreateProjectInput) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function): Promise<any> => {
 
         // Request Create Project
         dispatch(requestCreateProjectAction());
 
-        client.mutate({
+        return client.mutate({
             mutation: CREATE_PROJECT_MUTATION,
             variables: { input }
         }).then(

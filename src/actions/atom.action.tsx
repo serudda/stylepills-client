@@ -3,8 +3,12 @@
 /************************************/
 import { EventTypes } from 'redux-segment';
 
+import { client } from './../index';
+
 import * as types from '../core/constants/action.types';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
+
+import { CREATE_ATOM_MUTATION, CreateAtomInput } from './../models/atom/atom.mutation';
 
 
 /************************************/
@@ -21,18 +25,59 @@ interface IAtomEditProperties {
     atomCode?: {codeType: string, codeProps: IAtomCodeProps};
 }
 
-interface IAtomEventPayLoad {
+interface IEditAtomEventPayLoad {
     event: string;
     properties?: IAtomEditProperties;
 }
 
+interface ICreateAtomEventPayLoad {
+    event: string;
+    properties: {
+        created: {
+            atomId?: number,
+            isCreated: boolean,
+            message?: string
+        };
+    };
+}
+
 export interface IClearAtomStateAction {
     type: types.CLEAR_ATOM_STATE;
-    edited: { 
+    edited: {
         atoms: null,
         watchingChanges: boolean,
         isEdited: boolean
     };
+    created: { 
+        atomId: null,
+        isCreated: boolean
+    };
+}
+
+export interface IRequestCreateAtomAction {
+    type: types.CREATE_ATOM_REQUEST;
+    created: {
+        isCreated: boolean;
+    };
+    meta: IAnalyticsTrack<ICreateAtomEventPayLoad>;
+}
+
+export interface IReceiveCreateAtomAction {
+    type: types.CREATE_ATOM_SUCCESS;
+    created: {
+        atomId: number;
+        isCreated: boolean;
+    };
+    meta: IAnalyticsTrack<ICreateAtomEventPayLoad>;
+}
+
+export interface ICreateAtomFailureAction {
+    type: types.CREATE_ATOM_FAILURE;
+    created: {
+        isCreated: boolean;
+    };
+    message: string;
+    meta: IAnalyticsTrack<ICreateAtomEventPayLoad>;
 }
 
 export interface IRequestEditAtomAction {
@@ -41,7 +86,7 @@ export interface IRequestEditAtomAction {
         watchingChanges: boolean,
         isEdited: boolean
     };
-    meta: IAnalyticsTrack<IAtomEventPayLoad>;
+    meta: IAnalyticsTrack<IEditAtomEventPayLoad>;
 }
 
 export interface IChangedAtomDetailsAction {
@@ -57,6 +102,9 @@ export interface IChangedAtomDetailsAction {
 export type Action =
     // Atom interaction
     IClearAtomStateAction
+|   IRequestCreateAtomAction
+|   IReceiveCreateAtomAction
+|   ICreateAtomFailureAction
 |   IRequestEditAtomAction
 |   IChangedAtomDetailsAction;
 
@@ -75,12 +123,148 @@ export type Action =
 export const clearAtomStateAction = (): Action => {
     return {
         type: types.CLEAR_ATOM_STATE,
+        created: {
+            atomId: null,
+            isCreated: false
+        },
         edited: {
             atoms: null,
             watchingChanges: false,
             isEdited: false
         }
     };
+};
+
+
+/**
+ * @desc Return an action type, CREATE_ATOM_REQUEST to start creation process
+ * @function requestCreateAtomAction
+ * @returns {Action}
+ */
+export const requestCreateAtomAction = (): Action => {
+    return {
+        type: types.CREATE_ATOM_REQUEST,
+        created: { 
+            isCreated: false
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CREATE_ATOM_REQUEST,
+                    properties: {
+                        created: { 
+                            isCreated: false
+                        }
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CREATE_ATOM_SUCCESS after a successful creation process
+ * @function receiveCreateAtomAction
+ * @returns {Action}
+ */
+export const receiveCreateAtomAction = (atomId: number): Action => {
+    return {
+        type: types.CREATE_ATOM_SUCCESS,
+        created: {
+            atomId,
+            isCreated: true
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CREATE_ATOM_SUCCESS,
+                    properties: {
+                        created: {
+                            atomId,
+                            isCreated: true
+                        }
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CREATE_ATOM_FAILURE after a failure creation process
+ * @function createAtomFailureAction
+ * @param {string} message - Error message
+ * @returns {Action}
+ */
+export const createAtomFailureAction = (message: string): Action => {
+    return {
+        type: types.CREATE_ATOM_FAILURE,
+        created: {
+            isCreated: false
+        },
+        message,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CREATE_ATOM_FAILURE,
+                    properties: {
+                        created: {
+                            isCreated: false,
+                            message
+                        }
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Create Atom Action
+ * @function createAtomAction
+ * @param {CreateAtomInput} input - create atom input data
+ * @returns {Promise<any>}
+ */
+export const createAtomAction = (input: CreateAtomInput) => {
+    return (dispatch: Function): Promise<any> => {
+
+        // Request Create Atom
+        dispatch(requestCreateAtomAction());
+
+        return client.mutate({
+            mutation: CREATE_ATOM_MUTATION,
+            variables: { input }
+        }).then(
+            /* TODO: Typar esta respuesta ya que no se que propiedades devuelve,
+                poner un breakpoint justo dentro para ver que devuelve: response, 
+                y con base a eso typar.
+            */
+            (response: any) => {
+                let { ok, id, message } = response.data.createAtom;
+
+                if (ok) {
+                    // Created Successful
+                    dispatch(receiveCreateAtomAction(id));
+                } else {
+                    // Created Failure
+                    dispatch(createAtomFailureAction(message));
+                }
+            }
+        ).catch(
+            (response) => {
+                // Created Failure
+                dispatch(createAtomFailureAction(response));
+            }
+        );
+
+    };
+
 };
 
 

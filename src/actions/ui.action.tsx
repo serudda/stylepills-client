@@ -9,6 +9,8 @@ import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
+import { Basic as BasicColorModel } from '../models/color/color.model';
+
 // NOTE: 1 - import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
 import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
 import { IAtomCodeProps } from '../reducer/atom.reducer';
@@ -17,36 +19,6 @@ import { IAtomCodeProps } from '../reducer/atom.reducer';
 /************************************/
 /*            INTERFACES            */
 /************************************/
-
-interface IModalEventPayLoad {
-    event: string;
-    properties?: {
-        modalType: string,
-        modalProps: any
-    };
-}
-
-interface IChangeTabEventPayLoad {
-    event: string;
-    properties: {
-        tab: string
-    };
-}
-
-interface ICopySourceCodeEventPayLoad {
-    event: string;
-    properties: {
-        copiedType: string
-    };
-}
-
-interface IDuplicateAtomEventPayLoad {
-    event: string;
-    properties: {
-        atomId: number,
-        isDuplicated: boolean
-    };
-}
 
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
@@ -58,6 +30,9 @@ interface ILocationChangeAction {
         sourceCodeTab: {
             tab: string | null
         }
+    };
+    colorPicker: {
+        currentColor: BasicColorModel
     };
     copied: null;
     duplicated: {
@@ -77,10 +52,27 @@ export interface IClearUiAction {
             tab: string | null
         }
     };
+    colorPicker: {
+        currentColor: BasicColorModel
+    };
     copied: null;
     duplicated: {
         atomId: number,
         isDuplicated: boolean
+    };
+}
+
+
+/* 
+    MODALS ACTIONS
+    state: modals
+*/
+
+interface IModalEventPayLoad {
+    event: string;
+    properties?: {
+        modalType: string,
+        modalProps: any
     };
 }
 
@@ -96,6 +88,18 @@ export interface IShowModalAction {
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
     meta: IAnalyticsTrack<IModalEventPayLoad>;
+}
+
+/* 
+    TABS ACTIONS
+    state: tabs
+*/
+
+interface IChangeTabEventPayLoad {
+    event: string;
+    properties: {
+        tab: string
+    };
 }
 
 export interface IChangeAtomDetailsTabAction {
@@ -118,12 +122,78 @@ export interface IChangeSourceCodeTabAction {
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
+
+/* 
+    COPY ACTIONS
+    state: copied
+*/
+
+interface ICopySourceCodeEventPayLoad {
+    event: string;
+    properties: {
+        copiedType: string
+    };
+}
+
 export interface ICopySourceCodeAction {
     type: types.COPY_SOURCE_CODE;
     copied: {
         copiedType: string
     };
     meta: IAnalyticsTrack<ICopySourceCodeEventPayLoad>;
+}
+
+
+/* 
+    COLOR PICKER ACTIONS
+    state: colorPicker
+*/
+
+export interface IChangeColorAction {
+    type: types.CHANGE_COLOR;
+    colorPicker: {
+        currentColor: BasicColorModel
+    };
+}
+
+
+/* 
+    SOURCE CODE PANEL ACTIONS
+    state: sourceCodePanel
+*/
+
+export interface ICodeProps {
+    code: string;
+    libs?: Array<string>;
+}
+
+export interface ICurrentCode {
+    codeType: string; 
+    codeProps: ICodeProps;
+}
+
+export interface ISourceCodePanel {
+    currentCode: ICurrentCode;
+}
+
+export interface IChangeSourceCodeAction {
+    type: types.CHANGE_SOURCE_CODE;
+    sourceCodePanel: ISourceCodePanel;
+}
+
+
+/* 
+    ATOM ACTIONS
+    state: duplicated
+    TODO: Mover a atom.action
+*/
+
+interface IDuplicateAtomEventPayLoad {
+    event: string;
+    properties: {
+        atomId: number,
+        isDuplicated: boolean
+    };
 }
 
 export interface IRequestDuplicateAtomAction {
@@ -163,6 +233,8 @@ export type Action =
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
+|   IChangeColorAction
+|   IChangeSourceCodeAction
 |   ICopySourceCodeAction
 |   IRequestDuplicateAtomAction
 |   IReceiveDuplicateAtomAction
@@ -190,6 +262,12 @@ export const clearUiAction = (): Action => {
             },
             sourceCodeTab: {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            }
+        },
+        colorPicker: {
+            currentColor: {
+                hex: appConfig.SECONDARY_COLOR_HEX,
+                rgba: appConfig.SECONDARY_COLOR_RGBA
             }
         },
         copied: null,
@@ -331,6 +409,47 @@ export const copySourceCodeAction = (copiedType: string): Action => {
                     },
                 },
             },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_COLOR 
+ * to indicate that user wants to change color on colorPicker
+ * @function changeColorAction
+ * @param {BasicColorModel} color - new color object: hex and rgba properties
+ * @returns {Action}
+ */
+export const changeColorAction = (color: BasicColorModel): Action => {
+    return {
+        type: types.CHANGE_COLOR,
+        colorPicker: {
+            currentColor: {
+                hex: color.hex,
+                rgba: color.rgba
+            }
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * to indicate that user wants to change source code on SourceCodePanel
+ * @function changeSourceCodeAction
+ * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {any} codeProps - code properties (e.g. code, libs, etc)
+ * @returns {Action}
+ */
+export const changeSourceCodeAction = (codeType: string, codeProps: any): Action => {
+    return {
+        type: types.CHANGE_SOURCE_CODE,
+        sourceCodePanel: {
+            currentCode: {
+                codeType,
+                codeProps
+            }
         }
     };
 };
