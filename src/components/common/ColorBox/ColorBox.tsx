@@ -29,10 +29,14 @@ const ColorBox: React.SFC<ColorBoxProps> = ({ hex, rgba }) => {
     /***************************/
     return (
         <div className="ColorBox boxShadow-raised borderRadius-md text-center bg-white">
-            <div className="ColorBox__color borderColor-smoke" 
-                style={{
-                    background: `rgba(${ rgba.r }, ${ rgba.g }, ${ rgba.b }, ${ rgba.a })`
-                    }}/>
+            {
+                rgba ?
+                <div className="ColorBox__color borderColor-smoke" 
+                     style={{background: `rgba(${ rgba.r }, ${ rgba.g }, ${ rgba.b }, ${ rgba.a })`}}/>
+                :
+                <div className="ColorBox__color borderColor-smoke" 
+                     style={{ background: hex }}/>
+            }
             <p className="ColorBox__label fontFamily-poppins fontSize-lg fontWeight-5 mt-1 color-silver">
                 {hex}
             </p>
