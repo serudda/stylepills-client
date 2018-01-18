@@ -49,7 +49,7 @@ type DispatchProps = {
             skipStepAtom: () => void;
         },
         atomState: {
-            createAtom: (input: CreateAtomInput) => void;
+            createAtom: (input: CreateAtomInput) => Promise<any>;
         }
     };
 };
@@ -155,8 +155,11 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
 
         fieldValues.authorId = authorId;
 
-        this.props.actions.atomState.createAtom(fieldValues);
-        this.nextStep();
+        this.props.actions.atomState.createAtom(fieldValues).then(
+            () => {
+                this.nextStep();
+            }
+        );
     }
 
 

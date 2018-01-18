@@ -17,6 +17,7 @@ import { Color as ColorModel } from './../color/color.model';
 export const CREATE_PROJECT_MUTATION = gql`
     mutation createProject($input: CreateProjectInput!) {
         createProject(input: $input) {
+            id
             ok
             message
         }

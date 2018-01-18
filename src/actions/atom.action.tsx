@@ -232,12 +232,12 @@ export const createAtomFailureAction = (message: string): Action => {
  * @returns {Promise<any>}
  */
 export const createAtomAction = (input: CreateAtomInput) => {
-    return (dispatch: Function) => {
+    return (dispatch: Function): Promise<any> => {
 
         // Request Create Atom
         dispatch(requestCreateAtomAction());
 
-        client.mutate({
+        return client.mutate({
             mutation: CREATE_ATOM_MUTATION,
             variables: { input }
         }).then(

@@ -2,11 +2,13 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../reducer/reducer.config';
+
+import { clearAtomStateAction } from './../../../../../actions/atom.action';
 
 import Icon from '../../../../common/Icon/Icon';
 
@@ -28,21 +30,38 @@ type StateProps = {
     name: string
 };
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        atomState: {
+            clearAtomState: () => void;
+        }
+    };
+};
+
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class Success
-extends React.Component<ChildProps<SuccessProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<SuccessProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SuccessProps & StateProps, {}>) {
+    constructor(props: ChildProps<SuccessProps & StateProps & DispatchProps, {}>) {
         super(props);
 
         // LOG
         functionsUtil.consoleLog('ComponentNew -> Step: Final - Success actived');
+    }
+
+
+    /********************************/
+    /*     COMPONENT DID MOUNT      */
+    /********************************/
+    componentDidMount() {
+        this.props.actions.atomState.clearAtomState();
     }
 
     
@@ -120,9 +139,23 @@ function mapStateToProps(state: IRootState): StateProps {
 
 
 /********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            atomState: {
+                clearAtomState: () => dispatch(clearAtomStateAction())
+            }
+        }
+    };
+}
+
+
+/********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const successConnect = connect(mapStateToProps);
+const successConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */

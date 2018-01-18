@@ -50,7 +50,7 @@ type DispatchProps = {
             skipStepProject: () => void;
         },
         projectState: {
-            createProject: (input: CreateProjectInput) => void;
+            createProject: (input: CreateProjectInput) => Promise<any>;
         }
     };
 };
@@ -154,8 +154,11 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
 
         fieldValues.authorId = authorId;
 
-        this.props.actions.projectState.createProject(fieldValues);
-        this.nextStep();
+        this.props.actions.projectState.createProject(fieldValues).then(
+            () => {
+                this.nextStep();
+            }
+        );
     }
 
 
