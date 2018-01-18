@@ -94,7 +94,9 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /***************************/
         return (
             <div>
-                <AtomsList atoms={data.searchAtoms.results}/>
+                <div className="pb-5">
+                    <AtomsList atoms={data.searchAtoms.results}/>
+                </div>
 
                 <div className="row pt-5 pb-5 margin-0 no-gutters">
                     <div className="col">
