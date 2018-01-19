@@ -291,7 +291,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                             <div className="label fontSize-xs color-silver fontWeight-7">BACK</div>
                         </div>
                         {/* Close button */}
-                        <div className="iconContainer d-inline-flex flex-column align-items-center ml-auto">
+                        <div className="iconContainer d-none flex-column align-items-center ml-auto"> {/* TODO: Reemplazar d-none por d-inline-flex */}
                             <Icon icon="close"
                                 iconClass="icon stroke-silver strokeWidth-2"
                                 width="26" height="26"/>
@@ -336,7 +336,8 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <a className="link-reset fontSize-sm color-silver fontWeight-6 textDecoration ml-2" href="#">
+                    <a className="link-reset fontSize-sm color-silver fontWeight-6 textDecoration ml-2 d-none" 
+                        href="#">
                         Skip this step
                     </a>
                     <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto"
