@@ -254,7 +254,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 {/* STEP BY STEP: HEADER */}
                 <div className="StepByStep__header mb-5">
 
-                    <div className="nav-section d-flex">
+                    <div className="nav-section d-none"> {/* TODO: Remplazar d-none por d-flex */}
                         {/* Close button */}
                         <div className="iconContainer d-inline-flex flex-column align-items-center ml-auto">
                             <Icon icon="close"
