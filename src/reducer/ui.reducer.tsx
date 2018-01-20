@@ -34,10 +34,6 @@ export interface IUiState {
     copied: {
         copiedType: string
     };
-    duplicated: {
-        atomId: number,
-        isDuplicated: boolean;
-    };
     message?: string;
 }
 
@@ -64,11 +60,7 @@ const defaultState: IUiState = {
     sourceCodePanel: {
         currentCode: []
     },
-    copied: null,
-    duplicated: {
-        atomId: null,
-        isDuplicated: false
-    }
+    copied: null
 };
 
 // -----------------------------------
@@ -109,11 +101,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 sourceCodePanel: {
                     currentCode: []
                 },
-                copied: null,
-                duplicated: {
-                    atomId: null,
-                    isDuplicated: false
-                }
+                copied: null
             };
         }
 
@@ -227,37 +215,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         }
 
-        // TODO: Mover todo lo alusivo a Atom a su respectivo 'reducer' file
-        case types.DUPLICATE_ATOM_REQUEST: {
-            return {
-                ...state,
-                duplicated: {
-                    atomId: action.duplicated.atomId,
-                    isDuplicated: false
-                }
-            };
-        }
-
-        case types.DUPLICATE_ATOM_SUCCESS: {
-            return {
-                ...state,
-                duplicated: {
-                    atomId: action.duplicated.atomId,
-                    isDuplicated: true
-                }
-            };
-        }
-
-        case types.DUPLICATE_ATOM_FAILURE: {
-            return {
-                ...state,
-                duplicated: {
-                    atomId: action.duplicated.atomId,
-                    isDuplicated: false
-                },
-                message: action.message
-            };
-        }
             
         default:
             return state;  

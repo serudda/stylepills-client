@@ -10,10 +10,11 @@ import { Link } from 'react-router-dom';
 import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../reducer/reducer.config';
-import { IAtomsProps, IAtomCodeProps } from './../../../../reducer/atom.reducer';
+import { IAtomsProps, IAtomCode } from './../../../../reducer/atom.reducer';
 import { User as UserModel } from './../../../../models/user/user.model';
 
-import { closeModalAction, duplicateAtomAction } from './../../../../actions/ui.action';
+import { closeModalAction } from './../../../../actions/ui.action';
+import { duplicateAtomAction } from './../../../../actions/atom.action';
 import { clearAtomStateAction } from './../../../../actions/atom.action';
 
 // -----------------------------------
@@ -48,7 +49,7 @@ type DispatchProps = {
     actions: {
         ui: {
             closeModal: () => void;
-            duplicateAtom: (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => void;
+            duplicateAtom: (atomId: number, userId: number, atomCode: Array<IAtomCode>) => void;
         },
         atomState: {
             clearAtomState: () => void;
@@ -130,7 +131,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
         const { isAuthenticated, user } = this.props;
         const { atomId } = this.props;
         const { atoms } = this.props;
-        let atomCode: Array<IAtomCodeProps> = null;
+        let atomCode: Array<IAtomCode> = null;
 
         if (isAuthenticated && user) {
             
@@ -305,7 +306,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-        const { duplicated } = state.ui;
+        const { duplicated } = state.atomState;
         const { isAuthenticated, user } = state.auth;
         const { isEdited, atoms } = state.atomState.edited;
     
