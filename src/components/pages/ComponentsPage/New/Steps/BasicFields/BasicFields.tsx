@@ -172,7 +172,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @method _handleInputChange
      * @example this._handleInputChange()
      * @private
-     * @param {any} e - Event
+     * @param {React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>} e - Event
      * @returns {void}
      */
     private _handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
@@ -239,7 +239,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
         // Private Switch Classes
         const privateSwitchClasses = classNames({
-            'sp-switch-btn sp-switch-btn--md sp-switch-btn--circle':  true,
+            'sp-switch-btn sp-switch-btn--sm sp-switch-btn--circle':  true,
             'sp-switch-btn--on-primary': true,
             'sp-switch-btn--off-white': true, 
             'boxShadow-close': true, 
@@ -351,7 +351,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                    checked={this.state.fields.private}
                                    onChange={this._handleInputChange}
                                    className="cb-value" />
-                            <span className="inner-btn boxShadow-subtle" />
+                            <span className="inner-btn boxShadow-raised" />
                         </div>
                         <span className="fontFamily-openSans fontWeight-6 fontSize-sm color-silver ml-3">
                             Hide this component from the public

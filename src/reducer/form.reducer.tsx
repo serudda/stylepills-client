@@ -120,7 +120,9 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         html: action.fieldValues.html,
                         css: action.fieldValues.css,
                         contextualBg: action.fieldValues.contextualBg,
-                        projectId: action.fieldValues.projectId
+                        private: action.fieldValues.private,
+                        projectId: action.fieldValues.projectId,
+                        atomCategoryId: action.fieldValues.atomCategoryId
                     },
                     step: state.atomForm.step + 1
                 } 
@@ -158,7 +160,9 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         name: action.fieldValues.name,
                         website: action.fieldValues.website,
                         description: action.fieldValues.description,
-                        colorPalette: action.fieldValues.colorPalette
+                        colorPalette: action.fieldValues.colorPalette,
+                        private: action.fieldValues.private,
+                        projectCategoryId: action.fieldValues.projectCategoryId
                     },
                     step: state.projectForm.step + 1
                 } 
