@@ -8,10 +8,12 @@ import { client } from './../index';
 import * as types from '../core/constants/action.types';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
-import { CREATE_ATOM_MUTATION, CreateAtomInput } from './../models/atom/atom.mutation';
+import { 
+    CREATE_ATOM_MUTATION, CreateAtomInput,
+    DUPLICATE_ATOM_MUTATION, DuplicateAtomInput 
+} from './../models/atom/atom.mutation';
+
 // NOTE: 1 - import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
-import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
-import { IAtomCode } from '../reducer/atom.reducer';
 
 
 /************************************/
@@ -489,22 +491,22 @@ export const duplicateAtomFailureAction = (atomId: number, message: string): Act
 /**
  * @desc Duplicate Atom Action
  * @function duplicateAtomAction
- * @param {number} atomId - Atom Id
- * @param {number} userId - User Id
- * @param {Array<IAtomCode>} atomCode - a list of code and libs 
+ * @param {DuplicateAtomInput} input - duplicate atom input data 
  * @returns {Promise<any>}
  */
 export const duplicateAtomAction = 
-    (atomId: number, userId: number, atomCode: Array<IAtomCode>) => {
+    (input: DuplicateAtomInput) => {
 
     return (dispatch: Function) => {
+
+        const { atomId } = input;
 
         // Request Duplicate Atom
         dispatch(requestDuplicateAtomAction(atomId));
 
         client.mutate({
             mutation: DUPLICATE_ATOM_MUTATION,
-            variables: { atomId, userId, atomCode },
+            variables: { input },
             /*
             // NOTE: 1
             update: (proxy, { data: { duplicateAtom } }: any) => {
