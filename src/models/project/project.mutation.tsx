@@ -46,6 +46,7 @@ export type CreateProjectInput = {
 CREATE_PROJECT_MUTATION
 mutation createProject($input: CreateProjectInput!) {
     createProject(input: $input){
+        id
         ok
         message
     }
