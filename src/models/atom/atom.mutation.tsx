@@ -59,7 +59,7 @@ Query Variables:
         "description": "Explaining the component behavior",
         "html": "<button class='btn btn-primary'>DONE</button>",
       	"css": "// My css TEST",
-          "private": false,
+        "private": false,
       	"contextualBg": "#CCCCCC",
       	"atomCategoryId": 1,
         "projectId": 22

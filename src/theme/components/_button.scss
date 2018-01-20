@@ -345,7 +345,7 @@
 
     &--on-primary {
         &.active {
-            background-color: map-get($color, primary);
+            background-color: map-get($color, darkPrimary);
 
             .inner-btn {
                 background-color: map-get($color, white);
