@@ -217,9 +217,12 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
 
-    const { tabs, duplicated } = state.ui;
+    const { tabs } = state.ui;
     const { atomDetailsTab } = tabs;
     const { tab } = atomDetailsTab;
+
+    const { duplicated } = state.atomState;
+    
     const { isAuthenticated, user } = state.auth;
 
     return {

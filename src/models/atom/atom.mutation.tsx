@@ -12,18 +12,22 @@ import gql from 'graphql-tag';
 /********************************/
 /*          MUTATIONS           */
 /********************************/
+
+
+/*          CREATE           */
+/*===========================*/
+
 export const CREATE_ATOM_MUTATION = gql`
     mutation createAtom($input: CreateAtomInput!) {
         createAtom(input: $input) {
+            id
             ok
             message
         }
     }
 `;
 
-/*        TYPE         */
-/***********************/
-
+/* Type */
 export type CreateAtomInput = {
     authorId: number;
     name: string;
@@ -36,30 +40,12 @@ export type CreateAtomInput = {
     projectId: number;
 };
 
-
-// --------------------------------
-
-// TODO: Refactor para que reciba un input, e implementar la misma forma de uso que en Create
-export const DUPLICATE_ATOM_MUTATION = gql`
-    mutation duplicateAtom($atomId: ID!, $userId: ID!, $atomCode: [AtomCodeProps]) {
-        duplicateAtom(atomId: $atomId, userId: $userId, atomCode: $atomCode) {
-          ok,
-          message
-        }
-    }
-`;
-
-
-// --------------------------------
-
-
-
-
+/* Example */
 /*
-
 CREATE_ATOM_MUTATION
 mutation createAtom($input: CreateAtomInput!) {
     createAtom(input: $input){
+        id
         ok
         message
     }
@@ -79,5 +65,67 @@ Query Variables:
         "projectId": 22
     }
 }
-
 */
+
+// --------------------------------
+
+
+/*         DUPLICATE         */
+/*===========================*/
+
+export const DUPLICATE_ATOM_MUTATION = gql`
+    mutation duplicateAtom($input: DuplicateAtomInput!) {
+        duplicateAtom(input: $input) {
+            id,
+            ok,
+            message
+        }
+    }
+`;
+
+/* Type */
+type CodeProps = {
+    code: string;
+    libs?: Array<string>;
+};
+
+type AtomCode = {
+    codeType: string;
+    codeProps: CodeProps;
+};
+
+export type DuplicateAtomInput = {
+    atomId: number;
+    userId: number;
+    atomCode: Array<AtomCode> | null;
+};
+
+/* Example */
+/*
+DUPLICATE_ATOM_MUTATION
+mutation duplicateAtom($input: DuplicateAtomInput!); {
+    duplicateAtom(input: $input){
+        id
+        ok
+        message
+    }
+}
+
+Query Variables:
+{
+    'input': {
+        'atomId': 3,
+        'userId';: 2,
+        'atomCode';: [
+            {
+                'codeType': 'html',
+                'codeProps': {
+                    'code': '<button class=\'btn btn-primary\'>DONIN</button>'
+                }
+            }
+        ];
+    }
+}
+*/
+
+// --------------------------------
