@@ -6,7 +6,8 @@ import { Action } from '../actions/form.action';
 
 import * as appConfig from '../core/constants/app.constants';
 
-import { IAtomFormFields, IProjectFormFields } from './../core/interfaces/interfaces';
+import { IAtomFormFields } from './../core/validations/atom';
+import { IProjectFormFields } from './../core/validations/project';
 
 
 /************************************/

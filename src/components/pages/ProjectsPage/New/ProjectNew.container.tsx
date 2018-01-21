@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { IProjectFormFields } from './../../../../core/interfaces/interfaces';
+import { IProjectFormFields } from './../../../../core/validations/project';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 

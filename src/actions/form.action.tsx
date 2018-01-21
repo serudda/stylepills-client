@@ -5,7 +5,8 @@ import { EventTypes } from 'redux-segment';
 
 import * as types from '../core/constants/action.types';
 
-import { IAtomFormFields, IProjectFormFields } from './../core/interfaces/interfaces';
+import { IAtomFormFields } from './../core/validations/atom';
+import { IProjectFormFields } from './../core/validations/project';
 
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
