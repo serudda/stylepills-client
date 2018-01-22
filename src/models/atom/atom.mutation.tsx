@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 
 import { AtomFormFields } from './../../core/validations/atom';
 
+import { VALIDATION_ATOM_FRAGMENT } from './atom.fragment';
+
 /************************************/
 /*            INTERFACES            */
 /************************************/
@@ -24,8 +26,12 @@ export const CREATE_ATOM_MUTATION = gql`
             id
             ok
             message
+            validationErrors {
+                ...ValidationAtomErrorsFragment
+            }
         }
     }
+    ${VALIDATION_ATOM_FRAGMENT}
 `;
 
 /* Type */
@@ -39,6 +45,7 @@ mutation createAtom($input: CreateAtomInput!) {
         id
         ok
         message
+        validationErrors
     }
 }
 

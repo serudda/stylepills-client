@@ -12,6 +12,20 @@ import { ATOM_CATEGORY_FRAGMENT } from './../atomCategory/atomCategory.fragment'
 /*           FRAGMENT           */
 /********************************/
 
+export const VALIDATION_ATOM_FRAGMENT = gql`
+    fragment ValidationAtomErrorsFragment on ValidationAtomError {
+        authorId
+        name
+        html
+        css
+        contextualBg
+        projectId
+        atomCategoryId
+        private
+        __typename
+    }
+`;
+
 export const BASIC_ATOM_FRAGMENT = gql`
     fragment BasicAtomFragment on Atom {
         id

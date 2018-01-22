@@ -10,8 +10,9 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { 
     CREATE_ATOM_MUTATION, CreateAtomInput,
-    DUPLICATE_ATOM_MUTATION, DuplicateAtomInput 
+    DUPLICATE_ATOM_MUTATION, DuplicateAtomInput
 } from './../models/atom/atom.mutation';
+
 
 // NOTE: 1 - import { SEARCH_ATOMS_QUERY } from './../models/atom/atom.query';
 
@@ -307,7 +308,7 @@ export const createAtomAction = (input: CreateAtomInput) => {
                 y con base a eso typar.
             */
             (response: any) => {
-                let { ok, id, message } = response.data.createAtom;
+                let { ok, id, message, validationErrors } = response.data.createAtom;
 
                 if (ok) {
                     // Created Successful
@@ -316,11 +317,20 @@ export const createAtomAction = (input: CreateAtomInput) => {
                     // Created Failure
                     dispatch(createAtomFailureAction(message));
                 }
+
+                return {
+                    id,
+                    ok,
+                    message,
+                    validationErrors
+                };
             }
         ).catch(
             (response) => {
                 // Created Failure
                 dispatch(createAtomFailureAction(response));
+
+                return response;
             }
         );
 

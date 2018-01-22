@@ -18,6 +18,10 @@
 .sp-input {
     @include input;
 
+    &.error {
+        border-color: map-get($color, negative);
+    }
+
     &::-moz-placeholder {
         color: map-get($color, extraDarkSmoke);
     }
@@ -62,6 +66,10 @@
 /* TEXTAREA INPUT */
 .sp-textarea {
     @include input;
+
+    &.error {
+        border-color: map-get($color, negative);
+    }
 
     &::-moz-placeholder {
         color: map-get($color, extraDarkSmoke);
@@ -110,6 +118,10 @@
     &__input {
         padding-left: 36px;
         box-sizing: border-box;
+
+        &.error {
+            border-color: map-get($color, negative);
+        }
     }
 
     &__btn {
@@ -139,6 +151,10 @@
 
         &--input {
             @include input;
+
+            &.error {
+                border-color: map-get($color, negative);
+            }
 
             &:focus {
                 border-color: map-get($color, secondary);

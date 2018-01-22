@@ -54,7 +54,7 @@ export interface IValidationResponse {
 
 
 /******************************************/
-/*        VALIDATE INPUTS (PROJECT)       */
+/*         VALIDATE INPUTS (ATOM)         */
 /******************************************/
 
 /**
@@ -90,11 +90,6 @@ export function validateBasicFields(field: BasicFields): IValidationResponse {
     /* Project parent id */
     if (field.projectId === 0) {
         errors.projectId = 'Project associated does not exist';
-    }
-
-    /* Atom category */
-    if (field.atomCategoryId === null) {
-        errors.atomCategoryId = 'Category is required';
     }
 
     /* Is private */

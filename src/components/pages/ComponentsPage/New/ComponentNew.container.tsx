@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { AtomFormFields } from './../../../../core/validations/atom';
+import { AtomFormFields, IValidationError as IValidationAtomError } from './../../../../core/validations/atom';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -31,7 +31,8 @@ type ComponentNewProps = {};
 
 /* Own States */
 type LocalStates = {
-    fieldValues: AtomFormFields
+    fieldValues: AtomFormFields,
+    validationErrors: IValidationAtomError
 };
 
 /* Mapped State to Props */
@@ -81,7 +82,8 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
                 private: false,
                 projectId: null,
                 atomCategoryId: 0
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -156,8 +158,16 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
         fieldValues.authorId = authorId;
 
         this.props.actions.atomState.createAtom(fieldValues).then(
-            () => {
-                this.nextStep();
+            (response) => {
+                if (response.ok) { 
+                    this.nextStep();
+                } else {
+                    // Update local state
+                    this.setState({ validationErrors: response.validationErrors },
+                    () => {
+                        this.previousStep();
+                    });
+                }
             }
         );
     }
