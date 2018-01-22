@@ -175,7 +175,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicPro
 
                     </div>
 
-                    {/* Sidebar Footer */}
+                    {/* Sidebar Footer TODO: Cuando el scroll esta down, y presiono este boton, no hace el scrollTop */}
                     <div className="Sidebar__footer">
                         <Link className="Sidebar__footer__btn link-reset d-flex align-items-center sp-bg-black p-4"
                             to="/dashboard/components/new">

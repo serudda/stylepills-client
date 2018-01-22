@@ -201,7 +201,7 @@ export const createProjectAction = (input: CreateProjectInput) => {
                 y con base a eso typar.
             */
             (response: any) => {
-                let { ok, id, message } = response.data.createProject;
+                let { ok, id, message, validationErrors } = response.data.createProject;
 
                 if (ok) {
                     // Created Successful
@@ -210,11 +210,20 @@ export const createProjectAction = (input: CreateProjectInput) => {
                     // Created Failure
                     dispatch(createProjectFailureAction(message));
                 }
+
+                return {
+                    id,
+                    ok,
+                    message,
+                    validationErrors
+                };
             }
         ).catch(
             (response) => {
                 // Created Failure
                 dispatch(createProjectFailureAction(response));
+
+                return response;
             }
         );
 

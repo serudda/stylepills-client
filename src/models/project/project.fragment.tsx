@@ -12,6 +12,18 @@ import { PROJECT_CATEGORY_FRAGMENT } from './../projectCategory/projectCategory.
 /*           FRAGMENT           */
 /********************************/
 
+export const VALIDATION_PROJECT_FRAGMENT = gql`
+    fragment ValidationProjectErrorsFragment on ValidationProjectError {
+        authorId
+        name
+        website
+        colorPalette
+        projectCategoryId
+        private
+        __typename
+    }
+`;
+
 export const BASIC_PROJECT_FRAGMENT = gql`
     fragment BasicProjectFragment on Project {
         id

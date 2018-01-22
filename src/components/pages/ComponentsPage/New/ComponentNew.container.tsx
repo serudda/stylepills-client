@@ -163,6 +163,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
                     this.nextStep();
                 } else {
                     // Update local state
+                    // TODO: Hacer algo con este validationErrors (este viene de la validacion del Server)
                     this.setState({ validationErrors: response.validationErrors },
                     () => {
                         this.previousStep();

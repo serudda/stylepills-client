@@ -63,7 +63,8 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         this.state = {
             fields: {
                 colorPalette: [...props.colorPalette] || []
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -290,6 +291,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         /*       PROPERTIES       */
         /**************************/
         const { isAuthenticated } = this.props;
+        const { validationErrors } = this.state;
         
         
         /*       VALIDATIONS       */
@@ -346,6 +348,12 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 
                     {/* Add Primary colors */}
                     {this._buildAddColorForm(ColorTypeOptions.primary)}
+                    {/* Validation error message */}
+                    {validationErrors.colorPalette && 
+                        <div className="color-negative">
+                            {validationErrors.colorPalette}
+                        </div>
+                    }
 
 
                     <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />

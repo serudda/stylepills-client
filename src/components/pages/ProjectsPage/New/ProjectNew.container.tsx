@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { ProjectFormFields } from './../../../../core/validations/project';
+import { ProjectFormFields, IValidationError as IValidationProjectError } from './../../../../core/validations/project';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -32,7 +32,8 @@ type ProjectNewProps = {};
 
 /* Own States */
 type LocalStates = {
-    fieldValues: ProjectFormFields
+    fieldValues: ProjectFormFields,
+    validationErrors: IValidationProjectError
 };
 
 /* Mapped State to Props */
@@ -80,7 +81,8 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
                 colorPalette: [],
                 private: false,
                 projectCategoryId: 1 // TODO: Magic number
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -155,8 +157,17 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
         fieldValues.authorId = authorId;
 
         this.props.actions.projectState.createProject(fieldValues).then(
-            () => {
-                this.nextStep();
+            (response) => {
+                if (response.ok) {
+                    this.nextStep();
+                } else {
+                    // Update local state
+                    // TODO: Hacer algo con este validationErrors (este viene de la validacion del Server)
+                    this.setState({ validationErrors: response.validationErrors },
+                    () => {
+                        this.previousStep();
+                    });
+                }
             }
         );
         

@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 
 import { ProjectFormFields } from './../../core/validations/project';
 
+import { VALIDATION_PROJECT_FRAGMENT } from './project.fragment';
+
 
 /************************************/
 /*            INTERFACES            */
@@ -20,8 +22,12 @@ export const CREATE_PROJECT_MUTATION = gql`
             id
             ok
             message
+            validationErrors {
+                ...ValidationProjectErrorsFragment
+            }
         }
     }
+    ${VALIDATION_PROJECT_FRAGMENT}
 `;
 
 /*        TYPE         */
@@ -41,6 +47,7 @@ mutation createProject($input: CreateProjectInput!) {
         id
         ok
         message
+        validationErrors
     }
 }
 

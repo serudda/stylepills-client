@@ -196,6 +196,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
             'error': !isEmpty(validationErrors.name)
         });
 
+        // Website input Classes
+        const websiteInputClasses = classNames({
+            'sp-input': true,
+            'sp-input--md': true,
+            'sp-input--block': true,
+            'error': !isEmpty(validationErrors.website)
+        });
+
         // Private Switch Classes
         const privateSwitchClasses = classNames({
             'sp-switch-btn sp-switch-btn--sm sp-switch-btn--circle ml-auto':  true,
@@ -257,7 +265,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                             name="website"
                             value={this.state.fields.website}
                             onChange={this._handleInputChange}
-                            className="sp-input sp-input--md sp-input--block" 
+                            className={websiteInputClasses}
                             placeholder="e.g. https://www.airbnb.com"/>
                     {validationErrors.website && <div className="color-negative mt-1">{validationErrors.website}</div>}
                     
