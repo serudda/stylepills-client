@@ -74,12 +74,12 @@ export function validateBasicFields(field: BasicFields): IValidationResponse {
 
     /* Atom Html */
     if (Validator.isEmpty(field.html)) {
-        errors.html = 'This field is required';
+        errors.html = 'Html is required';
     }
 
     /* Atom Css */
     if (Validator.isEmpty(field.css)) {
-        errors.css = 'This field is required';
+        errors.css = 'Css is required';
     }
 
     /* Atom contextual background */

@@ -255,6 +255,43 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
     }
 
+
+    /**
+     * @desc Build Source Code Error Message
+     * @method _buildSourceCodeErrorMessage
+     * @example this._buildSourceCodeErrorMessage()
+     * @private
+     * @returns {JSX.Element} <AddColorForm />
+     */
+    private _buildSourceCodeErrorMessage(): JSX.Element | boolean {
+
+        // Destructuring props
+        const { validationErrors } = this.state;
+
+        let key = null;
+
+        if (validationErrors.html) {
+            key = 'html';
+        } else if (validationErrors.css) {
+            key = 'css';
+        }
+
+        if (key) {
+            return (
+                <div className="sp-bg-negative sp-rounded-bottom-md w-100 p-3 px-4 d-flex align-items-center position-absolute zIndex-footer"
+                    style={{bottom: 0}}>
+                    <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
+                    <span className="fontSize-md color-white fontWeight-9">
+                        {validationErrors[key]}
+                    </span>
+                </div>
+            );
+        } else {
+            return false;
+        }
+        
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -338,7 +375,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                 onChange={this._handleInputChange}
                                 className={nameInputClasses}
                                 placeholder="e.g. Primary Button, Secondary Input"/>
-                        {validationErrors && <div className="color-negative mt-1">{validationErrors.name}</div>}
+                        {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
                         
                         
                         <div className="row mt-4">
@@ -385,8 +422,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                     css={this.state.fields.css}/>
 
                     {/* Panel Atom Section */}
-                    <PanelSectionContainer html={this.state.fields.html}
-                                           css={this.state.fields.css}/>
+
+                    <div className="position-relative">
+                        <PanelSectionContainer html={this.state.fields.html}
+                                                css={this.state.fields.css}/>
+                        
+                        {/* Error Bottom Message */}
+                        {this._buildSourceCodeErrorMessage()}
+                    </div>
 
                 </div>
 
