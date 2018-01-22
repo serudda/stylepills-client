@@ -6,8 +6,8 @@ import { Action } from '../actions/form.action';
 
 import * as appConfig from '../core/constants/app.constants';
 
-import { IAtomFormFields } from './../core/validations/atom';
-import { IProjectFormFields } from './../core/validations/project';
+import { AtomFormFields } from './../core/validations/atom';
+import { ProjectFormFields } from './../core/validations/project';
 
 
 /************************************/
@@ -15,11 +15,11 @@ import { IProjectFormFields } from './../core/validations/project';
 /************************************/
 export interface IFormState {
     projectForm: {
-        fields: IProjectFormFields,
+        fields: ProjectFormFields,
         step: number
     };
     atomForm: {
-        fields: IAtomFormFields,
+        fields: AtomFormFields,
         step: number
     };
 }

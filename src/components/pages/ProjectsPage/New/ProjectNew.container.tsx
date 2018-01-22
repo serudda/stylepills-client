@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { IProjectFormFields } from './../../../../core/validations/project';
+import { ProjectFormFields } from './../../../../core/validations/project';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -32,20 +32,20 @@ type ProjectNewProps = {};
 
 /* Own States */
 type LocalStates = {
-    fieldValues: IProjectFormFields
+    fieldValues: ProjectFormFields
 };
 
 /* Mapped State to Props */
 type StateProps = {
     step: number,
-    fields: IProjectFormFields
+    fields: ProjectFormFields
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         form: {
-            nextStepProject: (fieldValues: IProjectFormFields) => void;
+            nextStepProject: (fieldValues: ProjectFormFields) => void;
             prevStepProject: () => void;
             skipStepProject: () => void;
         },
@@ -103,7 +103,7 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
      * @public
      * @returns {void}
      */
-    nextStep(fieldValues: IProjectFormFields | Object = {}) {
+    nextStep(fieldValues: ProjectFormFields | Object = {}) {
 
         let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
 
@@ -159,6 +159,7 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
                 this.nextStep();
             }
         );
+        
     }
 
 

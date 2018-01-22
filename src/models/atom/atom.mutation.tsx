@@ -3,6 +3,7 @@
 /********************************/
 import gql from 'graphql-tag';
 
+import { AtomFormFields } from './../../core/validations/atom';
 
 /************************************/
 /*            INTERFACES            */
@@ -28,17 +29,7 @@ export const CREATE_ATOM_MUTATION = gql`
 `;
 
 /* Type */
-export type CreateAtomInput = {
-    authorId: number;
-    name: string;
-    description?: string;
-    css: string;
-    html: string;
-    contextualBg: string;
-    private: boolean;
-    atomCategoryId: number;
-    projectId: number;
-};
+export type CreateAtomInput = AtomFormFields;
 
 /* Example */
 /*

@@ -3,7 +3,7 @@
 /********************************/
 import gql from 'graphql-tag';
 
-import { Color as ColorModel } from './../color/color.model';
+import { ProjectFormFields } from './../../core/validations/project';
 
 
 /************************************/
@@ -27,15 +27,7 @@ export const CREATE_PROJECT_MUTATION = gql`
 /*        TYPE         */
 /***********************/
 
-export type CreateProjectInput = {
-    authorId: number;
-    name: string;
-    website?: string;
-    description?: string;
-    colorPalette: Array<ColorModel>;
-    private: boolean;
-    projectCategoryId: number;
-};
+export type CreateProjectInput = ProjectFormFields;
 
 
 // --------------------------------

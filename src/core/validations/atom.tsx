@@ -10,18 +10,31 @@ import { isEmpty } from 'lodash';
 /******************************************/
 /*            FORM INTERFACES             */
 /******************************************/
-export interface IAtomFormFields {
-    authorId: number;
+
+/* Basic Info Step */
+export type BasicFields = {
     name: string;
-    description: string;
+    description?: string;
     html: string;
     css: string;
     contextualBg: string;
-    projectId: number;
+    projectId: number | null;
     atomCategoryId: number;
     private: boolean;
-}
+};
 
+/* Fields without an especific Step */
+export type OtherFields = {
+    authorId: number;
+};
+
+/* Every field of Atom Forms */
+// NOTE: 1
+export type AtomFormFields = 
+    Partial<BasicFields> & 
+    Partial<OtherFields>;
+
+/* Message error of each field */
 export interface IValidationError {
     authorId?: string;
     name?: string;
@@ -33,6 +46,7 @@ export interface IValidationError {
     private?: string;
 }
 
+/* Validation response */
 export interface IValidationResponse {
     errors?: IValidationError; 
     isValid: boolean;
@@ -42,32 +56,49 @@ export interface IValidationResponse {
 /******************************************/
 /*        VALIDATE INPUTS (PROJECT)       */
 /******************************************/
-export default function validateInput(field: IAtomFormFields): IValidationResponse {
+
+/**
+ * @desc Validate fields on BasicFields Step
+ * @function validateBasicFields
+ * @param {BasicFields} field - fields on BasicFields Step
+ * @returns {IValidationResponse} errors, isValid
+ */
+export function validateBasicFields(field: BasicFields): IValidationResponse {
 
     let errors: IValidationError = {};
 
-    if (Validator.isNull(field.authorId.toString())) {
-        errors.authorId = 'Author is required';
-    }
-    if (Validator.isNull(field.name)) {
+    /* Atom Name */
+    if (Validator.isEmpty(field.name)) {
         errors.name = 'This field is required';
     }
-    if (Validator.isNull(field.html)) {
+
+    /* Atom Html */
+    if (Validator.isEmpty(field.html)) {
         errors.html = 'This field is required';
     }
-    if (Validator.isNull(field.css)) {
+
+    /* Atom Css */
+    if (Validator.isEmpty(field.css)) {
         errors.css = 'This field is required';
     }
-    if (Validator.isHexColor(field.contextualBg)) {
+
+    /* Atom contextual background */
+    if (!Validator.isHexColor(field.contextualBg)) {
         errors.contextualBg = 'Context background should be Hex color';
     }
+
+    /* Project parent id */
     if (field.projectId === 0) {
         errors.projectId = 'Project associated does not exist';
     }
-    if (Validator.isNull(field.atomCategoryId.toString())) {
+
+    /* Atom category */
+    if (field.atomCategoryId === null) {
         errors.atomCategoryId = 'Category is required';
     }
-    if (Validator.isNull(field.private.toString())) {
+
+    /* Is private */
+    if (field.private === null) {
         errors.private = 'Private is required';
     }
   
@@ -77,3 +108,33 @@ export default function validateInput(field: IAtomFormFields): IValidationRespon
     };
 
 }
+
+
+/**
+ * @desc Validate fields on OtherFields Step
+ * @function validateOtherFields
+ * @param {OtherFields} field - fields on OtherFields Step
+ * @returns {IValidationResponse} errors, isValid
+ */
+export function validateOtherFields(field: OtherFields): IValidationResponse {
+
+    let errors: IValidationError = {};
+
+    /* Author Id */
+    if (!field.authorId) {
+        errors.authorId = 'Author is required';
+    }
+  
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    };
+}
+
+/*
+    (1). Es la forma en la que podemos decir que "puede ser de un tipo o del otro", esto encaja 
+    muy bien en los forms multi-step, ya que cuando estoy en el Step 1, y presiono "Next", ahi deberia
+    validar solo los campos de ese paso 1. De esta manera puedo tener una interface o type que me
+    muestra todos los campos del Form (ProjectFormFields), pero ademas se que campos tiene cada
+    Step: (BasicFields, ColorFields, OtherFields).
+*/

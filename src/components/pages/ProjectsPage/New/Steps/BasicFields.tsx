@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 import * as classNames from 'classnames';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+import { validateBasicFields, IValidationError } from './../../../../../core/validations/project';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
@@ -33,7 +34,8 @@ type LocalStates = {
         website: string,
         description: string,
         private: boolean
-    }
+    },
+    validationErrors?: IValidationError
 };
 
 /* Mapped State to Props */
@@ -68,7 +70,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 website: props.website || '',
                 description: props.description || '',
                 private: props.private || false
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -120,6 +123,29 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
 
     /**
+     * @desc Validate each field
+     * @method _isValid
+     * @example this._isValid()
+     * @private
+     * @returns {void}
+     */
+    private _isValid() {
+        // Copy state
+        let fieldValues = Object.assign({}, this.state.fields);
+
+        const {errors, isValid} = validateBasicFields(fieldValues);
+
+        if (!isValid) {
+            this.setState({
+                validationErrors: errors
+            });
+        }
+
+        return isValid;
+    }
+
+
+    /**
      * @desc Next Step
      * @method _nextStep
      * @example this._nextStep()
@@ -127,10 +153,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _nextStep() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        this.props.nextStep(fieldValues);
+        if (this._isValid()) {
+            // Copy state
+            let fieldValues = Object.assign({}, this.state.fields);
+
+            this.props.nextStep(fieldValues);    
+        }
+        
     }
 
     

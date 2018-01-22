@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { IAtomFormFields } from './../../../../core/validations/atom';
+import { AtomFormFields } from './../../../../core/validations/atom';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -31,20 +31,20 @@ type ComponentNewProps = {};
 
 /* Own States */
 type LocalStates = {
-    fieldValues: IAtomFormFields
+    fieldValues: AtomFormFields
 };
 
 /* Mapped State to Props */
 type StateProps = {
     step: number,
-    fields: IAtomFormFields
+    fields: AtomFormFields
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         form: {
-            nextStepAtom: (fieldValues: IAtomFormFields) => void;
+            nextStepAtom: (fieldValues: AtomFormFields) => void;
             prevStepAtom: () => void;
             skipStepAtom: () => void;
         },
@@ -104,7 +104,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
      * @public
      * @returns {void}
      */
-    nextStep(fieldValues: IAtomFormFields | Object = {}) {
+    nextStep(fieldValues: AtomFormFields | Object = {}) {
 
         let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
 
