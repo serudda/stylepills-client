@@ -79,7 +79,7 @@ export function validateBasicFields(field: BasicFields): IValidationResponse {
     /* Project Website */
     if (!Validator.isEmpty(field.website)) {
         if (!Validator.isURL(field.website)) {
-            errors.website = 'This value is not a valid url';
+            errors.website = 'This website is not a valid url';
         }
     }
 

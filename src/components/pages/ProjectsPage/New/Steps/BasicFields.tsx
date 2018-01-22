@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
+import { isEmpty } from 'lodash';
+
 import * as classNames from 'classnames';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
@@ -139,6 +141,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
             this.setState({
                 validationErrors: errors
             });
+
+            // Go top pages
+            window.scrollTo(0, 0);
         }
 
         return isValid;
@@ -172,6 +177,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         /*       PROPERTIES       */
         /**************************/
         const { isAuthenticated } = this.props;
+        const { validationErrors } = this.state;
         
         
         /*       VALIDATIONS       */
@@ -181,6 +187,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 <Redirect to="/explore"/>
             );
         }
+
+        // Name input Classes
+        const nameInputClasses = classNames({
+            'sp-input': true,
+            'sp-input--md': true,
+            'sp-input--block': true,
+            'error': !isEmpty(validationErrors.name)
+        });
 
         // Private Switch Classes
         const privateSwitchClasses = classNames({
@@ -232,11 +246,12 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                             name="name"
                             value={this.state.fields.name}
                             onChange={this._handleInputChange}
-                            className="sp-input sp-input--md sp-input--block"
+                            className={nameInputClasses}
                             placeholder="e.g. Airbnb"/>
+                    {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
                     
                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
-                        PROJECT WEBSITE
+                        PROJECT WEBSITE <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
                     </label>
                     <input type="text"
                             name="website"
@@ -244,6 +259,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                             onChange={this._handleInputChange}
                             className="sp-input sp-input--md sp-input--block" 
                             placeholder="e.g. https://www.airbnb.com"/>
+                    {validationErrors.website && <div className="color-negative mt-1">{validationErrors.website}</div>}
                     
                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
                         DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
