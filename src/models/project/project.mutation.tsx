@@ -3,7 +3,9 @@
 /********************************/
 import gql from 'graphql-tag';
 
-import { Color as ColorModel } from './../color/color.model';
+import { ProjectFormFields } from './../../core/validations/project';
+
+import { VALIDATION_PROJECT_FRAGMENT } from './project.fragment';
 
 
 /************************************/
@@ -20,22 +22,18 @@ export const CREATE_PROJECT_MUTATION = gql`
             id
             ok
             message
+            validationErrors {
+                ...ValidationProjectErrorsFragment
+            }
         }
     }
+    ${VALIDATION_PROJECT_FRAGMENT}
 `;
 
 /*        TYPE         */
 /***********************/
 
-export type CreateProjectInput = {
-    authorId: number;
-    name: string;
-    website?: string;
-    description?: string;
-    colorPalette: Array<ColorModel>;
-    private: boolean;
-    projectCategoryId: number;
-};
+export type CreateProjectInput = ProjectFormFields;
 
 
 // --------------------------------
@@ -49,6 +47,7 @@ mutation createProject($input: CreateProjectInput!) {
         id
         ok
         message
+        validationErrors
     }
 }
 

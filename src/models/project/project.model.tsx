@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { User } from '../user/user.model';
-import { Color } from '../color/color.model';
+import { Color as ColorModel } from '../color/color.model';
 import { Atom } from '../atom/atom.model';
 import { ProjectCategory } from '../projectCategory/projectCategory.model';
 
@@ -20,7 +20,7 @@ export type Project = {
     name: string;
     description: string;
     website: string;
-    colorPalette: Array<Color>;
+    colorPalette: Array<ColorModel>;
     atoms: Array<Atom>;
     active: boolean;
     private: boolean;

@@ -7,11 +7,12 @@ import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+import { validateColorFields, IValidationError } from './../../../../../core/validations/project';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import Icon from '../../../../common/Icon/Icon';
-import { Color as ColorModel } from './../../../../../models/color/color.model';
+import { Color as ColorModel, ColorTypeOptions } from './../../../../../models/color/color.model';
 import AddColorForm from './../../../../common/AddColorForm/AddColorForm.container';
 
 
@@ -32,7 +33,8 @@ type ColorFieldsProps = {
 type LocalStates = {
     fields: {
         colorPalette: Array<ColorModel>
-    }
+    },
+    validationErrors?: IValidationError
 };
 
 /* Mapped State to Props */
@@ -61,7 +63,8 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         this.state = {
             fields: {
                 colorPalette: [...props.colorPalette] || []
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -185,10 +188,10 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
      * @method _buildAddColorForm
      * @example this._buildAddColorForm('primary')
      * @private
-     * @param {string} type - type color section (primary, secondary or grayscale)
+     * @param {ColorTypeOptions} type - type color section (primary, secondary or grayscale)
      * @returns {JSX.Element} <AddColorForm />
      */
-    private _buildAddColorForm(type: string): JSX.Element {
+    private _buildAddColorForm(type: ColorTypeOptions): JSX.Element {
 
         // Destructuring state
         const { colorPalette } = this.state.fields;
@@ -238,6 +241,29 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 
 
     /**
+     * @desc Validate each field
+     * @method isValid
+     * @example this.isValid()
+     * @private
+     * @returns {void}
+     */
+    private _isValid() {
+        // Copy state
+        let fieldValues = Object.assign({}, this.state.fields);
+
+        const {errors, isValid} = validateColorFields(fieldValues);
+
+        if (!isValid) {
+            this.setState({
+                validationErrors: errors
+            });
+        }
+
+        return isValid;
+    }
+
+
+    /**
      * @desc Next Step
      * @method _nextStep
      * @example this._nextStep()
@@ -246,10 +272,13 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
      */
     private _nextStep() {
 
-        // Destructuring state
-        const { fields } = this.state;
+        if (this._isValid()) {
+            // Copy state
+            let fieldValues = Object.assign({}, this.state.fields);
 
-        this.props.nextStep(fields);
+            this.props.nextStep(fieldValues);    
+        }
+
     }
 
     
@@ -262,6 +291,7 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
         /*       PROPERTIES       */
         /**************************/
         const { isAuthenticated } = this.props;
+        const { validationErrors } = this.state;
         
         
         /*       VALIDATIONS       */
@@ -317,21 +347,27 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
                     {/* Add Primary colors */}
-                    {this._buildAddColorForm('primary')}
+                    {this._buildAddColorForm(ColorTypeOptions.primary)}
+                    {/* Validation error message */}
+                    {validationErrors.colorPalette && 
+                        <div className="color-negative">
+                            {validationErrors.colorPalette}
+                        </div>
+                    }
 
 
                     <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
 
                     {/* Add Secondary colors */}
-                    {this._buildAddColorForm('secondary')}
+                    {this._buildAddColorForm(ColorTypeOptions.secondary)}
 
 
                     <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
 
                     {/* Add Grayscale colors */}
-                    {this._buildAddColorForm('grayscale')}
+                    {this._buildAddColorForm(ColorTypeOptions.grayscale)}
 
                 </div>
 

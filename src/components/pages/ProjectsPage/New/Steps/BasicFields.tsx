@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
+import { isEmpty } from 'lodash';
+
 import * as classNames from 'classnames';
 
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+import { validateBasicFields, IValidationError } from './../../../../../core/validations/project';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
@@ -33,7 +36,8 @@ type LocalStates = {
         website: string,
         description: string,
         private: boolean
-    }
+    },
+    validationErrors?: IValidationError
 };
 
 /* Mapped State to Props */
@@ -68,7 +72,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 website: props.website || '',
                 description: props.description || '',
                 private: props.private || false
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -120,6 +125,32 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
 
     /**
+     * @desc Validate each field
+     * @method _isValid
+     * @example this._isValid()
+     * @private
+     * @returns {void}
+     */
+    private _isValid() {
+        // Copy state
+        let fieldValues = Object.assign({}, this.state.fields);
+
+        const {errors, isValid} = validateBasicFields(fieldValues);
+
+        if (!isValid) {
+            this.setState({
+                validationErrors: errors
+            });
+
+            // Go top pages
+            window.scrollTo(0, 0);
+        }
+
+        return isValid;
+    }
+
+
+    /**
      * @desc Next Step
      * @method _nextStep
      * @example this._nextStep()
@@ -127,10 +158,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _nextStep() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        this.props.nextStep(fieldValues);
+        if (this._isValid()) {
+            // Copy state
+            let fieldValues = Object.assign({}, this.state.fields);
+
+            this.props.nextStep(fieldValues);    
+        }
+        
     }
 
     
@@ -142,6 +177,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         /*       PROPERTIES       */
         /**************************/
         const { isAuthenticated } = this.props;
+        const { validationErrors } = this.state;
         
         
         /*       VALIDATIONS       */
@@ -151,6 +187,22 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 <Redirect to="/explore"/>
             );
         }
+
+        // Name input Classes
+        const nameInputClasses = classNames({
+            'sp-input': true,
+            'sp-input--md': true,
+            'sp-input--block': true,
+            'error': !isEmpty(validationErrors.name)
+        });
+
+        // Website input Classes
+        const websiteInputClasses = classNames({
+            'sp-input': true,
+            'sp-input--md': true,
+            'sp-input--block': true,
+            'error': !isEmpty(validationErrors.website)
+        });
 
         // Private Switch Classes
         const privateSwitchClasses = classNames({
@@ -202,18 +254,20 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                             name="name"
                             value={this.state.fields.name}
                             onChange={this._handleInputChange}
-                            className="sp-input sp-input--md sp-input--block"
+                            className={nameInputClasses}
                             placeholder="e.g. Airbnb"/>
+                    {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
                     
                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
-                        PROJECT WEBSITE
+                        PROJECT WEBSITE <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
                     </label>
                     <input type="text"
                             name="website"
                             value={this.state.fields.website}
                             onChange={this._handleInputChange}
-                            className="sp-input sp-input--md sp-input--block" 
+                            className={websiteInputClasses}
                             placeholder="e.g. https://www.airbnb.com"/>
+                    {validationErrors.website && <div className="color-negative mt-1">{validationErrors.website}</div>}
                     
                     <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
                         DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>

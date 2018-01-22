@@ -5,7 +5,8 @@ import { EventTypes } from 'redux-segment';
 
 import * as types from '../core/constants/action.types';
 
-import { IAtomFormFields, IProjectFormFields } from './../core/interfaces/interfaces';
+import { AtomFormFields } from './../core/validations/atom';
+import { ProjectFormFields } from './../core/validations/project';
 
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
@@ -17,18 +18,18 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 interface IFormEventPayLoad {
     event: string;
     properties?: {
-        fieldValues: IAtomFormFields | IProjectFormFields;
+        fieldValues: AtomFormFields | ProjectFormFields;
     };
 }
 
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     projectForm: {
-        fields: IProjectFormFields,
+        fields: ProjectFormFields,
         step: number
     };
     atomForm: {
-        fields: IAtomFormFields,
+        fields: AtomFormFields,
         step: number
     };
 }
@@ -36,18 +37,18 @@ interface ILocationChangeAction {
 export interface IClearFormAction {
     type: types.CLEAR_FORM;
     projectForm: {
-        fields: IProjectFormFields,
+        fields: ProjectFormFields,
         step: number
     };
     atomForm: {
-        fields: IAtomFormFields,
+        fields: AtomFormFields,
         step: number
     };
 }
 
 export interface INextStepProjectAction {
     type: types.NEXT_STEP_PROJECT;
-    fieldValues: IProjectFormFields;
+    fieldValues: ProjectFormFields;
     meta: IAnalyticsTrack<IFormEventPayLoad>;
 }
 
@@ -63,7 +64,7 @@ export interface ISkipStepProjectAction {
 
 export interface INextStepAtomAction {
     type: types.NEXT_STEP_ATOM;
-    fieldValues: IAtomFormFields;
+    fieldValues: AtomFormFields;
     meta: IAnalyticsTrack<IFormEventPayLoad>;
 }
 
@@ -139,7 +140,7 @@ export const clearFormAction = (): Action => {
  * @function nextStepAtomAction
  * @returns {Action}
  */
-export const nextStepAtomAction = (fieldValues: IAtomFormFields): Action => {
+export const nextStepAtomAction = (fieldValues: AtomFormFields): Action => {
 
     return {
         type: types.NEXT_STEP_ATOM,
@@ -207,7 +208,7 @@ export const skipStepAtomAction = (): Action => {
  * @function nextStepProjectAction
  * @returns {Action}
  */
-export const nextStepProjectAction = (fieldValues: IProjectFormFields): Action => {
+export const nextStepProjectAction = (fieldValues: ProjectFormFields): Action => {
 
     return {
         type: types.NEXT_STEP_PROJECT,

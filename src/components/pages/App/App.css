@@ -3561,6 +3561,8 @@ NOTE: Boostrap 4 has a flex set
   border-radius: 3px;
   color: #3C4858;
   display: block; }
+  .sp-input.error, .sp-inputGroup .error.input {
+    border-color: #FF4949; }
   .sp-input::-moz-placeholder , .sp-inputGroup .input::-moz-placeholder  {
     color: #C0CCDA; }
   .sp-input::-webkit-input-placeholder, .sp-inputGroup .input::-webkit-input-placeholder {
@@ -3597,6 +3599,8 @@ NOTE: Boostrap 4 has a flex set
   border-radius: 3px;
   color: #3C4858;
   display: block; }
+  .sp-textarea.error {
+    border-color: #FF4949; }
   .sp-textarea::-moz-placeholder  {
     color: #C0CCDA; }
   .sp-textarea::-webkit-input-placeholder {
@@ -3626,6 +3630,8 @@ NOTE: Boostrap 4 has a flex set
   .sp-search__input {
     padding-left: 36px;
     box-sizing: border-box; }
+    .sp-search__input.error {
+      border-color: #FF4949; }
   .sp-search__btn {
     position: absolute;
     right: 5px; }
@@ -3654,6 +3660,8 @@ NOTE: Boostrap 4 has a flex set
       border-radius: 3px;
       color: #3C4858;
       display: block; }
+      .sp-select-container .sp-select--input.error {
+        border-color: #FF4949; }
       .sp-select-container .sp-select--input:focus {
         border-color: #33ADA9;
         outline: 0; }
