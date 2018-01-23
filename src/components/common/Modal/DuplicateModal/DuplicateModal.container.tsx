@@ -274,13 +274,11 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                             Duplicated successfully!
                         </div>
 
-                        {/* Duplicate options */}
-                        <ul className="duplicateOptionsList m-4">
-
-                            {/* Duplicated successfully message */}
-                            <li className="duplicateResult">
-                                <div className="duplicateResult__icon mt-4 mb-5" />
-                                <div className="duplicateResult__text mb-4">
+                        {/* Duplicated successfully message */}
+                        <ul className="sp-messageBlock m-4">
+                            <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                                <div className="icon icon--md icon--newComponent mt-4 mb-3" />
+                                <div className="text text--xs color-slate fontFamily-openSans fontWeight-7 mb-4">
                                     A new component just arrived on your dashboard.
                                 </div>
                                 <Link className="sp-btn sp-btn--md sp-btn--secondary-ghost"
@@ -288,7 +286,6 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                                     Go to your dashboard
                                 </Link>
                             </li>
-
                         </ul>
 
                     </div>  }

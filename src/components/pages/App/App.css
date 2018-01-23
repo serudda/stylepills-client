@@ -3928,6 +3928,8 @@ NOTE: Boostrap 4 has a flex set
         background-image: url("./../../../resources/images/noResult.svg"); }
       .sp-messageBlock__container .icon--working {
         background-image: url("./../../../resources/images/working.svg"); }
+      .sp-messageBlock__container .icon--newComponent {
+        background-image: url("./../../../resources/images/newComponent.svg"); }
       .sp-messageBlock__container .icon--newProject {
         background-image: url("./../../../resources/images/newProject.svg"); }
     .sp-messageBlock__container .text--xs {
