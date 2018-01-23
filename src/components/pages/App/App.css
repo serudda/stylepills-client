@@ -3862,6 +3862,9 @@ NOTE: Boostrap 4 has a flex set
           .sp-list--simple .item .icon-btn:hover .icon {
             stroke: #FFFFFF; }
 
+/**********************************************************/
+/*                         LOADER                         */
+/**********************************************************/
 .sp-loader--center {
   position: absolute;
   z-index: 999;

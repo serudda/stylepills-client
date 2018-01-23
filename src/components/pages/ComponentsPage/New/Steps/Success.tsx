@@ -5,8 +5,6 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import * as appConfig from './../../../../../core/constants/app.constants';
-
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../reducer/reducer.config';
 
@@ -82,11 +80,6 @@ extends React.Component<ChildProps<SuccessProps & StateProps & DispatchProps, {}
         /***************************/
         return (
             <div className="Success StepByStep p-4">
-
-                <Icon icon="loader"
-                    iconClass="sp-loader sp-loader--center"
-                    color={appConfig.SECONDARY_COLOR_HEX}
-                    width="80" height="80"/>
 
                 {/* STEP BY STEP: HEADER */}
                 <div className="StepByStep__header mb-4">

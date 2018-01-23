@@ -1,6 +1,11 @@
+/**********************************************************/
+/*                         LOADER                         */
+/**********************************************************/
+
 .sp-loader {
 
     &--center {
+        // TODO: Verificar si esto es necesario, ya que tenemos helpers para centrar
         position: absolute;
         z-index: 999;
         overflow: show;
@@ -10,4 +15,5 @@
         bottom: 0;
         right: 0;
     }
+
 }
