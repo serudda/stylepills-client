@@ -285,7 +285,7 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
 
                 {/* Project Details */}
                 {this.state.currentProject.id &&
-                    <div className="ProjectDetails">
+                    <div className="ProjectDetails"> {/* TODO: Remover d-none cuando se vaya a implementar */}
                         <div className="title px-3 pt-2 pb-3 d-flex align-items-center">
                             <span>
                                 {this.state.currentProject.name}
@@ -293,24 +293,29 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
                             {this._getCloseBtn()}
                         </div>
 
-                        <BaseFolder projectId={this.state.currentProject.id} />
+                        <div className="d-none"> {/* TODO: Remover este div cuando se vaya a implementar */}
 
-                        <div className="option px-3 py-1">
-                            <Icon icon="chevronRight"
-                                iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                width="16" height="16"/>
-                            <span className="fontSize-sm fontWeight-6 color-white">
-                                components
-                            </span>
+                            <BaseFolder projectId={this.state.currentProject.id} />
+
+                            <div className="option px-3 py-1">
+                                <Icon icon="chevronRight"
+                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
+                                    width="16" height="16"/>
+                                <span className="fontSize-sm fontWeight-6 color-white">
+                                    components
+                                </span>
+                            </div>
+                            <div className="option px-3 py-1">
+                                <Icon icon="chevronRight"
+                                    iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
+                                    width="16" height="16"/>
+                                <span className="fontSize-sm fontWeight-6 color-white">
+                                    organisms
+                                </span>
+                            </div>
+                            
                         </div>
-                        <div className="option px-3 py-1">
-                            <Icon icon="chevronRight"
-                                iconClass="stroke-white strokeWidth-3 ml-2 mr-1"
-                                width="16" height="16"/>
-                            <span className="fontSize-sm fontWeight-6 color-white">
-                                organisms
-                            </span>
-                        </div>
+                        
                     </div>
                 }
 

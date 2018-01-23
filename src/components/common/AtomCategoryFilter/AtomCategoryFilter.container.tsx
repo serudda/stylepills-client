@@ -142,7 +142,7 @@ extends React.Component<ChildProps<AtomCategoryFilterProps & StateProps & Dispat
      * @param data - all Atom Categories
      * @returns {JSX.Element} <Popup />
      */
-    private _getCategoriesFilterList (categories: Array<AtomCategoryModel>): JSX.Element {
+    private _getCategoriesFilterList (categories: Array<AtomCategoryModel> = []): JSX.Element {
         return (
             <Popup
             trigger={

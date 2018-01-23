@@ -14,6 +14,7 @@ interface IFunctionUtil {
     inArray: (array: Array<any>, comparisonProp: string, comparisonValue: any) => boolean;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
+    valueExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
 }
 
 
@@ -56,10 +57,9 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * consoleLog
-     * @description - generic console log 
+     * @desc Generic console log
+     * @function consoleLog
      * @example - this.consoleLog('AtomDetailsBox is actived');
-     * @function
      * @param {string} message - console log message
      * @param {any} value - values or object to show on console.log
      * @return {void}
@@ -75,11 +75,10 @@ class FunctionsUtil implements IFunctionUtil {
 
     /**
      * @desc Get Source Code from currentCode (sourceCodePanel state on Store)
-     * @function
-     * @method sourceCodeArrayToObj
+     * @function sourceCodeArrayToObj
      * @example this.sourceCodeArrayToObj(currentCode)
-     * @private 
-     * @returns {Object} obj - object parsed (e.g. obj = { "html": "<html>...</html>", "css": ".class {color: red}" })
+     * @param {Array<ICurrentCode>} sourceCode - A list of currentCode format (codeType and codeProps)
+     * @return {SourceCode} obj - object parsed (e.g. obj = { "html": "<html>...</html>", "css": ".class {color: red}" })
      */
     sourceCodeArrayToObj(sourceCode: Array<ICurrentCode>): SourceCode {
 
@@ -90,6 +89,36 @@ class FunctionsUtil implements IFunctionUtil {
         });
 
         return obj;
+    }
+
+
+    /**
+     * @desc Validate if a value exists on an Array
+     * @function valueExistsInArray
+     * @example this.valueExistsInArray(array, 'primary', 'typeColor')
+     * @param {Array<any>} array - array to validate
+     * @param {any} value - value to use to check if exists in the array
+     * @param {string} key - If array has inner objects, this is the key that contain the value
+     * @return {boolean} value exists in array (true or false)
+     */
+    valueExistsInArray(array: Array<any>, value: any, key: string = null): boolean {
+        
+        let res = false;
+
+        if (array.length > 0) {
+
+            let newArray = array.filter((elem: any) => {
+                if (key) {
+                    return elem[key] === value;
+                } else {
+                    return elem === value;
+                }
+            });
+
+            if (newArray.length > 0) { res = true; }
+        }
+
+        return res;
     }
 
 }

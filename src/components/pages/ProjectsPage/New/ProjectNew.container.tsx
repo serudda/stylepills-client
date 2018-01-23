@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { IProjectFormFields } from './../../../../core/interfaces/interfaces';
+import { ProjectFormFields, IValidationError as IValidationProjectError } from './../../../../core/validations/project';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -32,20 +32,21 @@ type ProjectNewProps = {};
 
 /* Own States */
 type LocalStates = {
-    fieldValues: IProjectFormFields
+    fieldValues: ProjectFormFields,
+    validationErrors: IValidationProjectError
 };
 
 /* Mapped State to Props */
 type StateProps = {
     step: number,
-    fields: IProjectFormFields
+    fields: ProjectFormFields
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         form: {
-            nextStepProject: (fieldValues: IProjectFormFields) => void;
+            nextStepProject: (fieldValues: ProjectFormFields) => void;
             prevStepProject: () => void;
             skipStepProject: () => void;
         },
@@ -80,7 +81,8 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
                 colorPalette: [],
                 private: false,
                 projectCategoryId: 1 // TODO: Magic number
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -103,7 +105,7 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
      * @public
      * @returns {void}
      */
-    nextStep(fieldValues: IProjectFormFields | Object = {}) {
+    nextStep(fieldValues: ProjectFormFields | Object = {}) {
 
         let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
 
@@ -155,10 +157,20 @@ extends React.Component<ChildProps<ProjectNewProps & StateProps & DispatchProps,
         fieldValues.authorId = authorId;
 
         this.props.actions.projectState.createProject(fieldValues).then(
-            () => {
-                this.nextStep();
+            (response) => {
+                if (response.ok) {
+                    this.nextStep();
+                } else {
+                    // Update local state
+                    // TODO: Hacer algo con este validationErrors (este viene de la validacion del Server)
+                    this.setState({ validationErrors: response.validationErrors },
+                    () => {
+                        this.previousStep();
+                    });
+                }
             }
         );
+        
     }
 
 

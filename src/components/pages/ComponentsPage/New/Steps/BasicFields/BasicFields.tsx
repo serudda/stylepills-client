@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
+import { isEmpty } from 'lodash';
+
 import * as classNames from 'classnames';
 
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
+import { validateBasicFields, IValidationError as IValidationAtomError } from './../../../../../../core/validations/atom';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
@@ -45,7 +48,8 @@ type LocalStates = {
         projectId: number;
         atomCategoryId: number;
         private: boolean;
-    }
+    },
+    validationErrors?: IValidationAtomError
 };
 
 /* Mapped State to Props */
@@ -56,7 +60,7 @@ type StateProps = {
     css: string,
     contextualBg: string,
     projectId: number | null,
-    atomCategoryId: number,
+    atomCategoryId: number | null,
     private: boolean,
     currentCode: Array<ICurrentCode>,
     hex: string,
@@ -91,7 +95,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 projectId: props.projectId || null,
                 atomCategoryId: props.atomCategoryId || 0,
                 private: props.private || false
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -172,7 +177,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @method _handleInputChange
      * @example this._handleInputChange()
      * @private
-     * @param {any} e - Event
+     * @param {React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>} e - Event
      * @returns {void}
      */
     private _handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
@@ -199,8 +204,36 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _handleNextClick(e: React.MouseEvent<HTMLButtonElement>) {
-        e.preventDefault();
+        // e.preventDefault();
         this._nextStep();
+    }
+
+
+    /**
+     * @desc Validate each field
+     * @method _isValid
+     * @example this._isValid()
+     * @private
+     * @returns {void}
+     */
+    private _isValid() {
+        // Copy state
+        let fieldValues = Object.assign({}, this.state.fields);
+
+        const {errors, isValid} = validateBasicFields(fieldValues);
+
+        console.log(errors, isValid);
+
+        if (!isValid) {
+            this.setState({
+                validationErrors: errors
+            });
+
+            // Go top pages
+            window.scrollTo(0, 0);
+        }
+
+        return isValid;
     }
 
 
@@ -212,10 +245,51 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @returns {void}
      */
     private _nextStep() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        this.props.nextStep(fieldValues);
+        if (this._isValid()) {
+            // Copy state
+            let fieldValues = Object.assign({}, this.state.fields);
+
+            this.props.nextStep(fieldValues);
+        }
+
+    }
+
+
+    /**
+     * @desc Build Source Code Error Message
+     * @method _buildSourceCodeErrorMessage
+     * @example this._buildSourceCodeErrorMessage()
+     * @private
+     * @returns {JSX.Element} <AddColorForm />
+     */
+    private _buildSourceCodeErrorMessage(): JSX.Element | boolean {
+
+        // Destructuring props
+        const { validationErrors } = this.state;
+
+        let key = null;
+
+        if (validationErrors.html) {
+            key = 'html';
+        } else if (validationErrors.css) {
+            key = 'css';
+        }
+
+        if (key) {
+            return (
+                <div className="sp-bg-negative sp-rounded-bottom-md w-100 p-3 px-4 d-flex align-items-center position-absolute zIndex-footer"
+                    style={{bottom: 0}}>
+                    <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
+                    <span className="fontSize-md color-white fontWeight-9">
+                        {validationErrors[key]}
+                    </span>
+                </div>
+            );
+        } else {
+            return false;
+        }
+        
     }
 
     
@@ -227,6 +301,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         /*       PROPERTIES       */
         /**************************/
         const { user, isAuthenticated } = this.props;
+        const { validationErrors } = this.state;
         
         
         /*       VALIDATIONS       */
@@ -237,9 +312,17 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
             );
         }
 
+        // Name input Classes
+        const nameInputClasses = classNames({
+            'sp-input': true,
+            'sp-input--md': true,
+            'sp-input--block': true,
+            'error': !isEmpty(validationErrors.name)
+        });
+
         // Private Switch Classes
         const privateSwitchClasses = classNames({
-            'sp-switch-btn sp-switch-btn--md sp-switch-btn--circle':  true,
+            'sp-switch-btn sp-switch-btn--sm sp-switch-btn--circle':  true,
             'sp-switch-btn--on-primary': true,
             'sp-switch-btn--off-white': true, 
             'boxShadow-close': true, 
@@ -254,7 +337,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 {/* STEP BY STEP: HEADER */}
                 <div className="StepByStep__header mb-5">
 
-                    <div className="nav-section d-flex">
+                    <div className="nav-section d-none"> {/* TODO: Remplazar d-none por d-flex */}
                         {/* Close button */}
                         <div className="iconContainer d-inline-flex flex-column align-items-center ml-auto">
                             <Icon icon="close"
@@ -290,8 +373,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                 name="name"
                                 value={this.state.fields.name}
                                 onChange={this._handleInputChange}
-                                className="sp-input sp-input--md sp-input--block"
+                                className={nameInputClasses}
                                 placeholder="e.g. Primary Button, Secondary Input"/>
+                        {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
+                        
                         
                         <div className="row mt-4">
                             <div className="col-6">
@@ -337,8 +422,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                     css={this.state.fields.css}/>
 
                     {/* Panel Atom Section */}
-                    <PanelSectionContainer html={this.state.fields.html}
-                                           css={this.state.fields.css}/>
+
+                    <div className="position-relative">
+                        <PanelSectionContainer html={this.state.fields.html}
+                                                css={this.state.fields.css}/>
+                        
+                        {/* Error Bottom Message */}
+                        {this._buildSourceCodeErrorMessage()}
+                    </div>
 
                 </div>
 
@@ -351,7 +442,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                                    checked={this.state.fields.private}
                                    onChange={this._handleInputChange}
                                    className="cb-value" />
-                            <span className="inner-btn boxShadow-subtle" />
+                            <span className="inner-btn boxShadow-raised" />
                         </div>
                         <span className="fontFamily-openSans fontWeight-6 fontSize-sm color-silver ml-3">
                             Hide this component from the public

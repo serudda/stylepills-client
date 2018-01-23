@@ -19,7 +19,7 @@ export interface ICodeProps {
     libs?: Array<string>;
 }
 
-export interface IAtomCodeProps {
+export interface IAtomCode {
     codeType: string;
     codeProps: ICodeProps;
 }
@@ -27,7 +27,7 @@ export interface IAtomCodeProps {
 export interface IAtomsProps {
     atomId: any;
     name: string;
-    atomCode: Array<IAtomCodeProps>;
+    atomCode: Array<IAtomCode>;
 }
 
 export interface IAtomState {
@@ -39,6 +39,10 @@ export interface IAtomState {
     created: {
         atomId?: number;
         isCreated: boolean;
+    };
+    duplicated: {
+        atomId: number,
+        isDuplicated: boolean;
     };
     message?: string;
 }
@@ -56,6 +60,10 @@ const defaultState: IAtomState = {
     created: {
         atomId: null,
         isCreated: false
+    },
+    duplicated: {
+        atomId: null,
+        isDuplicated: false
     }
 };
 
@@ -89,6 +97,10 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                     ...state.created,
                     atomId: null,
                     isCreated: false
+                },
+                duplicated: {
+                    atomId: null,
+                    isDuplicated: false
                 }
             };
         }
@@ -169,6 +181,37 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
                     isEdited: true,
                     atoms: newAtomsState
                 }
+            };
+        }
+
+        case types.DUPLICATE_ATOM_REQUEST: {
+            return {
+                ...state,
+                duplicated: {
+                    atomId: action.duplicated.atomId,
+                    isDuplicated: false
+                }
+            };
+        }
+
+        case types.DUPLICATE_ATOM_SUCCESS: {
+            return {
+                ...state,
+                duplicated: {
+                    atomId: action.duplicated.atomId,
+                    isDuplicated: true
+                }
+            };
+        }
+
+        case types.DUPLICATE_ATOM_FAILURE: {
+            return {
+                ...state,
+                duplicated: {
+                    atomId: action.duplicated.atomId,
+                    isDuplicated: false
+                },
+                message: action.message
             };
         }
             

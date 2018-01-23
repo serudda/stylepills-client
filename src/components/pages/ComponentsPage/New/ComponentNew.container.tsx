@@ -7,7 +7,7 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import { IAtomFormFields } from './../../../../core/interfaces/interfaces';
+import { AtomFormFields, IValidationError as IValidationAtomError } from './../../../../core/validations/atom';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -31,20 +31,21 @@ type ComponentNewProps = {};
 
 /* Own States */
 type LocalStates = {
-    fieldValues: IAtomFormFields
+    fieldValues: AtomFormFields,
+    validationErrors: IValidationAtomError
 };
 
 /* Mapped State to Props */
 type StateProps = {
     step: number,
-    fields: IAtomFormFields
+    fields: AtomFormFields
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         form: {
-            nextStepAtom: (fieldValues: IAtomFormFields) => void;
+            nextStepAtom: (fieldValues: AtomFormFields) => void;
             prevStepAtom: () => void;
             skipStepAtom: () => void;
         },
@@ -81,7 +82,8 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
                 private: false,
                 projectId: null,
                 atomCategoryId: 0
-            }
+            },
+            validationErrors: {}
         };
 
         // Bind methods
@@ -104,7 +106,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
      * @public
      * @returns {void}
      */
-    nextStep(fieldValues: IAtomFormFields | Object = {}) {
+    nextStep(fieldValues: AtomFormFields | Object = {}) {
 
         let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
 
@@ -156,8 +158,19 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
         fieldValues.authorId = authorId;
 
         this.props.actions.atomState.createAtom(fieldValues).then(
-            () => {
-                this.nextStep();
+            (response) => {
+                if (response.ok) { 
+                    this.nextStep();
+                } else {
+                    // Update local state
+                    // TODO: Hacer algo con este validationErrors (este viene de la validacion del Server)
+                    // Ademas esta fallando en algo que no tiene que ver con validaciones, asi que siempre
+                    // que falla va a entrar por aqui. No seria validationErrors sino cualquier error
+                    this.setState({ validationErrors: response.validationErrors },
+                    () => {
+                        this.previousStep();
+                    });
+                }
             }
         );
     }

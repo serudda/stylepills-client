@@ -3,6 +3,9 @@
 /********************************/
 import gql from 'graphql-tag';
 
+import { AtomFormFields } from './../../core/validations/atom';
+
+import { VALIDATION_ATOM_FRAGMENT } from './atom.fragment';
 
 /************************************/
 /*            INTERFACES            */
@@ -12,56 +15,37 @@ import gql from 'graphql-tag';
 /********************************/
 /*          MUTATIONS           */
 /********************************/
+
+
+/*          CREATE           */
+/*===========================*/
+
 export const CREATE_ATOM_MUTATION = gql`
     mutation createAtom($input: CreateAtomInput!) {
         createAtom(input: $input) {
+            id
             ok
             message
+            validationErrors {
+                ...ValidationAtomErrorsFragment
+            }
         }
     }
+    ${VALIDATION_ATOM_FRAGMENT}
 `;
 
-/*        TYPE         */
-/***********************/
+/* Type */
+export type CreateAtomInput = AtomFormFields;
 
-export type CreateAtomInput = {
-    authorId: number;
-    name: string;
-    description?: string;
-    css: string;
-    html: string;
-    contextualBg: string;
-    private: boolean;
-    atomCategoryId: number;
-    projectId: number;
-};
-
-
-// --------------------------------
-
-// TODO: Refactor para que reciba un input, e implementar la misma forma de uso que en Create
-export const DUPLICATE_ATOM_MUTATION = gql`
-    mutation duplicateAtom($atomId: ID!, $userId: ID!, $atomCode: [AtomCodeProps]) {
-        duplicateAtom(atomId: $atomId, userId: $userId, atomCode: $atomCode) {
-          ok,
-          message
-        }
-    }
-`;
-
-
-// --------------------------------
-
-
-
-
+/* Example */
 /*
-
 CREATE_ATOM_MUTATION
 mutation createAtom($input: CreateAtomInput!) {
     createAtom(input: $input){
+        id
         ok
         message
+        validationErrors
     }
 }
 
@@ -73,11 +57,73 @@ Query Variables:
         "description": "Explaining the component behavior",
         "html": "<button class='btn btn-primary'>DONE</button>",
       	"css": "// My css TEST",
-          "private": false,
+        "private": false,
       	"contextualBg": "#CCCCCC",
       	"atomCategoryId": 1,
         "projectId": 22
     }
 }
-
 */
+
+// --------------------------------
+
+
+/*         DUPLICATE         */
+/*===========================*/
+
+export const DUPLICATE_ATOM_MUTATION = gql`
+    mutation duplicateAtom($input: DuplicateAtomInput!) {
+        duplicateAtom(input: $input) {
+            id,
+            ok,
+            message
+        }
+    }
+`;
+
+/* Type */
+type CodeProps = {
+    code: string;
+    libs?: Array<string>;
+};
+
+type AtomCode = {
+    codeType: string;
+    codeProps: CodeProps;
+};
+
+export type DuplicateAtomInput = {
+    atomId: number;
+    userId: number;
+    atomCode: Array<AtomCode> | null;
+};
+
+/* Example */
+/*
+DUPLICATE_ATOM_MUTATION
+mutation duplicateAtom($input: DuplicateAtomInput!); {
+    duplicateAtom(input: $input){
+        id
+        ok
+        message
+    }
+}
+
+Query Variables:
+{
+    'input': {
+        'atomId': 3,
+        'userId';: 2,
+        'atomCode';: [
+            {
+                'codeType': 'html',
+                'codeProps': {
+                    'code': '<button class=\'btn btn-primary\'>DONIN</button>'
+                }
+            }
+        ];
+    }
+}
+*/
+
+// --------------------------------

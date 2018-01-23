@@ -8,7 +8,7 @@ import { SketchPicker } from 'react-color';
 import * as appConfig from './../../../core/constants/app.constants';
 
 import Icon from './../../common/Icon/Icon';
-import { Color as ColorModel } from '../../../models/color/color.model';
+import { Color as ColorModel, ColorTypeOptions } from '../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../models/rgbaColor/rgbaColor.model';
 import ColorsList from './../ColorsList/ColorsList';
 
@@ -25,7 +25,7 @@ const ntc = require('ntcjs');
 type AddColorFormProps = {
     title: string,
     description: string,
-    type: string,
+    type: ColorTypeOptions,
     colors: Array<ColorModel>,
     onAddClick: (newColor: ColorModel) => void;
     onDeleteClick: (color: ColorModel) => void;
@@ -67,7 +67,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
             rgba: appConfig.SECONDARY_COLOR_RGBA,
             hex: '',
             name: '',
-            showForm: props.type === 'primary' ? true : false
+            showForm: props.type === ColorTypeOptions.primary ? true : false
         };
 
         // Bind methods
@@ -227,7 +227,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
                     <div className="d-flex flex-column">
                         
                         <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                            {title}{type !== 'primary' && <span className="color-extraDarkSmoke ml-2">(optional)</span>}
+                            {title}{type !== ColorTypeOptions.primary && <span className="color-extraDarkSmoke ml-2">(optional)</span>}
                         </div>
                         
                         <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
@@ -236,7 +236,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
                         
                     </div>
 
-                    {(type !== 'primary' && !showForm) &&
+                    {(type !== ColorTypeOptions.primary && !showForm) &&
                         <button className="d-flex sp-btn sp-btn--md sp-btn--secondary ml-auto p-1"
                                 onClick={this._handleShowFormClick}>
                             <Icon icon="plus"

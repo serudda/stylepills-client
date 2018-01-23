@@ -43,7 +43,7 @@ interface DetailsTabMenuOptions {
     share: () => JSX.Element;
 }
 
-/* Posible options */
+/* Possible options */
 export enum Options {
     duplicate = 'duplicate',
     showCode = 'showCode',
