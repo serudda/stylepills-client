@@ -112,7 +112,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
                                 css={this.state.css} 
                                 title={name}
                                 background={contextualBg}
-                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
+                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css', 'https://s3.amazonaws.com/waysily-img/stylepill/helpers.css']} />
                     </div>
                 </div>
             </div>

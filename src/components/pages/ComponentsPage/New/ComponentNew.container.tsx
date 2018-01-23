@@ -164,6 +164,8 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
                 } else {
                     // Update local state
                     // TODO: Hacer algo con este validationErrors (este viene de la validacion del Server)
+                    // Ademas esta fallando en algo que no tiene que ver con validaciones, asi que siempre
+                    // que falla va a entrar por aqui. No seria validationErrors sino cualquier error
                     this.setState({ validationErrors: response.validationErrors },
                     () => {
                         this.previousStep();
