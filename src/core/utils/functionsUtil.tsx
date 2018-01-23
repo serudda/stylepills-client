@@ -15,6 +15,7 @@ interface IFunctionUtil {
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     valueExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
+    truncateText: (str: string, length: number, ending: string) => string;
 }
 
 
@@ -92,6 +93,7 @@ class FunctionsUtil implements IFunctionUtil {
     }
 
 
+
     /**
      * @desc Validate if a value exists on an Array
      * @function valueExistsInArray
@@ -119,6 +121,25 @@ class FunctionsUtil implements IFunctionUtil {
         }
 
         return res;
+    }
+
+
+
+    /**
+     * @desc Truncate a text based on a specific length and ending string
+     * @function truncateText
+     * @example this.truncateText('my long text', 200, '...')
+     * @param {string} str - text to truncate
+     * @param {number} length - max length allowed (number of chars on the text)
+     * @param {string} ending - specific string to concat in the end of the text
+     * @return {string} text truncated
+     */
+    truncateText(str: string, length: number = 100, ending: string = '...') {
+        if (str.length > length) {
+            return str.substring(0, length - ending.length) + ending;
+        } else {
+            return str;
+        }
     }
 
 }

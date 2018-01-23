@@ -82,6 +82,7 @@ class Iframe extends React.Component<IframeProps, {}> {
      * @example this._isReady()
      * @private
      * @returns {Promise<boolean>} It's or not ready
+     * TODO: Esta funcion me va a servir para saber cuando un Iframe esta listo, y asi dejar de mostrar el Loader interno
      */
     private _isReady(): Promise<boolean> {
         return new Promise((resolve, reject) => {

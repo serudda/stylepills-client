@@ -184,16 +184,22 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                         onMouseLeave={this._handleMouseHover}
                         className={coverLinkClasses}>
 
-                        {atom.duplicated &&
-                        <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset">
-                            Duplicated
-                        </span>}
+                        <div className="cover-link__header position-relative">
+                            {atom.duplicated &&
+                            <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset">
+                                Duplicated
+                            </span>}
 
-                        <div className="icon-container float-right"
-                             onClick={this._handleLikeClick(atom)}>
-                            <Icon icon={liked ? 'heartFull' : 'heart'}
-                                iconClass={likeBtnClasses}
-                                width="23" height="23"/>
+                            <div className="icon-container float-right"
+                                onClick={this._handleLikeClick(atom)}>
+                                <Icon icon={liked ? 'heartFull' : 'heart'}
+                                    iconClass={likeBtnClasses}
+                                    width="23" height="23"/>
+                            </div>
+                        </div>
+
+                        <div className="cover-link__content color-silver fontSize-sm p-2">
+                            {functionsUtil.truncateText(atom.description, 200)}
                         </div>
                         
                     </div>
