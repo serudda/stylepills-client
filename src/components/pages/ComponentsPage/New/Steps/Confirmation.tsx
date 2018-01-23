@@ -11,6 +11,8 @@ import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User } from './../../../../../models/user/user.model';
 
+import Icon from './../../../../common/Icon/Icon';
+
 // -----------------------------------
 
 
@@ -82,7 +84,11 @@ extends React.Component<ChildProps<ConfirmationProps & StateProps, {}>, LocalSta
 
         /*         MARKUP          */
         /***************************/
-        return false;
+        return (
+            <Icon icon="loader" 
+                  iconClass="strokeWidth-2 stroke-white ml-3" 
+                  width="22" height="22"/>
+        );
     }
 
 }
