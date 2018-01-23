@@ -109,7 +109,7 @@ extends React.Component<ChildProps<SuccessProps & StateProps & DispatchProps, {}
 
                 <ul className="sp-messageBlock m-0 mx-4 mt-4">
                     <li className="sp-messageBlock__container sp-messageBlock__container--md">
-                        <div className="icon icon--md icon--newProject mt-4 mb-3" />
+                        <div className="icon icon--md icon--newComponent mt-4 mb-3" />
                         <div className="text text--xs color-slate fontFamily-openSans fontWeight-7 mb-4">
                             The {name} component is already in your Components folder.
                         </div>
