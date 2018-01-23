@@ -8,9 +8,11 @@
 /******************************************/
 /*        STATUS RESPONSE INTERFACE      */
 /******************************************/
-export interface IStatus {
+export interface IStatus<I> {
+    id?: number;
     ok: boolean;
     message?: string;
+    validationErrors?: I;
 }
 
 /******************************************/
