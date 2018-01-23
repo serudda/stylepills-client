@@ -21,6 +21,16 @@
             bottom: 0;
             border: 0 !important;
             z-index: 1;
+            opacity: 0.8;
+            background-color: map-get($color, white);
+
+            &__content {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+            }
         }
     }
 }
