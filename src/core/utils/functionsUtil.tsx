@@ -134,7 +134,7 @@ class FunctionsUtil implements IFunctionUtil {
      * @param {string} ending - specific string to concat in the end of the text
      * @return {string} text truncated
      */
-    truncateText(str: string = ' ', length: number = 100, ending: string = '...') {
+    truncateText(str: string = '.', length: number = 100, ending: string = '...') {
         console.log('enter truncateText', str, length, ending);
         if (str == null) {
             console.log('enter str == null', str);
