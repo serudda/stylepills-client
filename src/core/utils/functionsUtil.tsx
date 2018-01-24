@@ -135,13 +135,17 @@ class FunctionsUtil implements IFunctionUtil {
      * @return {string} text truncated
      */
     truncateText(str: string = '', length: number = 100, ending: string = '...') {
+        console.log('enter truncateText', str, length, ending);
         if (str == null) {
+            console.log('enter str == null', str);
             str = '';
         }
         if (length == null) {
+            console.log('enter length == null', length);
             length = 100;
         }
         if (ending == null) {
+            console.log('enter ending == null', ending);
             ending = '...';
         }
         if (str.length > length) {
