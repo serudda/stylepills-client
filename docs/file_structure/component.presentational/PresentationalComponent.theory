@@ -20,3 +20,34 @@ escribirlo primero como un Presentational Component. Eventualmente, te daras cue
 estas pasando demasiados props desde el padre. Cuando notes que algunos componentes no estan 
 usando los props que estan recibiendo, sino que simplemente los remiten a los componentes hijos.
 Es buen momento para agregar algunos Container Components.
+
+Cuando usar Presentational Components:
+- Siempre que sea posible, primero por que son simples funciones, y evitamos el estar
+creando Class, y gestionando el tedioso: this. 
+- Si el componente necesita gestionar un evento: onClick, onChange, etc. Podria: Ser
+pasado desde su padre (container), o incluido fuera de la funcion (esto por cuestiones
+de performace, se recomiendo colocar por fuera el metodo, obviamente si no necesitas
+acceder a las props):
+
+
+NUNCA HACER ESTO:
+
+    const SomeButton = props => {
+        const onClick = e => (...)
+
+        return <button onClick={onClick}>Click me!</button>
+    };
+
+SIEMPRE HACER ESTO:
+
+    // Siempre y cuando no necesites acceder a las props, ya que desde aqui no tendrias acceso
+    const onClick = e => (...);
+
+    const SomeButton = props => {
+        return <button onClick={onClick}>Click me!</button>
+    };
+
+Si es necesario modificar las props, cambiar estados locales, conectarse a Redux, o
+modificar datos externos, es mejor en ese caso convertirlo en una Class.Component.
+
+reference: https://javascriptplayground.com/functional-stateless-components-react/

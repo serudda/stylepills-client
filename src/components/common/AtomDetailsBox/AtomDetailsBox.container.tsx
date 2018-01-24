@@ -2,12 +2,9 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
-import { compose, ChildProps } from 'react-apollo';
+import { ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../core/utils/functionsUtil';
-
-import { IRootState } from './../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
@@ -48,6 +45,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
     /********************************/
     constructor(props: ChildProps<AtomDetailsBoxProps & StateProps & DispatchProps, {}>) {
         super(props);
+
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox container actived');
     }
@@ -80,22 +78,6 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
 }
 
 
-/********************************/
-/*     MAP DISPATCH TO PROPS    */
-/********************************/
-function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
-    return {};
-}
-
-
-/********************************/
-/*         REDUX CONNECT        */
-/********************************/
-const atomDetailsBoxConnect = connect(null, mapDispatchToProps);
-
-
 /*         EXPORT          */
 /***************************/
-export default compose(
-    atomDetailsBoxConnect
-)(AtomDetailsBox);
+export default AtomDetailsBox;

@@ -14,6 +14,7 @@ import * as React from 'react';
 interface IconType {
     alert: () => JSX.Element;
     arrowDown: () => JSX.Element;
+    arrowLeft: () => JSX.Element;
     chevronDown: () => JSX.Element;
     chevronRight: () => JSX.Element;
     close: () => JSX.Element;
@@ -27,6 +28,7 @@ interface IconType {
     heartFull: () => JSX.Element;
     image: () => JSX.Element;
     layer: () => JSX.Element;
+    loader: () => JSX.Element;
     logo: () => JSX.Element;
     messageCircle: () => JSX.Element;
     package: () => JSX.Element;
@@ -67,7 +69,7 @@ class Icon extends React.Component<IconProps, {}> {
         /*       PROPERTIES       */
         /**************************/
         const {
-            color = '#000',
+            color = '#000000',
             width = '24px',
             height = '24px',
             icon = 'default',
@@ -107,6 +109,23 @@ class Icon extends React.Component<IconProps, {}> {
                          xmlns="http://www.w3.org/2000/svg">
                          <line x1="12" y1="4" x2="12" y2="20" />
                          <polyline points="18 14 12 20 6 14" />
+                    </svg>
+                );
+            },
+            arrowLeft: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round" 
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="20" y1="12" x2="4" y2="12" />
+                        <polyline points="10 18 4 12 10 6" />
                     </svg>
                 );
             },
@@ -331,6 +350,29 @@ class Icon extends React.Component<IconProps, {}> {
                         <polygon points="12 2 2 7 12 12 22 7 12 2" />
                         <polyline points="2 17 12 22 22 17" />
                         <polyline points="2 12 12 17 22 12" />
+                    </svg>
+                );
+            },
+            loader: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         xmlns="http://www.w3.org/2000/svg" 
+                         x="0px" y="0px"
+                         viewBox="0 0 40 40"
+                         enable-background="new 0 0 40 40">
+                        {/* tslint:disable-next-line:max-line-length */}
+                        <path opacity="0.2" fill={color} d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+                        <path fill={color} d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0C22.32,8.481,24.301,9.057,26.013,10.047z">
+                            <animateTransform attributeType="xml"
+                                            attributeName="transform"
+                                            type="rotate"
+                                            from="0 20 20"
+                                            to="360 20 20"
+                                            dur="0.5s"
+                                            repeatCount="indefinite"/>
+                        </path>
                     </svg>
                 );
             },

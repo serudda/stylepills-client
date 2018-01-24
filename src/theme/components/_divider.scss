@@ -1,0 +1,38 @@
+/**********************************************************/
+/*                        DIVIDER                         */
+/**********************************************************/
+
+.sp-divider {
+    height: 0;
+    overflow: hidden;
+    @extend .borderTop-1;
+
+    /// TYPE MODIFIERS
+
+    &--solid {
+        @extend .borderTopStyle-solid;
+    }
+
+    &--dashed {
+        @extend .borderTopStyle-dashed;
+    }
+
+
+    /// COLOR MODIFIERS
+
+    &--primary {
+        @extend .borderColor-primary;
+    }
+
+    &--secondary {
+        @extend .borderColor-secondary;
+    }
+
+    &--smoke {
+        @extend .borderColor-smoke;
+    }
+
+    &--border-2 {
+        @extend .borderTop-2;
+    }
+}

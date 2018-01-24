@@ -10,10 +10,12 @@ import { Link } from 'react-router-dom';
 import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../reducer/reducer.config';
-import { IAtomsProps, IAtomCodeProps } from './../../../../reducer/atom.reducer';
+import { IAtomsProps, IAtomCode } from './../../../../reducer/atom.reducer';
+import { DuplicateAtomInput } from './../../../../models/atom/atom.mutation';
 import { User as UserModel } from './../../../../models/user/user.model';
 
-import { closeModalAction, duplicateAtomAction } from './../../../../actions/ui.action';
+import { closeModalAction } from './../../../../actions/ui.action';
+import { duplicateAtomAction } from './../../../../actions/atom.action';
 import { clearAtomStateAction } from './../../../../actions/atom.action';
 
 // -----------------------------------
@@ -48,7 +50,7 @@ type DispatchProps = {
     actions: {
         ui: {
             closeModal: () => void;
-            duplicateAtom: (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => void;
+            duplicateAtom: (input: DuplicateAtomInput) => void;
         },
         atomState: {
             clearAtomState: () => void;
@@ -130,7 +132,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
         const { isAuthenticated, user } = this.props;
         const { atomId } = this.props;
         const { atoms } = this.props;
-        let atomCode: Array<IAtomCodeProps> = null;
+        let atomCode: Array<IAtomCode> = null;
 
         if (isAuthenticated && user) {
             
@@ -142,7 +144,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                 });
             }
 
-            this.props.actions.ui.duplicateAtom(atomId, user.id, atomCode);
+            this.props.actions.ui.duplicateAtom({atomId, userId: user.id, atomCode});
 
         } else {
             alert('You should be logged in to store this component in your repo.');
@@ -272,13 +274,11 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                             Duplicated successfully!
                         </div>
 
-                        {/* Duplicate options */}
-                        <ul className="duplicateOptionsList m-4">
-
-                            {/* Duplicated successfully message */}
-                            <li className="duplicateResult">
-                                <div className="duplicateResult__icon mt-4 mb-5" />
-                                <div className="duplicateResult__text mb-4">
+                        {/* Duplicated successfully message */}
+                        <ul className="sp-messageBlock m-4">
+                            <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                                <div className="icon icon--md icon--newComponent mt-4 mb-3" />
+                                <div className="text text--xs color-slate fontFamily-openSans fontWeight-7 mb-4">
                                     A new component just arrived on your dashboard.
                                 </div>
                                 <Link className="sp-btn sp-btn--md sp-btn--secondary-ghost"
@@ -286,7 +286,6 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
                                     Go to your dashboard
                                 </Link>
                             </li>
-
                         </ul>
 
                     </div>  }
@@ -305,7 +304,7 @@ extends React.Component<ChildProps<DuplicateModalProps & StateProps & DispatchPr
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-        const { duplicated } = state.ui;
+        const { duplicated } = state.atomState;
         const { isAuthenticated, user } = state.auth;
         const { isEdited, atoms } = state.atomState.edited;
     
@@ -327,7 +326,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
-                duplicateAtom: (atomId, userId, atomCode) => dispatch(duplicateAtomAction(atomId, userId, atomCode)),
+                duplicateAtom: (input: DuplicateAtomInput) => dispatch(duplicateAtomAction(input)),
             },
             atomState: {
                 clearAtomState: () => dispatch(clearAtomStateAction())

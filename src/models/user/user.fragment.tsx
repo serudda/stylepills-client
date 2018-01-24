@@ -34,3 +34,15 @@ fragment AuthorAtomFragment on User {
     __typename
 }
 `;
+
+
+export const AUTHOR_PROJECT_FRAGMENT: any = gql`
+fragment AuthorProjectFragment on User {
+    id
+    username
+    firstname
+    lastname
+    avatar
+    __typename
+}
+`;

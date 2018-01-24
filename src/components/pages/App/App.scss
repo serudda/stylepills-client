@@ -22,18 +22,26 @@
 @import '../../../theme/components/avatar';
 // Button Basic Component Style
 @import '../../../theme/components/button';
+// Divider Basic Component Style
+@import '../../../theme/components/divider';
 // Dropdown Basic Component Style
 @import '../../../theme/components/dropdown';
 // Input Basic Component Style
 @import '../../../theme/components/input';
 // Link Basic Component Style
 @import '../../../theme/components/link';
+// List Basic Component Style
+@import '../../../theme/components/list';
+// Loader Component Style
+@import '../../../theme/components/loader';
 // Logo Basic Component Style
 @import '../../../theme/components/logo';
 // Message Block Component Style
 @import '../../../theme/components/messageBlock';
 // Stats Basic Component Style
 @import '../../../theme/components/stats';
+// Step by Step Component Style
+@import '../../../theme/components/stepByStep';
 // Icon Tab Menu Component Style
 @import '../../../theme/components/tab';
 // Tag Basic Component Style
@@ -56,6 +64,10 @@
 @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
 // Components List Component Style
 @import '../../common/AtomsList/AtomsList';
+// Color Box Component Style
+@import '../../common/ColorBox/ColorBox';
+// Color Boxes List Component Style
+@import '../../common/ColorBoxesList/ColorBoxesList';
 // Footer Component Style
 @import '../../common/Footer/Footer';
 // Header Component Style
@@ -68,10 +80,14 @@
 @import '../../common/Modal/DuplicateModal/DuplicateModal';
 // NavbarOptions Component Style
 @import '../../common/NavbarOptions/NavbarOptions';
+// SmallBox (ColorPicker) Component Style
+@import '../../common/ColorPicker/SmallBox/SmallBox';
 // Pagination Buttons Component Style
 @import '../../common/PaginationBtns/PaginationBtns';
 // SidebarWrapper Component Style
 @import '../../common/SidebarWrapper/SidebarWrapper';
+// Tab Menu (Source Code Panel) Component Style
+@import '../../common/SourceCodePanel/TabMenu/TabMenu';
 
 
 
@@ -82,5 +98,10 @@
 @import '../HomePage/HomePage';
 // User Stats Style (UserProfilePage)
 @import '../UserProfilePage/UserStats/UserStats';
+// Preview Section (ComponentNew)
+@import '../ComponentsPage/New/Steps/BasicFields/PreviewSection/PreviewSection';
+// Source Code Panel (ComponentNew)
+@import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/SourceCodePanel';
+
 
 

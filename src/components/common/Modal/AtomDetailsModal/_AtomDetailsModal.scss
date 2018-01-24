@@ -30,7 +30,7 @@
             opacity: 1;
         }
 
-        &:hover:after {
+        &:hover::after {
             right: 4px;
         }
     }

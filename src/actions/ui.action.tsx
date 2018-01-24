@@ -3,49 +3,16 @@
 /************************************/
 import { EventTypes } from 'redux-segment';
 
-import { client } from './../index';
-
 import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
-import { DUPLICATE_ATOM_MUTATION } from './../models/atom/atom.mutation';
-import { IAtomCodeProps } from '../reducer/atom.reducer';
-
+import { Basic as BasicColorModel } from '../models/color/color.model';
+ 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/
-
-interface IModalEventPayLoad {
-    event: string;
-    properties?: {
-        modalType: string,
-        modalProps: any
-    };
-}
-
-interface IChangeTabEventPayLoad {
-    event: string;
-    properties: {
-        tab: string
-    };
-}
-
-interface ICopySourceCodeEventPayLoad {
-    event: string;
-    properties: {
-        copiedType: string
-    };
-}
-
-interface IDuplicateAtomEventPayLoad {
-    event: string;
-    properties: {
-        atomId: number,
-        isDuplicated: boolean
-    };
-}
 
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
@@ -57,6 +24,9 @@ interface ILocationChangeAction {
         sourceCodeTab: {
             tab: string | null
         }
+    };
+    colorPicker: {
+        currentColor: BasicColorModel
     };
     copied: null;
     duplicated: {
@@ -76,10 +46,27 @@ export interface IClearUiAction {
             tab: string | null
         }
     };
+    colorPicker: {
+        currentColor: BasicColorModel
+    };
     copied: null;
     duplicated: {
         atomId: number,
         isDuplicated: boolean
+    };
+}
+
+
+/* 
+    MODALS ACTIONS
+    state: modals
+*/
+
+interface IModalEventPayLoad {
+    event: string;
+    properties?: {
+        modalType: string,
+        modalProps: any
     };
 }
 
@@ -95,6 +82,18 @@ export interface IShowModalAction {
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
     meta: IAnalyticsTrack<IModalEventPayLoad>;
+}
+
+/* 
+    TABS ACTIONS
+    state: tabs
+*/
+
+interface IChangeTabEventPayLoad {
+    event: string;
+    properties: {
+        tab: string
+    };
 }
 
 export interface IChangeAtomDetailsTabAction {
@@ -117,6 +116,19 @@ export interface IChangeSourceCodeTabAction {
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
+
+/* 
+    COPY ACTIONS
+    state: copied
+*/
+
+interface ICopySourceCodeEventPayLoad {
+    event: string;
+    properties: {
+        copiedType: string
+    };
+}
+
 export interface ICopySourceCodeAction {
     type: types.COPY_SOURCE_CODE;
     copied: {
@@ -125,32 +137,42 @@ export interface ICopySourceCodeAction {
     meta: IAnalyticsTrack<ICopySourceCodeEventPayLoad>;
 }
 
-export interface IRequestDuplicateAtomAction {
-    type: types.DUPLICATE_ATOM_REQUEST;
-    duplicated: {
-        atomId: number;
-        isDuplicated: boolean;
+
+/* 
+    COLOR PICKER ACTIONS
+    state: colorPicker
+*/
+
+export interface IChangeColorAction {
+    type: types.CHANGE_COLOR;
+    colorPicker: {
+        currentColor: BasicColorModel
     };
-    meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
 }
 
-export interface IReceiveDuplicateAtomAction {
-    type: types.DUPLICATE_ATOM_SUCCESS;
-    duplicated: {
-        atomId: number;
-        isDuplicated: boolean;
-    };
-    meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
+
+/* 
+    SOURCE CODE PANEL ACTIONS
+    state: sourceCodePanel
+*/
+
+export interface ICodeProps {
+    code: string;
+    libs?: Array<string>;
 }
 
-export interface IDuplicateAtomFailureAction {
-    type: types.DUPLICATE_ATOM_FAILURE;
-    duplicated: {
-        atomId: number;
-        isDuplicated: boolean;
-    };
-    message: string;
-    meta: IAnalyticsTrack<IDuplicateAtomEventPayLoad>;
+export interface ICurrentCode {
+    codeType: string; 
+    codeProps: ICodeProps;
+}
+
+export interface ISourceCodePanel {
+    currentCode: ICurrentCode;
+}
+
+export interface IChangeSourceCodeAction {
+    type: types.CHANGE_SOURCE_CODE;
+    sourceCodePanel: ISourceCodePanel;
 }
 
 
@@ -162,10 +184,9 @@ export type Action =
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
-|   ICopySourceCodeAction
-|   IRequestDuplicateAtomAction
-|   IReceiveDuplicateAtomAction
-|   IDuplicateAtomFailureAction;
+|   IChangeColorAction
+|   IChangeSourceCodeAction
+|   ICopySourceCodeAction;
 
 
 
@@ -189,6 +210,12 @@ export const clearUiAction = (): Action => {
             },
             sourceCodeTab: {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            }
+        },
+        colorPicker: {
+            currentColor: {
+                hex: appConfig.SECONDARY_COLOR_HEX,
+                rgba: appConfig.SECONDARY_COLOR_RGBA
             }
         },
         copied: null,
@@ -336,126 +363,41 @@ export const copySourceCodeAction = (copiedType: string): Action => {
 
 
 /**
- * @desc Return an action type, DUPLICATE_ATOM_REQUEST to start duplication process
- * @function requestDuplicateAtomAction
+ * @desc Return an action type, CHANGE_COLOR 
+ * to indicate that user wants to change color on colorPicker
+ * @function changeColorAction
+ * @param {BasicColorModel} color - new color object: hex and rgba properties
  * @returns {Action}
  */
-export const requestDuplicateAtomAction = (atomId: number): Action => {
+export const changeColorAction = (color: BasicColorModel): Action => {
     return {
-        type: types.DUPLICATE_ATOM_REQUEST,
-        duplicated: {
-            atomId,
-            isDuplicated: false
-        },
-        meta: {
-            analytics: {
-                eventType: EventTypes.track,
-                eventPayload: {
-                    event: types.DUPLICATE_ATOM_REQUEST,
-                    properties: {
-                        atomId,
-                        isDuplicated: false
-                    },
-                },
-            },
-        }
-    };
-};
-
-
-/**
- * @desc Return an action type, DUPLICATE_ATOM_SUCCESS after a successful duplication process
- * @function receiveDuplicateAtomAction
- * @returns {Action}
- */
-export const receiveDuplicateAtomAction = (atomId: number): Action => {
-    return {
-        type: types.DUPLICATE_ATOM_SUCCESS,
-        duplicated: {
-            atomId,
-            isDuplicated: true
-        },
-        meta: {
-            analytics: {
-                eventType: EventTypes.track,
-                eventPayload: {
-                    event: types.DUPLICATE_ATOM_SUCCESS,
-                    properties: {
-                        atomId,
-                        isDuplicated: true
-                    },
-                },
-            },
-        }
-    };
-};
-
-
-/**
- * @desc Return an action type, DUPLICATE_ATOM_FAILURE after a failure duplication process
- * @function duplicateAtomFailureAction
- * @returns {Action}
- */
-export const duplicateAtomFailureAction = (atomId: number, message: string): Action => {
-    return {
-        type: types.DUPLICATE_ATOM_FAILURE,
-        duplicated: {
-            atomId,
-            isDuplicated: false
-        },
-        message,
-        meta: {
-            analytics: {
-                eventType: EventTypes.track,
-                eventPayload: {
-                    event: types.DUPLICATE_ATOM_FAILURE,
-                    properties: {
-                        atomId,
-                        isDuplicated: false,
-                        message
-                    },
-                },
-            },
-        }
-    };
-};
-
-
-/**
- * @desc Current user requested Log out 
- * @function duplicateAtomAction
- * @returns {Promise<any>}
- */
-// TODO: Mover todo lo alusivo a Atom a su respectivo 'action' file
-export const duplicateAtomAction = (atomId: number, userId: number, atomCode: Array<IAtomCodeProps>) => {
-    return (dispatch: Function) => {
-
-        // Request Duplicate Atom
-        dispatch(requestDuplicateAtomAction(atomId));
-
-        client.mutate({
-            mutation: DUPLICATE_ATOM_MUTATION,
-            variables: { atomId, userId, atomCode }
-        }).then(
-            (response: any) => {
-                // TODO: Typar esta respuesta ya que no se que propiedades devuelve
-                let { message, ok } = response.data.duplicateAtom;
-
-                if (ok) {
-                    // Duplicated Successful
-                    dispatch(receiveDuplicateAtomAction(atomId));
-                } else {
-                    // Duplicated Failure
-                    dispatch(duplicateAtomFailureAction(atomId, message));
-                }
+        type: types.CHANGE_COLOR,
+        colorPicker: {
+            currentColor: {
+                hex: color.hex,
+                rgba: color.rgba
             }
-        ).catch(
-            (response) => {
-                // Duplicated Failure
-                dispatch(duplicateAtomFailureAction(atomId, response));
-            }
-        );
-
+        }
     };
+};
 
+
+/**
+ * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * to indicate that user wants to change source code on SourceCodePanel
+ * @function changeSourceCodeAction
+ * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {any} codeProps - code properties (e.g. code, libs, etc)
+ * @returns {Action}
+ */
+export const changeSourceCodeAction = (codeType: string, codeProps: any): Action => {
+    return {
+        type: types.CHANGE_SOURCE_CODE,
+        sourceCodePanel: {
+            currentCode: {
+                codeType,
+                codeProps
+            }
+        }
+    };
 };

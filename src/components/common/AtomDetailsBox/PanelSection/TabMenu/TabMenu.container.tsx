@@ -4,9 +4,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Popup } from 'semantic-ui-react';
-
-import * as classNames from 'classnames';
 
 import * as appConfig from './../../../../../core/constants/app.constants';
 
@@ -14,8 +11,9 @@ import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
+import { Options as DetailsTabMenuOptions } from './../../../Tabs/DetailsTabMenu/DetailsTabMenu';
 
-import Icon from './../../../Icon/Icon';
+import DetailsTabMenu from './../../../Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
@@ -27,12 +25,14 @@ import { changeAtomDetailsTabAction, showModalAction } from './../../../../../ac
 /********************************/
 
 /* Own Props */
-type TabMenuProps = {
+type TabMenuContainerProps = {
     atomId: number;
 };
 
 /* Own States */
-type LocalStates = {};
+type LocalStates = {
+    isToggleCode: boolean
+};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -49,7 +49,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            changeAtomDetailsTab: (tab: string) => void;
+            changeAtomDetailsTab: (tab: string | null) => void;
             showModal: (modalType: string, modalProps: any) => void;
         }
     };
@@ -59,21 +59,24 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class TabMenu 
-extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}>, LocalStates> {
+class TabMenuContainer 
+extends React.Component<ChildProps<TabMenuContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<TabMenuProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<TabMenuContainerProps & StateProps & DispatchProps, {}>) {
         super(props);
+
+        // Init state
+        this.state = { isToggleCode: false };
 
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');
 
         // Bind methods
-        this._handleTabClick = this._handleTabClick.bind(this);
+        this._handleCodeClick = this._handleCodeClick.bind(this);
         this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
     }
 
@@ -82,20 +85,26 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /*       PRIVATE METHODS        */
     /********************************/
 
-
     /**
-     * @desc HandleTabClick
-     * @method _handleTabClick
-     * @example this._handleTabClick()
+     * @desc HandleCodeClick
+     * @method _handleCodeClick
+     * @example this._handleCodeClick()
      * @private
-     * @param {string} tab - string tab id (e.g. 'comments', 'code', etc) 
-     * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
+    private _handleCodeClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._changeTab(tab);
+        this.setState((prevState: LocalStates) => ({
+            isToggleCode: !prevState.isToggleCode
+        }), () => {
+            if (this.state.isToggleCode) {
+                this._changeTab('code');
+            } else {
+                this._changeTab(null);
+            }
+        });
     }
+
 
     /**
      * @desc HandleDuplicateClick
@@ -115,6 +124,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         }
 
     }
+    
 
     /**
      * @desc Show Modal 
@@ -137,6 +147,7 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
         }
     }
 
+
     /**
      * @desc Change Tab
      * @method _changeTab
@@ -144,8 +155,39 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
      * @private 
      * @returns {void}
      */
-    private _changeTab(tab: string) {
+    private _changeTab(tab: string | null) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
+    }
+
+
+    /**
+     * @desc Build Tab Menu component
+     * @method _buildTabMenu
+     * @example this._buildTabMenu()
+     * @private
+     * @returns {JSX.Element} <AddColorForm />
+     */
+    private _buildTabMenu(): JSX.Element {
+
+        // Destructuring props
+        const { tab, duplicated } = this.props;
+        const { isDuplicated } = duplicated;
+
+        // VARIABLES
+        let options: Array<DetailsTabMenuOptions> = [
+            DetailsTabMenuOptions.showCode,
+            DetailsTabMenuOptions.duplicate
+        ];        
+
+        return (
+            <DetailsTabMenu options={options}
+                            isReversed={tab === 'code'}
+                            isDuplicated={isDuplicated}
+                            currentOption={tab}
+                            onDuplicateClick={this._handleDuplicateClick}
+                            onShowCodeClick={this._handleCodeClick}/>
+        );
+        
     }
 
 
@@ -154,115 +196,14 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
     /********************************/
     render() {
 
-        // Destructuring props
-        const { tab, duplicated } = this.props;
-        const { isDuplicated } = duplicated;
-        
-
-        // Tab Menu Classes
-        const tabMenuClasses = classNames({
-            'TabMenu': true, 
-            'sp-iconTabMenu': true, 
-            'fontSmoothing-reset': true,
-            'sp-iconTabMenu--is-reversed': tab === 'code'
-        });
-
-        // Comments Btn Classes
-        /* const commentsBtnClasses = classNames({
-            'sp-iconTabMenu__btn': true, 
-            'sp-iconTabMenu__btn--active': tab === 'comments'
-        });*/
-
-        // Comments Icon on Btn Classes
-        /* const commentsIconClasses = classNames({
-            'strokeWidth-2': true, 
-            'stroke-darkSecondary': tab === 'comments',
-            'stroke-slate': tab !== 'comments'
-        });*/
-
-        // Code Btn Classes
-        const codeBtnClasses = classNames({
-            'sp-iconTabMenu__btn': true, 
-            'sp-iconTabMenu__btn--active': tab === 'code'
-        });
-
-        // Code Icon on Btn Classes
-        const codeIconClasses = classNames({
-            'strokeWidth-2': true, 
-            'stroke-darkPrimary': tab === 'code',
-            'stroke-slate': tab !== 'code'
-        });
-
-        // Duplicate Btn Classes
-        const duplicateClasses = classNames({
-            'sp-iconTabMenu__btn': true,
-            'sp-iconTabMenu__btn--inner-btn': true,
-            'sp-iconTabMenu__btn--disabled': isDuplicated
-        });
-
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className={tabMenuClasses}>
-                {/* TODO: Ir agregando uno por uno al momento de implementarlo */}
-                {/*<button className="sp-iconTabMenu__btn">
-                    <div className="inner">
-                        <Icon icon="heartFull"
-                            iconClass="strokeWidth-2"
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                {/*<button className="sp-iconTabMenu__btn">
-                    <div className="inner">
-                        <Icon icon="share"
-                            iconClass="strokeWidth-2 stroke-slate"
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                {/*<button className={commentsBtnClasses}>
-                    <div className="inner"
-                        onClick={this._handleTabClick('comments')}>
-                        <Icon icon="messageCircle"
-                            iconClass={commentsIconClasses}
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                {/*<button className="sp-iconTabMenu__btn">
-                    <div className="inner">
-                        <Icon icon="download"
-                            iconClass="strokeWidth-2 stroke-slate"
-                            width="22" height="22"/>
-                    </div>
-                </button>*/}
-                <button className={codeBtnClasses}
-                        onClick={this._handleTabClick('code')}>
-                    <div className="inner">
-                        <Icon icon="code"
-                            iconClass={codeIconClasses}
-                            width="25" height="16"/>
-                    </div>
-                </button>
+            <div className="TabMenuContainer">
 
-                {/* Duplicate button */}
-                {/* TODO: Mover a una funcion para tener más organizado */}
-                <Popup trigger={
-                    <button className={duplicateClasses}
-                    onClick={this._handleDuplicateClick}>
-                        <div className="inner">
-                            <div className="inner__btn sp-btn sp-btn--md sp-btn--secondary">
-                                <Icon icon="duplicate"
-                                    iconClass="strokeWidth-2 stroke-white"
-                                    width="22" height="22"/>
-                            </div>
-                        </div>
-                    </button>}
-                    size="small"
-                    inverted={true}>
-                    {isDuplicated ?
-                        <span className="color-primary fontWeight-9">DUPLICATED!</span> :
-                        <span className="fontWeight-9">Duplicate component</span> }
-                </Popup>
+                {/* Build Tab Menu Options */}
+                {this._buildTabMenu()}
 
             </div>
         );
@@ -276,9 +217,12 @@ extends React.Component<ChildProps<TabMenuProps & StateProps & DispatchProps, {}
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
 
-    const { tabs, duplicated } = state.ui;
+    const { tabs } = state.ui;
     const { atomDetailsTab } = tabs;
     const { tab } = atomDetailsTab;
+
+    const { duplicated } = state.atomState;
+    
     const { isAuthenticated, user } = state.auth;
 
     return {
@@ -308,11 +252,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const tabMenuConnect = connect(mapStateToProps, mapDispatchToProps);
+const tabMenuContainerConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    tabMenuConnect
-)(TabMenu);
+    tabMenuContainerConnect
+)(TabMenuContainer);

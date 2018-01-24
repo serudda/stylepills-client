@@ -129,7 +129,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                                 css={atom.css} 
                                 title={atom.name}
                                 background={atom.contextualBg}
-                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
+                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']} />
                     </div>
                 </div>
             </div>

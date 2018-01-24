@@ -4,9 +4,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import * as CopyToClipboard from 'react-copy-to-clipboard';
-
-import * as classNames from 'classnames';
 
 import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
@@ -15,7 +12,8 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
 import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
-import { Popup } from 'semantic-ui-react';
+import TabMenu from './../../../SourceCodePanel/TabMenu/TabMenu';
+import BtnGroupContainer from './BtnGroup/BtnGroup.container';
 import Icon from './../../../Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -103,8 +101,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
         // Bind methods
         this._handleTabClick = this._handleTabClick.bind(this);
-        this._handleCopyClick = this._handleCopyClick.bind(this);
-        this._handleEditClick = this._handleEditClick.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
     }
 
@@ -116,9 +112,9 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
     /**
      * @desc HandleOnChange
-     * @method _handleOnChange
-     * @example this._handleOnChange()
-     * @private
+     * @method handleOnChange
+     * @example this.handleOnChange()
+     * @public
      * @param {string} type - source code type (e.g. 'html', 'css')
      * @param {string} newCode - new source code
      * @param {any} e - Event
@@ -154,35 +150,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
 
     /**
-     * @desc HandleEditClick
-     * @method _handleEditClick
-     * @example this._handleEditClick()
-     * @private
-     * @param {string} tab - source code tab (e.g. 'html', 'css')
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    private _handleEditClick(e: React.FormEvent<{}>) {
-        e.preventDefault();
-        this._activeEditMode();
-    }
-
-
-    /**
-     * @desc HandleCopyClick
-     * @method _handleCopyClick
-     * @example this._handleClick()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @param {any} e - Event
-     * @returns {void}
-     */
-    private _handleCopyClick = (type: string) => (e: any) => {
-        this._copySourceCode(type);
-    }
-
-
-    /**
      * @desc HandleTabClick
      * @method _handleTabClick
      * @example this._handleTabClick()
@@ -196,6 +163,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         this._changeTab(tab);
     }
 
+
     /**
      * @desc Change Tab
      * @method _changeTab
@@ -208,48 +176,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         this.props.actions.ui.changeSourceCodeTab(tab);
     }
 
-    /**
-     * @desc Copy Source Code
-     * @method _copySourceCode
-     * @example this._copySourceCode()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @returns {void}
-     */
-    private _copySourceCode(type: string) {
-
-        const TIMEOUT_COPIED_MESSAGE = 1000;
-        
-        // Show COPIED! message
-        this.setState({
-            copied: true
-        });
-
-        // Launch Copy Source Action
-        this.props.actions.ui.copySourceCode(type);
-
-        // Hide COPIED! message after 'TIMEOUT_COPIED_MESSAGE' time
-        setTimeout(() => {
-            this.setState({ copied: false });
-        }, TIMEOUT_COPIED_MESSAGE);
-
-    }
-
-    /**
-     * @desc Active Edit Mode
-     * @method _activeEditMode
-     * @example this._activeEditMode()
-     * @private
-     * @returns {void}
-     */
-    private _activeEditMode() {
-        // Destructuring props
-        const { atomId, name } = this.props;
-
-        // Launch active edit mode Action
-        this.props.actions.atomState.activeEditMode(atomId, name);
-        
-    }
 
     /**
      * @desc Update Code
@@ -274,54 +200,17 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         
     }
 
-    /**
-     * @desc Get CopyToClipboard Btn
-     * @method _getCopyToClipboardBtn
-     * @example this._getCopyToClipboardBtn()
-     * @private
-     * @param {string} code - source code block
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @returns {JSX.Element} <Popup />
-     */
-    private _getCopyToClipboardBtn(code: string, type: string): JSX.Element {
-        return (
-            <Popup
-            trigger={
-                <CopyToClipboard text={code} onCopy={this._handleCopyClick(type)}>
-                    <button className="sp-btn sp-btn--neutral sp-btn--md">
-                        Copy
-                    </button>
-                </CopyToClipboard>}
-            position="top right"
-            size="small">
-                {this.state.copied ? 
-                <span className="color-secondary fontWeight-9">COPIED!</span> : 
-                <span>Copy <strong className="color-darkSecondary textTransform-uppercase">{type}</strong> to clipboard</span>}
-            </Popup>
-        );
-    }
-
 
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
 
-        // Destructuring props
+        // Destructuring props & state
+        const { atomId, name } = this.props;
         const { tab } = this.props;
         const { watchingChanges } = this.props;
-
-        // Html Tab Btn Classes
-        const htmlTabBtnClasses = classNames({
-            'sp-tabMenu__button': true, 
-            'sp-tabMenu__button--active': tab === 'html'
-        });
-
-        // Css Tab Btn Classes
-        const cssTabBtnClasses = classNames({
-            'sp-tabMenu__button': true, 
-            'sp-tabMenu__button--active': tab === 'css'
-        });
+        const { html, css } = this.state;
 
         // Code Mirror HTML default options
         const codeMirrorOptions = {
@@ -339,48 +228,19 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         return (
             <div className="SourceCodePanel row no-gutters sp-bg-black borderTop-1 border-dark overflow-hidden">
             
-                {/* Source Code Tab Menu TODO: Remover estos style inline */}
-                <div className="row no-gutters w-100" style={{backgroundColor: '#141619', borderTop: '1px solid #000000'}}>
-                    <div className="col">
-
-                        <div className="sp-tabMenu sp-tabMenu--is-reversed fontSmoothing-reset">
-                            <button className={htmlTabBtnClasses}
-                                    onClick={this._handleTabClick('html')}>
-                                <div className="inner">
-                                    HTML
-                                </div>
-                            </button>
-                            <button className={cssTabBtnClasses}
-                                    onClick={this._handleTabClick('css')}>
-                                <div className="inner">
-                                    CSS
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {/* Source Code Tab Menu */}
+                <TabMenu tab={tab} onTabClick={this._handleTabClick}/>
 
                 {/* Source Code Panel */}
                 <div className="row no-gutters w-100 sp-bg-mirage">
                     <div className="col-12 position-relative">
 
-                        {/* Button Group */}
-                        <div className="sp-btnGroup zIndex-footer">
-                            {/* Edit Source Code Button */}
-                            <div className="sp-btnGroup__container">
-                                <button className="sp-btn sp-btn--secondary sp-btn--md"
-                                        onClick={this._handleEditClick}
-                                        disabled={watchingChanges}>
-                                    {watchingChanges ? 'Edit: ON' : 'Edit'}
-                                </button>
-                            </div> 
-                            {/* Copy Source Code Button */}
-                            <div className="sp-btnGroup__container">
-                                {tab === 'html' && this._getCopyToClipboardBtn(this.state.html, 'html')}
-
-                                {tab === 'css' && this._getCopyToClipboardBtn(this.state.css, 'css')}
-                            </div>
-                        </div>
+                        {/* Button Group Container */}
+                        <BtnGroupContainer atomId={atomId} 
+                                           atomName={name} 
+                                           atomHtml={html} 
+                                           atomCss={css}
+                                           currentTab={tab} />
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">

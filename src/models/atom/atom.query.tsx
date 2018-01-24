@@ -6,8 +6,8 @@ import gql from 'graphql-tag';
 import { IAtomPaginated } from '../global/pagination.interface';
 
 import { CURSOR_FRAGMENT } from '../global/pagination.fragment';
-import { ATOM_FRAGMENT } from './atom.fragment';
-import { Atom as AtomModel } from './atom.model';
+import { ATOM_FRAGMENT, BASIC_ATOM_FRAGMENT } from './atom.fragment';
+import { Atom as AtomModel, Basic } from './atom.model';
 
 
 // -----------------------------------
@@ -50,6 +50,7 @@ export interface IAtomTypeArgs {
 interface IAtomFilterArgs {
     text?: string;
     atomCategoryId?: number;
+    projectId?: number;
     type?: IAtomTypeArgs;
 }
 
@@ -124,12 +125,41 @@ export type GetAllResponse = {
 
 
 /**
+ * @desc Get Atoms by Project Id
+ * @method Method atomsByProjectId
+ * @public
+ * @param {AtomFilter} $filter - a set of filters
+ * @param {Int} $limit - limit number of results returned
+ * @returns {Array<Atom>} Atoms List of a specific project (Buttons, Inputs, Labels, etc.)
+ */
+export const GET_ATOMS_BY_PROJECT_ID_QUERY = gql`
+query getAtomsByProjectId ($filter: AtomFilter!, $limit: Int) {
+    atomsByProjectId(filter: $filter, limit: $limit) {
+        ...AtomFragment
+    }
+}
+${ATOM_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type GetByProjectIdResponse = {
+    atomsByProjectId: Array<AtomModel>;
+};
+
+
+// --------------------------------
+
+
+/**
  * @desc Get Atoms by Category
  * @method Method atomsByCategory
  * @public
  * @param {AtomFilter} $filter - a set of filters
  * @param {Int} $limit - limit number of results returned
  * @returns {Array<Atom>} Atoms List of a specific category (Buttons, Inputs, Labels, etc.)
+ * TODO: Remover si no se esta usando
  */
 export const GET_ATOMS_BY_CATEGORY_QUERY = gql`
 query getAtomsByCategory ($filter: AtomFilter!, $limit: Int) {
@@ -182,4 +212,30 @@ export type SearchAtomQueryOptions = {
 
 export type SearchAtomsResponse = {
     searchAtoms: IAtomPaginated;
+};
+
+
+// --------------------------------
+
+
+/**
+ * @desc Get Atoms by User Id (Basic Info)
+ * @method Method basicAtomsByUserId
+ * @public
+ * @returns {Array<Atom>} Atoms List of a specific user
+ */
+export const GET_BASIC_ATOMS_BY_USER_ID_QUERY = gql`
+query getBasicAtomsByUserId ($userId: ID!) {
+    basicAtomsByUserId(userId: $userId) {
+        ...BasicAtomFragment
+    }
+}
+${BASIC_ATOM_FRAGMENT}
+`;
+
+/*        TYPE         */
+/***********************/
+
+export type GetBasicAtomsByUserIdResponse = {
+    basicAtomsByUserId: Array<Basic>;
 };

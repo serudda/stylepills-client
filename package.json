@@ -1,6 +1,6 @@
 {
   "name": "stylepills-client",
-  "version": "0.2.1",
+  "version": "0.4.17",
   "private": true,
   "dependencies": {
     "@types/classnames": "^2.2.3",
@@ -15,6 +15,7 @@
     "@types/query-string": "^5.0.1",
     "@types/react": "^16.0.28",
     "@types/react-codemirror": "^1.0.0",
+    "@types/react-color": "^2.13.3",
     "@types/react-copy-to-clipboard": "^4.2.3",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.14",
@@ -24,8 +25,10 @@
     "@types/redux-immutable-state-invariant": "^2.0.4",
     "@types/redux-logger": "^3.0.3",
     "@types/scriptjs": "0.0.2",
+    "@types/validator": "^6.3.0",
     "@types/zen-observable": "^0.5.3",
     "axios": "^0.17.1",
+    "bootstrap": "^4.0.0-beta.3",
     "classnames": "^2.2.5",
     "feather-icons": "^3.3.0",
     "graphql": "^0.11.7",
@@ -34,10 +37,12 @@
     "history": "^4.7.2",
     "jwt-decode": "^2.2.0",
     "normalizr": "^3.2.4",
+    "ntcjs": "^1.1.2",
     "query-string": "^5.0.1",
     "react": "^16.2.0",
     "react-apollo": "^1.4.16",
     "react-codemirror": "^1.0.0",
+    "react-color": "^2.13.8",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
@@ -54,7 +59,8 @@
     "redux-thunk": "^2.2.0",
     "scriptjs": "^2.5.8",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.76.0"
+    "semantic-ui-react": "^0.76.0",
+    "validator": "^9.2.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",

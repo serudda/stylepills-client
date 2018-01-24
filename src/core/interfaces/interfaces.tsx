@@ -2,9 +2,18 @@
 /*           DEPENDENCIES           */
 /************************************/
 
-
 // -----------------------------------
 
+
+/******************************************/
+/*        STATUS RESPONSE INTERFACE      */
+/******************************************/
+export interface IStatus<I> {
+    id?: number;
+    ok: boolean;
+    message?: string;
+    validationErrors?: I;
+}
 
 /******************************************/
 /*       REDUX SEGMENT (TRACK EVENT)      */

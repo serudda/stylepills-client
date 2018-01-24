@@ -232,7 +232,6 @@
 
 }
 
-
 /// BUTTON DISABLED
 
 .sp-btn[disabled] {
@@ -269,4 +268,157 @@
             }
         }
     }
+}
+
+
+/* SWITCH BUTTON */
+
+.sp-switch-btn {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: background-color .40s ease-in-out;
+    -moz-transition: background-color .40s ease-in-out;
+    -o-transition: background-color .40s ease-in-out;
+    transition: background-color .40s ease-in-out;
+
+
+    /// SWITCH BUTTON-SIZE
+    
+    &--sm {
+        width: 55px;
+        height: 30px;
+
+        &.active {
+            .inner-btn {
+                left: 31px;
+            }
+        }
+
+        .inner-btn {
+            width: 18px;
+            height: 18px;
+            left: 6px;
+            margin-top: -9px;
+        }
+
+    }
+
+    &--md {
+        width: 70px;
+        height: 40px;
+        
+        &.active {
+            .inner-btn {
+                left: 37px;
+            }
+        }
+
+        .inner-btn {
+            width: 26px;
+            height: 26px;
+            left: 7px;
+            margin-top: -13px;
+        }
+    }
+
+    &--lg {
+        width: 90px;
+        height: 48px;
+
+        &.active {
+            .inner-btn {
+                left: 48px;
+            }
+        }
+
+        .inner-btn {
+            width: 34px;
+            height: 34px;
+            left: 7px;
+            margin-top: -17px;
+        }
+    }
+
+
+    /// SWITCH BUTTON-COLOR
+
+    &--on-primary {
+        &.active {
+            background-color: map-get($color, darkPrimary);
+
+            .inner-btn {
+                background-color: map-get($color, white);
+            }
+        }
+    }
+
+    &--on-secondary {
+        &.active {
+            background-color: map-get($color, secondary);
+
+            .inner-btn {
+                background-color: map-get($color, white);
+            }
+        }
+    }
+
+    &--off-neutral {
+        background-color: map-get($color, smoke);
+
+        .inner-btn {
+            background-color: map-get($color, white);
+        }
+    }
+
+    &--off-white {
+        background-color: map-get($color, white);
+
+        .inner-btn {
+            background-color: map-get($color, darkSmoke);
+        }
+    }
+
+
+    /// SWITCH BUTTON-TYPE
+    &--circle {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+
+        .inner-btn {
+            @extend .borderRadius-circle;
+        }
+    }
+
+    &--square {
+        @extend .borderRadius-sm;
+
+        .inner-btn {
+            @extend .borderRadius-sm;
+        }
+    }
+
+    .inner-btn {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        -webkit-transition: all .30s ease-in-out;
+        -moz-transition: all .30s ease-in-out;
+        -o-transition: all .30s ease-in-out;
+        transition: all .30s ease-in-out;
+    }
+
+    .cb-value {
+        position: absolute;
+        left:0;
+        right:0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        cursor:pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    }
+
 }

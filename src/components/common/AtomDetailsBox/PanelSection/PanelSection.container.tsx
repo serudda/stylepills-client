@@ -12,7 +12,7 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { Atom as AtomModel } from './../../../../models/atom/atom.model';
 
 import Stats from './Stats/Stats';
-import TabMenu from './TabMenu/TabMenu.container';
+import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
 
 // -----------------------------------
@@ -92,7 +92,7 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
                     <div className="col-auto">
 
                         {/* Tab Menu */}
-                        <TabMenu atomId={atom.id}/>
+                        <TabMenuContainer atomId={atom.id}/>
 
                     </div>
                 </div>

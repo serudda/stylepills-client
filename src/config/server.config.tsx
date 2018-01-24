@@ -35,6 +35,13 @@ export function serverConfig(env: string): IServerConfig {
                 authLogoutUrl: appConfig.DEV_AUTH_LOGOUT_URL
             };
         
+        case appConfig.STAGING:
+            return {
+                dataBaseUrl: appConfig.STAGING_DATA_URL,
+                authGoogleUrl: appConfig.STAGING_AUTH_GOOGLE_URL,
+                authLogoutUrl: appConfig.STAGING_AUTH_LOGOUT_URL
+            };
+
         case appConfig.PRD:
             return {
                 dataBaseUrl: appConfig.PRD_DATA_URL,

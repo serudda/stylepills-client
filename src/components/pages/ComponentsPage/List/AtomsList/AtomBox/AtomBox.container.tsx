@@ -184,16 +184,22 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                         onMouseLeave={this._handleMouseHover}
                         className={coverLinkClasses}>
 
-                        {atom.duplicated &&
-                        <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset">
-                            Duplicated
-                        </span>}
+                        <div className="cover-link__header position-relative">
+                            {atom.duplicated &&
+                            <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset">
+                                Duplicated
+                            </span>}
 
-                        <div className="icon-container float-right"
-                             onClick={this._handleLikeClick(atom)}>
-                            <Icon icon={liked ? 'heartFull' : 'heart'}
-                                iconClass={likeBtnClasses}
-                                width="23" height="23"/>
+                            <div className="icon-container float-right"
+                                onClick={this._handleLikeClick(atom)}>
+                                <Icon icon={liked ? 'heartFull' : 'heart'}
+                                    iconClass={likeBtnClasses}
+                                    width="23" height="23"/>
+                            </div>
+                        </div>
+
+                        <div className="cover-link__content color-silver fontSize-sm p-2">
+                            {functionsUtil.truncateText(atom.description, 200)}
                         </div>
                         
                     </div>
@@ -204,7 +210,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                                 css={atom.css} 
                                 title={atom.name}
                                 background={atom.contextualBg}
-                                stylesheets={['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css']} />
+                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']} />
                     </div>
 
                 </div>
