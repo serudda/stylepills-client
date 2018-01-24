@@ -3804,6 +3804,14 @@ NOTE: Boostrap 4 has a flex set
       text-decoration: none; }
     .sp-link--box--white:focus {
       text-decoration: none; }
+  .sp-link--box--silver {
+    color: #8492A6; }
+    .sp-link--box--silver:hover {
+      background-color: #E0E6ED;
+      color: #3C4858;
+      text-decoration: none; }
+    .sp-link--box--silver:focus {
+      text-decoration: none; }
   .sp-link--box--black {
     color: #24292e; }
     .sp-link--box--black:hover {

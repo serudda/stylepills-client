@@ -137,7 +137,10 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
 
                 {/* Header */}
                 <div className="mb-5">
-                    <Header projectName={projectById.name} isPrivate={projectById.private} />
+                    <Header projectName={projectById.name}
+                            projectWebsite={projectById.website} 
+                            projectDescription={projectById.description}
+                            isPrivate={projectById.private} />
                 </div>
 
                 {/* Color Palette Section */}
