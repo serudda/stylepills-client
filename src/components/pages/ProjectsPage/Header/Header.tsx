@@ -17,6 +17,8 @@ import NavbarOptions from './../../../common/NavbarOptions/NavbarOptions.contain
 /* Own Props */
 type HeaderProps = {
     projectName: string;
+    projectWebsite: string;
+    projectDescription: string;
     isPrivate: boolean;
 };
 
@@ -52,6 +54,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
         /**************************/
         const {
             projectName,
+            projectWebsite,
+            projectDescription,
             isPrivate
         } = this.props; 
             
@@ -82,19 +86,39 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                             </div>
 
                             {/* Title */}
-                            <h1 className="m-0 color-slate fontSize-xxxl fontWeight-6">
-                                {projectName}
-                            </h1>
-                            {isPrivate ? 
-                                <span className="sp-tag sp-tag--primary sp-tag--xs fontWeight-7 fontSmoothing-reset ml-3">
-                                    Private
-                                </span>
-                                :
-                                <span className="sp-tag sp-tag--neutral sp-tag--xs fontWeight-7 fontSmoothing-reset ml-3">
-                                    Public
-                                </span>
-                            }
+                            <div>
+                                <div className="d-flex align-items-center">
+                                    <h1 className="m-0 color-slate fontSize-xxxl fontWeight-6">
+                                        {projectName}
+                                    </h1>
+                                    {isPrivate ? 
+                                        <span className="sp-tag sp-tag--primary sp-tag--xs fontWeight-7 fontSmoothing-reset ml-3">
+                                            Private
+                                        </span>
+                                        :
+                                        <span className="sp-tag sp-tag--neutral sp-tag--xs fontWeight-7 fontSmoothing-reset ml-3">
+                                            Public
+                                        </span>
+                                    }
+                                </div>
+                                
+                                {projectWebsite && 
+                                    <a className="sp-link sp-link--box sp-link--box--silver fontSize-lg m-0 color-silver"
+                                        href={projectWebsite}
+                                        target="_blank">
+                                        {projectWebsite}
+                                    </a>
+                                }
+
+                            </div>
+
                         </div>
+
+                        {projectDescription && 
+                            <div className="d-flex col-12 my-3 ml-4 flex-column pl-3 pr-5 borderLeft-2 borderLeftStyle-dashed borderColor-extraDarkSmoke">
+                                <h4 className="color-slate fontSize-lg fontWeight-4">{projectDescription}</h4>
+                            </div>
+                        }
                         
                     </div>
 
