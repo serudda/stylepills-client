@@ -134,7 +134,7 @@ class FunctionsUtil implements IFunctionUtil {
      * @param {string} ending - specific string to concat in the end of the text
      * @return {string} text truncated
      */
-    truncateText(str: string, length: number = 100, ending: string = '...') {
+    truncateText(str: string = '', length: number = 100, ending: string = '...') {
         if (str.length > length) {
             return str.substring(0, length - ending.length) + ending;
         } else {

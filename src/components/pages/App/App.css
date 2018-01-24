@@ -4176,14 +4176,22 @@ NOTE: Boostrap 4 has a flex set
       bottom: 0;
       border: 0 !important;
       z-index: 1;
-      opacity: 0.8;
+      opacity: 0;
       background-color: #FFFFFF; }
+      .AtomBox__content .cover-link.active {
+        opacity: 1; }
       .AtomBox__content .cover-link__content {
         position: absolute;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100%; }
+      .AtomBox__content .cover-link .icon {
+        opacity: 0.5; }
+        .AtomBox__content .cover-link .icon:hover {
+          opacity: 1; }
+        .AtomBox__content .cover-link .icon.active {
+          opacity: 1; }
 
 /**********************************************************/
 /*                        ATOM BOX                        */
@@ -4206,7 +4214,8 @@ NOTE: Boostrap 4 has a flex set
       bottom: 0;
       border: 0 !important;
       z-index: 1;
-      opacity: 0; }
+      opacity: 0;
+      background-color: #FFFFFF; }
       .ComponentsPage .AtomBox__content .cover-link.active {
         opacity: 1; }
       .ComponentsPage .AtomBox__content .cover-link__content {
