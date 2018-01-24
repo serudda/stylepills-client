@@ -116,7 +116,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
 
                         {projectDescription && 
                             <div className="d-flex col-12 my-3 ml-4 flex-column pl-3 pr-5 borderLeft-2 borderLeftStyle-dashed borderColor-extraDarkSmoke">
-                                <h4 className="color-slate fontSize-lg fontWeight-4">{projectDescription}</h4>
+                                <h4 className="color-slate fontSize-lg fontWeight-4 fontFamily-openSans">{projectDescription}</h4>
                             </div>
                         }
                         
