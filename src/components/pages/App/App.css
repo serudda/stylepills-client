@@ -4518,6 +4518,9 @@ body.duplicateModal-open .ui.dimmer {
 /**********************************************************/
 /*                     NAVBAR OPTIONS                     */
 /**********************************************************/
+.NavbarOptions .nav-link--negative {
+  color: #FF4949 !important; }
+
 .NavbarOptions .nav-link.active {
   border-bottom: 3px solid #33ADA9;
   font-weight: 600;

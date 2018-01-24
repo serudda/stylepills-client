@@ -162,7 +162,7 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
     /********************************/
     render() {
         return (
-            <div className="HomePage row no-gutters">
+            <div className="HomePage row no-gutters bg-white">
     
                 {/* Left Side */}
                 <div className="leftSide col-12 col-lg-5 px-lg-5">
