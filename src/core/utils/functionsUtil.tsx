@@ -134,20 +134,12 @@ class FunctionsUtil implements IFunctionUtil {
      * @param {string} ending - specific string to concat in the end of the text
      * @return {string} text truncated
      */
-    truncateText(str: string = '.', length: number = 100, ending: string = '...') {
-        console.log('enter truncateText', str, length, ending);
-        if (str == null) {
-            console.log('enter str == null', str);
-            str = '';
-        }
-        if (length == null) {
-            console.log('enter length == null', length);
-            length = 100;
-        }
-        if (ending == null) {
-            console.log('enter ending == null', ending);
-            ending = '...';
-        }
+    truncateText(str: string = '', length: number = 100, ending: string = '...') {
+        // NOTE: Asign default values when receive params, only validate undefined, not null. Null is considered a value
+        if (str == null) { str = ''; }
+        if (length == null) { length = 100; }
+        if (ending == null) { ending = '...'; }
+
         if (str.length > length) {
             return str.substring(0, length - ending.length) + ending;
         } else {

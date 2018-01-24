@@ -199,7 +199,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                         </div>
 
                         <div className="cover-link__content color-silver fontSize-sm p-2">
-                            {functionsUtil.truncateText(atom.description, 200, null)}
+                            {functionsUtil.truncateText(atom.description, 200)}
                         </div>
                         
                     </div>
