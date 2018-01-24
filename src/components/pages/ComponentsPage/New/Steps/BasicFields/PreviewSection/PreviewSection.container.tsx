@@ -205,7 +205,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                                 css={css}
                                 title={'new'}
                                 background={hex}
-                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css']} />
+                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']} />
                     </div>
 
                 </div>
