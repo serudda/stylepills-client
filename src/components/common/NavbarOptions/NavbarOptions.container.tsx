@@ -118,6 +118,14 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             'active': location.pathname === '/explore'
         });
 
+        // Now Nav Link Classes
+        const nowNavLinkClasses = classNames({
+            'nav-link': true, 
+            'nav-link--negative': true,
+            'fontSize-sm': true,
+            'fontWeight-9': true
+        });
+
         
         // If user is logged in
         if (user) {
@@ -137,6 +145,11 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             // User logged in links options
             userLinks = (
                 <ul className="navbar-nav ml-auto">
+                    <li className="nav-item mx-3">
+                        <a className={nowNavLinkClasses} href="http://now.stylepill.io" target="_blank">
+                            Now
+                        </a>
+                    </li>
                     <li className="nav-item mx-3">
                         <Link className={exploreNavLinkClasses}
                             to={`/explore`}>
@@ -180,6 +193,11 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             // Guest user links options
             guestLinks = (
                 <ul className="navbar-nav ml-auto">
+                    <li className="nav-item mx-3">
+                        <a className={nowNavLinkClasses} href="http://now.stylepill.io" target="_blank">
+                            Now
+                        </a>
+                    </li>
                     <li className="nav-item mx-3">
                         <Link className={exploreNavLinkClasses}
                             to={`/explore`}>
