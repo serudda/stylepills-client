@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import { ChildProps } from 'react-apollo';
 
 import ComponentNew from './New/ComponentNew.container';
@@ -19,6 +19,8 @@ import ComponentDetails from './Details/ComponentDetails.container';
 /* Own Props */
 type ComponentsPageProps = {};
 
+type WithRouterComponentsPageProps = ComponentsPageProps & RouteComponentProps<any>;
+
 /* Own States */
 type LocalStates = {};
 
@@ -30,13 +32,13 @@ type StateProps = {};
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ComponentsPage 
-extends React.Component<ChildProps<ComponentsPageProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<WithRouterComponentsPageProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ComponentsPageProps & StateProps, {}>) {
+    constructor(props: ChildProps<WithRouterComponentsPageProps & StateProps, {}>) {
         super(props);
     }
 
