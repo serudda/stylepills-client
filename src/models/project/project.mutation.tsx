@@ -58,6 +58,13 @@ Query Variables:
         "name": "Airbnb 50",
         "website": "https://www.airbnb.com",
         "description": "Explaining the component behavior",
+        "libs": [
+            {
+                "name": "Boostrap 4",
+                "type": "css",
+                "url": "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            }
+        ],
         "colorPalette":[
             { 
                 "name": "light primary 50",

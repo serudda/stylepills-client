@@ -56,7 +56,14 @@ Query Variables:
         "name": "Primary Button TEST",
         "description": "Explaining the component behavior",
         "html": "<button class='btn btn-primary'>DONE</button>",
-      	"css": "// My css TEST",
+        "css": "// My css TEST",
+        "libs": [
+            {
+                "name": "Boostrap 4",
+                "type": "css",
+                "url": "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            }
+        ],  
         "private": false,
       	"contextualBg": "#CCCCCC",
       	"atomCategoryId": 1,

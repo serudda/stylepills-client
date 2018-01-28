@@ -4,6 +4,8 @@
 import * as Validator from 'validator';
 import { isEmpty } from 'lodash';
 
+import { Lib as LibModel } from './../../models/lib/lib.model';
+
 
 // -----------------------------------
 
@@ -17,6 +19,7 @@ export type BasicFields = {
     description?: string;
     html: string;
     css: string;
+    libs?: Array<LibModel>;
     contextualBg: string;
     projectId: number | null;
     atomCategoryId: number;
