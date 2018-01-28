@@ -9,6 +9,7 @@ import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { ICurrentCode } from './../actions/ui.action';
 import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Lib as LibModel } from '../models/lib/lib.model';
 
 
 /************************************/
@@ -23,6 +24,9 @@ export interface IUiState {
         },
         sourceCodeTab?: {
             tab: string
+        },
+        libsTab?: {
+            tab: string
         }
     };
     colorPicker: {
@@ -30,6 +34,9 @@ export interface IUiState {
     };
     sourceCodePanel: {
         currentCode: Array<ICurrentCode>;
+    };
+    libsPanel: {
+        libs: Array<LibModel>;
     };
     copied: {
         copiedType: string
@@ -49,6 +56,9 @@ const defaultState: IUiState = {
         },
         sourceCodeTab: {
             tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+        },
+        libsTab: {
+            tab: appConfig.LIBS_DEFAULT_OPTION_TAB
         }
     },
     colorPicker: {
@@ -57,8 +67,12 @@ const defaultState: IUiState = {
             rgba: appConfig.SECONDARY_COLOR_RGBA
         }
     },
+    // TODO: No existen estas dos en la action CLEAR, revisar por que no se agregaron alla
     sourceCodePanel: {
         currentCode: []
+    },
+    libsPanel: {
+        libs: []
     },
     copied: null
 };
@@ -90,6 +104,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     },
                     sourceCodeTab: {
                         tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                    },
+                    libsTab: {
+                        tab: appConfig.LIBS_DEFAULT_OPTION_TAB
                     }
                 },
                 colorPicker: {
@@ -100,6 +117,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 },
                 sourceCodePanel: {
                     currentCode: []
+                },
+                libsPanel: {
+                    libs: []
                 },
                 copied: null
             };
@@ -146,6 +166,18 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.tabs,
                     sourceCodeTab: {
                         tab: action.tabs.sourceCodeTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_LIBS_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    libsTab: {
+                        tab: action.tabs.libsTab.tab
                     }
                 }
             };
@@ -213,6 +245,16 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 }
             };
 
+        }
+
+        case types.CHANGE_LIBS: {
+            return {
+                ...state,
+                libsPanel: {
+                    ...state.libsPanel,
+                    libs: action.libsPanel.libs
+                }
+            };
         }
 
             

@@ -58,6 +58,9 @@ export const DUPLICATE_MODAL_TYPE       = 'DuplicateModal';
 /* Source Code Tabs (Atom Details) */
 export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';
 
+/* Libs Tabs */
+export const LIBS_DEFAULT_OPTION_TAB = 'css';
+
 /* WHITE COLOR */
 export const WHITE_COLOR_HEX = '#FFFFFF';
 export const WHITE_COLOR_RGBA: RgbaColorModel = {

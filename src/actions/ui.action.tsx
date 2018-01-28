@@ -8,6 +8,7 @@ import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Lib as LibModel } from './../models/lib/lib.model';
  
 
 /************************************/
@@ -22,6 +23,9 @@ interface ILocationChangeAction {
             tab: string | null
         },
         sourceCodeTab: {
+            tab: string | null
+        },
+        libsTab: {
             tab: string | null
         }
     };
@@ -43,6 +47,9 @@ export interface IClearUiAction {
             tab: string | null
         },
         sourceCodeTab: {
+            tab: string | null
+        },
+        libsTab: {
             tab: string | null
         }
     };
@@ -116,6 +123,16 @@ export interface IChangeSourceCodeTabAction {
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
+export interface IChangeLibsTabAction {
+    type: types.CHANGE_LIBS_TAB;
+    tabs: {
+        libsTab: {
+            tab: string
+        }
+    };
+    meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
+}
+
 
 /* 
     COPY ACTIONS
@@ -176,6 +193,21 @@ export interface IChangeSourceCodeAction {
 }
 
 
+/* 
+    LIBS PANEL ACTIONS
+    state: libsPanel
+*/
+
+export interface ILibsPanel {
+    libs: Array<LibModel>;
+}
+
+export interface IChangeLibsAction {
+    type: types.CHANGE_LIBS;
+    libsPanel: ILibsPanel;
+}
+
+
 export type Action =
     // UI interaction
     ILocationChangeAction
@@ -184,8 +216,10 @@ export type Action =
 |   ICloseModalAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
+|   IChangeLibsTabAction
 |   IChangeColorAction
 |   IChangeSourceCodeAction
+|   IChangeLibsAction
 |   ICopySourceCodeAction;
 
 
@@ -210,6 +244,9 @@ export const clearUiAction = (): Action => {
             },
             sourceCodeTab: {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            },
+            libsTab: {
+                tab: appConfig.LIBS_DEFAULT_OPTION_TAB
             }
         },
         colorPicker: {
@@ -336,6 +373,35 @@ export const changeSourceCodeTabAction = (tab: string): Action => {
 
 
 /**
+ * @desc Return an action type, CHANGE_LIBS_TAB 
+ * to indicate that user wants to change libs tab menu option (e.g. from 'javascript' to 'css')
+ * @function changeLibsTabAction
+ * @returns {Action}
+ */
+export const changeLibsTabAction = (tab: string): Action => {
+    return {
+        type: types.CHANGE_LIBS_TAB,
+        tabs: {
+            libsTab: {
+                tab
+            }
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CHANGE_LIBS_TAB,
+                    properties: {
+                        tab
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
  * @desc Return an action type, COPY_SOURCE_CODE 
  * to indicate that user wants to copy a source code block
  * @function copySourceCodeAction
@@ -383,8 +449,26 @@ export const changeColorAction = (color: BasicColorModel): Action => {
 
 
 /**
- * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * @desc Return an action type, CHANGE_LIBS
  * to indicate that user wants to change source code on SourceCodePanel
+ * @function changeLibsAction
+ * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {any} codeProps - code properties (e.g. code, libs, etc)
+ * @returns {Action}
+ */
+export const changeLibsAction = (libs: Array<LibModel>): Action => {
+    return {
+        type: types.CHANGE_LIBS,
+        libsPanel: {
+            libs
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_LIB 
+ * to indicate that user wants to change external libs on ExternalLibsPanel
  * @function changeSourceCodeAction
  * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
  * @param {any} codeProps - code properties (e.g. code, libs, etc)
