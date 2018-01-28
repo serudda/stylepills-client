@@ -8,6 +8,8 @@ import { client } from './../index';
 import * as types from '../core/constants/action.types';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
+import { Lib as LibModel } from './../models/lib/lib.model';
+
 import { 
     CREATE_ATOM_MUTATION, CreateAtomInput,
     DUPLICATE_ATOM_MUTATION, DuplicateAtomInput
@@ -83,7 +85,7 @@ export interface ICreateAtomFailureAction {
 
 interface IAtomCodeProps {
     code: string;
-    libs?: Array<string>;
+    libs?: Array<LibModel>;
 }
 
 interface IAtomEditProperties {

@@ -19,7 +19,7 @@ export type BasicFields = {
     description?: string;
     html: string;
     css: string;
-    libs?: Array<LibModel>;
+    libs: Array<LibModel>;
     contextualBg: string;
     projectId: number | null;
     atomCategoryId: number;

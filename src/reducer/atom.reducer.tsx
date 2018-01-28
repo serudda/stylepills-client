@@ -5,6 +5,7 @@ import * as types from '../core/constants/action.types';
 import { Action } from '../actions/atom.action';
 
 import { functionsUtil } from './../core/utils/functionsUtil';
+import { Lib as LibModel } from './../models/lib/lib.model';
 
 
 /************************************/
@@ -16,7 +17,7 @@ import { functionsUtil } from './../core/utils/functionsUtil';
     un solo lugar */
 export interface ICodeProps {
     code: string;
-    libs?: Array<string>;
+    libs?: Array<LibModel>;
 }
 
 export interface IAtomCode {

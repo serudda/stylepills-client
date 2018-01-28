@@ -18,6 +18,7 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 import { ICurrentCode } from './../../../../../../actions/ui.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
+import { Lib as LibModel }  from './../../../../../../models/lib/lib.model';
 
 import PreviewSection from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
@@ -44,6 +45,7 @@ type LocalStates = {
         description: string;
         html: string;
         css: string;
+        libs: Array<LibModel>;
         contextualBg: string;
         projectId: number;
         atomCategoryId: number;
@@ -58,6 +60,7 @@ type StateProps = {
     description: string,
     html: string,
     css: string,
+    libs: Array<LibModel>;
     contextualBg: string,
     projectId: number | null,
     atomCategoryId: number | null,
@@ -91,6 +94,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 description: props.description || '',
                 html: props.html || '',
                 css: props.css || '',
+                libs: [...props.libs] || [],
                 contextualBg: props.hex || '#FFFFFF',
                 projectId: props.projectId || null,
                 atomCategoryId: props.atomCategoryId || 0,
@@ -476,7 +480,7 @@ function mapStateToProps(state: IRootState): StateProps {
     const { hex } = currentColor;
 
     const { fields } = state.form.atomForm;
-    const { name, description, html, css, contextualBg, projectId, atomCategoryId } = fields;
+    const { name, description, html, css, libs, contextualBg, projectId, atomCategoryId } = fields;
 
     const { user, isAuthenticated } = state.auth;
 
@@ -487,6 +491,7 @@ function mapStateToProps(state: IRootState): StateProps {
         description,
         html,
         css,
+        libs,
         contextualBg,
         projectId,
         atomCategoryId,

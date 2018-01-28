@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 
 import { AtomFormFields } from './../../core/validations/atom';
 
+import { Lib as LibModel } from './../lib/lib.model';
+
 import { VALIDATION_ATOM_FRAGMENT } from './atom.fragment';
 
 /************************************/
@@ -91,7 +93,7 @@ export const DUPLICATE_ATOM_MUTATION = gql`
 /* Type */
 type CodeProps = {
     code: string;
-    libs?: Array<string>;
+    libs?: Array<LibModel>;
 };
 
 type AtomCode = {
