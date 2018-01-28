@@ -9,7 +9,7 @@ import { IRootState } from './../../../../../../../../reducer/reducer.config';
 
 import { Lib as LibModel, LibTypeOptions } from './../../../../../../../../models/lib/lib.model';
 
-import { changeSourceCodeTabAction } from './../../../../../../../../actions/ui.action';
+import { changeLibsTabAction, changeLibsAction } from './../../../../../../../../actions/ui.action';
 
 import TabMenu from './../../../../../../../common/SourceCodePanel/TabMenu/TabMenu';
 import AddLibForm from './../../../../../../../common/AddLibForm/AddLibForm.container';
@@ -42,8 +42,8 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: {
-            changeTypeCodeTab: (tab: string) => void;
-            // changeLibs: (codeType: string, codeProps: any) => void;
+            changeLibsTab: (tab: string) => void;
+            changeLibs: (libs: Array<LibModel>) => void;
         }
     };
 };
@@ -98,23 +98,11 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @method handleDeleteLibClick
      * @example this.handleDeleteLibClick()
      * @public
-     * @param {React.FormEvent<{}>} e - Event
+     * @param {LibModel} lib - lib that I want to remove of the libs list
      * @returns {void}
      */
     handleDeleteLibClick(lib: LibModel) {
-
-        // Destructuring state
-        const { libs } = this.state;
-        
-        let libArray = libs.filter(function (candidateLib: LibModel) {
-            return candidateLib !== lib;
-        });
-
-        this.setState((previousState: LocalStates) => ({
-            ...previousState,
-            libs: libArray
-        }));
-
+        this._deleteLib(lib);
     }
 
 
@@ -147,7 +135,7 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @returns {void}
      */
     private _changeTab(tab: string) {
-        this.props.actions.ui.changeTypeCodeTab(tab);
+        this.props.actions.ui.changeLibsTab(tab);
     }
 
 
@@ -174,9 +162,38 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
             this.setState((previousState: LocalStates) => ({
                 ...previousState,
                 libs: libArray
-            }));
+            }), () => {
+                this.props.actions.ui.changeLibs(libArray);
+            });
 
         }
+
+    }
+
+
+    /**
+     * @desc Delete Lib
+     * @method _deleteLib
+     * @example this._deleteLib()
+     * @private 
+     * @param {LibModel} lib - lib that I want to remove of the libs list
+     * @returns {void}
+     */
+    private _deleteLib(lib: LibModel) {
+
+        // Destructuring state
+        const { libs } = this.state;
+        
+        let libArray = libs.filter(function (candidateLib: LibModel) {
+            return candidateLib !== lib;
+        });
+
+        this.setState((previousState: LocalStates) => ({
+            ...previousState,
+            libs: libArray
+        }), () => {
+            this.props.actions.ui.changeLibs(libArray);
+        });
 
     }
 
@@ -279,8 +296,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeTypeCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab)),
-                // changeLibs: (codeType, codeProps) => dispatch(changeSourceCodeTabAction(codeType, codeProps))
+                changeLibsTab: (tab) => dispatch(changeLibsTabAction(tab)),
+                changeLibs: (libs) => dispatch(changeLibsAction(libs))
             }
         }
     };
