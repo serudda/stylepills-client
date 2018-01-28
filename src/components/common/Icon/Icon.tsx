@@ -28,6 +28,7 @@ interface IconType {
     heartFull: () => JSX.Element;
     image: () => JSX.Element;
     layer: () => JSX.Element;
+    list: () => JSX.Element;
     loader: () => JSX.Element;
     logo: () => JSX.Element;
     messageCircle: () => JSX.Element;
@@ -350,6 +351,27 @@ class Icon extends React.Component<IconProps, {}> {
                         <polygon points="12 2 2 7 12 12 22 7 12 2" />
                         <polyline points="2 17 12 22 22 17" />
                         <polyline points="2 12 12 17 22 12" />
+                    </svg>
+                );
+            },
+            list: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24"
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="8" y1="6" x2="21" y2="6" />
+                        <line x1="8" y1="12" x2="21" y2="12" />
+                        <line x1="8" y1="18" x2="21" y2="18" />
+                        <line x1="3" y1="6" x2="3" y2="6" />
+                        <line x1="3" y1="12" x2="3" y2="12" />
+                        <line x1="3" y1="18" x2="3" y2="18" />
                     </svg>
                 );
             },

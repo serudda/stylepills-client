@@ -4084,7 +4084,8 @@ NOTE: Boostrap 4 has a flex set
     background: none;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    border-radius: 0; }
+    border-radius: 0;
+    border-top: 4px solid transparent; }
     .sp-iconTabMenu__btn:hover {
       background-color: #E5E9F2; }
     .sp-iconTabMenu__btn--active {

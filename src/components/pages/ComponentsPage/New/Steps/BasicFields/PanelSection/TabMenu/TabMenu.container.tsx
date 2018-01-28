@@ -55,6 +55,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         // Bind methods
         this._handleCodeClick = this._handleCodeClick.bind(this);
+        this._handleLibsClick = this._handleLibsClick.bind(this);
     }
 
 
@@ -70,6 +71,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     /*       PRIVATE METHODS        */
     /********************************/
 
+
     /**
      * @desc HandleCodeClick
      * @method _handleCodeClick
@@ -80,6 +82,19 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     private _handleCodeClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this._changeTab('code');
+    }
+
+
+    /**
+     * @desc HandleLibsClick
+     * @method _handleLibsClick
+     * @example this._handleLibsClick()
+     * @private
+     * @returns {void}
+     */
+    private _handleLibsClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._changeTab('libs');
     }
 
 
@@ -109,6 +124,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         // VARIABLES
         let options: Array<DetailsTabMenuOptions> = [
+            DetailsTabMenuOptions.addLibs,
             DetailsTabMenuOptions.showCode
         ];        
 
@@ -116,7 +132,8 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
             <DetailsTabMenu options={options}
                             isReversed={tab === 'code'}
                             currentOption={tab}
-                            onShowCodeClick={this._handleCodeClick}/>
+                            onShowCodeClick={this._handleCodeClick}
+                            onAddLibsClick={this._handleLibsClick}/>
         );
         
     }

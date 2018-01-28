@@ -9,8 +9,11 @@ import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../../../../reducer/reducer.config';
 
+import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
+
 import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
+import ExternalLibsPanel from './ExternalLibsPanel/ExternalLibsPanel.container';
 
 // -----------------------------------
 
@@ -23,6 +26,7 @@ import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
 type PanelSectionContainerProps = {
     html: string;
     css: string;
+    libs: Array<LibModel>;
 };
 
 /* Own States */
@@ -55,7 +59,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
     render() {
 
         // Destructuring props
-        const { html, css } = this.props;
+        const { html, css, libs } = this.props;
         const { tab } = this.props;
 
         // Tab Menu Row Classes
@@ -93,6 +97,10 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
                 {/* Source Code Section */}
                 {tab === 'code' && 
                 <SourceCodePanel html={html} css={css}/>}
+
+                {/* External Libs Section */}
+                {tab === 'libs' && 
+                <ExternalLibsPanel libs={libs}/>}
 
             </div>
         );

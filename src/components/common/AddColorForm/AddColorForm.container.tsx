@@ -71,6 +71,7 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
         };
 
         // Bind methods
+        this._handleInputChange = this._handleInputChange.bind(this);
         this._handleAddClick = this._handleAddClick.bind(this);
         this._handleDeleteClick = this._handleDeleteClick.bind(this);
         this._handleShowFormClick = this._handleShowFormClick.bind(this);
@@ -121,6 +122,26 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
             };
         });
         
+    }
+
+
+    /**
+     * @desc HandleInputChange
+     * @method _handleInputChange
+     * @example this._handleInputChange()
+     * @private
+     * @param {React.ChangeEvent<HTMLInputElement>} e - Event
+     * @returns {void}
+     */
+    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState((previousState: LocalStates) => ({
+            ...previousState,
+            [name]: value
+        }));
     }
 
 
@@ -293,10 +314,13 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
                             <span className="context">
                                 Name
                             </span>
+                            
                             <input type="text" 
                                     placeholder="Light Primary" 
                                     className="input" 
-                                    value={name} />
+                                    name="name"
+                                    value={name}
+                                    onChange={this._handleInputChange} />
                         </div>
 
                         {/* Add Button */}

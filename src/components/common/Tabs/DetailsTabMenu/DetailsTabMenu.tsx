@@ -7,6 +7,7 @@ import * as classNames from 'classnames';
 
 import Duplicate from './TabOptions/Duplicate/Duplicate';
 import ShowCode from './TabOptions/ShowCode/ShowCode';
+import AddLibs from './TabOptions/AddLibs/AddLibs';
 import ShowComments from './TabOptions/ShowComments/ShowComments';
 import Like from './TabOptions/Like/Like';
 import Download from './TabOptions/Download/Download';
@@ -27,6 +28,7 @@ type DetailsTabMenuProps = {
     isDuplicated?: boolean;
     onDuplicateClick?: (e: React.FormEvent<{}>) => any;
     onShowCodeClick?: (e: React.FormEvent<{}>) => any;
+    onAddLibsClick?: (e: React.FormEvent<{}>) => any;
     onShowCommentsClick?: (e: React.FormEvent<{}>) => any;
     onLikeClick?: (e: React.FormEvent<{}>) => any;
     onDownloadClick?: (e: React.FormEvent<{}>) => any;
@@ -37,6 +39,7 @@ type DetailsTabMenuProps = {
 interface DetailsTabMenuOptions {
     duplicate: () => JSX.Element;
     showCode: () => JSX.Element;
+    addLibs: () => JSX.Element;
     showComments: () => JSX.Element;
     like: () => JSX.Element;
     download: () => JSX.Element;
@@ -47,6 +50,7 @@ interface DetailsTabMenuOptions {
 export enum Options {
     duplicate = 'duplicate',
     showCode = 'showCode',
+    addLibs = 'addLibs',
     showComments = 'showComments',
     like = 'like',
     download = 'download',
@@ -83,6 +87,12 @@ const DetailsTabMenu: React.SFC<DetailsTabMenuProps> = ({ ...props }) => {
             return (
                 <ShowCode currentOption={props.currentOption} 
                             onClick={props.onShowCodeClick}/>
+            );
+        },
+        addLibs: () => {
+            return (
+                <AddLibs currentOption={props.currentOption} 
+                        onClick={props.onAddLibsClick}/>
             );
         },
         showComments: () => {

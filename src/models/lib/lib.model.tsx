@@ -18,7 +18,5 @@ export type Lib = {
     name: string;
     url: string;
     type: LibTypeOptions;
-    active: boolean;
-    createdAt: string;
-    updatedAt: string;
+    active?: boolean;
 };

@@ -429,7 +429,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
                     <div className="position-relative">
                         <PanelSectionContainer html={this.state.fields.html}
-                                                css={this.state.fields.css}/>
+                                                css={this.state.fields.css}
+                                                libs={this.state.fields.libs}/>
                         
                         {/* Error Bottom Message */}
                         {this._buildSourceCodeErrorMessage()}
