@@ -10,6 +10,7 @@ import { IRootState } from './../../../../../../../reducer/reducer.config';
 import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
+import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
 
 import { changeColorAction, ICurrentCode } from '../../../../../../../actions/ui.action';
 
@@ -32,13 +33,15 @@ type PreviewSectionContainerProps = {
 /* Own States */
 type LocalStates = {
     html: string,
-    css: string
+    css: string,
+    stylesheets?: Array<string>;
 };
 
 /* Mapped State to Props */
 type StateProps = {
     hex: string;
     currentCode: Array<ICurrentCode>;
+    libs: Array<LibModel>;
 };
 
 /* Mapped Dispatches to Props */
@@ -83,7 +86,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         // Init local state
         this.state = {
             html: props.html || '',
-            css: props.css || ''
+            css: props.css || '',
+            stylesheets: []
         };
 
         // Bind methods
@@ -115,11 +119,25 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: PreviewSectionContainerProps & StateProps) {   
-        const { currentCode } = nextProps;
+        const { currentCode, libs } = nextProps;
 
         let obj = functionsUtil.sourceCodeArrayToObj(currentCode);
+        let stylesheets = [];
 
-        this.setState(obj);
+        if (libs.length > 0) {
+            for (let index = 0; index < libs.length; index++) {
+                const lib = libs[index];
+                if (lib.type === 'css') {
+                    stylesheets.push(lib.url);
+                } 
+            }   
+        }  
+
+        this.setState({
+            html: obj.html,
+            css: obj.css,
+            stylesheets
+        });
     }
 
 
@@ -163,7 +181,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     render() {
 
         // Destructuring state & props 
-        const { html, css } = this.state;
+        const { html, css, stylesheets } = this.state;
         const { hex } = this.props;
 
 
@@ -205,7 +223,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                                 css={css}
                                 title={'new'}
                                 background={hex}
-                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']} />
+                                stylesheets={stylesheets} />
                     </div>
 
                 </div>
@@ -228,10 +246,12 @@ function mapStateToProps(state: IRootState): StateProps {
     const { hex } = currentColor;
 
     const { currentCode } = state.ui.sourceCodePanel;
+    const { libs } = state.ui.libsPanel;
 
     return {
         hex,
-        currentCode
+        currentCode,
+        libs
     };
 }
 
