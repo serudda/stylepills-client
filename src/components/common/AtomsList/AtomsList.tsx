@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
-import AtomBox from '../AtomBox/AtomBox.container';
+import AtomBoxContainer from './../../../app/containers/AtomBox/AtomBox.container';
 import AtomInfoSection from '../AtomBox/AtomInfoSection/AtomInfoSection';
 
 // -----------------------------------
@@ -42,7 +42,7 @@ const AtomsList: React.SFC<AtomsListProps> = ({ atoms = [] }) => {
                     {/* Atom Box */}
                     {atoms.map((atom: AtomModel) => (
                         <div key={atom.id} className="atomBox-container">
-                            <AtomBox atom={atom} />
+                            <AtomBoxContainer atom={atom} />
                             <AtomInfoSection {...atom} />
                         </div>
                     ))}
