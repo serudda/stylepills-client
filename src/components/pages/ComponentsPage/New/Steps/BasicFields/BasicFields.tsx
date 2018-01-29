@@ -492,11 +492,12 @@ function mapStateToProps(state: IRootState): StateProps {
     const { hex } = currentColor;
 
     const { fields } = state.form.atomForm;
-    const { name, description, html, css, libs, contextualBg, projectId, atomCategoryId } = fields;
+    const { name, description, html, css, contextualBg, projectId, atomCategoryId } = fields;
 
     const { user, isAuthenticated } = state.auth;
 
     const { currentCode } = state.ui.sourceCodePanel;
+    const { libs } = state.ui.libsPanel;
 
     return {
         name,

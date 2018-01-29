@@ -10,6 +10,8 @@ import { functionsUtil } from '../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../reducer/reducer.config';
 import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
+import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../models/lib/lib.model';
+
 import Iframe from '../../Iframe/Iframe.container';
 
 // -----------------------------------
@@ -25,6 +27,7 @@ type PreviewSectionProps = {
     name: string,
     html: string,
     css: string,
+    libs: Array<LibModel>,
     contextualBg: string
 };
 
@@ -99,7 +102,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
     render() {
 
         // Destructuring props 
-        const { name, contextualBg } = this.props;
+        const { name, libs, contextualBg } = this.props;
 
 
         /*         MARKUP          */
@@ -112,7 +115,7 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
                                 css={this.state.css} 
                                 title={name}
                                 background={contextualBg}
-                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']} />
+                                stylesheets={getStylesheetsFromLibs(libs)} />
                     </div>
                 </div>
             </div>

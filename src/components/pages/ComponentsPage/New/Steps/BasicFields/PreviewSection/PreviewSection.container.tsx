@@ -10,7 +10,7 @@ import { IRootState } from './../../../../../../../reducer/reducer.config';
 import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
-import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
+import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../../../../models/lib/lib.model';
 
 import { changeColorAction, ICurrentCode } from '../../../../../../../actions/ui.action';
 
@@ -33,8 +33,7 @@ type PreviewSectionContainerProps = {
 /* Own States */
 type LocalStates = {
     html: string,
-    css: string,
-    stylesheets?: Array<string>;
+    css: string
 };
 
 /* Mapped State to Props */
@@ -86,8 +85,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         // Init local state
         this.state = {
             html: props.html || '',
-            css: props.css || '',
-            stylesheets: []
+            css: props.css || ''
         };
 
         // Bind methods
@@ -119,24 +117,13 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: PreviewSectionContainerProps & StateProps) {   
-        const { currentCode, libs } = nextProps;
+        const { currentCode } = nextProps;
 
-        let obj = functionsUtil.sourceCodeArrayToObj(currentCode);
-        let stylesheets = [];
-
-        if (libs.length > 0) {
-            for (let index = 0; index < libs.length; index++) {
-                const lib = libs[index];
-                if (lib.type === 'css') {
-                    stylesheets.push(lib.url);
-                } 
-            }   
-        }  
+        let obj = functionsUtil.sourceCodeArrayToObj(currentCode);  
 
         this.setState({
             html: obj.html,
-            css: obj.css,
-            stylesheets
+            css: obj.css
         });
     }
 
@@ -181,8 +168,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     render() {
 
         // Destructuring state & props 
-        const { html, css, stylesheets } = this.state;
-        const { hex } = this.props;
+        const { html, css } = this.state;
+        const { hex, libs} = this.props;
 
 
         /*         MARKUP          */
@@ -223,7 +210,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                                 css={css}
                                 title={'new'}
                                 background={hex}
-                                stylesheets={stylesheets} />
+                                stylesheets={getStylesheetsFromLibs(libs)} />
                     </div>
 
                 </div>

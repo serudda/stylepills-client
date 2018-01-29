@@ -13,6 +13,7 @@ import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from '../../../../../../models/atom/atom.model';
+import { getStylesheetsFromLibs } from '../../../../../../models/lib/lib.model';
 
 import Iframe from './../../../../../common/Iframe/Iframe.container';
 
@@ -210,7 +211,7 @@ extends React.Component<ChildProps<AtomBoxProps & StateProps & DispatchProps, {}
                                 css={atom.css} 
                                 title={atom.name}
                                 background={atom.contextualBg}
-                                stylesheets={['https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']} />
+                                stylesheets={getStylesheetsFromLibs( atom.libs)} />
                     </div>
 
                 </div>
