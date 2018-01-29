@@ -44,7 +44,7 @@ const AtomInfoSection: React.SFC<InfoSectionProps> = ({
     /*         MARKUP          */
     /***************************/
     return (
-        <div className="AtomInfo px-1">
+        <div className="InfoSection px-1">
 
             {/* Title */}
             <p className="m-0 fontSize-md fontFamily-poppins fontSmoothing-reset text-truncate">
@@ -53,7 +53,7 @@ const AtomInfoSection: React.SFC<InfoSectionProps> = ({
 
             {/* Designed by */}
             { author &&
-                <div className="AtomInfo__user">
+                <div className="InfoSection__user">
 
                     <Link className="sp-designedBy sp-designedBy--xs link-reset fontFamily-poppins fontWeight-6 color-silver text-truncate"
                         to={`/user/${author.username}`}>
@@ -70,7 +70,7 @@ const AtomInfoSection: React.SFC<InfoSectionProps> = ({
 
             {/* Stats */}
             { stats &&
-                <div className="AtomInfo__stats">
+                <div className="InfoSection__stats">
 
                     <div className="sp-stats">
 
@@ -81,12 +81,12 @@ const AtomInfoSection: React.SFC<InfoSectionProps> = ({
                             <span className="fontSize-sm fontWeight-7 color-silver">{stats.likes}</span>
                         </div>
 
-                        <div className="comment sp-stats__item">
+                        {/*<div className="comment sp-stats__item">
                             <Icon icon="messageCircle"
                                 iconClass="stroke-silver strokeWidth-2 mr-1 marginLeft-2"
                                 width="14" height="14"/>
                             <span className="fontSize-sm fontWeight-7 color-silver">{stats.comments}</span>
-                        </div>
+                        </div>*/}
 
                         <div className="store sp-stats__item">
                             <Icon icon="duplicate"

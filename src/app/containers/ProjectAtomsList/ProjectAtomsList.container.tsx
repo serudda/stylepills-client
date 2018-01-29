@@ -8,14 +8,14 @@ import { graphql, compose, ChildProps } from 'react-apollo';
 import { 
     SEARCH_ATOMS_QUERY, 
     SearchAtomQueryOptions, 
-    SearchAtomsResponse
-} from './../../../../models/atom/atom.query';
+    SearchAtomsResponse 
+} from './../../../models/atom/atom.query';
 
-import { IRootState } from './../../../../reducer/reducer.config';
-import { ISearchState } from './../../../../reducer/search.reducer';
-import { IPaginationState } from './../../../../reducer/pagination.reducer';
+import { IRootState } from './../../../reducer/reducer.config';
+import { ISearchState } from './../../../reducer/search.reducer';
+import { IPaginationState } from './../../../reducer/pagination.reducer';
 
-import AtomsListWrapper from './../../../components/AtomsListWrapper/AtomsListWrapper';
+import AtomsListWrapper, { WrapperTypeOptions } from './../../components/AtomsListWrapper/AtomsListWrapper';
 
 
 // -----------------------------------
@@ -26,7 +26,9 @@ import AtomsListWrapper from './../../../components/AtomsListWrapper/AtomsListWr
 /********************************/
 
 /* Own Props */
-type AtomsListProps = {};
+type ProjectAtomsListContainerProps = {
+    projectId: number;
+};
 
 /* Own States */
 type LocalStates = {};
@@ -41,14 +43,14 @@ type StateProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomsListContainer 
-extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsResponse>, LocalStates> {
+class ProjectAtomsListContainer 
+extends React.Component<ChildProps<ProjectAtomsListContainerProps & StateProps, SearchAtomsResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<AtomsListProps & StateProps, SearchAtomsResponse>) {
+    constructor(props: ChildProps<ProjectAtomsListContainerProps & StateProps, SearchAtomsResponse>) {
         super(props);
     }
 
@@ -65,13 +67,12 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         
         /*         MARKUP          */
         /***************************/
-        return (     
-            
-            <AtomsListWrapper results={data.searchAtoms.results}
-                              loading={data.loading}
-                              error={data.error}
-                              cursors={data.searchAtoms.cursors} />
-
+        return (
+            <AtomsListWrapper type={WrapperTypeOptions.project}
+                            results={data.searchAtoms ? data.searchAtoms.results : null}
+                            loading={data.loading}
+                            error={data.error}
+                            cursors={data.searchAtoms ? data.searchAtoms.cursors : null} />
         );
 
     }
@@ -82,12 +83,12 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
 /********************************/
 /*            QUERY             */
 /********************************/
-const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
+const searchAtomsQuery = graphql<SearchAtomsResponse, ProjectAtomsListContainerProps>(
     SEARCH_ATOMS_QUERY, {
-        options:  (ownProps: StateProps): SearchAtomQueryOptions => {
+        options:  (ownProps: ProjectAtomsListContainerProps & StateProps): SearchAtomQueryOptions => {
 
             // Destructuring props
-            const { pagination, search} = ownProps;
+            const { pagination, search, projectId } = ownProps;
             const { first, last, after, before } = pagination.paginationAtoms;
             const { filter, sortBy } = search.searchAtoms;
             const { type, text, atomCategoryId } = filter;
@@ -108,7 +109,8 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                             isPrivate
                         },
                         text,
-                        atomCategoryId
+                        atomCategoryId,
+                        projectId
                     },
                     sortBy
                 }
@@ -132,12 +134,12 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const atomsListConnect = connect(mapStateToProps); 
+const projectAtomsListContainerConnect = connect(mapStateToProps); 
 
 
 /*         EXPORT          */
 /***************************/
-export default compose(
-    atomsListConnect,
+export default compose<any>(
+    projectAtomsListContainerConnect,
     searchAtomsQuery
-)(AtomsListContainer);
+)(ProjectAtomsListContainer);

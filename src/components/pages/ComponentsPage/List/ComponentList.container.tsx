@@ -12,7 +12,7 @@ import { User } from './../../../../models/user/user.model';
 import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from './../../../../models/user/user.query';
 
 import Header from './../Header/Header';
-import AtomsListContainer from './AtomsList/AtomsList.container';
+import UserAtomsListContainer from './../../../../app/containers/UserAtomsList/UserAtomsList.container';
 // -----------------------------------
 
 
@@ -84,9 +84,9 @@ extends React.Component<ChildProps<ComponentListProps & StateProps, GetByUsernam
                 <Header />
 
                 {/* Atoms list container */}
-                <AtomsListContainer firstname={userByUsername.firstname} 
-                lastname={userByUsername.lastname} 
-                username={userByUsername.username}/>
+                <UserAtomsListContainer firstname={userByUsername.firstname} 
+                                        lastname={userByUsername.lastname} 
+                                        username={userByUsername.username}/>
 
             </div>
         );

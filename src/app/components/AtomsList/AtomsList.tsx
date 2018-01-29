@@ -60,13 +60,12 @@ class AtomsList extends React.Component<AtomsListProps, {}> {
             showInfo
         } = this.props;
 
-        const stats = {likes: atom.likes, views: atom.views, stores: atom.stores};
+        // const stats = {likes: atom.likes, views: atom.views, stores: atom.stores};
         
         if (showInfo) {
             return (
                 <InfoSection title={atom.name} 
-                             author={atom.author}
-                             stats={stats}  />
+                             author={atom.author} />
             );
         }
 

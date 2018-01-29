@@ -51,9 +51,9 @@
 // --------------------------------------------------
 
 // Component Box Component Style
-@import '../../common/AtomBox/AtomBox';
+@import './../../../app/components/AtomBox/AtomBox';
 // Component Box Component Style (ComponentsPage)
-@import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
+// @import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
 // Component Details Box Component (PreviewSection) Style
@@ -61,9 +61,11 @@
 // Component Details Box Component (Source Code Panel) Style
 @import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
 // Component Info Component Style
-@import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
+// @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
+@import './../../../app/components/InfoSection/InfoSection';
 // Components List Component Style
-@import '../../common/AtomsList/AtomsList';
+// @import '../../common/AtomsList/AtomsList.legacy';
+@import './../../../app/components/AtomsList/AtomsList';
 // Color Box Component Style
 @import '../../common/ColorBox/ColorBox';
 // Color Boxes List Component Style

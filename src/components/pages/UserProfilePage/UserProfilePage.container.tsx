@@ -4,12 +4,15 @@
 import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { GET_USER_BY_USERNAME_QUERY, GetByUsernameResponse } from '../../../models/user/user.query';
+import { 
+    GET_USER_BY_USERNAME_QUERY, 
+    GetByUsernameResponse 
+} from '../../../models/user/user.query';
 
 import Icon from './../../common/Icon/Icon';
 import NavbarOptions from './../../common/NavbarOptions/NavbarOptions.container';
 // import UserStats from './UserStats/UserStats';
-import AtomsListContainer from './AtomsList/AtomsList.container';
+import UserAtomsListContainer from './../../../app/containers/UserAtomsList/UserAtomsList.container';
 import NotFound from './../NotFoundPage/NotFoundPage';
 
 // -----------------------------------
@@ -135,9 +138,9 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                 </header>
 
                 {/* Atoms list container */}
-                <AtomsListContainer firstname={userByUsername.firstname} 
-                                    lastname={userByUsername.lastname} 
-                                    username={userByUsername.username}/>
+                <UserAtomsListContainer firstname={userByUsername.firstname} 
+                                        lastname={userByUsername.lastname} 
+                                        username={userByUsername.username}/>
 
             </div>
         );

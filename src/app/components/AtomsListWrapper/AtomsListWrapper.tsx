@@ -15,8 +15,18 @@ import PaginationBtnsContainer from './../../../components/common/PaginationBtns
 /*      INTERFACES & TYPES      */
 /********************************/
 
+/* Possible Atoms List Wrapper type options */
+export enum WrapperTypeOptions {
+    general = 'general',
+    user = 'user',
+    project = 'project'
+}
+
 /* Own Props */
 type AtomsListWrapperProps = {
+    type: WrapperTypeOptions;
+    userFirstName?: string;
+    userLastName?: string;
     loading: boolean;
     error: any;
     results: Array<AtomModel>;
@@ -42,6 +52,152 @@ class AtomsListWrapper extends React.Component<AtomsListWrapperProps, {}> {
 
 
     /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc Build Loading screen
+     * @method _buildLoading
+     * @example this._buildLoading()
+     * @private
+     * @returns {JSX.Element}
+     */
+    private _buildLoading(): JSX.Element {
+
+        // Destructuring props
+        const { type } = this.props;
+        let loading = null;
+
+        switch (type) {
+            case WrapperTypeOptions.general:
+
+                loading = ( 
+                    <div className="fontSize-xxl fontFamily-poppins color-silver fontSmoothing-reset flex-center mt-5">
+                        Loading...
+                    </div> 
+                );
+
+                break;
+            
+            case WrapperTypeOptions.user:
+
+                loading = ( 
+                    <div className="fontSize-xxl fontFamily-poppins color-silver fontSmoothing-reset flex-center mt-5">
+                        Loading...
+                    </div> 
+                );
+                
+                break;
+            
+            case WrapperTypeOptions.project:
+
+                loading = ( 
+                    <div className="color-slate fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
+                        Loading...
+                    </div>
+                );
+                
+                break;
+        
+            default:
+
+                loading = ( 
+                    <div className="fontSize-xxl fontFamily-poppins color-silver fontSmoothing-reset flex-center mt-5">
+                        Loading...
+                    </div> 
+                );
+
+                break;
+        }
+
+        return loading;
+        
+    }
+
+
+    /**
+     * @desc Build No Data Message
+     * @method _buildNoData
+     * @example this._buildNoData()
+     * @private
+     * @returns {JSX.Element}
+     */
+    private _buildNoData(): JSX.Element {
+
+        // Destructuring props
+        const { type, userFirstName, userLastName } = this.props;
+        let noData = null;
+
+        switch (type) {
+            case WrapperTypeOptions.general:
+
+                noData = ( 
+                    <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                        <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                            <div className="icon icon--md icon--noResult mt-4 mb-3" />
+                            <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                                We couldn’t find any component that match.
+                            </div>
+                        </li>
+                    </ul>
+                );
+
+                break;
+            
+            case WrapperTypeOptions.user:
+
+                noData = ( 
+                    <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                        <li className="sp-messageBlock__container sp-messageBlock__container--lg">
+                            <div className="icon icon--sm icon--empty mt-4 mb-3" />
+                            <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                                {userFirstName} {userLastName} doesn't have any public component yet.
+                            </div>
+                        </li>
+                    </ul>
+                );
+                
+                break;
+            
+            case WrapperTypeOptions.project:
+
+                noData = ( 
+                    <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                        <li className="sp-messageBlock__container sp-messageBlock__container--lg">
+                            <div className="icon icon--sm icon--empty mt-4 mb-3" />
+                            <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                                This project doesn't have any component yet.
+                            </div>
+                        </li>
+                    </ul>
+                );
+                
+                break;
+        
+            default:
+
+                noData = ( 
+                    <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                        <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                            <div className="icon icon--md icon--noResult mt-4 mb-3" />
+                            <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                                We couldn’t find any component that match.
+                            </div>
+                        </li>
+                    </ul>
+                );
+
+                break;
+        }
+
+        return noData;
+        
+    }
+
+
+
+    /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
@@ -53,11 +209,7 @@ class AtomsListWrapper extends React.Component<AtomsListWrapperProps, {}> {
         /*       VALIDATIONS       */
         /***************************/
         if (loading) {
-            return (
-                <div className="fontSize-xxl fontFamily-poppins color-silver fontSmoothing-reset flex-center mt-5">
-                    Loading...
-                </div>
-            );
+            return this._buildLoading();
         }
 
         if (error) {
@@ -65,16 +217,7 @@ class AtomsListWrapper extends React.Component<AtomsListWrapperProps, {}> {
         }
 
         if (results.length === 0) {
-            return (
-                <ul className="sp-messageBlock m-0 mx-4 mt-4">
-                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
-                        <div className="icon icon--md icon--noResult mt-4 mb-3" />
-                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
-                            We couldn’t find any component that match.
-                        </div>
-                    </li>
-                </ul>
-            );
+            return this._buildNoData();
         }
 
 
