@@ -114,7 +114,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: BasicFieldsProps & StateProps) {   
-        const { hex, currentCode } = nextProps;
+        const { hex, currentCode, libs } = nextProps;
 
         // Changed CurrentCode on Store state
         if (this.props.currentCode !== currentCode) {
@@ -139,6 +139,17 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 fields: {
                     ...previousState.fields,
                     contextualBg: hex
+                }
+            }));
+        }
+
+        // Changed Libs on Store state
+        if (this.props.libs !== libs) {
+            this.setState((previousState: LocalStates) => ({
+                ...previousState,
+                fields: {
+                    ...previousState.fields,
+                    libs
                 }
             }));
         }

@@ -23,19 +23,17 @@ import AddLibForm from './../../../../../../../common/AddLibForm/AddLibForm.cont
 /********************************/
 
 /* Own Props */
-type ExternalLibsPanelProps = {
-    libs: Array<LibModel>
-};
+type ExternalLibsPanelProps = {};
 
 /* Own States */
 type LocalStates = {
-    url: string,
     libs: Array<LibModel>
 };
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: string
+    tab: string,
+    libs: Array<LibModel>
 };
 
 /* Mapped Dispatches to Props */
@@ -64,7 +62,6 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
 
         // Init local state
         this.state = {
-            url: '',
             libs: [...props.libs] || []
         };
 
@@ -279,12 +276,18 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const {tabs} = state.ui;
+    const {tabs, libsPanel} = state.ui;
     const {sourceCodeTab} = tabs;
     const {tab} = sourceCodeTab;
+    // TODO: Estudiar muy bien la gestion de componentes anidados, ya que estoy pasando muchas props desde los padres,
+    // a niveles de anidamiento muy grandes, y se esta volviendo inmanejable los componentes, estoy aplicando muy mal
+    // la teoria de containers components, los cuales deberian ser creados rapidamente simplemente para que se conecte 
+    // a Redux y ya.
+    const { libs } = libsPanel;
 
     return {
-        tab
+        tab,
+        libs
     };
 }
 

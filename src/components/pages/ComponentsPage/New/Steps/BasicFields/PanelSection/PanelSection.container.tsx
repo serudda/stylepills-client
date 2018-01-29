@@ -59,7 +59,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
     render() {
 
         // Destructuring props
-        const { html, css, libs } = this.props;
+        const { html, css } = this.props;
         const { tab } = this.props;
 
         // Tab Menu Row Classes
@@ -100,7 +100,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
 
                 {/* External Libs Section */}
                 {tab === 'libs' && 
-                <ExternalLibsPanel libs={libs}/>}
+                <ExternalLibsPanel />}
 
             </div>
         );
