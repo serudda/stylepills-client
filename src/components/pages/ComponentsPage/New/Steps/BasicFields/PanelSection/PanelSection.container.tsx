@@ -79,7 +79,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
         /***************************/
         return (
 
-            <div className="PanelSection boxShadow-raised sp-rounded-bottom-md overflow-hidden">
+            <div className="PanelSection sp-rounded-bottom-md overflow-hidden">
 
                 {/* Stats and Tab Menu Row */}
                 <div className={tabMenuRowClasses}>
