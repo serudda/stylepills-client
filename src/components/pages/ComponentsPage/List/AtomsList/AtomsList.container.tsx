@@ -11,7 +11,7 @@ import { IRootState } from '../../../../../reducer/reducer.config';
 import { ISearchState } from '../../../../../reducer/search.reducer';
 import { IPaginationState } from '../../../../../reducer/pagination.reducer';
 
-import AtomsList from './AtomsList';
+import AtomsList from './../../../../../app/components/AtomsList/AtomsList';
 import PaginationBtnsContainer from '../../../../common/PaginationBtns/PaginationBtns.container';
 
 
@@ -96,7 +96,7 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /***************************/
         return (
             <div>
-                <AtomsList atoms={data.searchAtoms.results}/>
+                <AtomsList atoms={data.searchAtoms.results} showInfo={true}/>
 
                 <div className="row pt-5 pb-5 margin-0 no-gutters">
                     <div className="col">

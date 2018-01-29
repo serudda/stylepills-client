@@ -5,14 +5,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
-import { SEARCH_ATOMS_QUERY, SearchAtomQueryOptions, SearchAtomsResponse } from './../../../../../models/atom/atom.query';
+import { 
+    SEARCH_ATOMS_QUERY, 
+    SearchAtomQueryOptions, 
+    SearchAtomsResponse
+} from './../../../../models/atom/atom.query';
 
-import { IRootState } from './../../../../../reducer/reducer.config';
-import { ISearchState } from './../../../../../reducer/search.reducer';
-import { IPaginationState } from './../../../../../reducer/pagination.reducer';
+import { IRootState } from './../../../../reducer/reducer.config';
+import { ISearchState } from './../../../../reducer/search.reducer';
+import { IPaginationState } from './../../../../reducer/pagination.reducer';
 
-import AtomsList from './../../../../../app/components/AtomsList/AtomsList';
-import PaginationBtnsContainer from './../../../../common/PaginationBtns/PaginationBtns.container';
+import AtomsListWrapper from './../../../components/AtomsListWrapper/AtomsListWrapper';
 
 
 // -----------------------------------
@@ -23,9 +26,7 @@ import PaginationBtnsContainer from './../../../../common/PaginationBtns/Paginat
 /********************************/
 
 /* Own Props */
-type AtomsListProps = {
-    projectId: number;
-};
+type AtomsListProps = {};
 
 /* Own States */
 type LocalStates = {};
@@ -60,56 +61,16 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
         /*       PROPERTIES       */
         /**************************/
         const {...data} = this.props.data;
-        
-        
-        /*       VALIDATIONS       */
-        /***************************/
-        if (data.loading) {
-            return (
-                <div className="color-slate fontSize-xxl fontFamily-poppins fontSmoothing-reset flex-center mt-5">
-                    Loading...
-                </div>
-            );
-        }
-
-        if (data.error) {
-            return (<p>{data.error.message}</p>);
-        }
-
-        if (data.searchAtoms.results.length === 0) {
-            return (
-                <ul className="sp-messageBlock m-0 mx-4 mt-4">
-                    <li className="sp-messageBlock__container sp-messageBlock__container--lg">
-                        <div className="icon icon--sm icon--empty mt-4 mb-3" />
-                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
-                            This project doesn't have any component yet.
-                        </div>
-                    </li>
-                </ul>
-            );
-        }
             
         
         /*         MARKUP          */
         /***************************/
-        return (
-            <div>
-                <div className="pb-5">
-                    <AtomsList atoms={data.searchAtoms.results} 
-                                showInfo={true}/>
-                </div>
-
-                <div className="row pt-5 pb-5 margin-0 no-gutters">
-                    <div className="col">
-                        <div className="d-sm-flex flex-wrap width-wrapper justify-content-around">
-                            
-                            {/* Pagination Buttons */}
-                            <PaginationBtnsContainer cursors={data.searchAtoms.cursors}/>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        return (     
+            
+            <AtomsListWrapper results={data.searchAtoms.results}
+                              loading={data.loading}
+                              error={data.error}
+                              cursors={data.searchAtoms.cursors} />
 
         );
 
@@ -123,10 +84,10 @@ extends React.Component<ChildProps<AtomsListProps & StateProps, SearchAtomsRespo
 /********************************/
 const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
     SEARCH_ATOMS_QUERY, {
-        options:  (ownProps: AtomsListProps & StateProps): SearchAtomQueryOptions => {
+        options:  (ownProps: StateProps): SearchAtomQueryOptions => {
 
             // Destructuring props
-            const { pagination, search, projectId } = ownProps;
+            const { pagination, search} = ownProps;
             const { first, last, after, before } = pagination.paginationAtoms;
             const { filter, sortBy } = search.searchAtoms;
             const { type, text, atomCategoryId } = filter;
@@ -147,8 +108,7 @@ const searchAtomsQuery = graphql<SearchAtomsResponse, AtomsListProps>(
                             isPrivate
                         },
                         text,
-                        atomCategoryId,
-                        projectId
+                        atomCategoryId
                     },
                     sortBy
                 }
@@ -177,7 +137,7 @@ const atomsListConnect = connect(mapStateToProps);
 
 /*         EXPORT          */
 /***************************/
-export default compose<any>(
+export default compose(
     atomsListConnect,
     searchAtomsQuery
 )(AtomsListContainer);
