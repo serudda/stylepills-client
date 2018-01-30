@@ -12,6 +12,7 @@ import { changeSourceCodeTabAction, changeSourceCodeAction } from './../../../..
 import CodeTabMenu, { 
     Option as CodeTabMenuOption 
 } from './../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+
 import CopyBtnContainer from './CopyBtn/CopyBtn.container';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -177,7 +178,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             scrollbarStyle: 'overlay',
             lineNumbers: true,
             readOnly: false,
-            mode: tab === 'html' ? 'xml' : 'css',
+            mode: tab === CodeTabMenuOption.html ? 'xml' : CodeTabMenuOption.css,
             theme: 'material',
             autoRefresh: true
         };

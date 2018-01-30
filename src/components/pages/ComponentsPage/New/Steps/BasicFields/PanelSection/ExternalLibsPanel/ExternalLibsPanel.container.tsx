@@ -214,7 +214,7 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
         let newLibsArray: Array<LibModel> = [];
         let title = 'EXTERNAL LIBRARIES';
 
-        let description = 'Include any external resource (e.g. Boostrap, Bulma, your own helper classes, etc.)';
+        let description = 'Include any external resource (e.g. Boostrap, Bulma, your own helper classes library, etc.)';
 
         // Create new libs array based on type
         if (libs.length > 0) {
@@ -244,8 +244,8 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
 
         // VARIABLES
         let options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.js,
-            CodeTabMenuOption.css
+            CodeTabMenuOption.css,
+            CodeTabMenuOption.js
         ]; 
 
 

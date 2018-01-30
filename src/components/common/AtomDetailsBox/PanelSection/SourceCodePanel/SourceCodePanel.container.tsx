@@ -12,7 +12,10 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
 import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
-import CodeTabMenu, { Option as CodeTabMenuOption } from './../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import CodeTabMenu, { 
+    Option as CodeTabMenuOption 
+} from './../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+
 import BtnGroupContainer from './BtnGroup/BtnGroup.container';
 import Icon from './../../../../../app/components/Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
@@ -193,10 +196,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         // Update local state
         this.setState({
             [type]: newCode
+        }, () => {
+            // Launch Atom details changed Action
+            this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
         });
-
-        // Launch Atom details changed Action
-        this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
         
     }
 
@@ -254,8 +257,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
-                            {tab === 'html' && <CodeMirror value={this.state.html} options={codeMirrorOptions} onChange={this.handleOnChange}/>}
-                            {tab === 'css' && <CodeMirror value={this.state.css} options={codeMirrorOptions} onChange={this.handleOnChange}/>}
+                            {tab === 'html' && <CodeMirror value={this.state.html} 
+                                                            options={codeMirrorOptions} 
+                                                            onChange={this.handleOnChange}/>}
+                            {tab === 'css' && <CodeMirror value={this.state.css} 
+                                                            options={codeMirrorOptions} 
+                                                            onChange={this.handleOnChange}/>}
                         </div>
 
                     </div>
