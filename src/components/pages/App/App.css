@@ -4249,6 +4249,9 @@ NOTE: Boostrap 4 has a flex set
     .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
       color: #3C4858; }
 
+.AtomDetailsBox .activeEditModeMessage {
+  bottom: 0; }
+
 /**********************************************************/
 /*                       INFO SECTION                     */
 /**********************************************************/

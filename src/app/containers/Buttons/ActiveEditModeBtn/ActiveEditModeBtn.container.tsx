@@ -5,15 +5,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from './../../../../../../reducer/reducer.config';
+import { IRootState } from './../../../../reducer/reducer.config';
 
-import { requestEditAtomAction } from './../../../../../../actions/atom.action';
+import { requestEditAtomAction } from './../../../../actions/atom.action';
 
-import { 
-    Option as CopyOption 
-} from './../../../../../../app/components/Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
-
-import CopyToClipboardBtnContainer from './../../../../../../app/containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
+import GenericBtn, { 
+    TypeOption 
+} from './../../../components/Buttons/GenericBtn/GenericBtn';
 
 // -----------------------------------
 
@@ -23,12 +21,9 @@ import CopyToClipboardBtnContainer from './../../../../../../app/containers/Butt
 /********************************/
 
 /* Own Props */
-type BtnGroupProps = {
-    atomId: number,
-    atomName: string,
-    atomHtml: string,
-    atomCss: string,
-    currentTab: string;
+type ActiveEditModeBtnContainerProps = {
+    id: number,
+    name: string
 };
 
 /* Own States */
@@ -52,15 +47,20 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class BtnGroupContainer 
-extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {}>, LocalStates> {
+class ActiveEditModeBtnContainer 
+extends React.Component<ChildProps<ActiveEditModeBtnContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: BtnGroupProps & StateProps & DispatchProps) {
+    constructor(props: ActiveEditModeBtnContainerProps & StateProps & DispatchProps) {
         super(props);
+
+        // Init local state
+        this.state = {
+            copied: false
+        };
 
         // Bind methods
         this._handleEditClick = this._handleEditClick.bind(this);
@@ -95,10 +95,10 @@ extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {
      */
     private _activeEditMode() {
         // Destructuring props
-        const { atomId, atomName } = this.props;
+        const { id, name } = this.props;
 
         // Launch active edit mode Action
-        this.props.actions.atomState.activeEditMode(atomId, atomName);
+        this.props.actions.atomState.activeEditMode(id, name);
         
     }
 
@@ -109,37 +109,18 @@ extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {
     render() {
 
         // Destructuring props & state
-        const { currentTab, atomHtml, atomCss } = this.props;
         const { watchingChanges } = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="BtnGroup sp-btnGroup zIndex-footer">
 
-                {/* Edit Source Code Button */}
-                <div className="sp-btnGroup__container">
-                    <button className="sp-btn sp-btn--secondary sp-btn--md"
-                            onClick={this._handleEditClick}
-                            disabled={watchingChanges}>
-                        {watchingChanges ? 'Edit: ON' : 'Edit'}
-                    </button>
-                </div> 
-
-                {/* Copy Source Code Button */}
-                <div className="sp-btnGroup__container">
-                    {/* Copy Button */}
-                    {currentTab === CopyOption.html &&
-                        <CopyToClipboardBtnContainer text={atomHtml} type={CopyOption.html}/>
-                    }
-
-                    {currentTab === CopyOption.css &&
-                        <CopyToClipboardBtnContainer text={atomCss} type={CopyOption.css}/>
-                    }
-                </div>
-
-            </div>
+            <GenericBtn type={TypeOption.secondary} 
+                        label={watchingChanges ? 'Edit: ON' : 'Edit'}
+                        onClick={this._handleEditClick}
+                        disabled={watchingChanges} />
+            
         );
     }
 
@@ -176,11 +157,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const btnGroupConnect = connect(mapStateToProps, mapDispatchToProps);
+const activeEditModeBtnContainerConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    btnGroupConnect
-)(BtnGroupContainer);
+    activeEditModeBtnContainerConnect
+)(ActiveEditModeBtnContainer);

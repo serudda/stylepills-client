@@ -34,8 +34,11 @@
             .CodeMirror-linenumber {
                 color: map-get($color, slate);
             }
-        }
-        
+        }        
+    }
+
+    .activeEditModeMessage {
+        bottom: 0;
     }
 
 }

@@ -26,7 +26,8 @@ export enum Option {
 type BannerAlertProps = {
     type: Option,
     text: string,
-    showIcon: boolean
+    showIcon?: boolean,
+    className?: string
 };
 
 
@@ -63,7 +64,7 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
 
         // Destructuring props
         const {
-            showIcon,
+            showIcon = false,
             type
         } = this.props;
 
@@ -104,7 +105,8 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
         // Destructuring props
         const { 
             type,
-            text
+            text,
+            className
         } = this.props;
 
 
@@ -116,8 +118,8 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
             'px-4': true,
             'd-flex': true,
             'align-items-center': true,
-            'position-absolute': true,
-            'zIndex-footer': true
+            'zIndex-footer': true,
+            [`${className}`]: !!className
         });
 
 

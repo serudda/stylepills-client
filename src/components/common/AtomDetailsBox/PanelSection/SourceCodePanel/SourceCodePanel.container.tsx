@@ -16,8 +16,10 @@ import CodeTabMenu, {
     Option as CodeTabMenuOption 
 } from './../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
-import BtnGroupContainer from './BtnGroup/BtnGroup.container';
-import Icon from './../../../../../app/components/Icon/Icon';
+import BtnGroup from './BtnGroup/BtnGroup';
+import BannerAlert, { 
+    Option as BannerAlertOption 
+} from './../../../../../app/components/Alerts/BannerAlert/BannerAlert';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
 // TODO: Remover cuando no se necesite
@@ -247,12 +249,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                 <div className="row no-gutters w-100 sp-bg-mirage">
                     <div className="col-12 position-relative">
 
-                        {/* Button Group Container */}
-                        <BtnGroupContainer atomId={atomId} 
-                                           atomName={name} 
-                                           atomHtml={html} 
-                                           atomCss={css}
-                                           currentTab={tab} />
+                        {/* Button Group */}
+                        <BtnGroup atomId={atomId} 
+                                  atomName={name} 
+                                  atomHtml={html} 
+                                  atomCss={css}
+                                  currentTab={tab} />
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
@@ -267,15 +269,13 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                     </div>
 
                     <div className="col-12 position-relative">
+
                         {/* Bottom Message */}
                         { watchingChanges && 
-                            <div className="bg-info w-100 p-3 px-4 d-flex align-items-center">
-                                {/*<Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>*/}
-                                <span className="fontSize-md color-white fontWeight-9">
-                                    You can now edit the code live. To keep your changes, duplicate the component by pressing the button:
-                                </span>
-                                <Icon icon="duplicate" iconClass="strokeWidth-2 stroke-white ml-3" width="22" height="22"/>
-                            </div>
+                            <BannerAlert type={BannerAlertOption.info} 
+                                         text={`You can now edit the code live. To keep your changes, 
+                                                duplicate the component by pressing Duplicate button.`}
+                                         className={'position-absolute activeEditModeMessage'}/>
                         }
                     </div>
                 </div>
