@@ -56,8 +56,6 @@
 // @import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
-// Component Details Box Component (PreviewSection) Style
-@import '../../common/AtomDetailsBox/PreviewSection/PreviewSection';
 // Component Details Box Component (Source Code Panel) Style
 @import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
 // Component Info Component Style
@@ -82,10 +80,19 @@
 @import '../../common/Modal/DuplicateModal/DuplicateModal';
 // NavbarOptions Component Style
 @import '../../common/NavbarOptions/NavbarOptions';
-// SmallBox (ColorPicker) Component Style
-@import '../../common/ColorPicker/SmallBox/SmallBox';
+
+
+/*  ColorPickers Component Style  */
+/**********************************/
+
+// SmallColorPicker Component Style
+@import './../../../app/components/ColorPicker/SmallColorPicker/SmallColorPicker';
+
+
 // Pagination Buttons Component Style
 @import '../../common/PaginationBtns/PaginationBtns';
+// Preview Box Component Style
+@import './../../../app/components/PreviewBox/PreviewBox';
 // SidebarWrapper Component Style
 @import '../../common/SidebarWrapper/SidebarWrapper';
 // Tab Menu (Source Code Panel) Component Style

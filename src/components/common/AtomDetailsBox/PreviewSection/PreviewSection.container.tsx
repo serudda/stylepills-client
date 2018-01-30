@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from '../../../../core/utils/functionsUtil';
@@ -10,8 +10,12 @@ import { functionsUtil } from '../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../reducer/reducer.config';
 import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
+import { Basic as BasicColorModel } from './../../../../models/color/color.model';
 import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../models/lib/lib.model';
 
+import { changeColorAction } from './../../../../actions/ui.action';
+
+import PreviewBox from './../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from '../../Iframe/Iframe.container';
 
 // -----------------------------------
@@ -22,7 +26,7 @@ import Iframe from '../../Iframe/Iframe.container';
 /********************************/
 
 /* Own Props */
-type PreviewSectionProps = {
+type PreviewSectionContainerProps = {
     atomId: number,
     name: string,
     html: string,
@@ -42,19 +46,33 @@ type StateProps = {
     atoms: Array<IAtomsProps>;
 };
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        ui: {
+            changeColor: (color: BasicColorModel) => void;
+        }
+    };
+};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class PreviewSection
-extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalStates> {
+class PreviewSectionContainer
+extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+
+
+    /********************************/
+    /*         STATIC PROPS         */
+    /********************************/
+    private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: PreviewSectionProps & StateProps) {
+    constructor(props: PreviewSectionContainerProps & StateProps & DispatchProps) {
         super(props);
 
         this.state = {
@@ -64,12 +82,36 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
 
         // LOG
         functionsUtil.consoleLog('PreviewSection container actived');
+
+        // Bind methods
+        this.handleColorChange = this.handleColorChange.bind(this);
     }
+
+
+    /********************************/
+    /*       COMPONENTDIDMOUNT      */
+    /********************************/
+    componentDidMount() {
+        
+        const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
+        const DEFAULT_COLOR_RGBA = {
+            r: 249, g: 250, b: 252, a: 1
+        };
+
+        const defaultColor: BasicColorModel = {
+            hex: DEFAULT_COLOR_HEX,
+            rgba: DEFAULT_COLOR_RGBA
+
+        };
+
+        this._changeColor(defaultColor);
+    }
+
 
     /**********************************/
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
-    componentWillReceiveProps(nextProps: PreviewSectionProps & StateProps) {   
+    componentWillReceiveProps(nextProps: PreviewSectionContainerProps & StateProps) {   
         const { atoms } = nextProps;
 
         this.getAtomState(atoms);
@@ -95,6 +137,34 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         }
     }
 
+    /**
+     * @desc Handle Color Change
+     * @method handleColorChange
+     * @example this.handleColorChange()
+     * @public
+     * @returns {void}
+     */
+    handleColorChange(color: BasicColorModel) {
+        this._changeColor(color);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc Change Color of Color Picker
+     * @method _changeColor
+     * @example this._changeColor()
+     * @private 
+     * @returns {void}
+     */
+    private _changeColor(color: BasicColorModel) {
+        this.props.actions.ui.changeColor(color);
+    }
+
 
     /********************************/
     /*        RENDER MARKUP         */
@@ -108,17 +178,13 @@ extends React.Component<ChildProps<PreviewSectionProps & StateProps, {}>, LocalS
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="PreviewSection boxShadow-raised sp-rounded-top-md sp-bg-white border-6 borderColor-white">
-                <div className="PreviewSection__content borderRadius-xs">    
-                    <div className="Iframe-wrapper">
-                        <Iframe children={this.state.html} 
+            <PreviewBox height="30" onColorChange={this.handleColorChange}> 
+                <Iframe children={this.state.html} 
                                 css={this.state.css} 
                                 title={name}
                                 background={contextualBg}
                                 stylesheets={getStylesheetsFromLibs(libs)} />
-                    </div>
-                </div>
-            </div>
+            </PreviewBox>
         );
     }
 
@@ -139,13 +205,27 @@ function mapStateToProps(state: IRootState): StateProps {
 
 
 /********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color))
+            }
+        }
+    };
+}
+
+
+/********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const previewSectionConnect = connect(mapStateToProps);
+const previewSectionContainerConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    previewSectionConnect
-)(PreviewSection);
+    previewSectionContainerConnect
+)(PreviewSectionContainer);

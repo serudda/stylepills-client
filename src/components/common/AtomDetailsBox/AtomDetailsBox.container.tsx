@@ -63,7 +63,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomDetailsBox">
+            <div className="AtomDetailsBox boxShadow-raised borderRadius-md">
                 
                 {/* Preview Section */}
                 <PreviewSection atomId={atom.id} 

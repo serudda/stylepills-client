@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Popup } from 'semantic-ui-react';
 
 import { IRootState } from './../../../../../../../reducer/reducer.config';
 import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
@@ -14,7 +13,7 @@ import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../../../../
 
 import { changeColorAction, ICurrentCode } from '../../../../../../../actions/ui.action';
 
-import SmallBoxContainer from './../../../../../../common/ColorPicker/SmallBox/SmallBox.container';
+import PreviewBox from './../../../../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from './../../../../../../common/Iframe/Iframe.container';
 
 // -----------------------------------
@@ -62,18 +61,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*         STATIC PROPS         */
     /********************************/
     private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
-    private _DEFAULT_COLORS_LIST: Array<string> = [
-        '#273444', 
-        '#3C4858', 
-        '#8492A6', 
-        '#E0E6ED', 
-        '#EFF2F7',
-        '#976B55',
-        '#7BDCB5', 
-        '#0693E3', 
-        '#FFF78A', 
-        '#EC7D7D'
-    ];
 
 
     /********************************/
@@ -175,46 +162,13 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="PreviewSection sp-bg-white border-6 borderColor-white">
-
-                <div className="float-color-picker">
-
-                    <Popup
-                        trigger={
-                            <div>
-                                <SmallBoxContainer onChange={this.handleColorChange} 
-                                        defaultHexColor={this._DEFAULT_COLOR_HEX}
-                                        defaultColors={this._DEFAULT_COLORS_LIST}/>
-                            </div>
-                        }
-                        position="top left"
-                        size="tiny"
-                        inverted={true}>
-                            Contextual background
-                    </Popup>
-
-                </div>
-                
-                <div className="PreviewSection__content">
-
-                    {html === '' && 
-                        <div className="d-flex align-items-center justify-content-center fontSize-xxl color-darkSmoke fontWeight-7 cover-link">
-                            <span>
-                                Component preview
-                            </span>
-                        </div>
-                    }
-
-                    <div className="Iframe-wrapper">
-                        <Iframe children={html} 
-                                css={css}
+            <PreviewBox height="30" onColorChange={this.handleColorChange}> 
+                <Iframe children={html} 
+                                css={css} 
                                 title={'new'}
                                 background={hex}
                                 stylesheets={getStylesheetsFromLibs(libs)} />
-                    </div>
-
-                </div>
-            </div>
+            </PreviewBox>
         );
     }
     

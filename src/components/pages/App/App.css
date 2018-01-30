@@ -2066,7 +2066,7 @@ NOTE: Boostrap 4 has a flex set
 .zIndex-modal {
   z-index: 9000; }
 
-.zIndex-overlay, .ComponentNew .PreviewSection .float-color-picker {
+.zIndex-overlay, .AtomDetailsBox .float-color-picker, .ComponentNew .PreviewSection .float-color-picker {
   z-index: 8000; }
 
 .zIndex-dropdown, .ComponentNew .PreviewSection__content .cover-link {
@@ -2913,7 +2913,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .sp-switch-btn--square, .sp-switch-btn--square .inner-btn, .sp-list--simple .item .icon-btn:hover, .SmallBox__swatch, .SmallBox__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
+.borderRadius-sm, .sp-switch-btn--square, .sp-switch-btn--square .inner-btn, .sp-list--simple .item .icon-btn:hover, .SmallColorPicker__swatch, .SmallColorPicker__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -4217,16 +4217,12 @@ NOTE: Boostrap 4 has a flex set
 /**********************************************************/
 .AtomDetailsBox {
   position: relative;
-  z-index: 0; }
-
-/**********************************************************/
-/*           ATOM DETAILS BOX (PREVIEW SECTION)           */
-/**********************************************************/
-.AtomDetailsBox .PreviewSection__content {
-  height: 0;
-  padding-top: 25%;
-  overflow: hidden;
-  position: relative; }
+  z-index: 0;
+  overflow: hidden; }
+  .AtomDetailsBox .float-color-picker {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
 
 /**********************************************************/
 /*     SOURCE CODE (ATOM DETAILS BOX - PREVIEW SECTION)   */
@@ -4499,26 +4495,28 @@ body.duplicateModal-open .ui.dimmer {
   font-weight: 600;
   outline: none; }
 
+/*  ColorPickers Component Style  */
+/**********************************/
 /**********************************************************/
 /*                SMALL BOX (COLOR PICKER)                */
 /**********************************************************/
-.SmallBox__swatch {
+.SmallColorPicker__swatch {
   padding: 4px;
   background: #FFFFFF;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   cursor: pointer; }
-  .SmallBox__swatch__color {
+  .SmallColorPicker__swatch__color {
     width: 36px;
     height: 25px; }
 
-.SmallBox__popover {
+.SmallColorPicker__popover {
   position: absolute;
   z-index: 2;
   right: 0;
   top: 45px; }
-  .SmallBox__popover__cover {
+  .SmallColorPicker__popover__cover {
     position: fixed;
     top: 0;
     right: 0;
@@ -4531,6 +4529,14 @@ body.duplicateModal-open .ui.dimmer {
   width: 200px !important;
   margin-left: -100px;
   text-align: center; }
+
+/**********************************************************/
+/*              PREVIEW BOX (PREVIEW SECTION)             */
+/**********************************************************/
+.PreviewBox__content {
+  height: 0;
+  overflow: hidden;
+  position: relative; }
 
 /**********************************************************/
 /*                     SIDEBAR WRAPPER                    */

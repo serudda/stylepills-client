@@ -3,14 +3,14 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
-import { TwitterPicker, ColorResult } from 'react-color';
+import { ColorResult } from 'react-color';
 
 import * as appConfig from './../../../../core/constants/app.constants';
 
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
-import Icon from './../../Icon/Icon';
+import SmallColorPicker from './../../../../app/components/ColorPicker/SmallColorPicker/SmallColorPicker';
 
 // -----------------------------------
 
@@ -132,27 +132,12 @@ extends React.Component<ChildProps<SmallBoxContainerProps & StateProps, {}>, Loc
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="SmallBox">
-
-                <div className="SmallBox__swatch" onClick={this._handleClick}>
-                    <div className="SmallBox__swatch__color"
-                         style={{backgroundColor: `${ hex }`}} />
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-2"
-                        width="15" height="15"/>
-                </div>
-
-                { displayColorPicker &&
-                    <div className="SmallBox__popover">
-                        <div className="SmallBox__popover__cover" onClick={this._handleClose}/>
-                        <TwitterPicker color={hex} 
-                                        colors={defaultColors}
-                                        onChange={this._handleChange} 
-                                        triangle="top-right"/>
-                    </div>
-                }
-
-            </div>
+            <SmallColorPicker hex={hex} 
+                              displayColorPicker={displayColorPicker}
+                              defaultColors={defaultColors}
+                              onSwatchClick={this._handleClick}
+                              onPickerChange={this._handleChange}
+                              onClose={this._handleClose}/>
         );
 
     }
