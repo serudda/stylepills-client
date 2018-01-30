@@ -14,7 +14,7 @@ import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../.
 
 import TabMenu from './../../../SourceCodePanel/TabMenu/TabMenu';
 import BtnGroupContainer from './BtnGroup/BtnGroup.container';
-import Icon from './../../../Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
 // TODO: Remover cuando no se necesite

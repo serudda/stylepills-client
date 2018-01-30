@@ -7,7 +7,7 @@ import { SketchPicker } from 'react-color';
 
 import * as appConfig from './../../../core/constants/app.constants';
 
-import Icon from './../../common/Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 import { Color as ColorModel, ColorTypeOptions } from '../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../models/rgbaColor/rgbaColor.model';
 import ColorsList from './../ColorsList/ColorsList';

@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Lib as LibModel } from './../../../models/lib/lib.model';
 
-import Icon from './../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

@@ -5,10 +5,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from './../../../../../../../../reducer/reducer.config';
-import { Options as DetailsTabMenuOptions } from './../../../../../../../common/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { functionsUtil } from './../../../../../../../../core/utils/functionsUtil';
 
-import DetailsTabMenu from './../../../../../../../common/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { IRootState } from './../../../../../../../../reducer/reducer.config';
+
+import DetailsTabMenu, { 
+    Options as DetailsTabMenuOptions 
+} from './../../../../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction } from './../../../../../../../../actions/ui.action';
 
@@ -52,6 +55,9 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     /********************************/
     constructor(props: ChildProps<TabMenuContainerProps & StateProps & DispatchProps, {}>) {
         super(props);
+
+        // LOG
+        functionsUtil.consoleLog('ComponentsPage/New/Steps/BasicFields/PanelSection/TabMenu container actived');
 
         // Bind methods
         this._handleCodeClick = this._handleCodeClick.bind(this);
@@ -148,11 +154,9 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="TabMenuContainer">
-
+            <div>
                 {/* Build Tab Menu Options */}
                 {this._buildTabMenu()}
-
             </div>
         );
     }

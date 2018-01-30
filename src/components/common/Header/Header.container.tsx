@@ -10,7 +10,7 @@ import { IUiState } from '../../../reducer/ui.reducer';
 
 import { clearUiAction } from '../../../actions/ui.action';
 
-import Icon from '../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';

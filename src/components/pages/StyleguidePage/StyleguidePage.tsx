@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import Icon from '../../common/Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 import Iframe from '../../common/Iframe/Iframe.container';
 
 /********************************/

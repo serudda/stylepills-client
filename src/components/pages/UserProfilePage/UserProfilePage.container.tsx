@@ -9,7 +9,7 @@ import {
     GetByUsernameResponse 
 } from '../../../models/user/user.query';
 
-import Icon from './../../common/Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 import NavbarOptions from './../../common/NavbarOptions/NavbarOptions.container';
 // import UserStats from './UserStats/UserStats';
 import UserAtomsListContainer from './../../../app/containers/UserAtomsList/UserAtomsList.container';

@@ -24,7 +24,7 @@ import PreviewSection from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
 import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
-import Icon from './../../../../../common/Icon/Icon';
+import Icon from './../../../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

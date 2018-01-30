@@ -15,7 +15,7 @@ import { validateBasicFields, IValidationError } from './../../../../../core/val
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
-import Icon from '../../../../common/Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

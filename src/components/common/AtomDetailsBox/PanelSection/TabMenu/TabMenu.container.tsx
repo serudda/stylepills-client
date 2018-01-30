@@ -7,13 +7,14 @@ import { compose, ChildProps } from 'react-apollo';
 
 import * as appConfig from './../../../../../core/constants/app.constants';
 
-import { functionsUtil } from '../../../../../core/utils/functionsUtil';
+import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
-import { Options as DetailsTabMenuOptions } from './../../../Tabs/DetailsTabMenu/DetailsTabMenu';
 
-import DetailsTabMenu from './../../../Tabs/DetailsTabMenu/DetailsTabMenu';
+import DetailsTabMenu , { 
+    Options as DetailsTabMenuOptions 
+} from './../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
@@ -124,14 +125,26 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         }
 
     }
+
+
+    /**
+     * @desc HandleLibsClick
+     * @method _handleLibsClick
+     * @example this._handleLibsClick()
+     * @private
+     * @returns {void}
+     */
+    private _handleLibsClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._changeTab('libs');
+    }
     
 
     /**
-     * @desc Show Modal 
-     * @method _showModal
-     * @example this._showModal()
+     * @desc Show Duplicate Modal 
+     * @method _showDuplicateModal
+     * @example this._showDuplicateModal()
      * @private
-     * @param {AtomModel} atom - atom data
      * @returns {void}
      */
     private _showDuplicateModal() {
@@ -175,6 +188,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         // VARIABLES
         let options: Array<DetailsTabMenuOptions> = [
+            DetailsTabMenuOptions.addLibs,
             DetailsTabMenuOptions.showCode,
             DetailsTabMenuOptions.duplicate
         ];        
@@ -185,7 +199,8 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
                             isDuplicated={isDuplicated}
                             currentOption={tab}
                             onDuplicateClick={this._handleDuplicateClick}
-                            onShowCodeClick={this._handleCodeClick}/>
+                            onShowCodeClick={this._handleCodeClick}
+                            onAddLibsClick={this._handleLibsClick}/>
         );
         
     }
@@ -200,11 +215,9 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="TabMenuContainer">
-
+            <div>
                 {/* Build Tab Menu Options */}
                 {this._buildTabMenu()}
-
             </div>
         );
     }

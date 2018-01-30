@@ -11,7 +11,7 @@ import { validateColorFields, IValidationError } from './../../../../../core/val
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
-import Icon from '../../../../common/Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 import { Color as ColorModel, ColorTypeOptions } from './../../../../../models/color/color.model';
 import AddColorForm from './../../../../common/AddColorForm/AddColorForm.container';
 

@@ -6,7 +6,7 @@ import { Popup } from 'semantic-ui-react';
 
 import { Basic as BasicColorModel } from './../../../models/color/color.model';
 
-import SmallBoxContainer from './../../../components/common/ColorPicker/SmallBox/SmallBox.container';
+import SmallColorPickerContainer from './../ColorPicker/SmallColorPicker/containers/SmallColorPicker.container';
 
 // -----------------------------------
 
@@ -81,9 +81,9 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
                     <Popup
                         trigger={
                             <div>
-                                <SmallBoxContainer onChange={onColorChange} 
-                                                    defaultHexColor={this._DEFAULT_COLOR_HEX}
-                                                    defaultColors={this._DEFAULT_COLORS_LIST}/>
+                                <SmallColorPickerContainer onChange={onColorChange} 
+                                                            defaultHexColor={this._DEFAULT_COLOR_HEX}
+                                                            defaultColors={this._DEFAULT_COLORS_LIST}/>
                             </div>
                         }
                         position="top left"

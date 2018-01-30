@@ -7,7 +7,7 @@ import { graphql, compose, ChildProps } from 'react-apollo';
 import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
 import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
 
-import Icon from '../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 
 // -----------------------------------

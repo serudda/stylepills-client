@@ -20,6 +20,7 @@ interface IconType {
     close: () => JSX.Element;
     code: () => JSX.Element;
     color: () => JSX.Element;
+    default: () => JSX.Element;
     download: () => JSX.Element;
     duplicate: () => JSX.Element;
     eye: () => JSX.Element;
@@ -210,6 +211,24 @@ class Icon extends React.Component<IconProps, {}> {
                          strokeLinejoin="round"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                    </svg>
+                );
+            },
+            default: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12" y2="16" />
                     </svg>
                 );
             },
