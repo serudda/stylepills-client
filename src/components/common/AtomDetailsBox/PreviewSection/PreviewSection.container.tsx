@@ -43,6 +43,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
+    hex: string;
     atoms: Array<IAtomsProps>;
 };
 
@@ -92,6 +93,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*       COMPONENTDIDMOUNT      */
     /********************************/
     componentDidMount() {
+
+        const { contextualBg } = this.props;
         
         const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
         const DEFAULT_COLOR_RGBA = {
@@ -99,9 +102,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         };
 
         const defaultColor: BasicColorModel = {
-            hex: DEFAULT_COLOR_HEX,
+            hex: contextualBg || DEFAULT_COLOR_HEX,
             rgba: DEFAULT_COLOR_RGBA
-
         };
 
         this._changeColor(defaultColor);
@@ -162,6 +164,9 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
      * @returns {void}
      */
     private _changeColor(color: BasicColorModel) {
+        // TODO: No esta funcionando por que tengo un problema grave, y es que 
+        // como solo almaceno el HEX del contextualBG, entonces no tengo un RGBA,
+        // y es el RGBA el que necesito para el colorpicker. Analizar bien
         this.props.actions.ui.changeColor(color);
     }
 
@@ -195,10 +200,19 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    
+
+    // Destructuring state 
+    const { ui } = state;
+    const { colorPicker } = ui;
+    const { currentColor } = colorPicker;
+    const { hex } = currentColor;
+
     const { atoms } = state.atomState.edited;
+    
+    
 
     return {
+        hex,
         atoms
     };
 }
