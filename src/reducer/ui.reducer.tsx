@@ -11,6 +11,10 @@ import { ICurrentCode } from './../actions/ui.action';
 import { Basic as BasicColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from '../models/lib/lib.model';
 
+import { 
+    Option as CodeTabMenuOption 
+} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+
 
 /************************************/
 /*            INTERFACES            */
@@ -23,7 +27,7 @@ export interface IUiState {
             tab: string
         },
         sourceCodeTab?: {
-            tab: string
+            tab: CodeTabMenuOption
         },
         libsTab?: {
             tab: string

@@ -58,7 +58,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            changeSourceCodeTab: (tab: string) => void;
+            changeSourceCodeTab: (tab: CodeTabMenuOption) => void;
             changeSourceCode: (codeType: string, codeProps: any) => void;
         }
     };
@@ -123,11 +123,11 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @method _handleTabClick
      * @example this._handleTabClick()
      * @private
-     * @param {string} tab - source code tab (e.g. 'html', 'css')
+     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css')
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
+    private _handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
     }
@@ -138,10 +138,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @method _changeTab
      * @example this._changeTab()
      * @private
-     * @param {string} tab - source code tab (e.g. 'html', 'css') 
+     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css') 
      * @returns {void}
      */
-    private _changeTab(tab: string) {
+    private _changeTab(tab: CodeTabMenuOption) {
         this.props.actions.ui.changeSourceCodeTab(tab);
     }
 

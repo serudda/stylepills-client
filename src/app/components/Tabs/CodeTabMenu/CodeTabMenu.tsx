@@ -24,7 +24,7 @@ type CodeTabMenuProps = {
     options: Array<Option>;
     tab: string;
     isReversed: boolean;
-    onTabClick: (type: string) => any;
+    onTabClick: (type: Option) => any;
 };
 
 

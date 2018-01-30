@@ -9,7 +9,7 @@ import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
-import { changeSourceCodeTabAction, copySourceCodeAction } from './../../../../../actions/ui.action';
+import { changeSourceCodeTabAction } from './../../../../../actions/ui.action';
 import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
 
 import CodeTabMenu, { 
@@ -47,19 +47,18 @@ type SourceCodePanelProps = {
 };
 
 /* Own States */
-// TODO: Mirar si es posible remover los ?, no tiene sentido
 type LocalStates = {
-    copied?: boolean,
-    html?: string,
-    css?: string,
-    codeMirror?: {
+    copied: boolean,
+    html: string,
+    css: string,
+    codeMirror: {
         readOnly: boolean
     }
 };
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: string;
+    tab: CodeTabMenuOption;
     watchingChanges: boolean;
 };
 
@@ -67,8 +66,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            changeSourceCodeTab: (tab: string) => void;
-            copySourceCode: (type: string) => void;
+            changeSourceCodeTab: (tab: CodeTabMenuOption) => void;
         },
         atomState: {
             changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
@@ -92,7 +90,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         super(props);
 
         // LOG
-        functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> SourceCodePanel container actived');
+        functionsUtil.consoleLog('AtomDetailsBox/PanelSection/SourceCodePanel container actived');
 
         // Init local state
         this.state = {
@@ -159,11 +157,11 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @method _handleTabClick
      * @example this._handleTabClick()
      * @private
-     * @param {string} tab - source code tab (e.g. 'html', 'css')
+     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css')
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleTabClick = (tab: string) => (e: React.FormEvent<{}>) => {
+    private _handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
     }
@@ -174,10 +172,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
      * @method _changeTab
      * @example this._changeTab()
      * @private
-     * @param {string} tab - source code tab (e.g. 'html', 'css') 
+     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css') 
      * @returns {void}
      */
-    private _changeTab(tab: string) {
+    private _changeTab(tab: CodeTabMenuOption) {
         this.props.actions.ui.changeSourceCodeTab(tab);
     }
 
@@ -196,8 +194,11 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         const { atomId, name } = this.props;
         
         // Update local state
-        this.setState({
-            [type]: newCode
+        this.setState((previousState) => {
+            return {
+                ...previousState,
+                [type]: newCode
+            };
         }, () => {
             // Launch Atom details changed Action
             this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
@@ -311,8 +312,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab)),
-                copySourceCode: (type) => dispatch(copySourceCodeAction(type)),
+                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab))
             },
             atomState: {
                 changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps)),

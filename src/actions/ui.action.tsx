@@ -9,6 +9,10 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { Basic as BasicColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from './../models/lib/lib.model';
+
+import { 
+    Option as CodeTabMenuOption 
+} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
  
 
 /************************************/
@@ -117,7 +121,7 @@ export interface IChangeSourceCodeTabAction {
     type: types.CHANGE_SOURCE_CODE_TAB;
     tabs: {
         sourceCodeTab: {
-            tab: string
+            tab: CodeTabMenuOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -349,7 +353,7 @@ export const changeAtomDetailsTabAction = (tab: string): Action => {
  * @function changeSourceCodeTabAction
  * @returns {Action}
  */
-export const changeSourceCodeTabAction = (tab: string): Action => {
+export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
     return {
         type: types.CHANGE_SOURCE_CODE_TAB,
         tabs: {

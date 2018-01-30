@@ -5,6 +5,10 @@
  */
 import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
 
+import { 
+    Option as CodeTabMenuOption 
+} from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+
 /* DEBUG */
 export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
 
@@ -56,7 +60,7 @@ export const ATOM_DETAILS_MODAL_TYPE    = 'AtomDetailsModal';
 export const DUPLICATE_MODAL_TYPE       = 'DuplicateModal';
 
 /* Source Code Tabs (Atom Details) */
-export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';
+export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeTabMenuOption.html;
 
 /* Libs Tabs */
 export const LIBS_DEFAULT_OPTION_TAB = 'css';
