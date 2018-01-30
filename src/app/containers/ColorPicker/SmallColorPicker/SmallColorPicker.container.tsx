@@ -5,12 +5,12 @@ import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 import { ColorResult } from 'react-color';
 
-import * as appConfig from './../../../../../core/constants/app.constants';
+import * as appConfig from './../../../../core/constants/app.constants';
 
-import { Basic as BasicColorModel } from './../../../../../models/color/color.model';
-import { RgbaColor as RgbaColorModel } from './../../../../../models/rgbaColor/rgbaColor.model';
+import { Basic as BasicColorModel } from './../../../../models/color/color.model';
+import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
-import SmallColorPicker from './../components/SmallColorPicker';
+import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker/SmallColorPicker';
 
 // -----------------------------------
 

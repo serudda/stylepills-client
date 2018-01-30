@@ -6,7 +6,7 @@ import { Popup } from 'semantic-ui-react';
 
 import { Basic as BasicColorModel } from './../../../models/color/color.model';
 
-import SmallColorPickerContainer from './../ColorPicker/SmallColorPicker/containers/SmallColorPicker.container';
+import SmallColorPickerContainer from './../../containers/ColorPicker/SmallColorPicker/SmallColorPicker.container';
 
 // -----------------------------------
 

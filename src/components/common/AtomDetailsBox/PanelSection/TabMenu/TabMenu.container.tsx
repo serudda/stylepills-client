@@ -79,6 +79,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         // Bind methods
         this._handleCodeClick = this._handleCodeClick.bind(this);
         this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
+        this._handleLibsClick = this._handleLibsClick.bind(this);
     }
 
 

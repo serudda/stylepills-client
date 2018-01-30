@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { TwitterPicker, ColorResult } from 'react-color';
 
-import Icon from './../../../Icon/Icon';
+import Icon from './../../Icon/Icon';
 import { FormEvent } from 'react';
 
 // -----------------------------------
