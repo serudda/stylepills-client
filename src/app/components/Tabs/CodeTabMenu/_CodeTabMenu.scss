@@ -1,10 +1,14 @@
 /**********************************************************/
-/*                     SIDEBAR WRAPPER                    */
+/*                      CODE TAB MENU                     */
 /**********************************************************/
 
-.SourceCodePanel {
-    .TabMenu {
+.CodeTabMenu {
+    background-color: map-get($color, white);
+
+    /// MODIFIER
+    &--is-reversed {
         background-color: #141619;
         border-top: 1px solid #000000;
     }
+    
 }

@@ -68,7 +68,7 @@ const DetailsTabMenu: React.SFC<DetailsTabMenuProps> = ({ ...props }) => {
 
     // Tab Menu Classes
     const tabMenuClasses = classNames({
-        'TabMenu': true, 
+        'DetailsTabMenu': true, 
         'sp-iconTabMenu': true, 
         'fontSmoothing-reset': true,
         'sp-iconTabMenu--is-reversed': props.isReversed
@@ -123,7 +123,7 @@ const DetailsTabMenu: React.SFC<DetailsTabMenuProps> = ({ ...props }) => {
     /***************************/
     return (
         <div className={tabMenuClasses}>
-            {/* Atom Box */}
+            {/* Build tab menu base on user options */}
             {props.options.map((option: string, index: number) => (
                 <div key={index}>
                     {tabMenuOptions[option]()}

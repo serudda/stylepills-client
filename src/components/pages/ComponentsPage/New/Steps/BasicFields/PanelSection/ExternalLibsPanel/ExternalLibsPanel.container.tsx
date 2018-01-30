@@ -11,7 +11,9 @@ import { Lib as LibModel, LibTypeOptions } from './../../../../../../../../model
 
 import { changeLibsTabAction, changeLibsAction } from './../../../../../../../../actions/ui.action';
 
-import TabMenu from './../../../../../../../common/SourceCodePanel/TabMenu/TabMenu';
+import CodeTabMenu, { 
+    Option as CodeTabMenuOption 
+} from './../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import AddLibForm from './../../../../../../../common/AddLibForm/AddLibForm.container';
 
 
@@ -240,14 +242,26 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
         // Destructuring props & state
         const { tab } = this.props;
 
+        // VARIABLES
+        let options: Array<CodeTabMenuOption> = [
+            CodeTabMenuOption.js,
+            CodeTabMenuOption.css
+        ]; 
+
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ExternalLibsPanel row no-gutters sp-bg-black borderTop-1 border-dark overflow-hidden">
-            
+            <div className="ExternalLibsPanel row no-gutters borderTop-1 borderColor-smoke overflow-hidden">
+                
                 {/* Type Code Tab Menu */}
-                <TabMenu tab={tab} onTabClick={this._handleTabClick}/>
+                <div className="borderBottom-1 borderColor-smoke w-100">
+                    <CodeTabMenu options={options} 
+                                isReversed={false}
+                                tab={tab} 
+                                onTabClick={this._handleTabClick}/>
+                </div>
+                
 
                 {/* External Libs Panel */}
                 <div className="row no-gutters w-100 sp-bg-white">
@@ -277,8 +291,8 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
 function mapStateToProps(state: IRootState): StateProps {
     
     const {tabs, libsPanel} = state.ui;
-    const {sourceCodeTab} = tabs;
-    const {tab} = sourceCodeTab;
+    const {libsTab} = tabs;
+    const {tab} = libsTab;
     // TODO: Estudiar muy bien la gestion de componentes anidados, ya que estoy pasando muchas props desde los padres,
     // a niveles de anidamiento muy grandes, y se esta volviendo inmanejable los componentes, estoy aplicando muy mal
     // la teoria de containers components, los cuales deberian ser creados rapidamente simplemente para que se conecte 

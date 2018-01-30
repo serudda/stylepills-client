@@ -61,6 +61,7 @@
 // Component Info Component Style
 // @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
 @import './../../../app/components/InfoSection/InfoSection';
+
 // Components List Component Style
 // @import '../../common/AtomsList/AtomsList.legacy';
 @import './../../../app/components/AtomsList/AtomsList';
@@ -95,8 +96,13 @@
 @import './../../../app/components/PreviewBox/PreviewBox';
 // SidebarWrapper Component Style
 @import '../../common/SidebarWrapper/SidebarWrapper';
-// Tab Menu (Source Code Panel) Component Style
-@import '../../common/SourceCodePanel/TabMenu/TabMenu';
+
+
+/*      Tabs Component Style      */
+/**********************************/
+// Code Tab Menu Component Style
+@import '../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+// @import '../../common/SourceCodePanel/TabMenu/TabMenu.legacy';
 
 
 

@@ -4618,12 +4618,16 @@ body.duplicateModal-open .ui.dimmer {
     min-width: 1px;
     margin-left: 220px; }
 
+/*      Tabs Component Style      */
+/**********************************/
 /**********************************************************/
-/*                     SIDEBAR WRAPPER                    */
+/*                      CODE TAB MENU                     */
 /**********************************************************/
-.SourceCodePanel .TabMenu {
-  background-color: #141619;
-  border-top: 1px solid #000000; }
+.CodeTabMenu {
+  background-color: #FFFFFF; }
+  .CodeTabMenu--is-reversed {
+    background-color: #141619;
+    border-top: 1px solid #000000; }
 
 .HomePage .leftSide__header {
   height: 75px;

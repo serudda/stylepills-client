@@ -9,7 +9,9 @@ import { IRootState } from './../../../../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction, changeSourceCodeAction } from './../../../../../../../../actions/ui.action';
 
-import TabMenu from './../../../../../../../common/SourceCodePanel/TabMenu/TabMenu';
+import CodeTabMenu, { 
+    Option as CodeTabMenuOption 
+} from './../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import CopyBtnContainer from './CopyBtn/CopyBtn.container';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
@@ -180,6 +182,12 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             autoRefresh: true
         };
 
+        // VARIABLES
+        let options: Array<CodeTabMenuOption> = [
+            CodeTabMenuOption.html,
+            CodeTabMenuOption.css
+        ]; 
+
 
         /*         MARKUP          */
         /***************************/
@@ -187,7 +195,10 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
             <div className="SourceCodePanel row no-gutters sp-bg-black borderTop-1 border-dark overflow-hidden">
             
                 {/* Source Code Tab Menu */}
-                <TabMenu tab={tab} onTabClick={this._handleTabClick}/>
+                <CodeTabMenu options={options} 
+                             isReversed={true}
+                             tab={tab} 
+                             onTabClick={this._handleTabClick}/>
 
                 {/* Source Code Panel */}
                 <div className="row no-gutters w-100 sp-bg-mirage">

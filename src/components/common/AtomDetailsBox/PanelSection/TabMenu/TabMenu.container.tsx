@@ -74,7 +74,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         this.state = { isToggleCode: false };
 
         // LOG
-        functionsUtil.consoleLog('AtomDetailsBox -> PanelSection -> TabMenu container actived');
+        functionsUtil.consoleLog('AtomDetailsBox/PanelSection/TabMenu container actived');
 
         // Bind methods
         this._handleCodeClick = this._handleCodeClick.bind(this);

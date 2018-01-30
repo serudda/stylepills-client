@@ -1,0 +1,15 @@
+/**********************************************************/
+/*                     SIDEBAR WRAPPER                    */
+/**********************************************************/
+
+.SourceCodePanel {
+    .CodeTabMenu {
+
+        /// MODIFIER
+        &--is-reversed {
+            background-color: #141619;
+            border-top: 1px solid #000000;
+        }
+        
+    }
+}
