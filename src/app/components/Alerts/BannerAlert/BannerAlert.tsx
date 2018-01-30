@@ -69,10 +69,22 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
 
         let icon = '';
 
-        icon = type === 'positive' && 'alert';
-        icon = type === 'negative' && 'alert';
-        icon = type === 'warning'  && 'alert';
-        icon = type === 'info'     && 'alert';
+        switch (type) {
+            case Option.positive:
+                icon = 'alert';
+                break;
+            case Option.negative:
+                icon = 'alert';
+                break;
+            case Option.info:
+                icon = 'alert';
+                break;
+            case Option.warning:
+                icon = 'alert';
+                break;
+            default:
+                break;
+        }
         
         if (showIcon) {
             return (

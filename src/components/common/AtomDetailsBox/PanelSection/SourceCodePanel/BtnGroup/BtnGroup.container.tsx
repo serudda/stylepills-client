@@ -7,10 +7,13 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import { copySourceCodeAction } from './../../../../../../actions/ui.action';
 import { requestEditAtomAction } from './../../../../../../actions/atom.action';
 
-import CopyToClipboardBtn from './../../../../Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
+import { 
+    Option as CopyOption 
+} from './../../../../../../app/components/Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
+
+import CopyToClipboardBtnContainer from './../../../../../../app/containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
 
 // -----------------------------------
 
@@ -29,9 +32,7 @@ type BtnGroupProps = {
 };
 
 /* Own States */
-type LocalStates = {
-    copied: boolean
-};
+type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
@@ -41,9 +42,6 @@ type StateProps = {
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        ui: { 
-            copySourceCode: (type: string) => void;
-        },
         atomState: {
             activeEditMode: (id: number, name: string) => void;
         }
@@ -64,13 +62,7 @@ extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {
     constructor(props: BtnGroupProps & StateProps & DispatchProps) {
         super(props);
 
-        // Init local state
-        this.state = {
-            copied: false
-        };
-
         // Bind methods
-        this._handleCopyClick = this._handleCopyClick.bind(this);
         this._handleEditClick = this._handleEditClick.bind(this);
     }
 
@@ -91,48 +83,6 @@ extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {
     private _handleEditClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this._activeEditMode();
-    }
-
-
-    /**
-     * @desc HandleCopyClick
-     * @method _handleCopyClick
-     * @example this._handleClick()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @param {any} e - Event
-     * @returns {void}
-     */
-    private _handleCopyClick = (type: string) => (e: any) => {
-        this._copySourceCode(type);
-    }
-
-
-    /**
-     * @desc Copy Source Code
-     * @method _copySourceCode
-     * @example this._copySourceCode()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @returns {void}
-     */
-    private _copySourceCode(type: string) {
-
-        const TIMEOUT_COPIED_MESSAGE = 1000;
-        
-        // Show COPIED! message
-        this.setState({
-            copied: true
-        });
-
-        // Launch Copy Source Action
-        this.props.actions.ui.copySourceCode(type);
-
-        // Hide COPIED! message after 'TIMEOUT_COPIED_MESSAGE' time
-        setTimeout(() => {
-            this.setState({ copied: false });
-        }, TIMEOUT_COPIED_MESSAGE);
-
     }
 
 
@@ -161,7 +111,6 @@ extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {
         // Destructuring props & state
         const { currentTab, atomHtml, atomCss } = this.props;
         const { watchingChanges } = this.props;
-        const { copied } = this.state;
 
 
         /*         MARKUP          */
@@ -180,8 +129,14 @@ extends React.Component<ChildProps<BtnGroupProps & StateProps & DispatchProps, {
 
                 {/* Copy Source Code Button */}
                 <div className="sp-btnGroup__container">
-                    {currentTab === 'html' && <CopyToClipboardBtn text={atomHtml} copied={copied} onCopy={this._handleCopyClick} type="html"/>}
-                    {currentTab === 'css' && <CopyToClipboardBtn text={atomCss} copied={copied} onCopy={this._handleCopyClick} type="css"/>}
+                    {/* Copy Button */}
+                    {currentTab === CopyOption.html &&
+                        <CopyToClipboardBtnContainer text={atomHtml} type={CopyOption.html}/>
+                    }
+
+                    {currentTab === CopyOption.css &&
+                        <CopyToClipboardBtnContainer text={atomCss} type={CopyOption.css}/>
+                    }
                 </div>
 
             </div>
@@ -210,9 +165,6 @@ function mapStateToProps(state: IRootState): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
-            ui: {
-                copySourceCode: (type) => dispatch(copySourceCodeAction(type))
-            },
             atomState: {
                 activeEditMode: (id, name) => dispatch(requestEditAtomAction(id, name))
             }

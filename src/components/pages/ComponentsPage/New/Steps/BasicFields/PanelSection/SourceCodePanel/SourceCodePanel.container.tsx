@@ -13,7 +13,11 @@ import CodeTabMenu, {
     Option as CodeTabMenuOption 
 } from './../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
-import CopyBtnContainer from './CopyBtn/CopyBtn.container';
+import {
+    Option as CopyOption
+} from './../../../../../../../../app/components/Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
+
+import CopyToClipboardBtnContainer from './../../../../../../../../app/containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
 import * as CodeMirror from 'react-codemirror';
 import 'codemirror/mode/css/css';
 // TODO: Remover cuando no se necesite
@@ -205,10 +209,15 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
                 <div className="row no-gutters w-100 sp-bg-mirage">
                     <div className="col-12 position-relative">
 
-                    {/* Copy Button */}
-                    <CopyBtnContainer atomHtml={html} 
-                                        atomCss={css}
-                                        currentTab={tab} />
+                        {/* Copy Button */}
+                        {tab === CopyOption.html &&
+                            <CopyToClipboardBtnContainer text={html} type={CopyOption.html}/>
+                        }
+
+                        {tab === CopyOption.css &&
+                            <CopyToClipboardBtnContainer text={css} type={CopyOption.css}/>
+                        }
+                    
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">

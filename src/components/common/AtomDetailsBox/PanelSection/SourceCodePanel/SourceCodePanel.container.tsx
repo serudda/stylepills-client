@@ -228,7 +228,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         // VARIABLES
         let options: Array<CodeTabMenuOption> = [
             CodeTabMenuOption.html,
-            CodeTabMenuOption.js,
             CodeTabMenuOption.css
         ]; 
 

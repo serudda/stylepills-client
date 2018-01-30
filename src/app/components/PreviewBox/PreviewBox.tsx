@@ -7,7 +7,6 @@ import { Popup } from 'semantic-ui-react';
 import { Basic as BasicColorModel } from './../../../models/color/color.model';
 
 import SmallColorPickerContainer from './../../containers/ColorPicker/SmallColorPicker/SmallColorPicker.container';
-import BannerAlert, { Option as BannerMessageOption } from './../Alerts/BannerAlert/BannerAlert';
 
 // -----------------------------------
 
@@ -100,8 +99,6 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
                         {this.props.children}
                     </div>
                 </div>
-
-                <BannerAlert type={BannerMessageOption.info} text="Hello worldddd!!" showIcon={true}/>
             </div>
         );
     }
