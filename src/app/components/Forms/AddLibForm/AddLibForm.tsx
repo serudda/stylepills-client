@@ -158,7 +158,11 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
                            onChange={this._handleInputChange} />
 
                     {/* Add Button */}
-                    <Button type={BtnTypeOption.secondary} label="Add" onClick={this._handleClick}/>
+                    <div className="ml-3">
+                        <Button type={BtnTypeOption.secondary} 
+                                label="Add" 
+                                onClick={this._handleClick}/>
+                    </div>
 
                 </div>
 

@@ -13,7 +13,7 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 import { User as UserModel } from './../../../../../models/user/user.model';
 
 import DetailsTabMenu , { 
-    Options as DetailsTabMenuOptions 
+    Option as DetailsTabMenuOptions 
 } from './../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
@@ -50,7 +50,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            changeAtomDetailsTab: (tab: string | null) => void;
+            changeAtomDetailsTab: (tab: DetailsTabMenuOptions | null) => void;
             showModal: (modalType: string, modalProps: any) => void;
         }
     };
@@ -100,7 +100,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
             isToggleCode: !prevState.isToggleCode
         }), () => {
             if (this.state.isToggleCode) {
-                this._changeTab('code');
+                this._changeTab(DetailsTabMenuOptions.showCode);
             } else {
                 this._changeTab(null);
             }
@@ -137,7 +137,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      */
     private _handleLibsClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._changeTab('libs');
+        this._changeTab(DetailsTabMenuOptions.addLibs);
     }
     
 
@@ -166,10 +166,11 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      * @desc Change Tab
      * @method _changeTab
      * @example this._changeTab()
+     * @param {DetailsTabMenuOptions} tab - details tab menu option (e.g. addLib, showCode, duplicate, etc)
      * @private 
      * @returns {void}
      */
-    private _changeTab(tab: string | null) {
+    private _changeTab(tab: DetailsTabMenuOptions | null) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
     }
 
@@ -196,7 +197,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         return (
             <DetailsTabMenu options={options}
-                            isReversed={tab === 'code'}
+                            isReversed={tab === DetailsTabMenuOptions.showCode}
                             isDuplicated={isDuplicated}
                             currentOption={tab}
                             onDuplicateClick={this._handleDuplicateClick}

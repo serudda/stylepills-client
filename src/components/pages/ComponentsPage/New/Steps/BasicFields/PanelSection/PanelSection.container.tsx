@@ -15,6 +15,10 @@ import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
 import ExternalLibsPanel from './ExternalLibsPanel/ExternalLibsPanel.container';
 
+import { 
+    Option as DetailsTabMenuOptions
+} from './../../../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+
 // -----------------------------------
 
 
@@ -70,8 +74,8 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
             'align-items-center': true,
             'borderTop-1': true,
             'borderColor-smoke': true,
-            'sp-bg-black': tab === 'code',
-            'sp-bg-white': tab !== 'code'
+            'sp-bg-black': tab === DetailsTabMenuOptions.showCode,
+            'sp-bg-white': tab !== DetailsTabMenuOptions.showCode
         });
 
 
@@ -95,11 +99,11 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
                 </div>
 
                 {/* Source Code Section */}
-                {tab === 'code' && 
+                {tab === DetailsTabMenuOptions.showCode && 
                 <SourceCodePanelContainer html={html} css={css}/>}
 
                 {/* External Libs Section */}
-                {tab === 'libs' && 
+                {tab === DetailsTabMenuOptions.addLibs && 
                 <ExternalLibsPanel />}
 
             </div>

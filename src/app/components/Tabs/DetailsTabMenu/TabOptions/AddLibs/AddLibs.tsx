@@ -5,6 +5,10 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 
+import { 
+    Option as DetailsTabMenuOptions
+} from './../../DetailsTabMenu';
+
 import Icon from './../../../../Icon/Icon';
 
 // -----------------------------------
@@ -32,14 +36,14 @@ const AddLibs: React.SFC<AddLibsProps> = ({ currentOption, onClick }) => {
     // Add Libs Btn Classes
     const addLibsBtnClasses = classNames({
         'sp-iconTabMenu__btn': true, 
-        'sp-iconTabMenu__btn--active': currentOption === 'libs'
+        'sp-iconTabMenu__btn--active': currentOption === DetailsTabMenuOptions.addLibs
     });
 
         // Libs Icon on Btn Classes
     const libsIconClasses = classNames({
         'strokeWidth-2': true, 
-        'stroke-darkSecondary': currentOption === 'libs',
-        'stroke-slate': currentOption !== 'libs'
+        'stroke-darkSecondary': currentOption === DetailsTabMenuOptions.addLibs,
+        'stroke-slate': currentOption !== DetailsTabMenuOptions.addLibs
     });
     
 

@@ -10,7 +10,7 @@ import { functionsUtil } from './../../../../../../../../core/utils/functionsUti
 import { IRootState } from './../../../../../../../../reducer/reducer.config';
 
 import DetailsTabMenu, { 
-    Options as DetailsTabMenuOptions 
+    Option as DetailsTabMenuOptions 
 } from './../../../../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction } from './../../../../../../../../actions/ui.action';
@@ -30,14 +30,14 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: string;
+    tab: DetailsTabMenuOptions;
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         ui: { 
-            changeAtomDetailsTab: (tab: string | null) => void;
+            changeAtomDetailsTab: (tab: DetailsTabMenuOptions | null) => void;
         }
     };
 };
@@ -69,7 +69,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     /*       COMPONENTDIDMOUNT      */
     /********************************/
     componentDidMount() {   
-        this._changeTab('code');
+        this._changeTab(DetailsTabMenuOptions.showCode);
     }
 
 
@@ -87,7 +87,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      */
     private _handleCodeClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._changeTab('code');
+        this._changeTab(DetailsTabMenuOptions.showCode);
     }
 
 
@@ -100,7 +100,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      */
     private _handleLibsClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._changeTab('libs');
+        this._changeTab(DetailsTabMenuOptions.addLibs);
     }
 
 
@@ -111,7 +111,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      * @private 
      * @returns {void}
      */
-    private _changeTab(tab: string | null) {
+    private _changeTab(tab: DetailsTabMenuOptions | null) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
     }
 
@@ -136,7 +136,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         return (
             <DetailsTabMenu options={options}
-                            isReversed={tab === 'code'}
+                            isReversed={tab === DetailsTabMenuOptions.showCode}
                             currentOption={tab}
                             onShowCodeClick={this._handleCodeClick}
                             onAddLibsClick={this._handleLibsClick}/>

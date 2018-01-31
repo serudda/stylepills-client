@@ -1,0 +1,9 @@
+/**********************************************************/
+/*                       LIBS LIST                        */
+/**********************************************************/
+
+.LibsList {
+    background: map-get($color, snow);
+    border: 1px solid map-get($color, smoke);
+    min-height: 200px;
+}

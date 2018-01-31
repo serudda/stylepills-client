@@ -15,6 +15,10 @@ import Stats from './Stats/Stats';
 import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
 
+import {
+    Option as DetailsTabMenuOptions
+} from './../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+
 // -----------------------------------
 
 
@@ -68,8 +72,8 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
             'align-items-center': true,
             'borderTop-1': true,
             'borderColor-smoke': true,
-            'sp-bg-black': tab === 'code',
-            'sp-bg-white': tab !== 'code'
+            'sp-bg-black': tab === DetailsTabMenuOptions.showCode,
+            'sp-bg-white': tab !== DetailsTabMenuOptions.showCode
         });
 
 
@@ -98,7 +102,7 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
                 </div>
 
                 {/* Source Code Section */}
-                {tab === 'code' && 
+                {tab === DetailsTabMenuOptions.showCode && 
                 <SourceCodePanelContainer atomId={atom.id} 
                                           name={atom.name}
                                           html={atom.html} 

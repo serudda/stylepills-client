@@ -14,6 +14,9 @@ import { Lib as LibModel } from '../models/lib/lib.model';
 import { 
     Option as CodeTabMenuOption 
 } from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import { 
+    Option as DetailsTabMenuOptions 
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 
 /************************************/
@@ -24,13 +27,13 @@ export interface IUiState {
     modals: Array<{modalType: string, modalProps: any}>;
     tabs: {
         atomDetailsTab?: {
-            tab: string
+            tab: DetailsTabMenuOptions
         },
         sourceCodeTab?: {
             tab: CodeTabMenuOption
         },
         libsTab?: {
-            tab: string
+            tab: CodeTabMenuOption
         }
     };
     colorPicker: {

@@ -72,7 +72,7 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
      * @param {LibModel} lib - lib that I want to remove of the libs list
      * @returns {void}
      */
-    handleDeleteClick(lib: LibModel) {
+    handleDeleteClick = (lib: LibModel) => (e: React.FormEvent<{}>) => {
         this._deleteLib(lib);
     }
 
@@ -95,16 +95,11 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
         // Destructuring state
         const { libs } = this.props;
         
-        let libArray = libs.filter((candidateLib: LibModel) => (
+        let newLibs = libs.filter((candidateLib: LibModel) => (
             candidateLib !== lib
         ));
-
-        this.setState((previousState: LocalStates) => ({
-            ...previousState,
-            libs: libArray
-        }), () => {
-            this.props.actions.ui.changeLibs(libArray);
-        });
+            
+        this.props.actions.ui.changeLibs(newLibs);
 
     }
 
@@ -121,7 +116,7 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
         /*         MARKUP          */
         /***************************/
         return (
-            <LibsList libs={libs} onDelete={this.handleDeleteClick}/>
+            <LibsList libs={libs} onDeleteClick={this.handleDeleteClick}/>
         );
     }
 

@@ -63,7 +63,7 @@ export const DUPLICATE_MODAL_TYPE       = 'DuplicateModal';
 export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeTabMenuOption.html;
 
 /* Libs Tabs */
-export const LIBS_DEFAULT_OPTION_TAB = 'css';
+export const LIBS_DEFAULT_OPTION_TAB = CodeTabMenuOption.css;
 
 /* WHITE COLOR */
 export const WHITE_COLOR_HEX = '#FFFFFF';

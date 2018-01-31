@@ -7,6 +7,10 @@ import * as classNames from 'classnames';
 
 import Icon from './../../../../Icon/Icon';
 
+import { 
+    Option as DetailsTabMenuOptions
+} from './../../DetailsTabMenu';
+
 // -----------------------------------
 
 
@@ -32,14 +36,14 @@ const ShowComments: React.SFC<ShowCommentsProps> = ({ currentOption, onClick }) 
     // Comments Btn Classes
     const commentsBtnClasses = classNames({
         'sp-iconTabMenu__btn': true, 
-        'sp-iconTabMenu__btn--active': currentOption === 'comments'
+        'sp-iconTabMenu__btn--active': currentOption === DetailsTabMenuOptions.showComments
     });
 
         // Comments Icon on Btn Classes
     const commentsIconClasses = classNames({
         'strokeWidth-2': true, 
-        'stroke-darkSecondary': currentOption === 'comments',
-        'stroke-slate': currentOption !== 'comments'
+        'stroke-darkSecondary': currentOption === DetailsTabMenuOptions.showComments,
+        'stroke-slate': currentOption !== DetailsTabMenuOptions.showComments
     });
     
 

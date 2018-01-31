@@ -13,6 +13,9 @@ import { Lib as LibModel } from './../models/lib/lib.model';
 import { 
     Option as CodeTabMenuOption 
 } from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import {
+    Option as DetailsTabMenuOptions
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
  
 
 /************************************/
@@ -111,7 +114,7 @@ export interface IChangeAtomDetailsTabAction {
     type: types.CHANGE_ATOM_DETAILS_TAB;
     tabs: {
         atomDetailsTab: {
-            tab: string
+            tab: DetailsTabMenuOptions
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -131,7 +134,7 @@ export interface IChangeLibsTabAction {
     type: types.CHANGE_LIBS_TAB;
     tabs: {
         libsTab: {
-            tab: string
+            tab: CodeTabMenuOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -324,7 +327,7 @@ export const closeModalAction = (): Action => {
  * @function changeAtomDetailsTabAction
  * @returns {Action}
  */
-export const changeAtomDetailsTabAction = (tab: string): Action => {
+export const changeAtomDetailsTabAction = (tab: DetailsTabMenuOptions): Action => {
     return {
         type: types.CHANGE_ATOM_DETAILS_TAB,
         tabs: {
@@ -382,7 +385,7 @@ export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
  * @function changeLibsTabAction
  * @returns {Action}
  */
-export const changeLibsTabAction = (tab: string): Action => {
+export const changeLibsTabAction = (tab: CodeTabMenuOption): Action => {
     return {
         type: types.CHANGE_LIBS_TAB,
         tabs: {

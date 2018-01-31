@@ -7,6 +7,11 @@ import * as classNames from 'classnames';
 
 import Icon from './../../../../Icon/Icon';
 
+
+import { 
+    Option as DetailsTabMenuOptions
+} from './../../DetailsTabMenu';
+
 // -----------------------------------
 
 
@@ -32,14 +37,14 @@ const ShowCode: React.SFC<ShowCodeProps> = ({ currentOption, onClick }) => {
     // Code Btn Classes
     const codeBtnClasses = classNames({
         'sp-iconTabMenu__btn': true, 
-        'sp-iconTabMenu__btn--active': currentOption === 'code'
+        'sp-iconTabMenu__btn--active': currentOption === DetailsTabMenuOptions.showCode
     });
 
     // Code Icon on Btn Classes
     const codeIconClasses = classNames({
         'strokeWidth-2': true, 
-        'stroke-darkPrimary': currentOption === 'code',
-        'stroke-slate': currentOption !== 'code'
+        'stroke-darkPrimary': currentOption === DetailsTabMenuOptions.showCode,
+        'stroke-slate': currentOption !== DetailsTabMenuOptions.showCode
     });
     
 

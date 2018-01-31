@@ -22,7 +22,7 @@ import Share from './TabOptions/Share/Share';
 
 /* Own Props */
 type DetailsTabMenuProps = {
-    options: Array<Options>;
+    options: Array<Option>;
     currentOption?: string;
     isReversed: boolean;
     isDuplicated?: boolean;
@@ -47,7 +47,7 @@ interface DetailsTabMenuOptions {
 }
 
 /* Possible options */
-export enum Options {
+export enum Option {
     duplicate = 'duplicate',
     showCode = 'showCode',
     addLibs = 'addLibs',
