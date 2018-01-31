@@ -11,7 +11,6 @@ import { SourceCode } from './../../models/atom/atom.model';
 /*            INTERFACES            */
 /************************************/    
 interface IFunctionUtil {
-    inArray: (array: Array<any>, comparisonProp: string, comparisonValue: any) => boolean;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     valueExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
@@ -30,31 +29,6 @@ class FunctionsUtil implements IFunctionUtil {
     /**********************************/
     /*            METHODS             */
     /**********************************/
-
-
-    /**
-     * inArray
-     * @desc - To know if an element already exists on an Array
-     * @example - functionsUtil.inArray(array, 'id', 36);
-     * @function
-     * @param {Array<any>} array - array to analyze
-     * @param {string} comparisonProp - field to use in order to compare (e.g. 'id')
-     * @param {string} comparisonValue - value to compare against comparisonProps (e.g. 36)
-     * @return {boolean} yes or no element is into the array
-     */
-    
-    inArray(array: Array<any>, comparisonProp: string, comparisonValue: any): boolean {
-    
-        for (let i = 0; i < array.length; i++) {
-            if (array[i][comparisonProp] === comparisonValue) {
-                return true;
-            }
-        }
-    
-        return false;
-    
-    }
-
 
 
     /**

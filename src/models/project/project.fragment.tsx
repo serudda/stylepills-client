@@ -4,6 +4,7 @@
 import gql from 'graphql-tag';
 
 import { COLOR_FRAGMENT } from './../color/color.fragment';
+import { LIB_FRAGMENT } from './../lib/lib.fragment';
 import { AUTHOR_PROJECT_FRAGMENT } from './../user/user.fragment';
 import { PROJECT_CATEGORY_FRAGMENT } from './../projectCategory/projectCategory.fragment';
 
@@ -40,6 +41,9 @@ export const PROJECT_FRAGMENT = gql`
         colorPalette {
             ...ColorFragment
         }
+        libs {
+            ...LibFragment
+        }
         private
         author {
             ...AuthorProjectFragment
@@ -51,6 +55,7 @@ export const PROJECT_FRAGMENT = gql`
     }
     ${BASIC_PROJECT_FRAGMENT}
     ${COLOR_FRAGMENT}
+    ${LIB_FRAGMENT}
     ${PROJECT_CATEGORY_FRAGMENT}
     ${AUTHOR_PROJECT_FRAGMENT}
 `;

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse  } from './../../../models/project/project.query';
 import { Basic as BasicProjectModel } from '../../../models/project/project.model';
 
-import Icon from '../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 
 // -----------------------------------

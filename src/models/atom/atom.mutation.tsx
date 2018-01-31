@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 
 import { AtomFormFields } from './../../core/validations/atom';
 
+import { Lib as LibModel } from './../lib/lib.model';
+
 import { VALIDATION_ATOM_FRAGMENT } from './atom.fragment';
 
 /************************************/
@@ -56,7 +58,14 @@ Query Variables:
         "name": "Primary Button TEST",
         "description": "Explaining the component behavior",
         "html": "<button class='btn btn-primary'>DONE</button>",
-      	"css": "// My css TEST",
+        "css": "// My css TEST",
+        "libs": [
+            {
+                "name": "Boostrap 4",
+                "type": "css",
+                "url": "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            }
+        ],  
         "private": false,
       	"contextualBg": "#CCCCCC",
       	"atomCategoryId": 1,
@@ -84,7 +93,7 @@ export const DUPLICATE_ATOM_MUTATION = gql`
 /* Type */
 type CodeProps = {
     code: string;
-    libs?: Array<string>;
+    libs?: Array<LibModel>;
 };
 
 type AtomCode = {

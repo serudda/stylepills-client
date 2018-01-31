@@ -9,6 +9,14 @@ import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { ICurrentCode } from './../actions/ui.action';
 import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Lib as LibModel } from '../models/lib/lib.model';
+
+import { 
+    Option as CodeTabMenuOption 
+} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import { 
+    Option as DetailsTabMenuOptions 
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 
 /************************************/
@@ -19,10 +27,13 @@ export interface IUiState {
     modals: Array<{modalType: string, modalProps: any}>;
     tabs: {
         atomDetailsTab?: {
-            tab: string
+            tab: DetailsTabMenuOptions
         },
         sourceCodeTab?: {
-            tab: string
+            tab: CodeTabMenuOption
+        },
+        libsTab?: {
+            tab: CodeTabMenuOption
         }
     };
     colorPicker: {
@@ -30,6 +41,9 @@ export interface IUiState {
     };
     sourceCodePanel: {
         currentCode: Array<ICurrentCode>;
+    };
+    libsPanel: {
+        libs: Array<LibModel>;
     };
     copied: {
         copiedType: string
@@ -49,6 +63,9 @@ const defaultState: IUiState = {
         },
         sourceCodeTab: {
             tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+        },
+        libsTab: {
+            tab: appConfig.LIBS_DEFAULT_OPTION_TAB
         }
     },
     colorPicker: {
@@ -57,8 +74,12 @@ const defaultState: IUiState = {
             rgba: appConfig.SECONDARY_COLOR_RGBA
         }
     },
+    // TODO: No existen estas dos en la action CLEAR, revisar por que no se agregaron alla
     sourceCodePanel: {
         currentCode: []
+    },
+    libsPanel: {
+        libs: []
     },
     copied: null
 };
@@ -90,6 +111,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     },
                     sourceCodeTab: {
                         tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                    },
+                    libsTab: {
+                        tab: appConfig.LIBS_DEFAULT_OPTION_TAB
                     }
                 },
                 colorPicker: {
@@ -100,6 +124,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 },
                 sourceCodePanel: {
                     currentCode: []
+                },
+                libsPanel: {
+                    libs: []
                 },
                 copied: null
             };
@@ -151,6 +178,18 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+        case types.CHANGE_LIBS_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    libsTab: {
+                        tab: action.tabs.libsTab.tab
+                    }
+                }
+            };
+        }
+
         case types.CHANGE_COLOR: {
             return {
                 ...state,
@@ -181,7 +220,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             let newCurrentCodeState = state.sourceCodePanel.currentCode.slice();
 
             // To know if code type already exists on sourceCodePanel/currentCode state
-            let codeTypeAlreadyExists = functionsUtil.inArray(state.sourceCodePanel.currentCode, 'codeType', codeType);
+            let codeTypeAlreadyExists = functionsUtil.valueExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
             global que haga esta operación */
@@ -215,8 +254,23 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         }
 
+        case types.CHANGE_LIBS: {
+            return {
+                ...state,
+                libsPanel: {
+                    ...state.libsPanel,
+                    // NOTE: 1
+                    libs: [].concat(action.libsPanel.libs)
+                }
+            };
+        }
+
             
         default:
             return state;  
     }
 }
+
+/*
+    (1): Es la manera de evitar el error de mutable un array, crear una copia nueva del array.
+*/

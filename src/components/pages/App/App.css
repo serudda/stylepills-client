@@ -20,65 +20,65 @@
 .bg-primary {
   background-color: #007bff !important; }
 
-a.bg-primary:focus, a.bg-primary:hover,
-button.bg-primary:focus,
-button.bg-primary:hover {
+a.bg-primary:hover, a.bg-primary:focus,
+button.bg-primary:hover,
+button.bg-primary:focus {
   background-color: #0062cc !important; }
 
 .bg-secondary {
-  background-color: #868e96 !important; }
-
-a.bg-secondary:focus, a.bg-secondary:hover,
-button.bg-secondary:focus,
-button.bg-secondary:hover {
   background-color: #6c757d !important; }
+
+a.bg-secondary:hover, a.bg-secondary:focus,
+button.bg-secondary:hover,
+button.bg-secondary:focus {
+  background-color: #545b62 !important; }
 
 .bg-success {
   background-color: #28a745 !important; }
 
-a.bg-success:focus, a.bg-success:hover,
-button.bg-success:focus,
-button.bg-success:hover {
+a.bg-success:hover, a.bg-success:focus,
+button.bg-success:hover,
+button.bg-success:focus {
   background-color: #1e7e34 !important; }
 
 .bg-info {
   background-color: #17a2b8 !important; }
 
-a.bg-info:focus, a.bg-info:hover,
-button.bg-info:focus,
-button.bg-info:hover {
+a.bg-info:hover, a.bg-info:focus,
+button.bg-info:hover,
+button.bg-info:focus {
   background-color: #117a8b !important; }
 
 .bg-warning {
   background-color: #ffc107 !important; }
 
-a.bg-warning:focus, a.bg-warning:hover,
-button.bg-warning:focus,
-button.bg-warning:hover {
+a.bg-warning:hover, a.bg-warning:focus,
+button.bg-warning:hover,
+button.bg-warning:focus {
   background-color: #d39e00 !important; }
 
 .bg-danger {
   background-color: #dc3545 !important; }
 
-a.bg-danger:focus, a.bg-danger:hover,
-button.bg-danger:focus,
-button.bg-danger:hover {
+a.bg-danger:hover, a.bg-danger:focus,
+button.bg-danger:hover,
+button.bg-danger:focus {
   background-color: #bd2130 !important; }
 
 .bg-light {
   background-color: #f8f9fa !important; }
 
-a.bg-light:focus, a.bg-light:hover,
-button.bg-light:focus,
-button.bg-light:hover {
+a.bg-light:hover, a.bg-light:focus,
+button.bg-light:hover,
+button.bg-light:focus {
   background-color: #dae0e5 !important; }
 
 .bg-dark {
   background-color: #343a40 !important; }
 
-a.bg-dark:focus, a.bg-dark:hover,
-button.bg-dark:focus,
-button.bg-dark:hover {
+a.bg-dark:hover, a.bg-dark:focus,
+button.bg-dark:hover,
+button.bg-dark:focus {
   background-color: #1d2124 !important; }
 
 .bg-white {
@@ -88,7 +88,19 @@ button.bg-dark:hover {
   background-color: transparent !important; }
 
 .border {
-  border: 1px solid #e9ecef !important; }
+  border: 1px solid #dee2e6 !important; }
+
+.border-top {
+  border-top: 1px solid #dee2e6 !important; }
+
+.border-right {
+  border-right: 1px solid #dee2e6 !important; }
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6 !important; }
+
+.border-left {
+  border-left: 1px solid #dee2e6 !important; }
 
 .border-0 {
   border: 0 !important; }
@@ -109,7 +121,7 @@ button.bg-dark:hover {
   border-color: #007bff !important; }
 
 .border-secondary {
-  border-color: #868e96 !important; }
+  border-color: #6c757d !important; }
 
 .border-success {
   border-color: #28a745 !important; }
@@ -269,27 +281,25 @@ button.bg-dark:hover {
   .d-xl-inline-flex {
     display: inline-flex !important; } }
 
-.d-print-block {
-  display: none !important; }
-  @media print {
-    .d-print-block {
-      display: block !important; } }
-
-.d-print-inline {
-  display: none !important; }
-  @media print {
-    .d-print-inline {
-      display: inline !important; } }
-
-.d-print-inline-block {
-  display: none !important; }
-  @media print {
-    .d-print-inline-block {
-      display: inline-block !important; } }
-
 @media print {
   .d-print-none {
-    display: none !important; } }
+    display: none !important; }
+  .d-print-inline {
+    display: inline !important; }
+  .d-print-inline-block {
+    display: inline-block !important; }
+  .d-print-block {
+    display: block !important; }
+  .d-print-table {
+    display: table !important; }
+  .d-print-table-row {
+    display: table-row !important; }
+  .d-print-table-cell {
+    display: table-cell !important; }
+  .d-print-flex {
+    display: flex !important; }
+  .d-print-inline-flex {
+    display: inline-flex !important; } }
 
 .embed-responsive {
   position: relative;
@@ -1840,53 +1850,53 @@ button.bg-dark:hover {
 .text-primary {
   color: #007bff !important; }
 
-a.text-primary:focus, a.text-primary:hover {
+a.text-primary:hover, a.text-primary:focus {
   color: #0062cc !important; }
 
 .text-secondary {
-  color: #868e96 !important; }
-
-a.text-secondary:focus, a.text-secondary:hover {
   color: #6c757d !important; }
+
+a.text-secondary:hover, a.text-secondary:focus {
+  color: #545b62 !important; }
 
 .text-success {
   color: #28a745 !important; }
 
-a.text-success:focus, a.text-success:hover {
+a.text-success:hover, a.text-success:focus {
   color: #1e7e34 !important; }
 
 .text-info {
   color: #17a2b8 !important; }
 
-a.text-info:focus, a.text-info:hover {
+a.text-info:hover, a.text-info:focus {
   color: #117a8b !important; }
 
 .text-warning {
   color: #ffc107 !important; }
 
-a.text-warning:focus, a.text-warning:hover {
+a.text-warning:hover, a.text-warning:focus {
   color: #d39e00 !important; }
 
 .text-danger {
   color: #dc3545 !important; }
 
-a.text-danger:focus, a.text-danger:hover {
+a.text-danger:hover, a.text-danger:focus {
   color: #bd2130 !important; }
 
 .text-light {
   color: #f8f9fa !important; }
 
-a.text-light:focus, a.text-light:hover {
+a.text-light:hover, a.text-light:focus {
   color: #dae0e5 !important; }
 
 .text-dark {
   color: #343a40 !important; }
 
-a.text-dark:focus, a.text-dark:hover {
+a.text-dark:hover, a.text-dark:focus {
   color: #1d2124 !important; }
 
 .text-muted {
-  color: #868e96 !important; }
+  color: #6c757d !important; }
 
 .text-hide {
   font: 0/0 a;
@@ -2056,10 +2066,10 @@ NOTE: Boostrap 4 has a flex set
 .zIndex-modal {
   z-index: 9000; }
 
-.zIndex-overlay, .ComponentNew .PreviewSection .float-color-picker {
+.zIndex-overlay, .AtomDetailsBox .float-color-picker, .ComponentNew .PreviewSection .float-color-picker {
   z-index: 8000; }
 
-.zIndex-dropdown, .ComponentNew .PreviewSection__content .cover-link {
+.zIndex-dropdown, .LibsList__message, .PreviewBox__content__message, .ComponentNew .PreviewSection__content .cover-link {
   z-index: 7000; }
 
 .zIndex-header {
@@ -2903,7 +2913,7 @@ NOTE: Boostrap 4 has a flex set
   -moz-border-radius: 0;
   border-radius: 0; }
 
-.borderRadius-sm, .sp-switch-btn--square, .sp-switch-btn--square .inner-btn, .sp-list--simple .item .icon-btn:hover, .SmallBox__swatch, .SmallBox__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
+.borderRadius-sm, .sp-switch-btn--square, .sp-switch-btn--square .inner-btn, .sp-list--simple .item .icon-btn:hover, .SmallColorPicker__swatch, .SmallColorPicker__swatch__color, .SidebarWrapper .Sidebar__content .title__icon:hover, .SidebarWrapper .Sidebar__content .subtitle__icon:hover {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -4074,7 +4084,8 @@ NOTE: Boostrap 4 has a flex set
     background: none;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    border-radius: 0; }
+    border-radius: 0;
+    border-top: 4px solid transparent; }
     .sp-iconTabMenu__btn:hover {
       background-color: #E5E9F2; }
     .sp-iconTabMenu__btn--active {
@@ -4202,72 +4213,30 @@ NOTE: Boostrap 4 has a flex set
           opacity: 1; }
 
 /**********************************************************/
-/*                        ATOM BOX                        */
-/**********************************************************/
-.ComponentsPage .AtomBox {
-  position: relative;
-  z-index: 0;
-  cursor: pointer; }
-  .ComponentsPage .AtomBox__content {
-    height: 0;
-    padding-top: 65%;
-    overflow: hidden;
-    position: relative; }
-    .ComponentsPage .AtomBox__content .cover-link {
-      padding: 8px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      border: 0 !important;
-      z-index: 1;
-      opacity: 0;
-      background-color: #FFFFFF; }
-      .ComponentsPage .AtomBox__content .cover-link.active {
-        opacity: 1; }
-      .ComponentsPage .AtomBox__content .cover-link__content {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%; }
-      .ComponentsPage .AtomBox__content .cover-link .icon {
-        opacity: 0.5; }
-        .ComponentsPage .AtomBox__content .cover-link .icon:hover {
-          opacity: 1; }
-        .ComponentsPage .AtomBox__content .cover-link .icon.active {
-          opacity: 1; }
-
-/**********************************************************/
 /*                   ATOM BOX DETAILS                     */
 /**********************************************************/
 .AtomDetailsBox {
   position: relative;
-  z-index: 0; }
+  z-index: 0;
+  overflow: hidden; }
+  .AtomDetailsBox .float-color-picker {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
 
 /**********************************************************/
-/*           ATOM DETAILS BOX (PREVIEW SECTION)           */
+/*                    SOURCE CODE PANEL                   */
 /**********************************************************/
-.AtomDetailsBox .PreviewSection__content {
-  height: 0;
-  padding-top: 25%;
-  overflow: hidden;
-  position: relative; }
-
-/**********************************************************/
-/*     SOURCE CODE (ATOM DETAILS BOX - PREVIEW SECTION)   */
-/**********************************************************/
-.AtomDetailsBox .sp-btnGroup {
+.ComponentNew .sp-btnGroup {
   position: absolute;
   top: 10px;
   right: 10px; }
 
-.AtomDetailsBox .SourceCode {
-  height: 500px; }
-  .AtomDetailsBox .SourceCode .ReactCodeMirror {
+.ComponentNew .SourceCode {
+  height: 450px; }
+  .ComponentNew .SourceCode .ReactCodeMirror {
     height: 100%; }
-    .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror {
+    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror {
       font-size: 15px;
       -webkit-font-smoothing: initial;
       height: 100%;
@@ -4275,24 +4244,24 @@ NOTE: Boostrap 4 has a flex set
       padding-top: 15px;
       padding-bottom: 15px;
       font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror-gutters {
+    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-gutters {
       background-color: #273444; }
-    .AtomDetailsBox .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
+    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
       color: #3C4858; }
 
 /**********************************************************/
-/*                        ATOM INFO                       */
+/*                       INFO SECTION                     */
 /**********************************************************/
-.AtomInfo {
+.InfoSection {
   overflow: hidden; }
-  .AtomInfo__users {
+  .InfoSection__users {
     margin-bottom: 1px; }
-  .AtomInfo__stats {
+  .InfoSection__stats {
     background: #EFF2F7;
     position: absolute;
     right: .25rem;
     bottom: 0; }
-    .AtomInfo__stats::after {
+    .InfoSection__stats::after {
       content: '';
       position: absolute;
       top: 0;
@@ -4300,6 +4269,24 @@ NOTE: Boostrap 4 has a flex set
       width: 30px;
       height: 100%;
       background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
+
+/*      List Component Style      */
+/**********************************/
+/**********************************************************/
+/*                       LIBS LIST                        */
+/**********************************************************/
+.LibsList {
+  background: #F9FAFC;
+  border: 1px solid #E0E6ED;
+  min-height: 200px;
+  position: relative; }
+  .LibsList__message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border: 0 !important; }
 
 /**********************************************************/
 /*                       ATOMS LIST                       */
@@ -4311,7 +4298,7 @@ NOTE: Boostrap 4 has a flex set
   .AtomsList .atomBox-container:nth-child(3n) {
     margin-right: 0; }
 
-@media (max-width: 991.99px) {
+@media (max-width: 991.98px) {
   .AtomsList .atomBox-container {
     width: 49%; }
     .AtomsList .atomBox-container:nth-child(2n) {
@@ -4319,7 +4306,7 @@ NOTE: Boostrap 4 has a flex set
     .AtomsList .atomBox-container:nth-child(3n) {
       margin-right: 2%; } }
 
-@media (max-width: 575.99px) {
+@media (max-width: 575.98px) {
   .AtomsList .atomBox-container {
     width: 100%;
     margin-right: 0 !important; } }
@@ -4349,7 +4336,7 @@ NOTE: Boostrap 4 has a flex set
             margin-right: 0;
         } */ }
 
-@media (max-width: 991.99px) {
+@media (max-width: 991.98px) {
   .ColorBoxesList .colorBox-container {
     /* &:nth-child(2n) {
                 margin-right: 0;
@@ -4359,7 +4346,7 @@ NOTE: Boostrap 4 has a flex set
                 margin-right: 2%;
             } */ } }
 
-@media (max-width: 575.99px) {
+@media (max-width: 575.98px) {
   .ColorBoxesList .colorBox-container {
     margin-right: 5%;
     margin-bottom: 25px;
@@ -4526,26 +4513,28 @@ body.duplicateModal-open .ui.dimmer {
   font-weight: 600;
   outline: none; }
 
+/*  ColorPickers Component Style  */
+/**********************************/
 /**********************************************************/
 /*                SMALL BOX (COLOR PICKER)                */
 /**********************************************************/
-.SmallBox__swatch {
+.SmallColorPicker__swatch {
   padding: 4px;
   background: #FFFFFF;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   cursor: pointer; }
-  .SmallBox__swatch__color {
+  .SmallColorPicker__swatch__color {
     width: 36px;
     height: 25px; }
 
-.SmallBox__popover {
+.SmallColorPicker__popover {
   position: absolute;
   z-index: 2;
   right: 0;
   top: 45px; }
-  .SmallBox__popover__cover {
+  .SmallColorPicker__popover__cover {
     position: fixed;
     top: 0;
     right: 0;
@@ -4554,11 +4543,25 @@ body.duplicateModal-open .ui.dimmer {
 
 .PaginationBtns {
   position: absolute;
-  bottom: 20px;
   left: 50%;
   width: 200px !important;
   margin-left: -100px;
   text-align: center; }
+
+/**********************************************************/
+/*              PREVIEW BOX (PREVIEW SECTION)             */
+/**********************************************************/
+.PreviewBox__content {
+  height: 0;
+  overflow: hidden;
+  position: relative; }
+  .PreviewBox__content__message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border: 0 !important; }
 
 /**********************************************************/
 /*                     SIDEBAR WRAPPER                    */
@@ -4640,12 +4643,16 @@ body.duplicateModal-open .ui.dimmer {
     min-width: 1px;
     margin-left: 220px; }
 
+/*      Tabs Component Style      */
+/**********************************/
 /**********************************************************/
-/*                     SIDEBAR WRAPPER                    */
+/*                      CODE TAB MENU                     */
 /**********************************************************/
-.SourceCodePanel .TabMenu {
-  background-color: #141619;
-  border-top: 1px solid #000000; }
+.CodeTabMenu {
+  background-color: #FFFFFF; }
+  .CodeTabMenu--is-reversed {
+    background-color: #141619;
+    border-top: 1px solid #000000; }
 
 .HomePage .leftSide__header {
   height: 75px;
@@ -4704,7 +4711,7 @@ body.duplicateModal-open .ui.dimmer {
   list-style: none;
   justify-content: center; }
 
-@media (max-width: 575.99px) {
+@media (max-width: 575.98px) {
   .UserProfilePage .UserStats__item__text {
     font-size: 12px; } }
 
@@ -4729,28 +4736,3 @@ body.duplicateModal-open .ui.dimmer {
       left: 0;
       bottom: 0;
       border: 0 !important; }
-
-/**********************************************************/
-/*      SOURCE CODE (COMPONENT NEW - PREVIEW SECTION)     */
-/**********************************************************/
-.ComponentNew .CopyBtnContainer {
-  position: absolute;
-  top: 10px;
-  right: 10px; }
-
-.ComponentNew .SourceCode {
-  height: 450px; }
-  .ComponentNew .SourceCode .ReactCodeMirror {
-    height: 100%; }
-    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror {
-      font-size: 15px;
-      -webkit-font-smoothing: initial;
-      height: 100%;
-      background-color: #273444;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-gutters {
-      background-color: #273444; }
-    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
-      color: #3C4858; }

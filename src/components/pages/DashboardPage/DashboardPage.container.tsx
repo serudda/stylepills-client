@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import { ChildProps } from 'react-apollo';
 
 import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper.container';
@@ -21,6 +21,9 @@ import { Redirect } from 'react-router';
 /* Own Props */
 type DashboardPageProps = {};
 
+type WithRouterDashboardPageProps = DashboardPageProps & RouteComponentProps<any>;
+
+
 /* Own States */
 type LocalStates = {};
 
@@ -32,13 +35,13 @@ type StateProps = {};
 /*              CLASS DEFINITION               */
 /***********************************************/
 class DashboardPage 
-extends React.Component<ChildProps<DashboardPageProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<WithRouterDashboardPageProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<DashboardPageProps & StateProps, {}>) {
+    constructor(props: ChildProps<WithRouterDashboardPageProps & StateProps, {}>) {
         super(props);
     }
 

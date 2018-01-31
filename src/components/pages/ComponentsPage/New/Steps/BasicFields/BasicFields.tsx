@@ -18,12 +18,13 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 import { ICurrentCode } from './../../../../../../actions/ui.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
+import { Lib as LibModel }  from './../../../../../../models/lib/lib.model';
 
 import PreviewSection from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
 import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
-import Icon from './../../../../../common/Icon/Icon';
+import Icon from './../../../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 
@@ -44,6 +45,7 @@ type LocalStates = {
         description: string;
         html: string;
         css: string;
+        libs: Array<LibModel>;
         contextualBg: string;
         projectId: number;
         atomCategoryId: number;
@@ -58,6 +60,7 @@ type StateProps = {
     description: string,
     html: string,
     css: string,
+    libs: Array<LibModel>;
     contextualBg: string,
     projectId: number | null,
     atomCategoryId: number | null,
@@ -91,6 +94,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 description: props.description || '',
                 html: props.html || '',
                 css: props.css || '',
+                libs: [...props.libs] || [],
                 contextualBg: props.hex || '#FFFFFF',
                 projectId: props.projectId || null,
                 atomCategoryId: props.atomCategoryId || 0,
@@ -110,7 +114,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: BasicFieldsProps & StateProps) {   
-        const { hex, currentCode } = nextProps;
+        const { hex, currentCode, libs } = nextProps;
 
         // Changed CurrentCode on Store state
         if (this.props.currentCode !== currentCode) {
@@ -135,6 +139,17 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 fields: {
                     ...previousState.fields,
                     contextualBg: hex
+                }
+            }));
+        }
+
+        // Changed Libs on Store state
+        if (this.props.libs !== libs) {
+            this.setState((previousState: LocalStates) => ({
+                ...previousState,
+                fields: {
+                    ...previousState.fields,
+                    libs
                 }
             }));
         }
@@ -425,7 +440,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
                     <div className="position-relative">
                         <PanelSectionContainer html={this.state.fields.html}
-                                                css={this.state.fields.css}/>
+                                                css={this.state.fields.css}
+                                                libs={this.state.fields.libs}/>
                         
                         {/* Error Bottom Message */}
                         {this._buildSourceCodeErrorMessage()}
@@ -481,12 +497,14 @@ function mapStateToProps(state: IRootState): StateProps {
     const { user, isAuthenticated } = state.auth;
 
     const { currentCode } = state.ui.sourceCodePanel;
+    const { libs } = state.ui.libsPanel;
 
     return {
         name,
         description,
         html,
         css,
+        libs,
         contextualBg,
         projectId,
         atomCategoryId,

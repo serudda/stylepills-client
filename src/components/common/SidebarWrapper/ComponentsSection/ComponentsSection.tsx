@@ -9,7 +9,7 @@ import * as classNames from 'classnames';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import Icon from './../../Icon/Icon';
+import Icon from './../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

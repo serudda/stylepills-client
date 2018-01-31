@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Switch, Route, withRouter, Redirect, RouteProps } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect, RouteProps, RouteComponentProps } from 'react-router-dom';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { User } from '../../../models/user/user.model';
@@ -26,6 +26,8 @@ import UserProfilePage from '../UserProfilePage/UserProfilePage.container';
 
 /* Own Props */
 type MainProps = {};
+
+type WithRouterMainProps = MainProps & RouteComponentProps<any>;
 
 /* Own States */
 type LocalStates = {};
@@ -69,12 +71,12 @@ export const PrivateRoute: React.SFC<IPrivateRouteProps> = ({
 /*              CLASS DEFINITION               */
 /***********************************************/
 class Main 
-extends React.Component<ChildProps<MainProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<WithRouterMainProps & StateProps, {}>, LocalStates> {
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<MainProps & StateProps, {}>) {
+    constructor(props: ChildProps<WithRouterMainProps & StateProps, {}>) {
         super(props);
     }
 

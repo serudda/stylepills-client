@@ -11,7 +11,7 @@ import { validateColorFields, IValidationError } from './../../../../../core/val
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
-import Icon from '../../../../common/Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 import { Color as ColorModel, ColorTypeOptions } from './../../../../../models/color/color.model';
 import AddColorForm from './../../../../common/AddColorForm/AddColorForm.container';
 
@@ -77,6 +77,53 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
 
 
     /********************************/
+    /*        PUBLIC METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc HandleAddColorClick
+     * @method handleAddColorClick
+     * @example this.handleAddColorClick()
+     * @public
+     * @param {ColorModel} newColor - new color to add on the colors array
+     * @returns {void}
+     */
+    handleAddColorClick(newColor: ColorModel) {
+        this._addColor(newColor);
+    }
+
+
+    /**
+     * @desc HandleDeleteColorClick
+     * @method handleDeleteColorClick
+     * @example this.handleDeleteColorClick()
+     * @public
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    handleDeleteColorClick(color: ColorModel) {
+
+        // Destructuring state
+        const { colorPalette } = this.state.fields;
+        
+        let colorArray = colorPalette.filter(function (candidateColor: ColorModel) {
+            return candidateColor !== color;
+        });
+
+        this.setState((previousState: LocalStates) => ({
+            ...previousState,
+            fields: {
+                ...previousState.fields,
+                colorPalette: colorArray
+            }
+        }));
+
+    }
+    
+
+
+    /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
 
@@ -106,47 +153,6 @@ extends React.Component<ChildProps<ColorFieldsProps & StateProps, {}>, LocalStat
     private _handleNextClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this._nextStep();
-    }
-
-
-    /**
-     * @desc HandleAddColorClick
-     * @method _handleAddColorClick
-     * @example this._handleAddColorClick()
-     * @private 
-     * @param {ColorModel} newColor - new color to add on the colors array
-     * @returns {void}
-     */
-    handleAddColorClick(newColor: ColorModel) {
-        this._addColor(newColor);
-    }
-
-
-    /**
-     * @desc HandleDeleteColorClick
-     * @method _handleDeleteColorClick
-     * @example this._handleDeleteColorClick()
-     * @private
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    handleDeleteColorClick(color: ColorModel) {
-
-        // Destructuring state
-        const { colorPalette } = this.state.fields;
-        
-        let colorArray = colorPalette.filter(function (candidateColor: ColorModel) {
-            return candidateColor !== color;
-        });
-
-        this.setState((previousState: LocalStates) => ({
-            ...previousState,
-            fields: {
-                ...previousState.fields,
-                colorPalette: colorArray
-            }
-        }));
-
     }
 
 

@@ -10,7 +10,7 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { clearAtomStateAction } from './../../../../../actions/atom.action';
 
-import Icon from '../../../../common/Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

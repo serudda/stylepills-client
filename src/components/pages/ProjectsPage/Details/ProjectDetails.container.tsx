@@ -10,7 +10,7 @@ import { GET_PROJECT_BY_ID_QUERY, GetByIdResponse } from './../../../../models/p
 
 import Header from './../Header/Header';
 import ColorBoxesList from './../../../common/ColorBoxesList/ColorBoxesList';
-import AtomsListContainer from './AtomsList/AtomsList.container';
+import ProjectAtomsListContainer from './../../../../app/containers/ProjectAtomsList/ProjectAtomsList.container';
 import NotFound from './../../NotFoundPage/NotFoundPage';
 
 // -----------------------------------
@@ -177,7 +177,7 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
                     </div>
 
                     {/* Atoms list container */}
-                    <AtomsListContainer projectId={projectById.id}/>
+                    <ProjectAtomsListContainer projectId={projectById.id}/>
 
                 </div>
 
