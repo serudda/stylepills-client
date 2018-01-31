@@ -85,9 +85,10 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @example this.handleAddLibClick()
      * @public
      * @param {LibModel} newLib - new lib to add on the libs array
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    handleAddLibClick(name: string, url: string) {
+    handleAddLibClick = (name: string, url: string) => (e: React.FormEvent<{}>) => {
         this._addLib(name, url);
     }
 
@@ -98,9 +99,10 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @example this.handleDeleteLibClick()
      * @public
      * @param {LibModel} lib - lib that I want to remove of the libs list
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    handleDeleteLibClick(lib: LibModel) {
+    handleDeleteLibClick = (lib: LibModel) => (e: React.FormEvent<{}>) => {
         this._deleteLib(lib);
     }
 

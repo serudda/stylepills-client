@@ -55,26 +55,26 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
         };
 
         // Bind methods
-        this._handleInputChange = this._handleInputChange.bind(this);
-        this._handleClick = this._handleClick.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
 
 
      /********************************/
-    /*       PRIVATE METHODS        */
-    /********************************/
+     /*         PUBLIC METHODS       */
+     /********************************/
 
 
     /**
      * @desc HandleInputChange
-     * @method _handleInputChange
-     * @example this._handleInputChange()
-     * @private
+     * @method handleInputChange
+     * @example this.handleInputChange()
+     * @public
      * @param {React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>} e - Event
      * @returns {void}
      */
-    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
+    handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -92,19 +92,33 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
 
     /**
      * @desc HandleClick
-     * @method _handleClick
-     * @example this._handleClick()
-     * @private
+     * @method handleClick
+     * @example this.handleClick()
+     * @public
      * @param {React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>} e - Event
      * @returns {void}
      */
-    private _handleClick(e: React.FormEvent<any>) {
+    handleClick(e: React.FormEvent<any>) {
         e.preventDefault();
 
         const fieldsCopy = Object.assign({}, this.state.fields);
         
         if (this.props.onAddClick) {
-            this.props.onAddClick(fieldsCopy.name, fieldsCopy.url);
+
+            if (fieldsCopy.url !== '') {
+
+                this.props.onAddClick(fieldsCopy.name, fieldsCopy.url);
+
+                // Clear text inputs
+                this.setState({
+                    fields: {
+                        name: '',
+                        url: ''
+                    }
+                });
+                
+            }
+            
         }
 
     }
@@ -155,13 +169,13 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
                            name="url" 
                            placeholder="e.g. https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
                            isBlock={true}
-                           onChange={this._handleInputChange} />
+                           onChange={this.handleInputChange} />
 
                     {/* Add Button */}
                     <div className="ml-3">
                         <Button type={BtnTypeOption.secondary} 
                                 label="Add" 
-                                onClick={this._handleClick}/>
+                                onClick={this.handleClick}/>
                     </div>
 
                 </div>
