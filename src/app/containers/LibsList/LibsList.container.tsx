@@ -116,7 +116,9 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
         /*         MARKUP          */
         /***************************/
         return (
-            <LibsList libs={libs} onDeleteClick={this.handleDeleteClick}/>
+            <LibsList libs={libs} 
+                    isEmpty={libs.length === 0} 
+                    onDeleteClick={this.handleDeleteClick}/>
         );
     }
 

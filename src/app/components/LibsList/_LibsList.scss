@@ -6,4 +6,15 @@
     background: map-get($color, snow);
     border: 1px solid map-get($color, smoke);
     min-height: 200px;
+    position: relative;
+
+    &__message {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        border: 0!important;
+        @extend .zIndex-dropdown;
+    }
 }

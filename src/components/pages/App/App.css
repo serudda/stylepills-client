@@ -2069,7 +2069,7 @@ NOTE: Boostrap 4 has a flex set
 .zIndex-overlay, .AtomDetailsBox .float-color-picker, .ComponentNew .PreviewSection .float-color-picker {
   z-index: 8000; }
 
-.zIndex-dropdown, .PreviewBox__content__message, .ComponentNew .PreviewSection__content .cover-link {
+.zIndex-dropdown, .LibsList__message, .PreviewBox__content__message, .ComponentNew .PreviewSection__content .cover-link {
   z-index: 7000; }
 
 .zIndex-header {
@@ -4278,7 +4278,15 @@ NOTE: Boostrap 4 has a flex set
 .LibsList {
   background: #F9FAFC;
   border: 1px solid #E0E6ED;
-  min-height: 200px; }
+  min-height: 200px;
+  position: relative; }
+  .LibsList__message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border: 0 !important; }
 
 /**********************************************************/
 /*                       ATOMS LIST                       */
@@ -4553,8 +4561,7 @@ body.duplicateModal-open .ui.dimmer {
     right: 0;
     left: 0;
     bottom: 0;
-    border: 0 !important;
-    z-index: 7000; }
+    border: 0 !important; }
 
 /**********************************************************/
 /*                     SIDEBAR WRAPPER                    */

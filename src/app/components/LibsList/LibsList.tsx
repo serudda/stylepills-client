@@ -17,6 +17,7 @@ import Icon from './../Icon/Icon';
 /* Own Props */
 type LibsListProps = {
     libs: Array<LibModel>;
+    isEmpty?: boolean,
     onDeleteClick: (lib: LibModel) => any;
 };
 
@@ -27,13 +28,20 @@ type LibsListProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const LibsList: React.SFC<LibsListProps> = ({ libs = [], onDeleteClick }) => {
+const LibsList: React.SFC<LibsListProps> = ({ libs = [], isEmpty = false, onDeleteClick }) => {
     
 
     /*         MARKUP          */
     /***************************/
     return (
         <ul className="LibsList sp-list sp-list--simple borderRadius-md mt-4">
+
+            {isEmpty &&
+            <div className="LibsList__message d-flex align-items-center justify-content-center fontSize-xl color-darkSmoke fontWeight-7">
+                <span>
+                    It doesn't have external libraries yet
+                </span>
+            </div>}
 
             {libs.map((lib: LibModel, index) => (
                 <li key={index} className="item">
