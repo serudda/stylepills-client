@@ -123,7 +123,8 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
             }          
         };
 
-        // VARIABLES
+        // VARIABLES 
+        // TODO: Mas adelante esto no podras esta aqui fijo, tendras que ser enviado por su Container
         let options: Array<CodeTabMenuOption> = [
             CodeTabMenuOption.html,
             CodeTabMenuOption.css

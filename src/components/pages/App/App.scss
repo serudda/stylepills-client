@@ -56,10 +56,10 @@
 // @import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
-// Component Details Box Component (Source Code Panel) Style
-@import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
+// Component Source Code Panel Style
+@import './../../../app/components/SourceCodePanel/SourceCodePanel';
 // Component Create New Component (Source Code Panel) Style
-@import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/components/SourceCodePanel';
+// @import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/components/SourceCodePanel';
          
 // Component Info Component Style
 // @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
