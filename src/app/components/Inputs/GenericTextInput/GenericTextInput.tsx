@@ -22,6 +22,7 @@ export enum SizeOption {
 /* Own Props */
 type GenericTextInputProps = {
     value: string | number | string[];
+    name: string;
     size?: SizeOption;
     isBlock?: boolean;
     placeholder: string;
@@ -38,6 +39,7 @@ type GenericTextInputProps = {
  */
 const GenericTextInput: React.SFC<GenericTextInputProps> = ({
     value,
+    name,
     placeholder,
     size = SizeOption.md,
     disabled = false,
