@@ -77,8 +77,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         super(props);
 
         this.state = {
-            html: props.html,
-            css: props.css
+            html: props.html || '',
+            css: props.css || ''
         };
 
         // LOG
@@ -183,7 +183,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         /*         MARKUP          */
         /***************************/
         return (
-            <PreviewBox height="30" onColorChange={this.handleColorChange}> 
+            <PreviewBox height="30" 
+                        onColorChange={this.handleColorChange}> 
                 <Iframe children={this.state.html} 
                                 css={this.state.css} 
                                 title={name}

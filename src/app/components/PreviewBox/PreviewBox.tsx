@@ -19,6 +19,7 @@ import SmallColorPickerContainer from './../../containers/ColorPicker/SmallColor
 /* Own Props */
 type PreviewBoxProps = {
     height: string,
+    isEmptyPreview?: boolean,
     onColorChange: (color: BasicColorModel) => void;
 };
 
@@ -66,6 +67,7 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
         // Destructuring props
         const { 
             height = '25',
+            isEmptyPreview = false,
             onColorChange
         } = this.props;
 
@@ -94,11 +96,21 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
                 </div>
                 
                 <div className="PreviewBox__content borderRadius-xs"
-                    style={{paddingTop: `${height}%`}}>    
+                    style={{paddingTop: `${height}%`}}>
+
+                    {isEmptyPreview && 
+                        <div className="PreviewBox__content__message d-flex align-items-center justify-content-center fontSize-xxl color-darkSmoke fontWeight-7">
+                            <span>
+                                Component preview
+                            </span>
+                        </div>
+                    }
+
                     <div className="Iframe-wrapper">
                         {this.props.children}
                     </div>
                 </div>
+
             </div>
         );
     }

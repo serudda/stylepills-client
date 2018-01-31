@@ -108,10 +108,13 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
         let obj = functionsUtil.sourceCodeArrayToObj(currentCode);  
 
-        this.setState({
-            html: obj.html,
-            css: obj.css
-        });
+        if (currentCode.length > 0) {
+            this.setState({
+                html: obj.html,
+                css: obj.css
+            });
+        }
+        
     }
 
 
@@ -162,7 +165,9 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         /*         MARKUP          */
         /***************************/
         return (
-            <PreviewBox height="30" onColorChange={this.handleColorChange}> 
+            <PreviewBox height="30" 
+                        onColorChange={this.handleColorChange}
+                        isEmptyPreview={html === ''}> 
                 <Iframe children={html} 
                                 css={css} 
                                 title={'new'}
