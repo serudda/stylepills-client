@@ -14,7 +14,7 @@ import { User as UserModel } from './../../../models/user/user.model';
 
 import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse } from './../../../models/project/project.query';
 
-import Icon from '../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 import ComponentsSection from './ComponentsSection/ComponentsSection';
 import ProjectsSection from './ProjectsSection/ProjectsSection.container';
 

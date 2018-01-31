@@ -8,7 +8,7 @@ import { functionsUtil } from './../../../core/utils/functionsUtil';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
 
-import PreviewSection from './PreviewSection/PreviewSection.container';
+import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSection from './PanelSection/PanelSection.container';
 
 // -----------------------------------
@@ -63,10 +63,15 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomDetailsBox">
+            <div className="AtomDetailsBox boxShadow-raised borderRadius-md">
                 
                 {/* Preview Section */}
-                <PreviewSection atomId={atom.id} name={atom.name} html={atom.html} css={atom.css} contextualBg={atom.contextualBg}/>
+                <PreviewSectionContainer atomId={atom.id} 
+                                        name={atom.name} 
+                                        html={atom.html} 
+                                        css={atom.css} 
+                                        libs={atom.libs}
+                                        contextualBg={atom.contextualBg}/>
 
                 {/* Panel Section */}
                 <PanelSection atom={atom}/>

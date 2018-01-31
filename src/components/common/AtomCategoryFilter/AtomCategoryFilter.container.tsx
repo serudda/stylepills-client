@@ -15,7 +15,7 @@ import { ISearchState } from '../../../reducer/search.reducer';
 import { searchAtomsAction } from '../../../actions/search.action';
 import { clearPaginationAction } from '../../../actions/pagination.action';
 
-import Icon from '../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 
 // -----------------------------------

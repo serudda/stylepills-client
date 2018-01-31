@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { User } from '../user/user.model';
+import { Lib as LibModel } from '../lib/lib.model';
 import { Comment } from '../comment/comment.model';
 import { AtomCategory } from '../atomCategory/atomCategory.model';
 
@@ -31,6 +32,7 @@ export type Atom = {
     views: number;
     likes: number;
     duplicated: boolean;
+    libs: Array<LibModel>;
     comments: Array<Comment>;
     download: string;
     active: boolean;

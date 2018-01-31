@@ -5,7 +5,7 @@ import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 
 import Header from '../../common/Header/Header.container';
-import AtomsListContainer from '../../common/AtomsList/AtomsList.container';
+import GeneralAtomsListContainer from './../../../app/containers/GeneralAtomsList/GeneralAtomsList.container';
 
 // -----------------------------------
 
@@ -54,7 +54,7 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps, {}>, LocalStat
                 <Header showFilterSection={true} />
 
                 {/* Atoms list container */}
-                <AtomsListContainer />
+                <GeneralAtomsListContainer />
 
             </div>
         );

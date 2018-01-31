@@ -35,6 +35,7 @@ const defaultState: IFormState = {
             name: null,
             website: null,
             description: null,
+            libs: [],
             colorPalette: [],
             private: false,
             projectCategoryId: 1 // TODO: Magic number
@@ -48,6 +49,7 @@ const defaultState: IFormState = {
             description: null,
             html: null,
             css: null,
+            libs: [],
             contextualBg: appConfig.WHITE_COLOR_HEX,
             private: false,
             projectId: null,
@@ -85,6 +87,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         name: null,
                         website: null,
                         description: null,
+                        libs: [],
                         colorPalette: [],
                         private: false,
                         projectCategoryId: 1 // TODO: Magic number
@@ -98,6 +101,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         description: null,
                         html: null,
                         css: null,
+                        libs: [],
                         contextualBg: appConfig.WHITE_COLOR_HEX,
                         private: false,
                         projectId: null,
@@ -120,6 +124,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         description: action.fieldValues.description,
                         html: action.fieldValues.html,
                         css: action.fieldValues.css,
+                        libs: action.fieldValues.libs,
                         contextualBg: action.fieldValues.contextualBg,
                         private: action.fieldValues.private,
                         projectId: action.fieldValues.projectId,
@@ -161,6 +166,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         name: action.fieldValues.name,
                         website: action.fieldValues.website,
                         description: action.fieldValues.description,
+                        libs: action.fieldValues.libs,
                         colorPalette: action.fieldValues.colorPalette,
                         private: action.fieldValues.private,
                         projectCategoryId: action.fieldValues.projectCategoryId

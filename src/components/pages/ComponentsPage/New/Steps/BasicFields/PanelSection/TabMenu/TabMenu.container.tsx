@@ -5,10 +5,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from './../../../../../../../../reducer/reducer.config';
-import { Options as DetailsTabMenuOptions } from './../../../../../../../common/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { functionsUtil } from './../../../../../../../../core/utils/functionsUtil';
 
-import DetailsTabMenu from './../../../../../../../common/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { IRootState } from './../../../../../../../../reducer/reducer.config';
+
+import DetailsTabMenu, { 
+    Option as DetailsTabMenuOptions 
+} from './../../../../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 import { changeAtomDetailsTabAction } from './../../../../../../../../actions/ui.action';
 
@@ -27,14 +30,14 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: string;
+    tab: DetailsTabMenuOptions;
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         ui: { 
-            changeAtomDetailsTab: (tab: string | null) => void;
+            changeAtomDetailsTab: (tab: DetailsTabMenuOptions | null) => void;
         }
     };
 };
@@ -53,8 +56,12 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     constructor(props: ChildProps<TabMenuContainerProps & StateProps & DispatchProps, {}>) {
         super(props);
 
+        // LOG
+        functionsUtil.consoleLog('ComponentsPage/New/Steps/BasicFields/PanelSection/TabMenu container actived');
+
         // Bind methods
         this._handleCodeClick = this._handleCodeClick.bind(this);
+        this._handleLibsClick = this._handleLibsClick.bind(this);
     }
 
 
@@ -62,13 +69,14 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     /*       COMPONENTDIDMOUNT      */
     /********************************/
     componentDidMount() {   
-        this._changeTab('code');
+        this._changeTab(DetailsTabMenuOptions.showCode);
     }
 
 
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
 
     /**
      * @desc HandleCodeClick
@@ -79,7 +87,20 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      */
     private _handleCodeClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._changeTab('code');
+        this._changeTab(DetailsTabMenuOptions.showCode);
+    }
+
+
+    /**
+     * @desc HandleLibsClick
+     * @method _handleLibsClick
+     * @example this._handleLibsClick()
+     * @private
+     * @returns {void}
+     */
+    private _handleLibsClick(e: React.FormEvent<{}>) {
+        e.preventDefault();
+        this._changeTab(DetailsTabMenuOptions.addLibs);
     }
 
 
@@ -90,7 +111,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      * @private 
      * @returns {void}
      */
-    private _changeTab(tab: string | null) {
+    private _changeTab(tab: DetailsTabMenuOptions | null) {
         this.props.actions.ui.changeAtomDetailsTab(tab);
     }
 
@@ -109,14 +130,16 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         // VARIABLES
         let options: Array<DetailsTabMenuOptions> = [
+            DetailsTabMenuOptions.addLibs,
             DetailsTabMenuOptions.showCode
         ];        
 
         return (
             <DetailsTabMenu options={options}
-                            isReversed={tab === 'code'}
+                            isReversed={tab === DetailsTabMenuOptions.showCode}
                             currentOption={tab}
-                            onShowCodeClick={this._handleCodeClick}/>
+                            onShowCodeClick={this._handleCodeClick}
+                            onAddLibsClick={this._handleLibsClick}/>
         );
         
     }
@@ -131,11 +154,9 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="TabMenuContainer">
-
+            <div>
                 {/* Build Tab Menu Options */}
                 {this._buildTabMenu()}
-
             </div>
         );
     }

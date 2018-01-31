@@ -15,7 +15,7 @@ import { IAtomTypeArgs } from './../../../models/atom/atom.query';
 import { searchAtomsAction } from '../../../actions/search.action';
 import { clearPaginationAction } from '../../../actions/pagination.action';
 
-import Icon from '../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 
 // -----------------------------------
