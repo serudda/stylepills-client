@@ -2,14 +2,15 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { ChildProps } from 'react-apollo';
 
 import { 
     Option as CopyOption 
-} from './../../../../../../app/components/Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
+} from './../../../app/components/Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
 
-import CopyToClipboardBtnContainer from './../../../../../../app/containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
+import CopyToClipboardBtnContainer from './../../../app/containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
 
-import ActiveEditModeBtnContainer from './../../../../../../app/containers/Buttons/ActiveEditModeBtn/ActiveEditModeBtn.container';
+import ActiveEditModeBtnContainer from './../../../app/containers/Buttons/ActiveEditModeBtn/ActiveEditModeBtn.container';
 
 // -----------------------------------
 
@@ -19,7 +20,7 @@ import ActiveEditModeBtnContainer from './../../../../../../app/containers/Butto
 /********************************/
 
 /* Own Props */
-type BtnGroupProps = {
+type AtomBtnGroupContainerProps = {
     atomId: number,
     atomName: string,
     atomHtml: string,
@@ -27,21 +28,24 @@ type BtnGroupProps = {
     currentTab: string;
 };
 
+/* Own States */
+type LocalStates = {};
 
-/**
- * @desc Represent Button Group on SourceCodePanel (AtomDetailsBox)
- * @function BtnGroup
- * @type STATELESS FUNCTIONAL COMPONENT (SFC)
- * @returns component view
- */
+/* Mapped State to Props */
+type StateProps = {};
 
-class BtnGroup extends React.Component<BtnGroupProps, {}> {
+
+ /***********************************************/
+/*              CLASS DEFINITION               */
+/***********************************************/
+class AtomBtnGroupContainer 
+extends React.Component<ChildProps<AtomBtnGroupContainerProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: BtnGroupProps) {
+    constructor(props:  AtomBtnGroupContainerProps & StateProps) {
         super(props);
     }
 
@@ -95,4 +99,4 @@ class BtnGroup extends React.Component<BtnGroupProps, {}> {
 
 /*         EXPORT          */
 /***************************/
-export default BtnGroup;
+export default AtomBtnGroupContainer;

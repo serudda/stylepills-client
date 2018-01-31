@@ -23,7 +23,7 @@ export enum Option {
 }
 
 /* Own Props */
-type BannerAlertProps = {
+export type BannerAlertProps = {
     type: Option,
     text: string,
     showIcon?: boolean,

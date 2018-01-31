@@ -12,7 +12,7 @@ import { IRootState } from './../../../../../../../reducer/reducer.config';
 import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
 
 import TabMenuContainer from './TabMenu/TabMenu.container';
-import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
+import SourceCodePanelContainer from './SourceCodePanel/containers/SourceCodePanel.container';
 import ExternalLibsPanel from './ExternalLibsPanel/ExternalLibsPanel.container';
 
 // -----------------------------------
@@ -96,7 +96,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
 
                 {/* Source Code Section */}
                 {tab === 'code' && 
-                <SourceCodePanel html={html} css={css}/>}
+                <SourceCodePanelContainer html={html} css={css}/>}
 
                 {/* External Libs Section */}
                 {tab === 'libs' && 

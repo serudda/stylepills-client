@@ -10,26 +10,19 @@ import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction } from './../../../../../actions/ui.action';
-import { changedAtomDetailsAction, requestEditAtomAction } from './../../../../../actions/atom.action';
+import { changedAtomDetailsAction } from './../../../../../actions/atom.action';
 
-import CodeTabMenu, { 
+import { 
     Option as CodeTabMenuOption 
 } from './../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
-import BtnGroup from './BtnGroup/BtnGroup';
-import BannerAlert, { 
-    Option as BannerAlertOption 
+import { 
+    Option as BannerAlertOption,
+    BannerAlertProps
 } from './../../../../../app/components/Alerts/BannerAlert/BannerAlert';
-import * as CodeMirror from 'react-codemirror';
-import 'codemirror/mode/css/css';
-// TODO: Remover cuando no se necesite
-// import 'codemirror/mode/sass/sass';
-import 'codemirror/mode/xml/xml';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/addon/scroll/simplescrollbars';
-import 'codemirror/addon/scroll/simplescrollbars.css';
-import 'codemirror/theme/material.css';
-import 'codemirror/addon/display/autorefresh';
+
+import SourceCodePanel, { FloatMenuOption } from './../../../../../app/components/SourceCodePanel/SourceCodePanel';
+
 
 // -----------------------------------
 
@@ -39,7 +32,7 @@ import 'codemirror/addon/display/autorefresh';
 /********************************/
 
 /* Own Props */
-type SourceCodePanelProps = {
+type SourceCodePanelContainerProps = {
     atomId: number,
     name: string,
     html: string,
@@ -48,7 +41,6 @@ type SourceCodePanelProps = {
 
 /* Own States */
 type LocalStates = {
-    copied: boolean,
     html: string,
     css: string,
     codeMirror: {
@@ -70,7 +62,6 @@ type DispatchProps = {
         },
         atomState: {
             changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
-            activeEditMode: (id: number, name: string) => void;
         }
     };
 };
@@ -79,22 +70,21 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class SourceCodePanel 
-extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchProps, {}>, LocalStates> {
+class SourceCodePanelContainer
+extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: SourceCodePanelProps & StateProps & DispatchProps) {
+    constructor(props: SourceCodePanelContainerProps & StateProps & DispatchProps) {
         super(props);
 
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox/PanelSection/SourceCodePanel container actived');
 
         // Init local state
-        this.state = {
-            copied: false,
+        this.state = { 
             html: props.html,
             css: props.css,
             codeMirror: {
@@ -103,7 +93,7 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         };
 
         // Bind methods
-        this._handleTabClick = this._handleTabClick.bind(this);
+        this.handleTabClick = this.handleTabClick.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
     }
 
@@ -126,12 +116,26 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     handleOnChange (newCode: string) {
         this._updateCode(this.props.tab, newCode);
     }
+
+    /**
+     * @desc HandleTabClick
+     * @method handleTabClick
+     * @example this.handleTabClick()
+     * @public
+     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css')
+     * @param {React.FormEvent<{}>} e - Event
+     * @returns {void}
+     */
+    handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
+        e.preventDefault();
+        this._changeTab(tab);
+    }
     
 
     /**********************************/
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
-    componentWillReceiveProps(nextProps: SourceCodePanelProps & StateProps) {   
+    componentWillReceiveProps(nextProps: SourceCodePanelContainerProps & StateProps) {   
 
         if (this.props.watchingChanges !== nextProps.watchingChanges &&
             nextProps.watchingChanges) {
@@ -150,21 +154,6 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
-
-
-    /**
-     * @desc HandleTabClick
-     * @method _handleTabClick
-     * @example this._handleTabClick()
-     * @private
-     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css')
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    private _handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
-        e.preventDefault();
-        this._changeTab(tab);
-    }
 
 
     /**
@@ -218,70 +207,33 @@ extends React.Component<ChildProps<SourceCodePanelProps & StateProps & DispatchP
         const { watchingChanges } = this.props;
         const { html, css } = this.state;
 
-        // Code Mirror HTML default options
-        const codeMirrorOptions = {
-            scrollbarStyle: 'overlay',
-            lineNumbers: true,
-            readOnly: this.state.codeMirror.readOnly,
-            mode: tab === CodeTabMenuOption.html ? 'xml' : CodeTabMenuOption.css,
-            theme: 'material',
-            autoRefresh: true
-        };
-
         // VARIABLES
-        let options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.html,
-            CodeTabMenuOption.css
-        ]; 
+        let floatMenuOptions: Array<FloatMenuOption> = [
+             FloatMenuOption.edit,
+             FloatMenuOption.copy
+        ];
+
+        let messageConfig: BannerAlertProps = {
+            type: BannerAlertOption.info,
+            text: `You can now edit the code live. To keep your changes, 
+                   duplicate the component by pressing Duplicate button.`,
+            className: 'position-absolute activeEditModeMessage'
+        };
 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="SourceCodePanel row no-gutters sp-bg-black borderTop-1 border-dark overflow-hidden">
-            
-                {/* Source Code Tab Menu */}
-                <CodeTabMenu options={options} 
-                             isReversed={true}
-                             tab={tab} 
-                             onTabClick={this._handleTabClick}/>
-
-                {/* Source Code Panel */}
-                <div className="row no-gutters w-100 sp-bg-mirage">
-                    <div className="col-12 position-relative">
-
-                        {/* Button Group */}
-                        <BtnGroup atomId={atomId} 
-                                  atomName={name} 
-                                  atomHtml={html} 
-                                  atomCss={css}
-                                  currentTab={tab} />
-
-                        {/* Source Code */}
-                        <div className="SourceCode position-relative">
-                            {tab === 'html' && <CodeMirror value={this.state.html} 
-                                                            options={codeMirrorOptions} 
-                                                            onChange={this.handleOnChange}/>}
-                            {tab === 'css' && <CodeMirror value={this.state.css} 
-                                                            options={codeMirrorOptions} 
-                                                            onChange={this.handleOnChange}/>}
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 position-relative">
-
-                        {/* Bottom Message */}
-                        { watchingChanges && 
-                            <BannerAlert type={BannerAlertOption.info} 
-                                         text={`You can now edit the code live. To keep your changes, 
-                                                duplicate the component by pressing Duplicate button.`}
-                                         className={'position-absolute activeEditModeMessage'}/>
-                        }
-                    </div>
-                </div>
-
-            </div>
+            <SourceCodePanel currentTab={tab}
+                             id={atomId}
+                             name={name}
+                             html={html} 
+                             css={css}
+                             floatMenuBtns={floatMenuOptions}
+                             onTabClick={this.handleTabClick}
+                             onCodeChange={this.handleOnChange}
+                             message={messageConfig}
+                             showMessage={watchingChanges} />
         );
     }
 
@@ -315,8 +267,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab))
             },
             atomState: {
-                changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps)),
-                activeEditMode: (id, name) => dispatch(requestEditAtomAction(id, name))
+                changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps))
             }
         }
     };
@@ -326,11 +277,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const sourceCodePanelConnect = connect(mapStateToProps, mapDispatchToProps);
+const sourceCodePanelContainerConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    sourceCodePanelConnect
-)(SourceCodePanel);
+    sourceCodePanelContainerConnect
+)(SourceCodePanelContainer);

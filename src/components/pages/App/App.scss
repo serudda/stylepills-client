@@ -58,6 +58,9 @@
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
 // Component Details Box Component (Source Code Panel) Style
 @import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
+// Component Create New Component (Source Code Panel) Style
+@import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/components/SourceCodePanel';
+         
 // Component Info Component Style
 // @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
 @import './../../../app/components/InfoSection/InfoSection';
@@ -115,8 +118,6 @@
 @import '../UserProfilePage/UserStats/UserStats';
 // Preview Section (ComponentNew)
 @import '../ComponentsPage/New/Steps/BasicFields/PreviewSection/PreviewSection';
-// Source Code Panel (ComponentNew)
-@import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/SourceCodePanel';
 
 
 

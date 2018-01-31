@@ -192,7 +192,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
             DetailsTabMenuOptions.addLibs,
             DetailsTabMenuOptions.showCode,
             DetailsTabMenuOptions.duplicate
-        ];        
+        ];    
 
         return (
             <DetailsTabMenu options={options}
