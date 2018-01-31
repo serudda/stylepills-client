@@ -3,6 +3,8 @@
 /************************************/
 import * as React from 'react';
 
+import { Lib as LibModel } from './../../../../models/lib/lib.model';
+
 import Input from './../../Inputs/GenericTextInput/GenericTextInput';
 import Button, { TypeOption as BtnTypeOption } from './../../Buttons/GenericBtn/GenericBtn';
 import LibsListContainer from './../../../containers/LibsList/LibsList.container';
@@ -17,9 +19,9 @@ import LibsListContainer from './../../../containers/LibsList/LibsList.container
 
 /* Own Props */
 type AddLibFormProps = {
-    label: string;
-    helpMsg: string;
-    onAddClick: (e: React.FormEvent<{}>) => void;
+    label?: string;
+    helpMsg?: string;
+    onAddClick: (name: string, url: string) => void;
 };
 
 /* Own States */
@@ -48,6 +50,7 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
 
         // Bind methods
         this._handleInputChange = this._handleInputChange.bind(this);
+        this._handleClick = this._handleClick.bind(this);
     }
 
 
@@ -81,6 +84,26 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
     }
 
 
+    /**
+     * @desc HandleClick
+     * @method _handleClick
+     * @example this._handleClick()
+     * @private
+     * @param {React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>} e - Event
+     * @returns {void}
+     */
+    private _handleClick(e: React.FormEvent<any>) {
+        e.preventDefault();
+
+        const fieldsCopy = Object.assign({}, this.state.fields);
+        
+        if (this.props.onAddClick) {
+            this.props.onAddClick(fieldsCopy.name, fieldsCopy.url);
+        }
+
+    }
+
+
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
@@ -89,8 +112,7 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
         // Destructuring props
         const {
             label,
-            helpMsg,
-            onAddClick
+            helpMsg
         } = this.props;
 
 
@@ -103,13 +125,17 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
 
                     <div className="d-flex flex-column">
                         
-                        <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                            {label}
-                        </div>
+                        { label &&
+                            <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                                {label}
+                            </div>
+                        }
                         
-                        <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                            {helpMsg}
-                        </div>
+                        {helpMsg &&
+                            <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
+                                {helpMsg}
+                            </div>
+                        }
                         
                     </div>
 
@@ -126,7 +152,7 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
                            onChange={this._handleInputChange} />
 
                     {/* Add Button */}
-                    <Button type={BtnTypeOption.secondary} label="Add" onClick={onAddClick}/>
+                    <Button type={BtnTypeOption.secondary} label="Add" onClick={this._handleClick}/>
 
                 </div>
 
