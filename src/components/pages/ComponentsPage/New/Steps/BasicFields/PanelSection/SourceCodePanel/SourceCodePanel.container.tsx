@@ -5,21 +5,23 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { functionsUtil } from './../../../../../../../../../core/utils/functionsUtil';
+import { functionsUtil } from './../../../../../../../../core/utils/functionsUtil';
 
-import { IRootState } from './../../../../../../../../../reducer/reducer.config';
+import { IRootState } from './../../../../../../../../reducer/reducer.config';
 
 import { 
     changeSourceCodeTabAction, 
     changeSourceCodeAction 
-} from './../../../../../../../../../actions/ui.action';
+} from './../../../../../../../../actions/ui.action';
 
 import { 
     Option as CodeTabMenuOption 
-} from './../../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+} from './../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
 
-import SourceCodePanel, { FloatMenuOption } from './../../../../../../../../../app/components/SourceCodePanel/SourceCodePanel';
+import SourceCodePanel, { 
+    FloatMenuOption 
+} from './../../../../../../../../app/components/SourceCodePanel/SourceCodePanel';
 
 // -----------------------------------
 
