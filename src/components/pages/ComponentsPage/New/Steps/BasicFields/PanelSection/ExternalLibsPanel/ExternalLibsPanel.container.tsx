@@ -92,7 +92,7 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
         this._changeTab(tab);
     }
 
-    
+
     /**
      * @desc HandleAddLibClick
      * @method handleAddLibClick
@@ -100,6 +100,9 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
      * @public
      * @param {LibModel} newLib - new lib to add on the libs array
      * @returns {void}
+     * NOTE: Uso esta forma en vez de () => () => {...} por que no funciona para cuando
+     * paso este method por props, y es llamada en los child de la siguiente manera:
+     * this.props.onAddLibClick(name, url);
      */
     handleAddLibClick(name: string, url: string) {
         this._addLib(name, url);
@@ -116,7 +119,7 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
      * @method _changeTab
      * @example this._changeTab()
      * @private
-     * @param {string} tab - type code tab (e.g. 'javascript', 'css') 
+     * @param {string} tab - type code tab (e.g. 'js', 'css') 
      * @returns {void}
      */
     private _changeTab(tab: CodeTabMenuOption) {
@@ -162,7 +165,7 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
         return (
             <ExternalLibsPanel currentTab={tab} 
                                onAddLibClick={this.handleAddLibClick}
-                               onTabClick={this.handleTabClick}/>
+                               onTabClick={this.handleTabClick} />
         );
     }
 

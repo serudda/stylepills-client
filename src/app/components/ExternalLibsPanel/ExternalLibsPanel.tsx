@@ -55,7 +55,8 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
         // TODO: Mas adelante esto no podras esta aqui fijo, tendras que ser enviado por su Container
         const options: Array<CodeTabMenuOption> = [
             CodeTabMenuOption.css,
-            CodeTabMenuOption.js
+            /* CodeTabMenuOption.js 
+            TODO: Descomentar cuando se vaya a implementar */
         ];
         const title = 'EXTERNAL LIBRARIES';
         const description = `Include any external resource (e.g. Boostrap, Bulma, 
