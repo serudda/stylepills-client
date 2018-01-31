@@ -3,8 +3,6 @@
 /************************************/
 import * as React from 'react';
 
-import { Lib as LibModel } from './../../../../models/lib/lib.model';
-
 import Input from './../../Inputs/GenericTextInput/GenericTextInput';
 import Button, { TypeOption as BtnTypeOption } from './../../Buttons/GenericBtn/GenericBtn';
 import LibsListContainer from './../../../containers/LibsList/LibsList.container';
@@ -47,6 +45,14 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
     /********************************/
     constructor(props: AddLibFormProps) {
         super(props);
+
+        // Init local state
+        this.state = {
+            fields: {
+                name: '',
+                url: ''
+            }
+        };
 
         // Bind methods
         this._handleInputChange = this._handleInputChange.bind(this);

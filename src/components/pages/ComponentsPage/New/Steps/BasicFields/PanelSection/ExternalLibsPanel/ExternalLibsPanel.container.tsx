@@ -14,7 +14,7 @@ import { changeLibsTabAction, changeLibsAction } from './../../../../../../../..
 import CodeTabMenu, { 
     Option as CodeTabMenuOption 
 } from './../../../../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
-import AddLibForm from './../../../../../../../common/AddLibForm/AddLibForm.container';
+import AddLibForm from './../../../../../../../../app/components/Forms/AddLibForm/AddLibForm';
 
 
 // -----------------------------------
@@ -87,8 +87,8 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @param {LibModel} newLib - new lib to add on the libs array
      * @returns {void}
      */
-    handleAddLibClick(newLib: LibModel) {
-        this._addLib(newLib);
+    handleAddLibClick(name: string, url: string) {
+        this._addLib(name, url);
     }
 
 
@@ -146,23 +146,26 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @param {LibModel} newLib - new lib to add in the list
      * @returns {void}
      */
-    private _addLib(newLib: LibModel) {
+    private _addLib(name: string, url: string) {
 
         // Copy state
-        let fieldValues = Object.assign({}, this.state);
-
-        let libArray = fieldValues.libs;
+        let libsCopy = [].concat(this.state.libs);
+        let newLib: LibModel = {
+            name,
+            url,
+            type: LibTypeOptions.css // TODO: Esto esta quemado aqui, implementar cambio de tab
+        };
  
-        if (newLib.url !== '') {
+        if (url !== '') {
             
             /* Add new lib to the beginning of libs array */
-            libArray.unshift(newLib);
+            libsCopy.unshift(newLib);
 
             this.setState((previousState: LocalStates) => ({
                 ...previousState,
-                libs: libArray
+                libs: libsCopy
             }), () => {
-                this.props.actions.ui.changeLibs(libArray);
+                this.props.actions.ui.changeLibs(libsCopy);
             });
 
         }
@@ -205,31 +208,17 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
      * @param {LibTypeOptions} type - external lib type (css, javascript)
      * @returns {JSX.Element} <AddLibForm />
      */
-    private _buildAddLibForm(type: LibTypeOptions): JSX.Element {
-
-        // Destructuring state
-        const { libs } = this.state;
+    private _buildAddLibForm(): JSX.Element {
 
         // VARIABLES
-        let newLibsArray: Array<LibModel> = [];
         let title = 'EXTERNAL LIBRARIES';
-
-        let description = 'Include any external resource (e.g. Boostrap, Bulma, your own helper classes library, etc.)';
-
-        // Create new libs array based on type
-        if (libs.length > 0) {
-            newLibsArray = libs.filter((lib: LibModel) => {
-                return lib.type === type;
-            });
-        }
+        let description = `Include any external resource (e.g. Boostrap, Bulma, 
+                            your own helper classes library, etc.)`;
 
         return (
-            <AddLibForm title={title}
-                        description={description}
-                        libs={newLibsArray}
-                        onAddClick={this.handleAddLibClick}
-                        onDeleteClick={this.handleDeleteLibClick}
-                        type={type}/>
+            <AddLibForm label={title}
+                        helpMsg={description}
+                        onAddClick={this.handleAddLibClick}/>
         );
     }
 
@@ -270,7 +259,7 @@ extends React.Component<ChildProps<ExternalLibsPanelProps & StateProps & Dispatc
                         {/* External Libs */}
                         <div className="ExternalLibs d-flex align-items-center position-relative p-5">
                             
-                            {this._buildAddLibForm(LibTypeOptions.css)}
+                            {this._buildAddLibForm()}
 
                         </div>
 

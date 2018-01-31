@@ -10,7 +10,7 @@
 /* Possible lib type options */
 export enum LibTypeOptions {
     css = 'css',
-    javascript = 'javascript'
+    js = 'js'
 }
 
 export type Lib = {
