@@ -13,7 +13,7 @@ import { Atom as AtomModel } from './../../../../models/atom/atom.model';
 
 import Stats from './Stats/Stats';
 import TabMenuContainer from './TabMenu/TabMenu.container';
-import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
+import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
 
 // -----------------------------------
 
@@ -99,7 +99,10 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
 
                 {/* Source Code Section */}
                 {tab === 'code' && 
-                <SourceCodePanel atomId={atom.id} name={atom.name} html={atom.html} css={atom.css}/>}
+                <SourceCodePanelContainer atomId={atom.id} 
+                                          name={atom.name}
+                                          html={atom.html} 
+                                          css={atom.css}/>}
 
             </div>
         );
