@@ -95,9 +95,9 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
         // Destructuring state
         const { libs } = this.props;
         
-        let libArray = libs.filter(function (candidateLib: LibModel) {
-            return candidateLib !== lib;
-        });
+        let libArray = libs.filter((candidateLib: LibModel) => (
+            candidateLib !== lib
+        ));
 
         this.setState((previousState: LocalStates) => ({
             ...previousState,
