@@ -20,6 +20,9 @@ import {
 import { 
     Option as ModalOption 
 } from './../components/common/Modal/ModalManager/ModalManager.container';
+import { 
+    Option as AlertOption 
+} from './../app/containers/Alerts/AlertManager/AlertManager.container';
 
 
 /************************************/
@@ -28,7 +31,7 @@ import {
 
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
-    alerts: Array<{alertType: string, alertProps: any}>;
+    alerts: Array<{alertType: AlertOption, alertProps: any}>;
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions

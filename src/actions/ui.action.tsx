@@ -19,6 +19,9 @@ import {
 import {
     Option as ModalOption
 } from './../components/common/Modal/ModalManager/ModalManager.container';
+import {
+    Option as AlertOption
+} from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
 
 /************************************/
@@ -111,7 +114,7 @@ export interface ICloseModalAction {
 export interface IShowAlertAction {
     type: types.SHOW_ALERT;
     alerts: {
-        alertType: string,
+        alertType: AlertOption,
         alertProps: any
     };
 }
@@ -352,7 +355,7 @@ export const closeModalAction = (): Action => {
  * @function showAlertAction
  * @returns {Action}
  */
-export const showAlertAction = (alertType: string, alertProps: any): Action => {
+export const showAlertAction = (alertType: AlertOption, alertProps: any): Action => {
     return {
         type: types.SHOW_ALERT,
         alerts: {
