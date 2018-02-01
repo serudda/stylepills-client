@@ -55,10 +55,6 @@ export const ATOM_SEARCH_TYPE_DEFAULT = 'all';
 export type ATOM_SEARCH_TYPE_DEFAULT = typeof ATOM_SEARCH_TYPE_DEFAULT;
 export const ATOM_SEARCH_ORDER = 'DESC';
 
-/* Modal Types */
-export const ATOM_DETAILS_MODAL_TYPE    = 'AtomDetailsModal';
-export const DUPLICATE_MODAL_TYPE       = 'DuplicateModal';
-
 /* Source Code Tabs (Atom Details) */
 export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeTabMenuOption.html;
 

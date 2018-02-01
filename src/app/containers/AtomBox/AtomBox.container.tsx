@@ -5,7 +5,6 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import * as appConfig from './../../../core/constants/app.constants';
 import { functionsUtil } from './../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../reducer/reducer.config';
@@ -18,6 +17,10 @@ import AtomBox from './../../components/AtomBox/AtomBox';
 import IframeContainer from './../../../components/common/Iframe/Iframe.container';
 
 import { showModalAction } from './../../../actions/ui.action';
+
+import { 
+    Option as ModalOption 
+} from './../../../components/common/Modal/ModalManager/ModalManager.container';
 
 // -----------------------------------
 
@@ -44,7 +47,7 @@ type StateProps = {};
 type DispatchProps = {
     actions: {
         ui: { 
-            showModal: (modalType: string, modalProps: any) => void;
+            showModal: (modalType: ModalOption, modalProps: any) => void;
         }
     };
 };
@@ -151,7 +154,7 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
      * @returns {void}
      */
     private _showModal(atom: AtomModel) {
-        this.props.actions.ui.showModal(appConfig.ATOM_DETAILS_MODAL_TYPE, {atom});
+        this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {atom});
     }
 
 

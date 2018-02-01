@@ -17,6 +17,9 @@ import {
 import { 
     Option as DetailsTabMenuOptions 
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { 
+    Option as ModalOption 
+} from './../components/common/Modal/ModalManager/ModalManager.container';
 
 
 /************************************/
@@ -24,7 +27,8 @@ import {
 /************************************/
 
 export interface IUiState {
-    modals: Array<{modalType: string, modalProps: any}>;
+    modals: Array<{modalType: ModalOption, modalProps: any}>;
+    alerts: Array<{alertType: string, alertProps: any}>;
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions
@@ -57,6 +61,7 @@ export interface IUiState {
 
 const defaultState: IUiState = {
     modals: [],
+    alerts: [],
     tabs: {
         atomDetailsTab: {
             tab: null
@@ -105,6 +110,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state, 
                 modals: [],
+                alerts: [],
                 tabs: {
                     atomDetailsTab: {
                         tab: null
@@ -151,6 +157,28 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state,
                 modals: newModalsState
+            };
+        }
+
+        case types.SHOW_ALERT: {
+            return {
+                ...state,
+                // Always pushing a new alert onto the stack
+                alerts: state.alerts.concat({
+                    alertType: action.alerts.alertType,
+                    alertProps: action.alerts.alertProps
+                })
+            };
+        }
+
+        case types.CLOSE_ALERT: {
+
+            // Always popping the last alert off the stack
+            const newAlertsState = state.alerts.slice();
+            newAlertsState.pop();
+            return {
+                ...state,
+                alerts: newAlertsState
             };
         }
 
