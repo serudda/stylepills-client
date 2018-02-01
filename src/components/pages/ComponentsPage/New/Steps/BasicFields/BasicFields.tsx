@@ -313,11 +313,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
         
     }
 
+
+    // TODO: Example of using Alert component (remove when I implement one)
     exampleMethod() {
         this.props.actions.ui.showAlert(AlertOption.BannerAlert, {
-            type: BannerAlertOption.info,
-            text: 'Text of my Alert',
-            showIcon: true,
+            type: BannerAlertOption.warning,
+            text: 'My beautiful message',
+            showIcon: false,
             className: 'validTest'
         });
     }
@@ -461,7 +463,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                         {/* Error Bottom Message */}
                         {this._buildSourceCodeErrorMessage()}
                         <AlertManagerContainer />
-                        <button onClick={this.exampleMethod}>SHOW</button>
+                        
+                        {/*<button onClick={this.exampleMethod}>SHOW</button>*/}
 
                     </div>
 

@@ -103,7 +103,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
         const defaultColor: BasicColorModel = {
             hex: contextualBg || DEFAULT_COLOR_HEX,
-            rgba: DEFAULT_COLOR_RGBA
+            rgba: functionsUtil.convertHexToRgbaModel(contextualBg, 1) || DEFAULT_COLOR_RGBA
         };
 
         this._changeColor(defaultColor);
@@ -164,9 +164,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
      * @returns {void}
      */
     private _changeColor(color: BasicColorModel) {
-        // TODO: No esta funcionando por que tengo un problema grave, y es que 
-        // como solo almaceno el HEX del contextualBG, entonces no tengo un RGBA,
-        // y es el RGBA el que necesito para el colorpicker. Analizar bien
         this.props.actions.ui.changeColor(color);
     }
 
@@ -177,18 +174,19 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     render() {
 
         // Destructuring props 
-        const { name, libs, contextualBg } = this.props;
+        const { name, libs, hex, contextualBg } = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <PreviewBox height="30" 
+            <PreviewBox height="30"
+                        defaultHexColor={contextualBg}
                         onColorChange={this.handleColorChange}> 
                 <Iframe children={this.state.html} 
                                 css={this.state.css} 
                                 title={name}
-                                background={contextualBg}
+                                background={hex}
                                 stylesheets={getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
