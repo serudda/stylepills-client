@@ -56,6 +56,23 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
     /********************************/
 
     /**
+     * @desc HandleClick
+     * @method _handleClick
+     * @example this._handleClick()
+     * @private 
+     * @param {string} id - alert id
+     * @param {React.FormEvent<{}>} e - Click Event
+     * @returns {void}
+     */
+    private _handleClick = (id: string) => (e: any) => {
+        e.preventDefault();
+        if (this.props.onCloseClick) {
+            this.props.onCloseClick(id);
+        }
+    }
+
+
+    /**
      * @desc Build Icon
      * @method _buildIcon
      * @example this._buildIcon()
@@ -91,7 +108,9 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
         
         if (showIcon) {
             return (
-                <Icon icon={icon} iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
+                <Icon icon={icon} 
+                      iconClass="strokeWidth-2 stroke-white mr-2" 
+                      width="22" height="22"/>
             );
         }
 
@@ -109,8 +128,7 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
             id,
             type,
             text,
-            className,
-            onCloseClick
+            className
         } = this.props;
 
 
@@ -140,7 +158,7 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
                     {text}
                 </span>
 
-                <span className="icon-btn d-flex ml-auto" onClick={onCloseClick(id)}>
+                <span className="icon-btn d-flex ml-auto" onClick={this._handleClick(id)}>
                     <Icon icon="close"
                         iconClass="strokeWidth-2 stroke-white"
                         width="22" height="22"/>
