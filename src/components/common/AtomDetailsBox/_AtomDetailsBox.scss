@@ -13,4 +13,10 @@
         right: 10px;
         @extend .zIndex-overlay;
     }
+
+    .SourceCodePanel {
+        .activeEditModeMsg {
+            bottom: 0;
+        }
+    }
 }

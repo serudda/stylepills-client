@@ -121,6 +121,9 @@ export interface IShowAlertAction {
 
 export interface ICloseAlertAction {
     type: types.CLOSE_ALERT;
+    alerts: {
+        alertId: string;
+    };
 }
 
 /* 
@@ -372,9 +375,12 @@ export const showAlertAction = (alertType: AlertOption, alertProps: any): Action
  * @function closeAlertAction
  * @returns {Action}
  */
-export const closeAlertAction = (): Action => {
+export const closeAlertAction = (alertId: string): Action => {
     return {
-        type: types.CLOSE_ALERT
+        type: types.CLOSE_ALERT,
+        alerts: {
+            alertId
+        }
     };
 };
 

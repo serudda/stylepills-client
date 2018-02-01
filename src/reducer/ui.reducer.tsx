@@ -1,6 +1,8 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import * as uuid from 'uuid/v4';
+
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -31,7 +33,7 @@ import {
 
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
-    alerts: Array<{alertType: AlertOption, alertProps: any}>;
+    alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions
@@ -166,23 +168,32 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         case types.SHOW_ALERT: {
             return {
                 ...state,
-                // Always pushing a new alert onto the stack
-                alerts: state.alerts.concat({
-                    alertType: action.alerts.alertType,
-                    alertProps: action.alerts.alertProps
-                })
+                alerts: [
+                    ...state.alerts,
+                    {
+                        alertType: action.alerts.alertType,
+                        alertProps: action.alerts.alertProps,
+                        alertId: uuid()
+                    }
+                ]
             };
         }
 
         case types.CLOSE_ALERT: {
 
-            // Always popping the last alert off the stack
-            const newAlertsState = state.alerts.slice();
-            newAlertsState.pop();
+            const newAlertsState = state.alerts.filter((alert) => {
+                if (alert.alertId === action.alerts.alertId ) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
             return {
                 ...state,
                 alerts: newAlertsState
             };
+
         }
 
         case types.CHANGE_ATOM_DETAILS_TAB: {

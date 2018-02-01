@@ -42,7 +42,6 @@ export interface IValidationError {
     authorId?: string;
     name?: string;
     html?: string;
-    css?: string;
     contextualBg?: string;
     projectId?: string;
     atomCategoryId?: string;
@@ -78,11 +77,6 @@ export function validateBasicFields(field: BasicFields): IValidationResponse {
     /* Atom Html */
     if (Validator.isEmpty(field.html)) {
         errors.html = 'Html is required';
-    }
-
-    /* Atom Css */
-    if (Validator.isEmpty(field.css)) {
-        errors.css = 'Css is required';
     }
 
     /* Atom contextual background */

@@ -24,10 +24,12 @@ export enum Option {
 
 /* Own Props */
 export type BannerAlertProps = {
+    id?: string,
     type: Option,
     text: string,
     showIcon?: boolean,
-    className?: string
+    className?: string,
+    readonly onCloseClick?: (id: string) => any;
 };
 
 
@@ -104,14 +106,17 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
 
         // Destructuring props
         const { 
+            id,
             type,
             text,
-            className
+            className,
+            onCloseClick
         } = this.props;
 
 
         // Baner Alert Classes
         const bannerAlertClasses = classNames ({
+            'BannerAlert': true,
             [`sp-bg-${type}`]: true,
             'w-100': true,
             'p-3': true,
@@ -133,6 +138,12 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
                 
                 <span className="fontSize-md color-white fontWeight-9">
                     {text}
+                </span>
+
+                <span className="icon-btn d-flex ml-auto" onClick={onCloseClick(id)}>
+                    <Icon icon="close"
+                        iconClass="strokeWidth-2 stroke-white"
+                        width="22" height="22"/>
                 </span>
 
             </div>

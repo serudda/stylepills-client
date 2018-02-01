@@ -2,10 +2,12 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../reducer/reducer.config';
+
+import { closeAlertAction } from './../../../../actions/ui.action';
 
 import BannerAlert from './../../../components/Alerts/BannerAlert/BannerAlert';
 
@@ -27,32 +29,57 @@ export enum Option {
 }
 
 /* Own Props */
-type AlertManagerProps = {};
+type AlertManagerContainerProps = {};
 
 /* Own States */
 type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    currentAlerts: Array<{alertType: Option, alertProps: any}>;
+    currentAlerts: Array<{alertType: Option, alertProps: any, alertId: string}>;
 };
 
 /* Mapped Dispatches to Props */
-type DispatchProps = {};
+type DispatchProps = {
+    actions: {
+        ui: { 
+            closeAlert: (alertId: string) => void;
+        }
+    };
+};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AlertManager 
-extends React.Component<ChildProps<AlertManagerProps & StateProps & DispatchProps, {}>, LocalStates> {
+class AlertManagerContainer 
+extends React.Component<ChildProps<AlertManagerContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<AlertManagerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AlertManagerContainerProps & StateProps & DispatchProps, {}>) {
         super(props);
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+
+    /**
+     * @desc HandleCloseClick
+     * @method _handleCloseClick
+     * @example this._handleCloseClick()
+     * @private
+     * @param {AtomModel} atom - atom data
+     * @param {React.FormEvent<{}>} e - Click Event
+     * @returns {void}
+     */
+    private _handleCloseClick = (id: string) => (e: React.FormEvent<{}>) => {
+        this.props.actions.ui.closeAlert(id);
     }
 
     
@@ -66,9 +93,9 @@ extends React.Component<ChildProps<AlertManagerProps & StateProps & DispatchProp
 
         const renderedAlerts = currentAlerts.map(
             (alertDescription, index) => {
-                const { alertType, alertProps = {} } = alertDescription;
+                const { alertType, alertProps = {}, alertId } = alertDescription;
                 const AlertComponent = alertComponentList[alertType];
-                return <AlertComponent {...alertProps} key={alertType + index} />;
+                return <AlertComponent {...alertProps} onCloseClick={this._handleCloseClick} id={alertId} key={alertId}/>;
             }
         );
             
@@ -97,13 +124,27 @@ function mapStateToProps(state: IRootState): StateProps {
 
 
 /********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                closeAlert: (alertId) => dispatch(closeAlertAction(alertId))
+            }
+        }
+    };
+}
+
+
+/********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const alertManagerConnect = connect(mapStateToProps); 
+const alertManagerContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose( 
-    alertManagerConnect
-)(AlertManager);
+    alertManagerContainerConnect
+)(AlertManagerContainer);

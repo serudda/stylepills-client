@@ -25,6 +25,7 @@
     "@types/redux-immutable-state-invariant": "^2.0.4",
     "@types/redux-logger": "^3.0.3",
     "@types/scriptjs": "0.0.2",
+    "@types/uuid": "^3.4.3",
     "@types/validator": "^6.3.0",
     "@types/zen-observable": "^0.5.3",
     "axios": "^0.17.1",
@@ -60,6 +61,7 @@
     "scriptjs": "^2.5.8",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.76.0",
+    "uuid": "^3.2.1",
     "validator": "^9.2.0"
   },
   "scripts": {

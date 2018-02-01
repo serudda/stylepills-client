@@ -89,9 +89,9 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
 
 
     /**
-     * @desc HandleClick
-     * @method _handleClick
-     * @example this._handleClick()
+     * @desc HandleCoverClick
+     * @method _handleCoverClick
+     * @example this._handleCoverClick()
      * @private
      * @param {AtomModel} atom - atom data
      * @param {React.FormEvent<{}>} e - Click Event
