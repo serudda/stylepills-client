@@ -33,6 +33,22 @@ export const BASIC_PROJECT_FRAGMENT = gql`
     }
 `;
 
+export const PROJECT_BY_ATOM_FRAGMENT = gql`
+    fragment ProjectByAtomFragment on Project {
+        ...BasicProjectFragment
+        colorPalette {
+            ...ColorFragment
+        }
+        libs {
+            ...LibFragment
+        }
+        __typename
+    }
+    ${BASIC_PROJECT_FRAGMENT}
+    ${COLOR_FRAGMENT}
+    ${LIB_FRAGMENT}
+`;
+
 export const PROJECT_FRAGMENT = gql`
     fragment ProjectFragment on Project {
         ...BasicProjectFragment
