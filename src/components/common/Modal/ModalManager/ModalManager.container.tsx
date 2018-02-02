@@ -23,6 +23,12 @@ const modalComponentList = {
 /*      INTERFACES & TYPES      */
 /********************************/
 
+/* Possible modal options */
+export enum Option {
+    AtomDetailsModal = 'AtomDetailsModal',
+    DuplicateModal = 'DuplicateModal'
+}
+
 /* Own Props */
 type ModalManagerProps = {};
 
@@ -31,7 +37,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    currentModals: Array<{modalType: string, modalProps: any}>;
+    currentModals: Array<{modalType: Option, modalProps: any}>;
 };
 
 /* Mapped Dispatches to Props */

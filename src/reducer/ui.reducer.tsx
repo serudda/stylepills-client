@@ -1,6 +1,8 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import * as uuid from 'uuid/v4';
+
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -17,6 +19,12 @@ import {
 import { 
     Option as DetailsTabMenuOptions 
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { 
+    Option as ModalOption 
+} from './../components/common/Modal/ModalManager/ModalManager.container';
+import { 
+    Option as AlertOption 
+} from './../app/containers/Alerts/AlertManager/AlertManager.container';
 
 
 /************************************/
@@ -24,7 +32,8 @@ import {
 /************************************/
 
 export interface IUiState {
-    modals: Array<{modalType: string, modalProps: any}>;
+    modals: Array<{modalType: ModalOption, modalProps: any}>;
+    alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions
@@ -57,6 +66,7 @@ export interface IUiState {
 
 const defaultState: IUiState = {
     modals: [],
+    alerts: [],
     tabs: {
         atomDetailsTab: {
             tab: null
@@ -105,6 +115,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state, 
                 modals: [],
+                alerts: [],
                 tabs: {
                     atomDetailsTab: {
                         tab: null
@@ -152,6 +163,37 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 ...state,
                 modals: newModalsState
             };
+        }
+
+        case types.SHOW_ALERT: {
+            return {
+                ...state,
+                alerts: [
+                    ...state.alerts,
+                    {
+                        alertType: action.alerts.alertType,
+                        alertProps: action.alerts.alertProps,
+                        alertId: uuid()
+                    }
+                ]
+            };
+        }
+
+        case types.CLOSE_ALERT: {
+
+            const newAlertsState = state.alerts.filter((alert) => {
+                if (alert.alertId === action.alerts.alertId ) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+            return {
+                ...state,
+                alerts: newAlertsState
+            };
+
         }
 
         case types.CHANGE_ATOM_DETAILS_TAB: {

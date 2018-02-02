@@ -217,7 +217,7 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
             type: BannerAlertOption.info,
             text: `You can now edit the code live. To keep your changes, 
                    duplicate the component by pressing Duplicate button.`,
-            className: 'position-absolute activeEditModeMessage'
+            className: 'position-absolute activeEditModeMsg'
         };
 
 

@@ -16,6 +16,12 @@ import {
 import {
     Option as DetailsTabMenuOptions
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+import {
+    Option as ModalOption
+} from './../components/common/Modal/ModalManager/ModalManager.container';
+import {
+    Option as AlertOption
+} from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
 
 /************************************/
@@ -25,6 +31,7 @@ import {
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     modals: null;
+    alerts: null;
     tabs: {
         atomDetailsTab: {
             tab: string | null
@@ -49,6 +56,7 @@ interface ILocationChangeAction {
 export interface IClearUiAction {
     type: types.CLEAR_UI;
     modals: null;
+    alerts: null;
     tabs: {
         atomDetailsTab: {
             tab: string | null
@@ -79,7 +87,7 @@ export interface IClearUiAction {
 interface IModalEventPayLoad {
     event: string;
     properties?: {
-        modalType: string,
+        modalType: ModalOption,
         modalProps: any
     };
 }
@@ -87,7 +95,7 @@ interface IModalEventPayLoad {
 export interface IShowModalAction {
     type: types.SHOW_MODAL;
     modals: {
-        modalType: string,
+        modalType: ModalOption,
         modalProps: any
     };
     meta: IAnalyticsTrack<IModalEventPayLoad>;
@@ -96,6 +104,26 @@ export interface IShowModalAction {
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
     meta: IAnalyticsTrack<IModalEventPayLoad>;
+}
+
+/* 
+    ALERTS ACTIONS
+    state: alerts
+*/
+
+export interface IShowAlertAction {
+    type: types.SHOW_ALERT;
+    alerts: {
+        alertType: AlertOption,
+        alertProps: any
+    };
+}
+
+export interface ICloseAlertAction {
+    type: types.CLOSE_ALERT;
+    alerts: {
+        alertId: string;
+    };
 }
 
 /* 
@@ -221,6 +249,8 @@ export type Action =
 |   IClearUiAction
 |   IShowModalAction
 |   ICloseModalAction
+|   IShowAlertAction
+|   ICloseAlertAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
 |   IChangeLibsTabAction
@@ -245,6 +275,7 @@ export const clearUiAction = (): Action => {
     return {
         type: types.CLEAR_UI,
         modals: null,
+        alerts: null,
         tabs: {
             atomDetailsTab: {
                 tab: null
@@ -277,7 +308,7 @@ export const clearUiAction = (): Action => {
  * @function showModalAction
  * @returns {Action}
  */
-export const showModalAction = (modalType: string, modalProps: any): Action => {
+export const showModalAction = (modalType: ModalOption, modalProps: any): Action => {
     return {
         type: types.SHOW_MODAL,
         modals: {
@@ -316,6 +347,39 @@ export const closeModalAction = (): Action => {
                     event: types.CLOSE_MODAL
                 },
             },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, SHOW_ALERT
+ * to show an Alert in order to notify something to the current User
+ * @function showAlertAction
+ * @returns {Action}
+ */
+export const showAlertAction = (alertType: AlertOption, alertProps: any): Action => {
+    return {
+        type: types.SHOW_ALERT,
+        alerts: {
+            alertType,
+            alertProps
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CLOSE_ALERT
+ * to close an Alert that it's already notified something to the current User
+ * @function closeAlertAction
+ * @returns {Action}
+ */
+export const closeAlertAction = (alertId: string): Action => {
+    return {
+        type: types.CLOSE_ALERT,
+        alerts: {
+            alertId
         }
     };
 };

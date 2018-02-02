@@ -5,8 +5,6 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import * as appConfig from './../../../../../core/constants/app.constants';
-
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
@@ -15,6 +13,10 @@ import { User as UserModel } from './../../../../../models/user/user.model';
 import DetailsTabMenu , { 
     Option as DetailsTabMenuOptions 
 } from './../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+
+import { 
+    Option as ModalOption
+} from './../../../Modal/ModalManager/ModalManager.container';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 
@@ -51,7 +53,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: DetailsTabMenuOptions | null) => void;
-            showModal: (modalType: string, modalProps: any) => void;
+            showModal: (modalType: ModalOption, modalProps: any) => void;
         }
     };
 };
@@ -154,7 +156,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
         if (isAuthenticated && user) {
 
-            this.props.actions.ui.showModal(appConfig.DUPLICATE_MODAL_TYPE, {atomId});
+            this.props.actions.ui.showModal(ModalOption.DuplicateModal, {atomId});
 
         } else {
             alert('You should be logged in to store this component in your repo.');

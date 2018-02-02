@@ -36,7 +36,6 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
     /********************************/
     /*         STATIC PROPS         */
     /********************************/
-    private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
     private _DEFAULT_COLORS_LIST: Array<string> = [
         '#273444', 
         '#3C4858', 
@@ -83,8 +82,7 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
                     <Popup
                         trigger={
                             <div>
-                                <SmallColorPickerContainer onChange={onColorChange} 
-                                                            defaultHexColor={this._DEFAULT_COLOR_HEX}
+                                <SmallColorPickerContainer onChange={onColorChange}
                                                             defaultColors={this._DEFAULT_COLORS_LIST}/>
                             </div>
                         }

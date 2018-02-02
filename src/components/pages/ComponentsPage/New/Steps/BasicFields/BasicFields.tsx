@@ -2,7 +2,7 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
@@ -15,16 +15,22 @@ import { validateBasicFields, IValidationError as IValidationAtomError } from '.
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import { ICurrentCode } from './../../../../../../actions/ui.action';
+import { ICurrentCode, showAlertAction } from './../../../../../../actions/ui.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
 import { Lib as LibModel }  from './../../../../../../models/lib/lib.model';
 
-import PreviewSection from './PreviewSection/PreviewSection.container';
+import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
 import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
+import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
 import Icon from './../../../../../../app/components/Icon/Icon';
+
+import {
+    Option as AlertOption
+} from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
+import BannerAlert, { Option as BannerAlertOption } from './../../../../../../app/components/Alerts/BannerAlert/BannerAlert';
 
 // -----------------------------------
 
@@ -68,20 +74,29 @@ type StateProps = {
     currentCode: Array<ICurrentCode>,
     hex: string,
     user: UserModel,
+    alerts: Array<{alertType: AlertOption, alertProps: any}>;
     isAuthenticated: boolean
 };
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        ui: { 
+            showAlert: (alertType: AlertOption, alertProps: any) => void;
+        }
+    };
+};
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class BasicFields
-extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps, {}>, LocalStates> {
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<BasicFieldsProps & StateProps, {}>) {
+    constructor(props: ChildProps<BasicFieldsProps & StateProps & DispatchProps, {}>) {
         super(props);
 
         // LOG
@@ -107,6 +122,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         this._handleInputChange = this._handleInputChange.bind(this);
         this._handleNextClick =  this._handleNextClick.bind(this);
         this.handleSelectListChange =  this.handleSelectListChange.bind(this);
+
+        this.exampleMethod = this.exampleMethod.bind(this);
     }
 
 
@@ -278,33 +295,33 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
      * @private
      * @returns {JSX.Element} <AddColorForm />
      */
-    private _buildSourceCodeErrorMessage(): JSX.Element | boolean {
+    private _buildSourceCodeErrorMessage() {
 
         // Destructuring props
         const { validationErrors } = this.state;
 
-        let key = null;
-
         if (validationErrors.html) {
-            key = 'html';
-        } else if (validationErrors.css) {
-            key = 'css';
-        }
-
-        if (key) {
             return (
-                <div className="sp-bg-negative sp-rounded-bottom-md w-100 p-3 px-4 d-flex align-items-center position-absolute zIndex-footer"
-                    style={{bottom: 0}}>
-                    <Icon icon="alert" iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
-                    <span className="fontSize-md color-white fontWeight-9">
-                        {validationErrors[key]}
-                    </span>
-                </div>
+                <BannerAlert type={BannerAlertOption.negative} 
+                             text={validationErrors.html}
+                             className="position-absolute sp-rounded-bottom-md validationMsg"
+                             showIcon={true}/>
             );
         } else {
             return false;
         }
         
+    }
+
+
+    // TODO: Example of using Alert component (remove when I implement one)
+    exampleMethod() {
+        this.props.actions.ui.showAlert(AlertOption.BannerAlert, {
+            type: BannerAlertOption.warning,
+            text: 'My beautiful message',
+            showIcon: false,
+            className: 'validTest'
+        });
     }
 
     
@@ -433,18 +450,22 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
 
                     {/* Preview Atom Section */}
-                    <PreviewSection html={this.state.fields.html}
-                                    css={this.state.fields.css}/>
+                    <PreviewSectionContainer html={this.state.fields.html}
+                                            css={this.state.fields.css}/>
 
                     {/* Panel Atom Section */}
 
-                    <div className="position-relative">
+                    <div className="position-relative overflow-hidden">
                         <PanelSectionContainer html={this.state.fields.html}
                                                 css={this.state.fields.css}
                                                 libs={this.state.fields.libs}/>
                         
                         {/* Error Bottom Message */}
                         {this._buildSourceCodeErrorMessage()}
+                        <AlertManagerContainer />
+                        
+                        {/*<button onClick={this.exampleMethod}>SHOW</button>*/}
+
                     </div>
 
                 </div>
@@ -487,7 +508,7 @@ function mapStateToProps(state: IRootState): StateProps {
     
     // Destructuring state 
     const { ui } = state;
-    const { colorPicker } = ui;
+    const { colorPicker, alerts } = ui;
     const { currentColor } = colorPicker;
     const { hex } = currentColor;
 
@@ -512,7 +533,22 @@ function mapStateToProps(state: IRootState): StateProps {
         currentCode,
         hex,
         user,
+        alerts,
         isAuthenticated
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                showAlert: (alertType, alertProps) => dispatch(showAlertAction(alertType, alertProps))
+            }
+        }
     };
 }
 
@@ -520,7 +556,7 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const basicFieldsConnect = connect(mapStateToProps);
+const basicFieldsConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */

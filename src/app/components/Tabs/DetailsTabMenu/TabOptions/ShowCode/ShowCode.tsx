@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
@@ -51,14 +52,19 @@ const ShowCode: React.SFC<ShowCodeProps> = ({ currentOption, onClick }) => {
     /*         MARKUP          */
     /***************************/
     return (
-        <button className={codeBtnClasses}
-                onClick={onClick}>
-            <div className="inner">
-                <Icon icon="code"
-                    iconClass={codeIconClasses}
-                    width="25" height="16"/>
-            </div>
-        </button>
+        <Popup trigger={
+            <button className={codeBtnClasses}
+                    onClick={onClick}>
+                <div className="inner">
+                    <Icon icon="code"
+                        iconClass={codeIconClasses}
+                        width="25" height="16"/>
+                </div>
+            </button>}
+            size="small"
+            inverted={true}>
+                <span className="fontWeight-9">Show code</span>
+        </Popup>
     );
     
 };

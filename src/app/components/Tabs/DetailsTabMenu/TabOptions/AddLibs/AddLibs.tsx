@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { Popup } from 'semantic-ui-react';
 
 import * as classNames from 'classnames';
 
@@ -50,14 +51,19 @@ const AddLibs: React.SFC<AddLibsProps> = ({ currentOption, onClick }) => {
     /*         MARKUP          */
     /***************************/
     return (
-        <button className={addLibsBtnClasses}>
-            <div className="inner"
-                onClick={onClick}>
-                <Icon icon="list"
-                    iconClass={libsIconClasses}
-                    width="24" height="24"/>
-            </div>
-        </button>
+        <Popup trigger={
+            <button className={addLibsBtnClasses}>
+                <div className="inner"
+                    onClick={onClick}>
+                    <Icon icon="list"
+                        iconClass={libsIconClasses}
+                        width="24" height="24"/>
+                </div>
+            </button>}
+            size="small"
+            inverted={true}>
+                <span className="fontWeight-9">Add libraries</span>
+        </Popup>
     );
     
 };
