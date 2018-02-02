@@ -20,6 +20,12 @@ export type SHOW_MODAL = typeof SHOW_MODAL;
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export type CLOSE_MODAL = typeof CLOSE_MODAL;
 
+export const SHOW_ALERT = 'SHOW_ALERT';
+export type SHOW_ALERT = typeof SHOW_ALERT;
+
+export const CLOSE_ALERT = 'CLOSE_ALERT';
+export type CLOSE_ALERT = typeof CLOSE_ALERT;
+
 export const CHANGE_ATOM_DETAILS_TAB = 'TABS::CHANGE_ATOM_DETAILS_TAB';
 export type CHANGE_ATOM_DETAILS_TAB = typeof CHANGE_ATOM_DETAILS_TAB;
 

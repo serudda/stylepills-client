@@ -4223,20 +4223,22 @@ NOTE: Boostrap 4 has a flex set
     position: absolute;
     top: 10px;
     right: 10px; }
+  .AtomDetailsBox .SourceCodePanel .activeEditModeMsg {
+    bottom: 0; }
 
 /**********************************************************/
 /*                    SOURCE CODE PANEL                   */
 /**********************************************************/
-.ComponentNew .sp-btnGroup {
+.SourceCodePanel .sp-btnGroup {
   position: absolute;
   top: 10px;
   right: 10px; }
 
-.ComponentNew .SourceCode {
+.SourceCodePanel .SourceCode {
   height: 450px; }
-  .ComponentNew .SourceCode .ReactCodeMirror {
+  .SourceCodePanel .SourceCode .ReactCodeMirror {
     height: 100%; }
-    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror {
+    .SourceCodePanel .SourceCode .ReactCodeMirror .CodeMirror {
       font-size: 15px;
       -webkit-font-smoothing: initial;
       height: 100%;
@@ -4244,9 +4246,9 @@ NOTE: Boostrap 4 has a flex set
       padding-top: 15px;
       padding-bottom: 15px;
       font-family: 'Fira Mono', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-gutters {
+    .SourceCodePanel .SourceCode .ReactCodeMirror .CodeMirror-gutters {
       background-color: #273444; }
-    .ComponentNew .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
+    .SourceCodePanel .SourceCode .ReactCodeMirror .CodeMirror-linenumber {
       color: #3C4858; }
 
 /**********************************************************/
@@ -4654,6 +4656,16 @@ body.duplicateModal-open .ui.dimmer {
     background-color: #141619;
     border-top: 1px solid #000000; }
 
+/*      Alert Component Style     */
+/**********************************/
+/**********************************************************/
+/*                      BANNER ALERT                      */
+/**********************************************************/
+.BannerAlert .icon-btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer; }
+
 .HomePage .leftSide__header {
   height: 75px;
   left: 0;
@@ -4714,6 +4726,12 @@ body.duplicateModal-open .ui.dimmer {
 @media (max-width: 575.98px) {
   .UserProfilePage .UserStats__item__text {
     font-size: 12px; } }
+
+/**********************************************************/
+/*           BASIC FIELDS STEP (COMPONENT NEW)            */
+/**********************************************************/
+.ComponentNew .BasicFields .validationMsg {
+  bottom: 0; }
 
 /**********************************************************/
 /*           ATOM DETAILS BOX (PREVIEW SECTION)           */

@@ -176,7 +176,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
                     </div>
                     
                     {/* Bottom Message */}
-                    { showMessage && message &&
+                    { showMessage && !!message &&
                         <div className="col-12 position-relative">
                             <BannerAlert type={message.type} 
                                         text={message.text}

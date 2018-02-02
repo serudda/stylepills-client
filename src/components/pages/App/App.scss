@@ -115,6 +115,10 @@
 // @import '../../common/SourceCodePanel/TabMenu/TabMenu.legacy';
 
 
+/*      Alert Component Style     */
+/**********************************/
+// Banner Alert Component Style
+@import '../../../app/components/Alerts/BannerAlert/BannerAlert';
 
 // MainApp Pages (HomePage, ComponentPage, etc)
 // --------------------------------------------------
@@ -123,6 +127,8 @@
 @import '../HomePage/HomePage';
 // User Stats Style (UserProfilePage)
 @import '../UserProfilePage/UserStats/UserStats';
+// BasicFields Step (ComponentNew)
+@import '../ComponentsPage/New/Steps/BasicFields/BasicFields';
 // Preview Section (ComponentNew)
 @import '../ComponentsPage/New/Steps/BasicFields/PreviewSection/PreviewSection';
 

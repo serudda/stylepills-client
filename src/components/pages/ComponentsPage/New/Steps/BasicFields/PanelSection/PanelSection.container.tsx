@@ -13,7 +13,7 @@ import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
 
 import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
-import ExternalLibsPanel from './ExternalLibsPanel/ExternalLibsPanel.container';
+import ExternalLibsPanelContainer from './ExternalLibsPanel/ExternalLibsPanel.container';
 
 import { 
     Option as DetailsTabMenuOptions
@@ -104,7 +104,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
 
                 {/* External Libs Section */}
                 {tab === DetailsTabMenuOptions.addLibs && 
-                <ExternalLibsPanel />}
+                <ExternalLibsPanelContainer />}
 
             </div>
         );

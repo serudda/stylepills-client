@@ -24,10 +24,12 @@ export enum Option {
 
 /* Own Props */
 export type BannerAlertProps = {
+    id?: string,
     type: Option,
     text: string,
     showIcon?: boolean,
-    className?: string
+    className?: string,
+    readonly onCloseClick?: (id: string) => any;
 };
 
 
@@ -52,6 +54,23 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
+
+    /**
+     * @desc HandleClick
+     * @method _handleClick
+     * @example this._handleClick()
+     * @private 
+     * @param {string} id - alert id
+     * @param {React.FormEvent<{}>} e - Click Event
+     * @returns {void}
+     */
+    private _handleClick = (id: string) => (e: any) => {
+        e.preventDefault();
+        if (this.props.onCloseClick) {
+            this.props.onCloseClick(id);
+        }
+    }
+
 
     /**
      * @desc Build Icon
@@ -89,7 +108,9 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
         
         if (showIcon) {
             return (
-                <Icon icon={icon} iconClass="strokeWidth-2 stroke-white mr-2" width="22" height="22"/>
+                <Icon icon={icon} 
+                      iconClass="strokeWidth-2 stroke-white mr-2" 
+                      width="22" height="22"/>
             );
         }
 
@@ -104,6 +125,7 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
 
         // Destructuring props
         const { 
+            id,
             type,
             text,
             className
@@ -112,6 +134,7 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
 
         // Baner Alert Classes
         const bannerAlertClasses = classNames ({
+            'BannerAlert': true,
             [`sp-bg-${type}`]: true,
             'w-100': true,
             'p-3': true,
@@ -133,6 +156,12 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
                 
                 <span className="fontSize-md color-white fontWeight-9">
                     {text}
+                </span>
+
+                <span className="icon-btn d-flex ml-auto" onClick={this._handleClick(id)}>
+                    <Icon icon="close"
+                        iconClass="strokeWidth-2 stroke-white"
+                        width="22" height="22"/>
                 </span>
 
             </div>
