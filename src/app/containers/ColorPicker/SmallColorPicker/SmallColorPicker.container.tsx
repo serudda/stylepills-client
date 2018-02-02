@@ -2,10 +2,11 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
 import { ColorResult } from 'react-color';
 
-import * as appConfig from './../../../../core/constants/app.constants';
+import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
@@ -21,8 +22,6 @@ import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker
 
 /* Own Props */
 type SmallColorPickerContainerProps = {
-    defaultHexColor?: string;
-    defaultRgbaColor?: RgbaColorModel;
     defaultColors?: Array<string>;
     onChange: (color: BasicColorModel) => void;
 };
@@ -30,12 +29,13 @@ type SmallColorPickerContainerProps = {
 /* Own States */
 type LocalStates = {
     displayColorPicker: boolean;
-    color: BasicColorModel;
-    defaultColors: Array<string>;
 };
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    hex: string;
+    rgba: RgbaColorModel;
+};
 
 
 /***********************************************/
@@ -52,12 +52,7 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
         super(props);
 
         this.state = {
-            displayColorPicker: false,
-            color: {
-                hex: props.defaultHexColor || appConfig.SECONDARY_COLOR_HEX,
-                rgba: props.defaultRgbaColor || null
-            },
-            defaultColors: props.defaultColors
+            displayColorPicker: false
         };
 
         // Bind methods
@@ -107,14 +102,11 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
      * @returns {void}
      */
     private _handleChange(color: ColorResult) {
-        this.setState({ 
-            color: {
-                hex: color.hex,
-                rgba: color.rgb
-            }
-        }, () => {
-            this.props.onChange(this.state.color);
-        });
+
+        const { hex, rgb } = color;
+
+        this.props.onChange({ hex, rgba: rgb });
+
     }
 
     
@@ -125,8 +117,8 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
 
 
         // Destructuring state
-        const { color, defaultColors, displayColorPicker } = this.state;
-        const { hex } = color;
+        const { displayColorPicker } = this.state;
+        const { hex, defaultColors } = this.props;
         
         
         /*         MARKUP          */
@@ -145,6 +137,32 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
 }
 
 
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+
+    // Destructuring state 
+    const { ui } = state;
+    const { colorPicker } = ui;
+    const { currentColor } = colorPicker;
+    const { hex, rgba } = currentColor;
+
+    return {
+        hex,
+        rgba
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const smallColorPickerContainerConnect = connect(mapStateToProps); 
+
+
 /*         EXPORT          */
 /***************************/
-export default SmallColorPickerContainer;
+export default compose(
+    smallColorPickerContainerConnect
+)(SmallColorPickerContainer);

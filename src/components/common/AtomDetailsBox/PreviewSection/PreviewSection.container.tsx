@@ -5,8 +5,6 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { functionsUtil } from '../../../../core/utils/functionsUtil';
-
 import { IRootState } from './../../../../reducer/reducer.config';
 import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
@@ -30,21 +28,20 @@ type PreviewSectionContainerProps = {
     atomId: number,
     name: string,
     html: string,
-    css: string,
-    libs: Array<LibModel>,
-    contextualBg: string
+    css: string
 };
 
 /* Own States */
 type LocalStates = {
-    html?: string,
-    css?: string
+    html: string,
+    css: string
 };
 
 /* Mapped State to Props */
 type StateProps = {
     hex: string;
     atoms: Array<IAtomsProps>;
+    libs: Array<LibModel>;
 };
 
 /* Mapped Dispatches to Props */
@@ -65,48 +62,19 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
 
     /********************************/
-    /*         STATIC PROPS         */
-    /********************************/
-    private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
-
-
-    /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
     constructor(props: PreviewSectionContainerProps & StateProps & DispatchProps) {
         super(props);
 
+        // Init local state
         this.state = {
             html: props.html || '',
             css: props.css || ''
         };
 
-        // LOG
-        functionsUtil.consoleLog('PreviewSection container actived');
-
         // Bind methods
         this.handleColorChange = this.handleColorChange.bind(this);
-    }
-
-
-    /********************************/
-    /*       COMPONENTDIDMOUNT      */
-    /********************************/
-    componentDidMount() {
-
-        const { contextualBg } = this.props;
-        
-        const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
-        const DEFAULT_COLOR_RGBA = {
-            r: 249, g: 250, b: 252, a: 1
-        };
-
-        const defaultColor: BasicColorModel = {
-            hex: contextualBg || DEFAULT_COLOR_HEX,
-            rgba: functionsUtil.convertHexToRgbaModel(contextualBg, 1) || DEFAULT_COLOR_RGBA
-        };
-
-        this._changeColor(defaultColor);
     }
 
 
@@ -174,14 +142,13 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     render() {
 
         // Destructuring props 
-        const { name, libs, hex, contextualBg } = this.props;
+        const { name, libs, hex } = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
             <PreviewBox height="30"
-                        defaultHexColor={contextualBg}
                         onColorChange={this.handleColorChange}> 
                 <Iframe children={this.state.html} 
                                 css={this.state.css} 
@@ -207,12 +174,13 @@ function mapStateToProps(state: IRootState): StateProps {
     const { hex } = currentColor;
 
     const { atoms } = state.atomState.edited;
-    
-    
+
+    const { libs } = state.ui.libsPanel;
 
     return {
         hex,
-        atoms
+        atoms,
+        libs
     };
 }
 

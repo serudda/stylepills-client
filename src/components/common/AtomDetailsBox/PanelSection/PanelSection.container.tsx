@@ -14,6 +14,7 @@ import { Atom as AtomModel } from './../../../../models/atom/atom.model';
 import Stats from './Stats/Stats';
 import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
+import ExternalLibsPanelContainer from './../../../pages/ComponentsPage/New/Steps/BasicFields/PanelSection/ExternalLibsPanel/ExternalLibsPanel.container';
 
 import {
     Option as DetailsTabMenuOptions
@@ -107,6 +108,10 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
                                           name={atom.name}
                                           html={atom.html} 
                                           css={atom.css}/>}
+                
+                {/* External Libs Section */}
+                {tab === DetailsTabMenuOptions.addLibs && 
+                <ExternalLibsPanelContainer />}
 
             </div>
         );

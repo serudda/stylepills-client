@@ -20,7 +20,7 @@ import { ICurrentCode, showAlertAction } from './../../../../../../actions/ui.ac
 import { User as UserModel }  from './../../../../../../models/user/user.model';
 import { Lib as LibModel }  from './../../../../../../models/lib/lib.model';
 
-import PreviewSection from './PreviewSection/PreviewSection.container';
+import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
 import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
@@ -450,8 +450,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
 
                     {/* Preview Atom Section */}
-                    <PreviewSection html={this.state.fields.html}
-                                    css={this.state.fields.css}/>
+                    <PreviewSectionContainer html={this.state.fields.html}
+                                            css={this.state.fields.css}/>
 
                     {/* Panel Atom Section */}
 

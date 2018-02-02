@@ -20,7 +20,6 @@ import SmallColorPickerContainer from './../../containers/ColorPicker/SmallColor
 type PreviewBoxProps = {
     height: string,
     isEmptyPreview?: boolean,
-    defaultHexColor?: string, 
     onColorChange: (color: BasicColorModel) => void;
 };
 
@@ -37,7 +36,6 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
     /********************************/
     /*         STATIC PROPS         */
     /********************************/
-    private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
     private _DEFAULT_COLORS_LIST: Array<string> = [
         '#273444', 
         '#3C4858', 
@@ -69,7 +67,6 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
         const { 
             height = '25',
             isEmptyPreview = false,
-            defaultHexColor = this._DEFAULT_COLOR_HEX,
             onColorChange
         } = this.props;
 
@@ -85,8 +82,7 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
                     <Popup
                         trigger={
                             <div>
-                                <SmallColorPickerContainer onChange={onColorChange} 
-                                                            defaultHexColor={defaultHexColor}
+                                <SmallColorPickerContainer onChange={onColorChange}
                                                             defaultColors={this._DEFAULT_COLORS_LIST}/>
                             </div>
                         }
