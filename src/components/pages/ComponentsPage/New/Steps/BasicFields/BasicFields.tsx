@@ -26,7 +26,10 @@ import {
 import { getLibsByProjectIdAction } from './../../../../../../actions/lib.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
-import { Lib as LibModel, getAtomLibsFromList }  from './../../../../../../models/lib/lib.model';
+import { 
+    Lib as LibModel, 
+    getAtomLibsFromList 
+}  from './../../../../../../models/lib/lib.model';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';

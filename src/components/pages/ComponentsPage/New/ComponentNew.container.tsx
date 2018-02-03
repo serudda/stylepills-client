@@ -11,6 +11,10 @@ import { AtomFormFields, IValidationError as IValidationAtomError } from './../.
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
+import { 
+    getAtomLibsFromList 
+}  from './../../../../models/lib/lib.model';
+
 import { nextStepAtomAction, prevStepAtomAction, skipStepAtomAction } from './../../../../actions/form.action';
 import { createAtomAction } from './../../../../actions/atom.action';
 import { CreateAtomInput } from './../../../../models/atom/atom.mutation';
@@ -78,6 +82,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
                 description: null,
                 html: null,
                 css: null,
+                libs: [],
                 contextualBg: '#FFFFFF',
                 private: false,
                 projectId: null,
@@ -155,11 +160,15 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
         // Copy fields
         let fieldValues = Object.assign({}, this.props.fields);
 
+        // Assign current User as a author of this Atom
         fieldValues.authorId = authorId;
+
+        // Get atom's libs from libs state
+        fieldValues.libs = getAtomLibsFromList(fieldValues.libs);
 
         this.props.actions.atomState.createAtom(fieldValues).then(
             (response) => {
-                if (response.ok) { 
+                if (response.ok) {
                     this.nextStep();
                 } else {
                     // Update local state
