@@ -74,6 +74,10 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         functionsUtil.consoleLog('AtomDetailsBox container actived');
     }
 
+
+    /********************************/
+    /*     COMPONENT DID MOUNT      */
+    /********************************/
     componentDidMount() {
         
         let { libs, project } = this.props.atom;
