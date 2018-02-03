@@ -87,3 +87,12 @@ export const SECONDARY_COLOR_RGBA: RgbaColorModel = {
     b: 169,
     a: 1
 };
+
+/* NEGATIVE COLOR */
+export const NEGATIVE_COLOR_HEX = '#FF4949';
+export const NEGATIVE_COLOR_RGBA: RgbaColorModel = {
+    r: 255,
+    g: 73,
+    b: 73,
+    a: 1
+};

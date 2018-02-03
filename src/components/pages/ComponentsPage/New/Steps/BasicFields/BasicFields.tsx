@@ -22,8 +22,8 @@ import { Lib as LibModel }  from './../../../../../../models/lib/lib.model';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
-import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
-import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
+import AtomCategorySelectList from './../../../../../../app/containers/Inputs/SelectInputs/AtomCategorySelectList/AtomCategorySelectList.container';
+import ProjectSelectList from './../../../../../../app/containers/Inputs/SelectInputs/ProjectSelectList/containers/ProjectSelectList.container';
 import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
 import Icon from './../../../../../../app/components/Icon/Icon';
 

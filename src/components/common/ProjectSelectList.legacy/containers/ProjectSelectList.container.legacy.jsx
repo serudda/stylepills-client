@@ -3,13 +3,11 @@
 /********************************/
 import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
-import { Popup } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 
 import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse  } from './../../../models/project/project.query';
 
-import Icon from './../../../app/components/Icon/Icon';
-import SelectList from './../../../app/components/Inputs/GenericSelectInput/GenericSelectInput';
+import SelectList from './../../..';
+import CreateProjectLink from './../components/CreateProjectLink';
 
 
 // -----------------------------------
@@ -97,51 +95,11 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
         /**************************/
         const {...data} = this.props.data;
         
-        
-        /*       VALIDATIONS       */
-        /***************************/
-        if (data.loading) {
-            return (
-                <div className="ProjectSelectList">
-                    <div className="sp-select-container d-flex flex-row">
-                        <select className="sp-select sp-select--md sp-select--input w-100"
-                                name="projectId">
-                            <option value="0" disabled={true}>Loading</option>
-                        </select>
-                        <Icon icon="chevronDown"
-                            iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                            width="15" height="15"/>
-                    </div>
-                </div>
-            );
-        }
 
-        /* TODO: Esta validacion esta muy ligada a Dashboard, asi que este componente no lo podria usar fuera de 
-            Dashboard. Refactorizar para hacerlo más global */
+        /* Show 'Create Project' if user doesn't have projects yet */
         if (data.basicProjectsByUserId.length === 0) {
             return (
-                <div className="ProjectSelectList d-flex align-items-center align-content-center align-self-stretch h-100">
-
-                    <span className="fontSize-md color-silver">
-                        You don't have a project yet
-                    </span>
-
-                    <Popup
-                        trigger={
-                            <Link className="d-flex sp-btn sp-btn--sm sp-btn--secondary ml-auto p-1"
-                                    to="/dashboard/projects/new">
-                                <Icon icon="plus"
-                                    iconClass="stroke-white strokeWidth-3"
-                                    width="20" height="20"/>
-                            </Link>
-                        }
-                        position="top center"
-                        size="tiny"
-                        inverted={true}>
-                        Create a project
-                    </Popup>
-
-                </div>
+              <CreateProjectLink />  
             );
         }
             
@@ -149,14 +107,14 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="ProjectSelectList">
-                <SelectList value={this.state.value}
-                            name="projectId"
-                            isBlock={true}
-                            defaultOption="Don't associate with a project"
-                            options={data.basicProjectsByUserId}
-                            onChange={this._handleChange}/>
-            </div>
+            <SelectList value={this.state.value}
+                        name="projectId"
+                        isBlock={true}
+                        defaultOption="Don't associate with a project"
+                        options={data.basicProjectsByUserId ? data.basicProjectsByUserId : null}
+                        loading={data.loading}
+                        error={data.error}
+                        onChange={this._handleChange}/>
         );
 
     }
