@@ -99,6 +99,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
 
         // Post libs on Store State
         this.props.actions.ui.changeLibs(libs);
+        
     }
 
 

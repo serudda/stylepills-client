@@ -11,19 +11,30 @@ import { isEmpty } from 'lodash';
 import * as classNames from 'classnames';
 
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
-import { validateBasicFields, IValidationError as IValidationAtomError } from './../../../../../../core/validations/atom';
+import { 
+        validateBasicFields, 
+        IValidationError as IValidationAtomError 
+} from './../../../../../../core/validations/atom';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import { ICurrentCode, showAlertAction } from './../../../../../../actions/ui.action';
+import { 
+    ICurrentCode, 
+    showAlertAction,
+    changeLibsAction
+} from './../../../../../../actions/ui.action';
+import { getLibsByProjectIdAction } from './../../../../../../actions/lib.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
-import { Lib as LibModel }  from './../../../../../../models/lib/lib.model';
+import { 
+    Lib as LibModel, 
+    getAtomLibsFromList 
+}  from './../../../../../../models/lib/lib.model';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
-import AtomCategorySelectList from './../../../../../common/AtomCategorySelectList/AtomCategorySelectList.container';
-import ProjectSelectList from './../../../../../common/ProjectSelectList/ProjectSelectList.container';
+import AtomCategorySelectList from './../../../../../../app/containers/Inputs/SelectInputs/AtomCategorySelectList/AtomCategorySelectList.container';
+import ProjectSelectList from './../../../../../../app/containers/Inputs/SelectInputs/ProjectSelectList/containers/ProjectSelectList.container';
 import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
 import Icon from './../../../../../../app/components/Icon/Icon';
 
@@ -83,6 +94,10 @@ type DispatchProps = {
     actions: {
         ui: { 
             showAlert: (alertType: AlertOption, alertProps: any) => void;
+            changeLibs: (libs: Array<LibModel>) => void;
+        },
+        libState: {
+            getLibsByProjectId: (projectId: number) => Promise<any>;
         }
     };
 };
@@ -189,6 +204,26 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
      */
     handleSelectListChange (name: string, value: string) {
 
+        if (name === 'projectId') {
+            
+            this.props.actions.libState.getLibsByProjectId(parseInt(value, 10)).then(
+                (response) => {
+                    if (response.ok) {
+
+                        let { libs } = this.props;
+                        
+                        // Get atom's libs from libs state
+                        let atomLibs = getAtomLibsFromList(libs);
+
+                        // Join project's libs with atom's libs and post them on Store State
+                        this.props.actions.ui.changeLibs(atomLibs.concat(response.results));
+                    }
+                }
+            );
+
+        }
+
+        // Save new project select list option on local fields state
         this.setState((previousState: LocalStates) => ({
             ...previousState,
             fields: {
@@ -546,7 +581,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                showAlert: (alertType, alertProps) => dispatch(showAlertAction(alertType, alertProps))
+                showAlert: (alertType, alertProps) => dispatch(showAlertAction(alertType, alertProps)),
+                changeLibs: (libs) => dispatch(changeLibsAction(libs))
+            },
+            libState: {
+                getLibsByProjectId: (projectId) => dispatch(getLibsByProjectIdAction(projectId))
             }
         }
     };
