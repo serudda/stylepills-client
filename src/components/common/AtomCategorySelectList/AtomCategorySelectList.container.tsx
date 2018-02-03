@@ -5,9 +5,9 @@ import * as React from 'react';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
 import { GET_ALL_ATOM_CATEGORIES_QUERY, GetAllResponse } from '../../../models/atomCategory/atomCategory.query';
-import { AtomCategory as AtomCategoryModel } from '../../../models/atomCategory/atomCategory.model';
 
 import Icon from './../../../app/components/Icon/Icon';
+import SelectList from './../../../app/components/Inputs/GenericSelectInput/GenericSelectInput';
 
 
 // -----------------------------------
@@ -116,19 +116,12 @@ extends React.Component<ChildProps<AtomCategorySelectListProps & StateProps, Get
         /***************************/
         return (
             <div className="AtomCategorySelectList">
-                <div className="sp-select-container d-flex flex-row">
-                    <select value={this.state.value} onChange={this._handleChange}
-                            className="sp-select sp-select--md sp-select--input w-100"
-                            name="atomCategoryId">
-                        <option key="0" value="0">Other</option>
-                        {data.allAtomCategories.map((atom: AtomCategoryModel) => (
-                            <option key={atom.id} value={atom.id}>{atom.name}</option>    
-                        ))}
-                    </select>
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                        width="15" height="15"/>
-                </div>
+                <SelectList value={this.state.value}
+                                    name="atomCategoryId"
+                                    isBlock={true}
+                                    defaultOption="Other"
+                                    options={data.allAtomCategories}
+                                    onChange={this._handleChange}/>
             </div>
         );
 

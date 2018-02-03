@@ -7,9 +7,9 @@ import { Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse  } from './../../../models/project/project.query';
-import { Basic as BasicProjectModel } from '../../../models/project/project.model';
 
 import Icon from './../../../app/components/Icon/Icon';
+import SelectList from './../../../app/components/Inputs/GenericSelectInput/GenericSelectInput';
 
 
 // -----------------------------------
@@ -150,19 +150,12 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
         /***************************/
         return (
             <div className="ProjectSelectList">
-                <div className="sp-select-container d-flex flex-row">
-                    <select value={this.state.value} onChange={this._handleChange}
-                            className="sp-select sp-select--md sp-select--input w-100"
-                            name="projectId">
-                        <option key="0" value="0">Don't associate with a project</option>
-                        {data.basicProjectsByUserId.map((project: BasicProjectModel) => (
-                            <option key={project.id} value={project.id}>{project.name}</option>    
-                        ))}
-                    </select>
-                    <Icon icon="chevronDown"
-                        iconClass="icon stroke-secondary strokeWidth-3 ml-1"
-                        width="15" height="15"/>
-                </div>
+                <SelectList value={this.state.value}
+                            name="projectId"
+                            isBlock={true}
+                            defaultOption="Don't associate with a project"
+                            options={data.basicProjectsByUserId}
+                            onChange={this._handleChange}/>
             </div>
         );
 
