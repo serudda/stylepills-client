@@ -13,6 +13,7 @@ import pagination, { IPaginationState } from './pagination.reducer';
 import form, { IFormState } from './form.reducer';
 import atomState, { IAtomState } from './atom.reducer';
 import projectState, { IProjectState } from './project.reducer';
+import libState, { ILibState } from './lib.reducer';
 
 // Initialize Client
 const client = new ApolloClient();
@@ -31,6 +32,7 @@ export interface IRootState {
     form: IFormState;
     atomState: IAtomState;
     projectState: IProjectState;
+    libState: ILibState;
     router: RouterState;
 }
 
@@ -47,6 +49,7 @@ const rootReducer = combineReducers<IRootState>({
     form,
     atomState,
     projectState,
+    libState,
     router
 });
 
