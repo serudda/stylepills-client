@@ -10,7 +10,8 @@ import { functionsUtil } from './../../../core/utils/functionsUtil';
 import { IRootState } from './../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from './../../../models/atom/atom.model';
-import { getStylesheetsFromLibs } from './../../../models/lib/lib.model';
+
+import { Lib as LibModel, getStylesheetsFromLibs } from './../../../models/lib/lib.model';
 
 import AtomBox from './../../components/AtomBox/AtomBox';
 
@@ -38,6 +39,7 @@ type AtomBoxContainerProps = {
 type LocalStates = {
     liked: boolean;
     showCover: boolean;
+    mergedLibs: Array<LibModel>;
 };
 
 /* Mapped State to Props */
@@ -46,7 +48,7 @@ type StateProps = {};
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        ui: { 
+        ui: {
             showModal: (modalType: ModalOption, modalProps: any) => void;
         }
     };
@@ -72,7 +74,8 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
         // Init local state
         this.state = {
             liked: false,
-            showCover: false
+            showCover: false,
+            mergedLibs: []
         };
 
         // Bind methods
@@ -80,6 +83,26 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
         this._handleLikeClick = this._handleLikeClick.bind(this);
         this._handleMouseHover = this._handleMouseHover.bind(this);
         this.onLoad = this.onLoad.bind(this);
+    }
+
+
+    /********************************/
+    /*     COMPONENT DID MOUNT      */
+    /********************************/
+    componentDidMount() {
+        
+        let { libs, project } = this.props.atom;
+
+        // Join project's libs with atom's libs
+        if (project) {
+            libs = libs.concat(project.libs);
+        }
+
+        // Save merged libs on local state
+        this.setState({
+            mergedLibs: libs
+        });
+        
     }
 
 
@@ -177,6 +200,10 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
         const { atom } = this.props;
         const { liked, showCover } = this.state;
 
+        /* Send mergedLibs local state instead of Atom libs since
+            it has atom and project libs together. */
+        const { mergedLibs } = this.state;
+
 
         /*         MARKUP          */
         /***************************/
@@ -193,7 +220,7 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
                                 css={atom.css} 
                                 title={atom.name}
                                 background={atom.contextualBg}
-                                stylesheets={getStylesheetsFromLibs( atom.libs)} />
+                                stylesheets={getStylesheetsFromLibs(mergedLibs)} />
             </AtomBox>
         );
     }
