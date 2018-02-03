@@ -1,6 +1,8 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { Atom as AtomModel } from './../atom/atom.model';
+import { Project as ProjectModel } from './../project/project.model';
 
 
 /************************************/
@@ -18,6 +20,8 @@ export type Lib = {
     name: string;
     url: string;
     type: LibTypeOptions;
+    atom?: AtomModel;
+    project?: ProjectModel;
     active?: boolean;
 };
 

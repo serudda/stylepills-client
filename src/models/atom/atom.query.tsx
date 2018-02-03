@@ -116,6 +116,13 @@ query getAtomById($id: ID!) {
             id
             name
             url
+          	atom {
+                id
+            }
+          	project {
+                id
+                name
+            }
         }
         author
     }
