@@ -3,6 +3,8 @@
 /************************************/
 import * as React from 'react';
 
+import * as classNames from 'classnames';
+
 import { Lib as LibModel } from './../../../models/lib/lib.model';
 
 import Icon from './../Icon/Icon';
@@ -29,6 +31,14 @@ type LibsListProps = {
  * @returns component view
  */
 const LibsList: React.SFC<LibsListProps> = ({ libs = [], isEmpty = false, onDeleteClick }) => {
+
+    // Item Classes
+    const itemClasses = (lib: LibModel) => {
+        return classNames({
+            'item': true,
+            'item--disabled': !!lib.project
+        });    
+    };
     
 
     /*         MARKUP          */
@@ -44,15 +54,21 @@ const LibsList: React.SFC<LibsListProps> = ({ libs = [], isEmpty = false, onDele
             </div>}
 
             {libs.map((lib: LibModel, index) => (
-                <li key={index} className="item">
+                <li key={index} className={itemClasses(lib)}>
                     <span className="text">
                         {lib.url}
                     </span>
-                    <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(lib)}>
-                        <Icon icon="close"
-                            iconClass="icon stroke-silver strokeWidth-3"
-                            width="18" height="18"/>
-                    </span>
+                    {!lib.project ?
+                        <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(lib)}>
+                            <Icon icon="close"
+                                iconClass="icon stroke-silver strokeWidth-3"
+                                width="18" height="18"/>
+                        </span>
+                        :
+                        <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset ml-auto mr-3">
+                            {lib.project.name}
+                        </span>
+                    }
                 </li>
             ))}
 

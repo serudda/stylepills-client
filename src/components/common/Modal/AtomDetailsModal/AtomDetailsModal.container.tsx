@@ -3,18 +3,21 @@
 /********************************/
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { compose, ChildProps } from 'react-apollo';
+import { graphql, compose, ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { Modal } from 'semantic-ui-react';
+
+import * as appConfig from './../../../../core/constants/app.constants';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
 import { clearAtomStateAction } from './../../../../actions/atom.action';
 
-import { Atom as AtomModel } from './../../../../models/atom/atom.model';
+import { GET_ATOM_BY_ID_QUERY, GetByIdResponse } from './../../../../models/atom/atom.query';
 
-import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
+import AtomDetailsBoxContainer from './../../AtomDetailsBox/AtomDetailsBox.container';
+import Icon from './../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 
@@ -25,7 +28,7 @@ import AtomDetailsBox from './../../AtomDetailsBox/AtomDetailsBox.container';
 
 /* Own Props */
 type AtomDetailsModalProps = {
-    atom: AtomModel
+    atomId: number
 };
 
 /* Own States */
@@ -51,14 +54,14 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomDetailsModal 
-extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>, LocalStates> {
+class AtomDetailsModalContainer
+extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, GetByIdResponse>, LocalStates> {
 
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AtomDetailsModalProps & StateProps & DispatchProps, GetByIdResponse>) {
         super(props);
 
         // Bind methods
@@ -131,14 +134,93 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
         document.body.classList.add('atomDetailsModal-open');
     }
 
+
+    /**
+     * @desc Build Modal
+     * @method _buildModal
+     * @example this._buildModal()
+     * @private
+     * @returns {JSX.Element}
+     */
+    private _buildModal(): JSX.Element {
+
+        // Destructuring props
+        const {...data} = this.props.data;
+
+        if (data.loading) {
+            return (
+                <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                        <Icon icon="loader"
+                            iconClass="sp-loader"
+                            color={appConfig.SECONDARY_COLOR_HEX}
+                            width="80" height="80"/>
+                        <div className="text text--xs color-slate fontFamily-openSans fontWeight-7 mt-3">
+                            Loading component...
+                        </div>
+                    </li>
+                </ul>
+            );
+        }
+
+        if (data.error) {
+            return (<p className="fontSize-xl color-steel">{data.error.message}</p>);
+        }
+
+        if (data.atomById === null) {
+            return (
+                <ul className="sp-messageBlock m-0 mx-4 mt-4">
+                    <li className="sp-messageBlock__container sp-messageBlock__container--md">
+                        <div className="icon icon--md icon--noResult mt-4 mb-3" />
+                        <div className="text text--sm fontFamily-openSans fontWeight-7 color-extraDarkSmoke mb-4">
+                            We couldn’t find the component that match.
+                        </div>
+                    </li>
+                </ul>
+            );
+        }
+
+        return (
+            <div>
+                {/* Atom name */}
+                <div className="d-flex align-items-center fontFamily-openSans fontWeight-7 fontSize-xl color-silver mt-5">
+                    {data.atomById.name}
+                    {data.atomById.duplicated &&
+                    <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset ml-2">
+                        Duplicated
+                    </span>}
+                </div>
+
+                {/* Designed by */}
+                <div className="mt-2">
+
+                    <Link className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-5 color-silver text-truncate"
+                        to={`/user/${data.atomById.author.username}`} target="_blank">
+                        <span className="order-1">by</span>
+                        <span className="ml-2 order-3">{data.atomById.author.firstname} {data.atomById.author.lastname}</span>
+                        <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-2 order-2">
+                            <img width="22" height="22"
+                                src={data.atomById.author.avatar} 
+                                alt={data.atomById.author.username} />
+                        </div>
+                    </Link>
+
+                </div>
+
+                {/* Atom Details Container */}
+                <div className="mt-5">
+                    <AtomDetailsBoxContainer atom={data.atomById}/>
+                </div>
+            </div>
+        );
+        
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
     render() {
-        
-        // Destructuring props
-        const { atom } = this.props;
 
         
         /*         MARKUP          */
@@ -154,35 +236,7 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
             className="scrolling AtomDetailsModal">
                 <Modal.Content>
 
-                    {/* Atom name */}
-                    <div className="d-flex align-items-center fontFamily-openSans fontWeight-7 fontSize-xl color-silver mt-5">
-                        {atom.name}
-                        {atom.duplicated &&
-                        <span className="sp-tag sp-tag--xs sp-tag--primary fontWeight-7 fontSmoothing-reset ml-2">
-                            Duplicated
-                        </span>}
-                    </div>
-
-                    {/* Designed by */}
-                    <div className="mt-2">
-
-                        <Link className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-5 color-silver text-truncate"
-                            to={`/user/${atom.author.username}`} target="_blank">
-                            <span className="order-1">by</span>
-                            <span className="ml-2 order-3">{atom.author.firstname} {atom.author.lastname}</span>
-                            <div className="sp-avatar sp-avatar--xxxs borderRadius-circle ml-2 order-2">
-                                <img width="22" height="22"
-                                    src={atom.author.avatar} 
-                                    alt={atom.author.username} />
-                            </div>
-                        </Link>
-
-                    </div>
-
-                    {/* Atom Details Container */}
-                    <div className="mt-5">
-                        <AtomDetailsBox atom={atom}/>
-                    </div>
+                    {this._buildModal()}
 
                 </Modal.Content>
             </Modal>
@@ -191,6 +245,28 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
     }
 
 }
+
+
+/********************************/
+/*            QUERY             */
+/********************************/
+
+// Query options
+const config = {
+    options: (ownProps: AtomDetailsModalProps & StateProps) => {
+        return { 
+            variables: 
+            { 
+                id: ownProps.atomId
+            } 
+        };
+    }
+};
+
+// Query
+const getAtomByIdQuery = graphql<GetByIdResponse, AtomDetailsModalProps>(
+    GET_ATOM_BY_ID_QUERY, config
+);
 
 
 /********************************/
@@ -220,5 +296,6 @@ const atomDetailsModalConnect = connect(null, mapDispatchToProps);
 /*         EXPORT          */
 /***************************/
 export default compose( 
-    atomDetailsModalConnect
-)(AtomDetailsModal);
+    atomDetailsModalConnect,
+    getAtomByIdQuery
+)(AtomDetailsModalContainer);

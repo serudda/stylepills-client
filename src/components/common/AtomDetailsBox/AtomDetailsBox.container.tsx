@@ -20,7 +20,7 @@ import {
 } from './../../../actions/ui.action';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
-import PanelSection from './PanelSection/PanelSection.container';
+import PanelSectionContainer from './PanelSection/PanelSection.container';
 
 // -----------------------------------
 
@@ -75,7 +75,8 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
     }
 
     componentDidMount() {
-        const { libs } = this.props.atom;
+        
+        let { libs, project } = this.props.atom;
         const { contextualBg } = this.props.atom;
         
         const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
@@ -88,8 +89,15 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
             rgba: functionsUtil.convertHexToRgbaModel(contextualBg, 1) || DEFAULT_COLOR_RGBA
         };
 
+        // Post contextualBg on Store State
         this.props.actions.ui.changeColor(defaultColor);
 
+        // Join project's libs with atom's libs
+        if (project) {
+            libs = libs.concat(project.libs);
+        }
+
+        // Post libs on Store State
         this.props.actions.ui.changeLibs(libs);
     }
 
@@ -108,14 +116,14 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         return (
             <div className="AtomDetailsBox boxShadow-raised borderRadius-md">
                 
-                {/* Preview Section */}
+                {/* Preview Section Container */}
                 <PreviewSectionContainer atomId={atom.id} 
                                         name={atom.name} 
                                         html={atom.html} 
                                         css={atom.css} />
 
-                {/* Panel Section */}
-                <PanelSection atom={atom}/>
+                {/* Panel Section Container */}
+                <PanelSectionContainer atom={atom}/>
 
             </div>
         );
