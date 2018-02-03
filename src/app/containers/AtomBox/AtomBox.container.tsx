@@ -98,7 +98,7 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
      * @returns {void}
      */
     private _handleCoverClick = (atom: AtomModel) => (e: React.FormEvent<{}>) => {
-        this._showModal(atom);
+        this._showModal(atom.id);
     }
 
 
@@ -150,11 +150,11 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
      * @method _showModal
      * @example this._showModal()
      * @private
-     * @param {AtomModel} atom - atom data
+     * @param {number} atomId - atom id
      * @returns {void}
      */
-    private _showModal(atom: AtomModel) {
-        this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {atom});
+    private _showModal(atomId: number) {
+        this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {atomId});
     }
 
 

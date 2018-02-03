@@ -3854,6 +3854,8 @@ NOTE: Boostrap 4 has a flex set
       /* Simple text */
       /* Simple text + tag */
       /* Icon button */ }
+      .sp-list--simple .item--disabled .text {
+        color: #C0CCDA; }
       .sp-list--simple .item:last-child {
         border-bottom: 0 hidden transparent; }
       .sp-list--simple .item .sample-color {

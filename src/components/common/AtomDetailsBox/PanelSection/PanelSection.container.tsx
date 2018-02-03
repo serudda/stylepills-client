@@ -44,7 +44,7 @@ type StateProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class PanelSection 
+class PanelSectionContainer 
 extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalStates> {
 
 
@@ -138,11 +138,11 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const panelSectionConnect = connect(mapStateToProps);
+const panelSectionContainerConnect = connect(mapStateToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    panelSectionConnect
-)(PanelSection);
+    panelSectionContainerConnect
+)(PanelSectionContainer);
