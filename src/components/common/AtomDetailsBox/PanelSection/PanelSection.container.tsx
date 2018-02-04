@@ -11,7 +11,7 @@ import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from './../../../../models/atom/atom.model';
 
-import Stats from './Stats/Stats';
+// import Stats from './Stats/Stats';
 import TabMenuContainer from './TabMenu/TabMenu.container';
 import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
 import ExternalLibsPanelContainer from './../../../pages/ComponentsPage/New/Steps/BasicFields/PanelSection/ExternalLibsPanel/ExternalLibsPanel.container';
@@ -89,8 +89,8 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
                     
                     <div className="col-auto mr-auto">
 
-                        {/* Stats */}
-                        <Stats likes={atom.likes} stores={atom.stores} views={atom.views}/>
+                        {/* TODO: Stats no estan implementados aun, descomentar cuando se vaya a implementar*/}
+                        {/*<Stats likes={atom.likes} stores={atom.stores} views={atom.views}/>*/}
 
                     </div>
 
