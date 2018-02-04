@@ -152,7 +152,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
                         {/* Float Menu Buttons */}
                         <div className="sp-btnGroup zIndex-footer">
                             {floatMenuBtns.map((option: string, index: number) => (
-                                <div key={index} className="sp-btnGroup__container">
+                                <div key={index} className="sp-btnGroup__container sp-btnGroup__container--one-child">
                                     {floatMenuOptions[option]()}
                                 </div> 
                             ))}

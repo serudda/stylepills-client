@@ -209,7 +209,6 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
 
         // VARIABLES
         let floatMenuOptions: Array<FloatMenuOption> = [
-             FloatMenuOption.edit,
              FloatMenuOption.copy
         ];
 

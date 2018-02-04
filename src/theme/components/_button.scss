@@ -267,6 +267,24 @@
                 border-radius: 0 4px 4px 0;
             }
         }
+
+        &--one-child {
+            &:first-child {
+                .sp-btn {
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;
+                }
+            }
+
+            &:last-child {
+                .sp-btn {
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;
+                }
+            }
+        }
     }
 }
 

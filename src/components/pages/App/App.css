@@ -3459,6 +3459,14 @@ NOTE: Boostrap 4 has a flex set
     -webkit-border-radius: 0 4px 4px 0;
     -moz-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0; }
+  .sp-btnGroup__container--one-child:first-child .sp-btn {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px; }
+  .sp-btnGroup__container--one-child:last-child .sp-btn {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px; }
 
 /* SWITCH BUTTON */
 .sp-switch-btn {
