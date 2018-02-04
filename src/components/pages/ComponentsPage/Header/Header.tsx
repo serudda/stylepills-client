@@ -7,7 +7,7 @@ import { ChildProps } from 'react-apollo';
 import NavbarOptions from './../../../common/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from './../../../common/AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from './../../../common/AtomCategoryFilter/AtomCategoryFilter.container';
-import SortBySelectListContainer from './../../../common/SortBySelectList/SortBySelectList.container';
+// import SortBySelectListContainer from './../../../common/SortBySelectList/SortBySelectList.container';
 import TypeSelectListContainer from './../../../common/TypeSelectList/TypeSelectList.container';
 
 
@@ -73,31 +73,27 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                                 My Components
                             </h1>
                         </div>
-
-                        <div className="col-7">
-
-                            {/* Search Box */}
-                            <AtomSearchContainer />
-
-                        </div>
-
-                        <div className="col-5 d-flex align-content-center justify-content-end">
-
-                            {/* Type Select List */}
-                            <div className="mr-4">
-                                <TypeSelectListContainer />
-                            </div>
-
-                            {/* Category Select List */}
-                            <div className="mr-4">
-                                <AtomCategoryFilterContainer />
-                            </div>
-                            
-                            {/* Sort by List */}
-                            <SortBySelectListContainer />
-
-                        </div>
                         
+                    </div>
+
+                    <div className="d-flex align-items-center mt-3">
+                        {/* Search Box */}
+                        <div className="w-100">
+                        <AtomSearchContainer />
+                        </div>
+
+                        {/* Type Select List */}
+                        <div className="ml-4">
+                            <TypeSelectListContainer />
+                        </div>
+
+                        {/* Category Select List */}
+                        <div className="ml-4">
+                            <AtomCategoryFilterContainer />
+                        </div>
+
+                        {/* Sort by List */}
+                        {/*<SortBySelectListContainer />*/}
                     </div>
 
                 </div>

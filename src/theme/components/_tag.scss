@@ -13,9 +13,7 @@
     white-space: nowrap;
     text-decoration: none;
     text-rendering: optimizeLegibility;
-    transition: background 300ms ease-out;
     outline: none;
-    box-shadow: none;
     text-shadow: none;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -49,6 +47,11 @@
     &--neutral {
         background-color: map-get($color, darkSnow);
         color: map-get($color, silver);
+    }
+
+    &--white {
+        background-color: map-get($color, white);
+        color: map-get($color, black);
     }
 
     &--info {

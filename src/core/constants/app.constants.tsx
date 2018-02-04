@@ -49,7 +49,7 @@ export const PRD_AUTH_LOGOUT_URL        = `${PRD_SERVER_URL}${AUTH_LOGOUT}`;
 
 /* Search params */
 export const ATOM_SEARCH_LIMIT = 9;
-export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'likes';
+export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'created_at';
 export type ATOM_SEARCH_ORDER_BY_DEFAULT = typeof ATOM_SEARCH_ORDER_BY_DEFAULT;
 export const ATOM_SEARCH_TYPE_DEFAULT = 'all';
 export type ATOM_SEARCH_TYPE_DEFAULT = typeof ATOM_SEARCH_TYPE_DEFAULT;
