@@ -191,10 +191,26 @@ extends React.Component<ChildProps<AtomDetailsModalProps & StateProps & Dispatch
                     </span>}
                 </div>
 
-                {/* Designed by */}
-                <div className="mt-2">
+                {/* Atom description */}
+                { !!data.atomById.description && 
+                <div className="fontFamily-openSans fontWeight-5 fontSize-lg color-silver mt-1">
+                    {data.atomById.description}
+                </div>}
 
-                    <Link className="sp-designedBy sp-designedBy--md link-reset fontFamily-poppins fontWeight-5 color-silver text-truncate"
+                {/* Atom creation info */}
+                <div className="d-flex align-items-center mt-3">
+
+                    { !!data.atomById.project &&
+                        <div className="fontFamily-poppins fontSize-sm fontWeight-5 color-slate">
+                            Belongs to 
+                            <span className="sp-tag sp-tag--xs sp-tag--white fontWeight-5 fontSmoothing-reset ml-2 boxShadow-close">
+                                {data.atomById.project.name}
+                            </span>
+                            <span className="mx-3 borderLeft-1 borderColor-darkSmoke" />
+                        </div>
+                    }
+
+                    <Link className="sp-designedBy sp-designedBy--sm link-reset fontFamily-poppins fontWeight-5 color-slate text-truncate"
                         to={`/user/${data.atomById.author.username}`} target="_blank">
                         <span className="order-1">by</span>
                         <span className="ml-2 order-3">{data.atomById.author.firstname} {data.atomById.author.lastname}</span>
