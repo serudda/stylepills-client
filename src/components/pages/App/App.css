@@ -4125,9 +4125,7 @@ NOTE: Boostrap 4 has a flex set
   white-space: nowrap;
   text-decoration: none;
   text-rendering: optimizeLegibility;
-  transition: background 300ms ease-out;
   outline: none;
-  box-shadow: none;
   text-shadow: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -4148,6 +4146,9 @@ NOTE: Boostrap 4 has a flex set
   .sp-tag--neutral {
     background-color: #EFF2F7;
     color: #8492A6; }
+  .sp-tag--white {
+    background-color: #FFFFFF;
+    color: #24292e; }
   .sp-tag--info {
     background-color: #408FEC;
     color: #FFFFFF; }
