@@ -18,7 +18,7 @@ import {
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 import {
     Option as ModalOption
-} from './../components/common/Modal/ModalManager/ModalManager.container';
+} from './../app/containers/Modals/ModalManager/ModalManager.container';
 import {
     Option as AlertOption
 } from './../app/containers/Alerts/AlertManager/AlertManager.container';

@@ -16,7 +16,7 @@ import DetailsTabMenu , {
 
 import { 
     Option as ModalOption
-} from './../../../Modal/ModalManager/ModalManager.container';
+} from './../../../../../app/containers/Modals/ModalManager/ModalManager.container';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
 

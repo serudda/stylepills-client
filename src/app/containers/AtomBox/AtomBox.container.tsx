@@ -21,7 +21,7 @@ import { showModalAction } from './../../../actions/ui.action';
 
 import { 
     Option as ModalOption 
-} from './../../../components/common/Modal/ModalManager/ModalManager.container';
+} from './../../containers/Modals/ModalManager/ModalManager.container';
 
 // -----------------------------------
 
