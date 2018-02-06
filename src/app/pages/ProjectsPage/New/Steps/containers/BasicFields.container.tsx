@@ -18,9 +18,12 @@ import {
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
+import GenericTextInput from './../../../../../components/Inputs/GenericTextInput/GenericTextInput';
+import GenericTextarea from './../../../../../components/Inputs/GenericTextareaInput/GenericTextarea';
 import GenericSwitchBtn, { 
     SizeOption as SwitchSizeOption 
 } from './../../../../../components/Buttons/GenericSwitchBtn/GenericSwitchBtn';
+import GenericBtn from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
 
 // -----------------------------------
@@ -194,21 +197,17 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
             );
         }
 
-        // Name input Classes
-        const nameInputClasses = classNames({
-            'sp-input': true,
-            'sp-input--md': true,
-            'sp-input--block': true,
-            'error': !isEmpty(validationErrors.name)
-        });
-
-        // Website input Classes
-        const websiteInputClasses = classNames({
-            'sp-input': true,
-            'sp-input--md': true,
-            'sp-input--block': true,
-            'error': !isEmpty(validationErrors.website)
-        });
+        // Label Classes
+        const labelClasses = (hasMarginTop: boolean = false) => {
+            return classNames({
+                'fontSize-xs': true,
+                'fontWeight-6': true,
+                'color-silver fontSmoothing-reset': true,
+                'fontSmoothing-reset': true,
+                'mt-4': hasMarginTop
+            });    
+        };
+        
 
         
         /*         MARKUP          */
@@ -246,37 +245,42 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 {/* STEP BY STEP: CONTENT */}
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
-                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                    <label className={labelClasses()}>
                         PROJECT NAME
                     </label>
-                    <input type="text"
-                            name="name"
-                            value={this.state.fields.name}
-                            onChange={this._handleInputChange}
-                            className={nameInputClasses}
-                            placeholder="e.g. Airbnb"/>
+
+                    <GenericTextInput name="name"
+                                      value={this.state.fields.name}
+                                      isBlock={true}
+                                      onChange={this._handleInputChange}
+                                      placeholder="e.g. Airbnb"
+                                      className={!isEmpty(validationErrors.name) && 'error'}/>
+
                     {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
                     
-                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
+                    <label className={labelClasses(true)}>
                         PROJECT WEBSITE <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
                     </label>
-                    <input type="text"
-                            name="website"
-                            value={this.state.fields.website}
-                            onChange={this._handleInputChange}
-                            className={websiteInputClasses}
-                            placeholder="e.g. https://www.airbnb.com"/>
+                    
+                    <GenericTextInput name="website"
+                                      value={this.state.fields.website}
+                                      isBlock={true}
+                                      onChange={this._handleInputChange}
+                                      placeholder="e.g. https://www.airbnb.com"
+                                      className={!isEmpty(validationErrors.website) && 'error'}/>
+
                     {validationErrors.website && <div className="color-negative mt-1">{validationErrors.website}</div>}
                     
-                    <label className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset mt-4">
+                    <label className={labelClasses(true)}>
                         DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
                     </label>
-                    <textarea name="description"
-                            value={this.state.fields.description}
-                            onChange={this._handleInputChange}
-                            className="sp-textarea sp-textarea--md sp-textarea--block"
-                            placeholder="e.g. Airbnb is a trusted community marketplace for people to list, discover, and book unique accommodation around the world"
-                            rows={3} cols={40} />
+                    
+                    <GenericTextarea name="description"
+                                     value={this.state.fields.description}
+                                     onChange={this._handleInputChange}
+                                     placeholder="e.g. Airbnb is a trusted community marketplace for people to list, discover, and book unique accommodation around the world"
+                                     isBlock={true}
+                                     rows={3} cols={40}/>
 
                     <div className="switchContainer d-flex align-items-center mt-5">
 
@@ -299,10 +303,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <button className="sp-btn sp-btn--secondary sp-btn--md ml-auto"
-                            onClick={this._handleNextClick}>
-                        Next
-                    </button>
+                    <GenericBtn label="Next"
+                                onClick={this._handleNextClick}
+                                className="ml-auto" />
                 </div>
 
             </div>

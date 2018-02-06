@@ -32,11 +32,12 @@ export enum SizeOption {
 
 /* Own Props */
 type GenericBtnProps = {
-    type: TypeOption;
-    size?: SizeOption; 
-    label: string;
-    disabled?: boolean;
-    onClick: (e: React.FormEvent<{}>) => any;
+    type?: TypeOption
+    size?: SizeOption
+    label: string
+    disabled?: boolean
+    onClick: (e: React.FormEvent<{}>) => any
+    className?: string
 };
 
 
@@ -47,18 +48,20 @@ type GenericBtnProps = {
  * @returns component view
  */
 const GenericBtn: React.SFC<GenericBtnProps> = ({ 
-    type,
+    type = TypeOption.secondary,
     size = SizeOption.md,
     label,
     disabled,
-    onClick
+    onClick,
+    className
  }) => {
 
     // Tab Btn Classes
     const btnClasses = classNames({
         'sp-btn': true, 
         [`sp-btn--${type}`]: true,
-        [`sp-btn--${size}`]: true
+        [`sp-btn--${size}`]: true,
+        [`${className}`]: !!className
     });    
     
     
