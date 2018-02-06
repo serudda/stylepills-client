@@ -10,12 +10,12 @@ import {
     IValidationError 
 } from './../../../../../../core/validations/project';
 
-import GenericTextInput from './../../../../../components/Inputs/GenericTextInput/GenericTextInput';
-import GenericTextarea from './../../../../../components/Inputs/GenericTextareaInput/GenericTextarea';
-import GenericSwitchBtn, { 
+import Input from './../../../../../components/Inputs/GenericTextInput/GenericTextInput';
+import Textarea from './../../../../../components/Inputs/GenericTextareaInput/GenericTextarea';
+import SwitchBtn, { 
     SizeOption as SwitchSizeOption 
 } from './../../../../../components/Buttons/GenericSwitchBtn/GenericSwitchBtn';
-import GenericBtn from './../../../../../components/Buttons/GenericBtn/GenericBtn';
+import Button from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
 
 
@@ -121,12 +121,12 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                         PROJECT NAME
                     </label>
 
-                    <GenericTextInput name="name"
-                                      value={nameValue}
-                                      isBlock={true}
-                                      onChange={onInputChange}
-                                      placeholder="e.g. Airbnb"
-                                      className={!isEmpty(validationErrors.name) && 'error'}/>
+                    <Input name="name"
+                            value={nameValue}
+                            isBlock={true}
+                            onChange={onInputChange}
+                            placeholder="e.g. Airbnb"
+                            className={!isEmpty(validationErrors.name) && 'error'}/>
 
                     {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
                     
@@ -134,12 +134,12 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                         PROJECT WEBSITE <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
                     </label>
                     
-                    <GenericTextInput name="website"
-                                      value={websiteValue}
-                                      isBlock={true}
-                                      onChange={onInputChange}
-                                      placeholder="e.g. https://www.airbnb.com"
-                                      className={!isEmpty(validationErrors.website) && 'error'}/>
+                    <Input name="website"
+                            value={websiteValue}
+                            isBlock={true}
+                            onChange={onInputChange}
+                            placeholder="e.g. https://www.airbnb.com"
+                            className={!isEmpty(validationErrors.website) && 'error'}/>
 
                     {validationErrors.website && <div className="color-negative mt-1">{validationErrors.website}</div>}
                     
@@ -147,12 +147,12 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                         DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
                     </label>
                     
-                    <GenericTextarea name="description"
-                                     value={descriptionValue}
-                                     onChange={onInputChange}
-                                     placeholder="e.g. Airbnb is a trusted community marketplace for people to list, discover, and book unique accommodation around the world"
-                                     isBlock={true}
-                                     rows={3} cols={40}/>
+                    <Textarea name="description"
+                            value={descriptionValue}
+                            onChange={onInputChange}
+                            placeholder="e.g. Airbnb is a trusted community marketplace for people to list, discover, and book unique accommodation around the world"
+                            isBlock={true}
+                            rows={3} cols={40}/>
 
                     <div className="switchContainer d-flex align-items-center mt-5">
 
@@ -165,19 +165,19 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                             </div>
                         </div> 
 
-                        <GenericSwitchBtn name="private"
-                                        size={SwitchSizeOption.sm}
-                                        isOn={privateValue}
-                                        onChange={onInputChange}
-                                        className="ml-auto"/>
+                        <SwitchBtn name="private"
+                                    size={SwitchSizeOption.sm}
+                                    isOn={privateValue}
+                                    onChange={onInputChange}
+                                    className="ml-auto"/>
                     </div>
 
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <GenericBtn label="Next"
-                                onClick={onNextClick}
-                                className="ml-auto" />
+                    <Button label="Next"
+                            onClick={onNextClick}
+                            className="ml-auto" />
                 </div>
 
             </div>
