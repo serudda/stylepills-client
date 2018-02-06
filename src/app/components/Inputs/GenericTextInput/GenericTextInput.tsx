@@ -59,13 +59,13 @@ const GenericTextInput: React.SFC<GenericTextInputProps> = ({
     /*         MARKUP          */
     /***************************/
     return (
-        <input type="text" 
+        <input type="text"
                 placeholder={placeholder}
                 className={inputClasses}
                 value={value}
                 name={name}
                 disabled={disabled}
-                onChange={onChange}/>
+                onChange={onChange} />
     );
     
 };

@@ -13,7 +13,7 @@ import HomePage from '../HomePage/HomePage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
-import DashboardPage from '../DashboardPage/DashboardPage.container';
+import DashboardPageContainer from '../DashboardPage/DashboardPage.container';
 import UserProfilePage from '../UserProfilePage/UserProfilePage.container';
 
 
@@ -101,7 +101,7 @@ extends React.Component<ChildProps<WithRouterMainProps & StateProps, {}>, LocalS
                         <Route exact={true} path="/explore" component={ExplorePage} />
                         <PrivateRoute isAuthenticated={isAuthenticated}
                                         path="/dashboard"
-                                        component={DashboardPage}/>
+                                        component={DashboardPageContainer}/>
                         <Route exact={true} path="/user/:username" component={UserProfilePage} />
                         <Route component={NotFoundPage} />
                     </Switch>

@@ -31,12 +31,9 @@ type LocalStates = {
 };
 
 
-/**
- * @desc Represent Add Lib Form
- * @function AddLibForm
- * @type STATELESS FUNCTIONAL COMPONENT (SFC)
- * @returns component view
- */
+/***********************************************/
+/*              CLASS DEFINITION               */
+/***********************************************/
 
 class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
 
@@ -145,7 +142,7 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
 
                     <div className="d-flex flex-column">
                         
-                        { label &&
+                        {label &&
                             <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
                                 {label}
                             </div>
