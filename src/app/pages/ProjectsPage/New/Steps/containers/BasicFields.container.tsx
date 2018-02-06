@@ -6,10 +6,6 @@ import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
-import { isEmpty } from 'lodash';
-
-import * as classNames from 'classnames';
-
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 import { 
     validateBasicFields, 
@@ -18,13 +14,7 @@ import {
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import GenericTextInput from './../../../../../components/Inputs/GenericTextInput/GenericTextInput';
-import GenericTextarea from './../../../../../components/Inputs/GenericTextareaInput/GenericTextarea';
-import GenericSwitchBtn, { 
-    SizeOption as SwitchSizeOption 
-} from './../../../../../components/Buttons/GenericSwitchBtn/GenericSwitchBtn';
-import GenericBtn from './../../../../../components/Buttons/GenericBtn/GenericBtn';
-import Icon from './../../../../../components/Icon/Icon';
+import BasicFields from './../components/BasicFields';
 
 // -----------------------------------
 
@@ -34,7 +24,7 @@ import Icon from './../../../../../components/Icon/Icon';
 /********************************/
 
 /* Own Props */
-type BasicFieldsProps = {
+type BasicFieldsContainerProps = {
     nextStep: Function
 };
 
@@ -62,13 +52,13 @@ type StateProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class BasicFields
-extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStates> {
+class BasicFieldsContainer
+extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, LocalStates> {
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<BasicFieldsProps & StateProps, {}>) {
+    constructor(props: ChildProps<BasicFieldsContainerProps & StateProps, {}>) {
         super(props);
 
         // LOG
@@ -86,25 +76,24 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
         };
 
         // Bind methods
-        this._handleInputChange = this._handleInputChange.bind(this);
-        this._handleNextClick =  this._handleNextClick.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleNextClick =  this.handleNextClick.bind(this);
     }
 
 
     /********************************/
-    /*       PRIVATE METHODS        */
+    /*        PUBLIC METHODS        */
     /********************************/
-
 
     /**
      * @desc HandleInputChange
-     * @method _handleInputChange
-     * @example this._handleInputChange()
-     * @private
+     * @method handleInputChange
+     * @example this.handleInputChange()
+     * @public
      * @param {React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>} e - Event
      * @returns {void}
      */
-    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
+    handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -121,16 +110,21 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
 
     /**
      * @desc HandleNextClick
-     * @method _handleNextClick
-     * @example this._handleNextClick()
+     * @method handleNextClick
+     * @example this.handleNextClick()
      * @private
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleNextClick(e: React.FormEvent<{}>) {
+    handleNextClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this._nextStep();
     }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
 
 
     /**
@@ -196,120 +190,19 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps, {}>, LocalStat
                 <Redirect to="/explore"/>
             );
         }
-
-        // Label Classes
-        const labelClasses = (hasMarginTop: boolean = false) => {
-            return classNames({
-                'fontSize-xs': true,
-                'fontWeight-6': true,
-                'color-silver fontSmoothing-reset': true,
-                'fontSmoothing-reset': true,
-                'mt-4': hasMarginTop
-            });    
-        };
         
 
         
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="BasicFields StepByStep p-4">
-
-                {/* STEP BY STEP: HEADER */}
-                <div className="StepByStep__header mb-5">
-
-                    <div className="nav-section d-none"> {/* TODO: Remplazar d-none por d-flex */}
-                        {/* Close button */}
-                        <div className="iconContainer d-inline-flex flex-column align-items-center ml-auto">
-                            <Icon icon="close"
-                                iconClass="icon stroke-silver strokeWidth-2"
-                                width="26" height="26"/>
-                            <div className="label fontSize-xs color-silver fontWeight-7">ESC</div>
-                        </div>
-                    </div>
-
-                    <div className="title-section text-center">
-                        {/* Title */}
-                        <div className="fontFamily-openSans fontWeight-5 fontSize-sm color-silver mt-5">
-                            CREATE NEW PROJECT
-                        </div>
-                        {/* Subtitle */}
-                        <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2">
-                            Basic project information
-                        </div>
-                    </div>
-
-                </div>
-
-
-                {/* STEP BY STEP: CONTENT */}
-                <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
-
-                    <label className={labelClasses()}>
-                        PROJECT NAME
-                    </label>
-
-                    <GenericTextInput name="name"
-                                      value={this.state.fields.name}
-                                      isBlock={true}
-                                      onChange={this._handleInputChange}
-                                      placeholder="e.g. Airbnb"
-                                      className={!isEmpty(validationErrors.name) && 'error'}/>
-
-                    {validationErrors.name && <div className="color-negative mt-1">{validationErrors.name}</div>}
-                    
-                    <label className={labelClasses(true)}>
-                        PROJECT WEBSITE <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
-                    </label>
-                    
-                    <GenericTextInput name="website"
-                                      value={this.state.fields.website}
-                                      isBlock={true}
-                                      onChange={this._handleInputChange}
-                                      placeholder="e.g. https://www.airbnb.com"
-                                      className={!isEmpty(validationErrors.website) && 'error'}/>
-
-                    {validationErrors.website && <div className="color-negative mt-1">{validationErrors.website}</div>}
-                    
-                    <label className={labelClasses(true)}>
-                        DESCRIPTION <span className="color-extraDarkSmoke align-text-bottom fontWeight-5 ml-1">(optional)</span>
-                    </label>
-                    
-                    <GenericTextarea name="description"
-                                     value={this.state.fields.description}
-                                     onChange={this._handleInputChange}
-                                     placeholder="e.g. Airbnb is a trusted community marketplace for people to list, discover, and book unique accommodation around the world"
-                                     isBlock={true}
-                                     rows={3} cols={40}/>
-
-                    <div className="switchContainer d-flex align-items-center mt-5">
-
-                        <div className="d-flex flex-column">
-                            <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                                MAKE THIS PROJECT PRIVATE
-                            </div>
-                            <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                                Hide this project from the public
-                            </div>
-                        </div> 
-
-                        <GenericSwitchBtn name="private"
-                                        size={SwitchSizeOption.sm}
-                                        isOn={this.state.fields.private}
-                                        onChange={this._handleInputChange}
-                                        className="ml-auto"/>
-                    </div>
-
-                </div>
-
-                <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <GenericBtn label="Next"
-                                onClick={this._handleNextClick}
-                                className="ml-auto" />
-                </div>
-
-            </div>
-
+            <BasicFields nameValue={this.state.fields.name}
+                         websiteValue={this.state.fields.website}
+                         descriptionValue={this.state.fields.description}
+                         privateValue={this.state.fields.private}
+                         validationErrors={validationErrors}
+                         onInputChange={this.handleInputChange}
+                         onNextClick={this.handleNextClick}/>
         );
 
     }
@@ -346,4 +239,4 @@ const basicFieldsConnect = connect(mapStateToProps);
 /***************************/
 export default compose(
     basicFieldsConnect
-)(BasicFields);
+)(BasicFieldsContainer);

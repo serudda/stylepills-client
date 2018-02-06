@@ -47,7 +47,7 @@ type GenericBtnProps = {
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
-const GenericBtn: React.SFC<GenericBtnProps> = ({ 
+const GenericBtn: React.SFC<GenericBtnProps> = ({
     type = TypeOption.secondary,
     size = SizeOption.md,
     label,
