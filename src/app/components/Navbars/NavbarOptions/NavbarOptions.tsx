@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
@@ -48,13 +49,25 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
 
     let userLinks = null;
     let guestLinks = null;
+    const DASHBOARD_URI = '/dashboard';
 
     // Dashboard Nav Link Classes
-    const dashboardNavLinkClasses = classNames({
-        'nav-link': true, 
-        'color-slate': true,
-        'fontSize-sm': true
-    });
+    const dashboardNavLinkClasses = () => {
+
+        // Validate if current location is 'dashboard'
+        const match: any = matchPath(currentLocation, {
+            path: DASHBOARD_URI,
+            exact: false,
+            strict: false
+        });
+
+        return classNames({
+            'nav-link': true, 
+            'color-slate': true,
+            'fontSize-sm': true,
+            'active': !!match
+        });    
+    };
 
     // Explore Nav Link Classes
     const exploreNavLinkClasses = classNames({
@@ -96,7 +109,7 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
                     </a>
                 </li>
                 <li className="nav-item mx-3">
-                    <Link className={dashboardNavLinkClasses}
+                    <Link className={dashboardNavLinkClasses()}
                         to={`/dashboard`}>
                         Dashboard
                     </Link>
