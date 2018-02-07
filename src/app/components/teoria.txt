@@ -2,4 +2,4 @@
 toda la APP.
 
 - Aqui se pueden encontrar Componentes basados en funciones, o tambien componentes 
-basados en Classes (Sin contar con un State propio).
+basados en Classes (No pueden estar conectados a Redux).

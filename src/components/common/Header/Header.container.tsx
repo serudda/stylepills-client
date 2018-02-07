@@ -11,7 +11,7 @@ import { IUiState } from '../../../reducer/ui.reducer';
 import { clearUiAction } from '../../../actions/ui.action';
 
 import Icon from './../../../app/components/Icon/Icon';
-import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
+import NavbarOptionsContainer from './../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
 // import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
@@ -93,7 +93,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                         </a>
 
                         {/* Navbar options */}
-                        <NavbarOptions />
+                        <NavbarOptionsContainer />
 
                     </div>
 
