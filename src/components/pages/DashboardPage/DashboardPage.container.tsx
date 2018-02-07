@@ -2,12 +2,12 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import { ChildProps } from 'react-apollo';
 
 import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper.container';
 import ComponentsPage from '../ComponentsPage/ComponentsPage';
-import ProjectsPage from './../ProjectsPage/ProjectsPage';
+import ProjectsPageContainer from './../../../app/pages/ProjectsPage/ProjectsPage.container';
 import NotFoundPage from './../NotFoundPage/NotFoundPage';
 import { Redirect } from 'react-router';
 
@@ -19,7 +19,10 @@ import { Redirect } from 'react-router';
 /********************************/
 
 /* Own Props */
-type DashboardPageProps = {};
+type DashboardPageContainerProps = {};
+
+type WithRouterDashboardPageProps = DashboardPageContainerProps & RouteComponentProps<any>;
+
 
 /* Own States */
 type LocalStates = {};
@@ -31,14 +34,14 @@ type StateProps = {};
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class DashboardPage 
-extends React.Component<ChildProps<DashboardPageProps & StateProps, {}>, LocalStates> {
+class DashboardPageContainer 
+extends React.Component<ChildProps<WithRouterDashboardPageProps & StateProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<DashboardPageProps & StateProps, {}>) {
+    constructor(props: ChildProps<WithRouterDashboardPageProps & StateProps, {}>) {
         super(props);
     }
 
@@ -60,7 +63,7 @@ extends React.Component<ChildProps<DashboardPageProps & StateProps, {}>, LocalSt
                     <Switch>
                         {/* Default route: /dashboard/components */}
                         <Redirect exact={true} from="/dashboard" to="/dashboard/components" />
-                        <Route path="/dashboard/projects" component={ProjectsPage} />
+                        <Route path="/dashboard/projects" component={ProjectsPageContainer} />
                         <Route path="/dashboard/components" component={ComponentsPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
@@ -76,4 +79,4 @@ extends React.Component<ChildProps<DashboardPageProps & StateProps, {}>, LocalSt
 
 /*         EXPORT          */
 /***************************/
-export default withRouter(DashboardPage);
+export default withRouter(DashboardPageContainer);

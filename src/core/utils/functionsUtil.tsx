@@ -5,17 +5,18 @@ import * as appConfig from './../constants/app.constants';
 
 import { ICurrentCode } from './../../actions/ui.action';
 import { SourceCode } from './../../models/atom/atom.model';
+import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
 
 
 /************************************/
 /*            INTERFACES            */
 /************************************/    
 interface IFunctionUtil {
-    inArray: (array: Array<any>, comparisonProp: string, comparisonValue: any) => boolean;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     valueExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     truncateText: (str: string, length: number, ending: string) => string;
+    convertHexToRgbaModel: (hex: string, opacity: number) => RgbaColorModel;
 }
 
 
@@ -30,31 +31,6 @@ class FunctionsUtil implements IFunctionUtil {
     /**********************************/
     /*            METHODS             */
     /**********************************/
-
-
-    /**
-     * inArray
-     * @desc - To know if an element already exists on an Array
-     * @example - functionsUtil.inArray(array, 'id', 36);
-     * @function
-     * @param {Array<any>} array - array to analyze
-     * @param {string} comparisonProp - field to use in order to compare (e.g. 'id')
-     * @param {string} comparisonValue - value to compare against comparisonProps (e.g. 36)
-     * @return {boolean} yes or no element is into the array
-     */
-    
-    inArray(array: Array<any>, comparisonProp: string, comparisonValue: any): boolean {
-    
-        for (let i = 0; i < array.length; i++) {
-            if (array[i][comparisonProp] === comparisonValue) {
-                return true;
-            }
-        }
-    
-        return false;
-    
-    }
-
 
 
     /**
@@ -145,6 +121,31 @@ class FunctionsUtil implements IFunctionUtil {
         } else {
             return str;
         }
+    }
+
+
+
+    /**
+     * @desc Convert HEX to Rgba
+     * @function convertHexToRgba
+     * @example this.convertHexToRgba('#FFFFFF', 1)
+     * @param {string} hex - hex color
+     * @param {number} opacity - the color opacity
+     * @return {string} rgba color
+     */
+    convertHexToRgbaModel(hex: string , opacity: number): RgbaColorModel {
+
+        hex = hex.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+    
+        let result: RgbaColorModel = {
+            r, g, b, a: opacity
+        };
+        
+        return result;
+        
     }
 
 }

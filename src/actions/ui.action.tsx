@@ -8,6 +8,20 @@ import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Lib as LibModel } from './../models/lib/lib.model';
+
+import { 
+    Option as CodeTabMenuOption 
+} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import {
+    Option as DetailsTabMenuOptions
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+import {
+    Option as ModalOption
+} from './../app/containers/Modals/ModalManager/ModalManager.container';
+import {
+    Option as AlertOption
+} from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
 
 /************************************/
@@ -17,11 +31,15 @@ import { Basic as BasicColorModel } from '../models/color/color.model';
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     modals: null;
+    alerts: null;
     tabs: {
         atomDetailsTab: {
             tab: string | null
         },
         sourceCodeTab: {
+            tab: string | null
+        },
+        libsTab: {
             tab: string | null
         }
     };
@@ -38,11 +56,15 @@ interface ILocationChangeAction {
 export interface IClearUiAction {
     type: types.CLEAR_UI;
     modals: null;
+    alerts: null;
     tabs: {
         atomDetailsTab: {
             tab: string | null
         },
         sourceCodeTab: {
+            tab: string | null
+        },
+        libsTab: {
             tab: string | null
         }
     };
@@ -65,7 +87,7 @@ export interface IClearUiAction {
 interface IModalEventPayLoad {
     event: string;
     properties?: {
-        modalType: string,
+        modalType: ModalOption,
         modalProps: any
     };
 }
@@ -73,7 +95,7 @@ interface IModalEventPayLoad {
 export interface IShowModalAction {
     type: types.SHOW_MODAL;
     modals: {
-        modalType: string,
+        modalType: ModalOption,
         modalProps: any
     };
     meta: IAnalyticsTrack<IModalEventPayLoad>;
@@ -82,6 +104,26 @@ export interface IShowModalAction {
 export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
     meta: IAnalyticsTrack<IModalEventPayLoad>;
+}
+
+/* 
+    ALERTS ACTIONS
+    state: alerts
+*/
+
+export interface IShowAlertAction {
+    type: types.SHOW_ALERT;
+    alerts: {
+        alertType: AlertOption,
+        alertProps: any
+    };
+}
+
+export interface ICloseAlertAction {
+    type: types.CLOSE_ALERT;
+    alerts: {
+        alertId: string;
+    };
 }
 
 /* 
@@ -100,7 +142,7 @@ export interface IChangeAtomDetailsTabAction {
     type: types.CHANGE_ATOM_DETAILS_TAB;
     tabs: {
         atomDetailsTab: {
-            tab: string
+            tab: DetailsTabMenuOptions
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -110,7 +152,17 @@ export interface IChangeSourceCodeTabAction {
     type: types.CHANGE_SOURCE_CODE_TAB;
     tabs: {
         sourceCodeTab: {
-            tab: string
+            tab: CodeTabMenuOption
+        }
+    };
+    meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
+}
+
+export interface IChangeLibsTabAction {
+    type: types.CHANGE_LIBS_TAB;
+    tabs: {
+        libsTab: {
+            tab: CodeTabMenuOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -176,16 +228,35 @@ export interface IChangeSourceCodeAction {
 }
 
 
+/* 
+    LIBS PANEL ACTIONS
+    state: libsPanel
+*/
+
+export interface ILibsPanel {
+    libs: Array<LibModel>;
+}
+
+export interface IChangeLibsAction {
+    type: types.CHANGE_LIBS;
+    libsPanel: ILibsPanel;
+}
+
+
 export type Action =
     // UI interaction
     ILocationChangeAction
 |   IClearUiAction
 |   IShowModalAction
 |   ICloseModalAction
+|   IShowAlertAction
+|   ICloseAlertAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
+|   IChangeLibsTabAction
 |   IChangeColorAction
 |   IChangeSourceCodeAction
+|   IChangeLibsAction
 |   ICopySourceCodeAction;
 
 
@@ -204,12 +275,16 @@ export const clearUiAction = (): Action => {
     return {
         type: types.CLEAR_UI,
         modals: null,
+        alerts: null,
         tabs: {
             atomDetailsTab: {
                 tab: null
             },
             sourceCodeTab: {
                 tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            },
+            libsTab: {
+                tab: appConfig.LIBS_DEFAULT_OPTION_TAB
             }
         },
         colorPicker: {
@@ -233,7 +308,7 @@ export const clearUiAction = (): Action => {
  * @function showModalAction
  * @returns {Action}
  */
-export const showModalAction = (modalType: string, modalProps: any): Action => {
+export const showModalAction = (modalType: ModalOption, modalProps: any): Action => {
     return {
         type: types.SHOW_MODAL,
         modals: {
@@ -278,12 +353,45 @@ export const closeModalAction = (): Action => {
 
 
 /**
+ * @desc Return an action type, SHOW_ALERT
+ * to show an Alert in order to notify something to the current User
+ * @function showAlertAction
+ * @returns {Action}
+ */
+export const showAlertAction = (alertType: AlertOption, alertProps: any): Action => {
+    return {
+        type: types.SHOW_ALERT,
+        alerts: {
+            alertType,
+            alertProps
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CLOSE_ALERT
+ * to close an Alert that it's already notified something to the current User
+ * @function closeAlertAction
+ * @returns {Action}
+ */
+export const closeAlertAction = (alertId: string): Action => {
+    return {
+        type: types.CLOSE_ALERT,
+        alerts: {
+            alertId
+        }
+    };
+};
+
+
+/**
  * @desc Return an action type, CHANGE_ATOM_DETAILS_TAB 
  * to indicate that user wants to change atom details tab menu option
  * @function changeAtomDetailsTabAction
  * @returns {Action}
  */
-export const changeAtomDetailsTabAction = (tab: string): Action => {
+export const changeAtomDetailsTabAction = (tab: DetailsTabMenuOptions): Action => {
     return {
         type: types.CHANGE_ATOM_DETAILS_TAB,
         tabs: {
@@ -312,7 +420,7 @@ export const changeAtomDetailsTabAction = (tab: string): Action => {
  * @function changeSourceCodeTabAction
  * @returns {Action}
  */
-export const changeSourceCodeTabAction = (tab: string): Action => {
+export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
     return {
         type: types.CHANGE_SOURCE_CODE_TAB,
         tabs: {
@@ -325,6 +433,35 @@ export const changeSourceCodeTabAction = (tab: string): Action => {
                 eventType: EventTypes.track,
                 eventPayload: {
                     event: types.CHANGE_SOURCE_CODE_TAB,
+                    properties: {
+                        tab
+                    },
+                },
+            },
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_LIBS_TAB 
+ * to indicate that user wants to change libs tab menu option (e.g. from 'javascript' to 'css')
+ * @function changeLibsTabAction
+ * @returns {Action}
+ */
+export const changeLibsTabAction = (tab: CodeTabMenuOption): Action => {
+    return {
+        type: types.CHANGE_LIBS_TAB,
+        tabs: {
+            libsTab: {
+                tab
+            }
+        },
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CHANGE_LIBS_TAB,
                     properties: {
                         tab
                     },
@@ -383,8 +520,26 @@ export const changeColorAction = (color: BasicColorModel): Action => {
 
 
 /**
- * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * @desc Return an action type, CHANGE_LIBS
  * to indicate that user wants to change source code on SourceCodePanel
+ * @function changeLibsAction
+ * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {any} codeProps - code properties (e.g. code, libs, etc)
+ * @returns {Action}
+ */
+export const changeLibsAction = (libs: Array<LibModel>): Action => {
+    return {
+        type: types.CHANGE_LIBS,
+        libsPanel: {
+            libs
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_LIB 
+ * to indicate that user wants to change external libs on ExternalLibsPanel
  * @function changeSourceCodeAction
  * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
  * @param {any} codeProps - code properties (e.g. code, libs, etc)

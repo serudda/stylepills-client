@@ -1,6 +1,8 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import * as uuid from 'uuid/v4';
+
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -9,6 +11,20 @@ import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { ICurrentCode } from './../actions/ui.action';
 import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Lib as LibModel } from '../models/lib/lib.model';
+
+import { 
+    Option as CodeTabMenuOption 
+} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import { 
+    Option as DetailsTabMenuOptions 
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+import { 
+    Option as ModalOption 
+} from './../app/containers/Modals/ModalManager/ModalManager.container';
+import { 
+    Option as AlertOption 
+} from './../app/containers/Alerts/AlertManager/AlertManager.container';
 
 
 /************************************/
@@ -16,13 +32,17 @@ import { Basic as BasicColorModel } from '../models/color/color.model';
 /************************************/
 
 export interface IUiState {
-    modals: Array<{modalType: string, modalProps: any}>;
+    modals: Array<{modalType: ModalOption, modalProps: any}>;
+    alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     tabs: {
         atomDetailsTab?: {
-            tab: string
+            tab: DetailsTabMenuOptions
         },
         sourceCodeTab?: {
-            tab: string
+            tab: CodeTabMenuOption
+        },
+        libsTab?: {
+            tab: CodeTabMenuOption
         }
     };
     colorPicker: {
@@ -30,6 +50,9 @@ export interface IUiState {
     };
     sourceCodePanel: {
         currentCode: Array<ICurrentCode>;
+    };
+    libsPanel: {
+        libs: Array<LibModel>;
     };
     copied: {
         copiedType: string
@@ -43,12 +66,16 @@ export interface IUiState {
 
 const defaultState: IUiState = {
     modals: [],
+    alerts: [],
     tabs: {
         atomDetailsTab: {
             tab: null
         },
         sourceCodeTab: {
             tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+        },
+        libsTab: {
+            tab: appConfig.LIBS_DEFAULT_OPTION_TAB
         }
     },
     colorPicker: {
@@ -57,8 +84,12 @@ const defaultState: IUiState = {
             rgba: appConfig.SECONDARY_COLOR_RGBA
         }
     },
+    // TODO: No existen estas dos en la action CLEAR, revisar por que no se agregaron alla
     sourceCodePanel: {
         currentCode: []
+    },
+    libsPanel: {
+        libs: []
     },
     copied: null
 };
@@ -84,12 +115,16 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             return {
                 ...state, 
                 modals: [],
+                alerts: [],
                 tabs: {
                     atomDetailsTab: {
                         tab: null
                     },
                     sourceCodeTab: {
                         tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                    },
+                    libsTab: {
+                        tab: appConfig.LIBS_DEFAULT_OPTION_TAB
                     }
                 },
                 colorPicker: {
@@ -100,6 +135,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 },
                 sourceCodePanel: {
                     currentCode: []
+                },
+                libsPanel: {
+                    libs: []
                 },
                 copied: null
             };
@@ -127,6 +165,37 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+        case types.SHOW_ALERT: {
+            return {
+                ...state,
+                alerts: [
+                    ...state.alerts,
+                    {
+                        alertType: action.alerts.alertType,
+                        alertProps: action.alerts.alertProps,
+                        alertId: uuid()
+                    }
+                ]
+            };
+        }
+
+        case types.CLOSE_ALERT: {
+
+            const newAlertsState = state.alerts.filter((alert) => {
+                if (alert.alertId === action.alerts.alertId ) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+            return {
+                ...state,
+                alerts: newAlertsState
+            };
+
+        }
+
         case types.CHANGE_ATOM_DETAILS_TAB: {
             return {
                 ...state,
@@ -146,6 +215,18 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.tabs,
                     sourceCodeTab: {
                         tab: action.tabs.sourceCodeTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_LIBS_TAB: {
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    libsTab: {
+                        tab: action.tabs.libsTab.tab
                     }
                 }
             };
@@ -181,7 +262,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             let newCurrentCodeState = state.sourceCodePanel.currentCode.slice();
 
             // To know if code type already exists on sourceCodePanel/currentCode state
-            let codeTypeAlreadyExists = functionsUtil.inArray(state.sourceCodePanel.currentCode, 'codeType', codeType);
+            let codeTypeAlreadyExists = functionsUtil.valueExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
             global que haga esta operación */
@@ -215,8 +296,23 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         }
 
+        case types.CHANGE_LIBS: {
+            return {
+                ...state,
+                libsPanel: {
+                    ...state.libsPanel,
+                    // NOTE: 1
+                    libs: [].concat(action.libsPanel.libs)
+                }
+            };
+        }
+
             
         default:
             return state;  
     }
 }
+
+/*
+    (1): Es la manera de evitar el error de mutable un array, crear una copia nueva del array.
+*/

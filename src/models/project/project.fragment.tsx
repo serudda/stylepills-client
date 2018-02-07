@@ -4,6 +4,7 @@
 import gql from 'graphql-tag';
 
 import { COLOR_FRAGMENT } from './../color/color.fragment';
+import { LIB_FRAGMENT } from './../lib/lib.fragment';
 import { AUTHOR_PROJECT_FRAGMENT } from './../user/user.fragment';
 import { PROJECT_CATEGORY_FRAGMENT } from './../projectCategory/projectCategory.fragment';
 
@@ -32,6 +33,22 @@ export const BASIC_PROJECT_FRAGMENT = gql`
     }
 `;
 
+export const PROJECT_BY_ATOM_FRAGMENT = gql`
+    fragment ProjectByAtomFragment on Project {
+        ...BasicProjectFragment
+        colorPalette {
+            ...ColorFragment
+        }
+        libs {
+            ...LibFragment
+        }
+        __typename
+    }
+    ${BASIC_PROJECT_FRAGMENT}
+    ${COLOR_FRAGMENT}
+    ${LIB_FRAGMENT}
+`;
+
 export const PROJECT_FRAGMENT = gql`
     fragment ProjectFragment on Project {
         ...BasicProjectFragment
@@ -39,6 +56,9 @@ export const PROJECT_FRAGMENT = gql`
         description
         colorPalette {
             ...ColorFragment
+        }
+        libs {
+            ...LibFragment
         }
         private
         author {
@@ -51,6 +71,7 @@ export const PROJECT_FRAGMENT = gql`
     }
     ${BASIC_PROJECT_FRAGMENT}
     ${COLOR_FRAGMENT}
-    ${PROJECT_CATEGORY_FRAGMENT}
+    ${LIB_FRAGMENT}
     ${AUTHOR_PROJECT_FRAGMENT}
+    ${PROJECT_CATEGORY_FRAGMENT}
 `;

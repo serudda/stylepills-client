@@ -7,6 +7,7 @@ import * as Validator from 'validator';
 import { functionsUtil } from './../utils/functionsUtil';
 
 import { Color as ColorModel, ColorTypeOptions } from './../../models/color/color.model';
+import { Lib as LibModel } from './../../models/lib/lib.model';
 
 // -----------------------------------
 
@@ -27,6 +28,11 @@ export type ColorFields = {
     colorPalette: Array<ColorModel>
 };
 
+/* External Libs Info Step */
+export type ExternalLibsFields = {
+    libs: Array<LibModel>
+};
+
 /* Fields without an especific Step */
 export type OtherFields = {
     authorId: number;
@@ -36,8 +42,9 @@ export type OtherFields = {
 /* Every field of Project Forms */
 // NOTE: 1
 export type ProjectFormFields =
-    Partial<BasicFields> & 
-    Partial<ColorFields> & 
+    Partial<BasicFields>        & 
+    Partial<ColorFields>        & 
+    Partial<ExternalLibsFields> & 
     Partial<OtherFields>;
 
 /* Message error of each field */

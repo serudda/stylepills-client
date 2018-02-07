@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Color as ColorModel } from '../../../models/color/color.model';
 
-import Icon from './../Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

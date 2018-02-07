@@ -51,19 +51,30 @@
 // --------------------------------------------------
 
 // Component Box Component Style
-@import '../../common/AtomBox/AtomBox';
+@import './../../../app/components/AtomBox/AtomBox';
 // Component Box Component Style (ComponentsPage)
-@import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
+// @import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
-// Component Details Box Component (PreviewSection) Style
-@import '../../common/AtomDetailsBox/PreviewSection/PreviewSection';
-// Component Details Box Component (Source Code Panel) Style
-@import '../../common/AtomDetailsBox/PanelSection/SourceCodePanel/SourceCodePanel';
+// Component Source Code Panel Style
+@import './../../../app/components/SourceCodePanel/SourceCodePanel';
+// Component Create New Component (Source Code Panel) Style
+// @import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/components/SourceCodePanel';
+         
 // Component Info Component Style
-@import '../../common/AtomBox/AtomInfoSection/AtomInfoSection';
+// @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
+@import './../../../app/components/InfoSection/InfoSection';
+
+
+/*      List Component Style      */
+/**********************************/
+// Libs List Component Style
+@import './../../../app/components/LibsList/LibsList';
 // Components List Component Style
-@import '../../common/AtomsList/AtomsList';
+// @import '../../common/AtomsList/AtomsList.legacy';
+@import './../../../app/components/AtomsList/AtomsList';
+
+
 // Color Box Component Style
 @import '../../common/ColorBox/ColorBox';
 // Color Boxes List Component Style
@@ -80,16 +91,34 @@
 @import '../../common/Modal/DuplicateModal/DuplicateModal';
 // NavbarOptions Component Style
 @import '../../common/NavbarOptions/NavbarOptions';
-// SmallBox (ColorPicker) Component Style
-@import '../../common/ColorPicker/SmallBox/SmallBox';
+
+
+/*  ColorPickers Component Style  */
+/**********************************/
+
+// SmallColorPicker Component Style
+@import './../../../app/components/ColorPicker/SmallColorPicker/SmallColorPicker';
+
+
 // Pagination Buttons Component Style
 @import '../../common/PaginationBtns/PaginationBtns';
+// Preview Box Component Style
+@import './../../../app/components/PreviewBox/PreviewBox';
 // SidebarWrapper Component Style
 @import '../../common/SidebarWrapper/SidebarWrapper';
-// Tab Menu (Source Code Panel) Component Style
-@import '../../common/SourceCodePanel/TabMenu/TabMenu';
 
 
+/*      Tabs Component Style      */
+/**********************************/
+// Code Tab Menu Component Style
+@import '../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+// @import '../../common/SourceCodePanel/TabMenu/TabMenu.legacy';
+
+
+/*      Alert Component Style     */
+/**********************************/
+// Banner Alert Component Style
+@import '../../../app/components/Alerts/BannerAlert/BannerAlert';
 
 // MainApp Pages (HomePage, ComponentPage, etc)
 // --------------------------------------------------
@@ -98,10 +127,10 @@
 @import '../HomePage/HomePage';
 // User Stats Style (UserProfilePage)
 @import '../UserProfilePage/UserStats/UserStats';
+// BasicFields Step (ComponentNew)
+@import '../ComponentsPage/New/Steps/BasicFields/BasicFields';
 // Preview Section (ComponentNew)
 @import '../ComponentsPage/New/Steps/BasicFields/PreviewSection/PreviewSection';
-// Source Code Panel (ComponentNew)
-@import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/SourceCodePanel';
 
 
 

@@ -107,10 +107,10 @@ class Iframe extends React.Component<IframeProps, {}> {
     private _renderFrame() {
 
         const {
-            children, 
+            children = null, 
             stylesheets = [], 
             scripts = [],
-            css,
+            css = null,
             background} = this.props;
 
         return this._isReady().then(() => {

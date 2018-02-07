@@ -3,7 +3,7 @@
 /************************************/
 import * as React from 'react';
 
-import Icon from './../../../Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

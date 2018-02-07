@@ -5,7 +5,7 @@ import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import Icon from './../../common/Icon/Icon';
+import Icon from './../../../app/components/Icon/Icon';
 
 import PuvSection from './Sections/PuvSection/PuvSection';
 import HostComponentSection from './Sections/HostComponentSection/HostComponentSection';

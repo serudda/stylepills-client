@@ -9,8 +9,15 @@ import * as classNames from 'classnames';
 
 import { IRootState } from './../../../../../../../reducer/reducer.config';
 
+import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
+
 import TabMenuContainer from './TabMenu/TabMenu.container';
-import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
+import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
+import ExternalLibsPanelContainer from './ExternalLibsPanel/ExternalLibsPanel.container';
+
+import { 
+    Option as DetailsTabMenuOptions
+} from './../../../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 // -----------------------------------
 
@@ -23,6 +30,7 @@ import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
 type PanelSectionContainerProps = {
     html: string;
     css: string;
+    libs: Array<LibModel>;
 };
 
 /* Own States */
@@ -66,8 +74,8 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
             'align-items-center': true,
             'borderTop-1': true,
             'borderColor-smoke': true,
-            'sp-bg-black': tab === 'code',
-            'sp-bg-white': tab !== 'code'
+            'sp-bg-black': tab === DetailsTabMenuOptions.showCode,
+            'sp-bg-white': tab !== DetailsTabMenuOptions.showCode
         });
 
 
@@ -75,7 +83,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
         /***************************/
         return (
 
-            <div className="PanelSection boxShadow-raised sp-rounded-bottom-md overflow-hidden">
+            <div className="PanelSection sp-rounded-bottom-md overflow-hidden">
 
                 {/* Stats and Tab Menu Row */}
                 <div className={tabMenuRowClasses}>
@@ -91,8 +99,12 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
                 </div>
 
                 {/* Source Code Section */}
-                {tab === 'code' && 
-                <SourceCodePanel html={html} css={css}/>}
+                {tab === DetailsTabMenuOptions.showCode && 
+                <SourceCodePanelContainer html={html} css={css}/>}
+
+                {/* External Libs Section */}
+                {tab === DetailsTabMenuOptions.addLibs && 
+                <ExternalLibsPanelContainer />}
 
             </div>
         );

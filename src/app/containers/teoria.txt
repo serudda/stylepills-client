@@ -1,0 +1,5 @@
+- Aqui se encuentran los Container Components reusables y comúnes a través de
+toda la APP.
+
+- Aqui se encontraran solo componentes basados en Clases, los cuales se encargan
+de conectarse a Redux Store o traer Data desde Apollo

@@ -15,7 +15,7 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { Basic } from './../../../../models/project/project.model';
 
 import BaseFolder from './BaseFolder/BaseFolder';
-import Icon from './../../Icon/Icon';
+import Icon from './../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

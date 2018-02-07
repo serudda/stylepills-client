@@ -1,0 +1,5 @@
+- Aqui se encuentran los Presentational Components reusables y comúnes a través de
+toda la APP.
+
+- Aqui se pueden encontrar Componentes basados en funciones, o tambien componentes 
+basados en Classes (No pueden estar conectados a Redux).

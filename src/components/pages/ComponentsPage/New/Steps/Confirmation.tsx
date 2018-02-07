@@ -13,7 +13,7 @@ import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../reducer/reducer.config';
 import { User } from './../../../../../models/user/user.model';
 
-import Icon from './../../../../common/Icon/Icon';
+import Icon from './../../../../../app/components/Icon/Icon';
 
 // -----------------------------------
 

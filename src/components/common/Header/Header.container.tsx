@@ -10,11 +10,11 @@ import { IUiState } from '../../../reducer/ui.reducer';
 
 import { clearUiAction } from '../../../actions/ui.action';
 
-import Icon from '../Icon/Icon';
-import NavbarOptions from '../NavbarOptions/NavbarOptions.container';
+import Icon from './../../../app/components/Icon/Icon';
+import NavbarOptionsContainer from './../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
-import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
+// import SortBySelectListContainer from '../SortBySelectList/SortBySelectList.container';
 
 
 // -----------------------------------
@@ -93,31 +93,27 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                         </a>
 
                         {/* Navbar options */}
-                        <NavbarOptions />
+                        <NavbarOptionsContainer />
 
                     </div>
 
                     {/* Filter section */}
                     {showFilterSection && 
-                    <div className="FilterSection row align-items-center">
-                        <div className="col-9">
+                    <div className="d-flex align-items-center"> 
 
-                            {/* Search Box */}
+                        {/* Search Box */}
+                        <div className="w-100">
                             <AtomSearchContainer />
-
                         </div>
 
-                        <div className="col-3 d-flex align-content-center justify-content-end">
-
-                            {/* Category Select List */}
-                            <div className="mr-4">
-                                <AtomCategoryFilterContainer />
-                            </div>
-                            
-                            {/* Sort by section  */}
-                            <SortBySelectListContainer />
-
+                        {/* Category Select List */}
+                        <div className="ml-4">
+                            <AtomCategoryFilterContainer />
                         </div>
+                        
+                        {/* Sort by section  */}
+                        {/* <SortBySelectListContainer /> */}
+
                     </div>}
 
                 </div>

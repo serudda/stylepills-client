@@ -5,6 +5,10 @@
  */
 import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
 
+import { 
+    Option as CodeTabMenuOption 
+} from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+
 /* DEBUG */
 export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
 
@@ -45,18 +49,17 @@ export const PRD_AUTH_LOGOUT_URL        = `${PRD_SERVER_URL}${AUTH_LOGOUT}`;
 
 /* Search params */
 export const ATOM_SEARCH_LIMIT = 9;
-export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'likes';
+export const ATOM_SEARCH_ORDER_BY_DEFAULT = 'created_at';
 export type ATOM_SEARCH_ORDER_BY_DEFAULT = typeof ATOM_SEARCH_ORDER_BY_DEFAULT;
 export const ATOM_SEARCH_TYPE_DEFAULT = 'all';
 export type ATOM_SEARCH_TYPE_DEFAULT = typeof ATOM_SEARCH_TYPE_DEFAULT;
 export const ATOM_SEARCH_ORDER = 'DESC';
 
-/* Modal Types */
-export const ATOM_DETAILS_MODAL_TYPE    = 'AtomDetailsModal';
-export const DUPLICATE_MODAL_TYPE       = 'DuplicateModal';
-
 /* Source Code Tabs (Atom Details) */
-export const ATOM_DETAILS_DEFAULT_OPTION_TAB = 'html';
+export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeTabMenuOption.html;
+
+/* Libs Tabs */
+export const LIBS_DEFAULT_OPTION_TAB = CodeTabMenuOption.css;
 
 /* WHITE COLOR */
 export const WHITE_COLOR_HEX = '#FFFFFF';
@@ -82,5 +85,14 @@ export const SECONDARY_COLOR_RGBA: RgbaColorModel = {
     r: 51,
     g: 173,
     b: 169,
+    a: 1
+};
+
+/* NEGATIVE COLOR */
+export const NEGATIVE_COLOR_HEX = '#FF4949';
+export const NEGATIVE_COLOR_RGBA: RgbaColorModel = {
+    r: 255,
+    g: 73,
+    b: 73,
     a: 1
 };

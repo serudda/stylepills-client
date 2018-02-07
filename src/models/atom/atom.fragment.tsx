@@ -4,7 +4,8 @@
 import gql from 'graphql-tag';
 
 import { AUTHOR_ATOM_FRAGMENT } from './../user/user.fragment';
-import { COMMENT_FRAGMENT } from './../comment/comment.fragment';
+import { LIB_FRAGMENT } from './../lib/lib.fragment';
+import { PROJECT_BY_ATOM_FRAGMENT } from './../project/project.fragment';
 import { ATOM_CATEGORY_FRAGMENT } from './../atomCategory/atomCategory.fragment';
 
 
@@ -45,8 +46,8 @@ export const ATOM_FRAGMENT = gql`
         views
         likes
         duplicated
-        comments {
-            ...CommentFragment
+        libs {
+            ...LibFragment
         }
         download
         private
@@ -56,10 +57,14 @@ export const ATOM_FRAGMENT = gql`
         category {
             ...AtomCategoryFragment
         }
+        project {
+            ...ProjectByAtomFragment
+        }
         __typename
     }
     ${BASIC_ATOM_FRAGMENT}
-    ${COMMENT_FRAGMENT}
-    ${ATOM_CATEGORY_FRAGMENT}
+    ${LIB_FRAGMENT}
     ${AUTHOR_ATOM_FRAGMENT}
+    ${ATOM_CATEGORY_FRAGMENT}
+    ${PROJECT_BY_ATOM_FRAGMENT}
 `;

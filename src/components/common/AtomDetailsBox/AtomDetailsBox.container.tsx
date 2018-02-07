@@ -2,14 +2,25 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { ChildProps } from 'react-apollo';
+import { connect, Dispatch } from 'react-redux';
+import { compose, ChildProps } from 'react-apollo';
 
 import { functionsUtil } from './../../../core/utils/functionsUtil';
 
-import { Atom as AtomModel } from '../../../models/atom/atom.model';
+import { Basic as BasicColorModel } from './../../../models/color/color.model';
 
-import PreviewSection from './PreviewSection/PreviewSection.container';
-import PanelSection from './PanelSection/PanelSection.container';
+import { IRootState } from './../../../reducer/reducer.config';
+
+import { Atom as AtomModel } from '../../../models/atom/atom.model';
+import { Lib as LibModel } from './../../../models/lib/lib.model';
+
+import {
+    changeLibsAction,
+    changeColorAction
+} from './../../../actions/ui.action';
+
+import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
+import PanelSectionContainer from './PanelSection/PanelSection.container';
 
 // -----------------------------------
 
@@ -30,14 +41,27 @@ type LocalStates = {};
 type StateProps = {};
 
 /* Mapped Dispatches to Props */
-type DispatchProps = {};
+type DispatchProps = {
+    actions: {
+        ui: { 
+            changeLibs: (libs: Array<LibModel>) => void;
+            changeColor: (color: BasicColorModel) => void;
+        }
+    };
+};
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AtomDetailsBox 
+class AtomDetailsBoxContainer
 extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchProps, {}>, LocalStates> {
+
+
+    /********************************/
+    /*         STATIC PROPS         */
+    /********************************/
+    private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
 
 
     /********************************/
@@ -48,6 +72,38 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
 
         // LOG
         functionsUtil.consoleLog('AtomDetailsBox container actived');
+    }
+
+
+    /********************************/
+    /*     COMPONENT DID MOUNT      */
+    /********************************/
+    componentDidMount() {
+        
+        let { libs, project } = this.props.atom;
+        const { contextualBg } = this.props.atom;
+        
+        const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
+        const DEFAULT_COLOR_RGBA = {
+            r: 249, g: 250, b: 252, a: 1
+        };
+
+        const defaultColor: BasicColorModel = {
+            hex: contextualBg || DEFAULT_COLOR_HEX,
+            rgba: functionsUtil.convertHexToRgbaModel(contextualBg, 1) || DEFAULT_COLOR_RGBA
+        };
+
+        // Post contextualBg on Store State
+        this.props.actions.ui.changeColor(defaultColor);
+
+        // Join project's libs with atom's libs
+        if (project) {
+            libs = libs.concat(project.libs);
+        }
+
+        // Post libs on Store State
+        this.props.actions.ui.changeLibs(libs);
+        
     }
 
 
@@ -63,13 +119,16 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AtomDetailsBox">
+            <div className="AtomDetailsBox boxShadow-raised borderRadius-md">
                 
-                {/* Preview Section */}
-                <PreviewSection atomId={atom.id} name={atom.name} html={atom.html} css={atom.css} contextualBg={atom.contextualBg}/>
+                {/* Preview Section Container */}
+                <PreviewSectionContainer atomId={atom.id} 
+                                        name={atom.name} 
+                                        html={atom.html} 
+                                        css={atom.css} />
 
-                {/* Panel Section */}
-                <PanelSection atom={atom}/>
+                {/* Panel Section Container */}
+                <PanelSectionContainer atom={atom}/>
 
             </div>
         );
@@ -78,6 +137,29 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
 }
 
 
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                changeLibs: (libs) => dispatch(changeLibsAction(libs)),
+                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color))
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const atomDetailsBoxContainerConnect = connect(null, mapDispatchToProps);
+
+
 /*         EXPORT          */
 /***************************/
-export default AtomDetailsBox;
+export default compose(
+    atomDetailsBoxContainerConnect
+)(AtomDetailsBoxContainer);

@@ -5,6 +5,7 @@ import * as types from '../core/constants/action.types';
 import { Action } from '../actions/atom.action';
 
 import { functionsUtil } from './../core/utils/functionsUtil';
+import { Lib as LibModel } from './../models/lib/lib.model';
 
 
 /************************************/
@@ -16,7 +17,7 @@ import { functionsUtil } from './../core/utils/functionsUtil';
     un solo lugar */
 export interface ICodeProps {
     code: string;
-    libs?: Array<string>;
+    libs?: Array<LibModel>;
 }
 
 export interface IAtomCode {
@@ -154,7 +155,7 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             let newAtomsState = state.edited.atoms.slice();
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = functionsUtil.inArray(state.edited.atoms, 'atomId', atomId);
+            let atomAlreadyExists = functionsUtil.valueExistsInArray(state.edited.atoms, atomId, 'atomId');
 
             if (atomAlreadyExists) {
                 newAtomsState = newAtomsState.map(
@@ -239,7 +240,7 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
             let newAtomCodeState = state.atomCode.slice();
 
             // To know if atomCode already exists on atom state
-            let atomCodeAlreadyExists = functionsUtil.inArray(state.atomCode, 'codeType', codeType);
+            let atomCodeAlreadyExists = functionsUtil.valueExistsInArray(state.atomCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/ui.reducer, deberiamos crear una funcion
             global que haga esta operación */

@@ -1,0 +1,20 @@
+/**********************************************************/
+/*                     NAVBAR OPTIONS                     */
+/**********************************************************/
+
+.NavbarOptions {
+
+    .nav-link {
+        
+        &--negative {
+            color: map-get($color, negative)!important;    
+        }
+
+        &.active {
+            border-bottom: 3px solid map-get($color, secondary);
+            font-weight: 600;
+            outline: none;
+        }
+    }
+
+}

@@ -94,6 +94,47 @@ export type GetByIdResponse = {
 };
 
 
+/* Example */
+/*
+GET_ATOM_BY_ID_QUERY
+query getAtomById($id: ID!) {
+    atomById(id: $id){
+        id
+        name
+        contextualBg
+        html
+        css
+        project {
+            id
+            name
+            libs {
+                id
+                name
+            }
+        }
+        libs {
+            id
+            name
+            url
+          	atom {
+                id
+            }
+          	project {
+                id
+                name
+            }
+        }
+        author
+    }
+}
+
+Query Variables:
+{
+    "id": 127
+}
+*/
+
+
 // --------------------------------
 
 

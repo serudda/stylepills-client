@@ -11,9 +11,14 @@ import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from './../../../../models/atom/atom.model';
 
-import Stats from './Stats/Stats';
+// import Stats from './Stats/Stats';
 import TabMenuContainer from './TabMenu/TabMenu.container';
-import SourceCodePanel from './SourceCodePanel/SourceCodePanel.container';
+import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
+import ExternalLibsPanelContainer from './../../../pages/ComponentsPage/New/Steps/BasicFields/PanelSection/ExternalLibsPanel/ExternalLibsPanel.container';
+
+import {
+    Option as DetailsTabMenuOptions
+} from './../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 // -----------------------------------
 
@@ -39,7 +44,7 @@ type StateProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class PanelSection 
+class PanelSectionContainer 
 extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalStates> {
 
 
@@ -68,8 +73,8 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
             'align-items-center': true,
             'borderTop-1': true,
             'borderColor-smoke': true,
-            'sp-bg-black': tab === 'code',
-            'sp-bg-white': tab !== 'code'
+            'sp-bg-black': tab === DetailsTabMenuOptions.showCode,
+            'sp-bg-white': tab !== DetailsTabMenuOptions.showCode
         });
 
 
@@ -77,15 +82,15 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
         /***************************/
         return (
 
-            <div className="PanelSection boxShadow-raised sp-rounded-bottom-md overflow-hidden">
+            <div className="PanelSection sp-rounded-bottom-md overflow-hidden">
 
                 {/* Stats and Tab Menu Row */}
                 <div className={tabMenuRowClasses}>
                     
                     <div className="col-auto mr-auto">
 
-                        {/* Stats */}
-                        <Stats likes={atom.likes} stores={atom.stores} views={atom.views}/>
+                        {/* TODO: Stats no estan implementados aun, descomentar cuando se vaya a implementar*/}
+                        {/*<Stats likes={atom.likes} stores={atom.stores} views={atom.views}/>*/}
 
                     </div>
 
@@ -98,8 +103,15 @@ extends React.Component<ChildProps<PanelSectionProps & StateProps, {}>, LocalSta
                 </div>
 
                 {/* Source Code Section */}
-                {tab === 'code' && 
-                <SourceCodePanel atomId={atom.id} name={atom.name} html={atom.html} css={atom.css}/>}
+                {tab === DetailsTabMenuOptions.showCode && 
+                <SourceCodePanelContainer atomId={atom.id} 
+                                          name={atom.name}
+                                          html={atom.html} 
+                                          css={atom.css}/>}
+                
+                {/* External Libs Section */}
+                {tab === DetailsTabMenuOptions.addLibs && 
+                <ExternalLibsPanelContainer />}
 
             </div>
         );
@@ -126,11 +138,11 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const panelSectionConnect = connect(mapStateToProps);
+const panelSectionContainerConnect = connect(mapStateToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    panelSectionConnect
-)(PanelSection);
+    panelSectionContainerConnect
+)(PanelSectionContainer);
