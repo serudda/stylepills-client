@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 
-import NavbarOptions from './../../../common/NavbarOptions/NavbarOptions.container';
+import NavbarOptionsContainer from './../../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from './../../../common/AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from './../../../common/AtomCategoryFilter/AtomCategoryFilter.container';
 // import SortBySelectListContainer from './../../../common/SortBySelectList/SortBySelectList.container';
@@ -60,7 +60,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                     <div className="navbar navbar-light navbar-expand-lg borderColor-smoke borderBottomStyle-dashed borderBottom-1 mb-3 px-2 py-3 justify-content-between">
 
                         {/* Navbar options */}
-                        <NavbarOptions />
+                        <NavbarOptionsContainer />
 
                     </div>
 
