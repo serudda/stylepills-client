@@ -20,6 +20,7 @@ import { CreateProjectInput } from './../../../../models/project/project.mutatio
 
 import BasicFieldsContainer from './Steps/containers/BasicFields.container';
 import ColorFieldsContainer from './Steps/containers/ColorFields.container';
+import LibFieldsContainer from './Steps/containers/LibFields.container';
 import ConfirmationContainer from './Steps/containers/Confirmation.container';
 import SuccessContainer from './Steps/containers/Success.container';
 
@@ -82,6 +83,7 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
                 website: null,
                 description: null,
                 colorPalette: [],
+                libs: [],
                 private: false,
                 projectCategoryId: 1 // TODO: Magic number
             },
@@ -199,13 +201,18 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
             case 2:
                 return (
                     <ColorFieldsContainer nextStep={this.nextStep}
-                                 previousStep={this.previousStep} />
+                                            previousStep={this.previousStep} />
                 );
             case 3:
                 return (
-                    <ConfirmationContainer submitCreation={this.submitCreation} />
+                    <LibFieldsContainer nextStep={this.nextStep}
+                                        previousStep={this.previousStep} />
                 );
             case 4:
+                return (
+                    <ConfirmationContainer submitCreation={this.submitCreation} />
+                );
+            case 5:
                 return (
                     <SuccessContainer />
                 );

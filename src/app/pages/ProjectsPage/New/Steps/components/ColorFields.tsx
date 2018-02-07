@@ -191,7 +191,7 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                         Skip this step
                     </a>
 
-                    <Button label="Save"
+                    <Button label="Next"
                             onClick={onNextClick}
                             className="ml-auto"/>
                 </div>

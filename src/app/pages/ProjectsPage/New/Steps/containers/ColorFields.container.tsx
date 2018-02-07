@@ -221,6 +221,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
             this.setState({
                 validationErrors: errors
             });
+
+            // Go top pages
+            window.scrollTo(0, 0);
         }
 
         return isValid;
