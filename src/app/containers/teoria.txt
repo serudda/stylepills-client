@@ -2,4 +2,4 @@
 toda la APP.
 
 - Aqui se encontraran solo componentes basados en Clases, los cuales se encargan
-de tener un state propio, conectarse a Reduz Store o traer Data desde Apollo
+de conectarse a Redux Store o traer Data desde Apollo

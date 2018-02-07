@@ -105,8 +105,20 @@ class AtomBox extends React.Component<AtomBoxProps, {}> {
                                 </div>
                             </div>
 
-                            <div className="cover-link__content color-silver fontSize-sm p-2">
-                                {functionsUtil.truncateText(atom.description, 200)}
+                            <div className="cover-link__content p-2">
+                                <p className="color-silver fontSize-sm">
+                                    {functionsUtil.truncateText(atom.description, 200)}
+                                </p>
+
+                                { !!atom.project &&
+                                    <div className="d-flex pt-3 align-items-center borderTop-1 borderTopStyle-dashed borderColor-smoke fontFamily-poppins fontSize-sm fontWeight-5 color-slate">
+                                        Belongs to 
+                                        <span className="sp-tag sp-tag--xs sp-tag--neutral fontWeight-5 fontSmoothing-reset ml-2">
+                                            {atom.project.name}
+                                        </span>
+                                    </div>
+                                }
+                                    
                             </div>
                             
                         </div>

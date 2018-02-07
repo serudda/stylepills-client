@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
 
-import NavbarOptions from './../../../../../components/common/NavbarOptions/NavbarOptions.container';
+import NavbarOptionsContainer from './../../../../containers/Navbars/NavbarOptions/NavbarOptions.container';
 
 
 // -----------------------------------
@@ -70,8 +70,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                     {/* Navbar */}
                     <div className="navbar navbar-light navbar-expand-lg borderColor-smoke borderBottomStyle-dashed borderBottom-1 mb-3 px-2 py-3 justify-content-between">
 
-                        {/* Navbar options */}
-                        <NavbarOptions />
+                        {/* Navbar options container */}
+                        <NavbarOptionsContainer />
 
                     </div>
 

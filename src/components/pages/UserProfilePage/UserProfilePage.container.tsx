@@ -10,7 +10,7 @@ import {
 } from '../../../models/user/user.query';
 
 import Icon from './../../../app/components/Icon/Icon';
-import NavbarOptions from './../../common/NavbarOptions/NavbarOptions.container';
+import NavbarOptionsContainer from './../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 // import UserStats from './UserStats/UserStats';
 import UserAtomsListContainer from './../../../app/containers/UserAtomsList/UserAtomsList.container';
 import NotFound from './../NotFoundPage/NotFoundPage';
@@ -100,7 +100,7 @@ extends React.Component<ChildProps<UserProfilePageProps & StateProps, GetByUsern
                             </a>
 
                             {/* Navbar options */}
-                            <NavbarOptions />
+                            <NavbarOptionsContainer />
 
                         </div>
 
