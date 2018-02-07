@@ -7,7 +7,7 @@ import { ChildProps } from 'react-apollo';
 
 import SidebarWrapper from '../../common/SidebarWrapper/SidebarWrapper.container';
 import ComponentsPage from '../ComponentsPage/ComponentsPage';
-import ProjectsPage from './../ProjectsPage/ProjectsPage';
+import ProjectsPageContainer from './../../../app/pages/ProjectsPage/ProjectsPage.container';
 import NotFoundPage from './../NotFoundPage/NotFoundPage';
 import { Redirect } from 'react-router';
 
@@ -19,9 +19,9 @@ import { Redirect } from 'react-router';
 /********************************/
 
 /* Own Props */
-type DashboardPageProps = {};
+type DashboardPageContainerProps = {};
 
-type WithRouterDashboardPageProps = DashboardPageProps & RouteComponentProps<any>;
+type WithRouterDashboardPageProps = DashboardPageContainerProps & RouteComponentProps<any>;
 
 
 /* Own States */
@@ -34,7 +34,7 @@ type StateProps = {};
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class DashboardPage 
+class DashboardPageContainer 
 extends React.Component<ChildProps<WithRouterDashboardPageProps & StateProps, {}>, LocalStates> {
 
 
@@ -63,7 +63,7 @@ extends React.Component<ChildProps<WithRouterDashboardPageProps & StateProps, {}
                     <Switch>
                         {/* Default route: /dashboard/components */}
                         <Redirect exact={true} from="/dashboard" to="/dashboard/components" />
-                        <Route path="/dashboard/projects" component={ProjectsPage} />
+                        <Route path="/dashboard/projects" component={ProjectsPageContainer} />
                         <Route path="/dashboard/components" component={ComponentsPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
@@ -79,4 +79,4 @@ extends React.Component<ChildProps<WithRouterDashboardPageProps & StateProps, {}
 
 /*         EXPORT          */
 /***************************/
-export default withRouter(DashboardPage);
+export default withRouter(DashboardPageContainer);
