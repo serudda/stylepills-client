@@ -2,7 +2,7 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
 import { 
@@ -10,6 +10,8 @@ import {
     SearchAtomQueryOptions, 
     SearchAtomsResponse
 } from './../../../models/atom/atom.query';
+
+import { searchAtomsAction } from './../../../actions/search.action';
 
 import { IRootState } from './../../../reducer/reducer.config';
 import { ISearchState } from './../../../reducer/search.reducer';
@@ -37,19 +39,59 @@ type StateProps = {
     pagination: IPaginationState;
 };
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        search: {
+            searchAtoms: (filters: any) => void;
+        }
+    };
+};
+
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class GeneralAtomsListContainer 
-extends React.Component<ChildProps<GeneralAtomsListContainerProps & StateProps, SearchAtomsResponse>, LocalStates> {
+extends React.Component<ChildProps<GeneralAtomsListContainerProps & StateProps & DispatchProps, SearchAtomsResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<GeneralAtomsListContainerProps & StateProps, SearchAtomsResponse>) {
+    constructor(props: ChildProps<GeneralAtomsListContainerProps & StateProps & DispatchProps, SearchAtomsResponse>) {
         super(props);
+    }
+
+
+    /********************************/
+    /*     COMPONENT WILL MOUNT     */
+    /********************************/
+    componentWillMount() {
+
+        let queryArgs: ISearchState = null;
+
+        // Destructuring props
+        const { filter, sortBy } = this.props.search.searchAtoms;
+        const { type, text, atomCategoryId } = filter;
+        const { isPrivate } = type;
+
+        // Build the filter set
+        queryArgs = {
+            searchAtoms: {
+                filter: {
+                    type: {
+                        isDuplicated: false,
+                        isPrivate
+                    },
+                    text,
+                    atomCategoryId
+                },
+                sortBy
+            }
+        };
+
+        this.props.actions.search.searchAtoms(queryArgs);
     }
 
     
@@ -131,9 +173,23 @@ function mapStateToProps(state: IRootState): StateProps {
 
 
 /********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            search: {
+                searchAtoms: (filters: any) => dispatch(searchAtomsAction(filters))
+            }
+        }
+    };
+}
+
+
+/********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const generalAtomsListContainerConnect = connect(mapStateToProps); 
+const generalAtomsListContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
