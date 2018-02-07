@@ -109,10 +109,10 @@ extends React.Component<ChildProps<NavbarOptionsContainerProps & StateProps & Di
         /***************************/
         return (
             <NavbarOptions isAuthenticated={isAuthenticated}
-                            username={user.username}
-                            firstname={user.firstname}
-                            lastname={user.lastname}
-                            avatar={user.avatar}
+                            username={user ? user.username : null}
+                            firstname={user ? user.firstname : null}
+                            lastname={user ? user.lastname : null}
+                            avatar={user ? user.avatar : null}
                             loginUrl={serverConfig.authGoogleUrl}
                             signupUrl={serverConfig.authGoogleUrl}
                             currentLocation={location.pathname}
