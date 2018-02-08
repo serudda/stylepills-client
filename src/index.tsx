@@ -17,6 +17,83 @@ import { IJwtDecoded } from './core/auth/auth';
 import { setTokenAndIdAction, receiveLoginAction } from './actions/auth.action';
 
 import App from './components/pages/App/App';
+var Sass = require('sass.js');
+var scss = `
+/************************************************/
+/*               GLOBAL VARIABLES               */
+/************************************************/
+
+$color: (
+    lightPrimary:   #FDF980,
+    primary:        #FEEB6A,
+    darkPrimary:    #FCD85E,
+    lightSecondary: #3CDAD5,
+    secondary:      #33ADA9,
+    darkSecondary:  #288784,
+    positive:       #74C080,
+    negative:       #FF4949,
+    warning:        #FFC82C,
+    info:           #408FEC,
+    black:        #24292e,
+    mirage:         #1F2D3D,
+    steel:          #273444,
+    slate:          #3C4858,
+    silver:       #8492A6,
+    smoke:          #E0E6ED,
+    darkSmoke:      #D3DCE6,
+    extraDarkSmoke: #C0CCDA,
+    snow:         #F9FAFC,
+    darkSnow:       #EFF2F7,
+    extraDarkSnow:  #E5E9F2,
+    white:        #FFFFFF,
+);
+
+
+$body-background: map-get($color, white);
+$body-font-color: map-get($color, black);
+
+
+/*               GLOBAL STYLES               */
+/*********************************************/
+
+body.mainApp {
+    padding: 0;
+    background-color: $body-background;
+    color: $body-font-color;
+    overflow-x: hidden;
+    height: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0;
+
+    // Custom Close Icon
+    .sp-close-icon {
+        background-image: url('./../../../resources/images/x.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 2.6em;
+        height: 2.6em;
+    }
+
+    // Fix Safari row issue
+    .row:before {
+        display: inherit;
+    }
+
+    .AppContent {
+        min-height: 100%;
+        position: relative;
+    }
+}
+`;
+Sass.compile(scss,
+    {
+        style: 'expanded'
+    }
+, (result: any) => {
+  console.log(result);
+});
 
 // -----------------------------------
 
@@ -25,6 +102,35 @@ const history = createHistory();
 
 // Get server config object
 let serverConfig = config.getServerConfig();
+
+/*sassCompiler.render({
+    data: '.class { color: red; }',
+}, (err, result) => {
+    console.log(result);
+    console.log(err);
+});*/
+
+/* var sass = require('node-sass');
+sass.render({
+    file: null,
+    data: 'body{background:blue; a{color:black;}}',
+    outputStyle: 'compressed'
+}, (error: any, result: any) => { // node-style callback from v3.0.0 onwards
+  if (error) {
+    console.log(error.status); // used to be "code" in v2x and below
+    console.log(error.column);
+    console.log(error.message);
+    console.log(error.line);
+  } else {
+    console.log(result.css.toString());
+
+    console.log(result.stats);
+
+    console.log(result.map.toString());
+    // or better
+    console.log(JSON.stringify(result.map)); // note, JSON.stringify accepts Buffer too
+  }
+}); */
 
 
 // Initialize apollo client
