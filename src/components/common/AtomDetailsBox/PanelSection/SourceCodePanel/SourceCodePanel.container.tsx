@@ -98,6 +98,25 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
     }
 
 
+    /**********************************/
+    /*  COMPONENT WILL RECEIVE PROPS  */
+    /**********************************/
+    componentWillReceiveProps(nextProps: SourceCodePanelContainerProps & StateProps) {   
+
+        if (this.props.watchingChanges !== nextProps.watchingChanges &&
+            nextProps.watchingChanges) {
+            
+            // Active Edit Mode after launch user's action
+            this.setState({
+                codeMirror: {
+                    readOnly: false
+                }
+            });
+
+        }
+    }
+
+
     /********************************/
     /*        PUBLIC METHODS        */
     /********************************/
@@ -129,25 +148,6 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
     handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
-    }
-    
-
-    /**********************************/
-    /*  COMPONENT WILL RECEIVE PROPS  */
-    /**********************************/
-    componentWillReceiveProps(nextProps: SourceCodePanelContainerProps & StateProps) {   
-
-        if (this.props.watchingChanges !== nextProps.watchingChanges &&
-            nextProps.watchingChanges) {
-            
-            // Active Edit Mode after launch user's action
-            this.setState({
-                codeMirror: {
-                    readOnly: false
-                }
-            });
-
-        }
     }
 
 
