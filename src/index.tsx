@@ -16,8 +16,10 @@ import configureStore from './store/store.config';
 import { IJwtDecoded } from './core/auth/auth';
 import { setTokenAndIdAction, receiveLoginAction } from './actions/auth.action';
 
+import { sassCompilerService, IResponse } from './core/services/compilers/sassCompiler.service';
+
 import App from './components/pages/App/App';
-var Sass = require('sass.js');
+
 var scss = `
 /************************************************/
 /*               GLOBAL VARIABLES               */
@@ -49,7 +51,7 @@ $color: (
 );
 
 
-$body-background: map-get($color, white);
+/* $body-background: map-get($color, white); */
 $body-font-color: map-get($color, black);
 
 
@@ -87,13 +89,12 @@ body.mainApp {
     }
 }
 `;
-Sass.compile(scss,
-    {
-        style: 'expanded'
+
+sassCompilerService.compile(scss).then(
+    (response: IResponse) => {
+        console.log('Result from sassCompilerService: ', response);
     }
-, (result: any) => {
-  console.log(result);
-});
+);
 
 // -----------------------------------
 
