@@ -155,7 +155,7 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             let newAtomsState = state.edited.atoms.slice();
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = functionsUtil.valueExistsInArray(state.edited.atoms, atomId, 'atomId');
+            let atomAlreadyExists = functionsUtil.itemExistsInArray(state.edited.atoms, atomId, 'atomId');
 
             if (atomAlreadyExists) {
                 newAtomsState = newAtomsState.map(
@@ -240,7 +240,7 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
             let newAtomCodeState = state.atomCode.slice();
 
             // To know if atomCode already exists on atom state
-            let atomCodeAlreadyExists = functionsUtil.valueExistsInArray(state.atomCode, codeType, 'codeType');
+            let atomCodeAlreadyExists = functionsUtil.itemExistsInArray(state.atomCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/ui.reducer, deberiamos crear una funcion
             global que haga esta operación */

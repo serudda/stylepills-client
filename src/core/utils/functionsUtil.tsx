@@ -15,7 +15,7 @@ interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => Object;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
-    valueExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
+    itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     truncateText: (str: string, length: number, ending: string) => string;
     convertHexToRgbaModel: (hex: string, opacity: number) => RgbaColorModel;
 }
@@ -45,6 +45,41 @@ class FunctionsUtil implements IFunctionUtil {
      */
     updateObject(oldObject: Object, newValues: any = {}) {
         return Object.assign({}, oldObject, newValues);
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of updating and item in an array 
+     * to ensure we correctly copy data instead of mutating.
+     * @function updateItemInArray
+     * @example 
+     * const newTodos = updateItemInArray(state.todos, 'id', action.id, todo => {
+     *      return updateObject(todo, {completed : !todo.completed});
+     * });
+     * @param {Array<any>} array - array of objects
+     * @param {number | string} value - value to use to find item inside the array
+     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @return {void}
+     */
+    updateItemInArray(
+        array: Array<any>,
+        key: string = 'id',
+        value: number | string, 
+        updateItemCallback: Function) {
+
+        const updatedItems = array.map(item => {
+            if (item[key] !== value) {
+                /* Since we only want to update one item, 
+                    preserve all others as they are now */
+                return item;
+            }
+    
+            // Use the provided callback to create an updated item
+            const updatedItem = updateItemCallback(item);
+            return updatedItem;
+        });
+    
+        return updatedItems;
     }
 
 
@@ -86,15 +121,15 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * @desc Validate if a value exists on an Array
-     * @function valueExistsInArray
-     * @example this.valueExistsInArray(array, 'primary', 'typeColor')
+     * @desc Validate if an item exists on an Array
+     * @function itemExistsInArray
+     * @example this.itemExistsInArray(array, 'primary', 'typeColor')
      * @param {Array<any>} array - array to validate
      * @param {any} value - value to use to check if exists in the array
      * @param {string} key - If array has inner objects, this is the key that contain the value
      * @return {boolean} value exists in array (true or false)
      */
-    valueExistsInArray(array: Array<any>, value: any, key: string = null): boolean {
+    itemExistsInArray(array: Array<any>, value: any, key: string = null): boolean {
         
         let res = false;
 

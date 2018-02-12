@@ -262,7 +262,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             let newCurrentCodeState = state.sourceCodePanel.currentCode.slice();
 
             // To know if code type already exists on sourceCodePanel/currentCode state
-            let codeTypeAlreadyExists = functionsUtil.valueExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
+            let codeTypeAlreadyExists = functionsUtil.itemExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
             global que haga esta operación */

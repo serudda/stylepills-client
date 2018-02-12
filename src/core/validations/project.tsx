@@ -116,7 +116,7 @@ export function validateColorFields(field: ColorFields): IValidationResponse {
     if (!field.colorPalette) {
         errors.colorPalette = 'Color palette is required';
     } else {
-        if (!functionsUtil.valueExistsInArray(field.colorPalette, ColorTypeOptions.primary, 'type')) {
+        if (!functionsUtil.itemExistsInArray(field.colorPalette, ColorTypeOptions.primary, 'type')) {
             errors.colorPalette = 'Primary color is required';
         }
     }
