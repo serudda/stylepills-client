@@ -135,10 +135,11 @@ extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, 
      * @returns {void}
      */
     private _isValid() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        const {errors, isValid} = validateBasicFields(fieldValues);
+        // Destructuring state
+        const { fields } = this.state;
+
+        const {errors, isValid} = validateBasicFields(fields);
 
         if (!isValid) {
             this.setState({
@@ -164,9 +165,10 @@ extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, 
 
         if (this._isValid()) {
             // Copy state
-            let fieldValues = Object.assign({}, this.state.fields);
+            // let fieldValues = Object.assign({}, this.state.fields); LEGACY
+            let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-            this.props.nextStep(fieldValues);    
+            this.props.nextStep(copyFieldValues);    
         }
         
     }

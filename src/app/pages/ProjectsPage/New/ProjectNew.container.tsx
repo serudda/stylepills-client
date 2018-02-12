@@ -112,7 +112,7 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
      */
     nextStep(fieldValues: ProjectFormFields | Object = {}) {
 
-        let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
+        let newFieldValues = functionsUtil.updateObject(this.state.fieldValues, fieldValues);
 
         // Update local state
         this.setState({ fieldValues: newFieldValues },
@@ -157,11 +157,12 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
     submitCreation(authorId: number) {
 
         // Copy fields
-        let fieldValues = Object.assign({}, this.props.fields);
+        // let fieldValues = Object.assign({}, this.props.fields); LEGACY
+        let copyFieldValues = functionsUtil.updateObject(this.props.fields);
 
-        fieldValues.authorId = authorId;
+        copyFieldValues.authorId = authorId;
 
-        this.props.actions.projectState.createProject(fieldValues).then(
+        this.props.actions.projectState.createProject(copyFieldValues).then(
             (response) => {
                 if (response.ok) {
                     this.nextStep();

@@ -20,6 +20,11 @@
             "text": "NOTE:",
             "color": "#000000",
             "backgroundColor": "#CCCCCC"
+        },
+        {
+            "text": "LEGACY",
+            "color": "#000000",
+            "backgroundColor": "#EBDFA4"
         }
     ]
 }

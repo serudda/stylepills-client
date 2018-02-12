@@ -12,6 +12,7 @@ import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.
 /*            INTERFACES            */
 /************************************/    
 interface IFunctionUtil {
+    updateObject: (oldObject: Object, newValues: any) => Object;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     valueExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
@@ -31,6 +32,20 @@ class FunctionsUtil implements IFunctionUtil {
     /**********************************/
     /*            METHODS             */
     /**********************************/
+
+    /**
+     * @desc Encapsulate the idea of passing a new object as 
+     * the first parameter to Object.assign to ensure we correctly 
+     * copy data instead of mutating.
+     * @function updateObject
+     * @example - this.updateObject(state, {todos : newTodos});
+     * @param {Object} oldObject - old object to update
+     * @param {any} newValues - values or object to include in old object
+     * @return {void}
+     */
+    updateObject(oldObject: Object, newValues: any = {}) {
+        return Object.assign({}, oldObject, newValues);
+    }
 
 
     /**

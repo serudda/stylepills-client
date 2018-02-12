@@ -3,6 +3,8 @@
 /************************************/
 import * as React from 'react';
 
+import { functionsUtil } from './../../../../core/utils/functionsUtil';
+
 import Input from './../../Inputs/GenericTextInput/GenericTextInput';
 import Button, { TypeOption as BtnTypeOption } from './../../Buttons/GenericBtn/GenericBtn';
 import LibsListContainer from './../../../containers/LibsList/LibsList.container';
@@ -98,7 +100,8 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
     handleClick(e: React.FormEvent<any>) {
         e.preventDefault();
 
-        const fieldsCopy = Object.assign({}, this.state.fields);
+        // const fieldsCopy = Object.assign({}, this.state.fields); LEGACY
+        const fieldsCopy = functionsUtil.updateObject(this.state.fields);
         
         if (this.props.onAddClick) {
 

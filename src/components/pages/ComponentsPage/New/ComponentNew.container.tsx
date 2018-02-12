@@ -111,7 +111,9 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
      */
     nextStep(fieldValues: AtomFormFields | Object = {}) {
 
-        let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
+        // let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues); LEGACY
+        let newFieldValues = functionsUtil.updateObject(this.state.fieldValues, fieldValues);
+        
 
         // Update local state
         this.setState({ fieldValues: newFieldValues },
@@ -156,15 +158,16 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
     submitCreation(authorId: number) {
 
         // Copy fields
-        let fieldValues = Object.assign({}, this.props.fields);
+        // let fieldValues = Object.assign({}, this.props.fields); LEGACY
+        let copyFieldValues = functionsUtil.updateObject(this.props.fields);
 
         // Assign current User as a author of this Atom
-        fieldValues.authorId = authorId;
+        copyFieldValues.authorId = authorId;
 
         // Get atom's libs from libs state
-        fieldValues.libs = LibService.getAtomLibsFromList(fieldValues.libs);
+        copyFieldValues.libs = LibService.getAtomLibsFromList(copyFieldValues.libs);
 
-        this.props.actions.atomState.createAtom(fieldValues).then(
+        this.props.actions.atomState.createAtom(copyFieldValues).then(
             (response) => {
                 if (response.ok) {
                     this.nextStep();

@@ -170,9 +170,10 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
     private _addColor(newColor: ColorModel) {
 
         // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
+        // let fieldValues = Object.assign({}, this.state.fields); LEGACY
+        let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-        let colorArray = fieldValues.colorPalette;
+        let colorArray = copyFieldValues.colorPalette;
  
         if (newColor.hex !== '') {
             
@@ -212,10 +213,11 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      * @returns {void}
      */
     private _isValid() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        const {errors, isValid} = validateColorFields(fieldValues);
+        // Destructuring state
+        const { fields } = this.state;
+
+        const {errors, isValid} = validateColorFields(fields);
 
         if (!isValid) {
             this.setState({
@@ -241,9 +243,10 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
 
         if (this._isValid()) {
             // Copy state
-            let fieldValues = Object.assign({}, this.state.fields);
+            // let fieldValues = Object.assign({}, this.state.fields); LEGACY
+            let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-            this.props.nextStep(fieldValues);    
+            this.props.nextStep(copyFieldValues);    
         }
 
     }

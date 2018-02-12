@@ -285,9 +285,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
      */
     private _isValid() {
         // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
+        // let fieldValues = Object.assign({}, this.state.fields); LEGACY
+        let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-        const {errors, isValid} = validateBasicFields(fieldValues);
+        const {errors, isValid} = validateBasicFields(copyFieldValues);
 
         console.log(errors, isValid);
 
@@ -315,9 +316,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
         if (this._isValid()) {
             // Copy state
-            let fieldValues = Object.assign({}, this.state.fields);
+            // let fieldValues = Object.assign({}, this.state.fields); LEGACY
+            let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-            this.props.nextStep(fieldValues);
+            this.props.nextStep(copyFieldValues);
         }
 
     }
