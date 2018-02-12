@@ -9,7 +9,8 @@ import { IRootState } from './../../../../../../../reducer/reducer.config';
 import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
-import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../../../../models/lib/lib.model';
+import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
+import LibService from './../../../../../../../models/lib/lib.service';
 
 import { changeColorAction, ICurrentCode } from '../../../../../../../actions/ui.action';
 
@@ -172,7 +173,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                                 css={css} 
                                 title={'new'}
                                 background={hex}
-                                stylesheets={getStylesheetsFromLibs(libs)} />
+                                stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
     }

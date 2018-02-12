@@ -12,8 +12,7 @@ let Sass = require('sass.js');
 
 /* Possible Status response */
 export enum CompileStatus {
-    successful = 0,
-    failure = 1
+    successful = 0
 }
 
 export interface ISassCompilerService {
@@ -79,6 +78,12 @@ class SassCompilerService implements ISassCompilerService {
     /*            METHODS             */
     /**********************************/
 
+    writeCoreFiles(type: string, source: string) {
+        // TODO: No implementar esto hasta no tener la estructura de datos pensada.
+        // https://github.com/medialize/sass.js/blob/master/docs/api.md#working-with-files
+        Sass.writeFile(`${type}.scss`, source);        
+    }
+
     /**
      * compile
      * @description - Compile SASS to CSS
@@ -107,7 +112,9 @@ class SassCompilerService implements ISassCompilerService {
                         line: null
                     };
 
-                    if (result.status === CompileStatus.failure) {
+                    /* status 0 means everything is ok,
+                       any other value means an error occurred */
+                    if (result.status !== CompileStatus.successful) {
                         response.message = result.message;
                         response.line = result.line;
                         resolve(response);

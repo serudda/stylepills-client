@@ -50,6 +50,43 @@ export type GetByIdResponse = {
 };
 
 
+/* Example */
+/*
+GET_ATOM_BY_ID_QUERY
+query getProjectById($id: ID!) {
+  projectById(id: $id){
+    id
+    name
+    website
+    description
+    colorPalette {
+      id
+      name
+      hex
+    } 
+    libs {
+      id
+      name
+    }
+    preprocessors {
+      id
+      type
+      compileTo
+    }
+    atoms {
+      id
+      name
+    }
+  }
+}
+
+Query Variables:
+{
+    "id": 6
+}
+*/
+
+
 // --------------------------------
 
 
@@ -111,13 +148,13 @@ export type GetByCategoryResponse = {
 
 /**
  * @desc Get Projects by User Id (Basic Info)
- * @method Method basicProjectsByUserId
+ * @method Method projectsByUserId
  * @public
  * @returns {Array<Project>} Projects List of a specific user
  */
 export const GET_BASIC_PROJECTS_BY_USER_ID_QUERY = gql`
 query getBasicProjectsByUserId ($userId: ID!) {
-    basicProjectsByUserId(userId: $userId) {
+    projectsByUserId(userId: $userId) {
         ...BasicProjectFragment
     }
 }
@@ -128,5 +165,5 @@ ${BASIC_PROJECT_FRAGMENT}
 /***********************/
 
 export type GetBasicProjectsByUserIdResponse = {
-    basicProjectsByUserId: Array<Basic>;
+    projectsByUserId: Array<Basic>;
 };

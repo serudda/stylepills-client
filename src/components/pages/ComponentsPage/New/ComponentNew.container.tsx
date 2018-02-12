@@ -11,9 +11,7 @@ import { AtomFormFields, IValidationError as IValidationAtomError } from './../.
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
-import { 
-    getAtomLibsFromList 
-}  from './../../../../models/lib/lib.model';
+import LibService from './../../../../models/lib/lib.service';
 
 import { nextStepAtomAction, prevStepAtomAction, skipStepAtomAction } from './../../../../actions/form.action';
 import { createAtomAction } from './../../../../actions/atom.action';
@@ -164,7 +162,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
         fieldValues.authorId = authorId;
 
         // Get atom's libs from libs state
-        fieldValues.libs = getAtomLibsFromList(fieldValues.libs);
+        fieldValues.libs = LibService.getAtomLibsFromList(fieldValues.libs);
 
         this.props.actions.atomState.createAtom(fieldValues).then(
             (response) => {

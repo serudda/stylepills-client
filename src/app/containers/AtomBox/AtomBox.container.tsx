@@ -11,7 +11,9 @@ import { IRootState } from './../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from './../../../models/atom/atom.model';
 
-import { Lib as LibModel, getStylesheetsFromLibs } from './../../../models/lib/lib.model';
+import { Lib as LibModel } from './../../../models/lib/lib.model';
+
+import LibService from './../../../models/lib/lib.service';
 
 import AtomBox from './../../components/AtomBox/AtomBox';
 
@@ -220,7 +222,7 @@ extends React.Component<ChildProps<AtomBoxContainerProps & StateProps & Dispatch
                                 css={atom.css} 
                                 title={atom.name}
                                 background={atom.contextualBg}
-                                stylesheets={getStylesheetsFromLibs(mergedLibs)} />
+                                stylesheets={LibService.getStylesheetsFromLibs(mergedLibs)} />
             </AtomBox>
         );
     }

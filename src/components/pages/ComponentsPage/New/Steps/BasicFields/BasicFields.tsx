@@ -27,9 +27,9 @@ import { getLibsByProjectIdAction } from './../../../../../../actions/lib.action
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
 import { 
-    Lib as LibModel, 
-    getAtomLibsFromList 
+    Lib as LibModel
 }  from './../../../../../../models/lib/lib.model';
+import LibService from './../../../../../../models/lib/lib.service';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
@@ -213,7 +213,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                         let { libs } = this.props;
                         
                         // Get atom's libs from libs state
-                        let atomLibs = getAtomLibsFromList(libs);
+                        let atomLibs = LibService.getAtomLibsFromList(libs);
 
                         // Join project's libs with atom's libs and post them on Store State
                         this.props.actions.ui.changeLibs(atomLibs.concat(response.results));

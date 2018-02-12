@@ -9,7 +9,9 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
-import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../models/lib/lib.model';
+import { Lib as LibModel } from './../../../../models/lib/lib.model';
+
+import LibService from './../../../../models/lib/lib.service';
 
 import { changeColorAction } from './../../../../actions/ui.action';
 
@@ -154,7 +156,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                                 css={this.state.css} 
                                 title={name}
                                 background={hex}
-                                stylesheets={getStylesheetsFromLibs(libs)} />
+                                stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
     }
