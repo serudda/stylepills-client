@@ -158,14 +158,12 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             let atomAlreadyExists = functionsUtil.itemExistsInArray(state.edited.atoms, atomId, 'atomId');
 
             if (atomAlreadyExists) {
-                newAtomsState = newAtomsState.map(
-                    (a: IAtomsProps) => {
-                        if (a.atomId === atomId) {
-                            return atom(a, action);
-                        }
-                        return a;
-                    }
-                );
+
+                newAtomsState = functionsUtil.updateItemInArray(newAtomsState, 'atomId', atomId, 
+                (a: IAtomsProps) => {
+                    return atom(a, action);
+                });
+
             } else {
                 newAtomsState = state.edited.atoms.concat({
                     atomId,
@@ -245,23 +243,22 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
             /* TODO: Todo este fragmento esta repetido en reducers/ui.reducer, deberiamos crear una funcion
             global que haga esta operación */
             if (atomCodeAlreadyExists) {
-                newAtomCodeState = newAtomCodeState.map(
-                    code => {
-                        if (code.codeType !== codeType) {
-                            return code;
-                        }
 
-                        return {
-                            ...code,
-                            codeProps
-                        };
-                    }
-                );
+                newAtomCodeState = functionsUtil.updateItemInArray(newAtomCodeState, 'codeType', codeType, 
+                (code: IAtomCode) => {
+                    return {
+                        ...code,
+                        codeProps
+                    };
+                });
+
             } else {
+
                 newAtomCodeState = state.atomCode.concat({
                     codeType,
                     codeProps
                 });
+                
             }
             /* TODO: Fin del fragmento */
 

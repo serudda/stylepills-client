@@ -267,23 +267,22 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
             global que haga esta operación */
             if (codeTypeAlreadyExists) {
-                newCurrentCodeState = newCurrentCodeState.map(
-                    code => {
-                        if (code.codeType !== codeType) {
-                            return code;
-                        }
 
-                        return {
-                            ...code,
-                            codeProps
-                        };
-                    }
-                );
+                newCurrentCodeState = functionsUtil.updateItemInArray(newCurrentCodeState, 'codeType', codeType, 
+                (code: ICurrentCode) => {
+                    return {
+                        ...code,
+                        codeProps
+                    };
+                });
+
             } else {
+
                 newCurrentCodeState = state.sourceCodePanel.currentCode.concat({
                     codeType,
                     codeProps
                 });
+                
             }
             /* TODO: Fin del fragmento */
 

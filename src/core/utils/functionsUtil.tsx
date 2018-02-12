@@ -13,9 +13,10 @@ import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.
 /************************************/    
 interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => Object;
+    updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
+    itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
-    itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     truncateText: (str: string, length: number, ending: string) => string;
     convertHexToRgbaModel: (hex: string, opacity: number) => RgbaColorModel;
 }
@@ -84,6 +85,36 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
+     * @desc Validate if an item exists on an Array
+     * @function itemExistsInArray
+     * @example this.itemExistsInArray(array, 'primary', 'typeColor')
+     * @param {Array<any>} array - array to validate
+     * @param {any} value - value to use to check if exists in the array
+     * @param {string} key - If array has inner objects, this is the key that contain the value
+     * @return {boolean} value exists in array (true or false)
+     */
+    itemExistsInArray(array: Array<any>, value: any, key: string = null): boolean {
+        
+        let res = false;
+
+        if (array.length > 0) {
+
+            let newArray = array.filter((elem: any) => {
+                if (key) {
+                    return elem[key] === value;
+                } else {
+                    return elem === value;
+                }
+            });
+
+            if (newArray.length > 0) { res = true; }
+        }
+
+        return res;
+    }
+
+
+    /**
      * @desc Generic console log
      * @function consoleLog
      * @example - this.consoleLog('AtomDetailsBox is actived');
@@ -116,37 +147,6 @@ class FunctionsUtil implements IFunctionUtil {
         });
 
         return obj;
-    }
-
-
-
-    /**
-     * @desc Validate if an item exists on an Array
-     * @function itemExistsInArray
-     * @example this.itemExistsInArray(array, 'primary', 'typeColor')
-     * @param {Array<any>} array - array to validate
-     * @param {any} value - value to use to check if exists in the array
-     * @param {string} key - If array has inner objects, this is the key that contain the value
-     * @return {boolean} value exists in array (true or false)
-     */
-    itemExistsInArray(array: Array<any>, value: any, key: string = null): boolean {
-        
-        let res = false;
-
-        if (array.length > 0) {
-
-            let newArray = array.filter((elem: any) => {
-                if (key) {
-                    return elem[key] === value;
-                } else {
-                    return elem === value;
-                }
-            });
-
-            if (newArray.length > 0) { res = true; }
-        }
-
-        return res;
     }
 
 
