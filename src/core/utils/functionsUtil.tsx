@@ -14,6 +14,7 @@ import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.
 interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => Object;
     updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
+    deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
@@ -81,6 +82,35 @@ class FunctionsUtil implements IFunctionUtil {
         });
     
         return updatedItems;
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of deleting and item in an array 
+     * to ensure we correctly copy data instead of mutating.
+     * @function deleteItemInArray
+     * @example 
+     * const newTodos = deleteItemInArray(state.todos, 'id', action.id);
+     * @param {Array<any>} array - array of objects
+     * @param {number | string} value - value to use to find item inside the array
+     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @return {void}
+     */
+    deleteItemInArray(
+        array: Array<any>,
+        key: string = 'id',
+        value: number | string) {
+
+        const newList = array.filter(
+            (item) => {
+            if (item[key] === value) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    
+        return newList;
     }
 
 

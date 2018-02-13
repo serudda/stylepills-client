@@ -12,6 +12,7 @@ import { functionsUtil } from './../core/utils/functionsUtil';
 import { ICurrentCode } from './../actions/ui.action';
 import { Basic as BasicColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from '../models/lib/lib.model';
+import { Source as SourceModel } from './../models/source/source.model';
 
 import { 
     Option as CodeTabMenuOption 
@@ -34,6 +35,9 @@ import {
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
+    lists: {
+        sourcesList: Array<SourceModel>
+    };
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions
@@ -67,6 +71,9 @@ export interface IUiState {
 const defaultState: IUiState = {
     modals: [],
     alerts: [],
+    lists: {
+        sourcesList: []
+    },
     tabs: {
         atomDetailsTab: {
             tab: null
@@ -84,7 +91,6 @@ const defaultState: IUiState = {
             rgba: appConfig.SECONDARY_COLOR_RGBA
         }
     },
-    // TODO: No existen estas dos en la action CLEAR, revisar por que no se agregaron alla
     sourceCodePanel: {
         currentCode: []
     },
@@ -116,6 +122,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 ...state, 
                 modals: [],
                 alerts: [],
+                lists: {
+                    sourcesList: []
+                },
                 tabs: {
                     atomDetailsTab: {
                         tab: null
@@ -181,19 +190,39 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CLOSE_ALERT: {
 
-            const newAlertsState = state.alerts.filter((alert) => {
-                if (alert.alertId === action.alerts.alertId ) {
-                    return false;
-                } else {
-                    return true;
-                }
-            });
+            const newAlertsState = functionsUtil.deleteItemInArray(state.alerts, 'alertId', action.alerts.alertId);
 
             return {
                 ...state,
                 alerts: newAlertsState
             };
 
+        }
+
+        case types.ADD_SOURCE_ITEM: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList:  [
+                        ...state.lists.sourcesList,
+                        { ...action.source }
+                    ]
+                }
+            };
+        }
+
+        case types.DELETE_SOURCE_ITEM: {
+
+            const newSourcesListState = functionsUtil.deleteItemInArray(state.lists.sourcesList, 'id', action.id);
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList: newSourcesListState
+                }
+            };
         }
 
         case types.CHANGE_ATOM_DETAILS_TAB: {

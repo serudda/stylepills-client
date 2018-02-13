@@ -9,6 +9,7 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { Basic as BasicColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from './../models/lib/lib.model';
+import { Source as SourceModel } from './../models/source/source.model';
 
 import { 
     Option as CodeTabMenuOption 
@@ -32,6 +33,9 @@ interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
     modals: null;
     alerts: null;
+    lists: {
+        sourcesList: Array<SourceModel>
+    };
     tabs: {
         atomDetailsTab: {
             tab: string | null
@@ -72,10 +76,31 @@ export interface IClearUiAction {
         currentColor: BasicColorModel
     };
     copied: null;
+    sourceCodePanel: {
+        currentCode: Array<ICurrentCode>;
+    };
+    libsPanel: {
+        libs: Array<LibModel>;
+    };
     duplicated: {
         atomId: number,
         isDuplicated: boolean
     };
+}
+
+
+/* 
+    LISTS ACTIONS
+    state: lists
+*/
+
+export interface ILibsPanel {
+    libs: Array<LibModel>;
+}
+
+export interface IChangeLibsAction {
+    type: types.CHANGE_LIBS;
+    libsPanel: ILibsPanel;
 }
 
 
@@ -126,6 +151,41 @@ export interface ICloseAlertAction {
     };
 }
 
+
+/* 
+    LISTS ACTIONS
+    state: lists
+    TODO: La estructura de cada Action aqui esta mal, ya que estoy enviando cada action con 
+    la estructura que tiene el State, lo que cual no es necesario en lo absoluto, y si confunde
+    entonces este es el primer tipo de Action que esta bien estructurado:
+    cada action solo envia la propiedad, no la estructura del State: 
+    e.g. source (contiene el nuevo Source a agregar), no estoy enviando:
+    lists: { sourceList: { type, source } }
+    Si esto funciona bien, refactorizar todas las Action para que usen esta misma estructura
+*/
+
+export interface IAddSourceItemAction {
+    type: types.ADD_SOURCE_ITEM;
+    source: SourceModel;
+}
+
+export interface IEditSourceItemAction {
+    type: types.EDIT_SOURCE_ITEM;
+    source: SourceModel;
+}
+
+export interface IDeleteSourceItemAction {
+    type: types.DELETE_SOURCE_ITEM;
+    id: number;
+}
+
+export interface IChangeSourceItemOrderAction {
+    type: types.CHANGE_SOURCE_ITEM_ORDER;
+    id: number;
+    newOrder: number;
+}
+
+
 /* 
     TABS ACTIONS
     state: tabs
@@ -167,6 +227,12 @@ export interface IChangeLibsTabAction {
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
+
+
+/* 
+    CHANGE PREPROCESSOR ACTIONS
+    state: copied
+*/
 
 
 /* 
@@ -251,6 +317,10 @@ export type Action =
 |   ICloseModalAction
 |   IShowAlertAction
 |   ICloseAlertAction
+|   IAddSourceItemAction
+|   IEditSourceItemAction
+|   IDeleteSourceItemAction
+|   IChangeSourceItemOrderAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
 |   IChangeLibsTabAction
@@ -292,6 +362,12 @@ export const clearUiAction = (): Action => {
                 hex: appConfig.SECONDARY_COLOR_HEX,
                 rgba: appConfig.SECONDARY_COLOR_RGBA
             }
+        },
+        sourceCodePanel: {
+            currentCode: []
+        },
+        libsPanel: {
+            libs: []
         },
         copied: null,
         duplicated: {
@@ -365,6 +441,63 @@ export const showAlertAction = (alertType: AlertOption, alertProps: any): Action
             alertType,
             alertProps
         }
+    };
+};
+
+
+/**
+ * @desc Return an action type, ADD_SOURCE_ITEM
+ * to add a Source on Source List
+ * @function addSourceItemAction
+ * @returns {Action}
+ */
+export const addSourceItemAction = (source: SourceModel): Action => {
+    return {
+        type: types.ADD_SOURCE_ITEM,
+        source
+    };
+};
+
+
+/**
+ * @desc Return an action type, EDIT_SOURCE_ITEM
+ * to edit a Source on Source List
+ * @function editSourceItemAction
+ * @returns {Action}
+ */
+export const editSourceItemAction = (source: SourceModel): Action => {
+    return {
+        type: types.EDIT_SOURCE_ITEM,
+        source
+    };
+};
+
+
+/**
+ * @desc Return an action type, DELETE_SOURCE_ITEM
+ * to delete a Source on Source List
+ * @function deleteSourceItemAction
+ * @returns {Action}
+ */
+export const deleteSourceItemAction = (id: number): Action => {
+    return {
+        type: types.DELETE_SOURCE_ITEM,
+        id
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_SOURCE_ITEM_ORDER
+ * to change the Source's order on Source List
+ * @function changeSourceItemOrderAction
+ * @returns {Action}
+ */
+export const changeSourceItemOrderAction = (id: number, newOrder: number): Action => {
+    return {
+        type: types.CHANGE_SOURCE_ITEM_ORDER,
+        id,
+        newOrder
     };
 };
 
