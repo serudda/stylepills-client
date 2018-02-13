@@ -28,8 +28,15 @@ export type BannerAlertProps = {
     type: Option,
     text: string,
     showIcon?: boolean,
+    showDeleteBtn?: boolean,
+    forceToShow?: boolean,
     className?: string,
-    readonly onCloseClick?: (id: string) => any;
+    onCloseClick?: (id: string) => any;
+};
+
+/* Own States */
+type LocalStates = {
+    hide: boolean
 };
 
 
@@ -40,7 +47,7 @@ export type BannerAlertProps = {
  * @returns component view
  */
 
-class BannerAlert extends React.Component<BannerAlertProps, {}> {
+class BannerAlert extends React.Component<BannerAlertProps, LocalStates> {
 
 
     /********************************/
@@ -48,6 +55,10 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
     /********************************/
     constructor(props: BannerAlertProps) {
         super(props);
+
+        this.state = {
+            hide: false
+        };
 
         // Bind methods
         this._handleClick = this._handleClick.bind(this);
@@ -73,6 +84,8 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
         e.preventDefault();
         if (onCloseClick) {
             onCloseClick(id);
+        } else {
+            this.setState({ hide: true });
         }
     }
 
@@ -128,12 +141,16 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
     /********************************/
     render() {
 
-        // Destructuring props
+        // Destructuring props & state
         const {
             type,
             text,
-            className
+            className,
+            showDeleteBtn = true
         } = this.props;
+
+        const { hide } = this.state;
+
 
 
         // Baner Alert Classes
@@ -153,21 +170,27 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
         /*         MARKUP          */
         /***************************/
         return (
-            <div className={bannerAlertClasses}>
+            <div>
+            {!hide &&
+                <div className={bannerAlertClasses}>
 
-                {/* Show Icon */}
-                {this._buildInfoSection()}
-                
-                <span className="fontSize-md color-white fontWeight-9">
-                    {text}
-                </span>
+                    {/* Show Icon */}
+                    {this._buildInfoSection()}
+                    
+                    <span className="fontSize-md color-white fontWeight-9">
+                        {text}
+                    </span>
 
-                <span className="icon-btn d-flex ml-auto" onClick={this._handleClick}>
-                    <Icon icon="close"
-                        iconClass="strokeWidth-2 stroke-white"
-                        width="22" height="22"/>
-                </span>
+                    { showDeleteBtn &&
+                        <span className="icon-btn d-flex ml-auto" onClick={this._handleClick}>
+                            <Icon icon="close"
+                                iconClass="strokeWidth-2 stroke-white"
+                                width="22" height="22"/>
+                        </span>
+                    }
 
+                </div>
+            }
             </div>
         );
 

@@ -35,7 +35,7 @@ import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../../app/containers/Inputs/SelectInputs/AtomCategorySelectList/AtomCategorySelectList.container';
 import ProjectSelectList from './../../../../../../app/containers/Inputs/SelectInputs/ProjectSelectList/containers/ProjectSelectList.container';
-import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
+// import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
 import Icon from './../../../../../../app/components/Icon/Icon';
 
 import {
@@ -337,12 +337,14 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
         // Destructuring props
         const { validationErrors } = this.state;
 
+        // NOTE: 1
         if (validationErrors.html) {
             return (
                 <BannerAlert type={BannerAlertOption.negative} 
                              text={validationErrors.html}
                              className="position-absolute sp-rounded-bottom-md validationMsg"
-                             showIcon={true}/>
+                             showIcon={true}
+                             forceToShow={true}/>
             );
         } else {
             return false;
@@ -497,11 +499,12 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                                                 css={this.state.fields.css}
                                                 libs={this.state.fields.libs}/>
                         
-                        {/* Error Bottom Message */}
+                        {/* Error Bottom Message NOTE: 1*/}
                         {this._buildSourceCodeErrorMessage()}
-                        <AlertManagerContainer />
-                        
-                        {/*<button onClick={this.exampleMethod}>SHOW</button>*/}
+
+                        {/* TODO: Solo es un ejemplo, no se usa aqui oficialmente */}
+                        {/* <AlertManagerContainer />
+                        <button onClick={this.exampleMethod}>SHOW</button> */}
 
                     </div>
 
@@ -605,3 +608,12 @@ const basicFieldsConnect = connect(mapStateToProps, mapDispatchToProps);
 export default compose(
     basicFieldsConnect
 )(BasicFields);
+
+
+
+/* 
+(1) Uso BannerAlert directamente (en vez de AlertManager) ya que en este caso este Banner no es considerado un Alert,
+Ademas no deberia estar agregando por todas partes el: AlertManager container, ya que si llegara a agregar 2 veces este
+componente, se pifiaria su comportamiento. Este AlertManager container deberia estar en un solo lugar global solo para
+gestionar los Alertas globales, como por ejemplo los modals.
+*/
