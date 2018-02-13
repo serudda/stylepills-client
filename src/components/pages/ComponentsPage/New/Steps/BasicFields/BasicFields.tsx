@@ -344,7 +344,8 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                              text={validationErrors.html}
                              className="position-absolute sp-rounded-bottom-md validationMsg"
                              showIcon={true}
-                             forceToShow={true}/>
+                             showDeleteBtn={false}
+                             />
             );
         } else {
             return false;

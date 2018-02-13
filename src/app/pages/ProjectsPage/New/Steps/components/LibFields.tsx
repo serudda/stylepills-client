@@ -6,6 +6,8 @@ import * as React from 'react';
 import Button from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
 import AddLibForm from './../../../../../components/Forms/AddLibForm/AddLibForm';
+import LibsListContainer from './../../../../../containers/LibsList/LibsList.container';
+
 import CodeTabMenu, { 
     Option as CodeTabMenuOption 
 } from './../../../../../components/Tabs/CodeTabMenu/CodeTabMenu';
@@ -121,10 +123,13 @@ class ListFields extends React.Component<ListFieldsProps, {}> {
                                 onTabClick={onTabClick}/>
 
                     {/* External Libs */}
-                    <div className="ExternalLibs d-flex align-items-center position-relative pt-5">
+                    <div className="ExternalLibs d-flex flex-column w-100 pt-5">
                         <AddLibForm label={title}
                                     helpMsg={description}
                                     onAddClick={onAddLibClick}/>
+
+                        {/* Build external libs list */}
+                        <LibsListContainer />
                     </div>
 
                 </div>

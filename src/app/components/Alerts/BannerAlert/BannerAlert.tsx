@@ -29,7 +29,6 @@ export type BannerAlertProps = {
     text: string,
     showIcon?: boolean,
     showDeleteBtn?: boolean,
-    forceToShow?: boolean,
     className?: string,
     onCloseClick?: (id: string) => any;
 };

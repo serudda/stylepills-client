@@ -5,9 +5,8 @@ import * as React from 'react';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
-import Input from './../../Inputs/GenericTextInput/GenericTextInput';
-import Button, { TypeOption as BtnTypeOption } from './../../Buttons/GenericBtn/GenericBtn';
-import LibsListContainer from './../../../containers/LibsList/LibsList.container';
+import { TypeOption as BtnTypeOption } from './../../Buttons/GenericBtn/GenericBtn';
+import InlineForm from './../InlineForm/InlineForm';
 
 
 // -----------------------------------
@@ -139,51 +138,15 @@ class AddLibForm extends React.Component<AddLibFormProps, LocalStates> {
         /*         MARKUP          */
         /***************************/
         return (
-            <div className="AddLibForm d-flex flex-column w-100">
-
-                <div className="d-flex align-items-center">
-
-                    <div className="d-flex flex-column">
-                        
-                        {label &&
-                            <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
-                                {label}
-                            </div>
-                        }
-                        
-                        {helpMsg &&
-                            <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
-                                {helpMsg}
-                            </div>
-                        }
-                        
-                    </div>
-
-                </div>
-
-
-                <div className="d-flex align-items-center mt-3">                    
-
-                    {/* Input: External Lib Url */}
-                    <Input value={this.state.fields.url}
-                           name="url" 
-                           placeholder="e.g. https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-                           isBlock={true}
-                           onChange={this.handleInputChange} />
-
-                    {/* Add Button */}
-                    <div className="ml-3">
-                        <Button type={BtnTypeOption.secondary} 
-                                label="Add" 
-                                onClick={this.handleClick}/>
-                    </div>
-
-                </div>
-
-                {/* Build external libs list */}
-                <LibsListContainer />
-
-            </div>
+            <InlineForm label={label}
+                        helpMsg={helpMsg}
+                        inputValue={this.state.fields.url}
+                        inputName="url"
+                        inputPlaceholder="e.g. https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                        btnType={BtnTypeOption.secondary}
+                        btnLabel="Add"
+                        onInputChange={this.handleInputChange}
+                        onBtnClick={this.handleClick}/>
         );
     }
     

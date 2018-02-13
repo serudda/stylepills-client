@@ -8,6 +8,7 @@ import CodeTabMenu, {
 } from './../Tabs/CodeTabMenu/CodeTabMenu';
 
 import AddLibForm from './../../components/Forms/AddLibForm/AddLibForm';
+import LibsListContainer from './../../containers/LibsList/LibsList.container';
 
 
 // -----------------------------------
@@ -82,10 +83,15 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
                     <div className="col-12 position-relative">
 
                         {/* External Libs */}
-                        <div className="ExternalLibs d-flex align-items-center position-relative p-5">
+                        <div className="ExternalLibs d-flex flex-column w-100 p-5">
+
                             <AddLibForm label={title}
                                         helpMsg={description}
                                         onAddClick={onAddLibClick}/>
+                            
+                            {/* Build external libs list */}
+                            <LibsListContainer />
+
                         </div>
 
                     </div>
