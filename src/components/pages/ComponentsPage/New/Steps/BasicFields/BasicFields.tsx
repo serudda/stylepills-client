@@ -330,7 +330,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
      * @method _buildSourceCodeErrorMessage
      * @example this._buildSourceCodeErrorMessage()
      * @private
-     * @returns {JSX.Element} <AddColorForm />
+     * @returns {JSX.Element} <BannerAlert />
      */
     private _buildSourceCodeErrorMessage() {
 

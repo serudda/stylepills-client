@@ -10,7 +10,7 @@ import { Action } from '../actions/ui.action';
 import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { ICurrentCode } from './../actions/ui.action';
-import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Basic as BasicColorModel, Color as ColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from '../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 
@@ -36,6 +36,7 @@ export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     lists: {
+        colorsList: Array<ColorModel>;
         sourcesList: Array<SourceModel>
     };
     tabs: {
@@ -72,6 +73,7 @@ const defaultState: IUiState = {
     modals: [],
     alerts: [],
     lists: {
+        colorsList: [],
         sourcesList: []
     },
     tabs: {
@@ -123,6 +125,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 modals: [],
                 alerts: [],
                 lists: {
+                    colorsList: [],
                     sourcesList: []
                 },
                 tabs: {
@@ -197,6 +200,32 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 alerts: newAlertsState
             };
 
+        }
+
+        case types.ADD_COLOR_ITEM: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    colorsList:  [
+                        ...state.lists.colorsList,
+                        { ...action.color }
+                    ]
+                }
+            };
+        }
+
+        case types.DELETE_COLOR_ITEM: {
+
+            const newColorsListState = functionsUtil.deleteItemInArray(state.lists.colorsList, 'id', action.id);
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    colorsList: newColorsListState
+                }
+            };
         }
 
         case types.ADD_SOURCE_ITEM: {

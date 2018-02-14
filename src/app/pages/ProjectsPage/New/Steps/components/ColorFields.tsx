@@ -8,10 +8,11 @@ import {
 } from './../../../../../../core/validations/project';
 
 import { 
-    Color as ColorModel, 
     ColorTypeOptions 
 } from './../../../../../../models/color/color.model';
-import AddColorForm from './../../../../../../components/common/AddColorForm/AddColorForm.container';
+import AddColorFormContainer from './../../../../../containers/Forms/AddColorForm/AddColorForm.container';
+import ColorsListContainer from './../../../../../containers/ColorsList/ColorsList.container';
+
 import Button from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
 
@@ -24,13 +25,10 @@ import Icon from './../../../../../components/Icon/Icon';
 /********************************/
 
 /* Own Props */
-type BasicFieldsProps = {
-    colorPaletteValue: Array<ColorModel>,
+type ColorFieldsProps = {
     validationErrors?: IValidationError,
     onPrevClick: (e: React.FormEvent<{}>) => any,
-    onNextClick: (e: React.FormEvent<{}>) => any,
-    onAddColorClick: (newColor: ColorModel) => any,
-    onDeleteColorClick: (color: ColorModel) => any
+    onNextClick: (e: React.FormEvent<{}>) => any
 };
 
 
@@ -38,12 +36,12 @@ type BasicFieldsProps = {
 /*              CLASS DEFINITION               */
 /***********************************************/
 
-class BasicFields extends React.Component<BasicFieldsProps, {}> {
+class ColorFields extends React.Component<ColorFieldsProps, {}> {
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: BasicFieldsProps) {
+    constructor(props: ColorFieldsProps) {
         super(props);
     }
 
@@ -63,41 +61,23 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
      */
     private _buildAddColorForm(type: ColorTypeOptions): JSX.Element {
 
-        // Destructuring state
-        const { 
-            colorPaletteValue,
-            onAddColorClick,
-            onDeleteColorClick 
-        } = this.props;
-
         // VARIABLES
-        let newColorsArray: Array<ColorModel> = [];
-        let title = {
+        let label = {
             primary: 'PRIMARY COLORS',
             secondary: 'SECONDARY COLORS',
             grayscale: 'GRAYSCALE COLORS'
         };
 
-        let description = {
+        let helpMsg = {
             primary: 'These are the colors that define your brand.',
             secondary: 'These colors are support to accompany the primary colors.',
             grayscale: 'A selection of grayscale colors for background or text color use.'
         };
 
-        // Create new colors array based on type
-        if (colorPaletteValue.length > 0) {
-            newColorsArray = colorPaletteValue.filter((color: ColorModel) => {
-                return color.type === type;
-            });
-        }
-
         return (
-            <AddColorForm title={title[type]}
-                        description={description[type]}
-                        colors={newColorsArray}
-                        onAddClick={onAddColorClick}
-                        onDeleteClick={onDeleteColorClick}
-                        type={type}/>
+            <AddColorFormContainer label={label[type]}
+                                    helpMsg={helpMsg[type]}
+                                    colorType={type}/>
         );
     }
 
@@ -169,6 +149,8 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                         </div>
                     }
 
+                    <ColorsListContainer />
+
 
                     <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
@@ -176,12 +158,16 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
                     {/* Add Secondary colors */}
                     {this._buildAddColorForm(ColorTypeOptions.secondary)}
 
+                    <ColorsListContainer />
+
 
                     <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
 
                     {/* Add Grayscale colors */}
                     {this._buildAddColorForm(ColorTypeOptions.grayscale)}
+
+                    <ColorsListContainer />
 
                 </div>
 
@@ -204,4 +190,4 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
 
 
 /* Export */
-export default BasicFields;
+export default ColorFields;

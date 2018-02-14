@@ -12,3 +12,27 @@ Buenos ejemplos de como estructuras un componente:
     STEP 8 — Finally Bring Them All Together
 
 reference: https://medium.com/@rajaraodv/step-by-step-guide-to-building-react-redux-apps-using-mocks-48ca0f47f9a
+
+
+-----------------------------------------------
+
+
+* Callback enviados por props:
+
+- Un ejemplo muy interesante para la gestion de Callbacks (functions) pasados
+por props a los hijos de un componente, es: "SmallColorPicker.container". El cual
+tiene una propiedad: onChange, la cual puedes recibir por props o si no la recibe
+entonces hace llamado a una 'action' por defecto. Con esto no me preocupo por que
+los componentes queden atados o no a una action en especifico, haciendolas más reusables:
+
+    // If receive an parent's onChange method
+    if (this.props.onChange) {
+        this.props.onChange({ hex, rgba: rgb });
+    } else {
+        // If not receive a parent's onChange method, default action.
+        this.props.actions.ui.changeColor({ hex, rgba: rgb });
+    }
+
+
+-----------------------------------------------
+

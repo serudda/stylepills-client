@@ -3,7 +3,10 @@
 /************************************/
 import * as React from 'react';
 
-import * as classNames from 'classnames';
+import { ColorTypeOptions } from './../../../../models/color/color.model';
+
+import InputColorPickerContainer from './../../../containers/ColorPicker/InputColorPicker/InputColorPicker.container';
+import Icon from './../../Icon/Icon';
 
 // -----------------------------------
 
@@ -12,23 +15,16 @@ import * as classNames from 'classnames';
 /*      INTERFACES & TYPES      */
 /********************************/
 
-/* Possible size options */
-export enum SizeOption {
-    sm = 'sm',
-    md = 'md',
-    lg = 'lg'
-}
-
 /* Own Props */
 type AddColorFormProps = {
-    value: string | number | string[];
-    name: string;
-    size?: SizeOption;
-    isBlock?: boolean;
-    placeholder: string;
-    disabled?: boolean;
-    onChange: (e: React.FormEvent<{}>) => any;
-    className?: string
+    label: string,
+    helpMsg: string
+    colorType: ColorTypeOptions,
+    showForm: boolean,
+    inputValue: string | number | string[], 
+    onAddClick: (e: React.FormEvent<{}>) => any,
+    onShowFormClick: (e: React.FormEvent<{}>) => any,
+    onInputNameColorChange: (e: React.FormEvent<{}>) => void
 };
 
 
@@ -39,36 +35,79 @@ type AddColorFormProps = {
  * @returns component view
  */
 const AddColorForm: React.SFC<AddColorFormProps> = ({
-    value,
-    name,
-    placeholder,
-    size = SizeOption.md,
-    disabled = false,
-    isBlock = false,
-    onChange,
-    className
- }) => {
-
-    // Input Classes
-    const inputClasses = classNames({
-        'sp-input': true, 
-        [`sp-input--${size}`]: true,
-        'sp-input--block': isBlock,
-        [`${className}`]: !!className
-    });    
-    
+    label,
+    helpMsg,
+    colorType,
+    showForm = colorType === ColorTypeOptions.primary ? true : false,
+    inputValue,
+    onAddClick,
+    onShowFormClick,
+    onInputNameColorChange
+ }) => {    
     
 
     /*         MARKUP          */
     /***************************/
     return (
-        <input type="text"
-                placeholder={placeholder}
-                className={inputClasses}
-                value={value}
-                name={name}
-                disabled={disabled}
-                onChange={onChange} />
+        <div className="AddColorForm">
+
+                <div className="d-flex align-items-center">
+
+                    <div className="d-flex flex-column">
+                        
+                        <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
+                            {label}{colorType !== ColorTypeOptions.primary && <span className="color-extraDarkSmoke ml-2">(optional)</span>}
+                        </div>
+                        
+                        <div className="fontSize-sm fontWeight-3 color-extraDarkSmoke fontSmoothing-reset">
+                            {helpMsg}
+                        </div>
+                        
+                    </div>
+
+                    {(colorType !== ColorTypeOptions.primary && !showForm) &&
+                        <button className="d-flex sp-btn sp-btn--md sp-btn--secondary ml-auto p-1"
+                                onClick={onShowFormClick}>
+                            <Icon icon="plus"
+                                iconClass="stroke-white strokeWidth-3"
+                                width="20" height="20"/>
+                        </button>
+                    }
+
+                </div>
+
+                {showForm && 
+
+                    <div className="d-flex align-items-center mt-3">
+
+                        <InputColorPickerContainer />
+                        
+
+                        {/* Input: Color Name */}
+                        <div className="sp-inputGroup sp-inputGroup--label sp-inputGroup--label--md mr-3">
+                            <span className="context">
+                                Name
+                            </span>
+                            
+                            <input type="text" 
+                                    placeholder="Light Primary" 
+                                    className="input" 
+                                    name="name"
+                                    value={inputValue}
+                                    onChange={onInputNameColorChange} />
+                        </div>
+
+                        {/* Add Button */}
+                        <button className="sp-btn sp-btn--secondary sp-btn--md"
+                                onClick={onAddClick}>
+                            Add
+                        </button>
+
+                    </div>
+
+                }
+
+            </div>
     );
     
 };

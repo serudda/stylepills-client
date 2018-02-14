@@ -182,7 +182,7 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      * @method _buildTabMenu
      * @example this._buildTabMenu()
      * @private
-     * @returns {JSX.Element} <AddColorForm />
+     * @returns {JSX.Element} <DetailsTabMenu />
      */
     private _buildTabMenu(): JSX.Element {
 

@@ -75,9 +75,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
             html: props.html || '',
             css: props.css || ''
         };
-
-        // Bind methods
-        this.handleColorChange = this.handleColorChange.bind(this);
     }
 
 
@@ -85,6 +82,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*       COMPONENTDIDMOUNT      */
     /********************************/
     componentDidMount() {
+
+        // TODO: Analizar por que no estoy seguro que esto sea tarea de este componente
         
         const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
         const DEFAULT_COLOR_RGBA = {
@@ -120,23 +119,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
 
     /********************************/
-    /*        PUBLIC METHODS        */
-    /********************************/
-
-
-    /**
-     * @desc Handle Color Change
-     * @method handleColorChange
-     * @example this.handleColorChange()
-     * @public
-     * @returns {void}
-     */
-    handleColorChange(color: BasicColorModel) {
-        this._changeColor(color);
-    }
-
-
-    /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
 
@@ -167,7 +149,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         /***************************/
         return (
             <PreviewBox height="30" 
-                        onColorChange={this.handleColorChange}
                         isEmptyPreview={html === ''}> 
                 <Iframe children={html} 
                                 css={css} 

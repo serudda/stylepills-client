@@ -75,8 +75,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
             css: props.css || ''
         };
 
-        // Bind methods
-        this.handleColorChange = this.handleColorChange.bind(this);
     }
 
 
@@ -109,34 +107,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         }
     }
 
-    /**
-     * @desc Handle Color Change
-     * @method handleColorChange
-     * @example this.handleColorChange()
-     * @public
-     * @returns {void}
-     */
-    handleColorChange(color: BasicColorModel) {
-        this._changeColor(color);
-    }
-
-
-    /********************************/
-    /*       PRIVATE METHODS        */
-    /********************************/
-
-
-    /**
-     * @desc Change Color of Color Picker
-     * @method _changeColor
-     * @example this._changeColor()
-     * @private 
-     * @returns {void}
-     */
-    private _changeColor(color: BasicColorModel) {
-        this.props.actions.ui.changeColor(color);
-    }
-
 
     /********************************/
     /*        RENDER MARKUP         */
@@ -150,8 +120,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         /*         MARKUP          */
         /***************************/
         return (
-            <PreviewBox height="30"
-                        onColorChange={this.handleColorChange}> 
+            <PreviewBox height="30"> 
                 <Iframe children={this.state.html} 
                                 css={this.state.css} 
                                 title={name}

@@ -55,7 +55,7 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
      * @method _buildColorTypeSection
      * @example this._buildColorTypeSection()
      * @private
-     * @returns {JSX.Element} <AddColorForm />
+     * @returns {JSX.Element} 
      */
     private _buildColorTypeSection(type: string): JSX.Element {
 

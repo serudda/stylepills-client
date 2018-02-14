@@ -7,7 +7,7 @@ import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
-import { Basic as BasicColorModel } from '../models/color/color.model';
+import { Basic as BasicColorModel, Color as ColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from './../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 
@@ -34,6 +34,7 @@ interface ILocationChangeAction {
     modals: null;
     alerts: null;
     lists: {
+        colorsList: Array<ColorModel>;
         sourcesList: Array<SourceModel>
     };
     tabs: {
@@ -61,6 +62,10 @@ export interface IClearUiAction {
     type: types.CLEAR_UI;
     modals: null;
     alerts: null;
+    lists: {
+        colorsList: Array<ColorModel>;
+        sourcesList: Array<SourceModel>
+    };
     tabs: {
         atomDetailsTab: {
             tab: string | null
@@ -185,6 +190,27 @@ export interface IChangeSourceItemOrderAction {
     newOrder: number;
 }
 
+
+export interface IAddColorItemAction {
+    type: types.ADD_COLOR_ITEM;
+    color: ColorModel;
+}
+
+export interface IEditColorItemAction {
+    type: types.EDIT_COLOR_ITEM;
+    color: ColorModel;
+}
+
+export interface IDeleteColorItemAction {
+    type: types.DELETE_COLOR_ITEM;
+    id: number;
+}
+
+export interface IChangeColorItemOrderAction {
+    type: types.CHANGE_COLOR_ITEM_ORDER;
+    id: number;
+    newOrder: number;
+}
 
 /* 
     TABS ACTIONS
@@ -321,6 +347,10 @@ export type Action =
 |   IEditSourceItemAction
 |   IDeleteSourceItemAction
 |   IChangeSourceItemOrderAction
+|   IAddColorItemAction
+|   IEditColorItemAction
+|   IDeleteColorItemAction
+|   IChangeColorItemOrderAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
 |   IChangeLibsTabAction
@@ -346,6 +376,10 @@ export const clearUiAction = (): Action => {
         type: types.CLEAR_UI,
         modals: null,
         alerts: null,
+        lists: {
+            colorsList: [],
+            sourcesList: []
+        },
         tabs: {
             atomDetailsTab: {
                 tab: null
@@ -501,6 +535,62 @@ export const changeSourceItemOrderAction = (id: number, newOrder: number): Actio
     };
 };
 
+
+/**
+ * @desc Return an action type, ADD_COLOR_ITEM
+ * to add a Color on Color List
+ * @function addColorItemAction
+ * @returns {Action}
+ */
+export const addColorItemAction = (color: ColorModel): Action => {
+    return {
+        type: types.ADD_COLOR_ITEM,
+        color
+    };
+};
+
+
+/**
+ * @desc Return an action type, EDIT_COLOR_ITEM
+ * to edit a Color on Color List
+ * @function editColorItemAction
+ * @returns {Action}
+ */
+export const editColorItemAction = (color: ColorModel): Action => {
+    return {
+        type: types.EDIT_COLOR_ITEM,
+        color
+    };
+};
+
+
+/**
+ * @desc Return an action type, DELETE_COLOR_ITEM
+ * to delete a Color on Color List
+ * @function deleteColorItemAction
+ * @returns {Action}
+ */
+export const deleteColorItemAction = (id: number): Action => {
+    return {
+        type: types.DELETE_COLOR_ITEM,
+        id
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_COLOR_ITEM_ORDER
+ * to change the Color's order on Color List
+ * @function changeColorItemOrderAction
+ * @returns {Action}
+ */
+export const changeColorItemOrderAction = (id: number, newOrder: number): Action => {
+    return {
+        type: types.CHANGE_COLOR_ITEM_ORDER,
+        id,
+        newOrder
+    };
+};
 
 /**
  * @desc Return an action type, CLOSE_ALERT

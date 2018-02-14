@@ -21,7 +21,6 @@ type InputColorPickerProps = {
     rgba: RgbaColorModel;
     displayColorPicker: boolean;
     onSwatchClick: (e: React.FormEvent<{}>) => void;
-    onInputChange: (e: React.FormEvent<{}>) => void;
     onPickerChange: (color: ColorResult) => void;
     onClose: (e: React.FormEvent<{}>) => void;
 };
@@ -55,7 +54,6 @@ class InputColorPicker extends React.Component<InputColorPickerProps, {}> {
             rgba,
             displayColorPicker,
             onSwatchClick,
-            onInputChange,
             onPickerChange,
             onClose
         } = this.props;
@@ -76,7 +74,7 @@ class InputColorPicker extends React.Component<InputColorPickerProps, {}> {
                         placeholder={`${appConfig.SECONDARY_COLOR_HEX}`} 
                         className="input" 
                         value={hex}
-                        onClick={onInputChange}
+                        onClick={onSwatchClick}
                         readOnly={true}/>
                 
                 {/* Color Picker */}

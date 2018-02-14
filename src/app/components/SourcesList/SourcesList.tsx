@@ -28,7 +28,7 @@ type SourcesListProps = {
 
 /**
  * @desc Represent a Sources List
- * @function SourcesListProps
+ * @function SourcesList
  * @type STATELESS FUNCTIONAL COMPONENT (SFC)
  * @returns component view
  */
