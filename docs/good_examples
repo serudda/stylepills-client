@@ -1,0 +1,14 @@
+1. src/app/containers/SourcesList
+2. src/app/containers/Forms/AddSourceForm
+
+Buenos ejemplos de como estructuras un componente:
+    STEP 1 — Write A Detailed Mock of the Screen
+    STEP 2 — Divide The App Into Components
+    STEP 3 — List State and Actions For Each Component
+    STEP 4 — Create Action Creators For Each Action
+    STEP 5 — Write Reducers For Each Action
+    STEP 6 — Implement Every Presentational Component
+    STEP 7 — Create Container Component For Some/All Presentational Component
+    STEP 8 — Finally Bring Them All Together
+
+reference: https://medium.com/@rajaraodv/step-by-step-guide-to-building-react-redux-apps-using-mocks-48ca0f47f9a
