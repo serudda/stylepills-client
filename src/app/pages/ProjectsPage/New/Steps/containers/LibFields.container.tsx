@@ -173,7 +173,8 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
 
         const { tab, libs } = this.props;
 
-        let libsCopy = [].concat(libs);
+        // let libsCopy = [].concat(libs); LEGACY
+        let libsCopy = functionsUtil.copyArray(libs);
 
         libsCopy.unshift({
             type: tab,

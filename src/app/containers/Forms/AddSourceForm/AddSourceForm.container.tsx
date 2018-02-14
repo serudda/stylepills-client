@@ -5,16 +5,16 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from './../../../reducer/reducer.config';
+import { IRootState } from './../../../../reducer/reducer.config';
 
-import { showModalAction } from './../../../actions/ui.action';
+import { showModalAction } from './../../../../actions/ui.action';
 
 import { 
     Option as ModalOption 
-} from './../../containers/Modals/ModalManager/ModalManager.container';
+} from './../../../containers/Modals/ModalManager/ModalManager.container';
 
-import InlineFormWithoutInput from './../../components/Forms/InlineFormWithoutInput/InlineFormWithoutInput';
-import { TypeOption as BtnTypeOption } from './../../components/Buttons/GenericBtn/GenericBtn';
+import InlineFormWithoutInput from './../../../components/Forms/InlineFormWithoutInput/InlineFormWithoutInput';
+import { TypeOption as BtnTypeOption } from './../../../components/Buttons/GenericBtn/GenericBtn';
 
 // -----------------------------------
 

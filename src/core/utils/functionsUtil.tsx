@@ -12,9 +12,11 @@ import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.
 /*            INTERFACES            */
 /************************************/    
 interface IFunctionUtil {
-    updateObject: (oldObject: Object, newValues: any) => Object;
+    updateObject: (oldObject: Object, newValues: any) => any;
+    copyArray: (array: Array<any>) => Array<any>;
     updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
     deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
+    deletePropInCollection: (array: Array<any>, ...props: Array<any>) => any;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
@@ -43,10 +45,24 @@ class FunctionsUtil implements IFunctionUtil {
      * @example - this.updateObject(state, {todos : newTodos});
      * @param {Object} oldObject - old object to update
      * @param {any} newValues - values or object to include in old object
-     * @return {void}
+     * @return {Object}
      */
-    updateObject(oldObject: Object, newValues: any = {}) {
+    updateObject(oldObject: Object, newValues: any = {}): any {
         return Object.assign({}, oldObject, newValues);
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of copy an Array ensuring we 
+     * correctly copy data instead of mutating.
+     * @function copyArray
+     * @example - this.copyArray(array);
+     * @param {Array<any>} array - old array to concat (or copy)
+     * @param {Array<any>} newArray - new array to use to concat
+     * @return {Array<any>}
+     */
+    copyArray(array: Array<any>): Array<any> {
+        return [].concat(array);
     }
 
 
@@ -61,13 +77,13 @@ class FunctionsUtil implements IFunctionUtil {
      * @param {Array<any>} array - array of objects
      * @param {number | string} value - value to use to find item inside the array
      * @param {string} key - item identifier: e.g. id, uuid, etc.
-     * @return {void}
+     * @return {Array<any>}
      */
     updateItemInArray(
         array: Array<any>,
         key: string = 'id',
         value: number | string, 
-        updateItemCallback: Function) {
+        updateItemCallback: Function): Array<any> {
 
         const updatedItems = array.map(item => {
             if (item[key] !== value) {
@@ -94,12 +110,12 @@ class FunctionsUtil implements IFunctionUtil {
      * @param {Array<any>} array - array of objects
      * @param {number | string} value - value to use to find item inside the array
      * @param {string} key - item identifier: e.g. id, uuid, etc.
-     * @return {void}
+     * @return {Array<any>}
      */
     deleteItemInArray(
         array: Array<any>,
         key: string = 'id',
-        value: number | string) {
+        value: number | string): Array<any> {
 
         const newList = array.filter(
             (item) => {
@@ -141,6 +157,35 @@ class FunctionsUtil implements IFunctionUtil {
         }
 
         return res;
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of deleting and item in an array 
+     * to ensure we correctly copy data instead of mutating.
+     * @function deleteItemInArray
+     * @example 
+     * const newTodos = deleteItemInArray(state.todos, 'id', action.id);
+     * @param {Array<any>} array - array of objects
+     * @param {number | string} value - value to use to find item inside the array
+     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @return {Array<any>}
+     */
+    deletePropInCollection(array: Array<any>, ...props: Array<any>): Array<any> {
+
+        const newCollection = array.filter((item) => {
+
+            props.forEach(
+                (prop) => { 
+                    delete item[prop];
+                }
+            );
+            
+            return true;
+        });
+
+        return newCollection;
+
     }
 
 
