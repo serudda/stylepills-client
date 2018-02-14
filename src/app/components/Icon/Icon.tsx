@@ -23,6 +23,7 @@ interface IconType {
     default: () => JSX.Element;
     download: () => JSX.Element;
     duplicate: () => JSX.Element;
+    edit: () => JSX.Element;
     eye: () => JSX.Element;
     font: () => JSX.Element;
     heart: () => JSX.Element;
@@ -32,6 +33,7 @@ interface IconType {
     list: () => JSX.Element;
     loader: () => JSX.Element;
     logo: () => JSX.Element;
+    menu: () => JSX.Element;
     messageCircle: () => JSX.Element;
     package: () => JSX.Element;
     plus: () => JSX.Element;
@@ -270,6 +272,23 @@ class Icon extends React.Component<IconProps, {}> {
                     </svg>
                 );
             },
+            edit: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="14 2 18 6 7 17 3 17 3 13 14 2" />
+                            <line x1="3" y1="22" x2="21" y2="22" />
+                    </svg>
+                );
+            },
             eye: () => {
                 return (
                     <svg className={iconClass}
@@ -443,6 +462,24 @@ class Icon extends React.Component<IconProps, {}> {
                                 </g>
                             </g>
                         </g>
+                    </svg>
+                );
+            },
+            menu: () => {
+                return (
+                    <svg className={iconClass}
+                         width={width}
+                         height={height}
+                         viewBox="0 0 24 24" 
+                         fill="none" 
+                         stroke={color}
+                         strokeWidth="2"
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
                     </svg>
                 );
             },

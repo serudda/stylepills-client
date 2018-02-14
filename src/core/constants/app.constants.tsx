@@ -96,3 +96,7 @@ export const NEGATIVE_COLOR_RGBA: RgbaColorModel = {
     b: 73,
     a: 1
 };
+
+
+/* GLOBAL MESSAGES */
+export const EMPTY_MESSAGE = `There's no data`;
