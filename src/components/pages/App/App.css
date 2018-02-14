@@ -4554,6 +4554,20 @@ body.duplicateModal-open .ui.dimmer {
     bottom: 0;
     left: 0; }
 
+/**********************************************************/
+/*                INPUT BOX (COLOR PICKER)                */
+/**********************************************************/
+.InputColorPicker__popover {
+  position: absolute;
+  z-index: 2;
+  left: 50px; }
+  .InputColorPicker__popover__cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+
 .PaginationBtns {
   position: absolute;
   left: 50%;

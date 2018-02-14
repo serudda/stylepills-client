@@ -3,7 +3,6 @@
 /********************************/
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
-import { SketchPicker } from 'react-color';
 
 import * as appConfig from './../../../core/constants/app.constants';
 
@@ -11,6 +10,7 @@ import Icon from './../../../app/components/Icon/Icon';
 import { Color as ColorModel, ColorTypeOptions } from '../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../models/rgbaColor/rgbaColor.model';
 import ColorsList from './../ColorsList/ColorsList';
+import InputColorPicker from '../../../app/components/ColorPicker/InputColorPicker/InputColorPicker';
 
 const ntc = require('ntcjs');
 
@@ -234,7 +234,6 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
         const { type, title, description, colors } = this.props;
         const { name, hex, rgba } = this.state;
         const { showForm, displayColorPicker } = this.state;
-        const { r, g, b, a } = rgba;
 
         
         /*         MARKUP          */
@@ -272,41 +271,13 @@ extends React.Component<ChildProps<AddColorFormProps & StateProps & DispatchProp
 
                     <div className="d-flex align-items-center mt-3">
 
-                        {/* Input: Color 
-                            TODO: Volverlo un common component: ColorPicker */}
-                        <div className="sp-inputGroup sp-inputGroup--color sp-inputGroup--color--md mr-3">
-                            
-                            <div className="context" 
-                                onClick={this._handleColorClick}
-                                style={{
-                                    background: `rgba(${ r }, ${ g }, ${ b }, ${ a })`
-                                    }}/>
-                            
-                            <input type="text" 
-                                    placeholder={`${appConfig.SECONDARY_COLOR_HEX}`} 
-                                    className="input" 
-                                    value={hex}
-                                    onClick={this._handleColorClick}
-                                    readOnly={true}/>
-                            
-                            {/* Color Picker */}
-                            {displayColorPicker && 
-                            <div style={{
-                                position: 'absolute',
-                                zIndex: 2,
-                                left: '50px'
-                            }}>
-                                <div style={{
-                                        position: 'fixed',
-                                        top: '0px',
-                                        right: '0px',
-                                        bottom: '0px',
-                                        left: '0px',
-                                    }} onClick={this._handleColorCloseClick}/>
-                                <SketchPicker color={rgba} onChange={this._handleColorChange}/>
-                            </div>}
-
-                        </div>
+                        <InputColorPicker hex={hex} 
+                                          rgba={rgba} 
+                                          displayColorPicker={displayColorPicker}
+                                          onSwatchClick={this._handleColorClick}
+                                          onInputChange={this._handleColorClick}
+                                          onClose={this._handleColorCloseClick}
+                                          onPickerChange={this._handleColorChange}/>
                         
 
                         {/* Input: Color Name */}
