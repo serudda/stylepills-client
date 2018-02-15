@@ -735,7 +735,8 @@ export const changeColorAction = (color: BasicColorModel): Action => {
         colorPicker: {
             currentColor: {
                 hex: color.hex,
-                rgba: color.rgba
+                rgba: color.rgba,
+                name: color.name
             }
         }
     };

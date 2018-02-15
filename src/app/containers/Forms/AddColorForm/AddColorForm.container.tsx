@@ -7,11 +7,16 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
-import {  
-    addColorItemAction, 
+import {
+    changeColorAction,
+    addColorItemAction,
 } from './../../../../actions/ui.action';
 
-import { Color as ColorModel, ColorTypeOptions } from './../../../../models/color/color.model';
+import { 
+    Basic as BasicColorModel,
+    Color as ColorModel, 
+    ColorTypeOptions 
+} from './../../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
 import AddColorForm from './../../../components/Forms/AddColorForm/AddColorForm';
@@ -34,7 +39,6 @@ type AddColorFormContainerProps = {
 
 /* Own States */
 type LocalStates = {
-    colorName: string,
     showForm: boolean
 };
 
@@ -42,6 +46,7 @@ type LocalStates = {
 type StateProps = {
     hex: string;
     rgba: RgbaColorModel;
+    name: string;
 };
 
 /* Mapped Dispatches to Props */
@@ -49,6 +54,7 @@ type DispatchProps = {
     actions: {
         ui: {
             addColorItem: (color: ColorModel) => void;
+            changeColor: (color: BasicColorModel) => void;
         }
     };
 };
@@ -70,7 +76,6 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
 
         // Init local state
         this.state = {
-            colorName: '',
             showForm: props.colorType === ColorTypeOptions.primary ? true : false
         };
 
@@ -78,37 +83,12 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleAddClick = this.handleAddClick.bind(this);
         this.handleShowFormClick = this.handleShowFormClick.bind(this);
-        // this.handleColorChange = this.handleColorChange.bind(this);
     }
 
 
     /********************************/
     /*        PUBLIC METHODS        */
     /********************************/
-
-    /**
-     * @desc HandleColorChange
-     * @method handleColorChange
-     * @example this.handleColorChange()
-     * @public
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    /*handleColorChange(color: ColorResult) {
-        const { rgb, hex } = color;
-        TODO: const nameMatch = ntc.name(color.hex);
-
-         // Update the state
-         this.setState((previousState) => {
-            return {
-                ...previousState, 
-                rgba: rgb, 
-                hex,
-                TODO: name: nameMatch[1] 
-            };
-        });
-        
-    }*/
 
 
     /**
@@ -119,15 +99,13 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
      * @param {React.ChangeEvent<HTMLInputElement>} e - Event
      * @returns {void}
      */
-    private handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const { hex, rgba } = this.props;
         const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        const value = target.value;
 
-        this.setState((previousState: LocalStates) => ({
-            ...previousState,
-            [name]: value
-        }));
+        // Receive input change value and save it on Store NOTE: 1
+        this.props.actions.ui.changeColor({hex, rgba, name: value});
     }
 
 
@@ -156,13 +134,12 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
     handleAddClick(e: React.FormEvent<{}>) {
         e.preventDefault();
 
-        const { colorType, hex, rgba } = this.props;
-        const { colorName } = this.state;
+        const { colorType, hex, rgba, name } = this.props;
         const { r, g, b, a } = rgba;
 
         // Create new color instance
         let color: ColorModel = {
-            name: colorName,
+            name,
             hex,
             type: colorType,
             rgba: {
@@ -184,8 +161,8 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
     render() {
 
         // Destructuring props & states
-        const { colorType, label, helpMsg } = this.props;
-        const { showForm, colorName } = this.state;
+        const { colorType, label, helpMsg, name } = this.props;
+        const { showForm } = this.state;
 
         
         /*         MARKUP          */
@@ -196,7 +173,8 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
                           helpMsg={helpMsg}
                           colorType={colorType}
                           showForm={showForm}
-                          inputValue={colorName}
+                          inputValue={name}
+                          inputName="colorName"
                           onAddClick={this.handleAddClick}
                           onShowFormClick={this.handleShowFormClick}
                           onInputNameColorChange={this.handleInputChange}/>
@@ -216,11 +194,12 @@ function mapStateToProps(state: IRootState): StateProps {
     const { ui } = state;
     const { colorPicker } = ui;
     const { currentColor } = colorPicker;
-    const { hex, rgba } = currentColor;
+    const { hex, rgba, name } = currentColor;
 
     return {
         hex,
-        rgba
+        rgba,
+        name
     };
 }
 
@@ -232,6 +211,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
+                changeColor: (color) => dispatch(changeColorAction(color)),
                 addColorItem: (color) => dispatch(addColorItemAction(color))
             }
         }
@@ -250,3 +230,10 @@ const addColorFormContainerConnect = connect(mapStateToProps, mapDispatchToProps
 export default compose(
     addColorFormContainerConnect
 )(AddColorFormContainer);
+
+
+/*
+(1): No uso localState ya que se me complicaba mantener el valor de State Store, y el local State sincronizados,
+Asi que la mejor fue omitir en este caso el setState del input, y enviar directamente el valor al Store con la
+action: changeColor
+*/

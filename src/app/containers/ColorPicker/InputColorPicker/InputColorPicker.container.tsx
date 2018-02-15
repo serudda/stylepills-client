@@ -11,6 +11,8 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
+import ColorService from './../../../../models/color/color.service';
+
 import { changeColorAction } from './../../../../actions/ui.action';
 
 import InputColorPicker from './../../../components/ColorPicker/InputColorPicker/InputColorPicker';
@@ -111,7 +113,9 @@ extends React.Component<ChildProps<InputColorPickerContainerProps & StateProps &
      */
     handleChange(color: ColorResult) {
         const { hex, rgb } = color;
-        this._changeColor({hex, rgba: rgb});
+        const name = ColorService.generateColorName(hex);
+
+        this._changeColor({hex, rgba: rgb, name});
     }
 
 

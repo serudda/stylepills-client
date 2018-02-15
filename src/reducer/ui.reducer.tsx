@@ -34,13 +34,14 @@ import {
 /************************************/
 
 export type ColorListItem = ColorModel & ListProps;
+export type SourceListItem = SourceModel & ListProps;
 
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     lists: {
         colorsList: Array<ColorListItem>,
-        sourcesList: Array<SourceModel>
+        sourcesList: Array<SourceListItem>
     };
     tabs: {
         atomDetailsTab?: {
@@ -212,7 +213,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.lists,
                     colorsList:  [
                         ...state.lists.colorsList,
-                        { tempId: uuid(), ...action.color }
+                        { tempId: uuid(), ...action.color } // NOTE: 2
                     ]
                 }
             };
@@ -238,7 +239,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.lists,
                     sourcesList:  [
                         ...state.lists.sourcesList,
-                        { ...action.source }
+                        { tempId: uuid(), ...action.source } // NOTE: 2
                     ]
                 }
             };
@@ -246,7 +247,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.DELETE_SOURCE_ITEM: {
 
-            const newSourcesListState = functionsUtil.deleteItemInArray(state.lists.sourcesList, 'id', action.id);
+            const newSourcesListState = functionsUtil.deleteItemInArray(state.lists.sourcesList, 'tempId', action.id);
 
             return {
                 ...state,
@@ -301,7 +302,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     currentColor: {
                         ...state.colorPicker.currentColor,
                         hex: action.colorPicker.currentColor.hex,
-                        rgba: action.colorPicker.currentColor.rgba
+                        rgba: action.colorPicker.currentColor.rgba,
+                        name: action.colorPicker.currentColor.name || null
                     }
                 }
             };
@@ -375,4 +377,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
 /*
     (1): Es la manera de evitar el error de mutable un array, crear una copia nueva del array.
+    (2): Es necesario agregar un id temporal ya que cuando estoy creando una lista nueva, no tengo ids,
+    y necesito estos id para poder eliminar los elementos de una lista.
 */

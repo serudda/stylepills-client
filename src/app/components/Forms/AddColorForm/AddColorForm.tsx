@@ -6,6 +6,8 @@ import * as React from 'react';
 import { ColorTypeOptions } from './../../../../models/color/color.model';
 
 import InputColorPickerContainer from './../../../containers/ColorPicker/InputColorPicker/InputColorPicker.container';
+import Input from './../../Inputs/GenericTextInput/GenericTextInput';
+import Button from './../../Buttons/GenericBtn/GenericBtn';
 import Icon from './../../Icon/Icon';
 
 // -----------------------------------
@@ -22,6 +24,7 @@ type AddColorFormProps = {
     colorType: ColorTypeOptions,
     showForm: boolean,
     inputValue: string | number | string[], 
+    inputName: string,
     onAddClick: (e: React.FormEvent<{}>) => any,
     onShowFormClick: (e: React.FormEvent<{}>) => any,
     onInputNameColorChange: (e: React.FormEvent<{}>) => void
@@ -40,6 +43,7 @@ const AddColorForm: React.SFC<AddColorFormProps> = ({
     colorType,
     showForm = colorType === ColorTypeOptions.primary ? true : false,
     inputValue,
+    inputName,
     onAddClick,
     onShowFormClick,
     onInputNameColorChange
@@ -89,19 +93,16 @@ const AddColorForm: React.SFC<AddColorFormProps> = ({
                                 Name
                             </span>
                             
-                            <input type="text" 
-                                    placeholder="Light Primary" 
-                                    className="input" 
-                                    name="name"
-                                    value={inputValue}
-                                    onChange={onInputNameColorChange} />
+                            <Input value={inputValue}
+                                    name={inputName}
+                                    placeholder="Light Primary"
+                                    onChange={onInputNameColorChange}
+                                    className="input"/>
                         </div>
 
                         {/* Add Button */}
-                        <button className="sp-btn sp-btn--secondary sp-btn--md"
-                                onClick={onAddClick}>
-                            Add
-                        </button>
+                        <Button label="Add"
+                                onClick={onAddClick}/>
 
                     </div>
 

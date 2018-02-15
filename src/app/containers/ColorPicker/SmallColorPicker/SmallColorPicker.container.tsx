@@ -11,6 +11,8 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
 import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
+import ColorService from './../../../../models/color/color.service';
+
 import { changeColorAction } from './../../../../actions/ui.action';
 
 import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker/SmallColorPicker';
@@ -130,13 +132,14 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps &
     private _handleChange(color: ColorResult) {
 
         const { hex, rgb } = color;
+        const name = ColorService.generateColorName(hex);
 
         // If receive an parent's onChange method
         if (this.props.onChange) {
-            this.props.onChange({ hex, rgba: rgb });
+            this.props.onChange({ hex, rgba: rgb, name });
         } else {
             // If not receive a parent's onChange method, default action.
-            this.props.actions.ui.changeColor({ hex, rgba: rgb });
+            this.props.actions.ui.changeColor({ hex, rgba: rgb, name });
         }
 
     }
