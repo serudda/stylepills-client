@@ -94,7 +94,8 @@ const defaultState: IUiState = {
     colorPicker: {
         currentColor: {
             hex: appConfig.SECONDARY_COLOR_HEX,
-            rgba: appConfig.SECONDARY_COLOR_RGBA
+            rgba: appConfig.SECONDARY_COLOR_RGBA,
+            name: appConfig.SECONDARY_COLOR_NAME
         }
     },
     sourceCodePanel: {
@@ -146,7 +147,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 colorPicker: {
                     currentColor: {
                         hex: appConfig.SECONDARY_COLOR_HEX,
-                        rgba: appConfig.SECONDARY_COLOR_RGBA
+                        rgba: appConfig.SECONDARY_COLOR_RGBA,
+                        name: appConfig.SECONDARY_COLOR_NAME
                     }
                 },
                 sourceCodePanel: {

@@ -156,18 +156,18 @@ class ColorFields extends React.Component<ColorFieldsProps, {}> {
 
 
                     {/* Add Secondary colors */}
-                    {/*this._buildAddColorForm(ColorTypeOptions.secondary)*/}
+                    {this._buildAddColorForm(ColorTypeOptions.secondary)}
 
-                    {/* <ColorsListContainer /> */}
+                    <ColorsListContainer />
 
 
                     <div className="sp-divider sp-divider--dashed sp-divider--smoke my-4" />
 
 
                     {/* Add Grayscale colors */}
-                    {/*this._buildAddColorForm(ColorTypeOptions.grayscale)*/}
+                    {this._buildAddColorForm(ColorTypeOptions.grayscale)}
 
-                    {/* <ColorsListContainer /> */}
+                    <ColorsListContainer />
 
                 </div>
 

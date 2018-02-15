@@ -394,7 +394,8 @@ export const clearUiAction = (): Action => {
         colorPicker: {
             currentColor: {
                 hex: appConfig.SECONDARY_COLOR_HEX,
-                rgba: appConfig.SECONDARY_COLOR_RGBA
+                rgba: appConfig.SECONDARY_COLOR_RGBA,
+                name: appConfig.SECONDARY_COLOR_NAME
             }
         },
         sourceCodePanel: {

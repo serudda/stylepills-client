@@ -8,6 +8,8 @@ import * as appConfig from './../../../../core/constants/app.constants';
 
 import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
+import Input from './../../Inputs/GenericTextInput/GenericTextInput';
+
 // -----------------------------------
 
 
@@ -70,12 +72,11 @@ class InputColorPicker extends React.Component<InputColorPickerProps, {}> {
                         background: `rgba(${ rgba.r }, ${ rgba.g }, ${ rgba.b }, ${ rgba.a })`
                         }}/>
                 
-                <input type="text" 
-                        placeholder={`${appConfig.SECONDARY_COLOR_HEX}`} 
-                        className="input" 
-                        value={hex}
-                        onClick={onSwatchClick}
-                        readOnly={true}/>
+                <Input value={hex}
+                        name="hex"
+                        placeholder={`${appConfig.SECONDARY_COLOR_HEX}`}
+                        onChange={onSwatchClick}
+                        className="input"/>
                 
                 {/* Color Picker */}
                 {displayColorPicker && 

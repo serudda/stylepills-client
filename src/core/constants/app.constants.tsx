@@ -80,6 +80,7 @@ export const PRIMARY_COLOR_RGBA: RgbaColorModel = {
 };
 
 /* SECONDARY COLOR */
+export const SECONDARY_COLOR_NAME = 'Keppel';
 export const SECONDARY_COLOR_HEX = '#33ADA9';
 export const SECONDARY_COLOR_RGBA: RgbaColorModel = {
     r: 51,

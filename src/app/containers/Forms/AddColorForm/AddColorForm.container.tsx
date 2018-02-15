@@ -142,12 +142,7 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
             name,
             hex,
             type: colorType,
-            rgba: {
-                r,
-                g,
-                b,
-                a
-            }
+            rgba: { r, g, b, a }
         };
         
         this.props.actions.ui.addColorItem(color);
