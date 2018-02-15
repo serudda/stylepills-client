@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { ColorResult } from 'react-color';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
@@ -17,7 +16,7 @@ import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgba
 
 import AddColorForm from './../../../components/Forms/AddColorForm/AddColorForm';
 
-const ntc = require('ntcjs');
+// const ntc = require('ntcjs');
 
 // -----------------------------------
 
@@ -35,7 +34,7 @@ type AddColorFormContainerProps = {
 
 /* Own States */
 type LocalStates = {
-    name: string,
+    colorName: string,
     showForm: boolean
 };
 
@@ -71,33 +70,33 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
 
         // Init local state
         this.state = {
-            name: '',
+            colorName: '',
             showForm: props.colorType === ColorTypeOptions.primary ? true : false
         };
 
         // Bind methods
-        this._handleInputChange = this._handleInputChange.bind(this);
-        this._handleAddClick = this._handleAddClick.bind(this);
-        this._handleShowFormClick = this._handleShowFormClick.bind(this);
-        this._handleColorChange = this._handleColorChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleAddClick = this.handleAddClick.bind(this);
+        this.handleShowFormClick = this.handleShowFormClick.bind(this);
+        // this.handleColorChange = this.handleColorChange.bind(this);
     }
 
 
     /********************************/
-    /*       PRIVATE METHODS        */
+    /*        PUBLIC METHODS        */
     /********************************/
 
     /**
      * @desc HandleColorChange
-     * @method _handleColorChange
-     * @example this._handleColorChange()
-     * @private
+     * @method handleColorChange
+     * @example this.handleColorChange()
+     * @public
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleColorChange(color: ColorResult) {
+    /*handleColorChange(color: ColorResult) {
         const { rgb, hex } = color;
-        const nameMatch = ntc.name(color.hex);
+        TODO: const nameMatch = ntc.name(color.hex);
 
          // Update the state
          this.setState((previousState) => {
@@ -105,22 +104,22 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
                 ...previousState, 
                 rgba: rgb, 
                 hex,
-                name: nameMatch[1] 
+                TODO: name: nameMatch[1] 
             };
         });
         
-    }
+    }*/
 
 
     /**
      * @desc HandleInputChange
-     * @method _handleInputChange
-     * @example this._handleInputChange()
-     * @private
+     * @method handleInputChange
+     * @example this.handleInputChange()
+     * @public
      * @param {React.ChangeEvent<HTMLInputElement>} e - Event
      * @returns {void}
      */
-    private _handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    private handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -134,13 +133,13 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
 
     /**
      * @desc HandleShowFormClick
-     * @method _handleShowFormClick
-     * @example this._handleShowFormClick()
+     * @method handleShowFormClick
+     * @example this.handleShowFormClick()
      * @private 
      * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleShowFormClick(e: React.FormEvent<{}>) {
+    handleShowFormClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this.setState({ showForm: true });
     }
@@ -148,22 +147,22 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
 
     /**
      * @desc HandleAddClick
-     * @method _handleAddClick
-     * @example this._handleAddClick()
-     * @private 
+     * @method handleAddClick
+     * @example this.handleAddClick()
+     * @public
      * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleAddClick(e: React.FormEvent<{}>) {
+    handleAddClick(e: React.FormEvent<{}>) {
         e.preventDefault();
 
         const { colorType, hex, rgba } = this.props;
-        const { name } = this.state;
+        const { colorName } = this.state;
         const { r, g, b, a } = rgba;
 
         // Create new color instance
         let color: ColorModel = {
-            name,
+            name: colorName,
             hex,
             type: colorType,
             rgba: {
@@ -186,7 +185,7 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
 
         // Destructuring props & states
         const { colorType, label, helpMsg } = this.props;
-        const { showForm } = this.state;
+        const { showForm, colorName } = this.state;
 
         
         /*         MARKUP          */
@@ -197,10 +196,10 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
                           helpMsg={helpMsg}
                           colorType={colorType}
                           showForm={showForm}
-                          inputValue={name}
-                          onAddClick={this._handleAddClick}
-                          onShowFormClick={this._handleShowFormClick}
-                          onInputNameColorChange={this._handleInputChange}/>
+                          inputValue={colorName}
+                          onAddClick={this.handleAddClick}
+                          onShowFormClick={this.handleShowFormClick}
+                          onInputNameColorChange={this.handleInputChange}/>
         );
 
     }

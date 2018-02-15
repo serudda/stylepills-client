@@ -203,7 +203,7 @@ export interface IEditColorItemAction {
 
 export interface IDeleteColorItemAction {
     type: types.DELETE_COLOR_ITEM;
-    id: number;
+    id: string | number;
 }
 
 export interface IChangeColorItemOrderAction {
@@ -570,7 +570,7 @@ export const editColorItemAction = (color: ColorModel): Action => {
  * @function deleteColorItemAction
  * @returns {Action}
  */
-export const deleteColorItemAction = (id: number): Action => {
+export const deleteColorItemAction = (id: string | number): Action => {
     return {
         type: types.DELETE_COLOR_ITEM,
         id

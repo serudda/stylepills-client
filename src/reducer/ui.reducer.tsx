@@ -3,6 +3,7 @@
 /************************************/
 import * as uuid from 'uuid/v4';
 
+import { ListProps } from './../core/interfaces/interfaces';
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -32,11 +33,13 @@ import {
 /*            INTERFACES            */
 /************************************/
 
+export type ColorListItem = ColorModel & ListProps;
+
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     lists: {
-        colorsList: Array<ColorModel>;
+        colorsList: Array<ColorListItem>,
         sourcesList: Array<SourceModel>
     };
     tabs: {
@@ -209,7 +212,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.lists,
                     colorsList:  [
                         ...state.lists.colorsList,
-                        { ...action.color }
+                        { tempId: uuid(), ...action.color }
                     ]
                 }
             };
@@ -217,7 +220,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.DELETE_COLOR_ITEM: {
 
-            const newColorsListState = functionsUtil.deleteItemInArray(state.lists.colorsList, 'id', action.id);
+            const newColorsListState = functionsUtil.deleteItemInArray(state.lists.colorsList, 'tempId', action.id);
 
             return {
                 ...state,

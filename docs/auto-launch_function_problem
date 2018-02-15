@@ -1,0 +1,16 @@
+- No he podido entender por que aveces me funciona la siguiente estructura:
+
+Padre:
+handleDeleteClick = (id: number) => (e: React.FormEvent<{}>) => {
+        this._deleteColorItem(1);
+}
+
+Hijo:
+<span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(color.id)} />
+
+- Aveces hago esto para otros componentes, y cuando le doy click, no se ejecuta
+el metodo: handleDeleteClick, creo que es por la cantidad de profundidad en el que
+baja el metodo.
+
+Ejemplo funcionando del anterior caso:
+ColorsList.container(padre) envia "handleDeleteClick" a ColorsList.tsx(hijo).

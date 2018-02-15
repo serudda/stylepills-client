@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import * as appConfig from './../../../core/constants/app.constants';
 
+import { ColorListItem } from './../../../reducer/ui.reducer';
 import { Color as ColorModel } from './../../../models/color/color.model';
 
 import Icon from './../Icon/Icon';
@@ -18,10 +19,10 @@ import Icon from './../Icon/Icon';
 
 /* Own Props */
 type ColorsListProps = {
-    colors: Array<ColorModel>,
+    colors: Array<ColorModel | ColorListItem>,
     isEmpty?: boolean,
     emptyMessage?: string,
-    onDeleteClick: (id: number) => any
+    onDeleteClick: (tempId: string) => any
 };
 
 
@@ -41,8 +42,8 @@ const ColorsList: React.SFC<ColorsListProps> = ({
     return (
         <ul className="LibsList sp-list sp-list--simple borderRadius-md mt-4">
 
-            {colors.map((color: ColorModel, index) => (
-                <li key={index} className="item">
+            {colors.map((color: ColorListItem) => (
+                <li key={color.tempId} className="item">
 
                     {/* Color Preview box */}
                     <span className="sample-color borderRadius-sm" style={{backgroundColor: color.hex}}/>
@@ -73,7 +74,7 @@ const ColorsList: React.SFC<ColorsListProps> = ({
                     </span>
 
                     {/* Delete Button */}
-                    <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(color.id)}>
+                    <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(color.tempId)}>
                         <Icon icon="close"
                             iconClass="icon stroke-silver strokeWidth-3"
                             width="18" height="18"/>

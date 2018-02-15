@@ -37,7 +37,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: {
-            deleteColorItem: (id: number) => void;
+            deleteColorItem: (id: string | number) => void;
         }
     };
 };
@@ -71,11 +71,11 @@ extends React.Component<ChildProps<ColorsListContainerProps & StateProps & Dispa
      * @method handleDeleteClick
      * @example this.handleDeleteClick()
      * @public
-     * @param {number} id - color id
+     * @param {string | number} id - color id
      * @returns {void}
      */
-    handleDeleteClick(id: number) {
-        this._deleteColorItem(1);
+    handleDeleteClick = (id: string | number) => (e: React.FormEvent<{}>) => {
+        this._deleteColorItem(id);
     }
 
 
@@ -88,10 +88,10 @@ extends React.Component<ChildProps<ColorsListContainerProps & StateProps & Dispa
      * @method _deleteColorItem
      * @example this._deleteColorItem(2)
      * @private
-     * @param {number} id - color id
+     * @param {string | number} id - color id
      * @returns {void}
      */
-    private _deleteColorItem(id: number) {
+    private _deleteColorItem(id: string | number) {
         this.props.actions.ui.deleteColorItem(id);
     }
 
