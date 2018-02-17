@@ -11,6 +11,8 @@ import {
     deleteColorItemAction, 
 } from './../../../actions/ui.action';
 
+import { getColorList } from './../../../selectors/ui.selector';
+
 import { Color as ColorModel } from './../../../models/color/color.model';
 
 import ColorsList from './../../components/ColorsList/ColorsList';
@@ -121,12 +123,8 @@ extends React.Component<ChildProps<ColorsListContainerProps & StateProps & Dispa
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    
-    const { lists } = state.ui;
-    const { colorsList } = lists;
-
     return {
-        colorsList
+        colorsList: getColorList(state)
     };
 }
 
