@@ -32,3 +32,53 @@ Este ejemplo claro lo puedo encontrar en el componente container: ColorsList.con
 
 reference: https://github.com/reactjs/reselect#sharing-selectors-with-props-across-multiple-component-instances
 otro ejemplo de como funciona: https://medium.com/@parkerdan/react-reselect-and-redux-b34017f8194c
+
+
+--------------------------------------------------------------------------------------------------------------
+
+2- ASIGNAR STATE KEYS DINAMICAMENTE EN EL STORE
+
+* El ejemplo más claro es: StoreState.ui.colorPicker.currentColor, ahi lo que se hizo fue agregar por defecto un state
+llamado: general. Pero en el reducer se agregar la key dinamicamente:
+
+    case types.CHANGE_COLOR: {
+
+        const { colorType } = action; //*1*
+        const group = colorType ? colorType : 'general';
+
+        return { //*2*
+            ...state,
+            colorPicker: {
+                ...state.colorPicker,
+                currentColor: {
+                    ...state.colorPicker.currentColor,
+                    [group]: action.color
+                }
+            }
+        };
+    }
+    // ejemplo: ui.selector
+
+*1* Tomamos de la 'action' la propiedad que usamos para nombrar el State (e.g. colorType), y si colorType es undefined,
+quiere decir que se desea usar el State por default: general.
+*2* Navegamos profundamente el objecto asignando la variable 'group', que puede contener como opciones: primary, secondary,
+grayscale o general.
+
+* Uno de los problemas con la asignacion de State Keys dinamicas, es que como no existe en defaultState, la primera vez
+que carga el componente, este tendra un valor 'undefined', por lo tanto es necesario, que en cada componente que depende
+de este State en el Store, asigne valores por default:
+
+    // Destructuring state
+    const { displayColorPicker } = this.state;
+    const { color = { //*1*
+        hex: appConfig.SECONDARY_COLOR_HEX,
+        name: appConfig.SECONDARY_COLOR_NAME,
+        rgba: appConfig.SECONDARY_COLOR_RGBA
+    } } = this.props;
+
+    // ejemplo: InputColorPicker.container
+
+    *1* Asignamos valores por defecto al state 'color', ya que la primera carga sera undefined.
+
+
+ejemplo de implementacion: AddColorForm.container, InputColorPicker.container.tsx, ui.reducer.tsx, ui.action.tsx y ui.selector.tsx
