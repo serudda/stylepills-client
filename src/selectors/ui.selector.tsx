@@ -2,8 +2,8 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { createSelector } from 'reselect';
-// import { denormalize } from 'normalizr';
-// import { colorsListSchema } from './../normalizrs/ui.normalizr';
+
+import { functionsUtil }  from './../core/utils/functionsUtil';
 import { IRootState } from './../reducer/reducer.config';
 import { ColorListItem, ColorsList } from './../reducer/ui.reducer';
 import { Color as ColorModel } from './../models/color/color.model';
@@ -26,6 +26,7 @@ import { Color as ColorModel } from './../models/color/color.model';
  */
 export const getColorList = (state: IRootState): ColorsList => state.ui.lists.colorsList;
 
+
 /**
  * @desc Get colorsList by type from state store (e.g. primary, secondary or grayscale type)
  * @function getColorListByType
@@ -36,34 +37,12 @@ export const getColorListByType = (state: IRootState, props: any): Array<ColorLi
     return colorsList[props.colorType];
 };
 
+
 /**
  * @desc Get colorsList formatted to send to DB
  * @function getColorListFormatted
  * @returns {Array<ColorModel>}
  */
-export const getColorListFormatted2 = (state: IRootState): Array<ColorModel> => {
-    const { colorsList } = state.ui.lists;
-    let colorPalette: Array<ColorModel> = [];
-    
-    /* return Object.keys(colorsList).map(
-        key => {
-            if (colorsList[key].length > 0) {
-                return colorsList[key];
-            } else {
-                return {};
-            }
-        }
-    ); */
-
-    for (const key in colorsList) {
-        if (colorsList.hasOwnProperty(key)) {
-            colorPalette = colorPalette.concat(colorsList[key]);
-        }
-    }
-
-    return colorPalette;
-};
-
 export const getColorListFormatted = createSelector(
     getColorList,
     (colorsList) => {
@@ -79,20 +58,13 @@ export const getColorListFormatted = createSelector(
     }
 );
 
-/* export const getDenormalizeColorList2 = (state: IRootState, props: any) => {
-    return createSelector(
-        [getColorList],
-        (colors: any) => {
-            // generate view-specific structure
-            return Object.keys(colors).map(key => {
-                // return denormalize(colors, colorsListSchema, colors.result);
-                if (key === props.colorType) {
-                    return colors[key];
-                }
-            });
-        });
-}; */
 
+/**
+ * @desc Wrap getColorListByType in order to use it on 
+ * multiple components instance on the same page
+ * @function makeGetColorListByType
+ * @returns {Array<ColorListItem>}
+ */
 export const makeGetColorListByType = () => { // NOTE: 1
     return createSelector(
         [getColorListByType],

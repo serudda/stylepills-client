@@ -1,0 +1,150 @@
+// ===============================================
+//   Normalize ===================================
+// ===============================================
+
+Fue necesario agregar un nuevo folder llamado: normalizr. Con el fin de 
+gestionar los States que sean necesarios normalizar (ej. Cuando quiero
+guardar un Array de Objectos, y estos a su vez tienen otros arrays anidados,
+no es recomendables guardarlos asi directamente en el State del Store, ya que 
+recorrerlos y mantenerlo es inmanejable.)
+
+Entonces cada vez que necesitemos normalizar un Modelo, una Lista (Array), una
+Collection de Objectos anidados, se tiene que crear un Schema, el cual tiene la 
+siguiente forma:
+
+    // *1*
+    export const rgbaSchema = new schema.Entity('rgba', {}, {
+        idAttribute: 'tempId'
+    });
+
+    //*2*
+    export const colorSchema = new schema.Entity('colors', {
+        rgba: rgbaSchema
+    }, {
+        idAttribute: 'tempId'
+    });
+
+    //*3*
+    export const colorsListSchema = [colorSchema];
+
+    //*4*
+    export const colorsListNormalized = (colorsResult: Array<ColorListItem>) => normalize(colorsResult, colorsListSchema);
+
+
+Donde se especifica cada nivel de anidamiento, por ejemplo: Aqui hacemos referencia
+al modelo 'Color', el cual tiene como hijo: Rgba (no es un buen ejemplo ya que rgba, 
+no es un array sino un objeto, asi que no es muy necesario normalizarlo). Entonces
+defino primero el Schema de los hijos de Color: en este caso rgbaSchema *1*. Donde
+digo el nombre de la propiedad en el objeto Color (el cual es 'rgba' , vuelvo e insisto
+no tiene mucha logica por que es un solo elemento.), y una propiedad 'idAttribute' para
+decir cual va a ser nuestro index de referencia, en este caso seria 'tempId'. normalizr
+usaria este campo para asignarlo como key/index de cada objeto:
+
+    // Input
+
+    colors: [
+        {
+            tempId: 2,
+            name: 'Primary'
+            hex: '#FFF',
+            rgba: {...}
+        },
+        {
+            tempId: 3,
+            name: 'Primary'
+            hex: '#FFF',
+            rgba: {...}
+        }
+    ];
+
+    // Output (Color normalizados)
+
+    entities: {
+        '2': {
+            tempId: 2,
+            name: 'Primary'
+            hex: '#FFF',
+            rgba: {...}
+        },
+        '3': {
+            tempId: 3,
+            name: 'Primary'
+            hex: '#FFF',
+            rgba: {...}
+        }
+    },
+    results: [
+        '2', '3'
+    ];
+
+
+Normalizr devuelve dos objetos: entities y results. Entities es donde encontraremos
+nuestra Lista normalizada, y results, es la lista de 'ids' que apuntan a cada uno de nuestros
+elementos (por lo general este campo se usa para ordenar los elementos, para denormalizar, etc)
+
+Despues de definir *1*, vamos subiendo de nivel hasta llegar al padre: Color, el cual, usamos la 
+misma estructura, simplemente agregandole la lista de elementos hijos que el tiene: e.g. rgba.
+
+    export const colorSchema = new schema.Entity('colors', {
+            ... n cantidad de hijos asociados a sus schemas
+            rgba: rgbaSchema
+        }, {
+            idAttribute: 'tempId'
+    });
+
+Esto es lo que permite a normalizr saber como es la estructura de los datos, y asi construir el objeto de nuevo
+normalizado, respetando su jerarquia.
+
+Despues de definir todos nuestros schemas, podremos crear un esquema más global que indique que lo que vamos a 
+manejar es un Array de Colores:
+
+    export const colorsListSchema = [colorSchema];
+
+colorsListSchema seria el Schema global que usariamos para normalizar nuestros datos. Para terminar, podemos escribir
+una funcion que haga el trabajo de normalizar, lo hacemos en este archivo, para no estar escribiendo en todas partes
+que querramos normalizar, simplemente hacemos llamado a la funcion pasandole como parametro la lista de datos no normalizados:
+
+    export const colorsListNormalized = (colorsResult: Array<ColorListItem>) => normalize(colorsResult, colorsListSchema);
+
+    // Usage
+    colorsListNormalized(colorsListData); // generalmente son datos traidos directamente de DB
+
+
+--------------------------------------------------------------------------------
+
+
+// ===============================================
+//   Denormalize =================================
+// ===============================================
+
+
+Para denormalizar: es decir cuando querramos volver a acomodar los datos para enviarlos a DB, o algo por el estilo,
+lo que hacemos es tomar los datos normalizados (entities), la propiedad 'results' (la lista de ids) y el schema a usar
+para denormalizar:
+
+
+    import { denormalize, schema } from 'normalizr';
+
+    const colorsListSchema = { colorPalette: [colorSchema] }; // Schema a usar para denormalizar
+    const entities = { colorPalette: { '1': { id: 1, name: 'Primary' }, '2': { id: 2, name: 'Secondary' }, ... } }; // Datos normalizados
+    const results =  {colorPalette: [ 1, 2 ] }; // La propiedad 'result' que devuelve 'normalizr cuando normaliza.
+
+    const denormalizedData = denormalize(result, colorsListSchema, entities);
+
+    // Output
+    colorPalette: [
+        {
+            id: 1,
+            name: 'Primary'
+        },
+        {
+            id: 2,
+            name: 'Secondary'
+        },
+        ...
+    ];
+
+
+references: 
+    Normalize example (See 'Normalizr' section): http://fullstackdeveloper.info/redux-state-with-immutable-js-normalizr-and-reselect/
+    Denormalize: https://github.com/paularmstrong/normalizr/blob/master/docs/api.md#denormalizeinput-schema-entities

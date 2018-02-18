@@ -11,13 +11,20 @@ import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.
 /************************************/
 /*            INTERFACES            */
 /************************************/    
+
+interface INormalizedResult {
+    result: Array<string>;
+    entities: any;
+}
+
 interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => any;
     copyArray: (array: Array<any>) => Array<any>;
     updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
     deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
-    deletePropInCollection: (array: Array<any>, ...props: Array<any>) => any;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
+    turnArrayIntoObject: (array: Array<any>, key?: string) => Object;
+    deletePropInCollection: (array: Array<any>, ...props: Array<any>) => any;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     truncateText: (str: string, length: number, ending: string) => string;
@@ -157,6 +164,31 @@ class FunctionsUtil implements IFunctionUtil {
         }
 
         return res;
+    }
+
+
+    /**
+     * @desc Turn an Array into an Object (normalize)
+     * @function turnArrayIntoObject
+     * @example this.turnArrayIntoObject(array, 'tempId')
+     * @param {Array<any>} array - array to validate
+     * @param {any} value - value to use to check if exists in the array
+     * @param {string} key - If array has inner objects, this is the key that contain the value
+     * @return {INormalizedResult} it return and normalized result object
+     */
+    turnArrayIntoObject(array: Array<any>, key: string = 'id'): INormalizedResult {
+        
+        const entities = array.reduce((accumulator, current) => {
+            accumulator[current[key]] = current;
+            return accumulator;
+        }, {});
+         
+        const result = Object.keys(entities).map(entityKey => {
+                return entityKey;
+            }
+        );
+          
+        return {entities, result};
     }
 
 
