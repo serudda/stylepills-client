@@ -12,7 +12,9 @@ import { Basic as BasicColorModel } from './../../../../../../../models/color/co
 import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
 import LibService from './../../../../../../../models/lib/lib.service';
 
-import { changeColorAction, ICurrentCode } from '../../../../../../../actions/ui.action';
+import { changeColorAction, ICurrentCode } from './../../../../../../../actions/ui.action';
+
+import { getCurrentColor } from './../../../../../../../selectors/ui.selector';
 
 import PreviewBox from './../../../../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from './../../../../../../common/Iframe/Iframe.container';
@@ -38,9 +40,9 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    currentCode: Array<ICurrentCode>;
-    libs: Array<LibModel>;
+    color: BasicColorModel,
+    currentCode: Array<ICurrentCode>,
+    libs: Array<LibModel>
 };
 
 /* Mapped Dispatches to Props */
@@ -142,7 +144,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
         // Destructuring state & props 
         const { html, css } = this.state;
-        const { hex, libs} = this.props;
+        const { color, libs} = this.props;
 
 
         /*         MARKUP          */
@@ -153,7 +155,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                 <Iframe children={html} 
                                 css={css} 
                                 title={'new'}
-                                background={hex}
+                                background={color.hex}
                                 stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
@@ -168,16 +170,11 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 function mapStateToProps(state: IRootState): StateProps {
 
     // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex } = currentColor;
-
     const { currentCode } = state.ui.sourceCodePanel;
     const { libs } = state.ui.libsPanel;
 
     return {
-        hex,
+        color: getCurrentColor(state),
         currentCode,
         libs
     };

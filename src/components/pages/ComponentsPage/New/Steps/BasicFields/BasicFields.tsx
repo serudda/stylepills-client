@@ -26,10 +26,13 @@ import {
 import { getLibsByProjectIdAction } from './../../../../../../actions/lib.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
+import { Basic as BasicColorModel }  from './../../../../../../models/color/color.model';
 import { 
     Lib as LibModel
 }  from './../../../../../../models/lib/lib.model';
 import LibService from './../../../../../../models/lib/lib.service';
+
+import { getCurrentColor } from './../../../../../../selectors/ui.selector';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
@@ -83,7 +86,7 @@ type StateProps = {
     atomCategoryId: number | null,
     private: boolean,
     currentCode: Array<ICurrentCode>,
-    hex: string,
+    color: BasicColorModel,
     user: UserModel,
     alerts: Array<{alertType: AlertOption, alertProps: any}>;
     isAuthenticated: boolean
@@ -125,7 +128,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                 html: props.html || '',
                 css: props.css || '',
                 libs: [...props.libs] || [],
-                contextualBg: props.hex || '#FFFFFF',
+                contextualBg: props.color.hex || '#FFFFFF',
                 projectId: props.projectId || null,
                 atomCategoryId: props.atomCategoryId || 0,
                 private: props.private || false
@@ -146,7 +149,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: BasicFieldsProps & StateProps) {   
-        const { hex, currentCode, libs } = nextProps;
+        const { color, currentCode, libs } = nextProps;
 
         // Changed CurrentCode on Store state
         if (this.props.currentCode !== currentCode) {
@@ -165,12 +168,12 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
         }
 
         // Changed Hex on Store state
-        if (this.props.hex !== hex) {
+        if (this.props.color.hex !== color.hex) {
             this.setState((previousState: LocalStates) => ({
                 ...previousState,
                 fields: {
                     ...previousState.fields,
-                    contextualBg: hex
+                    contextualBg: color.hex
                 }
             }));
         }
@@ -549,9 +552,7 @@ function mapStateToProps(state: IRootState): StateProps {
     
     // Destructuring state 
     const { ui } = state;
-    const { colorPicker, alerts } = ui;
-    const { currentColor } = colorPicker;
-    const { hex } = currentColor;
+    const { alerts } = ui;
 
     const { fields } = state.form.atomForm;
     const { name, description, html, css, contextualBg, projectId, atomCategoryId } = fields;
@@ -572,7 +573,7 @@ function mapStateToProps(state: IRootState): StateProps {
         atomCategoryId,
         private: fields.private,
         currentCode,
-        hex,
+        color: getCurrentColor(state),
         user,
         alerts,
         isAuthenticated

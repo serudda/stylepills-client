@@ -84,7 +84,7 @@ const AddColorForm: React.SFC<AddColorFormProps> = ({
 
                     <div className="d-flex align-items-center mt-3">
 
-                        <InputColorPickerContainer />
+                        <InputColorPickerContainer colorType={colorType} />
                         
 
                         {/* Input: Color Name */}

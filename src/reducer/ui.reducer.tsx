@@ -60,7 +60,9 @@ export interface IUiState {
         }
     };
     colorPicker: {
-        currentColor: BasicColorModel
+        currentColor: {
+            general: BasicColorModel
+        }
     };
     sourceCodePanel: {
         currentCode: Array<ICurrentCode>;
@@ -102,9 +104,11 @@ const defaultState: IUiState = {
     },
     colorPicker: {
         currentColor: {
-            hex: appConfig.SECONDARY_COLOR_HEX,
-            rgba: appConfig.SECONDARY_COLOR_RGBA,
-            name: appConfig.SECONDARY_COLOR_NAME
+            general: {
+                hex: appConfig.SECONDARY_COLOR_HEX,
+                rgba: appConfig.SECONDARY_COLOR_RGBA,
+                name: appConfig.SECONDARY_COLOR_NAME
+            }
         }
     },
     sourceCodePanel: {
@@ -159,9 +163,11 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 },
                 colorPicker: {
                     currentColor: {
-                        hex: appConfig.SECONDARY_COLOR_HEX,
-                        rgba: appConfig.SECONDARY_COLOR_RGBA,
-                        name: appConfig.SECONDARY_COLOR_NAME
+                        general: {
+                            hex: appConfig.SECONDARY_COLOR_HEX,
+                            rgba: appConfig.SECONDARY_COLOR_RGBA,
+                            name: appConfig.SECONDARY_COLOR_NAME
+                        }
                     }
                 },
                 sourceCodePanel: {
@@ -323,15 +329,17 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         }
 
         case types.CHANGE_COLOR: {
+
+            const { colorType } = action;
+            const group = colorType ? colorType : 'general';
+
             return {
                 ...state,
                 colorPicker: {
                     ...state.colorPicker,
                     currentColor: {
                         ...state.colorPicker.currentColor,
-                        hex: action.colorPicker.currentColor.hex,
-                        rgba: action.colorPicker.currentColor.rgba,
-                        name: action.colorPicker.currentColor.name || null
+                        [group]: action.color
                     }
                 }
             };

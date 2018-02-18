@@ -5,6 +5,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import * as appConfig from './../../../../core/constants/app.constants';
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import {
@@ -17,7 +18,8 @@ import {
     Color as ColorModel, 
     ColorTypeOptions 
 } from './../../../../models/color/color.model';
-import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
+
+import { getCurrentColorByType } from './../../../../selectors/ui.selector';
 
 import AddColorForm from './../../../components/Forms/AddColorForm/AddColorForm';
 
@@ -44,9 +46,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    rgba: RgbaColorModel;
-    name: string;
+    color: BasicColorModel
 };
 
 /* Mapped Dispatches to Props */
@@ -54,7 +54,7 @@ type DispatchProps = {
     actions: {
         ui: {
             addColorItem: (color: ColorModel, colorType: ColorTypeOptions) => void;
-            changeColor: (color: BasicColorModel) => void;
+            changeColor: (color: BasicColorModel, colorType: ColorTypeOptions) => void;
         }
     };
 };
@@ -100,12 +100,13 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
      * @returns {void}
      */
     handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { hex, rgba } = this.props;
+        const { color, colorType } = this.props;
+        const { hex, rgba } = color;
         const target = e.target;
         const value = target.value;
 
         // Receive input change value and save it on Store NOTE: 1
-        this.props.actions.ui.changeColor({hex, rgba, name: value});
+        this.props.actions.ui.changeColor({hex, rgba, name: value}, colorType);
     }
 
 
@@ -134,18 +135,19 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
     handleAddClick(e: React.FormEvent<{}>) {
         e.preventDefault();
 
-        const { colorType, hex, rgba, name } = this.props;
+        const { colorType, color } = this.props;
+        const  { hex, rgba, name } = color;
         const { r, g, b, a } = rgba;
 
         // Create new color instance
-        let color: ColorModel = {
+        let colorModel: ColorModel = {
             name,
             hex,
             type: colorType,
             rgba: { r, g, b, a }
         };
         
-        this.props.actions.ui.addColorItem(color, colorType);
+        this.props.actions.ui.addColorItem(colorModel, colorType);
         
     }
 
@@ -156,7 +158,9 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
     render() {
 
         // Destructuring props & states
-        const { colorType, label, helpMsg, name } = this.props;
+        const { colorType, label, helpMsg, color = {
+            name: appConfig.SECONDARY_COLOR_NAME
+        } } = this.props;
         const { showForm } = this.state;
 
         
@@ -168,7 +172,7 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
                           helpMsg={helpMsg}
                           colorType={colorType}
                           showForm={showForm}
-                          inputValue={name}
+                          inputValue={color.name}
                           inputName="colorName"
                           onAddClick={this.handleAddClick}
                           onShowFormClick={this.handleShowFormClick}
@@ -183,18 +187,9 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
 /********************************/
 /*      MAP STATE TO PROPS      */
 /********************************/
-function mapStateToProps(state: IRootState): StateProps {
-
-    // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex, rgba, name } = currentColor;
-
+function mapStateToProps(state: IRootState, ownProps: AddColorFormContainerProps): StateProps {
     return {
-        hex,
-        rgba,
-        name
+        color: getCurrentColorByType(state, ownProps)
     };
 }
 
@@ -206,7 +201,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeColor: (color) => dispatch(changeColorAction(color)),
+                changeColor: (color, colorType) => dispatch(changeColorAction(color, colorType)),
                 addColorItem: (color, colorType) => dispatch(addColorItemAction(color, colorType))
             }
         }

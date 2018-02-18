@@ -6,14 +6,14 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { ColorResult } from 'react-color';
 
-import { IRootState } from './../../../../reducer/reducer.config';
+import * as appConfig from './../../../../core/constants/app.constants';
 
-import { Basic as BasicColorModel } from './../../../../models/color/color.model';
-import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
-
+import { Basic as BasicColorModel, ColorTypeOptions } from './../../../../models/color/color.model';
 import ColorService from './../../../../models/color/color.service';
 
+import { IRootState } from './../../../../reducer/reducer.config';
 import { changeColorAction } from './../../../../actions/ui.action';
+import { makeGetCurrentColor } from './../../../../selectors/ui.selector';
 
 import InputColorPicker from './../../../components/ColorPicker/InputColorPicker/InputColorPicker';
 
@@ -25,7 +25,9 @@ import InputColorPicker from './../../../components/ColorPicker/InputColorPicker
 /********************************/
 
 /* Own Props */
-type InputColorPickerContainerProps = {};
+type InputColorPickerContainerProps = {
+    colorType?: ColorTypeOptions
+};
 
 /* Own States */
 type LocalStates = {
@@ -34,15 +36,14 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    rgba: RgbaColorModel;
+    color: BasicColorModel
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         ui: {
-            changeColor: (color: BasicColorModel) => void;
+            changeColor: (color: BasicColorModel, colorType: ColorTypeOptions) => void;
         }
     };
 };
@@ -132,7 +133,8 @@ extends React.Component<ChildProps<InputColorPickerContainerProps & StateProps &
      * @returns {void}
      */
     private _changeColor(color: BasicColorModel) {
-        this.props.actions.ui.changeColor(color);
+        const { colorType } = this.props;
+        this.props.actions.ui.changeColor(color, colorType);
     }
 
     
@@ -144,14 +146,18 @@ extends React.Component<ChildProps<InputColorPickerContainerProps & StateProps &
 
         // Destructuring state
         const { displayColorPicker } = this.state;
-        const { hex, rgba } = this.props;
+        const { color = {
+            hex: appConfig.SECONDARY_COLOR_HEX,
+            name: appConfig.SECONDARY_COLOR_NAME,
+            rgba: appConfig.SECONDARY_COLOR_RGBA
+        } } = this.props;
         
         
         /*         MARKUP          */
         /***************************/
         return (
-            <InputColorPicker hex={hex} 
-                            rgba={rgba} 
+            <InputColorPicker hex={color.hex} 
+                            rgba={color.rgba} 
                             displayColorPicker={displayColorPicker}
                             onSwatchClick={this.handleClick}
                             onPickerChange={this.handleChange}
@@ -166,19 +172,15 @@ extends React.Component<ChildProps<InputColorPickerContainerProps & StateProps &
 /********************************/
 /*      MAP STATE TO PROPS      */
 /********************************/
-function mapStateToProps(state: IRootState): StateProps {
-
-    // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex, rgba } = currentColor;
-
-    return {
-        hex,
-        rgba
+const makeMapStateToProps = () => { // NOTE: 1
+    const getCurrentColor = makeGetCurrentColor();
+    const mapStateToProps = (state: IRootState, ownProps: InputColorPickerContainerProps) => {
+        return {
+            color: getCurrentColor(state, ownProps)
+        };
     };
-}
+    return mapStateToProps;
+};
 
 
 /********************************/
@@ -188,7 +190,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color))
+                changeColor: (color, colorType) => dispatch(changeColorAction(color, colorType))
             }
         }
     };
@@ -198,7 +200,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const inputColorPickerContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
+const inputColorPickerContainerConnect = connect(makeMapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */

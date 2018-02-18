@@ -9,11 +9,12 @@ import { ColorResult } from 'react-color';
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
-import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
 
 import ColorService from './../../../../models/color/color.service';
 
 import { changeColorAction } from './../../../../actions/ui.action';
+
+import { getCurrentColor } from './../../../../selectors/ui.selector';
 
 import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker/SmallColorPicker';
 
@@ -36,8 +37,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    rgba: RgbaColorModel;
+    color: BasicColorModel
 };
 
 /* Mapped Dispatches to Props */
@@ -153,13 +153,13 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps &
 
         // Destructuring state
         const { displayColorPicker } = this.state;
-        const { hex } = this.props;
+        const { color } = this.props;
         
         
         /*         MARKUP          */
         /***************************/
         return (
-            <SmallColorPicker hex={hex} 
+            <SmallColorPicker hex={color.hex} 
                               displayColorPicker={displayColorPicker}
                               defaultColors={this._DEFAULT_COLORS_LIST}
                               onSwatchClick={this._handleClick}
@@ -176,16 +176,8 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps &
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-
-    // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex, rgba } = currentColor;
-
     return {
-        hex,
-        rgba
+        color: getCurrentColor(state)
     };
 }
 

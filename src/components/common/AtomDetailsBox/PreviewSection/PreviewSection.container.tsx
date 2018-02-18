@@ -14,6 +14,7 @@ import { Lib as LibModel } from './../../../../models/lib/lib.model';
 import LibService from './../../../../models/lib/lib.service';
 
 import { changeColorAction } from './../../../../actions/ui.action';
+import { getCurrentColor } from './../../../../selectors/ui.selector';
 
 import PreviewBox from './../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from '../../Iframe/Iframe.container';
@@ -41,9 +42,9 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    atoms: Array<IAtomsProps>;
-    libs: Array<LibModel>;
+    color: BasicColorModel,
+    atoms: Array<IAtomsProps>,
+    libs: Array<LibModel>
 };
 
 /* Mapped Dispatches to Props */
@@ -114,7 +115,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     render() {
 
         // Destructuring props 
-        const { name, libs, hex } = this.props;
+        const { name, libs, color } = this.props;
 
 
         /*         MARKUP          */
@@ -124,7 +125,7 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
                 <Iframe children={this.state.html} 
                                 css={this.state.css} 
                                 title={name}
-                                background={hex}
+                                background={color.hex}
                                 stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
@@ -139,17 +140,12 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 function mapStateToProps(state: IRootState): StateProps {
 
     // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex } = currentColor;
-
     const { atoms } = state.atomState.edited;
 
     const { libs } = state.ui.libsPanel;
 
     return {
-        hex,
+        color: getCurrentColor(state),
         atoms,
         libs
     };

@@ -291,9 +291,8 @@ export interface ICopySourceCodeAction {
 
 export interface IChangeColorAction {
     type: types.CHANGE_COLOR;
-    colorPicker: {
-        currentColor: BasicColorModel
-    };
+    colorType?: ColorTypeOptions;
+    color: BasicColorModel;
 }
 
 
@@ -734,16 +733,11 @@ export const copySourceCodeAction = (copiedType: string): Action => {
  * @param {BasicColorModel} color - new color object: hex and rgba properties
  * @returns {Action}
  */
-export const changeColorAction = (color: BasicColorModel): Action => {
+export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOptions = null): Action => {
     return {
         type: types.CHANGE_COLOR,
-        colorPicker: {
-            currentColor: {
-                hex: color.hex,
-                rgba: color.rgba,
-                name: color.name
-            }
-        }
+        color,
+        colorType
     };
 };
 

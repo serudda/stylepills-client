@@ -3,10 +3,12 @@
 /************************************/
 import { createSelector } from 'reselect';
 
-import { functionsUtil }  from './../core/utils/functionsUtil';
 import { IRootState } from './../reducer/reducer.config';
 import { ColorListItem, ColorsList } from './../reducer/ui.reducer';
-import { Color as ColorModel } from './../models/color/color.model';
+import {
+    Basic as BasicColorModel, 
+    Color as ColorModel
+} from './../models/color/color.model';
 
 // -----------------------------------
 
@@ -72,6 +74,51 @@ export const makeGetColorListByType = () => { // NOTE: 1
             return colors;
         });
 };
+
+
+// ----------------------------------------------------------------------------------
+
+
+/* 
+    COLORPICKER SELECTORS
+    state: ui.colorPicker.currentColor
+*/
+
+/**
+ * @desc Get currentColor from state store
+ * @function getCurrentColor
+ * @returns {BasicColorModel}
+ */
+export const getCurrentColor = (state: IRootState): BasicColorModel => state.ui.colorPicker.currentColor.general;
+
+
+/**
+ * @desc Get currentColor by Type from state store (e.g. primary, secondary or grayscale type)
+ * @function getCurrentColorByType
+ * @returns {BasicColorModel}
+ */
+export const getCurrentColorByType = (state: IRootState, props: any): BasicColorModel => {
+    const { colorType } = props;
+    const group = colorType ? colorType : 'general';
+
+    return state.ui.colorPicker.currentColor[group];
+};
+
+
+/**
+ * @desc Wrap getCurrentColor in order to use it on 
+ * multiple components instance on the same page
+ * @function makeGetCurrentColor
+ * @returns {BasicColorModel}
+ */
+export const makeGetCurrentColor = () => { // NOTE: 1
+    return createSelector(
+        [getCurrentColorByType],
+        (currentColor: BasicColorModel) => {
+            return currentColor;
+        });
+};
+
 
 /*
 (1): Esto es necesario para poder compartir 'selectores' entre componentes que esten repetidos en la misma pagina:
