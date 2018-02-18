@@ -53,7 +53,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: {
-            addColorItem: (color: ColorModel) => void;
+            addColorItem: (color: ColorModel, colorType: ColorTypeOptions) => void;
             changeColor: (color: BasicColorModel) => void;
         }
     };
@@ -145,7 +145,7 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
             rgba: { r, g, b, a }
         };
         
-        this.props.actions.ui.addColorItem(color);
+        this.props.actions.ui.addColorItem(color, colorType);
         
     }
 
@@ -207,7 +207,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 changeColor: (color) => dispatch(changeColorAction(color)),
-                addColorItem: (color) => dispatch(addColorItemAction(color))
+                addColorItem: (color, colorType) => dispatch(addColorItemAction(color, colorType))
             }
         }
     };

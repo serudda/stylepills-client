@@ -35,7 +35,7 @@ type ColorsListProps = {
 const ColorsList: React.SFC<ColorsListProps> = ({ 
     colors = [], isEmpty = false, emptyMessage = appConfig.EMPTY_MESSAGE, onDeleteClick 
 }) => {
-    
+
 
     /*         MARKUP          */
     /***************************/

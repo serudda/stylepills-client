@@ -7,7 +7,7 @@ import * as types from '../core/constants/action.types';
 import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
-import { Basic as BasicColorModel, Color as ColorModel } from '../models/color/color.model';
+import { Basic as BasicColorModel, Color as ColorModel, ColorTypeOptions } from '../models/color/color.model';
 import { Lib as LibModel } from './../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 
@@ -193,6 +193,7 @@ export interface IChangeSourceItemOrderAction {
 
 export interface IAddColorItemAction {
     type: types.ADD_COLOR_ITEM;
+    colorType: ColorTypeOptions;
     color: ColorModel;
 }
 
@@ -203,6 +204,7 @@ export interface IEditColorItemAction {
 
 export interface IDeleteColorItemAction {
     type: types.DELETE_COLOR_ITEM;
+    colorType: ColorTypeOptions;
     id: string | number;
 }
 
@@ -543,9 +545,10 @@ export const changeSourceItemOrderAction = (id: number, newOrder: number): Actio
  * @function addColorItemAction
  * @returns {Action}
  */
-export const addColorItemAction = (color: ColorModel): Action => {
+export const addColorItemAction = (color: ColorModel, colorType: ColorTypeOptions): Action => {
     return {
         type: types.ADD_COLOR_ITEM,
+        colorType,
         color
     };
 };
@@ -571,10 +574,11 @@ export const editColorItemAction = (color: ColorModel): Action => {
  * @function deleteColorItemAction
  * @returns {Action}
  */
-export const deleteColorItemAction = (id: string | number): Action => {
+export const deleteColorItemAction = (id: string | number, colorType: ColorTypeOptions): Action => {
     return {
         type: types.DELETE_COLOR_ITEM,
-        id
+        id,
+        colorType
     };
 };
 

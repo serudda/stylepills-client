@@ -12,11 +12,13 @@ import {
     validateColorFields, 
     IValidationError 
 } from './../../../../../../core/validations/project';
-import { 
-    Color as ColorModel
-} from './../../../../../../models/color/color.model';
+
+import { getColorListFormatted } from './../../../../../../selectors/ui.selector';
+import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
+
+import { Color as ColorModel } from './../../../../../../models/color/color.model';
 
 import ColorFields from './../components/ColorFields';
 
@@ -167,6 +169,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      */
     private _nextStep() {
 
+        // Update _fields this prop
+        this._fields.colorPalette = this.props.colorsList;
+
         if (this._isValid()) {
             this.props.nextStep(this._fields);    
         }
@@ -213,13 +218,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const { lists } = state.ui;
-    const { colorsList } = lists;
-    const { isAuthenticated } = state.auth;
-
-    return {
-        colorsList,
-        isAuthenticated
+    return { 
+        colorsList: getColorListFormatted(state),
+        isAuthenticated: getIsAuthenticated(state)
     };
 }
 

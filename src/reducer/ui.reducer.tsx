@@ -35,12 +35,17 @@ import {
 
 export type ColorListItem = ColorModel & ListProps;
 export type SourceListItem = SourceModel & ListProps;
+export type ColorsList = {
+    primary: Array<ColorListItem>,
+    secondary: Array<ColorListItem>,
+    grayscale: Array<ColorListItem>
+};
 
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     lists: {
-        colorsList: Array<ColorListItem>,
+        colorsList: ColorsList,
         sourcesList: Array<SourceListItem>
     };
     tabs: {
@@ -77,7 +82,11 @@ const defaultState: IUiState = {
     modals: [],
     alerts: [],
     lists: {
-        colorsList: [],
+        colorsList: {
+            primary: [],
+            secondary: [],
+            grayscale: []
+        },
         sourcesList: []
     },
     tabs: {
@@ -130,7 +139,11 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 modals: [],
                 alerts: [],
                 lists: {
-                    colorsList: [],
+                    colorsList: {
+                        primary: [],
+                        secondary: [],
+                        grayscale: []
+                    },
                     sourcesList: []
                 },
                 tabs: {
@@ -213,23 +226,36 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 ...state,
                 lists: {
                     ...state.lists,
-                    colorsList:  [
+                    colorsList: {
                         ...state.lists.colorsList,
-                        { tempId: uuid(), ...action.color } // NOTE: 2
-                    ]
+                        [action.colorType]: [
+                            ...state.lists.colorsList[action.colorType],
+                            {
+                                tempId: uuid(), // NOTE: 2
+                                ...action.color,
+                                rgba: {
+                                    tempId: uuid(), // NOTE: 2
+                                    ...action.color.rgba
+                                }
+                            }
+                        ]
+                    }
                 }
             };
         }
 
         case types.DELETE_COLOR_ITEM: {
 
-            const newColorsListState = functionsUtil.deleteItemInArray(state.lists.colorsList, 'tempId', action.id);
+            const newColorsListState = functionsUtil.deleteItemInArray(state.lists.colorsList[action.colorType], 'tempId', action.id);
 
             return {
                 ...state,
                 lists: {
                     ...state.lists,
-                    colorsList: newColorsListState
+                    colorsList: {
+                        ...state.lists.colorsList,
+                        [action.colorType]: newColorsListState
+                    }
                 }
             };
         }
@@ -260,7 +286,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
-        case types.CHANGE_ATOM_DETAILS_TAB: {
+        case types.CHANGE_ATOM_DETAILS_TAB : {
             return {
                 ...state,
                 tabs: {
