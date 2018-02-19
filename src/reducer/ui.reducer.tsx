@@ -36,9 +36,7 @@ import {
 export type ColorListItem = ColorModel & ListProps;
 export type SourceListItem = SourceModel & ListProps;
 export type ColorsList = {
-    primary: Array<ColorListItem>,
-    secondary: Array<ColorListItem>,
-    grayscale: Array<ColorListItem>
+    general: Array<ColorListItem>
 };
 
 export interface IUiState {
@@ -85,9 +83,7 @@ const defaultState: IUiState = {
     alerts: [],
     lists: {
         colorsList: {
-            primary: [],
-            secondary: [],
-            grayscale: []
+            general: []
         },
         sourcesList: []
     },
@@ -144,9 +140,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 alerts: [],
                 lists: {
                     colorsList: {
-                        primary: [],
-                        secondary: [],
-                        grayscale: []
+                        general: []
                     },
                     sourcesList: []
                 },
@@ -228,31 +222,41 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         }
 
         case types.ADD_COLOR_ITEM: {
+
+            const { colorType } = action;
+            const { lists } = state;
+            const group = colorType ? colorType : 'general';
+            let newColorList = [];
+            let colorsList = lists.colorsList[group] ? lists.colorsList[group] : []; 
+
+            // Append new color to colorList
+            newColorList = colorsList.concat({
+                tempId: uuid(),
+                ...action.color,
+                rgba: { tempId: uuid(), ...action.color.rgba }
+            });
+
             return {
                 ...state,
                 lists: {
                     ...state.lists,
                     colorsList: {
                         ...state.lists.colorsList,
-                        [action.colorType]: [
-                            ...state.lists.colorsList[action.colorType],
-                            {
-                                tempId: uuid(), // NOTE: 2
-                                ...action.color,
-                                rgba: {
-                                    tempId: uuid(), // NOTE: 2
-                                    ...action.color.rgba
-                                }
-                            }
-                        ]
+                        [group]: newColorList
                     }
                 }
             };
+
         }
 
         case types.DELETE_COLOR_ITEM: {
 
-            const newColorsListState = functionsUtil.deleteItemInArray(state.lists.colorsList[action.colorType], 'tempId', action.id);
+            const { colorType } = action;
+            const { lists } = state;
+            const group = colorType ? colorType : 'general';
+            let colorsList = lists.colorsList[group] ? lists.colorsList[group] : [];
+
+            const newColorsListState = functionsUtil.deleteItemInArray(colorsList, 'tempId', action.id);
 
             return {
                 ...state,

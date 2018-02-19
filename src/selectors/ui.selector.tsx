@@ -26,7 +26,7 @@ import {
  * @function getColorList
  * @returns {ColorsList}
  */
-export const getColorList = (state: IRootState): ColorsList => state.ui.lists.colorsList;
+export const getColorsList = (state: IRootState): ColorsList => state.ui.lists.colorsList;
 
 
 /**
@@ -35,30 +35,11 @@ export const getColorList = (state: IRootState): ColorsList => state.ui.lists.co
  * @returns {Array<ColorListItem>}
  */
 export const getColorListByType = (state: IRootState, props: any): Array<ColorListItem> => {
-    const { colorsList } = state.ui.lists;
-    return colorsList[props.colorType];
+    const { colorType } = props;
+    const group = colorType ? colorType : 'general';
+
+    return state.ui.lists.colorsList[group];
 };
-
-
-/**
- * @desc Get colorsList formatted to send to DB
- * @function getColorListFormatted
- * @returns {Array<ColorModel>}
- */
-export const getColorListFormatted = createSelector(
-    getColorList,
-    (colorsList) => {
-        let colorPalette: Array<ColorModel> = [];
-
-        for (const key in colorsList) {
-            if (colorsList.hasOwnProperty(key)) {
-                colorPalette = colorPalette.concat(colorsList[key]);
-            }
-        }
-
-        return colorPalette;
-    }
-);
 
 
 /**
@@ -74,6 +55,27 @@ export const makeGetColorListByType = () => { // NOTE: 1
             return colors;
         });
 };
+
+
+/**
+ * @desc Get colorsList formatted to send to DB
+ * @function getColorListFormatted
+ * @returns {Array<ColorModel>}
+ */
+export const getColorListFormatted = createSelector(
+    getColorsList,
+    (colorsList) => {
+        let colorPalette: Array<ColorModel> = [];
+
+        for (const key in colorsList) {
+            if (colorsList.hasOwnProperty(key)) {
+                colorPalette = colorPalette.concat(colorsList[key]);
+            }
+        }
+
+        return colorPalette;
+    }
+);
 
 
 // ----------------------------------------------------------------------------------
@@ -108,10 +110,10 @@ export const getCurrentColorByType = (state: IRootState, props: any): BasicColor
 /**
  * @desc Wrap getCurrentColor in order to use it on 
  * multiple components instance on the same page
- * @function makeGetCurrentColor
+ * @function makeGetCurrentColorByType
  * @returns {BasicColorModel}
  */
-export const makeGetCurrentColor = () => { // NOTE: 1
+export const makeGetCurrentColorByType = () => { // NOTE: 1
     return createSelector(
         [getCurrentColorByType],
         (currentColor: BasicColorModel) => {

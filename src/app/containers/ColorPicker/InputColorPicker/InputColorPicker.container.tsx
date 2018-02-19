@@ -13,7 +13,7 @@ import ColorService from './../../../../models/color/color.service';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 import { changeColorAction } from './../../../../actions/ui.action';
-import { makeGetCurrentColor } from './../../../../selectors/ui.selector';
+import { makeGetCurrentColorByType } from './../../../../selectors/ui.selector';
 
 import InputColorPicker from './../../../components/ColorPicker/InputColorPicker/InputColorPicker';
 
@@ -173,10 +173,10 @@ extends React.Component<ChildProps<InputColorPickerContainerProps & StateProps &
 /*      MAP STATE TO PROPS      */
 /********************************/
 const makeMapStateToProps = () => { // NOTE: 1
-    const getCurrentColor = makeGetCurrentColor();
+    const getCurrentColorByType = makeGetCurrentColorByType();
     const mapStateToProps = (state: IRootState, ownProps: InputColorPickerContainerProps) => {
         return {
-            color: getCurrentColor(state, ownProps)
+            color: getCurrentColorByType(state, ownProps)
         };
     };
     return mapStateToProps;
