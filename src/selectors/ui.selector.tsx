@@ -4,11 +4,18 @@
 import { createSelector } from 'reselect';
 
 import { IRootState } from './../reducer/reducer.config';
-import { ColorListItem, ColorsList } from './../reducer/ui.reducer';
+import { functionsUtil } from './../core/utils/functionsUtil';
+import {
+    LibListItem, LibsList,
+    ColorListItem, ColorsList
+} from './../reducer/ui.reducer';
 import {
     Basic as BasicColorModel, 
     Color as ColorModel
 } from './../models/color/color.model';
+import {
+    Lib as LibModel
+} from './../models/lib/lib.model';
 
 // -----------------------------------
 
@@ -73,7 +80,76 @@ export const getColorListFormatted = createSelector(
             }
         }
 
+        // Remove extra 'tempId' prop
+        colorPalette = functionsUtil.deletePropInCollection(colorPalette, 'tempId');
+
         return colorPalette;
+    }
+);
+
+
+/* 
+    LISTS SELECTORS
+    state: ui.lists.libsList
+*/
+
+
+/**
+ * @desc Get libsList from state store
+ * @function getLibsList
+ * @returns {LibsList}
+ */
+export const getLibsList = (state: IRootState): LibsList => state.ui.lists.libsList;
+
+
+/**
+ * @desc Get libsList by type from state store (e.g. css, js, etc)
+ * @function getLibListByType
+ * @returns {Array<LibListItem>}
+ */
+export const getLibListByType = (state: IRootState, props: any): Array<LibListItem> => {
+    const { libType } = props;
+    const group = libType ? libType : 'css';
+
+    return state.ui.lists.libsList[group];
+};
+
+
+/**
+ * @desc Wrap getLibListByType in order to use it on 
+ * multiple components instance on the same page
+ * @function makeGetLibListByType
+ * @returns {Array<LibListItem>}
+ */
+export const makeGetLibListByType = () => { // NOTE: 1
+    return createSelector(
+        [getLibListByType],
+        (libs: Array<LibListItem>) => {
+            return libs;
+        });
+};
+
+
+/**
+ * @desc Get libsList formatted to send to DB
+ * @function getLibListFormatted
+ * @returns {Array<LibModel>}
+ */
+export const getLibListFormatted = createSelector(
+    getLibsList,
+    (libsList) => {
+        let externalLibs: Array<LibModel | LibListItem> = [];
+
+        for (const key in libsList) {
+            if (libsList.hasOwnProperty(key)) {
+                externalLibs = externalLibs.concat(libsList[key]);
+            }
+        }
+
+        // Remove extra 'tempId' prop
+        externalLibs = functionsUtil.deletePropInCollection(externalLibs, 'tempId');
+
+        return externalLibs;
     }
 );
 

@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 
+import { LibListItem } from './../../../reducer/ui.reducer';
 import { Lib as LibModel } from './../../../models/lib/lib.model';
 
 import Icon from './../Icon/Icon';
@@ -18,9 +19,9 @@ import Icon from './../Icon/Icon';
 
 /* Own Props */
 type LibsListProps = {
-    libs: Array<LibModel>;
+    libs: Array<LibModel | LibListItem>,
     isEmpty?: boolean,
-    onDeleteClick: (lib: LibModel) => any;
+    onDeleteClick: (tempId: string) => any
 };
 
 
@@ -53,13 +54,13 @@ const LibsList: React.SFC<LibsListProps> = ({ libs = [], isEmpty = false, onDele
                 </span>
             </div>}
 
-            {libs.map((lib: LibModel, index) => (
+            {libs.map((lib: LibListItem, index) => (
                 <li key={index} className={itemClasses(lib)}>
                     <span className="text">
                         {lib.url}
                     </span>
                     {!lib.project ?
-                        <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(lib)}>
+                        <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(lib.tempId)}>
                             <Icon icon="close"
                                 iconClass="icon stroke-silver strokeWidth-3"
                                 width="18" height="18"/>

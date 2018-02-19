@@ -9,11 +9,8 @@ import { functionsUtil } from './../../../../../../../../core/utils/functionsUti
 
 import { IRootState } from './../../../../../../../../reducer/reducer.config';
 
-import { Lib as LibModel } from './../../../../../../../../models/lib/lib.model';
-
 import {
-    changeLibsTabAction, 
-    changeLibsAction 
+    changeLibsTabAction,
 } from './../../../../../../../../actions/ui.action';
 
 import { 
@@ -37,8 +34,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: CodeTabMenuOption,
-    libs: Array<LibModel>
+    tab: CodeTabMenuOption
 };
 
 /* Mapped Dispatches to Props */
@@ -46,7 +42,6 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeLibsTab: (tab: CodeTabMenuOption) => void;
-            changeLibs: (libs: Array<LibModel>) => void;
         }
     };
 };
@@ -70,7 +65,6 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
 
         // Bind methods
         this.handleTabClick = this.handleTabClick.bind(this);
-        this.handleAddLibClick = this.handleAddLibClick.bind(this);
     }
 
 
@@ -93,22 +87,6 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
     }
 
 
-    /**
-     * @desc HandleAddLibClick
-     * @method handleAddLibClick
-     * @example this.handleAddLibClick()
-     * @public
-     * @param {LibModel} newLib - new lib to add on the libs array
-     * @returns {void}
-     * NOTE: Uso esta forma en vez de () => () => {...} por que no funciona para cuando
-     * paso este method por props, y es llamada en los child de la siguiente manera:
-     * this.props.onAddLibClick(name, url);
-     */
-    handleAddLibClick(name: string, url: string) {
-        this._addLib(name, url);
-    }
-
-
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
@@ -127,31 +105,6 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
     }
 
 
-    /**
-     * @desc Add Lib
-     * @method _addLib
-     * @example this._addLib()
-     * @private 
-     * @param {LibModel} newLib - new lib to add in the list
-     * @returns {void}
-     */
-    private _addLib(name: string, url: string) {
-
-        const { tab, libs } = this.props;
-
-        let libsCopy = [].concat(libs);
-
-        libsCopy.unshift({
-            type: tab,
-            name,
-            url
-        });
-
-        this.props.actions.ui.changeLibs(libsCopy);
-        
-    }
-
-
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
@@ -164,7 +117,6 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
         /***************************/
         return (
             <ExternalLibsPanel currentTab={tab} 
-                               onAddLibClick={this.handleAddLibClick}
                                onTabClick={this.handleTabClick} />
         );
     }
@@ -177,15 +129,12 @@ extends React.Component<ChildProps<ExternalLibsPanelContainerProps & StateProps 
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const {tabs, libsPanel} = state.ui;
+    const {tabs} = state.ui;
     const {libsTab} = tabs;
     const {tab} = libsTab;
 
-    const { libs } = libsPanel;
-
     return {
-        tab,
-        libs
+        tab
     };
 }
 
@@ -197,8 +146,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeLibsTab: (tab) => dispatch(changeLibsTabAction(tab)),
-                changeLibs: (libs) => dispatch(changeLibsAction(libs))
+                changeLibsTab: (tab) => dispatch(changeLibsTabAction(tab))
             }
         }
     };

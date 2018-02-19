@@ -5,12 +5,13 @@ import * as React from 'react';
 
 import Button from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
-import AddLibForm from './../../../../../components/Forms/AddLibForm/AddLibForm';
+import AddLibFormContainer from './../../../../../containers/Forms/AddLibForm/AddLibForm.container';
+
+import { LibTypeOptions } from './../../../../../../models/lib/lib.model';
 import LibsListContainer from './../../../../../containers/LibsList/LibsList.container';
 
-import CodeTabMenu, { 
-    Option as CodeTabMenuOption 
-} from './../../../../../components/Tabs/CodeTabMenu/CodeTabMenu';
+import { Option as CodeTabMenuOption } from './../../../../../components/Tabs/CodeTabMenu/CodeTabMenu';
+import CodeTabMenuContainer from './../../../../../containers/Tabs/CodeTabMenu.container';
 
 
 // -----------------------------------
@@ -24,7 +25,6 @@ import CodeTabMenu, {
 type ListFieldsProps = {
     currentTab: CodeTabMenuOption,
     onTabClick: (tab: CodeTabMenuOption) => void;
-    onAddLibClick: (name: string, url: string) => void,
     onPrevClick: (e: React.FormEvent<{}>) => any,
     onNextClick: (e: React.FormEvent<{}>) => any
 };
@@ -55,17 +55,13 @@ class ListFields extends React.Component<ListFieldsProps, {}> {
         const {
             currentTab,
             onTabClick,
-            onAddLibClick,
             onPrevClick,
             onNextClick
         } = this.props;
 
         // VARIABLES 
-        // TODO: Mas adelante esto no podras esta aqui fijo, tendras que ser enviado por su Container
         const options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.css,
-            /* CodeTabMenuOption.js 
-            TODO: Descomentar cuando se vaya a implementar */
+            CodeTabMenuOption.css
         ];
 
         const title = 'EXTERNAL LIBRARIES';
@@ -117,19 +113,16 @@ class ListFields extends React.Component<ListFieldsProps, {}> {
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
                     {/* Type Code Tab Menu */}
-                    <CodeTabMenu options={options} 
-                                isReversed={false}
-                                tab={currentTab} 
-                                onTabClick={onTabClick}/>
+                    <CodeTabMenuContainer options={options} currentTab={currentTab} onTabClick={onTabClick}/>
 
                     {/* External Libs */}
                     <div className="ExternalLibs d-flex flex-column w-100 pt-5">
-                        <AddLibForm label={title}
-                                    helpMsg={description}
-                                    onAddClick={onAddLibClick}/>
+                        <AddLibFormContainer libType={LibTypeOptions.css}
+                                             label={title}
+                                             helpMsg={description}/>
 
                         {/* Build external libs list */}
-                        <LibsListContainer />
+                        <LibsListContainer libType={LibTypeOptions.css}/>
                     </div>
 
                 </div>

@@ -18,9 +18,9 @@ import InlineForm from './../InlineForm/InlineForm';
 
 /* Own Props */
 type AddLibFormProps = {
-    label?: string;
-    helpMsg?: string;
-    onAddClick: (name: string, url: string) => void;
+    label?: string,
+    helpMsg?: string,
+    onAddClick: (name: string, url: string) => void
 };
 
 /* Own States */

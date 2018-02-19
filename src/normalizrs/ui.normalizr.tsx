@@ -1,23 +1,27 @@
 /********************************/
 /*         DEPENDENCIES         */
 /********************************/
-
+import * as uuid from 'uuid/v4';
 import { schema, normalize } from 'normalizr';
+import { groupBy, mapValues } from 'lodash';
 
-import { ColorListItem } from './../reducer/ui.reducer';
+import { functionsUtil } from './../core/utils/functionsUtil';
+
+import { 
+    ColorListItem, 
+    LibListItem, LibsList
+} from './../reducer/ui.reducer';
+
+import { Lib as LibModel } from './../models/lib/lib.model';
 
 
 // -----------------------------------
 
 
 // =================================================================
-//         UI STATES SCHEMAS =======================================
+//         LISTS SCHEMAS ===========================================
+//         state: lists.colorsList =================================
 // =================================================================
-
-/* 
-    LISTS SCHEMAS
-    state: lists.colorsList
-*/
 
 /**
  * @desc Return a Rgba entity schema on colorsList store state
@@ -47,7 +51,35 @@ export const colorSchema = new schema.Entity('colors', {
 export const colorsListSchema = [colorSchema];
 
 
-// ===============================================
-//   Colors List Normalized ======================
-// ===============================================
+/* COLORS LISTS NORMALIZER FUNCTIONS */
 export const colorsListNormalized = (colorsResult: Array<ColorListItem>) => normalize(colorsResult, colorsListSchema);
+
+
+// =================================================================
+//         LISTS SCHEMAS ===========================================
+//         state: lists.libsList ===================================
+// =================================================================
+
+/* LIBS LISTS NORMALIZER FUNCTIONS */
+export const libsListNormalized = (libsResult: Array<LibModel>): LibsList => {
+
+    // Create lib copy
+    let libsResultCopy: Array<LibModel> = functionsUtil.copyArray(libsResult);
+
+    // Add tempId prop to each inner object
+    let newLibsResult: Array<LibListItem> = libsResultCopy.map(
+        (item: LibModel) => {
+            let copyObj: LibListItem = functionsUtil.updateObject(item); 
+            copyObj.tempId  = uuid();
+            return copyObj;
+        }
+    );
+
+    // Remove props that libsList State does not need
+    let libListRemoved: Array<LibListItem> = functionsUtil.deletePropInCollection(newLibsResult, 'project', 'atom');
+
+    // Turn array into Object
+    let libListGrouped: LibsList = mapValues(groupBy(libListRemoved, 'type'));
+    
+    return libListGrouped;
+};

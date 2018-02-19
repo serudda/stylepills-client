@@ -1,0 +1,16 @@
+Esta es la mejor forma de typar un objecto que no tiene una propiedad definida,
+sino que se va asignando por default:
+
+    interface MyType {
+        typesafeProp1?: number,
+        requiredProp1: string,
+        [key: string]: any
+    }
+
+    let obj: MyType;
+    obj = {requiredProp1: 'foo'}; // valid
+    obj = {} // error. 'requiredProp1' is missing
+    obj.typesafeProp1 = "bar" // error. typesafeProp1 should be a number
+
+    obj.prop = 'value';
+    obj.prop2 = 88;

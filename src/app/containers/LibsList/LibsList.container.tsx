@@ -6,10 +6,15 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../reducer/reducer.config';
+import { LibListItem } from './../../../reducer/ui.reducer';
 
-import { Lib as LibModel } from './../../../models/lib/lib.model';
+import { LibTypeOptions } from './../../../models/lib/lib.model';
 
-import { changeLibsAction } from './../../../actions/ui.action';
+import {  
+    deleteLibItemAction, 
+} from './../../../actions/ui.action';
+
+import { makeGetLibListByType } from './../../../selectors/ui.selector';
 
 import LibsList from './../../components/LibsList/LibsList';
 
@@ -21,21 +26,23 @@ import LibsList from './../../components/LibsList/LibsList';
 /********************************/
 
 /* Own Props */
-type LibsListContainerProps = {};
+type LibsListContainerProps = {
+    libType: LibTypeOptions
+};
 
 /* Own States */
 type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    libs: Array<LibModel>
+    libsList: Array<LibListItem>
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         ui: {
-            changeLibs: (libs: Array<LibModel>) => void;
+            deleteLibItem: (id: string | number, libType: LibTypeOptions) => void;
         }
     };
 };
@@ -69,38 +76,29 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
      * @method handleDeleteClick
      * @example this.handleDeleteClick()
      * @public
-     * @param {LibModel} lib - lib that I want to remove of the libs list
+     * @param {string | number} id - color id
      * @returns {void}
      */
-    handleDeleteClick = (lib: LibModel) => (e: React.FormEvent<{}>) => {
-        this._deleteLib(lib);
+    handleDeleteClick = (id: string | number) => (e: React.FormEvent<{}>) => {
+        const { libType } = this.props;
+        this._deleteLibItem(id, libType);
     }
 
 
-    /********************************/
+     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
 
-
     /**
-     * @desc Delete Lib
-     * @method _deleteLib
-     * @example this._deleteLib()
-     * @private 
-     * @param {LibModel} lib - lib that I want to remove of the libs list
+     * @desc Delete Lib Item
+     * @method _deleteLibItem
+     * @example this._deleteLibItem(2)
+     * @private
+     * @param {string | number} id - lib id
      * @returns {void}
      */
-    private _deleteLib(lib: LibModel) {
-
-        // Destructuring state
-        const { libs } = this.props;
-        
-        let newLibs = libs.filter((candidateLib: LibModel) => (
-            candidateLib !== lib
-        ));
-            
-        this.props.actions.ui.changeLibs(newLibs);
-
+    private _deleteLibItem(id: string | number, libType: LibTypeOptions) {
+        this.props.actions.ui.deleteLibItem(id, libType);
     }
 
 
@@ -110,15 +108,15 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
     render() {
 
         // Destructuring props & state
-        const { libs } = this.props;
+        const { libsList } = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <LibsList libs={libs} 
-                    isEmpty={libs.length === 0} 
-                    onDeleteClick={this.handleDeleteClick}/>
+            <LibsList libs={libsList} 
+                      isEmpty={libsList.length === 0} 
+                      onDeleteClick={this.handleDeleteClick}/>
         );
     }
 
@@ -128,15 +126,15 @@ extends React.Component<ChildProps<LibsListContainerProps & StateProps & Dispatc
 /********************************/
 /*      MAP STATE TO PROPS      */
 /********************************/
-function mapStateToProps(state: IRootState): StateProps {
-    
-    const {libsPanel} = state.ui;
-    const { libs } = libsPanel;
-
-    return {
-        libs
+const makeMapStateToProps = () => { // NOTE: 1
+    const getLibListByType = makeGetLibListByType();
+    const mapStateToProps = (state: IRootState, props: LibsListContainerProps) => {
+        return {
+            libsList: getLibListByType(state, props)
+        };
     };
-}
+    return mapStateToProps;
+};
 
 
 /********************************/
@@ -146,7 +144,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeLibs: (libs) => dispatch(changeLibsAction(libs))
+                deleteLibItem: (id, libType) => dispatch(deleteLibItemAction(id, libType))
             }
         }
     };
@@ -156,7 +154,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const libsListContainerConnect = connect(mapStateToProps, mapDispatchToProps);
+const libsListContainerConnect = connect(makeMapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */

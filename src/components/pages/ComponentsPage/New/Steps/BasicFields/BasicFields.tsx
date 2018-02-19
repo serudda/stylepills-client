@@ -21,7 +21,7 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 import { 
     ICurrentCode, 
     showAlertAction,
-    changeLibsAction
+    loadLibsAction
 } from './../../../../../../actions/ui.action';
 import { getLibsByProjectIdAction } from './../../../../../../actions/lib.action';
 
@@ -97,7 +97,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             showAlert: (alertType: AlertOption, alertProps: any) => void;
-            changeLibs: (libs: Array<LibModel>) => void;
+            loadLibs: (libs: Array<LibModel>) => void;
         },
         libState: {
             getLibsByProjectId: (projectId: number) => Promise<any>;
@@ -218,8 +218,11 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                         // Get atom's libs from libs state
                         let atomLibs = LibService.getAtomLibsFromList(libs);
 
-                        // Join project's libs with atom's libs and post them on Store State
-                        this.props.actions.ui.changeLibs(atomLibs.concat(response.results));
+                        // Concat Project's libs and Atom's libs
+                        let libsMerged = atomLibs.concat(response.results);
+
+                        // Load on State Store
+                        this.props.actions.ui.loadLibs(libsMerged);
                     }
                 }
             );
@@ -589,7 +592,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 showAlert: (alertType, alertProps) => dispatch(showAlertAction(alertType, alertProps)),
-                changeLibs: (libs) => dispatch(changeLibsAction(libs))
+                loadLibs: (libs) => dispatch(loadLibsAction(libs))
             },
             libState: {
                 getLibsByProjectId: (projectId) => dispatch(getLibsByProjectIdAction(projectId))

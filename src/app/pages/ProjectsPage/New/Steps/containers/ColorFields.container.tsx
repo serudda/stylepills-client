@@ -32,8 +32,8 @@ import ColorFields from './../components/ColorFields';
 
 /* Own Props */
 type ColorFieldsContainerProps = {
-    nextStep: Function,
-    previousStep: Function
+    nextStep: (fieldValues: ColorFormFields) => void,
+    previousStep: () => void
 };
 
 /* Own States */
@@ -54,11 +54,6 @@ type StateProps = {
 class ColorFieldsContainer
 extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, LocalStates> {
 
-    /************************************/
-    /*  THIS PROPERTIES (NOT RE-RENDER) */
-    /************************************/
-    private _fields: ColorFormFields;
-
     
     /********************************/
     /*         CONSTRUCTOR          */
@@ -72,11 +67,6 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
         // Init local state
         this.state = {
             validationErrors: {}
-        };
-
-        // Init this properties
-        this._fields = {
-            colorPalette: props.colorsList
         };
 
         // Bind methods
@@ -145,7 +135,8 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      */
     private _isValid() {
 
-        const {errors, isValid} = validateColorFields(this._fields);
+        const { colorsList } = this.props;
+        const {errors, isValid} = validateColorFields({colorPalette: colorsList});
 
         if (!isValid) {
             this.setState({
@@ -168,14 +159,10 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      * @returns {void}
      */
     private _nextStep() {
-
-        // Update _fields this prop
-        this._fields.colorPalette = this.props.colorsList;
-
+        const { colorsList } = this.props;
         if (this._isValid()) {
-            this.props.nextStep(this._fields);    
+            this.props.nextStep({ colorPalette: colorsList });    
         }
-
     }
 
     

@@ -24,7 +24,7 @@ interface IFunctionUtil {
     deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     turnArrayIntoObject: (array: Array<any>, key?: string) => Object;
-    deletePropInCollection: (array: Array<any>, ...props: Array<any>) => any;
+    deletePropInCollection: (array: Array<any>, ...keys: Array<string>) => Array<any>;
     consoleLog: (message: string, value?: any) => void;
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     truncateText: (str: string, length: number, ending: string) => string;
@@ -70,6 +70,31 @@ class FunctionsUtil implements IFunctionUtil {
      */
     copyArray(array: Array<any>): Array<any> {
         return [].concat(array);
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of adding and item in an array 
+     * to ensure we correctly copy data instead of mutating.
+     * @function addItemInArray
+     * @example 
+     * const newTodos = addItemInArray(state.todos, action.id, action.name, action.website);
+     * @param {Array<any>} array - array of objects
+     * @param {number | string} value - value to use to find item inside the array
+     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @return {Array<any>}
+     */
+    addItemInArray(
+        array: Array<any>,
+        key: string = 'id',
+        obj: Object = {}): Array<any> {
+
+        const newList = array.filter(
+            (item) => {
+            item = obj; 
+        });
+    
+        return newList;
     }
 
 
@@ -193,23 +218,22 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * @desc Encapsulate the idea of deleting and item in an array 
+     * @desc Encapsulate the idea of deleting inner props an array 
      * to ensure we correctly copy data instead of mutating.
-     * @function deleteItemInArray
+     * @function deletePropInCollection
      * @example 
-     * const newTodos = deleteItemInArray(state.todos, 'id', action.id);
+     * const newTodos = deletePropInCollection(atom.todos, 'id', 'atomId', 'projectId');
      * @param {Array<any>} array - array of objects
-     * @param {number | string} value - value to use to find item inside the array
-     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @param {Array<string>} props - list of keys to delete e.g. 'id', 'atomId', 'projectId'
      * @return {Array<any>}
      */
-    deletePropInCollection(array: Array<any>, ...props: Array<any>): Array<any> {
+    deletePropInCollection(array: Array<any>, ...keys: Array<string>): Array<any> {
 
         const newCollection = array.filter((item) => {
 
-            props.forEach(
-                (prop) => { 
-                    delete item[prop];
+            keys.forEach(
+                (key) => { 
+                    delete item[key];
                 }
             );
             

@@ -11,17 +11,22 @@ import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
 import {
-    changeLibsTabAction,
-    changeLibsAction 
+    changeLibsTabAction
 } from './../../../../../../actions/ui.action';
 
 import { 
-    Option as CodeTabMenuOption 
+    Option as CodeTabMenuOption
 } from './../../../../../components/Tabs/CodeTabMenu/CodeTabMenu';
 
 import { Lib as LibModel } from './../../../../../../models/lib/lib.model';
 
+import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
+import { getLibListFormatted } from './../../../../../../selectors/ui.selector';
+
 import LibFields from './../components/LibFields';
+import { 
+    ExternalLibsFields
+} from './../../../../../../core/validations/project';
 
 // -----------------------------------
 
@@ -32,8 +37,8 @@ import LibFields from './../components/LibFields';
 
 /* Own Props */
 type LibFieldsContainerProps = {
-    nextStep: Function,
-    previousStep: Function
+    nextStep: (fieldValues: ExternalLibsFields) => void,
+    previousStep: () => void
 };
 
 /* Own States */
@@ -42,7 +47,7 @@ type LocalStates = {};
 /* Mapped State to Props */
 type StateProps = {
     tab: CodeTabMenuOption,
-    libs: Array<LibModel>
+    libsList: Array<LibModel>,
     isAuthenticated: boolean
 };
 
@@ -51,7 +56,6 @@ type DispatchProps = {
     actions: {
         ui: {
             changeLibsTab: (tab: CodeTabMenuOption) => void;
-            changeLibs: (libs: Array<LibModel>) => void;
         }
     };
 };
@@ -74,7 +78,6 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
 
         // Bind methods
         this.handleTabClick = this.handleTabClick.bind(this);
-        this.handleAddLibClick = this.handleAddLibClick.bind(this);
         this.handlePrevClick =  this.handlePrevClick.bind(this);
         this.handleNextClick =  this.handleNextClick.bind(this);
     }
@@ -96,22 +99,6 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
     handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
-    }
-
-
-    /**
-     * @desc HandleAddLibClick
-     * @method handleAddLibClick
-     * @example this.handleAddLibClick()
-     * @public
-     * @param {LibModel} newLib - new lib to add on the libs array
-     * @returns {void}
-     * NOTE: Uso esta forma en vez de () => () => {...} por que no funciona para cuando
-     * paso este method por props, y es llamada en los child de la siguiente manera:
-     * this.props.onAddLibClick(name, url);
-     */
-    handleAddLibClick(name: string, url: string) {
-        this._addLib(name, url);
     }
 
 
@@ -162,32 +149,6 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
 
 
     /**
-     * @desc Add Lib
-     * @method _addLib
-     * @example this._addLib()
-     * @private 
-     * @param {LibModel} newLib - new lib to add in the list
-     * @returns {void}
-     */
-    private _addLib(name: string, url: string) {
-
-        const { tab, libs } = this.props;
-
-        // let libsCopy = [].concat(libs); LEGACY
-        let libsCopy = functionsUtil.copyArray(libs);
-
-        libsCopy.unshift({
-            type: tab,
-            name,
-            url
-        });
-
-        this.props.actions.ui.changeLibs(libsCopy);
-        
-    }
-
-
-    /**
      * @desc Previous Step
      * @method _previousStep
      * @example this._previousStep()
@@ -207,12 +168,8 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
      * @returns {void}
      */
     private _nextStep() {
-
-        // Copy state
-        let libs = [].concat(this.props.libs);
-
-        this.props.nextStep({ libs });        
-        
+        const { libsList } = this.props;
+        this.props.nextStep({ libs: libsList });        
     }
 
     
@@ -241,7 +198,6 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
         /***************************/
         return (
             <LibFields  currentTab={tab} 
-                        onAddLibClick={this.handleAddLibClick}
                         onTabClick={this.handleTabClick}
                         onPrevClick={this.handlePrevClick}
                         onNextClick={this.handleNextClick}/>
@@ -257,18 +213,14 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const { isAuthenticated } = state.auth;
-
-    const {tabs, libsPanel} = state.ui;
+    const {tabs} = state.ui;
     const {libsTab} = tabs;
     const {tab} = libsTab;
 
-    const { libs } = libsPanel;
-
     return {
         tab,
-        libs,
-        isAuthenticated
+        libsList: getLibListFormatted(state),
+        isAuthenticated: getIsAuthenticated(state)
     };
 }
 
@@ -280,8 +232,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeLibsTab: (tab) => dispatch(changeLibsTabAction(tab)),
-                changeLibs: (libs) => dispatch(changeLibsAction(libs))
+                changeLibsTab: (tab) => dispatch(changeLibsTabAction(tab))
             }
         }
     };

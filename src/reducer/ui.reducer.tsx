@@ -34,9 +34,14 @@ import {
 /************************************/
 
 export type ColorListItem = ColorModel & ListProps;
+export type LibListItem = LibModel & ListProps;
 export type SourceListItem = SourceModel & ListProps;
 export type ColorsList = {
-    general: Array<ColorListItem>
+    general: Array<ColorListItem>,
+    [colorType: string]: Array<ColorListItem> // NOTE: 'assign_new_property_to_an_object_in_TypeScript'
+};
+export type LibsList = {
+    [index: string]: Array<LibListItem> // NOTE: 'assign_new_property_to_an_object_in_TypeScript'
 };
 
 export interface IUiState {
@@ -44,6 +49,7 @@ export interface IUiState {
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
     lists: {
         colorsList: ColorsList,
+        libsList: LibsList,
         sourcesList: Array<SourceListItem>
     };
     tabs: {
@@ -85,7 +91,10 @@ const defaultState: IUiState = {
         colorsList: {
             general: []
         },
-        sourcesList: []
+        libsList: {
+            css: []
+        },
+        sourcesList: [] 
     },
     tabs: {
         atomDetailsTab: {
@@ -141,6 +150,9 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 lists: {
                     colorsList: {
                         general: []
+                    },
+                    libsList: {
+                        css: []
                     },
                     sourcesList: []
                 },
@@ -232,8 +244,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             // Append new color to colorList
             newColorList = colorsList.concat({
                 tempId: uuid(),
-                ...action.color,
-                rgba: { tempId: uuid(), ...action.color.rgba }
+                ...action.color
             });
 
             return {
@@ -264,8 +275,66 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.lists,
                     colorsList: {
                         ...state.lists.colorsList,
-                        [action.colorType]: newColorsListState
+                        [group]: newColorsListState
                     }
+                }
+            };
+        }
+
+        case types.ADD_LIB_ITEM: {
+
+            const { libType } = action;
+            const { lists } = state;
+            const group = libType ? libType : 'css';
+            let newLibList = [];
+            let libsList = lists.libsList[group] ? lists.libsList[group] : []; 
+
+            // Append new lib to libList
+            newLibList = libsList.concat({
+                tempId: uuid(),
+                ...action.lib,
+            });
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    libsList: {
+                        ...state.lists.libsList,
+                        [group]: newLibList
+                    }
+                }
+            };
+
+        }
+
+        case types.DELETE_LIB_ITEM: {
+
+            const { libType } = action;
+            const { lists } = state;
+            const group = libType ? libType : 'css';
+            let libsList = lists.libsList[group] ? lists.libsList[group] : [];
+
+            const newLibsListState = functionsUtil.deleteItemInArray(libsList, 'tempId', action.id);
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    libsList: {
+                        ...state.lists.libsList,
+                        [group]: newLibsListState
+                    }
+                }
+            };
+        }
+
+        case types.LOAD_LIBS: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    libsList: action.libs
                 }
             };
         }

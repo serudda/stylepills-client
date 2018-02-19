@@ -65,6 +65,17 @@ export type DELETE_COLOR_ITEM = typeof DELETE_COLOR_ITEM;
 export const CHANGE_COLOR_ITEM_ORDER = 'LISTS::CHANGE_COLOR_ITEM_ORDER';
 export type CHANGE_COLOR_ITEM_ORDER = typeof CHANGE_COLOR_ITEM_ORDER;
 
+export const ADD_LIB_ITEM = 'LISTS::ADD_LIB_ITEM';
+export type ADD_LIB_ITEM = typeof ADD_LIB_ITEM;
+export const EDIT_LIB_ITEM = 'LISTS::EDIT_LIB_ITEM';
+export type EDIT_LIB_ITEM = typeof EDIT_LIB_ITEM;
+export const DELETE_LIB_ITEM = 'LISTS::DELETE_LIB_ITEM';
+export type DELETE_LIB_ITEM = typeof DELETE_LIB_ITEM;
+export const CHANGE_LIB_ITEM_ORDER = 'LISTS::CHANGE_LIB_ITEM_ORDER';
+export type CHANGE_LIB_ITEM_ORDER = typeof CHANGE_LIB_ITEM_ORDER;
+export const LOAD_LIBS = 'LISTS::LOAD_LIBS';
+export type LOAD_LIBS = typeof LOAD_LIBS;
+
 /* Auth Actions Type */
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export type LOGIN_REQUEST = typeof LOGIN_REQUEST;

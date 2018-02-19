@@ -7,7 +7,8 @@ import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
-import { 
+import {
+    BasicFields as BasicFieldsType,
     validateBasicFields, 
     IValidationError 
 } from './../../../../../../core/validations/project';
@@ -25,7 +26,7 @@ import BasicFields from './../components/BasicFields';
 
 /* Own Props */
 type BasicFieldsContainerProps = {
-    nextStep: Function
+    nextStep: (fieldValues: BasicFieldsType) => void
 };
 
 /* Own States */
@@ -165,7 +166,6 @@ extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, 
 
         if (this._isValid()) {
             // Copy state
-            // let fieldValues = Object.assign({}, this.state.fields); LEGACY
             let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
             this.props.nextStep(copyFieldValues);    
