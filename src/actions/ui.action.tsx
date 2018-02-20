@@ -49,11 +49,6 @@ export interface ILibsPanel {
     libs: Array<LibModel>;
 }
 
-export interface IChangeLibsAction {
-    type: types.CHANGE_LIBS;
-    libsPanel: ILibsPanel;
-}
-
 
 /* 
     MODALS ACTIONS
@@ -305,11 +300,6 @@ export interface ILibsPanel {
     libs: Array<LibModel>;
 }
 
-export interface IChangeLibsAction {
-    type: types.CHANGE_LIBS;
-    libsPanel: ILibsPanel;
-}
-
 
 export type Action =
     // UI interaction
@@ -337,7 +327,6 @@ export type Action =
 |   IChangeLibsTabAction
 |   IChangeColorAction
 |   IChangeSourceCodeAction
-|   IChangeLibsAction
 |   ICopySourceCodeAction;
 
 
@@ -607,7 +596,7 @@ export const changeLibItemOrderAction = (id: number, newOrder: number): Action =
  * @function loadLibsAction
  * @returns {Action}
  */
-export const loadLibsAction = (libs: Array<LibModel>): Action => {
+export const loadLibsAction = (libs: Array<LibModel> = []): Action => {
     return {
         type: types.LOAD_LIBS,
         libs: libsListNormalized(libs)
@@ -757,25 +746,6 @@ export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOp
         type: types.CHANGE_COLOR,
         color,
         colorType
-    };
-};
-
-
-/**
- * @desc Return an action type, CHANGE_LIBS
- * to indicate that user wants to change external libs on ExternalLibsPanel
- * @function changeLibsAction
- * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
- * @param {any} codeProps - code properties (e.g. code, libs, etc)
- * @returns {Action}
- */
-// LEGACY
-export const changeLibsAction = (libs: Array<LibModel>): Action => {
-    return {
-        type: types.CHANGE_LIBS,
-        libsPanel: {
-            libs
-        }
     };
 };
 

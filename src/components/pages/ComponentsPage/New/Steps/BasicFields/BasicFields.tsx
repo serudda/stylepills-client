@@ -32,7 +32,7 @@ import {
 }  from './../../../../../../models/lib/lib.model';
 import LibService from './../../../../../../models/lib/lib.service';
 
-import { getCurrentColor } from './../../../../../../selectors/ui.selector';
+import { getCurrentColor, getLibListFormatted } from './../../../../../../selectors/ui.selector';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
@@ -208,6 +208,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
     handleSelectListChange (name: string, value: string) {
 
         if (name === 'projectId') {
+
+            // Clear libsList on State Store
+            this.props.actions.ui.loadLibs([]);
             
             this.props.actions.libState.getLibsByProjectId(parseInt(value, 10)).then(
                 (response) => {
@@ -296,8 +299,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
         const {errors, isValid} = validateBasicFields(copyFieldValues);
 
-        console.log(errors, isValid);
-
         if (!isValid) {
             this.setState({
                 validationErrors: errors
@@ -322,7 +323,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
         if (this._isValid()) {
             // Copy state
-            // let fieldValues = Object.assign({}, this.state.fields); LEGACY
             let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
             this.props.nextStep(copyFieldValues);
@@ -563,14 +563,13 @@ function mapStateToProps(state: IRootState): StateProps {
     const { user, isAuthenticated } = state.auth;
 
     const { currentCode } = state.ui.sourceCodePanel;
-    const { libs } = state.ui.libsPanel;
 
     return {
         name,
         description,
         html,
         css,
-        libs,
+        libs: getLibListFormatted(state),
         contextualBg,
         projectId,
         atomCategoryId,

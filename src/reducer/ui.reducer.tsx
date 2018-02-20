@@ -71,9 +71,6 @@ export interface IUiState {
     sourceCodePanel: {
         currentCode: Array<ICurrentCode>;
     };
-    libsPanel: {
-        libs: Array<LibModel>;
-    };
     copied: {
         copiedType: string
     };
@@ -118,9 +115,6 @@ const defaultState: IUiState = {
     },
     sourceCodePanel: {
         currentCode: []
-    },
-    libsPanel: {
-        libs: []
     },
     copied: null
 };
@@ -178,9 +172,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 },
                 sourceCodePanel: {
                     currentCode: []
-                },
-                libsPanel: {
-                    libs: []
                 },
                 copied: null
             };
@@ -466,18 +457,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
 
         }
-
-        case types.CHANGE_LIBS: {
-            return {
-                ...state,
-                libsPanel: {
-                    ...state.libsPanel,
-                    // NOTE: 1
-                    libs: [].concat(action.libsPanel.libs)
-                }
-            };
-        }
-
             
         default:
             return state;  

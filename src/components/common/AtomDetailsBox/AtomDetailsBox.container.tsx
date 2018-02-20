@@ -8,15 +8,15 @@ import { compose, ChildProps } from 'react-apollo';
 import { functionsUtil } from './../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../models/color/color.model';
+import { Lib as LibModel } from './../../../models/lib/lib.model';
 
 import { IRootState } from './../../../reducer/reducer.config';
 
 import { Atom as AtomModel } from '../../../models/atom/atom.model';
-import { Lib as LibModel } from './../../../models/lib/lib.model';
 
 import {
-    changeLibsAction,
-    changeColorAction
+    changeColorAction,
+    loadLibsAction
 } from './../../../actions/ui.action';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
@@ -43,8 +43,8 @@ type StateProps = {};
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        ui: { 
-            changeLibs: (libs: Array<LibModel>) => void;
+        ui: {
+            loadLibs: (libs: Array<LibModel>) => void;
             changeColor: (color: BasicColorModel) => void;
         }
     };
@@ -102,7 +102,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
         }
 
         // Post libs on Store State
-        this.props.actions.ui.changeLibs(libs);
+        this.props.actions.ui.loadLibs(libs);
         
     }
 
@@ -144,8 +144,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeLibs: (libs) => dispatch(changeLibsAction(libs)),
-                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color))
+                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color)),
+                loadLibs: (libs) => dispatch(loadLibsAction(libs))
             }
         }
     };

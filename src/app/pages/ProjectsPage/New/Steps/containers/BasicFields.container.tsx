@@ -14,6 +14,7 @@ import {
 } from './../../../../../../core/validations/project';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
+import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
 
 import BasicFields from './../components/BasicFields';
 
@@ -219,14 +220,13 @@ function mapStateToProps(state: IRootState): StateProps {
     
     const { fields } = state.form.projectForm;
     const { name, website, description } = fields;
-    const { isAuthenticated } = state.auth;
 
     return {
         name,
         website,
         description,
         private: fields.private,
-        isAuthenticated
+        isAuthenticated: getIsAuthenticated(state)
     };
 }
 

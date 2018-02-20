@@ -61,7 +61,11 @@ export const colorsListNormalized = (colorsResult: Array<ColorListItem>) => norm
 // =================================================================
 
 /* LIBS LISTS NORMALIZER FUNCTIONS */
-export const libsListNormalized = (libsResult: Array<LibModel>): LibsList => {
+export const libsListNormalized = (libsResult: Array<LibModel> = []): LibsList => {
+
+    if (libsResult.length === 0 ) {
+        return { css: [] };
+    }
 
     // Create lib copy
     let libsResultCopy: Array<LibModel> = functionsUtil.copyArray(libsResult);
