@@ -748,8 +748,8 @@ export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOp
 
 
 /**
- * @desc Return an action type, CHANGE_LIB 
- * to indicate that user wants to change external libs on ExternalLibsPanel
+ * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * to indicate that user wants to change source code on SourcePanel
  * @function changeSourceCodeAction
  * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
  * @param {any} codeProps - code properties (e.g. code, libs, etc)
