@@ -78,6 +78,19 @@
                         stroke: map-get($color, white);
                     }
                 }
+
+                &--grab {
+                    cursor: -webkit-grab;
+
+                    &:hover {
+                        background-color: transparent;
+    
+                        .icon {
+                            stroke: map-get($color, black);
+                        }
+                    }
+                }
+
             }
         }
 

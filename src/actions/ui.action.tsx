@@ -4,11 +4,16 @@
 import { EventTypes } from 'redux-segment';
 
 import * as types from '../core/constants/action.types';
-import * as appConfig from '../core/constants/app.constants';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
-import { Basic as BasicColorModel } from '../models/color/color.model';
-import { Lib as LibModel } from './../models/lib/lib.model';
+import { Basic as BasicColorModel, Color as ColorModel, ColorTypeOptions } from '../models/color/color.model';
+import { Lib as LibModel, LibTypeOptions } from './../models/lib/lib.model';
+import { Source as SourceModel } from './../models/source/source.model';
+
+import { 
+    LibsList,
+    SourceListItem
+ } from './../reducer/ui.reducer';
 
 import { 
     Option as CodeTabMenuOption 
@@ -23,6 +28,7 @@ import {
     Option as AlertOption
 } from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
+import { libsListNormalized } from './../normalizrs/ui.normalizr';
 
 /************************************/
 /*            INTERFACES            */
@@ -30,52 +36,10 @@ import {
 
 interface ILocationChangeAction {
     type: types.LOCATION_CHANGE;
-    modals: null;
-    alerts: null;
-    tabs: {
-        atomDetailsTab: {
-            tab: string | null
-        },
-        sourceCodeTab: {
-            tab: string | null
-        },
-        libsTab: {
-            tab: string | null
-        }
-    };
-    colorPicker: {
-        currentColor: BasicColorModel
-    };
-    copied: null;
-    duplicated: {
-        atomId: number,
-        isDuplicated: boolean
-    };
 }
 
 export interface IClearUiAction {
     type: types.CLEAR_UI;
-    modals: null;
-    alerts: null;
-    tabs: {
-        atomDetailsTab: {
-            tab: string | null
-        },
-        sourceCodeTab: {
-            tab: string | null
-        },
-        libsTab: {
-            tab: string | null
-        }
-    };
-    colorPicker: {
-        currentColor: BasicColorModel
-    };
-    copied: null;
-    duplicated: {
-        atomId: number,
-        isDuplicated: boolean
-    };
 }
 
 
@@ -124,6 +88,98 @@ export interface ICloseAlertAction {
     alerts: {
         alertId: string;
     };
+}
+
+
+/* 
+    LISTS ACTIONS
+    state: lists
+    TODO: La estructura de cada Action aqui esta mal, ya que estoy enviando cada action con 
+    la estructura que tiene el State, lo que cual no es necesario en lo absoluto, y si confunde
+    entonces este es el primer tipo de Action que esta bien estructurado:
+    cada action solo envia la propiedad, no la estructura del State: 
+    e.g. source (contiene el nuevo Source a agregar), no estoy enviando:
+    lists: { sourceList: { type, source } }
+    Si esto funciona bien, refactorizar todas las Action para que usen esta misma estructura
+*/
+
+export interface IAddSourceItemAction {
+    type: types.ADD_SOURCE_ITEM;
+    source: SourceModel;
+}
+
+export interface IEditSourceItemAction {
+    type: types.EDIT_SOURCE_ITEM;
+    source: SourceModel;
+}
+
+export interface IDeleteSourceItemAction {
+    type: types.DELETE_SOURCE_ITEM;
+    id: number;
+}
+
+export interface IChangeSourceItemOrderAction {
+    type: types.CHANGE_SOURCE_ITEM_ORDER;
+    id: number;
+    newOrder: number;
+}
+
+export interface ILoadSourcesAction {
+    type: types.LOAD_SOURCES;
+    sources: Array<SourceListItem>;
+}
+
+
+export interface IAddColorItemAction {
+    type: types.ADD_COLOR_ITEM;
+    colorType: ColorTypeOptions;
+    color: ColorModel;
+}
+
+export interface IEditColorItemAction {
+    type: types.EDIT_COLOR_ITEM;
+    color: ColorModel;
+}
+
+export interface IDeleteColorItemAction {
+    type: types.DELETE_COLOR_ITEM;
+    colorType: ColorTypeOptions;
+    id: string | number;
+}
+
+export interface IChangeColorItemOrderAction {
+    type: types.CHANGE_COLOR_ITEM_ORDER;
+    id: number;
+    newOrder: number;
+}
+
+
+export interface IAddLibItemAction {
+    type: types.ADD_LIB_ITEM;
+    libType: LibTypeOptions;
+    lib: LibModel;
+}
+
+export interface IEditLibItemAction {
+    type: types.EDIT_LIB_ITEM;
+    lib: LibModel;
+}
+
+export interface IDeleteLibItemAction {
+    type: types.DELETE_LIB_ITEM;
+    libType: LibTypeOptions;
+    id: string | number;
+}
+
+export interface IChangeLibItemOrderAction {
+    type: types.CHANGE_LIB_ITEM_ORDER;
+    id: number;
+    newOrder: number;
+}
+
+export interface ILoadLibsAction {
+    type: types.LOAD_LIBS;
+    libs: LibsList;
 }
 
 /* 
@@ -197,9 +253,8 @@ export interface ICopySourceCodeAction {
 
 export interface IChangeColorAction {
     type: types.CHANGE_COLOR;
-    colorPicker: {
-        currentColor: BasicColorModel
-    };
+    colorType?: ColorTypeOptions;
+    color: BasicColorModel;
 }
 
 
@@ -228,21 +283,6 @@ export interface IChangeSourceCodeAction {
 }
 
 
-/* 
-    LIBS PANEL ACTIONS
-    state: libsPanel
-*/
-
-export interface ILibsPanel {
-    libs: Array<LibModel>;
-}
-
-export interface IChangeLibsAction {
-    type: types.CHANGE_LIBS;
-    libsPanel: ILibsPanel;
-}
-
-
 export type Action =
     // UI interaction
     ILocationChangeAction
@@ -251,12 +291,25 @@ export type Action =
 |   ICloseModalAction
 |   IShowAlertAction
 |   ICloseAlertAction
+|   IAddSourceItemAction
+|   IEditSourceItemAction
+|   IDeleteSourceItemAction
+|   IChangeSourceItemOrderAction
+|   ILoadSourcesAction
+|   IAddColorItemAction
+|   IEditColorItemAction
+|   IDeleteColorItemAction
+|   IChangeColorItemOrderAction
+|   IAddLibItemAction
+|   IEditLibItemAction
+|   IDeleteLibItemAction
+|   IChangeLibItemOrderAction
+|   ILoadLibsAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
 |   IChangeLibsTabAction
 |   IChangeColorAction
 |   IChangeSourceCodeAction
-|   IChangeLibsAction
 |   ICopySourceCodeAction;
 
 
@@ -273,31 +326,7 @@ export type Action =
  */
 export const clearUiAction = (): Action => {
     return {
-        type: types.CLEAR_UI,
-        modals: null,
-        alerts: null,
-        tabs: {
-            atomDetailsTab: {
-                tab: null
-            },
-            sourceCodeTab: {
-                tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
-            },
-            libsTab: {
-                tab: appConfig.LIBS_DEFAULT_OPTION_TAB
-            }
-        },
-        colorPicker: {
-            currentColor: {
-                hex: appConfig.SECONDARY_COLOR_HEX,
-                rgba: appConfig.SECONDARY_COLOR_RGBA
-            }
-        },
-        copied: null,
-        duplicated: {
-            atomId: null,
-            isDuplicated: false
-        }
+        type: types.CLEAR_UI
     };
 };
 
@@ -365,6 +394,209 @@ export const showAlertAction = (alertType: AlertOption, alertProps: any): Action
             alertType,
             alertProps
         }
+    };
+};
+
+
+/**
+ * @desc Return an action type, ADD_SOURCE_ITEM
+ * to add a Source on Source List
+ * @function addSourceItemAction
+ * @returns {Action}
+ */
+export const addSourceItemAction = (source: SourceModel): Action => {
+    return {
+        type: types.ADD_SOURCE_ITEM,
+        source
+    };
+};
+
+
+/**
+ * @desc Return an action type, EDIT_SOURCE_ITEM
+ * to edit a Source on Source List
+ * @function editSourceItemAction
+ * @returns {Action}
+ */
+export const editSourceItemAction = (source: SourceModel): Action => {
+    return {
+        type: types.EDIT_SOURCE_ITEM,
+        source
+    };
+};
+
+
+/**
+ * @desc Return an action type, DELETE_SOURCE_ITEM
+ * to delete a Source on Source List
+ * @function deleteSourceItemAction
+ * @returns {Action}
+ */
+export const deleteSourceItemAction = (id: number): Action => {
+    return {
+        type: types.DELETE_SOURCE_ITEM,
+        id
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_SOURCE_ITEM_ORDER
+ * to change the Source's order on Source List
+ * @function changeSourceItemOrderAction
+ * @returns {Action}
+ */
+export const changeSourceItemOrderAction = (id: number, newOrder: number): Action => {
+    return {
+        type: types.CHANGE_SOURCE_ITEM_ORDER,
+        id,
+        newOrder
+    };
+};
+
+
+/**
+ * @desc Return an action type, LOAD_LIBS
+ * to load Lib on State store
+ * @function loadSourcesAction
+ * @returns {Action}
+ */
+export const loadSourcesAction = (sources: Array<SourceModel> = []): Action => {
+    return {
+        type: types.LOAD_SOURCES,
+        sources
+    };
+};
+
+
+/**
+ * @desc Return an action type, ADD_COLOR_ITEM
+ * to add a Color on Color List
+ * @function addColorItemAction
+ * @returns {Action}
+ */
+export const addColorItemAction = (color: ColorModel, colorType: ColorTypeOptions): Action => {
+    return {
+        type: types.ADD_COLOR_ITEM,
+        colorType,
+        color
+    };
+};
+
+
+/**
+ * @desc Return an action type, EDIT_COLOR_ITEM
+ * to edit a Color on Color List
+ * @function editColorItemAction
+ * @returns {Action}
+ */
+export const editColorItemAction = (color: ColorModel): Action => {
+    return {
+        type: types.EDIT_COLOR_ITEM,
+        color
+    };
+};
+
+
+/**
+ * @desc Return an action type, DELETE_COLOR_ITEM
+ * to delete a Color on Color List
+ * @function deleteColorItemAction
+ * @returns {Action}
+ */
+export const deleteColorItemAction = (id: string | number, colorType: ColorTypeOptions): Action => {
+    return {
+        type: types.DELETE_COLOR_ITEM,
+        id,
+        colorType
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_COLOR_ITEM_ORDER
+ * to change the Color's order on Color List
+ * @function changeColorItemOrderAction
+ * @returns {Action}
+ */
+export const changeColorItemOrderAction = (id: number, newOrder: number): Action => {
+    return {
+        type: types.CHANGE_COLOR_ITEM_ORDER,
+        id,
+        newOrder
+    };
+};
+
+
+/**
+ * @desc Return an action type, ADD_LIB_ITEM
+ * to add a Lib on Lib List
+ * @function addLibItemAction
+ * @returns {Action}
+ */
+export const addLibItemAction = (lib: LibModel, libType: LibTypeOptions): Action => {
+    return {
+        type: types.ADD_LIB_ITEM,
+        libType,
+        lib
+    };
+};
+
+
+/**
+ * @desc Return an action type, EDIT_LIB_ITEM
+ * to edit a Lib on Lib List
+ * @function editLibItemAction
+ * @returns {Action}
+ */
+export const editLibItemAction = (lib: LibModel): Action => {
+    return {
+        type: types.EDIT_LIB_ITEM,
+        lib
+    };
+};
+
+
+/**
+ * @desc Return an action type, DELETE_LIB_ITEM
+ * to delete a Lib on Lib List
+ * @function deleteLibItemAction
+ * @returns {Action}
+ */
+export const deleteLibItemAction = (id: string | number, libType: LibTypeOptions): Action => {
+    return {
+        type: types.DELETE_LIB_ITEM,
+        id,
+        libType
+    };
+};
+
+
+/**
+ * @desc Return an action type, CHANGE_LIB_ITEM_ORDER
+ * to change the Lib's order on Lib List
+ * @function changeLibItemOrderAction
+ * @returns {Action}
+ */
+export const changeLibItemOrderAction = (id: number, newOrder: number): Action => {
+    return {
+        type: types.CHANGE_LIB_ITEM_ORDER,
+        id,
+        newOrder
+    };
+};
+
+
+/**
+ * @desc Return an action type, LOAD_LIBS
+ * to load Lib on State store
+ * @function loadLibsAction
+ * @returns {Action}
+ */
+export const loadLibsAction = (libs: Array<LibModel> = []): Action => {
+    return {
+        type: types.LOAD_LIBS,
+        libs: libsListNormalized(libs)
     };
 };
 
@@ -506,40 +738,18 @@ export const copySourceCodeAction = (copiedType: string): Action => {
  * @param {BasicColorModel} color - new color object: hex and rgba properties
  * @returns {Action}
  */
-export const changeColorAction = (color: BasicColorModel): Action => {
+export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOptions = null): Action => {
     return {
         type: types.CHANGE_COLOR,
-        colorPicker: {
-            currentColor: {
-                hex: color.hex,
-                rgba: color.rgba
-            }
-        }
+        color,
+        colorType
     };
 };
 
 
 /**
- * @desc Return an action type, CHANGE_LIBS
- * to indicate that user wants to change source code on SourceCodePanel
- * @function changeLibsAction
- * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
- * @param {any} codeProps - code properties (e.g. code, libs, etc)
- * @returns {Action}
- */
-export const changeLibsAction = (libs: Array<LibModel>): Action => {
-    return {
-        type: types.CHANGE_LIBS,
-        libsPanel: {
-            libs
-        }
-    };
-};
-
-
-/**
- * @desc Return an action type, CHANGE_LIB 
- * to indicate that user wants to change external libs on ExternalLibsPanel
+ * @desc Return an action type, CHANGE_SOURCE_CODE 
+ * to indicate that user wants to change source code on SourcePanel
  * @function changeSourceCodeAction
  * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
  * @param {any} codeProps - code properties (e.g. code, libs, etc)

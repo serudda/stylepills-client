@@ -171,7 +171,7 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicPro
                         <div className="divider m-3 mt-4" />
                         
                         {/* Projects List Section */}
-                        <ProjectsSection basicProjects={data.basicProjectsByUserId} />
+                        <ProjectsSection basicProjects={data.projectsByUserId} />
 
                     </div>
 

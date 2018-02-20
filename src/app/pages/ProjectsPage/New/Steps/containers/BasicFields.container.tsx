@@ -7,12 +7,14 @@ import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
-import { 
+import {
+    BasicFields as BasicFieldsType,
     validateBasicFields, 
     IValidationError 
 } from './../../../../../../core/validations/project';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
+import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
 
 import BasicFields from './../components/BasicFields';
 
@@ -25,7 +27,7 @@ import BasicFields from './../components/BasicFields';
 
 /* Own Props */
 type BasicFieldsContainerProps = {
-    nextStep: Function
+    nextStep: (fieldValues: BasicFieldsType) => void
 };
 
 /* Own States */
@@ -135,10 +137,11 @@ extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, 
      * @returns {void}
      */
     private _isValid() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        const {errors, isValid} = validateBasicFields(fieldValues);
+        // Destructuring state
+        const { fields } = this.state;
+
+        const {errors, isValid} = validateBasicFields(fields);
 
         if (!isValid) {
             this.setState({
@@ -164,9 +167,9 @@ extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, 
 
         if (this._isValid()) {
             // Copy state
-            let fieldValues = Object.assign({}, this.state.fields);
+            let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-            this.props.nextStep(fieldValues);    
+            this.props.nextStep(copyFieldValues);    
         }
         
     }
@@ -217,14 +220,13 @@ function mapStateToProps(state: IRootState): StateProps {
     
     const { fields } = state.form.projectForm;
     const { name, website, description } = fields;
-    const { isAuthenticated } = state.auth;
 
     return {
         name,
         website,
         description,
         private: fields.private,
-        isAuthenticated
+        isAuthenticated: getIsAuthenticated(state)
     };
 }
 

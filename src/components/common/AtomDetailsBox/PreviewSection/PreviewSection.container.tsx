@@ -9,9 +9,12 @@ import { IRootState } from './../../../../reducer/reducer.config';
 import { IAtomsProps } from '../../../../reducer/atom.reducer';
 
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
-import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../models/lib/lib.model';
+import { Lib as LibModel } from './../../../../models/lib/lib.model';
+
+import LibService from './../../../../models/lib/lib.service';
 
 import { changeColorAction } from './../../../../actions/ui.action';
+import { getCurrentColor, getLibListFormatted } from './../../../../selectors/ui.selector';
 
 import PreviewBox from './../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from '../../Iframe/Iframe.container';
@@ -39,9 +42,9 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    atoms: Array<IAtomsProps>;
-    libs: Array<LibModel>;
+    color: BasicColorModel,
+    atoms: Array<IAtomsProps>,
+    libs: Array<LibModel>
 };
 
 /* Mapped Dispatches to Props */
@@ -73,8 +76,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
             css: props.css || ''
         };
 
-        // Bind methods
-        this.handleColorChange = this.handleColorChange.bind(this);
     }
 
 
@@ -107,34 +108,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
         }
     }
 
-    /**
-     * @desc Handle Color Change
-     * @method handleColorChange
-     * @example this.handleColorChange()
-     * @public
-     * @returns {void}
-     */
-    handleColorChange(color: BasicColorModel) {
-        this._changeColor(color);
-    }
-
-
-    /********************************/
-    /*       PRIVATE METHODS        */
-    /********************************/
-
-
-    /**
-     * @desc Change Color of Color Picker
-     * @method _changeColor
-     * @example this._changeColor()
-     * @private 
-     * @returns {void}
-     */
-    private _changeColor(color: BasicColorModel) {
-        this.props.actions.ui.changeColor(color);
-    }
-
 
     /********************************/
     /*        RENDER MARKUP         */
@@ -142,19 +115,18 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     render() {
 
         // Destructuring props 
-        const { name, libs, hex } = this.props;
+        const { name, libs, color } = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <PreviewBox height="30"
-                        onColorChange={this.handleColorChange}> 
+            <PreviewBox height="30"> 
                 <Iframe children={this.state.html} 
                                 css={this.state.css} 
                                 title={name}
-                                background={hex}
-                                stylesheets={getStylesheetsFromLibs(libs)} />
+                                background={color.hex}
+                                stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
     }
@@ -168,19 +140,12 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 function mapStateToProps(state: IRootState): StateProps {
 
     // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex } = currentColor;
-
     const { atoms } = state.atomState.edited;
 
-    const { libs } = state.ui.libsPanel;
-
     return {
-        hex,
+        color: getCurrentColor(state),
         atoms,
-        libs
+        libs: getLibListFormatted(state)
     };
 }
 

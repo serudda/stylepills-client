@@ -8,14 +8,17 @@ import { Redirect } from 'react-router-dom';
 
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 import { 
+    ColorFields as ColorFormFields,
     validateColorFields, 
     IValidationError 
 } from './../../../../../../core/validations/project';
-import { 
-    Color as ColorModel
-} from './../../../../../../models/color/color.model';
+
+import { getColorListFormatted } from './../../../../../../selectors/ui.selector';
+import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
+
+import { Color as ColorModel } from './../../../../../../models/color/color.model';
 
 import ColorFields from './../components/ColorFields';
 
@@ -29,21 +32,18 @@ import ColorFields from './../components/ColorFields';
 
 /* Own Props */
 type ColorFieldsContainerProps = {
-    nextStep: Function,
-    previousStep: Function
+    nextStep: (fieldValues: ColorFormFields) => void,
+    previousStep: () => void
 };
 
 /* Own States */
 type LocalStates = {
-    fields: {
-        colorPalette: Array<ColorModel>
-    },
     validationErrors?: IValidationError
 };
 
 /* Mapped State to Props */
 type StateProps = {
-    colorPalette: Array<ColorModel>,
+    colorsList: Array<ColorModel>;
     isAuthenticated: boolean
 };
 
@@ -53,6 +53,7 @@ type StateProps = {
 /***********************************************/
 class ColorFieldsContainer
 extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, LocalStates> {
+
     
     /********************************/
     /*         CONSTRUCTOR          */
@@ -65,17 +66,12 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
 
         // Init local state
         this.state = {
-            fields: {
-                colorPalette: [...props.colorPalette] || []
-            },
             validationErrors: {}
         };
 
         // Bind methods
         this.handlePrevClick =  this.handlePrevClick.bind(this);
         this.handleNextClick =  this.handleNextClick.bind(this);
-        this.handleAddColorClick = this.handleAddColorClick.bind(this);
-        this.handleDeleteColorClick = this.handleDeleteColorClick.bind(this);
         
     }
 
@@ -113,83 +109,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
     }
 
 
-    /**
-     * @desc HandleAddColorClick
-     * @method handleAddColorClick
-     * @example this.handleAddColorClick()
-     * @public
-     * @param {ColorModel} newColor - new color to add on the colors array
-     * @returns {void}
-     */
-    handleAddColorClick(newColor: ColorModel) {
-        this._addColor(newColor);
-    }
-
-
-    /**
-     * @desc HandleDeleteColorClick
-     * @method handleDeleteColorClick
-     * @example this.handleDeleteColorClick()
-     * @public
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    handleDeleteColorClick(color: ColorModel) {
-
-        // Destructuring state
-        const { colorPalette } = this.state.fields;
-        
-        let colorArray = colorPalette.filter(function (candidateColor: ColorModel) {
-            return candidateColor !== color;
-        });
-
-        this.setState((previousState: LocalStates) => ({
-            ...previousState,
-            fields: {
-                ...previousState.fields,
-                colorPalette: colorArray
-            }
-        }));
-
-    }
-
-
     /*********************************/
     /*        PRIVATE METHODS        */
     /*********************************/
-
-
-    /**
-     * @desc Add Color
-     * @method _addColor
-     * @example this._addColor()
-     * @private 
-     * @param {ColorModel} newColor - new color to add in the list
-     * @returns {void}
-     */
-    private _addColor(newColor: ColorModel) {
-
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
-
-        let colorArray = fieldValues.colorPalette;
- 
-        if (newColor.hex !== '') {
-            
-            /* Add new color to the beginning of colors array */
-            colorArray.unshift(newColor);
-
-            this.setState((previousState: LocalStates) => ({
-                ...previousState,
-                fields: {
-                    ...previousState.fields,
-                    colorPalette: colorArray
-                }
-            }));
-
-        }
-
-    }
 
 
     /**
@@ -212,10 +134,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      * @returns {void}
      */
     private _isValid() {
-        // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
 
-        const {errors, isValid} = validateColorFields(fieldValues);
+        const { colorsList } = this.props;
+        const {errors, isValid} = validateColorFields({colorPalette: colorsList});
 
         if (!isValid) {
             this.setState({
@@ -238,14 +159,10 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      * @returns {void}
      */
     private _nextStep() {
-
+        const { colorsList } = this.props;
         if (this._isValid()) {
-            // Copy state
-            let fieldValues = Object.assign({}, this.state.fields);
-
-            this.props.nextStep(fieldValues);    
+            this.props.nextStep({ colorPalette: colorsList });    
         }
-
     }
 
     
@@ -273,12 +190,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
         /*         MARKUP          */
         /***************************/
         return (
-            <ColorFields colorPaletteValue={this.state.fields.colorPalette}
-                        validationErrors={validationErrors}
+            <ColorFields validationErrors={validationErrors}
                         onPrevClick={this.handlePrevClick}
-                        onNextClick={this.handleNextClick}
-                        onAddColorClick={this.handleAddColorClick}
-                        onDeleteColorClick={this.handleDeleteColorClick}/>
+                        onNextClick={this.handleNextClick}/>
         );
 
     }
@@ -291,13 +205,9 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     
-    const { fields } = state.form.projectForm;
-    const { colorPalette } = fields;
-    const { isAuthenticated } = state.auth;
-
-    return {
-        colorPalette,
-        isAuthenticated
+    return { 
+        colorsList: getColorListFormatted(state),
+        isAuthenticated: getIsAuthenticated(state)
     };
 }
 

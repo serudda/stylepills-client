@@ -100,7 +100,7 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
         
 
         /* Show 'Create Project' if user doesn't have projects yet */
-        if (data.basicProjectsByUserId.length === 0) {
+        if (data.projectsByUserId.length === 0) {
             return (
               <CreateProjectLink />  
             );
@@ -114,7 +114,7 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
                         name="projectId"
                         isBlock={true}
                         defaultOption="Don't associate with a project"
-                        options={data.basicProjectsByUserId ? data.basicProjectsByUserId : null}
+                        options={data.projectsByUserId ? data.projectsByUserId : null}
                         loading={data.loading}
                         error={data.error}
                         onChange={this._handleChange}/>

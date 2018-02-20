@@ -6,7 +6,14 @@
 
 
 /******************************************/
-/*        STATUS RESPONSE INTERFACE      */
+/*           UI LIST INTERFACE            */
+/******************************************/
+export type ListProps = {
+    tempId?: string;
+};
+
+/******************************************/
+/*        STATUS RESPONSE INTERFACE       */
 /******************************************/
 export interface IStatus<I> {
     id?: number;

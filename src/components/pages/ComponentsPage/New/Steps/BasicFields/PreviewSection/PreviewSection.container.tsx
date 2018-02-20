@@ -9,9 +9,12 @@ import { IRootState } from './../../../../../../../reducer/reducer.config';
 import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
-import { Lib as LibModel, getStylesheetsFromLibs } from './../../../../../../../models/lib/lib.model';
+import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
+import LibService from './../../../../../../../models/lib/lib.service';
 
-import { changeColorAction, ICurrentCode } from '../../../../../../../actions/ui.action';
+import { changeColorAction, ICurrentCode } from './../../../../../../../actions/ui.action';
+
+import { getCurrentColor, getLibListFormatted } from './../../../../../../../selectors/ui.selector';
 
 import PreviewBox from './../../../../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from './../../../../../../common/Iframe/Iframe.container';
@@ -37,9 +40,9 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    currentCode: Array<ICurrentCode>;
-    libs: Array<LibModel>;
+    color: BasicColorModel,
+    currentCode: Array<ICurrentCode>,
+    libs: Array<LibModel>
 };
 
 /* Mapped Dispatches to Props */
@@ -74,9 +77,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
             html: props.html || '',
             css: props.css || ''
         };
-
-        // Bind methods
-        this.handleColorChange = this.handleColorChange.bind(this);
     }
 
 
@@ -84,6 +84,8 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*       COMPONENTDIDMOUNT      */
     /********************************/
     componentDidMount() {
+
+        // TODO: Analizar por que no estoy seguro que esto sea tarea de este componente
         
         const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
         const DEFAULT_COLOR_RGBA = {
@@ -119,23 +121,6 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
 
     /********************************/
-    /*        PUBLIC METHODS        */
-    /********************************/
-
-
-    /**
-     * @desc Handle Color Change
-     * @method handleColorChange
-     * @example this.handleColorChange()
-     * @public
-     * @returns {void}
-     */
-    handleColorChange(color: BasicColorModel) {
-        this._changeColor(color);
-    }
-
-
-    /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
 
@@ -159,20 +144,19 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
         // Destructuring state & props 
         const { html, css } = this.state;
-        const { hex, libs} = this.props;
+        const { color, libs} = this.props;
 
 
         /*         MARKUP          */
         /***************************/
         return (
             <PreviewBox height="30" 
-                        onColorChange={this.handleColorChange}
                         isEmptyPreview={html === ''}> 
                 <Iframe children={html} 
                                 css={css} 
                                 title={'new'}
-                                background={hex}
-                                stylesheets={getStylesheetsFromLibs(libs)} />
+                                background={color.hex}
+                                stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
     }
@@ -186,18 +170,12 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 function mapStateToProps(state: IRootState): StateProps {
 
     // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex } = currentColor;
-
     const { currentCode } = state.ui.sourceCodePanel;
-    const { libs } = state.ui.libsPanel;
 
     return {
-        hex,
+        color: getCurrentColor(state),
         currentCode,
-        libs
+        libs: getLibListFormatted(state)
     };
 }
 

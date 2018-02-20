@@ -3,11 +3,14 @@
 /************************************/
 import * as React from 'react';
 
-import CodeTabMenu, { 
+import { 
     Option as CodeTabMenuOption 
 } from './../Tabs/CodeTabMenu/CodeTabMenu';
+import CodeTabMenuContainer from './../../containers/Tabs/CodeTabMenu.container';
 
-import AddLibForm from './../../components/Forms/AddLibForm/AddLibForm';
+import { LibTypeOptions } from './../../../models/lib/lib.model';
+import AddLibFormContainer from './../../containers/Forms/AddLibForm/AddLibForm.container';
+import LibsListContainer from './../../containers/LibsList/LibsList.container';
 
 
 // -----------------------------------
@@ -21,7 +24,6 @@ import AddLibForm from './../../components/Forms/AddLibForm/AddLibForm';
 type ExternalLibsPanelProps = {
     currentTab: CodeTabMenuOption,
     onTabClick: (tab: CodeTabMenuOption) => void;
-    onAddLibClick: (name: string, url: string) => void;
 };
 
 
@@ -49,7 +51,7 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
     render() {
 
         // Destructuring props & state
-        const { currentTab, onTabClick, onAddLibClick } = this.props;
+        const { currentTab, onTabClick } = this.props;
 
         // VARIABLES 
         // TODO: Mas adelante esto no podras esta aqui fijo, tendras que ser enviado por su Container
@@ -70,10 +72,9 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
                 
                 {/* Type Code Tab Menu */}
                 <div className="borderBottom-1 borderColor-smoke w-100">
-                    <CodeTabMenu options={options} 
-                                isReversed={false}
-                                tab={currentTab} 
-                                onTabClick={onTabClick}/>
+                    <CodeTabMenuContainer options={options} 
+                                          currentTab={currentTab} 
+                                          onTabClick={onTabClick}/>
                 </div>
                 
 
@@ -82,10 +83,15 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
                     <div className="col-12 position-relative">
 
                         {/* External Libs */}
-                        <div className="ExternalLibs d-flex align-items-center position-relative p-5">
-                            <AddLibForm label={title}
-                                        helpMsg={description}
-                                        onAddClick={onAddLibClick}/>
+                        <div className="ExternalLibs d-flex flex-column w-100 p-5">
+
+                            <AddLibFormContainer libType={LibTypeOptions.css}
+                                                 label={title}
+                                                 helpMsg={description}/>
+                            
+                            {/* Build external libs list */}
+                            <LibsListContainer libType={LibTypeOptions.css}/>
+
                         </div>
 
                     </div>

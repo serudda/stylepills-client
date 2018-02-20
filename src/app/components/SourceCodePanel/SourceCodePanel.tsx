@@ -178,6 +178,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
                     {/* Bottom Message */}
                     { showMessage && !!message &&
                         <div className="col-12 position-relative">
+                            {/* NOTE: 1 */}
                             <BannerAlert type={message.type} 
                                         text={message.text}
                                         className={message.className}/>
@@ -197,3 +198,11 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
 
 /* Export */
 export default SourceCodePanel;
+
+
+/* 
+(1) Uso BannerAlert directamente (en vez de AlertManager) ya que en este caso este Banner no es considerado un Alert,
+Ademas no deberia estar agregando por todas partes el: AlertManager container, ya que si llegara a agregar 2 veces este
+componente, se pifiaria su comportamiento. Este AlertManager container deberia estar en un solo lugar global solo para
+gestionar los Alertas globales, como por ejemplo los modals.
+*/

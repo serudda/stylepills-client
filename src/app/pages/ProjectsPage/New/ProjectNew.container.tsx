@@ -21,6 +21,7 @@ import { CreateProjectInput } from './../../../../models/project/project.mutatio
 import BasicFieldsContainer from './Steps/containers/BasicFields.container';
 import ColorFieldsContainer from './Steps/containers/ColorFields.container';
 import LibFieldsContainer from './Steps/containers/LibFields.container';
+import SourceFieldsContainer from './Steps/containers/SourceFields.container';
 import ConfirmationContainer from './Steps/containers/Confirmation.container';
 import SuccessContainer from './Steps/containers/Success.container';
 
@@ -112,7 +113,7 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
      */
     nextStep(fieldValues: ProjectFormFields | Object = {}) {
 
-        let newFieldValues = Object.assign({}, this.state.fieldValues, fieldValues);
+        let newFieldValues = functionsUtil.updateObject(this.state.fieldValues, fieldValues);
 
         // Update local state
         this.setState({ fieldValues: newFieldValues },
@@ -157,11 +158,12 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
     submitCreation(authorId: number) {
 
         // Copy fields
-        let fieldValues = Object.assign({}, this.props.fields);
+        // let fieldValues = Object.assign({}, this.props.fields); LEGACY
+        let copyFieldValues = functionsUtil.updateObject(this.props.fields);
 
-        fieldValues.authorId = authorId;
+        copyFieldValues.authorId = authorId;
 
-        this.props.actions.projectState.createProject(fieldValues).then(
+        this.props.actions.projectState.createProject(copyFieldValues).then(
             (response) => {
                 if (response.ok) {
                     this.nextStep();
@@ -210,9 +212,14 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
                 );
             case 4:
                 return (
-                    <ConfirmationContainer submitCreation={this.submitCreation} />
+                    <SourceFieldsContainer nextStep={this.nextStep}
+                                            previousStep={this.previousStep} />
                 );
             case 5:
+                return (
+                    <ConfirmationContainer submitCreation={this.submitCreation} />
+                );
+            case 6:
                 return (
                     <SuccessContainer />
                 );

@@ -155,17 +155,15 @@ export default function (state: IAtomState = defaultState, action: Action): IAto
             let newAtomsState = state.edited.atoms.slice();
 
             // To know if atom already exists on atoms state
-            let atomAlreadyExists = functionsUtil.valueExistsInArray(state.edited.atoms, atomId, 'atomId');
+            let atomAlreadyExists = functionsUtil.itemExistsInArray(state.edited.atoms, atomId, 'atomId');
 
             if (atomAlreadyExists) {
-                newAtomsState = newAtomsState.map(
-                    (a: IAtomsProps) => {
-                        if (a.atomId === atomId) {
-                            return atom(a, action);
-                        }
-                        return a;
-                    }
-                );
+
+                newAtomsState = functionsUtil.updateItemInArray(newAtomsState, 'atomId', atomId, 
+                (a: IAtomsProps) => {
+                    return atom(a, action);
+                });
+
             } else {
                 newAtomsState = state.edited.atoms.concat({
                     atomId,
@@ -240,28 +238,27 @@ const atom = (state: IAtomsProps, action: Action): IAtomsProps => {
             let newAtomCodeState = state.atomCode.slice();
 
             // To know if atomCode already exists on atom state
-            let atomCodeAlreadyExists = functionsUtil.valueExistsInArray(state.atomCode, codeType, 'codeType');
+            let atomCodeAlreadyExists = functionsUtil.itemExistsInArray(state.atomCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/ui.reducer, deberiamos crear una funcion
             global que haga esta operación */
             if (atomCodeAlreadyExists) {
-                newAtomCodeState = newAtomCodeState.map(
-                    code => {
-                        if (code.codeType !== codeType) {
-                            return code;
-                        }
 
-                        return {
-                            ...code,
-                            codeProps
-                        };
-                    }
-                );
+                newAtomCodeState = functionsUtil.updateItemInArray(newAtomCodeState, 'codeType', codeType, 
+                (code: IAtomCode) => {
+                    return {
+                        ...code,
+                        codeProps
+                    };
+                });
+
             } else {
+
                 newAtomCodeState = state.atomCode.concat({
                     codeType,
                     codeProps
                 });
+                
             }
             /* TODO: Fin del fragmento */
 

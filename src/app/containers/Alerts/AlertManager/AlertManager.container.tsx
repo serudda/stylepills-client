@@ -61,24 +61,26 @@ extends React.Component<ChildProps<AlertManagerContainerProps & StateProps & Dis
     /********************************/
     constructor(props: ChildProps<AlertManagerContainerProps & StateProps & DispatchProps, {}>) {
         super(props);
+
+        // Bind methods
+        this.handleCloseClick = this.handleCloseClick.bind(this);
     }
 
 
     /********************************/
-    /*       PRIVATE METHODS        */
+    /*        PUBLIC METHODS        */
     /********************************/
 
 
     /**
      * @desc HandleCloseClick
-     * @method _handleCloseClick
-     * @example this._handleCloseClick()
-     * @private
+     * @method handleCloseClick
+     * @example this.handleCloseClick()
+     * @public
      * @param {AtomModel} atom - atom data
-     * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleCloseClick = (id: string) => (e: React.FormEvent<{}>) => {
+    handleCloseClick(id: string) {
         this.props.actions.ui.closeAlert(id);
     }
 
@@ -95,7 +97,7 @@ extends React.Component<ChildProps<AlertManagerContainerProps & StateProps & Dis
             (alertDescription, index) => {
                 const { alertType, alertProps = {}, alertId } = alertDescription;
                 const AlertComponent = alertComponentList[alertType];
-                return <AlertComponent {...alertProps} onCloseClick={this._handleCloseClick} id={alertId} key={alertId}/>;
+                return <AlertComponent {...alertProps} onCloseClick={this.handleCloseClick} id={alertId} key={alertId}/>;
             }
         );
             

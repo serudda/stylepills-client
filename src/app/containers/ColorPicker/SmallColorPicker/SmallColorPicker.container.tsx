@@ -2,14 +2,19 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { ColorResult } from 'react-color';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Basic as BasicColorModel } from './../../../../models/color/color.model';
-import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
+
+import ColorService from './../../../../models/color/color.service';
+
+import { changeColorAction } from './../../../../actions/ui.action';
+
+import { getCurrentColor } from './../../../../selectors/ui.selector';
 
 import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker/SmallColorPicker';
 
@@ -22,8 +27,7 @@ import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker
 
 /* Own Props */
 type SmallColorPickerContainerProps = {
-    defaultColors?: Array<string>;
-    onChange: (color: BasicColorModel) => void;
+    onChange?: (color: BasicColorModel) => void;
 };
 
 /* Own States */
@@ -33,8 +37,16 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    hex: string;
-    rgba: RgbaColorModel;
+    color: BasicColorModel
+};
+
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        ui: {
+            changeColor: (color: BasicColorModel) => void;
+        }
+    };
 };
 
 
@@ -42,13 +54,29 @@ type StateProps = {
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SmallColorPickerContainer 
-extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, {}>, LocalStates> {
+extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+
+    /********************************/
+    /*         STATIC PROPS         */
+    /********************************/
+    private _DEFAULT_COLORS_LIST: Array<string> = [
+        '#273444', 
+        '#3C4858', 
+        '#8492A6', 
+        '#E0E6ED', 
+        '#EFF2F7',
+        '#976B55',
+        '#7BDCB5', 
+        '#0693E3', 
+        '#FFF78A', 
+        '#EC7D7D'
+    ];
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SmallColorPickerContainerProps & StateProps, {}>) {
+    constructor(props: ChildProps<SmallColorPickerContainerProps & StateProps & DispatchProps, {}>) {
         super(props);
 
         this.state = {
@@ -104,8 +132,15 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
     private _handleChange(color: ColorResult) {
 
         const { hex, rgb } = color;
+        const name = ColorService.generateColorName(hex);
 
-        this.props.onChange({ hex, rgba: rgb });
+        // If receive an parent's onChange method
+        if (this.props.onChange) {
+            this.props.onChange({ hex, rgba: rgb, name });
+        } else {
+            // If not receive a parent's onChange method, default action.
+            this.props.actions.ui.changeColor({ hex, rgba: rgb, name });
+        }
 
     }
 
@@ -118,15 +153,15 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
 
         // Destructuring state
         const { displayColorPicker } = this.state;
-        const { hex, defaultColors } = this.props;
+        const { color } = this.props;
         
         
         /*         MARKUP          */
         /***************************/
         return (
-            <SmallColorPicker hex={hex} 
+            <SmallColorPicker hex={color.hex} 
                               displayColorPicker={displayColorPicker}
-                              defaultColors={defaultColors}
+                              defaultColors={this._DEFAULT_COLORS_LIST}
                               onSwatchClick={this._handleClick}
                               onPickerChange={this._handleChange}
                               onClose={this._handleClose}/>
@@ -141,16 +176,22 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps, 
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-
-    // Destructuring state 
-    const { ui } = state;
-    const { colorPicker } = ui;
-    const { currentColor } = colorPicker;
-    const { hex, rgba } = currentColor;
-
     return {
-        hex,
-        rgba
+        color: getCurrentColor(state)
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                changeColor: (color: BasicColorModel) => dispatch(changeColorAction(color))
+            }
+        }
     };
 }
 
@@ -158,7 +199,7 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const smallColorPickerContainerConnect = connect(mapStateToProps); 
+const smallColorPickerContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */

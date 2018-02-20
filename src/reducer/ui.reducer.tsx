@@ -3,6 +3,7 @@
 /************************************/
 import * as uuid from 'uuid/v4';
 
+import { ListProps } from './../core/interfaces/interfaces';
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -10,8 +11,12 @@ import { Action } from '../actions/ui.action';
 import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { ICurrentCode } from './../actions/ui.action';
-import { Basic as BasicColorModel } from '../models/color/color.model';
+import { 
+    Basic as BasicColorModel, 
+    Color as ColorModel 
+} from '../models/color/color.model';
 import { Lib as LibModel } from '../models/lib/lib.model';
+import { Source as SourceModel } from './../models/source/source.model';
 
 import { 
     Option as CodeTabMenuOption 
@@ -31,9 +36,25 @@ import {
 /*            INTERFACES            */
 /************************************/
 
+export type ColorListItem = ColorModel & ListProps;
+export type LibListItem = LibModel & ListProps;
+export type SourceListItem = SourceModel & ListProps;
+export type ColorsList = {
+    general: Array<ColorListItem>,
+    [colorType: string]: Array<ColorListItem> // NOTE: 'assign_new_property_to_an_object_in_TypeScript'
+};
+export type LibsList = {
+    [index: string]: Array<LibListItem> // NOTE: 'assign_new_property_to_an_object_in_TypeScript'
+};
+
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
     alerts: Array<{alertType: AlertOption, alertProps: any, alertId: string}>;
+    lists: {
+        colorsList: ColorsList,
+        libsList: LibsList,
+        sourcesList: Array<SourceListItem>
+    };
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions
@@ -46,13 +67,12 @@ export interface IUiState {
         }
     };
     colorPicker: {
-        currentColor: BasicColorModel
+        currentColor: {
+            general: BasicColorModel
+        }
     };
     sourceCodePanel: {
         currentCode: Array<ICurrentCode>;
-    };
-    libsPanel: {
-        libs: Array<LibModel>;
     };
     copied: {
         copiedType: string
@@ -67,6 +87,15 @@ export interface IUiState {
 const defaultState: IUiState = {
     modals: [],
     alerts: [],
+    lists: {
+        colorsList: {
+            general: []
+        },
+        libsList: {
+            css: []
+        },
+        sourcesList: [] 
+    },
     tabs: {
         atomDetailsTab: {
             tab: null
@@ -80,16 +109,15 @@ const defaultState: IUiState = {
     },
     colorPicker: {
         currentColor: {
-            hex: appConfig.SECONDARY_COLOR_HEX,
-            rgba: appConfig.SECONDARY_COLOR_RGBA
+            general: {
+                hex: appConfig.SECONDARY_COLOR_HEX,
+                rgba: appConfig.SECONDARY_COLOR_RGBA,
+                name: appConfig.SECONDARY_COLOR_NAME
+            }
         }
     },
-    // TODO: No existen estas dos en la action CLEAR, revisar por que no se agregaron alla
     sourceCodePanel: {
         currentCode: []
-    },
-    libsPanel: {
-        libs: []
     },
     copied: null
 };
@@ -116,6 +144,15 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 ...state, 
                 modals: [],
                 alerts: [],
+                lists: {
+                    colorsList: {
+                        general: []
+                    },
+                    libsList: {
+                        css: []
+                    },
+                    sourcesList: []
+                },
                 tabs: {
                     atomDetailsTab: {
                         tab: null
@@ -129,15 +166,15 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 },
                 colorPicker: {
                     currentColor: {
-                        hex: appConfig.SECONDARY_COLOR_HEX,
-                        rgba: appConfig.SECONDARY_COLOR_RGBA
+                        general: {
+                            hex: appConfig.SECONDARY_COLOR_HEX,
+                            rgba: appConfig.SECONDARY_COLOR_RGBA,
+                            name: appConfig.SECONDARY_COLOR_NAME
+                        }
                     }
                 },
                 sourceCodePanel: {
                     currentCode: []
-                },
-                libsPanel: {
-                    libs: []
                 },
                 copied: null
             };
@@ -181,13 +218,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CLOSE_ALERT: {
 
-            const newAlertsState = state.alerts.filter((alert) => {
-                if (alert.alertId === action.alerts.alertId ) {
-                    return false;
-                } else {
-                    return true;
-                }
-            });
+            const newAlertsState = functionsUtil.deleteItemInArray(state.alerts, 'alertId', action.alerts.alertId);
 
             return {
                 ...state,
@@ -196,7 +227,139 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         }
 
-        case types.CHANGE_ATOM_DETAILS_TAB: {
+        case types.ADD_COLOR_ITEM: {
+
+            const { colorType } = action;
+            const { lists } = state;
+            const group = colorType ? colorType : 'general';
+            let newColorList = [];
+            let colorsList = lists.colorsList[group] ? lists.colorsList[group] : []; 
+
+            // Append new color to colorList
+            newColorList = colorsList.concat({
+                tempId: uuid(),
+                ...action.color
+            });
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    colorsList: {
+                        ...state.lists.colorsList,
+                        [group]: newColorList
+                    }
+                }
+            };
+
+        }
+
+        case types.DELETE_COLOR_ITEM: {
+
+            const { colorType } = action;
+            const { lists } = state;
+            const group = colorType ? colorType : 'general';
+            let colorsList = lists.colorsList[group] ? lists.colorsList[group] : [];
+
+            const newColorsListState = functionsUtil.deleteItemInArray(colorsList, 'tempId', action.id);
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    colorsList: {
+                        ...state.lists.colorsList,
+                        [group]: newColorsListState
+                    }
+                }
+            };
+        }
+
+        case types.ADD_LIB_ITEM: {
+
+            const { libType } = action;
+            const { lists } = state;
+            const group = libType ? libType : 'css';
+            let newLibList = [];
+            let libsList = lists.libsList[group] ? lists.libsList[group] : []; 
+
+            // Append new lib to libList
+            newLibList = libsList.concat({
+                tempId: uuid(),
+                ...action.lib,
+            });
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    libsList: {
+                        ...state.lists.libsList,
+                        [group]: newLibList
+                    }
+                }
+            };
+
+        }
+
+        case types.DELETE_LIB_ITEM: {
+
+            const { libType } = action;
+            const { lists } = state;
+            const group = libType ? libType : 'css';
+            let libsList = lists.libsList[group] ? lists.libsList[group] : [];
+
+            const newLibsListState = functionsUtil.deleteItemInArray(libsList, 'tempId', action.id);
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    libsList: {
+                        ...state.lists.libsList,
+                        [group]: newLibsListState
+                    }
+                }
+            };
+        }
+
+        case types.LOAD_LIBS: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    libsList: action.libs
+                }
+            };
+        }
+
+        case types.ADD_SOURCE_ITEM: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList:  [
+                        ...state.lists.sourcesList,
+                        { tempId: uuid(), ...action.source } // NOTE: 2
+                    ]
+                }
+            };
+        }
+
+        case types.DELETE_SOURCE_ITEM: {
+
+            const newSourcesListState = functionsUtil.deleteItemInArray(state.lists.sourcesList, 'tempId', action.id);
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList: newSourcesListState
+                }
+            };
+        }
+
+        case types.CHANGE_ATOM_DETAILS_TAB : {
             return {
                 ...state,
                 tabs: {
@@ -233,14 +396,17 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         }
 
         case types.CHANGE_COLOR: {
+
+            const { colorType } = action;
+            const group = colorType ? colorType : 'general';
+
             return {
                 ...state,
                 colorPicker: {
                     ...state.colorPicker,
                     currentColor: {
                         ...state.colorPicker.currentColor,
-                        hex: action.colorPicker.currentColor.hex,
-                        rgba: action.colorPicker.currentColor.rgba
+                        [group]: action.color
                     }
                 }
             };
@@ -262,28 +428,27 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             let newCurrentCodeState = state.sourceCodePanel.currentCode.slice();
 
             // To know if code type already exists on sourceCodePanel/currentCode state
-            let codeTypeAlreadyExists = functionsUtil.valueExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
+            let codeTypeAlreadyExists = functionsUtil.itemExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
 
             /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
             global que haga esta operación */
             if (codeTypeAlreadyExists) {
-                newCurrentCodeState = newCurrentCodeState.map(
-                    code => {
-                        if (code.codeType !== codeType) {
-                            return code;
-                        }
 
-                        return {
-                            ...code,
-                            codeProps
-                        };
-                    }
-                );
+                newCurrentCodeState = functionsUtil.updateItemInArray(newCurrentCodeState, 'codeType', codeType, 
+                (code: ICurrentCode) => {
+                    return {
+                        ...code,
+                        codeProps
+                    };
+                });
+
             } else {
+
                 newCurrentCodeState = state.sourceCodePanel.currentCode.concat({
                     codeType,
                     codeProps
                 });
+                
             }
             /* TODO: Fin del fragmento */
 
@@ -295,18 +460,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
 
         }
-
-        case types.CHANGE_LIBS: {
-            return {
-                ...state,
-                libsPanel: {
-                    ...state.libsPanel,
-                    // NOTE: 1
-                    libs: [].concat(action.libsPanel.libs)
-                }
-            };
-        }
-
             
         default:
             return state;  
@@ -315,4 +468,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
 /*
     (1): Es la manera de evitar el error de mutable un array, crear una copia nueva del array.
+    (2): Es necesario agregar un id temporal ya que cuando estoy creando una lista nueva, no tengo ids,
+    y necesito estos id para poder eliminar los elementos de una lista.
 */

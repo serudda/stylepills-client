@@ -28,8 +28,14 @@ export type BannerAlertProps = {
     type: Option,
     text: string,
     showIcon?: boolean,
+    showDeleteBtn?: boolean,
     className?: string,
-    readonly onCloseClick?: (id: string) => any;
+    onCloseClick?: (id: string) => any;
+};
+
+/* Own States */
+type LocalStates = {
+    hide: boolean
 };
 
 
@@ -40,7 +46,7 @@ export type BannerAlertProps = {
  * @returns component view
  */
 
-class BannerAlert extends React.Component<BannerAlertProps, {}> {
+class BannerAlert extends React.Component<BannerAlertProps, LocalStates> {
 
 
     /********************************/
@@ -48,6 +54,13 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
     /********************************/
     constructor(props: BannerAlertProps) {
         super(props);
+
+        this.state = {
+            hide: false
+        };
+
+        // Bind methods
+        this._handleClick = this._handleClick.bind(this);
     }
 
 
@@ -60,14 +73,18 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
      * @method _handleClick
      * @example this._handleClick()
      * @private 
-     * @param {string} id - alert id
      * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleClick = (id: string) => (e: any) => {
+    private _handleClick(e: React.FormEvent<{}>) {
+        // Destructuring props
+        const { id, onCloseClick } = this.props;
+
         e.preventDefault();
-        if (this.props.onCloseClick) {
-            this.props.onCloseClick(id);
+        if (onCloseClick) {
+            onCloseClick(id);
+        } else {
+            this.setState({ hide: true });
         }
     }
 
@@ -123,13 +140,16 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
     /********************************/
     render() {
 
-        // Destructuring props
-        const { 
-            id,
+        // Destructuring props & state
+        const {
             type,
             text,
-            className
+            className,
+            showDeleteBtn = true
         } = this.props;
+
+        const { hide } = this.state;
+
 
 
         // Baner Alert Classes
@@ -149,21 +169,27 @@ class BannerAlert extends React.Component<BannerAlertProps, {}> {
         /*         MARKUP          */
         /***************************/
         return (
-            <div className={bannerAlertClasses}>
+            <div>
+            {!hide &&
+                <div className={bannerAlertClasses}>
 
-                {/* Show Icon */}
-                {this._buildInfoSection()}
-                
-                <span className="fontSize-md color-white fontWeight-9">
-                    {text}
-                </span>
+                    {/* Show Icon */}
+                    {this._buildInfoSection()}
+                    
+                    <span className="fontSize-md color-white fontWeight-9">
+                        {text}
+                    </span>
 
-                <span className="icon-btn d-flex ml-auto" onClick={this._handleClick(id)}>
-                    <Icon icon="close"
-                        iconClass="strokeWidth-2 stroke-white"
-                        width="22" height="22"/>
-                </span>
+                    { showDeleteBtn &&
+                        <span className="icon-btn d-flex ml-auto" onClick={this._handleClick}>
+                            <Icon icon="close"
+                                iconClass="strokeWidth-2 stroke-white"
+                                width="22" height="22"/>
+                        </span>
+                    }
 
+                </div>
+            }
             </div>
         );
 

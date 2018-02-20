@@ -21,21 +21,24 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 import { 
     ICurrentCode, 
     showAlertAction,
-    changeLibsAction
+    loadLibsAction
 } from './../../../../../../actions/ui.action';
 import { getLibsByProjectIdAction } from './../../../../../../actions/lib.action';
 
 import { User as UserModel }  from './../../../../../../models/user/user.model';
+import { Basic as BasicColorModel }  from './../../../../../../models/color/color.model';
 import { 
-    Lib as LibModel, 
-    getAtomLibsFromList 
+    Lib as LibModel
 }  from './../../../../../../models/lib/lib.model';
+import LibService from './../../../../../../models/lib/lib.service';
+
+import { getCurrentColor, getLibListFormatted } from './../../../../../../selectors/ui.selector';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
 import AtomCategorySelectList from './../../../../../../app/containers/Inputs/SelectInputs/AtomCategorySelectList/AtomCategorySelectList.container';
 import ProjectSelectList from './../../../../../../app/containers/Inputs/SelectInputs/ProjectSelectList/containers/ProjectSelectList.container';
-import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
+// import AlertManagerContainer from './../../../../../../app/containers/Alerts/AlertManager/AlertManager.container';
 import Icon from './../../../../../../app/components/Icon/Icon';
 
 import {
@@ -83,7 +86,7 @@ type StateProps = {
     atomCategoryId: number | null,
     private: boolean,
     currentCode: Array<ICurrentCode>,
-    hex: string,
+    color: BasicColorModel,
     user: UserModel,
     alerts: Array<{alertType: AlertOption, alertProps: any}>;
     isAuthenticated: boolean
@@ -94,7 +97,7 @@ type DispatchProps = {
     actions: {
         ui: { 
             showAlert: (alertType: AlertOption, alertProps: any) => void;
-            changeLibs: (libs: Array<LibModel>) => void;
+            loadLibs: (libs: Array<LibModel>) => void;
         },
         libState: {
             getLibsByProjectId: (projectId: number) => Promise<any>;
@@ -125,7 +128,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                 html: props.html || '',
                 css: props.css || '',
                 libs: [...props.libs] || [],
-                contextualBg: props.hex || '#FFFFFF',
+                contextualBg: props.color.hex || '#FFFFFF',
                 projectId: props.projectId || null,
                 atomCategoryId: props.atomCategoryId || 0,
                 private: props.private || false
@@ -146,7 +149,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
     componentWillReceiveProps(nextProps: BasicFieldsProps & StateProps) {   
-        const { hex, currentCode, libs } = nextProps;
+        const { color, currentCode, libs } = nextProps;
 
         // Changed CurrentCode on Store state
         if (this.props.currentCode !== currentCode) {
@@ -165,12 +168,12 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
         }
 
         // Changed Hex on Store state
-        if (this.props.hex !== hex) {
+        if (this.props.color.hex !== color.hex) {
             this.setState((previousState: LocalStates) => ({
                 ...previousState,
                 fields: {
                     ...previousState.fields,
-                    contextualBg: hex
+                    contextualBg: color.hex
                 }
             }));
         }
@@ -205,6 +208,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
     handleSelectListChange (name: string, value: string) {
 
         if (name === 'projectId') {
+
+            // Clear libsList on State Store
+            this.props.actions.ui.loadLibs([]);
             
             this.props.actions.libState.getLibsByProjectId(parseInt(value, 10)).then(
                 (response) => {
@@ -213,10 +219,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                         let { libs } = this.props;
                         
                         // Get atom's libs from libs state
-                        let atomLibs = getAtomLibsFromList(libs);
+                        let atomLibs = LibService.getAtomLibsFromList(libs);
 
-                        // Join project's libs with atom's libs and post them on Store State
-                        this.props.actions.ui.changeLibs(atomLibs.concat(response.results));
+                        // Concat Project's libs and Atom's libs
+                        let libsMerged = atomLibs.concat(response.results);
+
+                        // Load on State Store
+                        this.props.actions.ui.loadLibs(libsMerged);
                     }
                 }
             );
@@ -285,11 +294,10 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
      */
     private _isValid() {
         // Copy state
-        let fieldValues = Object.assign({}, this.state.fields);
+        // let fieldValues = Object.assign({}, this.state.fields); LEGACY
+        let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-        const {errors, isValid} = validateBasicFields(fieldValues);
-
-        console.log(errors, isValid);
+        const {errors, isValid} = validateBasicFields(copyFieldValues);
 
         if (!isValid) {
             this.setState({
@@ -315,9 +323,9 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
         if (this._isValid()) {
             // Copy state
-            let fieldValues = Object.assign({}, this.state.fields);
+            let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
-            this.props.nextStep(fieldValues);
+            this.props.nextStep(copyFieldValues);
         }
 
     }
@@ -328,19 +336,22 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
      * @method _buildSourceCodeErrorMessage
      * @example this._buildSourceCodeErrorMessage()
      * @private
-     * @returns {JSX.Element} <AddColorForm />
+     * @returns {JSX.Element} <BannerAlert />
      */
     private _buildSourceCodeErrorMessage() {
 
         // Destructuring props
         const { validationErrors } = this.state;
 
+        // NOTE: 1
         if (validationErrors.html) {
             return (
                 <BannerAlert type={BannerAlertOption.negative} 
                              text={validationErrors.html}
                              className="position-absolute sp-rounded-bottom-md validationMsg"
-                             showIcon={true}/>
+                             showIcon={true}
+                             showDeleteBtn={false}
+                             />
             );
         } else {
             return false;
@@ -495,11 +506,12 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                                                 css={this.state.fields.css}
                                                 libs={this.state.fields.libs}/>
                         
-                        {/* Error Bottom Message */}
+                        {/* Error Bottom Message NOTE: 1*/}
                         {this._buildSourceCodeErrorMessage()}
-                        <AlertManagerContainer />
-                        
-                        {/*<button onClick={this.exampleMethod}>SHOW</button>*/}
+
+                        {/* TODO: Solo es un ejemplo, no se usa aqui oficialmente */}
+                        {/* <AlertManagerContainer />
+                        <button onClick={this.exampleMethod}>SHOW</button> */}
 
                     </div>
 
@@ -543,9 +555,7 @@ function mapStateToProps(state: IRootState): StateProps {
     
     // Destructuring state 
     const { ui } = state;
-    const { colorPicker, alerts } = ui;
-    const { currentColor } = colorPicker;
-    const { hex } = currentColor;
+    const { alerts } = ui;
 
     const { fields } = state.form.atomForm;
     const { name, description, html, css, contextualBg, projectId, atomCategoryId } = fields;
@@ -553,20 +563,19 @@ function mapStateToProps(state: IRootState): StateProps {
     const { user, isAuthenticated } = state.auth;
 
     const { currentCode } = state.ui.sourceCodePanel;
-    const { libs } = state.ui.libsPanel;
 
     return {
         name,
         description,
         html,
         css,
-        libs,
+        libs: getLibListFormatted(state),
         contextualBg,
         projectId,
         atomCategoryId,
         private: fields.private,
         currentCode,
-        hex,
+        color: getCurrentColor(state),
         user,
         alerts,
         isAuthenticated
@@ -582,7 +591,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 showAlert: (alertType, alertProps) => dispatch(showAlertAction(alertType, alertProps)),
-                changeLibs: (libs) => dispatch(changeLibsAction(libs))
+                loadLibs: (libs) => dispatch(loadLibsAction(libs))
             },
             libState: {
                 getLibsByProjectId: (projectId) => dispatch(getLibsByProjectIdAction(projectId))
@@ -603,3 +612,12 @@ const basicFieldsConnect = connect(mapStateToProps, mapDispatchToProps);
 export default compose(
     basicFieldsConnect
 )(BasicFields);
+
+
+
+/* 
+(1) Uso BannerAlert directamente (en vez de AlertManager) ya que en este caso este Banner no es considerado un Alert,
+Ademas no deberia estar agregando por todas partes el: AlertManager container, ya que si llegara a agregar 2 veces este
+componente, se pifiaria su comportamiento. Este AlertManager container deberia estar en un solo lugar global solo para
+gestionar los Alertas globales, como por ejemplo los modals.
+*/

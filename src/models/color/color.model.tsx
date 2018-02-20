@@ -18,6 +18,7 @@ export enum ColorTypeOptions {
 export type Basic = {
     hex: string;
     rgba: RgbaColor;
+    name?: string;
 };
 
 export type Color = {

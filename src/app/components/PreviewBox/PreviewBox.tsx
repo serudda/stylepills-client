@@ -4,8 +4,6 @@
 import * as React from 'react';
 import { Popup } from 'semantic-ui-react';
 
-import { Basic as BasicColorModel } from './../../../models/color/color.model';
-
 import SmallColorPickerContainer from './../../containers/ColorPicker/SmallColorPicker/SmallColorPicker.container';
 
 // -----------------------------------
@@ -19,8 +17,7 @@ import SmallColorPickerContainer from './../../containers/ColorPicker/SmallColor
 /* Own Props */
 type PreviewBoxProps = {
     height: string,
-    isEmptyPreview?: boolean,
-    onColorChange: (color: BasicColorModel) => void;
+    isEmptyPreview?: boolean
 };
 
 
@@ -32,23 +29,6 @@ type PreviewBoxProps = {
  */
 
 class PreviewBox extends React.Component<PreviewBoxProps, {}> {
-
-    /********************************/
-    /*         STATIC PROPS         */
-    /********************************/
-    private _DEFAULT_COLORS_LIST: Array<string> = [
-        '#273444', 
-        '#3C4858', 
-        '#8492A6', 
-        '#E0E6ED', 
-        '#EFF2F7',
-        '#976B55',
-        '#7BDCB5', 
-        '#0693E3', 
-        '#FFF78A', 
-        '#EC7D7D'
-    ];
-    
 
     /********************************/
     /*         CONSTRUCTOR          */
@@ -67,7 +47,6 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
         const { 
             height = '25',
             isEmptyPreview = false,
-            onColorChange
         } = this.props;
 
 
@@ -82,8 +61,7 @@ class PreviewBox extends React.Component<PreviewBoxProps, {}> {
                     <Popup
                         trigger={
                             <div>
-                                <SmallColorPickerContainer onChange={onColorChange}
-                                                            defaultColors={this._DEFAULT_COLORS_LIST}/>
+                                <SmallColorPickerContainer />
                             </div>
                         }
                         position="top left"

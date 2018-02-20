@@ -1,0 +1,98 @@
+/************************************/
+/*           DEPENDENCIES           */
+/************************************/
+import * as React from 'react';
+import { SketchPicker, ColorResult } from 'react-color';
+
+import * as appConfig from './../../../../core/constants/app.constants';
+
+import { RgbaColor as RgbaColorModel } from './../../../../models/rgbaColor/rgbaColor.model';
+
+import Input from './../../Inputs/GenericTextInput/GenericTextInput';
+
+// -----------------------------------
+
+
+/********************************/
+/*      INTERFACES & TYPES      */
+/********************************/
+
+/* Own Props */
+type InputColorPickerProps = {
+    hex: string;
+    rgba: RgbaColorModel;
+    displayColorPicker: boolean;
+    onSwatchClick: (e: React.FormEvent<{}>) => void;
+    onPickerChange: (color: ColorResult) => void;
+    onClose: (e: React.FormEvent<{}>) => void;
+};
+
+
+/**
+ * @desc Represent Input Color Picker
+ * @function InputColorPicker
+ * @type STATELESS FUNCTIONAL COMPONENT (SFC)
+ * @returns component view
+ */
+
+class InputColorPicker extends React.Component<InputColorPickerProps, {}> {
+
+    /********************************/
+    /*         CONSTRUCTOR          */
+    /********************************/
+    constructor(props: InputColorPickerProps) {
+        super(props);
+    }
+
+
+    /********************************/
+    /*        RENDER MARKUP         */
+    /********************************/
+    render() {
+
+        // Destructuring props
+        const {
+            hex,
+            rgba,
+            displayColorPicker,
+            onSwatchClick,
+            onPickerChange,
+            onClose
+        } = this.props;
+
+
+        /*         MARKUP          */
+        /***************************/
+        return (
+            <div className="InputColorPicker sp-inputGroup sp-inputGroup--color sp-inputGroup--color--md mr-3">
+                            
+                <div className="context" 
+                    onClick={onSwatchClick}
+                    style={{
+                        background: `rgba(${ rgba.r }, ${ rgba.g }, ${ rgba.b }, ${ rgba.a })`
+                        }}/>
+                
+                <Input value={hex}
+                        name="hex"
+                        placeholder={`${appConfig.SECONDARY_COLOR_HEX}`}
+                        onChange={onSwatchClick}
+                        className="input"/>
+                
+                {/* Color Picker */}
+                {displayColorPicker && 
+                    <div className="InputColorPicker__popover">
+                        <div className="InputColorPicker__popover__cover" onClick={onClose}/>
+                        <SketchPicker color={rgba} onChange={onPickerChange}/>
+                    </div>
+                }
+
+            </div>
+            
+        );
+    }
+    
+}
+
+
+/* Export */
+export default InputColorPicker;
