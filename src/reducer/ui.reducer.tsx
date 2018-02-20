@@ -11,7 +11,10 @@ import { Action } from '../actions/ui.action';
 import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { ICurrentCode } from './../actions/ui.action';
-import { Basic as BasicColorModel, Color as ColorModel } from '../models/color/color.model';
+import { 
+    Basic as BasicColorModel, 
+    Color as ColorModel 
+} from '../models/color/color.model';
 import { Lib as LibModel } from '../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 

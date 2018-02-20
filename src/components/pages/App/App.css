@@ -3889,6 +3889,12 @@ NOTE: Boostrap 4 has a flex set
           background-color: #33ADA9; }
           .sp-list--simple .item .icon-btn:hover .icon {
             stroke: #FFFFFF; }
+        .sp-list--simple .item .icon-btn--grab {
+          cursor: -webkit-grab; }
+          .sp-list--simple .item .icon-btn--grab:hover {
+            background-color: transparent; }
+            .sp-list--simple .item .icon-btn--grab:hover .icon {
+              stroke: #24292e; }
 
 /**********************************************************/
 /*                         LOADER                         */

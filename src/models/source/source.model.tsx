@@ -8,11 +8,11 @@ import { Preprocessor as PreprocessorModel } from './../preprocessor/preprocesso
 /*         TYPE & INTERFACES        */
 /************************************/
 export type Source = {
-    id: number | null;
+    id?: number | null;
     name: string;
     filename: string;
     code: string;
     preprocessor: PreprocessorModel;
     order: number;
-    active: boolean;
+    active?: boolean;
 };

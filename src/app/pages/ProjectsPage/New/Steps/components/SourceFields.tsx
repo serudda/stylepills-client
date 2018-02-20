@@ -5,13 +5,9 @@ import * as React from 'react';
 
 import Button from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
-import AddLibFormContainer from './../../../../../containers/Forms/AddLibForm/AddLibForm.container';
+import AddSourceFormContainer from './../../../../../containers/Forms/AddSourceForm/AddSourceForm.container';
 
-import { LibTypeOptions } from './../../../../../../models/lib/lib.model';
-import LibsListContainer from './../../../../../containers/LibsList/LibsList.container';
-
-import { Option as CodeTabMenuOption } from './../../../../../components/Tabs/CodeTabMenu/CodeTabMenu';
-import CodeTabMenuContainer from './../../../../../containers/Tabs/CodeTabMenu.container';
+import SourcesListContainer from './../../../../../containers/SourcesList/SourcesList.container';
 
 
 // -----------------------------------
@@ -22,9 +18,7 @@ import CodeTabMenuContainer from './../../../../../containers/Tabs/CodeTabMenu.c
 /********************************/
 
 /* Own Props */
-type LibFieldsProps = {
-    currentTab: CodeTabMenuOption,
-    onTabClick: (tab: CodeTabMenuOption) => void;
+type SourceFieldsProps = {
     onPrevClick: (e: React.FormEvent<{}>) => any,
     onNextClick: (e: React.FormEvent<{}>) => any
 };
@@ -34,12 +28,12 @@ type LibFieldsProps = {
 /*              CLASS DEFINITION               */
 /***********************************************/
 
-class LibFields extends React.Component<LibFieldsProps, {}> {
+class SourceFields extends React.Component<SourceFieldsProps, {}> {
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: LibFieldsProps) {
+    constructor(props: SourceFieldsProps) {
         super(props);
     }
 
@@ -53,20 +47,15 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
 
         // Destructuring props
         const {
-            currentTab,
-            onTabClick,
             onPrevClick,
             onNextClick
         } = this.props;
 
-        // VARIABLES 
-        const options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.css
-        ];
-
-        const title = 'EXTERNAL LIBRARIES';
-        const description = `Include any external resource (e.g. Boostrap, Bulma, 
-                            your own helper classes library, etc.)`;
+        const title = 'CORE CODE';
+        const description = `Include any core source Include any core 
+                            source Include any core source Include any core source 
+                            Include any core source Include any core source Include 
+                            any core source`;
 
 
         /*         MARKUP          */
@@ -102,7 +91,7 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
                         </div>
                         {/* Subtitle */}
                         <div className="fontFamily-openSans fontWeight-5 fontSize-xxl color-silver mt-2">
-                            External Libraries
+                            Core Code
                         </div>
                     </div>
 
@@ -112,23 +101,18 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
                 {/* STEP BY STEP: CONTENT */}
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
-                    {/* Type Code Tab Menu */}
-                    <CodeTabMenuContainer options={options} currentTab={currentTab} onTabClick={onTabClick}/>
-
                     {/* External Libs */}
-                    <div className="ExternalLibs d-flex flex-column w-100 pt-5">
-                        <AddLibFormContainer libType={LibTypeOptions.css}
-                                             label={title}
-                                             helpMsg={description}/>
+                    <div className="ExternalLibs d-flex flex-column w-100">
+                        <AddSourceFormContainer label={title} helpMsg={description}/>
 
-                        {/* Build external libs list */}
-                        <LibsListContainer libType={LibTypeOptions.css}/>
+                        {/* Build sources list */}
+                        <SourcesListContainer />
                     </div>
 
                 </div>
 
                 <div className="StepByStep__footer d-flex align-items-start mt-4">
-                    <Button label="Next"
+                    <Button label="Save"
                             onClick={onNextClick}
                             className="ml-auto" />
                 </div>
@@ -141,4 +125,4 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
 
 
 /* Export */
-export default LibFields;
+export default SourceFields;

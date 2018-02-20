@@ -100,7 +100,11 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
      * @returns {void}
      */
     handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { color, colorType } = this.props;
+        const { colorType, color = {
+            hex: appConfig.SECONDARY_COLOR_HEX,
+            rgba: appConfig.SECONDARY_COLOR_RGBA,
+            name: appConfig.SECONDARY_COLOR_NAME
+        } } = this.props;
         const { hex, rgba } = color;
         const target = e.target;
         const value = target.value;
@@ -135,16 +139,18 @@ extends React.Component<ChildProps<AddColorFormContainerProps & StateProps & Dis
     handleAddClick(e: React.FormEvent<{}>) {
         e.preventDefault();
 
-        const { colorType, color } = this.props;
-        const  { hex, rgba, name } = color;
-        const { r, g, b, a } = rgba;
+        const { colorType, color = {
+            hex: appConfig.SECONDARY_COLOR_HEX,
+            rgba: appConfig.SECONDARY_COLOR_RGBA,
+            name: appConfig.SECONDARY_COLOR_NAME
+        } } = this.props;
 
         // Create new color instance
         let colorModel: ColorModel = {
-            name,
-            hex,
+            name: color.name,
+            hex: color.hex,
             type: colorType,
-            rgba: { r, g, b, a }
+            rgba: color.rgba
         };
         
         this.props.actions.ui.addColorItem(colorModel, colorType);

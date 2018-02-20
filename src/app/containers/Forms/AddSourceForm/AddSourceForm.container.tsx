@@ -24,7 +24,10 @@ import { TypeOption as BtnTypeOption } from './../../../components/Buttons/Gener
 /********************************/
 
 /* Own Props */
-type AddSourceFormContainerProps = {};
+type AddSourceFormContainerProps = {
+    label: string,
+    helpMsg: string
+};
 
 /* Own States */
 type LocalStates = {};
@@ -103,13 +106,15 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
     /********************************/
     render() {
 
+        // Destructuring props & states
+        const { label, helpMsg } = this.props;
 
         /*         MARKUP          */
         /***************************/
         return (
 
-            <InlineFormWithoutInput label="core code"
-                                    helpMsg="Include any core code that you test test test test TEST"
+            <InlineFormWithoutInput label={label}
+                                    helpMsg={helpMsg}
                                     btnType={BtnTypeOption.secondary}
                                     btnLabel="Add"
                                     onBtnClick={this.handleAddClick}/>

@@ -53,9 +53,9 @@ const SourcesList: React.SFC<SourcesListProps> = ({
                 <li key={index} className="item">
 
                     {/* Sortable button */}
-                    <span className="icon-btn">
+                    <span className="icon-btn icon-btn--grab ml-3">
                         <Icon icon="menu"
-                            iconClass="icon stroke-darkSmoke strokeWidth-3"
+                            iconClass="icon stroke-darkSmoke strokeWidth-2"
                             width="18" height="18"/>
                     </span>
 
@@ -66,27 +66,27 @@ const SourcesList: React.SFC<SourcesListProps> = ({
 
                     {/* Source filename */}
                     <span className="text-tag">
-                        <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
+                        <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7">
                             {source.filename}
                         </span>
                     </span>
 
                     {/* Source preprocessor */}
-                    <span className="text-tag">
-                        <span className="sp-tag sp-tag--neutral sp-tag--xxs fontWeight-7 mr-2">
-                            {source.preprocessor}
+                    <span className="text-tag ml-auto">
+                        <span className="sp-tag sp-tag--primary sp-tag--xxs fontWeight-7 text-uppercase">
+                            {source.preprocessor.type}
                         </span>
                     </span>
 
                     {/* Edit Button */}
-                    <span className="icon-btn ml-auto mr-3" onClick={onEditClick(source)}>
+                    <span className="icon-btn mr-3" onClick={onEditClick(source)}>
                         <Icon icon="edit"
-                            iconClass="icon stroke-silver strokeWidth-3"
+                            iconClass="icon stroke-silver strokeWidth-2"
                             width="18" height="18"/>
                     </span>
 
                     {/* Delete Button */}
-                    <span className="icon-btn ml-auto mr-3" onClick={onDeleteClick(source.id)}>
+                    <span className="icon-btn mr-3" onClick={onDeleteClick(source.id)}>
                         <Icon icon="close"
                             iconClass="icon stroke-silver strokeWidth-3"
                             width="18" height="18"/>

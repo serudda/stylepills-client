@@ -21,5 +21,5 @@ export type Preprocessor = {
     id?: number | null;
     type: PreprocessorTypeOptions;
     compileTo: CompileToTypeOptions;
-    active: boolean;
+    active?: boolean;
 };

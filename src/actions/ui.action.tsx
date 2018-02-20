@@ -10,7 +10,10 @@ import { Basic as BasicColorModel, Color as ColorModel, ColorTypeOptions } from 
 import { Lib as LibModel, LibTypeOptions } from './../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 
-import { LibsList } from './../reducer/ui.reducer';
+import { 
+    LibsList,
+    SourceListItem
+ } from './../reducer/ui.reducer';
 
 import { 
     Option as CodeTabMenuOption 
@@ -37,16 +40,6 @@ interface ILocationChangeAction {
 
 export interface IClearUiAction {
     type: types.CLEAR_UI;
-}
-
-
-/* 
-    LISTS ACTIONS
-    state: lists
-*/
-
-export interface ILibsPanel {
-    libs: Array<LibModel>;
 }
 
 
@@ -129,6 +122,11 @@ export interface IChangeSourceItemOrderAction {
     type: types.CHANGE_SOURCE_ITEM_ORDER;
     id: number;
     newOrder: number;
+}
+
+export interface ILoadSourcesAction {
+    type: types.LOAD_SOURCES;
+    sources: Array<SourceListItem>;
 }
 
 
@@ -228,12 +226,6 @@ export interface IChangeLibsTabAction {
 
 
 /* 
-    CHANGE PREPROCESSOR ACTIONS
-    state: copied
-*/
-
-
-/* 
     COPY ACTIONS
     state: copied
 */
@@ -291,16 +283,6 @@ export interface IChangeSourceCodeAction {
 }
 
 
-/* 
-    LIBS PANEL ACTIONS
-    state: libsPanel
-*/
-
-export interface ILibsPanel {
-    libs: Array<LibModel>;
-}
-
-
 export type Action =
     // UI interaction
     ILocationChangeAction
@@ -313,6 +295,7 @@ export type Action =
 |   IEditSourceItemAction
 |   IDeleteSourceItemAction
 |   IChangeSourceItemOrderAction
+|   ILoadSourcesAction
 |   IAddColorItemAction
 |   IEditColorItemAction
 |   IDeleteColorItemAction
@@ -468,6 +451,20 @@ export const changeSourceItemOrderAction = (id: number, newOrder: number): Actio
         type: types.CHANGE_SOURCE_ITEM_ORDER,
         id,
         newOrder
+    };
+};
+
+
+/**
+ * @desc Return an action type, LOAD_LIBS
+ * to load Lib on State store
+ * @function loadSourcesAction
+ * @returns {Action}
+ */
+export const loadSourcesAction = (sources: Array<SourceModel> = []): Action => {
+    return {
+        type: types.LOAD_SOURCES,
+        sources
     };
 };
 

@@ -46,7 +46,7 @@ const InlineFormWithoutInput: React.SFC<InlineFormWithoutInputProps> = ({
 
             <div className="d-flex align-items-center">
 
-                <div className="d-flex flex-column">
+                <div className="d-flex flex-column mr-4">
                     
                     {label &&
                         <div className="fontSize-xs fontWeight-6 color-silver fontSmoothing-reset">
@@ -64,7 +64,8 @@ const InlineFormWithoutInput: React.SFC<InlineFormWithoutInputProps> = ({
 
                 <Button type={btnType} 
                         label={btnLabel}
-                        onClick={onBtnClick} />
+                        onClick={onBtnClick}
+                        className="ml-auto" />
 
             </div>
 

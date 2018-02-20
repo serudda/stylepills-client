@@ -21,6 +21,7 @@ import { CreateProjectInput } from './../../../../models/project/project.mutatio
 import BasicFieldsContainer from './Steps/containers/BasicFields.container';
 import ColorFieldsContainer from './Steps/containers/ColorFields.container';
 import LibFieldsContainer from './Steps/containers/LibFields.container';
+import SourceFieldsContainer from './Steps/containers/SourceFields.container';
 import ConfirmationContainer from './Steps/containers/Confirmation.container';
 import SuccessContainer from './Steps/containers/Success.container';
 
@@ -211,9 +212,14 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
                 );
             case 4:
                 return (
-                    <ConfirmationContainer submitCreation={this.submitCreation} />
+                    <SourceFieldsContainer nextStep={this.nextStep}
+                                            previousStep={this.previousStep} />
                 );
             case 5:
+                return (
+                    <ConfirmationContainer submitCreation={this.submitCreation} />
+                );
+            case 6:
                 return (
                     <SuccessContainer />
                 );

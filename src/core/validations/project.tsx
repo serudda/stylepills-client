@@ -8,6 +8,7 @@ import { functionsUtil } from './../utils/functionsUtil';
 
 import { Color as ColorModel, ColorTypeOptions } from './../../models/color/color.model';
 import { Lib as LibModel } from './../../models/lib/lib.model';
+import { Source as SourceModel } from './../../models/source/source.model';
 
 // -----------------------------------
 
@@ -33,6 +34,11 @@ export type ExternalLibsFields = {
     libs: Array<LibModel>
 };
 
+/* Sources Info Step */
+export type SourcesFields = {
+    sources: Array<SourceModel>
+};
+
 /* Fields without an especific Step */
 export type OtherFields = {
     authorId: number;
@@ -45,6 +51,7 @@ export type ProjectFormFields =
     Partial<BasicFields>        & 
     Partial<ColorFields>        & 
     Partial<ExternalLibsFields> & 
+    Partial<SourcesFields>      & 
     Partial<OtherFields>;
 
 /* Message error of each field */

@@ -14,12 +14,18 @@ import {
 } from './../../../actions/ui.action';
 
 import { Source as SourceModel } from './../../../models/source/source.model';
+import { getSourcesList } from './../../../selectors/ui.selector';
 
 import { 
     Option as ModalOption 
 } from './../../containers/Modals/ModalManager/ModalManager.container';
+import {
+    PreprocessorTypeOptions,
+    CompileToTypeOptions
+} from './../../../models/preprocessor/preprocessor.model';
 
 import SourcesList from './../../components/SourcesList/SourcesList';
+import { SourceListItem } from '../../../reducer/ui.reducer';
 
 // -----------------------------------
 
@@ -81,9 +87,10 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      * @example this.handleEditClick()
      * @public
      * @param {SourceModel} source - source entity
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    handleEditClick(source: SourceModel) {
+    handleEditClick = (source: SourceModel) => (e: React.FormEvent<{}>) => {
         this._showModal(source);
     }
 
@@ -94,9 +101,10 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      * @example this.handleDeleteClick()
      * @public
      * @param {number} id - source id
+     * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    handleDeleteClick(id: number) {
+    handleDeleteClick = (id: number) => (e: React.FormEvent<{}>) => {
         this._deleteSourceItem(1);
     }
 
@@ -115,7 +123,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      */
     private _showModal(source: SourceModel) {
         // TODO: Cambiar a SourceModal
-        this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {source});
+        // this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {source});
     }
 
 
@@ -128,7 +136,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      * @returns {void}
      */
     private _deleteSourceItem(id: number) {
-        this.props.actions.ui.deleteSourceItem(id);
+        // this.props.actions.ui.deleteSourceItem(id);
     }
 
 
@@ -138,7 +146,36 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
     render() {
 
         // Destructuring props & state
-        const { sourcesList } = this.props;
+        // const { sourcesList } = this.props;
+
+        const sourcesList: Array<SourceListItem> = [{
+            name: 'global',
+            filename: 'global.scss',
+            code: '.class {}',
+            preprocessor: {
+                type: PreprocessorTypeOptions.sass,
+                compileTo: CompileToTypeOptions.css
+            },
+            order: 1
+        }, {
+            name: 'variables',
+            filename: 'variables.scss',
+            code: '.class {}',
+            preprocessor: {
+                type: PreprocessorTypeOptions.sass,
+                compileTo: CompileToTypeOptions.css
+            },
+            order: 2
+        }, {
+            name: 'helper classes',
+            filename: 'helper-classes.scss',
+            code: '.class {}',
+            preprocessor: {
+                type: PreprocessorTypeOptions.sass,
+                compileTo: CompileToTypeOptions.css
+            },
+            order: 3
+        }];
 
         /*         MARKUP          */
         /***************************/
@@ -158,12 +195,8 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    
-    const { lists } = state.ui;
-    const { sourcesList } = lists;
-
     return {
-        sourcesList
+        sourcesList: getSourcesList(state)
     };
 }
 

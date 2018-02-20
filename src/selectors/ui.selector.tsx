@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 import { IRootState } from './../reducer/reducer.config';
 import { functionsUtil } from './../core/utils/functionsUtil';
 import {
+    SourceListItem,
     LibListItem, LibsList,
     ColorListItem, ColorsList
 } from './../reducer/ui.reducer';
@@ -86,6 +87,21 @@ export const getColorListFormatted = createSelector(
         return colorPalette;
     }
 );
+
+
+/* 
+    LISTS SELECTORS
+    state: ui.lists.sourcesList
+*/
+
+
+/**
+ * @desc Get sourcesList from state store
+ * @function getSourcesList
+ * @returns {SourcesList}
+ */
+export const getSourcesList = (state: IRootState): Array<SourceListItem> => state.ui.lists.sourcesList;
+
 
 
 /* 
