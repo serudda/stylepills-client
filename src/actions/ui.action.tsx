@@ -282,7 +282,6 @@ export interface IChangeSourceCodeAction {
     sourceCodePanel: ISourceCodePanel;
 }
 
-
 export type Action =
     // UI interaction
     ILocationChangeAction
