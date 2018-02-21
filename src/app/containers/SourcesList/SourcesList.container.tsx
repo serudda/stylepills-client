@@ -21,7 +21,8 @@ import {
 } from './../../containers/Modals/ModalManager/ModalManager.container';
 import {
     PreprocessorTypeOptions,
-    CompileToTypeOptions
+    CompileToTypeOptions,
+    PreprocessorNameOptions
 } from './../../../models/preprocessor/preprocessor.model';
 
 import SourcesList from './../../components/SourcesList/SourcesList';
@@ -149,29 +150,38 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
         // const { sourcesList } = this.props;
 
         const sourcesList: Array<SourceListItem> = [{
+            id: 1,
             name: 'global',
             filename: 'global.scss',
             code: '.class {}',
             preprocessor: {
+                id: 1,
+                name: PreprocessorNameOptions.sass,
                 type: PreprocessorTypeOptions.sass,
                 compileTo: CompileToTypeOptions.css
             },
             order: 1
         }, {
+            id: 2,
             name: 'variables',
             filename: 'variables.scss',
             code: '.class {}',
             preprocessor: {
+                id: 2,
                 type: PreprocessorTypeOptions.sass,
+                name: PreprocessorNameOptions.sass,
                 compileTo: CompileToTypeOptions.css
             },
             order: 2
         }, {
+            id: 3,
             name: 'helper classes',
             filename: 'helper-classes.scss',
             code: '.class {}',
             preprocessor: {
+                id: 3,
                 type: PreprocessorTypeOptions.sass,
+                name: PreprocessorNameOptions.sass,
                 compileTo: CompileToTypeOptions.css
             },
             order: 3

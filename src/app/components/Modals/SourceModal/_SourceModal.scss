@@ -38,7 +38,7 @@
 }
 
 /* DIMMER (MODAL BACKDROP) */
-body.atomDetailsModal-open { 
+body.sourceModal-open { 
     .ui.dimmer {
         background-color: map-get($color, darkSnow);
     }

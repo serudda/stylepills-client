@@ -10,7 +10,6 @@ import {
 } from './../../../../../models/preprocessor/preprocessor.query';
 
 import SelectList from './../../../../components/Inputs/GenericSelectInput/GenericSelectInput';
-import { PreprocessorTypeOptions } from '../../../../../models/preprocessor/preprocessor.model';
 
 
 // -----------------------------------
@@ -22,7 +21,7 @@ import { PreprocessorTypeOptions } from '../../../../../models/preprocessor/prep
 
 /* Own Props */
 type PreprocessorSelectListProps = {
-    onChange: (name: string, value: string) => void
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 };
 
 /* Own States */
@@ -63,8 +62,8 @@ extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, Get
 
     /**
      * @desc Handle Select List Change
-     * @method _handleChange
-     * @example this._handleChange()
+     * @method handleChange
+     * @example this.handleChange()
      * @public 
      * @param {AtomModel} atom - atom data
      * @param {any} e - Event
@@ -72,17 +71,18 @@ extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, Get
      */
     handleChange (e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault();
-        
-        // VARIABLES
-        let value = e.target.value;
-        let name = e.target.name;
 
-        // Update the state
-        this.setState((previousState) => {
-            return { ...previousState, value };
-        }, () => {
-            this.props.onChange(name, value);
-        });
+        if (this.props.onChange) {
+            this.props.onChange(e);
+        } else {
+            // VARIABLES
+            let value = e.target.value;
+
+            // Update the state
+            this.setState((previousState) => {
+                return { ...previousState, value };
+            });
+        }
     }
 
     
@@ -100,7 +100,7 @@ extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, Get
         /***************************/
         return (
             <SelectList value={this.state.value}
-                        name="allPreprocessors"
+                        name="preprocessor"
                         isBlock={true}
                         defaultOption="None"
                         options={data.allPreprocessors ? data.allPreprocessors : null}

@@ -4581,7 +4581,7 @@ body.duplicateModal-open .ui.dimmer {
     right: 4px; }
 
 /* DIMMER (MODAL BACKDROP) */
-body.atomDetailsModal-open .ui.dimmer {
+body.sourceModal-open .ui.dimmer {
   background-color: #EFF2F7; }
 
 /**********************************************************/

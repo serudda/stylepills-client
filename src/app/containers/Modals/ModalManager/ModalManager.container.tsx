@@ -9,7 +9,7 @@ import { IRootState } from './../../../../reducer/reducer.config';
 
 import AtomDetailsModalContainer from './../AtomDetailsModal/AtomDetailsModal.container';
 import DuplicateModalContainer from './../../../../components/common/Modal/DuplicateModal/DuplicateModal.container';
-import SourceModal from './../../../components/Modals/SourceModal/SourceModal';
+import SourceModalContainer from './../SourceModal/SourceModal.container';
 
 // -----------------------------------
 
@@ -17,7 +17,7 @@ import SourceModal from './../../../components/Modals/SourceModal/SourceModal';
 const modalComponentList = {
     AtomDetailsModal: AtomDetailsModalContainer,
     DuplicateModal: DuplicateModalContainer,
-    SourceModal
+    SourceModal: SourceModalContainer
 };
 
 
