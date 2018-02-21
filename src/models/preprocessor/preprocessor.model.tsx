@@ -10,6 +10,14 @@ export enum PreprocessorTypeOptions {
     stylus = 'stylus'
 }
 
+/* Possible preprocessor name options */
+export enum PreprocessorNameOptions {
+    sass = 'SASS',
+    scss = 'SCSS',
+    less = 'Less',
+    stylus = 'Stylus'
+}
+
 /* Possible compileTo type options */
 export enum CompileToTypeOptions {
     html = 'html',
@@ -18,8 +26,9 @@ export enum CompileToTypeOptions {
 }
 
 export type Preprocessor = {
-    id?: number | null;
+    id: number | null;
     type: PreprocessorTypeOptions;
+    name: PreprocessorNameOptions
     compileTo: CompileToTypeOptions;
     active?: boolean;
 };

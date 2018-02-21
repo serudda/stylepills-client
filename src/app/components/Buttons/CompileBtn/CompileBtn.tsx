@@ -51,7 +51,7 @@ class CompileBtn extends React.Component<CompileBtnProps, {}> {
     render() {
 
         // Destructuring props
-        const { 
+        const {
             compileTo = CompileToTypeOptions.css,
             label = `View ${compileTo}`,
             onClick
