@@ -3605,6 +3605,41 @@ NOTE: Boostrap 4 has a flex set
   .sp-input--block {
     width: 100%; }
 
+.sp-special-input {
+  border: 0 hidden transparent;
+  border-bottom: 1px solid #C0CCDA;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  background-color: transparent;
+  color: #3C4858;
+  display: block; }
+  .sp-special-input.error {
+    border-color: #FF4949; }
+  .sp-special-input::-moz-placeholder  {
+    color: #C0CCDA; }
+  .sp-special-input::-webkit-input-placeholder {
+    color: #C0CCDA; }
+  .sp-special-input::placeholder {
+    color: #C0CCDA; }
+  .sp-special-input:focus {
+    border-color: #33ADA9;
+    outline: 0; }
+  .sp-special-input--sm {
+    padding: 0 10px;
+    height: 30px;
+    font-size: 13px; }
+  .sp-special-input--md {
+    padding: 0 12px;
+    height: 40px;
+    font-size: 15px; }
+  .sp-special-input--lg {
+    padding: 0 13px;
+    height: 45px;
+    font-size: 16px; }
+  .sp-special-input--block {
+    width: 100%; }
+
 /* TEXTAREA INPUT */
 .sp-textarea {
   border: 1px solid #C0CCDA;

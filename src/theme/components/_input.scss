@@ -15,6 +15,17 @@
     display: block;
 }
 
+@mixin special-input {
+    border: 0 hidden transparent;
+    border-bottom: 1px solid map-get($color, extraDarkSmoke);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    background-color: transparent;
+    color: map-get($color, slate);
+    display: block;
+}
+
 .sp-input {
     @include input;
 
@@ -60,6 +71,54 @@
     &--block {
         width: 100%;
     }
+}
+
+.sp-special-input {
+    @include special-input;
+
+    &.error {
+        border-color: map-get($color, negative);
+    }
+
+    &::-moz-placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &::-webkit-input-placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &::placeholder {
+        color: map-get($color, extraDarkSmoke);
+    }
+
+    &:focus {
+        border-color: map-get($color, secondary);
+        outline: 0;
+    }
+
+    &--sm {
+        padding: 0 10px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    &--md {
+        padding: 0 12px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    &--lg {
+        padding: 0 13px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    &--block {
+        width: 100%;
+    }
+
 }
 
 

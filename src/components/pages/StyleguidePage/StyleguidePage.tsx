@@ -501,7 +501,7 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
             {/* Inputs */}
             <div className="row mb-5">
-                <div className="col">
+                <div className="col-12">
                     <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Inputs</h2>
 
                     {/* small text input */}
@@ -524,6 +524,11 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
 
                     <br/>
 
+                    {/* large text input (error) */}
+                    <input type="text" placeholder="Large text input error" className="sp-input sp-input--lg error" />
+
+                    <br/>
+
                     {/* medium block search input */}
                     <div className="sp-search sp-search--md">
                         <Icon icon="search"
@@ -531,6 +536,34 @@ const StyleguidePage: React.SFC<StyleguidePageProps> = () => {
                               width="14" height="14"/>
                         <input type="text" placeholder="Search" className="sp-search__input sp-input sp-input--md sp-input--block" />
                     </div>
+
+                </div>
+
+                <div className="col-12">
+                    <h2 className="m-0 color-silver mb-4 borderBottom-2 borderColor-darkSmoke pb-2">Special Inputs</h2>
+
+                    {/* small special text input */}
+                    <input type="text" placeholder="Small text input" className="sp-special-input sp-special-input--sm" />
+
+                    <br/>
+
+                    {/* medium special text input */}
+                    <input type="text" placeholder="Medium text input" className="sp-special-input sp-special-input--md" />
+
+                    <br/>
+
+                    {/* large special text input */}
+                    <input type="text" placeholder="e.g. Helper classes, Global, Variables, Core" className="sp-special-input sp-special-input--lg" />
+
+                    <br/>
+
+                    {/* medium special block text input */}
+                    <input type="text" placeholder="Medium block text input" className="sp-special-input sp-special-input--md sp-special-input--block" />
+
+                    <br/>
+
+                    {/* large special text input (error) */}
+                    <input type="text" placeholder="Large text input error" className="sp-special-input sp-special-input--lg error" />
 
                 </div>
             </div>
