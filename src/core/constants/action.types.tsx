@@ -154,6 +154,20 @@ export type CREATE_PROJECT_SUCCESS = typeof CREATE_PROJECT_SUCCESS;
 export const CREATE_PROJECT_FAILURE = 'CREATE_PROJECT_FAILURE';
 export type CREATE_PROJECT_FAILURE = typeof CREATE_PROJECT_FAILURE;
 
+/* Preprocessor Actions Type */
+export const CLEAR_PREPROCESSOR_STATE = 'CLEAR_PREPROCESSOR_STATE';
+export type CLEAR_PREPROCESSOR_STATE = typeof CLEAR_PREPROCESSOR_STATE;
+
+export const CHANGE_PREPROCESSOR = 'CHANGE_PREPROCESSOR';
+export type CHANGE_PREPROCESSOR = typeof CHANGE_PREPROCESSOR;
+
+export const COMPILE_CODE_REQUEST = 'COMPILE_CODE_REQUEST';
+export type COMPILE_CODE_REQUEST = typeof COMPILE_CODE_REQUEST;
+export const COMPILE_CODE_SUCCESS = 'COMPILE_CODE_SUCCESS';
+export type COMPILE_CODE_SUCCESS = typeof COMPILE_CODE_SUCCESS;
+export const COMPILE_CODE_FAILURE = 'COMPILE_CODE_FAILURE';
+export type COMPILE_CODE_FAILURE = typeof COMPILE_CODE_FAILURE;
+
 /*
  * Es necesario crear un 'type' a cada constante si queremos asignarla despues a una interface
  *      export interface getUiComponent {
