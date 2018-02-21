@@ -7,14 +7,13 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 
-import { showModalAction } from './../../../../actions/ui.action';
+import { compileCodeAction } from './../../../../actions/preprocessor.action';
+import {
+    CompileToTypeOptions,
+    PreprocessorTypeOptions
+} from './../../../../models/preprocessor/preprocessor.model';
 
-import { 
-    Option as ModalOption 
-} from './../../../containers/Modals/ModalManager/ModalManager.container';
-
-import InlineFormWithoutInput from './../../../components/Forms/InlineFormWithoutInput/InlineFormWithoutInput';
-import { TypeOption as BtnTypeOption } from './../../../components/Buttons/GenericBtn/GenericBtn';
+import CompileBtn from './../../../components/Buttons/CompileBtn/CompileBtn';
 
 // -----------------------------------
 
@@ -24,9 +23,11 @@ import { TypeOption as BtnTypeOption } from './../../../components/Buttons/Gener
 /********************************/
 
 /* Own Props */
-type AddSourceFormContainerProps = {
+type CompileBtnContainerProps = {
+    preprocessorType: PreprocessorTypeOptions,
+    compileTo: CompileToTypeOptions,
     label: string,
-    helpMsg: string
+    codeToCompile: string
 };
 
 /* Own States */
@@ -38,8 +39,8 @@ type StateProps = {};
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        ui: {
-            showModal: (modalType: ModalOption, modalProps: any) => void;
+        ui: { 
+            compileCode: (preprocessorType: PreprocessorTypeOptions, code: string) => void;
         }
     };
 };
@@ -48,18 +49,18 @@ type DispatchProps = {
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class AddSourceFormContainer 
-extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+class CompileBtnContainer 
+extends React.Component<ChildProps<CompileBtnContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: AddSourceFormContainerProps & StateProps & DispatchProps) {
+    constructor(props: CompileBtnContainerProps & StateProps & DispatchProps) {
         super(props);
 
         // Bind methods
-        this.handleAddClick = this.handleAddClick.bind(this);
+        this.handleCompileClick = this.handleCompileClick.bind(this);
     }
 
 
@@ -69,16 +70,19 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
 
 
     /**
-     * @desc HandleAddClick
-     * @method handleAddClick
-     * @example this.handleAddClick()
+     * @desc HandleCompileClick
+     * @method handleCompileClick
+     * @example this.handleCompileClick()
      * @public
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private handleAddClick(e: React.FormEvent<{}>) {
-        e.preventDefault();
-        this._showModal(1);
+    handleCompileClick (e: React.FormEvent<{}>) {
+        const { 
+            preprocessorType = PreprocessorTypeOptions.scss, 
+            codeToCompile = CompileToTypeOptions.css 
+        } = this.props;
+        this._compileCode(preprocessorType, codeToCompile);
     }
 
 
@@ -88,16 +92,16 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
 
 
     /**
-     * @desc Show Modal 
-     * @method _showModal
-     * @example this._showModal()
+     * @desc Compile Code
+     * @method _compileCode
+     * @example this._compileCode()
      * @private
-     * @param {number} atomId - atom id
+     * @param {string} type - compile options (e.g. 'html', 'css', 'js')
      * @returns {void}
      */
-    private _showModal(atomId: number) {
-        // TODO: Cambiar a SourceModal
-        this.props.actions.ui.showModal(ModalOption.SourceModal, null);
+    private _compileCode(preprocessorType: PreprocessorTypeOptions, code: string) {
+        // Launch Compile Action
+        this.props.actions.ui.compileCode(preprocessorType, code);
     }
 
 
@@ -106,19 +110,14 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
     /********************************/
     render() {
 
-        // Destructuring props & states
-        const { label, helpMsg } = this.props;
+        // Destructuring props & state
+        const { label, compileTo = CompileToTypeOptions.css } = this.props;
+
 
         /*         MARKUP          */
         /***************************/
         return (
-
-            <InlineFormWithoutInput label={label}
-                                    helpMsg={helpMsg}
-                                    btnType={BtnTypeOption.secondary}
-                                    btnLabel="Add"
-                                    onBtnClick={this.handleAddClick}/>
-            
+            <CompileBtn label={label} onClick={this.handleCompileClick} compileTo={compileTo}/>
         );
     }
 
@@ -132,7 +131,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                showModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
+                compileCode: (preprocessorType, code) => dispatch(compileCodeAction(preprocessorType, code))
             }
         }
     };
@@ -142,11 +141,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const addSourceFormContainerConnect = connect(null, mapDispatchToProps);
+const compileBtnContainerConnect = connect(null, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    addSourceFormContainerConnect
-)(AddSourceFormContainer);
+    compileBtnContainerConnect
+)(CompileBtnContainer);

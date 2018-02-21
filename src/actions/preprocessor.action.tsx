@@ -8,6 +8,10 @@ import {
     PreprocessorTypeOptions
 } from './../models/preprocessor/preprocessor.model';
 
+import { 
+    sassCompilerService, 
+    IResponse as SassCompilerResponse } from './../core/services/compilers/sassCompiler.service';
+
 
 /************************************/
 /*            INTERFACES            */
@@ -129,3 +133,44 @@ export const compileCodeFailureAction = (message: string): Action => {
         message
     };
 };
+
+/**
+ * @desc Compile Code Action
+ * @function compileCodeAction
+ * @param {CreateProjectInput} input - create project input data
+ * @returns {Promise<any>}
+ */
+export const compileCodeAction = (preprocessor: PreprocessorTypeOptions, code: string) => {
+    return (dispatch: Function): Promise<SassCompilerResponse> => {
+
+        // Request Compile Code
+        dispatch(requestCompileCodeAction(preprocessor));
+        
+        switch (preprocessor) {
+            case PreprocessorTypeOptions.sass:
+                return sassCompilerService.compile(code).then(_responseFunction(preprocessor, code, dispatch));
+            default:
+                return null;
+        }
+
+    };
+
+};
+
+const _responseFunction = (preprocessor: PreprocessorTypeOptions, code: string, dispatch: Function) => 
+    (response: SassCompilerResponse) => {
+        let { ok, message, text } = response;
+
+        if (ok) {
+            // Created Successful
+            dispatch(receiveCompileCodeAction(preprocessor, code, text));
+        } else {
+            // Created Failure
+            dispatch(compileCodeFailureAction(message));
+        }
+
+        return {
+            ok,
+            message
+        };
+    };

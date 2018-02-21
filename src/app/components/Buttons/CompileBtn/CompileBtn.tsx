@@ -9,6 +9,9 @@ import Button, {
     SizeOption as BtnSizeOption
 } from './../GenericBtn/GenericBtn';
 
+import {
+    CompileToTypeOptions
+} from './../../../../models/preprocessor/preprocessor.model';
 // -----------------------------------
 
 
@@ -16,16 +19,9 @@ import Button, {
 /*      INTERFACES & TYPES      */
 /********************************/
 
-/* Possible options */
-export enum Option {
-    html = 'html',
-    css = 'css',
-    js = 'js'
-}
-
 /* Own Props */
 type CompileBtnProps = {
-    type?: Option;
+    compileTo?: CompileToTypeOptions;
     label: string;
     onClick: (e: React.FormEvent<{}>) => any
 };
@@ -56,8 +52,8 @@ class CompileBtn extends React.Component<CompileBtnProps, {}> {
 
         // Destructuring props
         const { 
-            type = Option.css,
-            label = `View ${type}`,
+            compileTo = CompileToTypeOptions.css,
+            label = `View ${compileTo}`,
             onClick
         } = this.props;
 
@@ -74,7 +70,7 @@ class CompileBtn extends React.Component<CompileBtnProps, {}> {
                             className="text-capitalize"/>}
                 position="top right"
                 size="small">
-                    <span> Compile <strong className="text-uppercase">{type}</strong></span>
+                    <span> Compile <strong className="text-uppercase">{compileTo}</strong></span>
             </Popup>
         );
 
