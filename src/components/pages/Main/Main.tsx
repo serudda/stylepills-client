@@ -4,10 +4,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Switch, Route, withRouter, Redirect, RouteProps, RouteComponentProps } from 'react-router-dom';
+import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { User } from '../../../models/user/user.model';
+
+import { PrivateRoute } from './../../../core/hocs/privateRoute.hoc';
 
 import HomePage from '../HomePage/HomePage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
@@ -36,34 +38,6 @@ type LocalStates = {};
 type StateProps = {
     isAuthenticated: boolean;
     user: User;
-};
-
-interface IPrivateRouteProps extends RouteProps {
-    isAuthenticated: boolean;
-}
-
-
-/**
- * @desc Represent Private Route Structure
- * @function PrivateRoute
- * @type STATELESS FUNCTIONAL COMPONENT (SFC)
- * @returns page view & routes list
- */
-export const PrivateRoute: React.SFC<IPrivateRouteProps> = ({
-    component, isAuthenticated, ...rest
-}) => {
-    return (
-        <Route
-        {...rest}
-        render={props => isAuthenticated ? React.createElement(component, props) 
-                : <Redirect
-                    to={{
-                        pathname: '/explore',
-                        state: { from: props.location },
-                    }}
-                />}
-        />
-    );
 };
 
 
