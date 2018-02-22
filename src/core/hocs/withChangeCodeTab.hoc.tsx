@@ -16,35 +16,46 @@ import {
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
 
-// State of the HOC you need to compute the InjectedProps
-interface State {
+//        HOC PROPS & STATES      
+// ===================================
+
+type HOCProps = {
+    /* Own HOC Props */
+} & HOCStateProps & HOCDispatchProps;
+
+type HOCStates = {};
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
+
+/* Mapped State to Props */
+type HOCStateProps = {
     tab: CodeTabMenuOption;
-}
+};
 
-// Props you want the resulting component to take (besides the props of the wrapped component)
-interface ExternalProps {
-    tab: CodeTabMenuOption;
-}
-
-interface DispatchProps {
+/* Mapped Dispatches to Props */
+type HOCDispatchProps = {
     actions: {
         ui: { 
             changeSourceCodeTab: (tab: CodeTabMenuOption) => void;
         }
     };
-}
+};
 
-// Props the HOC adds to the wrapped component
+
+//      INJECTED PROPS & STATES
+// ===================================
+
 export interface InjectedProps {
-    tab: CodeTabMenuOption;
+    tab?: CodeTabMenuOption;
     onTabClick(tab: CodeTabMenuOption): void;
 }
 
-// Options for the HOC factory that are not dependent on props values
+
+//           HOC'S OPTIONS 
+// ===================================
 interface Options {
     key?: string;
 }
@@ -55,31 +66,35 @@ interface Options {
 /***********************************************/
 
 export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
-    <TOriginalProps extends {}>(
-        Component: (React.ComponentClass<TOriginalProps & InjectedProps>
-            | React.StatelessComponent<TOriginalProps & InjectedProps>)
+    <WrappedComponentProps extends {}>(
+        Component: (React.ComponentClass<WrappedComponentProps & InjectedProps>
+                | React.StatelessComponent<WrappedComponentProps & InjectedProps>)
     ) => {
 
-    // Do something with the options here or some side effects ...
 
-    type ResultProps = TOriginalProps & ExternalProps & DispatchProps;
+    /***********************************************/
+    /*              CLASS DEFINITION               */
+    /***********************************************/
+    class WithChangeCodeTab 
+    extends React.Component<WrappedComponentProps & HOCProps, HOCStates> {
 
-    const result = class WithChangeCodeTab extends React.Component<ResultProps, State> {
 
-
-        // Define how your HOC is shown in ReactDevTools
+        /********************************/
+        /*   DISPLAYNAME ON WEBDEVTOOL  */
+        /********************************/
         static displayName = `WithChangeCodeTab(${Component.displayName || Component.name})`;
 
 
         /********************************/
         /*         CONSTRUCTOR          */
         /********************************/
-        constructor(props: ResultProps) {
+        constructor(props: WrappedComponentProps & HOCProps) {
             super(props);
 
             // Bind methods
-            this.onTabClick = this.onTabClick.bind(this);
+            this.handleTabClick = this.handleTabClick.bind(this);
         }
+
 
         /********************************/
         /*        PUBLIC METHODS        */
@@ -94,7 +109,7 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
          * @param {React.FormEvent<{}>} e - Event
          * @returns {void}
          */
-        onTabClick(tab: CodeTabMenuOption) { 
+        handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
             this._changeTab(tab);
         }
 
@@ -103,7 +118,6 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
         /*       PRIVATE METHODS        */
         /********************************/
 
-        
         /**
          * @desc Change Tab
          * @method _changeTab
@@ -113,10 +127,8 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
          * @returns {void}
          */
         private _changeTab(tab: CodeTabMenuOption) {
-            // this.props.actions.ui.changeSourceCodeTab(tab);
-            console.log(`Click on change Tab to ${tab}`);
+            this.props.actions.ui.changeSourceCodeTab(tab);
         }
-
 
 
         /********************************/
@@ -126,21 +138,20 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
 
             /*         MARKUP          */
             /***************************/
-            // Render all your added markup
             return (
                 <div>
-                    {/* render the wrapped component like this, passing the props and state */}
-                    <Component onTabClick={this.onTabClick} {...this.props} {...this.state} />
+                    <Component onTabClick={this.handleTabClick} {...this.props} {...this.state} />
                 </div>
             );
         }
-    };
+
+    }
 
 
     /********************************/
     /*      MAP STATE TO PROPS      */
     /********************************/
-    function mapStateToProps(state: IRootState): State {
+    function mapStateToProps(state: IRootState): HOCStates {
         
         const { tabs } = state.ui;
         const { sourceCodeTab } = tabs;
@@ -155,7 +166,7 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
     /********************************/
     /*     MAP DISPATCH TO PROPS    */
     /********************************/
-    function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    function mapDispatchToProps(dispatch: Dispatch<IRootState>): HOCDispatchProps {
         return {
             actions: {
                 ui: {
@@ -169,7 +180,6 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
     /********************************/
     /*         REDUX CONNECT        */
     /********************************/
-    return connect(mapStateToProps, mapDispatchToProps)(result);
-
+    return connect(mapStateToProps, mapDispatchToProps)(WithChangeCodeTab);
 
 };

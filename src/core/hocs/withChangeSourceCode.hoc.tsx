@@ -16,35 +16,46 @@ import {
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        HOC PROPS & STATES      
+// ===================================
 
-// State of the HOC you need to compute the InjectedProps
-interface State {
-}
-
-// Props you want the resulting component to take (besides the props of the wrapped component)
-interface ExternalProps {
+type HOCProps = {
     html: string;
     css: string;
-    tab: CodeTabMenuOption;
-}
+} & HOCStateProps & HOCDispatchProps;
 
-interface DispatchProps {
+type HOCStates = {};
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
+
+/* Mapped State to Props */
+type HOCStateProps = {
+    codeType: CodeTabMenuOption;
+};
+
+/* Mapped Dispatches to Props */
+type HOCDispatchProps = {
     actions: {
         ui: { 
             changeSourceCode: (codeType: string, codeProps: any) => void;
         }
     };
-}
+};
 
-// Props the HOC adds to the wrapped component
+
+//      INJECTED PROPS & STATES
+// ===================================
+
 export interface InjectedProps {
+    codeType: CodeTabMenuOption;
     onChange(newCode: string): void;
 }
 
-// Options for the HOC factory that are not dependent on props values
+
+//           HOC'S OPTIONS 
+// ===================================
 interface Options {
     key?: string;
 }
@@ -55,31 +66,35 @@ interface Options {
 /***********************************************/
 
 export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
-    <TOriginalProps extends {}>(
-        Component: (React.ComponentClass<TOriginalProps & InjectedProps>
-            | React.StatelessComponent<TOriginalProps & InjectedProps>)
+    <WrappedComponentProps extends {}>(
+        Component: (React.ComponentClass<WrappedComponentProps & InjectedProps>
+                | React.StatelessComponent<WrappedComponentProps & InjectedProps>)
     ) => {
 
-    // Do something with the options here or some side effects ...
 
-    type ResultProps = TOriginalProps & ExternalProps & DispatchProps;
+    /***********************************************/
+    /*              CLASS DEFINITION               */
+    /***********************************************/
+    class WithChangeSourceCode 
+    extends React.Component<WrappedComponentProps & HOCProps, HOCStates> {
 
-    const result = class WithChangeSourceCode extends React.Component<ResultProps, State> {
 
-
-        // Define how your HOC is shown in ReactDevTools
+        /********************************/
+        /*   DISPLAYNAME ON WEBDEVTOOL  */
+        /********************************/
         static displayName = `WithChangeSourceCode(${Component.displayName || Component.name})`;
 
 
         /********************************/
         /*         CONSTRUCTOR          */
         /********************************/
-        constructor(props: ResultProps) {
+        constructor(props: WrappedComponentProps & HOCProps) {
             super(props);
 
             const DEFAULT_HTML_CODE = '<!-- Put your HTML code here -->';
             const DEFAULT_CSS_CODE = '/* Put your CSS code here */';
 
+            // Init local states
             this.state = {
                 html: props.html || DEFAULT_HTML_CODE,
                 css: props.css || DEFAULT_CSS_CODE
@@ -88,6 +103,7 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
             // Bind methods
             this.onChange = this.onChange.bind(this);
         }
+
 
         /********************************/
         /*        PUBLIC METHODS        */
@@ -104,7 +120,7 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
          * @returns {void}
          */
         onChange(newCode: string) {
-            this._updateCode(this.props.tab, newCode);
+            this._updateCode(this.props.codeType, newCode);
         }
 
 
@@ -144,7 +160,6 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
 
             /*         MARKUP          */
             /***************************/
-            // Render all your added markup
             return (
                 <div>
                     {/* render the wrapped component like this, passing the props and state */}
@@ -152,13 +167,30 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
                 </div>
             );
         }
-    };
+
+
+    }
+
+
+    /********************************/
+    /*      MAP STATE TO PROPS      */
+    /********************************/
+    function mapStateToProps(state: IRootState): HOCStates {
+        
+        const { tabs } = state.ui;
+        const { sourceCodeTab } = tabs;
+        const { tab } = sourceCodeTab;
+
+        return {
+            codeType: tab
+        };
+    }
 
 
     /********************************/
     /*     MAP DISPATCH TO PROPS    */
     /********************************/
-    function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    function mapDispatchToProps(dispatch: Dispatch<IRootState>): HOCDispatchProps {
         return {
             actions: {
                 ui: {
@@ -172,7 +204,7 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
     /********************************/
     /*         REDUX CONNECT        */
     /********************************/
-    return connect(null, mapDispatchToProps)(result);
+    return connect(mapStateToProps, mapDispatchToProps)(WithChangeSourceCode);
 
 
 };
