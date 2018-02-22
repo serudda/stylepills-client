@@ -13,6 +13,8 @@ import {
     Option as CodeTabMenuOption 
 } from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
+import { getSourceCodeTab } from './../../selectors/ui.selector';
+
 // -----------------------------------
 
 
@@ -152,13 +154,8 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
     /*      MAP STATE TO PROPS      */
     /********************************/
     function mapStateToProps(state: IRootState): HOCStates {
-        
-        const { tabs } = state.ui;
-        const { sourceCodeTab } = tabs;
-        const { tab } = sourceCodeTab;
-
         return {
-            tab
+            tab: getSourceCodeTab(state)
         };
     }
 

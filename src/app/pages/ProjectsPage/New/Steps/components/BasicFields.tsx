@@ -28,11 +28,16 @@ import Icon from './../../../../../components/Icon/Icon';
 
 /* Own Props */
 type BasicFieldsProps = {
+    /* Input values */
     nameValue: string,
     websiteValue: string,
     descriptionValue: string,
     privateValue: boolean,
+
+    /* Validations */
     validationErrors?: IValidationError,
+
+    /* Methods */
     onInputChange: (e: React.FormEvent<{}>) => any,
     onNextClick: (e: React.FormEvent<{}>) => any
 };

@@ -18,6 +18,10 @@ import {
     Lib as LibModel
 } from './../models/lib/lib.model';
 
+import { 
+    Option as CodeTabMenuOption 
+} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+
 // -----------------------------------
 
 // =================================================================
@@ -212,6 +216,27 @@ export const makeGetCurrentColorByType = () => { // NOTE: 1
             return currentColor;
         });
 };
+
+
+
+// ----------------------------------------------------------------------------------
+
+
+/* 
+    TABS SELECTORS
+    state: ui.tabs.sourceCodeTab
+*/
+
+/**
+ * @desc Get sourceCodeTab tab from state store
+ * @function getSourceCodeTab
+ * @returns {CodeTabMenuOption}
+ */
+export const getSourceCodeTab = (state: IRootState): CodeTabMenuOption => state.ui.tabs.sourceCodeTab.tab;
+
+
+
+
 
 
 /*

@@ -2,12 +2,19 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 
+import { IRootState } from './../../../../../reducer/reducer.config';
+
+import { Preprocessor as PreprocessorModel } from './../../../../../models/preprocessor/preprocessor.model';
 import { 
     GET_ALL_PREPROCESSORS_QUERY, 
     GetAllResponse 
 } from './../../../../../models/preprocessor/preprocessor.query';
+import { getCurrentPreprocessor } from './../../../../../selectors/preprocessor.selector';
+
+import { changePreprocessorAction } from './../../../../../actions/preprocessor.action';
 
 import SelectList from './../../../../components/Inputs/GenericSelectInput/GenericSelectInput';
 
@@ -15,41 +22,58 @@ import SelectList from './../../../../components/Inputs/GenericSelectInput/Gener
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type PreprocessorSelectListProps = {
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+    onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
 };
 
 /* Own States */
-type LocalStates = {
-    value: string
-};
+type LocalStates = {};
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    preprocessor: PreprocessorModel
+};
+
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        ui: {
+            changePreprocessor: (preprocessor: any) => void;
+        }
+    };
+};
+
+
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps = 
+    PreprocessorSelectListProps
+&   StateProps    
+&   DispatchProps;
+
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class PreprocessorSelectListContainer 
-extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, GetAllResponse>, LocalStates> {
+extends React.Component<ChildProps<AllProps, GetAllResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<PreprocessorSelectListProps & StateProps, GetAllResponse>) {
+    constructor(props: ChildProps<AllProps, GetAllResponse>) {
         super(props);
-
-        // Init state
-        this.state = {
-            value: ''
-        };
 
         // Bind methods
         this.handleChange = this.handleChange.bind(this);
@@ -61,28 +85,27 @@ extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, Get
     /********************************/
 
     /**
-     * @desc Handle Select List Change
+     * @desc Handle Change
      * @method handleChange
      * @example this.handleChange()
-     * @public 
-     * @param {AtomModel} atom - atom data
-     * @param {any} e - Event
+     * @public
      * @returns {void}
      */
-    handleChange (e: React.ChangeEvent<HTMLSelectElement>) {
+    handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+
         e.preventDefault();
 
+        // VARIABLES
+        let value = e.target.value;
+
+        // If receive an parent's onChange method
         if (this.props.onChange) {
             this.props.onChange(e);
         } else {
-            // VARIABLES
-            let value = e.target.value;
-
-            // Update the state
-            this.setState((previousState) => {
-                return { ...previousState, value };
-            });
+            // If not receive a parent's onChange method, default action.
+            this.props.actions.ui.changePreprocessor({ value });
         }
+
     }
 
     
@@ -94,12 +117,13 @@ extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, Get
         /*       PROPERTIES       */
         /**************************/
         const {...data} = this.props.data;
+        const { preprocessor } = this.props;
             
         
         /*         MARKUP          */
         /***************************/
         return (
-            <SelectList value={this.state.value}
+            <SelectList value={preprocessor.id}
                         name="preprocessor"
                         isBlock={true}
                         defaultOption="None"
@@ -115,6 +139,36 @@ extends React.Component<ChildProps<PreprocessorSelectListProps & StateProps, Get
 
 
 /********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    return {
+        preprocessor: getCurrentPreprocessor(state)
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                changePreprocessor: (preprocessor: any) => dispatch(changePreprocessorAction(preprocessor))
+            }
+        }
+    };
+}
+
+
+/********************************/
+/*         REDUX CONNECT        */
+/********************************/
+const preprocessorSelectListContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
+
+
+/********************************/
 /*            QUERY             */
 /********************************/
 const getAllPreprocessorsQuery = graphql<GetAllResponse, PreprocessorSelectListProps>(
@@ -125,5 +179,6 @@ const getAllPreprocessorsQuery = graphql<GetAllResponse, PreprocessorSelectListP
 /*         EXPORT          */
 /***************************/
 export default compose(
+    preprocessorSelectListContainerConnect,
     getAllPreprocessorsQuery
 )(PreprocessorSelectListContainer);

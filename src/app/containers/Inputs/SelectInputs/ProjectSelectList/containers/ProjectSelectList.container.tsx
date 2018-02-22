@@ -16,9 +16,8 @@ import CreateProjectLink from './../components/CreateProjectLink';
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type ProjectSelectListProps = {
@@ -31,21 +30,25 @@ type LocalStates = {
     value: string
 };
 
-/* Mapped State to Props */
-type StateProps = {};
+
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps = ProjectSelectListProps;
+
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class ProjectSelectListContainer 
-extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
+extends React.Component<ChildProps<AllProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectSelectListProps & StateProps, GetBasicProjectsByUserIdResponse>) {
+    constructor(props: ChildProps<AllProps, GetBasicProjectsByUserIdResponse>) {
         super(props);
 
         // Init state
@@ -54,7 +57,7 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
         };
 
         // Bind methods
-        this._handleChange = this._handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
     }
 
@@ -65,14 +68,13 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
 
     /**
      * @desc Handle Select List Change
-     * @method _handleChange
-     * @example this._handleChange()
-     * @private 
-     * @param {AtomModel} atom - atom data
+     * @method handleChange
+     * @example this.handleChange()
+     * @public
      * @param {any} e - Event
      * @returns {void}
      */
-    private _handleChange (e: React.ChangeEvent<HTMLSelectElement>) {
+    handleChange (e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault();
 
         // VARIABLES
@@ -117,7 +119,7 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
                         options={data.projectsByUserId ? data.projectsByUserId : null}
                         loading={data.loading}
                         error={data.error}
-                        onChange={this._handleChange}/>
+                        onChange={this.handleChange}/>
         );
 
     }
@@ -131,7 +133,7 @@ extends React.Component<ChildProps<ProjectSelectListProps & StateProps, GetBasic
 
 // Query options
 const config = {
-    options: (ownProps: ProjectSelectListProps & StateProps) => {
+    options: (ownProps: AllProps) => {
         return { 
             variables: 
             { 
