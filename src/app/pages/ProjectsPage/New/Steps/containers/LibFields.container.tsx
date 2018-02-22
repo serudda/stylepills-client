@@ -21,7 +21,7 @@ import {
 import { Lib as LibModel } from './../../../../../../models/lib/lib.model';
 
 import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
-import { getLibListFormatted } from './../../../../../../selectors/ui.selector';
+import { getLibListDenormalized } from './../../../../../../selectors/ui.selector';
 
 import LibFields from './../components/LibFields';
 import { 
@@ -219,7 +219,7 @@ function mapStateToProps(state: IRootState): StateProps {
 
     return {
         tab,
-        libsList: getLibListFormatted(state),
+        libsList: getLibListDenormalized(state),
         isAuthenticated: getIsAuthenticated(state)
     };
 }

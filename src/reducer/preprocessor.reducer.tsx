@@ -22,6 +22,11 @@ export interface IPreprocessorState {
         isCompiled: boolean
     };
     currentPreprocessor: PreprocessorModel;
+    preprocessorsList: {
+        entities: any,
+        result: any, 
+        loading: boolean
+    };
     message?: string;
 }
 
@@ -37,7 +42,12 @@ const defaultState: IPreprocessorState = {
         compileToCode: null,
         isCompiled: false
     },
-    currentPreprocessor: null
+    currentPreprocessor: null,
+    preprocessorsList: {
+        entities: null,
+        result: [],
+        loading: false
+    }
 };
 
 // -----------------------------------
@@ -71,11 +81,16 @@ export default function (state: IPreprocessorState = defaultState, action: Actio
 
         case types.CHANGE_PREPROCESSOR: {
 
-            const { preprocessor } = action;
+            const { preprocessorId } = action;
+            const { entities = {
+                entities: {
+                    preprocessor: null
+                }
+            } } = state.preprocessorsList;
 
             return {
                 ...state,
-                currentPreprocessor: preprocessor
+                currentPreprocessor: entities.preprocessor[preprocessorId]
             };
         }
 
@@ -108,6 +123,39 @@ export default function (state: IPreprocessorState = defaultState, action: Actio
                 compiled: {
                     ...state.compiled,
                     isCompiled: false
+                },
+                message: action.message
+            };
+        }
+
+        case types.GET_PREPROCESSORS_REQUEST: {
+            return {
+                ...state,
+                preprocessorsList: {
+                    ...state.preprocessorsList,
+                    loading: true
+                }
+            };
+        }
+
+        case types.GET_PREPROCESSORS_SUCCESS: {
+            return {
+                ...state,
+                preprocessorsList: {
+                    ...state.preprocessorsList,
+                    entities: action.preprocessors.entities,
+                    result: action.preprocessors.result,
+                    loading: false
+                }
+            };
+        }
+
+        case types.GET_PREPROCESSORS_FAILURE: {
+            return {
+                ...state,
+                preprocessorsList: {
+                    ...state.preprocessorsList,
+                    loading: false
                 },
                 message: action.message
             };

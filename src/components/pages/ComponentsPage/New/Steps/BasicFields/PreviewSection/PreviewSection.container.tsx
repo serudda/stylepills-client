@@ -14,7 +14,7 @@ import LibService from './../../../../../../../models/lib/lib.service';
 
 import { changeColorAction, ICurrentCode } from './../../../../../../../actions/ui.action';
 
-import { getCurrentColor, getLibListFormatted } from './../../../../../../../selectors/ui.selector';
+import { getCurrentColor, getLibListDenormalized } from './../../../../../../../selectors/ui.selector';
 
 import PreviewBox from './../../../../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from './../../../../../../common/Iframe/Iframe.container';
@@ -175,7 +175,7 @@ function mapStateToProps(state: IRootState): StateProps {
     return {
         color: getCurrentColor(state),
         currentCode,
-        libs: getLibListFormatted(state)
+        libs: getLibListDenormalized(state)
     };
 }
 

@@ -32,7 +32,7 @@ import {
 }  from './../../../../../../models/lib/lib.model';
 import LibService from './../../../../../../models/lib/lib.service';
 
-import { getCurrentColor, getLibListFormatted } from './../../../../../../selectors/ui.selector';
+import { getCurrentColor, getLibListDenormalized } from './../../../../../../selectors/ui.selector';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
@@ -209,10 +209,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
         if (name === 'projectId') {
 
+            // CONSTANTS
+            const RADIX = 10;
+
             // Clear libsList on State Store
             this.props.actions.ui.loadLibs([]);
             
-            this.props.actions.libState.getLibsByProjectId(parseInt(value, 10)).then(
+            this.props.actions.libState.getLibsByProjectId(parseInt(value, RADIX)).then(
                 (response) => {
                     if (response.ok) {
 
@@ -569,7 +572,7 @@ function mapStateToProps(state: IRootState): StateProps {
         description,
         html,
         css,
-        libs: getLibListFormatted(state),
+        libs: getLibListDenormalized(state),
         contextualBg,
         projectId,
         atomCategoryId,

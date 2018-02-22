@@ -10,11 +10,11 @@ import auth, { IAuthState } from './auth.reducer';
 import ui, { IUiState } from './ui.reducer';
 import search, { ISearchState } from './search.reducer';
 import pagination, { IPaginationState } from './pagination.reducer';
-import preprocessor, { IPreprocessorState } from './preprocessor.reducer';
 import form, { IFormState } from './form.reducer';
 import atomState, { IAtomState } from './atom.reducer';
 import projectState, { IProjectState } from './project.reducer';
 import libState, { ILibState } from './lib.reducer';
+import preprocessorState, { IPreprocessorState } from './preprocessor.reducer';
 
 // Initialize Client
 const client = new ApolloClient();
@@ -30,11 +30,11 @@ export interface IRootState {
     ui: IUiState;
     search: ISearchState;
     pagination: IPaginationState;
-    preprocessor: IPreprocessorState;
     form: IFormState;
     atomState: IAtomState;
     projectState: IProjectState;
     libState: ILibState;
+    preprocessorState: IPreprocessorState;
     router: RouterState;
 }
 
@@ -48,11 +48,11 @@ const rootReducer = combineReducers<IRootState>({
     ui,
     search,
     pagination,
-    preprocessor,
     form,
     atomState,
     projectState,
     libState,
+    preprocessorState,
     router
 });
 

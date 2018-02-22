@@ -67,7 +67,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
                         <div className="fontFamily-openSans fontWeight-7 fontSize-md color-silver mr-3">
                             Preprocessor:
                         </div>
-                        <PreprocessorSelectListContainer onChange={onInputChange}/>
+                        <PreprocessorSelectListContainer />
                     </div>
 
                     {/* Source name input */}

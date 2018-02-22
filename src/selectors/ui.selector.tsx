@@ -151,11 +151,11 @@ export const makeGetLibListByType = () => { // NOTE: 1
 
 
 /**
- * @desc Get libsList formatted to send to DB
- * @function getLibListFormatted
+ * @desc Get libsList denormalized to send to DB
+ * @function getLibListDenormalized
  * @returns {Array<LibModel>}
  */
-export const getLibListFormatted = createSelector(
+export const getLibListDenormalized = createSelector(
     getLibsList,
     (libsList) => {
         let externalLibs: Array<LibModel | LibListItem> = [];
