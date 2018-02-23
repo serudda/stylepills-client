@@ -7,7 +7,12 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 import { Source as SourceModel } from './../../../../models/source/source.model';
-import { PreprocessorTypeOptions } from '../../../../models/preprocessor/preprocessor.model';
+import { 
+    Preprocessor as PreprocessorModel, 
+    PreprocessorTypeOptions 
+} from '../../../../models/preprocessor/preprocessor.model';
+
+import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.selector';
 
 import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
 
@@ -37,7 +42,9 @@ type LocalStates = {
 };
 
 /* Mapped State to Props */
-type StateProps = {};
+type StateProps = {
+    currentPreprocessor: PreprocessorModel
+};
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
@@ -203,12 +210,16 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         // Destructuring props & states
         const { fields } = this.state;
         const { name, filename } = fields;
+
+        const { currentPreprocessor } = this.props;
+        const { extension } = currentPreprocessor;
         
         /*         MARKUP          */
         /***************************/
         return (
             <SourceModal sourceNameValue={name}
                          sourceFilenameValue={filename}
+                         preprocessorExtension={extension}
                          onInputChange={this.handleInputChange}
                          onSaveClick={this.handleAddClick}
                          onCloseClick={this.handleCloseClick}/>
@@ -216,6 +227,16 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
 
     }
 
+}
+
+
+/********************************/
+/*      MAP STATE TO PROPS      */
+/********************************/
+function mapStateToProps(state: IRootState): StateProps {
+    return {
+        currentPreprocessor: getCurrentPreprocessor(state)
+    };
 }
 
 
@@ -237,7 +258,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const sourceModalContainerConnect = connect(null, mapDispatchToProps); 
+const sourceModalContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */

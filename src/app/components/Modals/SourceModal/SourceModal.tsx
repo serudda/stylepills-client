@@ -23,6 +23,7 @@ import Button from './../../Buttons/GenericBtn/GenericBtn';
 type SourceModalProps = {
     sourceNameValue: string | number | string[],
     sourceFilenameValue: string | number | string[],
+    preprocessorExtension: string,
     onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
     onSaveClick: (e: React.FormEvent<{}>) => any,
     onCloseClick: (e: React.FormEvent<{}>) => any
@@ -40,6 +41,9 @@ const SourceModal: React.SFC<SourceModalProps> = ({
     // Inputs values
     sourceNameValue,
     sourceFilenameValue,
+
+    // Preprocessor
+    preprocessorExtension,
 
     // Methods
     onInputChange,
@@ -93,8 +97,10 @@ const SourceModal: React.SFC<SourceModalProps> = ({
                             placeholder="global"
                             size={InputSizeOption.md}
                             onChange={onInputChange}/>
+
+                        {/* filename extension */}
                         <span className="fontFamily-openSans fontWeight-5 fontSize-md color-silver">
-                            .scss
+                            .{preprocessorExtension}
                         </span>
                     </div>
 

@@ -13,6 +13,7 @@ export const PREPROCESSOR_FRAGMENT = gql`
         id
         type
         name
+        extension
         compileTo
         __typename
     }

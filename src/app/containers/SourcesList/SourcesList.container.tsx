@@ -22,7 +22,8 @@ import {
 import {
     PreprocessorTypeOptions,
     CompileToTypeOptions,
-    PreprocessorNameOptions
+    PreprocessorNameOptions,
+    PreprocessorExtOptions
 } from './../../../models/preprocessor/preprocessor.model';
 
 import SourcesList from './../../components/SourcesList/SourcesList';
@@ -157,6 +158,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
             preprocessor: {
                 id: 1,
                 name: PreprocessorNameOptions.sass,
+                extension: PreprocessorExtOptions.sass,
                 type: PreprocessorTypeOptions.sass,
                 compileTo: CompileToTypeOptions.css
             },
@@ -170,6 +172,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
                 id: 2,
                 type: PreprocessorTypeOptions.sass,
                 name: PreprocessorNameOptions.sass,
+                extension: PreprocessorExtOptions.sass,
                 compileTo: CompileToTypeOptions.css
             },
             order: 2
@@ -182,6 +185,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
                 id: 3,
                 type: PreprocessorTypeOptions.sass,
                 name: PreprocessorNameOptions.sass,
+                extension: PreprocessorExtOptions.sass,
                 compileTo: CompileToTypeOptions.css
             },
             order: 3

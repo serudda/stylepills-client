@@ -90,7 +90,7 @@ export default function (state: IPreprocessorState = defaultState, action: Actio
 
             return {
                 ...state,
-                currentPreprocessor: entities.preprocessor[preprocessorId]
+                currentPreprocessor: { ...entities.preprocessor[preprocessorId] }
             };
         }
 

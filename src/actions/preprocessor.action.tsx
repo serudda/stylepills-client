@@ -252,6 +252,7 @@ export const getAllPreprocessorsAction = () => {
         }).then(
             (response: any) => {
                 let { error, allPreprocessors } = response.data;
+                const DEFAULT_PREPROCESSOR = 1;
 
                 if (error) {
 
@@ -267,6 +268,9 @@ export const getAllPreprocessorsAction = () => {
 
                 // Got them Successful
                 dispatch(receiveGetPreprocessorsAction(allPreprocessors));
+
+                // Assign a default current Preprocessor
+                dispatch(changePreprocessorAction(DEFAULT_PREPROCESSOR));
 
                 return {
                     ok: true,
