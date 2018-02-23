@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { functionsUtil } from './../../../../core/utils/functionsUtil';
+
 import { IRootState } from './../../../../reducer/reducer.config';
 import { Source as SourceModel } from './../../../../models/source/source.model';
 import { 
@@ -92,7 +94,8 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
 
         // Bind methods
         this.handleCloseClick = this.handleCloseClick.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSourceNameInputChange = this.handleSourceNameInputChange.bind(this);
+        this.handleSourceFilenameInputChange = this.handleSourceFilenameInputChange.bind(this);
     }
 
 
@@ -130,23 +133,46 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     }
 
     /**
-     * @desc HandleInputChange
-     * @method handleInputChange
-     * @example this.handleInputChange()
+     * @desc HandleSourceNameInputChange
+     * @method handleSourceNameInputChange
+     * @example this.handleSourceNameInputChange()
      * @public
      * @param {React.ChangeEvent<HTMLInputElement>} e - Event
      * @returns {void}
      */
-    handleInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) {
+    handleSourceNameInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) {
         const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        const sourceName = target.value;
+        const sourceFilename = functionsUtil.toUrlFormat(sourceName);
 
         this.setState((previousState: LocalStates) => ({
             ...previousState,
             fields: {
                 ...previousState.fields,
-                [name]: value
+                name: sourceName,
+                filename: sourceFilename
+            }
+        }));
+    }
+
+
+    /**
+     * @desc HandleSourceFilenameInputChange
+     * @method handleSourceFilenameInputChange
+     * @example this.handleSourceFilenameInputChange()
+     * @public
+     * @param {React.ChangeEvent<HTMLInputElement>} e - Event
+     * @returns {void}
+     */
+    handleSourceFilenameInputChange(e: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) {
+        const target = e.target;
+        const value = target.value;
+
+        this.setState((previousState: LocalStates) => ({
+            ...previousState,
+            fields: {
+                ...previousState.fields,
+                filename: value
             }
         }));
     }
@@ -220,7 +246,8 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
             <SourceModal sourceNameValue={name}
                          sourceFilenameValue={filename}
                          preprocessorExtension={extension}
-                         onInputChange={this.handleInputChange}
+                         onSourceNameInputChange={this.handleSourceNameInputChange}
+                         onSourceFilenameInputChange={this.handleSourceFilenameInputChange}
                          onSaveClick={this.handleAddClick}
                          onCloseClick={this.handleCloseClick}/>
         );

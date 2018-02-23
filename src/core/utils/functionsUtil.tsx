@@ -1,6 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { kebabCase } from 'lodash';
 import * as appConfig from './../constants/app.constants';
 
 import { ICurrentCode } from './../../actions/ui.action';
@@ -29,6 +30,7 @@ interface IFunctionUtil {
     sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     truncateText: (str: string, length: number, ending: string) => string;
     convertHexToRgbaModel: (hex: string, opacity: number) => RgbaColorModel;
+    toUrlFormat: (value: string) => string;
 }
 
 
@@ -327,6 +329,30 @@ class FunctionsUtil implements IFunctionUtil {
         
         return result;
         
+    }
+
+
+
+    /**
+     * toUrlFormat
+     * @description - take a string and formatting it to url format ('colombia-immersion')
+     * @use - functionsUtil.normalizeString('Colombia Immersion');
+     * @function
+     * @param {string} value - string to parse
+     * @return {string} string parsed (e.g. colombia-immersion)
+     */
+    toUrlFormat(value: string): string {
+        // VARIABLES
+        let valueParsed = '';
+        let valueNormalized = '';
+
+        // Remove special characters
+        valueNormalized = kebabCase(value);
+        // To lower case, split and join with - between them
+        valueParsed = valueNormalized.toLowerCase().split(' ').join('-');
+
+        return valueParsed;
+
     }
 
 }

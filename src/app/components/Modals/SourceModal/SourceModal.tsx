@@ -24,7 +24,8 @@ type SourceModalProps = {
     sourceNameValue: string | number | string[],
     sourceFilenameValue: string | number | string[],
     preprocessorExtension: string,
-    onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
+    onSourceNameInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
+    onSourceFilenameInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
     onSaveClick: (e: React.FormEvent<{}>) => any,
     onCloseClick: (e: React.FormEvent<{}>) => any
 };
@@ -46,7 +47,8 @@ const SourceModal: React.SFC<SourceModalProps> = ({
     preprocessorExtension,
 
     // Methods
-    onInputChange,
+    onSourceNameInputChange,
+    onSourceFilenameInputChange,
     onSaveClick,
     onCloseClick
 
@@ -83,7 +85,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
                             name="name"
                             placeholder="e.g. Helper classes, Global, Core, Variables"
                             size={InputSizeOption.lg}
-                            onChange={onInputChange}
+                            onChange={onSourceNameInputChange}
                             className="w-50"/>
                     </div>
 
@@ -96,7 +98,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
                             name="filename"
                             placeholder="global"
                             size={InputSizeOption.md}
-                            onChange={onInputChange}/>
+                            onChange={onSourceFilenameInputChange}/>
 
                         {/* filename extension */}
                         <span className="fontFamily-openSans fontWeight-5 fontSize-md color-silver">
