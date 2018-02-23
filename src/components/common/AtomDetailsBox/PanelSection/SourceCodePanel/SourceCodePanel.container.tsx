@@ -5,16 +5,14 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { CodeSupportedOption } from './../../../../../core/interfaces/interfaces';
+
 import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction } from './../../../../../actions/ui.action';
 import { changedAtomDetailsAction } from './../../../../../actions/atom.action';
-
-import { 
-    Option as CodeTabMenuOption 
-} from './../../../../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
 import { 
     Option as BannerAlertOption,
@@ -50,7 +48,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: CodeTabMenuOption;
+    tab: CodeSupportedOption;
     watchingChanges: boolean;
 };
 
@@ -58,7 +56,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            changeSourceCodeTab: (tab: CodeTabMenuOption) => void;
+            changeSourceCodeTab: (tab: CodeSupportedOption) => void;
         },
         atomState: {
             changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
@@ -141,11 +139,11 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
      * @method handleTabClick
      * @example this.handleTabClick()
      * @public
-     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css')
+     * @param {CodeSupportedOption} tab - source code tab (e.g. 'html', 'js', 'css')
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
+    handleTabClick = (tab: CodeSupportedOption) => (e: React.FormEvent<{}>) => {
         e.preventDefault();
         this._changeTab(tab);
     }
@@ -164,7 +162,7 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
      * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css') 
      * @returns {void}
      */
-    private _changeTab(tab: CodeTabMenuOption) {
+    private _changeTab(tab: CodeSupportedOption) {
         this.props.actions.ui.changeSourceCodeTab(tab);
     }
 

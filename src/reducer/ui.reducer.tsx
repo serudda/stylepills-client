@@ -3,7 +3,7 @@
 /************************************/
 import * as uuid from 'uuid/v4';
 
-import { ListProps } from './../core/interfaces/interfaces';
+import { CodeSupportedOption, ListProps } from './../core/interfaces/interfaces';
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -18,9 +18,6 @@ import {
 import { Lib as LibModel } from '../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 
-import { 
-    Option as CodeTabMenuOption 
-} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import { 
     Option as DetailsTabMenuOptions 
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
@@ -60,10 +57,10 @@ export interface IUiState {
             tab: DetailsTabMenuOptions
         },
         sourceCodeTab?: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         },
         libsTab?: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         }
     };
     colorPicker: {

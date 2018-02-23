@@ -3,9 +3,9 @@
 /************************************/
 import * as React from 'react';
 
-import CodeTabMenu, { 
-    Option as CodeTabMenuOption 
-} from './../Tabs/CodeTabMenu/CodeTabMenu';
+import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
+
+import CodeTabMenu from './../Tabs/CodeTabMenu/CodeTabMenu';
 
 import {
     Option as CopyOption
@@ -50,7 +50,7 @@ export enum FloatMenuOption {
 
 /* Own Props */
 type SourceCodePanelProps = {
-    currentTab: CodeTabMenuOption,
+    currentTab: CodeSupportedOption,
     id?: number,
     name?: string,
     html: string,
@@ -58,7 +58,7 @@ type SourceCodePanelProps = {
     message?: BannerAlertProps,
     showMessage?: boolean,
     floatMenuBtns?: Array<FloatMenuOption>;
-    onTabClick: (tab: CodeTabMenuOption) => void;
+    onTabClick: (tab: CodeSupportedOption) => void;
     onCodeChange: (newCode: string) => void;
 };
 
@@ -104,7 +104,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
             scrollbarStyle: 'overlay',
             lineNumbers: true,
             readOnly: false,
-            mode: currentTab === CodeTabMenuOption.html ? 'xml' : CodeTabMenuOption.css,
+            mode: currentTab === CodeSupportedOption.html ? 'xml' : CodeSupportedOption.css,
             theme: 'material',
             autoRefresh: true
         };
@@ -124,10 +124,10 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
         };
 
         // VARIABLES 
-        // TODO: Mas adelante esto no podras esta aqui fijo, tendras que ser enviado por su Container
-        let options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.html,
-            CodeTabMenuOption.css
+        // TODO: REMOVER ESTO DE AQUI, HACERLO DINAMICO DEPENDIENDO DE QUE PREPROCESADOR SE VA A USAR, ETC
+        let options: Array<CodeSupportedOption> = [
+            CodeSupportedOption.html,
+            CodeSupportedOption.css
         ];
 
 
@@ -161,12 +161,12 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
 
-                            {currentTab === CodeTabMenuOption.html && 
+                            {currentTab === CodeSupportedOption.html && 
                                 <CodeMirror value={html} 
                                             options={codeMirrorOptions} 
                                             onChange={onCodeChange}/>}
 
-                            {currentTab === CodeTabMenuOption.css && 
+                            {currentTab === CodeSupportedOption.css && 
                                 <CodeMirror value={css} 
                                             options={codeMirrorOptions} 
                                             onChange={onCodeChange}/>}

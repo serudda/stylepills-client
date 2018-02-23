@@ -1,9 +1,10 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import * as types from '../core/constants/action.types';
-
 import { client } from './../index';
+
+import * as types from './../core/constants/action.types';
+import { INormalizedResult } from './../core/interfaces/interfaces';
 
 import { 
     Preprocessor as PreprocessorModel,
@@ -61,7 +62,7 @@ export interface IRequestGetPreprocessorsAction {
 
 export interface IReceiveGetPreprocessorsAction {
     type: types.GET_PREPROCESSORS_SUCCESS;
-    preprocessors: {entities: any, result: any};
+    preprocessors: INormalizedResult;
 }
 
 export interface IGetPreprocessorsFailureAction {

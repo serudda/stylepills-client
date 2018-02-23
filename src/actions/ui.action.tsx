@@ -3,6 +3,8 @@
 /************************************/
 import { EventTypes } from 'redux-segment';
 
+import { CodeSupportedOption } from './../core/interfaces/interfaces';
+
 import * as types from '../core/constants/action.types';
 import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 
@@ -15,9 +17,6 @@ import {
     SourceListItem
  } from './../reducer/ui.reducer';
 
-import { 
-    Option as CodeTabMenuOption 
-} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import {
     Option as DetailsTabMenuOptions
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
@@ -208,7 +207,7 @@ export interface IChangeSourceCodeTabAction {
     type: types.CHANGE_SOURCE_CODE_TAB;
     tabs: {
         sourceCodeTab: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -218,7 +217,7 @@ export interface IChangeLibsTabAction {
     type: types.CHANGE_LIBS_TAB;
     tabs: {
         libsTab: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -651,7 +650,7 @@ export const changeAtomDetailsTabAction = (tab: DetailsTabMenuOptions): Action =
  * @function changeSourceCodeTabAction
  * @returns {Action}
  */
-export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
+export const changeSourceCodeTabAction = (tab: CodeSupportedOption): Action => {
     return {
         type: types.CHANGE_SOURCE_CODE_TAB,
         tabs: {
@@ -680,7 +679,7 @@ export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
  * @function changeLibsTabAction
  * @returns {Action}
  */
-export const changeLibsTabAction = (tab: CodeTabMenuOption): Action => {
+export const changeLibsTabAction = (tab: CodeSupportedOption): Action => {
     return {
         type: types.CHANGE_LIBS_TAB,
         tabs: {

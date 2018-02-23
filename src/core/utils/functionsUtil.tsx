@@ -4,6 +4,8 @@
 import { kebabCase } from 'lodash';
 import * as appConfig from './../constants/app.constants';
 
+import { INormalizedResult } from './../interfaces/interfaces';
+
 import { ICurrentCode } from './../../actions/ui.action';
 import { SourceCode } from './../../models/atom/atom.model';
 import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
@@ -11,12 +13,7 @@ import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.
 
 /************************************/
 /*            INTERFACES            */
-/************************************/    
-
-interface INormalizedResult {
-    result: Array<string>;
-    entities: any;
-}
+/************************************/
 
 interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => any;

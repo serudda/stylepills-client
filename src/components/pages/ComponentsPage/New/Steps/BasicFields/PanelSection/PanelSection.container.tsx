@@ -11,13 +11,15 @@ import { IRootState } from './../../../../../../../reducer/reducer.config';
 
 import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
 
-import TabMenuContainer from './TabMenu/TabMenu.container';
-import SourceCodePanelContainer from './SourceCodePanel/SourceCodePanel.container';
-import ExternalLibsPanelContainer from './ExternalLibsPanel/ExternalLibsPanel.container';
+import DetailsTabMenuContainer from './../../../../../../../app/containers/Tabs/DetailsTabMenu.container';
+import SourceCodePanelContainer from './../../../../../../../app/containers/SourceCodePanel/SourceCodePanel.container';
+import ExternalLibsPanel from './../../../../../../../app/components/ExternalLibsPanel/ExternalLibsPanel';
 
 import { 
     Option as DetailsTabMenuOptions
 } from './../../../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+
+import { getAtomDetailsTab } from './../../../../../../../selectors/ui.selector';
 
 // -----------------------------------
 
@@ -92,7 +94,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
 
                         {/* Tab Menu */}
                         <div className="ml-auto">
-                            <TabMenuContainer />
+                            <DetailsTabMenuContainer />
                         </div>
 
                     </div>
@@ -104,7 +106,7 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
 
                 {/* External Libs Section */}
                 {tab === DetailsTabMenuOptions.addLibs && 
-                <ExternalLibsPanelContainer />}
+                <ExternalLibsPanel />}
 
             </div>
         );
@@ -117,13 +119,8 @@ extends React.Component<ChildProps<PanelSectionContainerProps & StateProps, {}>,
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-
-    const { tabs } = state.ui;
-    const { atomDetailsTab } = tabs;
-    const { tab } = atomDetailsTab;
-
     return {
-        tab
+        tab: getAtomDetailsTab(state)
     };
 }
 

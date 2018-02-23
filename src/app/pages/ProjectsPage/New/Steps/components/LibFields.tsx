@@ -3,6 +3,8 @@
 /************************************/
 import * as React from 'react';
 
+import { CodeSupportedOption } from './../../../../../../core/interfaces/interfaces';
+
 import Button from './../../../../../components/Buttons/GenericBtn/GenericBtn';
 import Icon from './../../../../../components/Icon/Icon';
 import AddLibFormContainer from './../../../../../containers/Forms/AddLibForm/AddLibForm.container';
@@ -10,8 +12,7 @@ import AddLibFormContainer from './../../../../../containers/Forms/AddLibForm/Ad
 import { LibTypeOptions } from './../../../../../../models/lib/lib.model';
 import LibsListContainer from './../../../../../containers/LibsList/LibsList.container';
 
-import { Option as CodeTabMenuOption } from './../../../../../components/Tabs/CodeTabMenu/CodeTabMenu';
-import CodeTabMenuContainer from './../../../../../containers/Tabs/CodeTabMenu.container';
+import LibTabMenuContainer from './../../../../../containers/Tabs/LibTabMenu.container';
 
 
 // -----------------------------------
@@ -23,8 +24,6 @@ import CodeTabMenuContainer from './../../../../../containers/Tabs/CodeTabMenu.c
 
 /* Own Props */
 type LibFieldsProps = {
-    currentTab: CodeTabMenuOption,
-    onTabClick: (tab: CodeTabMenuOption) => void;
     onPrevClick: (e: React.FormEvent<{}>) => any,
     onNextClick: (e: React.FormEvent<{}>) => any
 };
@@ -44,8 +43,6 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
     }
 
 
-
-
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
@@ -53,15 +50,13 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
 
         // Destructuring props
         const {
-            currentTab,
-            onTabClick,
             onPrevClick,
             onNextClick
         } = this.props;
 
         // VARIABLES 
-        const options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.css
+        const options: Array<CodeSupportedOption> = [
+            CodeSupportedOption.css
         ];
 
         const title = 'EXTERNAL LIBRARIES';
@@ -113,7 +108,7 @@ class LibFields extends React.Component<LibFieldsProps, {}> {
                 <div className="StepByStep__content boxShadow-raised sp-bg-white borderRadius-md p-5">
 
                     {/* Type Code Tab Menu */}
-                    <CodeTabMenuContainer options={options} currentTab={currentTab} onTabClick={onTabClick}/>
+                    <LibTabMenuContainer options={options}/>
 
                     {/* External Libs */}
                     <div className="ExternalLibs d-flex flex-column w-100 pt-5">

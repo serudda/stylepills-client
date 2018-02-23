@@ -24,7 +24,7 @@ export interface IPreprocessorState {
     currentPreprocessor: PreprocessorModel;
     preprocessorsList: {
         entities: any,
-        result: any, 
+        result: Array<string>, 
         loading: boolean
     };
     message?: string;

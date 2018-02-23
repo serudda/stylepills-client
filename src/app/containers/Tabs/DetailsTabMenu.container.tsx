@@ -5,21 +5,16 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { functionsUtil } from './../../../../../core/utils/functionsUtil';
+import { functionsUtil } from './../../../core/utils/functionsUtil';
 
-import { IRootState } from './../../../../../reducer/reducer.config';
+import { IRootState } from './../../../reducer/reducer.config';
 
-import DetailsTabMenu , { 
+import DetailsTabMenu, { 
     Option as DetailsTabMenuOptions 
-} from './../../../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
+} from './../../../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
-import { 
-    Option as ModalOption
-} from './../../../../../app/containers/Modals/ModalManager/ModalManager.container';
-
-import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
-import { getAtomDetailsTab } from './../../../../../selectors/ui.selector';
-import { getIsAuthenticated } from './../../../../../selectors/auth.selector';
+import { changeAtomDetailsTabAction } from './../../../actions/ui.action';
+import { getAtomDetailsTab } from './../../../selectors/ui.selector';
 
 // -----------------------------------
 
@@ -28,15 +23,12 @@ import { getIsAuthenticated } from './../../../../../selectors/auth.selector';
 // ===================================
 
 /* Own Props */
-type TabMenuContainerProps = {
-    atomId: number;
+type DetailsTabMenuContainerProps = {
     options?: Array<DetailsTabMenuOptions>;
 };
 
 /* Own States */
-type LocalStates = {
-    isToggleCode: boolean
-};
+type LocalStates = {};
 
 
 //    REDUX MAPPED PROPS & STATES
@@ -44,12 +36,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: string;
-    duplicated: {
-        atomId: number,
-        isDuplicated: boolean;
-    };
-    isAuthenticated: boolean;
+    tab: DetailsTabMenuOptions;
 };
 
 /* Mapped Dispatches to Props */
@@ -57,7 +44,6 @@ type DispatchProps = {
     actions: {
         ui: { 
             changeAtomDetailsTab: (tab: DetailsTabMenuOptions | null) => void;
-            showModal: (modalType: ModalOption, modalProps: any) => void;
         }
     };
 };
@@ -67,7 +53,7 @@ type DispatchProps = {
 // ===================================   
 
 type AllProps =    
-    TabMenuContainerProps
+    DetailsTabMenuContainerProps
 &   StateProps
 &   DispatchProps;
 
@@ -75,7 +61,7 @@ type AllProps =
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class TabMenuContainer 
+class DetailsTabMenuContainer 
 extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
 
@@ -85,22 +71,27 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
-        // Init state
-        this.state = { isToggleCode: false };
-
         // LOG
-        functionsUtil.consoleLog('AtomDetailsBox/PanelSection/TabMenu container actived');
+        functionsUtil.consoleLog('DetailsTabMenu container actived');
 
         // Bind methods
         this.handleCodeTabClick = this.handleCodeTabClick.bind(this);
-        this.handleDuplicateTabClick = this.handleDuplicateTabClick.bind(this);
         this.handleLibsTabClick = this.handleLibsTabClick.bind(this);
+    }
+
+
+    /********************************/
+    /*       COMPONENTDIDMOUNT      */
+    /********************************/
+    componentDidMount() {   
+        this._changeTab(DetailsTabMenuOptions.showCode);
     }
 
 
     /********************************/
     /*        PUBLIC METHODS        */
     /********************************/
+
 
     /**
      * @desc HandleCodeTabClick
@@ -111,40 +102,12 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
      */
     handleCodeTabClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this.setState((prevState: LocalStates) => ({
-            isToggleCode: !prevState.isToggleCode
-        }), () => {
-            if (this.state.isToggleCode) {
-                this._changeTab(DetailsTabMenuOptions.showCode);
-            } else {
-                this._changeTab(null);
-            }
-        });
+        this._changeTab(DetailsTabMenuOptions.showCode);
     }
 
 
     /**
-     * @desc handleDuplicateTabClick
-     * @method handleDuplicateTabClick
-     * @example this.handleDuplicateTabClick()
-     * @public 
-     * @param {React.FormEvent<{}>} e - Click Event
-     * @returns {void}
-     */
-    handleDuplicateTabClick(e: React.FormEvent<{}>) {
-        e.preventDefault();
-
-        const { isDuplicated } = this.props.duplicated;
-
-        if (!isDuplicated) {
-            this._showDuplicateModal();
-        }
-
-    }
-
-
-    /**
-     * @desc handleLibsTabClick
+     * @desc HandleLibsTabClick
      * @method handleLibsTabClick
      * @example this.handleLibsTabClick()
      * @public
@@ -159,34 +122,11 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
-    
-
-    /**
-     * @desc Show Duplicate Modal 
-     * @method _showDuplicateModal
-     * @example this._showDuplicateModal()
-     * @private
-     * @returns {void}
-     */
-    private _showDuplicateModal() {
-        const { isAuthenticated } = this.props;
-        const { atomId } = this.props;
-
-        if (isAuthenticated) {
-
-            this.props.actions.ui.showModal(ModalOption.DuplicateModal, {atomId});
-
-        } else {
-            alert('You should be logged in to store this component in your repo.');
-        }
-    }
-
 
     /**
      * @desc Change Tab
      * @method _changeTab
      * @example this._changeTab()
-     * @param {DetailsTabMenuOptions} tab - details tab menu option (e.g. addLib, showCode, duplicate, etc)
      * @private 
      * @returns {void}
      */
@@ -211,9 +151,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
             return options;
         } else {
             // If not receive a parent's options method, build default options.
-            return [ DetailsTabMenuOptions.addLibs,
-                DetailsTabMenuOptions.showCode,
-                DetailsTabMenuOptions.duplicate ];
+            return [ DetailsTabMenuOptions.addLibs, DetailsTabMenuOptions.showCode ];
         }
 
     }
@@ -225,19 +163,17 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     render() {
 
         // Destructuring props
-        const { tab, duplicated } = this.props;
-        const { isDuplicated } = duplicated; 
+        const { tab } = this.props;
+
 
         /*         MARKUP          */
         /***************************/
         return (
             <DetailsTabMenu options={this._buildTabOptions()}
-                        isReversed={tab === DetailsTabMenuOptions.showCode}
-                        isDuplicated={isDuplicated}
-                        currentOption={tab}
-                        onDuplicateClick={this.handleDuplicateTabClick}
-                        onShowCodeClick={this.handleCodeTabClick}
-                        onAddLibsClick={this.handleLibsTabClick}/>
+                            isReversed={tab === DetailsTabMenuOptions.showCode}
+                            currentOption={tab}
+                            onShowCodeClick={this.handleCodeTabClick}
+                            onAddLibsClick={this.handleLibsTabClick}/>
         );
     }
 
@@ -248,13 +184,8 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-
-    const { duplicated } = state.atomState;
-
     return {
-        tab: getAtomDetailsTab(state),
-        isAuthenticated: getIsAuthenticated(state),
-        duplicated
+        tab: getAtomDetailsTab(state)
     };
 }
 
@@ -266,8 +197,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab)),
-                showModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps))
+                changeAtomDetailsTab: (tab) => dispatch(changeAtomDetailsTabAction(tab))
             }
         }
     };
@@ -277,11 +207,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const tabMenuContainerConnect = connect(mapStateToProps, mapDispatchToProps);
+const detailsTabMenuContainerConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    tabMenuContainerConnect
-)(TabMenuContainer);
+    detailsTabMenuContainerConnect
+)(DetailsTabMenuContainer);

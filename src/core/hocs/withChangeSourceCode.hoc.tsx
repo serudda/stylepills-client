@@ -5,13 +5,11 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 
+import { CodeSupportedOption } from './../interfaces/interfaces';
+
 import { IRootState } from './../../reducer/reducer.config';
 
 import { changeSourceCodeAction } from './../../actions/ui.action';
-
-import { 
-    Option as CodeTabMenuOption 
-} from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
 import { getSourceCodeTab } from './../../selectors/ui.selector';
 
@@ -34,7 +32,7 @@ type HOCStates = {};
 
 /* Mapped State to Props */
 type HOCStateProps = {
-    codeType: CodeTabMenuOption;
+    codeType: CodeSupportedOption;
 };
 
 /* Mapped Dispatches to Props */
@@ -51,7 +49,7 @@ type HOCDispatchProps = {
 // ===================================
 
 export interface InjectedProps {
-    codeType: CodeTabMenuOption;
+    codeType: CodeSupportedOption;
     onChange(newCode: string): void;
 }
 
@@ -116,9 +114,7 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
          * @method onChange
          * @example this.onChange()
          * @public
-         * @param {string} type - source code type (e.g. 'html', 'css')
          * @param {string} newCode - new source code
-         * @param {any} e - Event
          * @returns {void}
          */
         onChange(newCode: string) {

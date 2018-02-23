@@ -3,6 +3,8 @@
 /************************************/
 import { createSelector } from 'reselect';
 
+import { CodeSupportedOption } from './../core/interfaces/interfaces';
+
 import { IRootState } from './../reducer/reducer.config';
 import { functionsUtil } from './../core/utils/functionsUtil';
 import {
@@ -19,8 +21,8 @@ import {
 } from './../models/lib/lib.model';
 
 import { 
-    Option as CodeTabMenuOption 
-} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+    Option as DetailsTabMenuOptions 
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 // -----------------------------------
 
@@ -224,15 +226,42 @@ export const makeGetCurrentColorByType = () => { // NOTE: 1
 
 /* 
     TABS SELECTORS
+    state: ui.tabs.atomDetailsTab
+*/
+
+/**
+ * @desc Get atomDetailsTab tab from state store
+ * @function getAtomDetailsTab
+ * @returns {DetailsTabMenuOptions}
+ */
+export const getAtomDetailsTab = (state: IRootState): DetailsTabMenuOptions => state.ui.tabs.atomDetailsTab.tab;
+
+
+/* 
+    TABS SELECTORS
     state: ui.tabs.sourceCodeTab
 */
 
 /**
  * @desc Get sourceCodeTab tab from state store
  * @function getSourceCodeTab
- * @returns {CodeTabMenuOption}
+ * @returns {CodeSupportedOption}
  */
-export const getSourceCodeTab = (state: IRootState): CodeTabMenuOption => state.ui.tabs.sourceCodeTab.tab;
+export const getSourceCodeTab = (state: IRootState): CodeSupportedOption => state.ui.tabs.sourceCodeTab.tab;
+
+
+
+/* 
+    TABS SELECTORS
+    state: ui.tabs.libsTab
+*/
+
+/**
+ * @desc Get libsTab tab from state store
+ * @function getLibsTab
+ * @returns {CodeSupportedOption}
+ */
+export const getLibsTab = (state: IRootState): CodeSupportedOption => state.ui.tabs.libsTab.tab;
 
 
 

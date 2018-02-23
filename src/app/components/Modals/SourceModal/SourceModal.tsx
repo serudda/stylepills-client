@@ -8,7 +8,7 @@ import Input, {
     SizeOption as InputSizeOption
 } from './../../Inputs/SpecialTextInput/SpecialTextInput';
 import PreprocessorSelectListContainer from './../../../containers/Inputs/SelectInputs/PreprocessorSelectList/PreprocessorSelectList.container';
-import SourceCodePanelContainer from './../../../../components/pages/ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/SourceCodePanel.container';
+import SourceCodePanelContainer from './../../../containers/SourceCodePanel/SourceCodePanel.container';
 import Button from './../../Buttons/GenericBtn/GenericBtn';
 
 

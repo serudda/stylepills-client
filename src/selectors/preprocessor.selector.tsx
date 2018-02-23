@@ -3,6 +3,9 @@
 /************************************/
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
+
+import { INormalizedResult } from '../core/interfaces/interfaces';
+
 import { IRootState } from './../reducer/reducer.config';
 
 import { functionsUtil } from './../core/utils/functionsUtil';
@@ -36,7 +39,7 @@ export const getCurrentPreprocessor = (state: IRootState): PreprocessorModel => 
  * @function getPreprocessorsList
  * @returns {LibsList}
  */
-export const getPreprocessorsList = (state: IRootState): {entities: any, result: any} => state.preprocessorState.preprocessorsList;
+export const getPreprocessorsList = (state: IRootState): INormalizedResult => state.preprocessorState.preprocessorsList;
 
 
 /**
@@ -49,7 +52,7 @@ export const getPreprocessorsListDenormalized = createSelector(
     (preprocessorsList) => {
 
         // Generate a copy
-        const listCopy: {entities: any, result: any} = functionsUtil.updateObject(preprocessorsList);
+        const listCopy: INormalizedResult = functionsUtil.updateObject(preprocessorsList);
 
         // Denormalize list
         const listDenormalized = denormalize(listCopy.result, preprocessorsListSchema, listCopy.entities);

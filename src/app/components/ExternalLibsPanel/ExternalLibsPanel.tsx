@@ -2,11 +2,8 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-
-import { 
-    Option as CodeTabMenuOption 
-} from './../Tabs/CodeTabMenu/CodeTabMenu';
-import CodeTabMenuContainer from './../../containers/Tabs/CodeTabMenu.container';
+import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
+import LibTabMenuContainer from './../../containers/Tabs/LibTabMenu.container';
 
 import { LibTypeOptions } from './../../../models/lib/lib.model';
 import AddLibFormContainer from './../../containers/Forms/AddLibForm/AddLibForm.container';
@@ -21,10 +18,7 @@ import LibsListContainer from './../../containers/LibsList/LibsList.container';
 /********************************/
 
 /* Own Props */
-type ExternalLibsPanelProps = {
-    currentTab: CodeTabMenuOption,
-    onTabClick: (tab: CodeTabMenuOption) => void;
-};
+type ExternalLibsPanelProps = {};
 
 
 /**
@@ -50,13 +44,10 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
     /********************************/
     render() {
 
-        // Destructuring props & state
-        const { currentTab, onTabClick } = this.props;
-
         // VARIABLES 
         // TODO: Mas adelante esto no podras esta aqui fijo, tendras que ser enviado por su Container
-        const options: Array<CodeTabMenuOption> = [
-            CodeTabMenuOption.css,
+        const options: Array<CodeSupportedOption> = [
+            CodeSupportedOption.css,
             /* CodeTabMenuOption.js 
             TODO: Descomentar cuando se vaya a implementar */
         ];
@@ -72,9 +63,7 @@ class ExternalLibsPanel extends React.Component<ExternalLibsPanelProps, {}> {
                 
                 {/* Type Code Tab Menu */}
                 <div className="borderBottom-1 borderColor-smoke w-100">
-                    <CodeTabMenuContainer options={options} 
-                                          currentTab={currentTab} 
-                                          onTabClick={onTabClick}/>
+                    <LibTabMenuContainer options={options}/>
                 </div>
                 
 

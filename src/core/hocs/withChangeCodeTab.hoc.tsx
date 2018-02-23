@@ -5,13 +5,11 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 
+import { CodeSupportedOption } from './../../core/interfaces/interfaces';
+
 import { IRootState } from './../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction } from './../../actions/ui.action';
-
-import { 
-    Option as CodeTabMenuOption 
-} from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 
 import { getSourceCodeTab } from './../../selectors/ui.selector';
 
@@ -34,14 +32,14 @@ type HOCStates = {};
 
 /* Mapped State to Props */
 type HOCStateProps = {
-    tab: CodeTabMenuOption;
+    tab: CodeSupportedOption ;
 };
 
 /* Mapped Dispatches to Props */
 type HOCDispatchProps = {
     actions: {
         ui: { 
-            changeSourceCodeTab: (tab: CodeTabMenuOption) => void;
+            changeSourceCodeTab: (tab: CodeSupportedOption ) => void;
         }
     };
 };
@@ -51,8 +49,8 @@ type HOCDispatchProps = {
 // ===================================
 
 export interface InjectedProps {
-    tab?: CodeTabMenuOption;
-    onTabClick(tab: CodeTabMenuOption): void;
+    tab?: CodeSupportedOption ;
+    onTabClick(tab: CodeSupportedOption ): void;
 }
 
 
@@ -107,11 +105,11 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
          * @method onTabClick
          * @example this.onTabClick()
          * @public
-         * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css')
+         * @param {CodeSupportedOption } tab - source code tab (e.g. 'html', 'js', 'css')
          * @param {React.FormEvent<{}>} e - Event
          * @returns {void}
          */
-        handleTabClick = (tab: CodeTabMenuOption) => (e: React.FormEvent<{}>) => {
+        handleTabClick = (tab: CodeSupportedOption ) => (e: React.FormEvent<{}>) => {
             this._changeTab(tab);
         }
 
@@ -125,10 +123,10 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
          * @method _changeTab
          * @example this._changeTab()
          * @private
-         * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css') 
+         * @param {CodeSupportedOption } tab - source code tab (e.g. 'html', 'js', 'css') 
          * @returns {void}
          */
-        private _changeTab(tab: CodeTabMenuOption) {
+        private _changeTab(tab: CodeSupportedOption ) {
             this.props.actions.ui.changeSourceCodeTab(tab);
         }
 

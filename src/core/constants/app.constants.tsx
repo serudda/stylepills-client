@@ -4,10 +4,7 @@
  * @type constants
  */
 import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
-
-import { 
-    Option as CodeTabMenuOption 
-} from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import { CodeSupportedOption } from './../interfaces/interfaces';
 
 /* DEBUG */
 export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
@@ -56,10 +53,10 @@ export type ATOM_SEARCH_TYPE_DEFAULT = typeof ATOM_SEARCH_TYPE_DEFAULT;
 export const ATOM_SEARCH_ORDER = 'DESC';
 
 /* Source Code Tabs (Atom Details) */
-export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeTabMenuOption.html;
+export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeSupportedOption.html;
 
 /* Libs Tabs */
-export const LIBS_DEFAULT_OPTION_TAB = CodeTabMenuOption.css;
+export const LIBS_DEFAULT_OPTION_TAB = CodeSupportedOption.css;
 
 /* WHITE COLOR */
 export const WHITE_COLOR_HEX = '#FFFFFF';

@@ -17,6 +17,7 @@ import {
 import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.selector';
 
 import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
+import { clearPreprocessorStateAction } from './../../../../actions/preprocessor.action';
 
 import SourceModal from './../../../../app/components/Modals/SourceModal/SourceModal';
 
@@ -54,6 +55,9 @@ type DispatchProps = {
         ui: { 
             closeModal: () => void;
             clearUi: () => void;
+        },
+        preprocessorState: {
+            clearPreprocessorState: () => void;
         }
     };
 };
@@ -207,10 +211,8 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
      */
     private _closeModal() {
         this.props.actions.ui.closeModal();
-        // Clean atom states (close source code edition)
-        // this.props.actions.atomState.clearAtomState();
-        // Clean tabs states and other ui states
-        this.props.actions.ui.clearUi();
+        // Clean preprocessor states (close add source edition modal)
+        this.props.actions.preprocessorState.clearPreprocessorState();
         document.body.classList.remove('sourceModal-open');
     }
 
@@ -276,6 +278,9 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
                 clearUi: () => dispatch(clearUiAction())
+            },
+            preprocessorState: {
+                clearPreprocessorState: () => dispatch(clearPreprocessorStateAction())
             }
         }
     };
