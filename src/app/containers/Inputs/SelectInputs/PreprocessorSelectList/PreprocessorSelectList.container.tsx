@@ -137,7 +137,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
             <SelectList value={this.state.value}
                         name="preprocessor"
                         isBlock={true}
-                        defaultOption="None"
                         options={preprocessorsList ? preprocessorsList : null}
                         loading={data.loading}
                         error={data.error}

@@ -34,7 +34,7 @@ type GenericSelectInputProps = {
     name: string;
     size?: SizeOption;
     isBlock?: boolean;
-    defaultOption: string;
+    defaultOption?: string;
     options: Array<OptionType>;
     loading: boolean;
     error: any;
@@ -146,7 +146,7 @@ class GenericSelectInput extends React.Component<GenericSelectInputProps, {}> {
                         className={selectClasses}
                         name={name}
                         disabled={disabled}>
-                    <option key="0" value="0">{defaultOption}</option>
+                    {!!defaultOption && <option key="0" value="0">{defaultOption}</option>}
                     {options.map((option: OptionType) => (
                         <option key={option.id} value={option.id}>{option.name}</option>    
                     ))}
