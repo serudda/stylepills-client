@@ -23,6 +23,7 @@ import CodeTabMenu from './../../components/Tabs/CodeTabMenu/CodeTabMenu';
 /* Own Props */
 type SourceCodeTabMenuContainerProps = {
     options?: Array<CodeSupportedOption>;
+    isReversed?: boolean;
     onTabClick?: (type: CodeSupportedOption) => void;
 };
 
@@ -108,8 +109,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
      * @public
      * @returns {void}
      */
-    handleClick(type: CodeSupportedOption) {
-
+    handleClick = (type: CodeSupportedOption) => (e: React.FormEvent<{}>) => {
         // If receive an parent's onTabClick method
         if (this.props.onTabClick) {
             this.props.onTabClick(type);
@@ -117,7 +117,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
             // If not receive a parent's onTabClick method, default action.
             this.props.actions.ui.changeSourceCodeTab(type);
         }
-
     }
 
     
@@ -127,13 +126,13 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     render() {
         
         // Destructuring props
-        const { tab } = this.props;
+        const { tab, isReversed = false} = this.props;
         
         /*         MARKUP          */
         /***************************/
         return (
             <CodeTabMenu options={this._buildTabOptions()} 
-                         isReversed={false}
+                         isReversed={isReversed}
                          tab={tab} 
                          onTabClick={this.handleClick}/>
         );

@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
 
-import CodeTabMenu from './../Tabs/CodeTabMenu/CodeTabMenu';
+import SourceCodeTabMenuContainer from './../../containers/Tabs/SourceCodeTabMenu.container';
 
 import {
     Option as CopyOption
@@ -58,7 +58,6 @@ type SourceCodePanelProps = {
     message?: BannerAlertProps,
     showMessage?: boolean,
     floatMenuBtns?: Array<FloatMenuOption>;
-    onTabClick: (tab: CodeSupportedOption) => void;
     onCodeChange: (newCode: string) => void;
 };
 
@@ -95,7 +94,6 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
             message,
             showMessage = false,
             floatMenuBtns = [],
-            onTabClick,
             onCodeChange
         } = this.props;
 
@@ -138,10 +136,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
 
 
                 {/* Source Code Tab Menu */}
-                <CodeTabMenu options={options}
-                            isReversed={true}
-                            tab={currentTab} 
-                            onTabClick={onTabClick}/>
+                <SourceCodeTabMenuContainer options={options} isReversed={true}/>
 
 
                 {/* Source Code Panel */}

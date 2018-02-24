@@ -69,7 +69,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
         super(props);
 
         // LOG
-        functionsUtil.consoleLog('ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel container actived');
+        functionsUtil.consoleLog('SourceCodePanel container actived');
     }
 
 
@@ -95,7 +95,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
                              html={html} 
                              css={css}
                              floatMenuBtns={options}
-                             onTabClick={this.props.onTabClick}
                              onCodeChange={this.props.onChange}/>
         );
     }

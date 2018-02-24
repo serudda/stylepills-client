@@ -11,7 +11,6 @@ import { functionsUtil } from '../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
 
-import { changeSourceCodeTabAction } from './../../../../../actions/ui.action';
 import { changedAtomDetailsAction } from './../../../../../actions/atom.action';
 
 import { 
@@ -20,6 +19,8 @@ import {
 } from './../../../../../app/components/Alerts/BannerAlert/BannerAlert';
 
 import SourceCodePanel, { FloatMenuOption } from './../../../../../app/components/SourceCodePanel/SourceCodePanel';
+
+import { getSourceCodeTab } from './../../../../../selectors/ui.selector';
 
 
 // -----------------------------------
@@ -55,9 +56,6 @@ type StateProps = {
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
-        ui: { 
-            changeSourceCodeTab: (tab: CodeSupportedOption) => void;
-        },
         atomState: {
             changedAtomDetails: (id: number, name: string, codeType: string, codeProps: any) => void;
         }
@@ -91,7 +89,6 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
         };
 
         // Bind methods
-        this.handleTabClick = this.handleTabClick.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
     }
 
@@ -134,37 +131,10 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
         this._updateCode(this.props.tab, newCode);
     }
 
-    /**
-     * @desc HandleTabClick
-     * @method handleTabClick
-     * @example this.handleTabClick()
-     * @public
-     * @param {CodeSupportedOption} tab - source code tab (e.g. 'html', 'js', 'css')
-     * @param {React.FormEvent<{}>} e - Event
-     * @returns {void}
-     */
-    handleTabClick = (tab: CodeSupportedOption) => (e: React.FormEvent<{}>) => {
-        e.preventDefault();
-        this._changeTab(tab);
-    }
-
 
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
-
-
-    /**
-     * @desc Change Tab
-     * @method _changeTab
-     * @example this._changeTab()
-     * @private
-     * @param {CodeTabMenuOption} tab - source code tab (e.g. 'html', 'js', 'css') 
-     * @returns {void}
-     */
-    private _changeTab(tab: CodeSupportedOption) {
-        this.props.actions.ui.changeSourceCodeTab(tab);
-    }
 
 
     /**
@@ -221,14 +191,13 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
         /*         MARKUP          */
         /***************************/
         return (
-            <SourceCodePanel currentTab={tab}
-                             id={atomId}
+            <SourceCodePanel id={atomId}
                              name={name}
                              html={html} 
                              css={css}
-                             floatMenuBtns={floatMenuOptions}
-                             onTabClick={this.handleTabClick}
                              onCodeChange={this.handleOnChange}
+                             currentTab={tab}
+                             floatMenuBtns={floatMenuOptions}
                              message={messageConfig}
                              showMessage={watchingChanges} />
         );
@@ -241,14 +210,10 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-    
-    const { tabs } = state.ui;
-    const { sourceCodeTab } = tabs;
-    const { tab } = sourceCodeTab;
     const { watchingChanges } = state.atomState.edited;
 
     return {
-        tab,
+        tab: getSourceCodeTab(state),
         watchingChanges
     };
 }
@@ -260,9 +225,6 @@ function mapStateToProps(state: IRootState): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
-            ui: {
-                changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab))
-            },
             atomState: {
                 changedAtomDetails: (id, name, codeType, codeProps) => dispatch(changedAtomDetailsAction(id, name, codeType, codeProps))
             }
