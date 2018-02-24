@@ -121,13 +121,6 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
             }          
         };
 
-        // VARIABLES 
-        // TODO: REMOVER ESTO DE AQUI, HACERLO DINAMICO DEPENDIENDO DE QUE PREPROCESADOR SE VA A USAR, ETC
-        let options: Array<CodeSupportedOption> = [
-            CodeSupportedOption.html,
-            CodeSupportedOption.css
-        ];
-
 
         /*         MARKUP          */
         /***************************/
@@ -136,7 +129,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
 
 
                 {/* Source Code Tab Menu */}
-                <SourceCodeTabMenuContainer options={options} isReversed={true}/>
+                <SourceCodeTabMenuContainer isReversed={true}/>
 
 
                 {/* Source Code Panel */}

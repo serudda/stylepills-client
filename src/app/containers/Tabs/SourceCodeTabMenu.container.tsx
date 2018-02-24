@@ -22,7 +22,7 @@ import CodeTabMenu from './../../components/Tabs/CodeTabMenu/CodeTabMenu';
 
 /* Own Props */
 type SourceCodeTabMenuContainerProps = {
-    options?: Array<CodeSupportedOption>;
+    tabOptions?: Array<CodeSupportedOption>;
     isReversed?: boolean;
     onTabClick?: (type: CodeSupportedOption) => void;
 };
@@ -36,7 +36,8 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    tab: CodeSupportedOption
+    tab: CodeSupportedOption,
+    options: Array<CodeSupportedOption>
 };
 
 /* Mapped Dispatches to Props */
@@ -84,14 +85,17 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
      */
     private _buildTabOptions() {
 
+        // Own props
+        const { tabOptions } = this.props;
+        // State Store props
         const { options } = this.props;
 
         // If receive an parent's options
-        if (options) {
-            return options;
+        if (tabOptions) {
+            return tabOptions;
         } else {
             // If not receive a parent's options method, build default options.
-            return [ CodeSupportedOption.css, CodeSupportedOption.js ];
+            return options;
         }
 
     }
@@ -146,8 +150,12 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
+
+    const { options } = state.ui.tabs.sourceCodeTab;
+
     return {
-        tab: getSourceCodeTab(state)
+        tab: getSourceCodeTab(state),
+        options
     };
 }
 

@@ -5,6 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { CodeSupportedOption } from '../../../../core/interfaces/interfaces';
+
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../reducer/reducer.config';
@@ -16,7 +18,7 @@ import {
 
 import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.selector';
 
-import { closeModalAction, clearUiAction } from './../../../../actions/ui.action';
+import { loadSourceCodeTabsAction, closeModalAction, clearUiAction } from './../../../../actions/ui.action';
 import { clearPreprocessorStateAction } from './../../../../actions/preprocessor.action';
 
 import SourceModal from './../../../../app/components/Modals/SourceModal/SourceModal';
@@ -55,6 +57,7 @@ type DispatchProps = {
         ui: { 
             closeModal: () => void;
             clearUi: () => void;
+            loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void;
         },
         preprocessorState: {
             clearPreprocessorState: () => void;
@@ -107,6 +110,10 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     /*     COMPONENT_DID_MOUNT      */
     /********************************/
     componentDidMount() { 
+        // Generate source Code Tab options
+        this._generateSourceCodeTabOptions();
+
+        // Append Modal Class on Body
         this._appendModalOpenClassToBody();
     }
 
@@ -114,7 +121,11 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     /********************************/
     /*    COMPONENT_DID_UPDATE      */
     /********************************/
-    componentDidUpdate() { 
+    componentDidUpdate() {
+        // Generate source Code Tab options
+        this._generateSourceCodeTabOptions();
+
+        // Append Modal Class on Body
         this._appendModalOpenClassToBody();
     }
 
@@ -229,6 +240,19 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         document.body.classList.add('sourceModal-open');
     }
 
+
+    /**
+     * @desc Build SourceCodeTab options list
+     * @method _generateSourceCodeTabOptions
+     * @example this._generateSourceCodeTabOptions()
+     * @private 
+     * @returns {void}
+     */
+    private _generateSourceCodeTabOptions() {
+        // Load source code tab options
+        this.props.actions.ui.loadSourceCodeTabs();
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -277,7 +301,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
-                clearUi: () => dispatch(clearUiAction())
+                clearUi: () => dispatch(clearUiAction()),
+                loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs))
             },
             preprocessorState: {
                 clearPreprocessorState: () => dispatch(clearPreprocessorStateAction())

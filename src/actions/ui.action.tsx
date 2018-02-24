@@ -3,6 +3,8 @@
 /************************************/
 import { EventTypes } from 'redux-segment';
 
+import { store } from './../index';
+
 import { CodeSupportedOption } from './../core/interfaces/interfaces';
 
 import * as types from '../core/constants/action.types';
@@ -213,6 +215,11 @@ export interface IChangeSourceCodeTabAction {
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
 }
 
+export interface ILoadSourceCodeTabsAction {
+    type: types.LOAD_SOURCE_CODE_TABS;
+    sourceCodeTabs?: Array<CodeSupportedOption>;
+}
+
 export interface IChangeLibsTabAction {
     type: types.CHANGE_LIBS_TAB;
     tabs: {
@@ -305,6 +312,7 @@ export type Action =
 |   ILoadLibsAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
+|   ILoadSourceCodeTabsAction
 |   IChangeLibsTabAction
 |   IChangeColorAction
 |   IChangeSourceCodeAction
@@ -669,6 +677,34 @@ export const changeSourceCodeTabAction = (tab: CodeSupportedOption): Action => {
                 },
             },
         }
+    };
+};
+
+
+/**
+ * @desc Return an action type, LOAD_SOURCE_CODE_TABS to load source code tabs
+ * @function loadSourceCodeTabsAction
+ * @returns {Action}
+ */
+export const loadSourceCodeTabsAction = (sourceCodeTabs: Array<CodeSupportedOption>): Action => {
+    
+    let options: Array<CodeSupportedOption> = [];
+
+    // If it doesn't receive sourceCodeTabs
+    if (!sourceCodeTabs) {
+        // Get tab menu options from current preprocessor selected
+        if (!!store.getState().preprocessorState.currentPreprocessor) {
+            const preprocessorType = store.getState().preprocessorState.currentPreprocessor.type;
+    
+            options = [CodeSupportedOption[preprocessorType]];
+        }
+    } else {
+        options = sourceCodeTabs;
+    }
+
+    return {
+        type: types.LOAD_SOURCE_CODE_TABS,
+        sourceCodeTabs: options
     };
 };
 

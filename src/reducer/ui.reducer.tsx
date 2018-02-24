@@ -57,7 +57,8 @@ export interface IUiState {
             tab: DetailsTabMenuOptions
         },
         sourceCodeTab?: {
-            tab: CodeSupportedOption
+            tab: CodeSupportedOption,
+            options: Array<CodeSupportedOption>
         },
         libsTab?: {
             tab: CodeSupportedOption
@@ -98,7 +99,8 @@ const defaultState: IUiState = {
             tab: null
         },
         sourceCodeTab: {
-            tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB,
+            options: [CodeSupportedOption.html, CodeSupportedOption.css]
         },
         libsTab: {
             tab: appConfig.LIBS_DEFAULT_OPTION_TAB
@@ -155,7 +157,8 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                         tab: null
                     },
                     sourceCodeTab: {
-                        tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                        tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB,
+                        options: [CodeSupportedOption.html, CodeSupportedOption.css]
                     },
                     libsTab: {
                         tab: appConfig.LIBS_DEFAULT_OPTION_TAB
@@ -374,7 +377,26 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 tabs: {
                     ...state.tabs,
                     sourceCodeTab: {
+                        ...state.tabs.sourceCodeTab,
                         tab: action.tabs.sourceCodeTab.tab
+                    }
+                }
+            };
+        }
+
+        case types.LOAD_SOURCE_CODE_TABS: {
+
+            const { 
+                sourceCodeTabs = [CodeSupportedOption.html, CodeSupportedOption.css]
+            } = action;
+
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    sourceCodeTab: {
+                        ...state.tabs.sourceCodeTab,
+                        options: sourceCodeTabs
                     }
                 }
             };
