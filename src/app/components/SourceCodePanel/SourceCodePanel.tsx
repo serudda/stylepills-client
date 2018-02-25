@@ -6,9 +6,6 @@ import * as React from 'react';
 import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
 import * as appConfig from './../../../core/constants/app.constants';
 
-import {
-    Option as CopyOption
-} from './../Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
 import SourceCodeTabMenuContainer from './../../containers/Tabs/SourceCodeTabMenu.container';
 import CopyToClipboardBtnContainer from './../../containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
 import ActiveEditModeBtnContainer from './../../containers/Buttons/ActiveEditModeBtn/ActiveEditModeBtn.container';
@@ -89,7 +86,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
             },
             copy: () => {
                 return (
-                    <CopyToClipboardBtnContainer text={this.props[currentTab]} type={CopyOption[currentTab]}/>
+                    <CopyToClipboardBtnContainer text={this.props[currentTab]} type={CodeSupportedOption[currentTab]}/>
                 );
             }          
         };

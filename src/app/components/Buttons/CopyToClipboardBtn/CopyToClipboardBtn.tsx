@@ -5,6 +5,9 @@ import * as React from 'react';
 import { Popup } from 'semantic-ui-react';
 import * as CopyToClipboard from 'react-copy-to-clipboard';
 
+import * as appConfig from './../../../../core/constants/app.constants';
+import { CodeSupportedOption } from './../../../../core/interfaces/interfaces';
+
 // -----------------------------------
 
 
@@ -13,11 +16,7 @@ import * as CopyToClipboard from 'react-copy-to-clipboard';
 /********************************/
 
 /* Possible options */
-export enum Option {
-    html = 'html',
-    css = 'css',
-    text = 'text'
-}
+export type Option = CodeSupportedOption;
 
 /* Own Props */
 type CopyToClipboardBtnProps = {
@@ -53,7 +52,7 @@ class CopyToClipboardBtn extends React.Component<CopyToClipboardBtnProps, {}> {
 
         // Destructuring props
         const { 
-            type = Option.text,
+            type = appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB,
             text,
             copied,
             onCopy
