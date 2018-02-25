@@ -53,7 +53,7 @@ export type ATOM_SEARCH_TYPE_DEFAULT = typeof ATOM_SEARCH_TYPE_DEFAULT;
 export const ATOM_SEARCH_ORDER = 'DESC';
 
 /* Source Code Tabs (Atom Details) */
-export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeSupportedOption.html;
+export const SOURCE_CODE_DEFAULT_OPTION_TAB = CodeSupportedOption.html;
 
 /* Libs Tabs */
 export const LIBS_DEFAULT_OPTION_TAB = CodeSupportedOption.css;

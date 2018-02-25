@@ -8,6 +8,7 @@ import { compose, ChildProps } from 'react-apollo';
 import { functionsUtil } from './../../../core/utils/functionsUtil';
 
 import { Basic as BasicColorModel } from './../../../models/color/color.model';
+import RgbaColorService from './../../../models/rgbaColor/rgbaColor.service';
 import { Lib as LibModel } from './../../../models/lib/lib.model';
 
 import { IRootState } from './../../../reducer/reducer.config';
@@ -90,7 +91,7 @@ extends React.Component<ChildProps<AtomDetailsBoxProps & StateProps & DispatchPr
 
         const defaultColor: BasicColorModel = {
             hex: contextualBg || DEFAULT_COLOR_HEX,
-            rgba: functionsUtil.convertHexToRgbaModel(contextualBg, 1) || DEFAULT_COLOR_RGBA
+            rgba: RgbaColorService.convertHexToRgbaModel(contextualBg, 1) || DEFAULT_COLOR_RGBA
         };
 
         // Post contextualBg on Store State

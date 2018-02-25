@@ -88,8 +88,6 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
             }
         };
 
-        // Bind methods
-        this.handleOnChange = this.handleOnChange.bind(this);
     }
 
 
@@ -117,51 +115,9 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
     /********************************/
 
 
-    /**
-     * @desc HandleOnChange
-     * @method handleOnChange
-     * @example this.handleOnChange()
-     * @public
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @param {string} newCode - new source code
-     * @param {any} e - Event
-     * @returns {void}
-     */
-    handleOnChange (newCode: string) {
-        this._updateCode(this.props.tab, newCode);
-    }
-
-
     /********************************/
     /*       PRIVATE METHODS        */
     /********************************/
-
-
-    /**
-     * @desc Update Code
-     * @method _updateCode
-     * @example this._updateCode()
-     * @private
-     * @param {string} type - source code type (e.g. 'html', 'css')
-     * @param {string} newCode - new source code
-     * @returns {void}
-     */
-    private _updateCode(type: string, newCode: string) {
-        // Destructuring props
-        const { atomId, name } = this.props;
-        
-        // Update local state
-        this.setState((previousState) => {
-            return {
-                ...previousState,
-                [type]: newCode
-            };
-        }, () => {
-            // Launch Atom details changed Action
-            this.props.actions.atomState.changedAtomDetails(atomId, name, type, {code: newCode});
-        });
-        
-    }
 
 
     /********************************/
@@ -173,7 +129,6 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
         const { atomId, name } = this.props;
         const { tab } = this.props;
         const { watchingChanges } = this.props;
-        const { html, css } = this.state;
 
         // VARIABLES
         let floatMenuOptions: Array<FloatMenuOption> = [
@@ -193,9 +148,6 @@ extends React.Component<ChildProps<SourceCodePanelContainerProps & StateProps & 
         return (
             <SourceCodePanel id={atomId}
                              name={name}
-                             html={html} 
-                             css={css}
-                             onCodeChange={this.handleOnChange}
                              currentTab={tab}
                              floatMenuBtns={floatMenuOptions}
                              message={messageConfig}

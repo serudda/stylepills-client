@@ -21,19 +21,22 @@ import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type SmallColorPickerContainerProps = {
-    onChange?: (color: BasicColorModel) => void;
+    onChange?: (color: BasicColorModel) => void
 };
 
 /* Own States */
 type LocalStates = {
-    displayColorPicker: boolean;
+    displayColorPicker: boolean
 };
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
 
 /* Mapped State to Props */
 type StateProps = {
@@ -50,33 +53,36 @@ type DispatchProps = {
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    SmallColorPickerContainerProps
+&   StateProps
+&   DispatchProps;
+
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SmallColorPickerContainer 
-extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
     /********************************/
     /*         STATIC PROPS         */
     /********************************/
     private _DEFAULT_COLORS_LIST: Array<string> = [
-        '#273444', 
-        '#3C4858', 
-        '#8492A6', 
-        '#E0E6ED', 
-        '#EFF2F7',
-        '#976B55',
-        '#7BDCB5', 
-        '#0693E3', 
-        '#FFF78A', 
-        '#EC7D7D'
+        '#273444', '#3C4858', '#8492A6', 
+        '#E0E6ED', '#EFF2F7', '#976B55',
+        '#7BDCB5', '#0693E3', '#FFF78A', '#EC7D7D'
     ];
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SmallColorPickerContainerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         this.state = {

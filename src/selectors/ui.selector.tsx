@@ -4,13 +4,15 @@
 import { createSelector } from 'reselect';
 
 import { CodeSupportedOption } from './../core/interfaces/interfaces';
+import * as appConfig from './../core/constants/app.constants';
 
 import { IRootState } from './../reducer/reducer.config';
 import { functionsUtil } from './../core/utils/functionsUtil';
 import {
     SourceListItem,
     LibListItem, LibsList,
-    ColorListItem, ColorsList
+    ColorListItem, ColorsList,
+    CurrentCode
 } from './../reducer/ui.reducer';
 import {
     Basic as BasicColorModel, 
@@ -19,6 +21,9 @@ import {
 import {
     Lib as LibModel
 } from './../models/lib/lib.model';
+import {
+    Source as SourceModel
+} from './../models/source/source.model';
 
 import { 
     Option as DetailsTabMenuOptions 
@@ -263,6 +268,35 @@ export const getSourceCodeTab = (state: IRootState): CodeSupportedOption => stat
  */
 export const getLibsTab = (state: IRootState): CodeSupportedOption => state.ui.tabs.libsTab.tab;
 
+
+// ----------------------------------------------------------------------------------
+
+
+/* 
+    TABS SELECTORS
+    state: ui.sourceCodePanel.currentCode
+*/
+
+
+/**
+ * @desc Get Current Code from state store
+ * @function getCurrentCode
+ * @returns {CurrentCode}
+ */
+export const getCurrentCode = (state: IRootState): CurrentCode => state.ui.sourceCodePanel.currentCode;
+
+
+/**
+ * @desc Get currentCode by Type from state store (e.g. css, sass, js, html, etc)
+ * @function getCurrentCodeByType
+ * @returns {SourceModel}
+ */
+export const getCurrentCodeByType = (state: IRootState, props: any): SourceModel => {
+    const { type } = props;
+    const group = type ? type : appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB;
+
+    return state.ui.sourceCodePanel.currentCode[group];
+};
 
 
 

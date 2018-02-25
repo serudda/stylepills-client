@@ -1,3 +1,5 @@
+/* LEGACY: TODO: Ya nadie lo esta usando por que quedo desactualizado, por ejemplo ya changeSourceCode 
+    envia un source model no un codeType y un codeProps */
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
@@ -187,7 +189,7 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
         return {
             actions: {
                 ui: {
-                    changeSourceCode: (codeType, codeProps) => dispatch(changeSourceCodeAction(codeType, codeProps)),
+                    changeSourceCode: (codeType, codeProps) => dispatch(changeSourceCodeAction(codeProps)),
                 }
             }
         };

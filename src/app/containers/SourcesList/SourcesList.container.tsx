@@ -6,6 +6,7 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../reducer/reducer.config';
+import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
 
 import { 
     showModalAction, 
@@ -20,7 +21,6 @@ import {
     Option as ModalOption 
 } from './../../containers/Modals/ModalManager/ModalManager.container';
 import {
-    PreprocessorTypeOptions,
     CompileToTypeOptions,
     PreprocessorNameOptions,
     PreprocessorExtOptions
@@ -159,7 +159,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
                 id: 1,
                 name: PreprocessorNameOptions.sass,
                 extension: PreprocessorExtOptions.sass,
-                type: PreprocessorTypeOptions.sass,
+                type: CodeSupportedOption.sass,
                 compileTo: CompileToTypeOptions.css
             },
             order: 1
@@ -170,7 +170,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
             code: '.class {}',
             preprocessor: {
                 id: 2,
-                type: PreprocessorTypeOptions.sass,
+                type: CodeSupportedOption.sass,
                 name: PreprocessorNameOptions.sass,
                 extension: PreprocessorExtOptions.sass,
                 compileTo: CompileToTypeOptions.css
@@ -183,7 +183,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
             code: '.class {}',
             preprocessor: {
                 id: 3,
-                type: PreprocessorTypeOptions.sass,
+                type: CodeSupportedOption.sass,
                 name: PreprocessorNameOptions.sass,
                 extension: PreprocessorExtOptions.sass,
                 compileTo: CompileToTypeOptions.css

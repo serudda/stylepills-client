@@ -4,7 +4,8 @@
 import { client } from './../index';
 
 import * as types from './../core/constants/action.types';
-import { INormalizedResult } from './../core/interfaces/interfaces';
+import { CodeSupportedOption, INormalizedResult } from './../core/interfaces/interfaces';
+import * as appConfig from './../core/constants/app.constants';
 
 import { 
     Preprocessor as PreprocessorModel,
@@ -204,14 +205,14 @@ export const getPreprocessorsFailureAction = (message: string): Action => {
  * @param {CreateProjectInput} input - create project input data
  * @returns {Promise<any>}
  */
-export const compileCodeAction = (preprocessor: PreprocessorTypeOptions, code: string) => {
+export const compileCodeAction = (preprocessor: CodeSupportedOption, code: string) => {
     return (dispatch: Function): Promise<SassCompilerResponse> => {
 
         // Request Compile Code
         dispatch(requestCompileCodeAction(preprocessor));
         
         switch (preprocessor) {
-            case PreprocessorTypeOptions.sass:
+            case CodeSupportedOption.sass:
                 return sassCompilerService.compile(code).then(_compileCodeResponse(preprocessor, code, dispatch));
             default:
                 return null;
@@ -253,7 +254,7 @@ export const getAllPreprocessorsAction = () => {
         }).then(
             (response: any) => {
                 let { error, allPreprocessors } = response.data;
-                const DEFAULT_PREPROCESSOR = 1;
+                let defaultPreprocessorId: number;
 
                 if (error) {
 
@@ -270,8 +271,14 @@ export const getAllPreprocessorsAction = () => {
                 // Got them Successful
                 dispatch(receiveGetPreprocessorsAction(allPreprocessors));
 
+
                 // Assign a default current Preprocessor
-                dispatch(changePreprocessorAction(DEFAULT_PREPROCESSOR));
+                allPreprocessors.forEach((preprocessor: PreprocessorModel) => {
+                    if (preprocessor.type === appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB) {
+                        defaultPreprocessorId = preprocessor.id;
+                    }
+                });
+                dispatch(changePreprocessorAction(defaultPreprocessorId));
 
                 return {
                     ok: true,

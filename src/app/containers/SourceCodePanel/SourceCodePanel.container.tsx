@@ -10,10 +10,6 @@ import SourceCodePanel, { 
     FloatMenuOption 
 } from './../../components/SourceCodePanel/SourceCodePanel';
 
-import { withChangeSourceCode, 
-         InjectedProps as WithChangeSourceCodeProps 
-       } from './../../../core/hocs/withChangeSourceCode.hoc';
-
 import { withChangeCodeTab, 
          InjectedProps as WithChangeCodeTabProps 
        } from './../../../core/hocs/withChangeCodeTab.hoc';
@@ -25,10 +21,7 @@ import { withChangeCodeTab,
 // ===================================
 
 /* Own Props */
-type SourceCodePanelContainerProps = {
-    html: string,
-    css: string
-};
+type SourceCodePanelContainerProps = {};
 
 /* Own States */
 type LocalStates = {};
@@ -51,7 +44,6 @@ type AllProps =
     SourceCodePanelContainerProps
 &   StateProps
 &   DispatchProps
-&   WithChangeSourceCodeProps
 &   WithChangeCodeTabProps;
 
 
@@ -80,7 +72,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
         // Destructuring props & state
         const { tab } = this.props;
-        const { html, css } = this.props;
 
         // VARIABLES
         let options: Array<FloatMenuOption> = [
@@ -91,11 +82,8 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
         /*         MARKUP          */
         /***************************/
         return (
-            <SourceCodePanel currentTab={tab} 
-                             html={html} 
-                             css={css}
-                             floatMenuBtns={options}
-                             onCodeChange={this.props.onChange}/>
+            <SourceCodePanel currentTab={tab}
+                             floatMenuBtns={options}/>
         );
     }
 
@@ -105,13 +93,11 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /**************************************/
 /*     WITH CHANGE SOURCE CODE HOC    */
 /**************************************/
-const withChangeSourceCodeConnect = withChangeSourceCode({key: 'True Live'});
 const withChangeCodeTabConnect = withChangeCodeTab({key: 'True Live'});
 
 
 /*         EXPORT          */
 /***************************/
 export default compose <any>(
-    withChangeCodeTabConnect,
-    withChangeSourceCodeConnect
+    withChangeCodeTabConnect
 )(SourceCodePanelContainer);

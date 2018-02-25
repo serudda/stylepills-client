@@ -1,14 +1,20 @@
+/********************************/
+/*         DEPENDENCIES         */
+/********************************/
+import {
+    CodeSupportedOption
+} from './../../core/interfaces/interfaces';
+
+
+// -----------------------------------
+
+
 /************************************/
 /*         TYPE & INTERFACES        */
 /************************************/
 
 /* Possible preprocessor type options */
-export enum PreprocessorTypeOptions {
-    sass = 'sass',
-    scss = 'scss',
-    less = 'less',
-    stylus = 'stylus'
-}
+export type PreprocessorTypeOptions = CodeSupportedOption;
 
 /* Possible preprocessor name options */
 export enum PreprocessorNameOptions {

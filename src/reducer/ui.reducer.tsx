@@ -10,7 +10,6 @@ import { Action } from '../actions/ui.action';
 
 import { functionsUtil } from './../core/utils/functionsUtil';
 
-import { ICurrentCode } from './../actions/ui.action';
 import { 
     Basic as BasicColorModel, 
     Color as ColorModel 
@@ -43,6 +42,9 @@ export type ColorsList = {
 export type LibsList = {
     [index: string]: Array<LibListItem> // NOTE: 'assign_new_property_to_an_object_in_TypeScript'
 };
+export type CurrentCode = {
+    [index: string]: SourceModel
+};
 
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
@@ -70,7 +72,7 @@ export interface IUiState {
         }
     };
     sourceCodePanel: {
-        currentCode: Array<ICurrentCode>;
+        currentCode: CurrentCode;
     };
     copied: {
         copiedType: string
@@ -99,7 +101,7 @@ const defaultState: IUiState = {
             tab: null
         },
         sourceCodeTab: {
-            tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB,
+            tab: appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB,
             options: [CodeSupportedOption.html, CodeSupportedOption.css]
         },
         libsTab: {
@@ -116,7 +118,10 @@ const defaultState: IUiState = {
         }
     },
     sourceCodePanel: {
-        currentCode: []
+        currentCode: {
+            html: null,
+            css: null
+        }
     },
     copied: null
 };
@@ -157,7 +162,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                         tab: null
                     },
                     sourceCodeTab: {
-                        tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB,
+                        tab: appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB,
                         options: [CodeSupportedOption.html, CodeSupportedOption.css]
                     },
                     libsTab: {
@@ -174,7 +179,10 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     }
                 },
                 sourceCodePanel: {
-                    currentCode: []
+                    currentCode: {
+                        html: null,
+                        css: null
+                    }
                 },
                 copied: null
             };
@@ -440,45 +448,25 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+
         case types.CHANGE_SOURCE_CODE: {
 
-            const { currentCode } = action.sourceCodePanel;
-            const { codeType, codeProps } = currentCode;
-            let newCurrentCodeState = state.sourceCodePanel.currentCode.slice();
+            const { source } = action;
 
-            // To know if code type already exists on sourceCodePanel/currentCode state
-            let codeTypeAlreadyExists = functionsUtil.itemExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
-
-            /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
-            global que haga esta operación */
-            if (codeTypeAlreadyExists) {
-
-                newCurrentCodeState = functionsUtil.updateItemInArray(newCurrentCodeState, 'codeType', codeType, 
-                (code: ICurrentCode) => {
-                    return {
-                        ...code,
-                        codeProps
-                    };
-                });
-
-            } else {
-
-                newCurrentCodeState = state.sourceCodePanel.currentCode.concat({
-                    codeType,
-                    codeProps
-                });
-                
-            }
-            /* TODO: Fin del fragmento */
+            const type = source.preprocessor.type;
 
             return {
                 ...state,
                 sourceCodePanel: {
-                    currentCode: newCurrentCodeState
+                    ...state.sourceCodePanel,
+                    currentCode: {
+                        ...state.sourceCodePanel.currentCode,
+                        [type]: action.source
+                    }
                 }
             };
-
         }
+
             
         default:
             return state;  

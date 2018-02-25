@@ -9,7 +9,7 @@ import { IRootState } from './../../../../../reducer/reducer.config';
 
 import { Preprocessor as PreprocessorModel } from './../../../../../models/preprocessor/preprocessor.model';
 
-import { getPreprocessorsListDenormalized } from './../../../../../selectors/preprocessor.selector';
+import { getPreprocessorsListWithDefault } from './../../../../../selectors/preprocessor.selector';
 
 import { changePreprocessorAction } from './../../../../../actions/preprocessor.action';
 
@@ -153,7 +153,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        preprocessorsList: getPreprocessorsListDenormalized(state)
+        preprocessorsList: getPreprocessorsListWithDefault(state)
     };
 }
 

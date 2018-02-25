@@ -6,19 +6,24 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { CodeSupportedOption } from '../../../../core/interfaces/interfaces';
+import * as appConfig from './../../../../core/constants/app.constants';
 
 import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 import { Source as SourceModel } from './../../../../models/source/source.model';
 import { 
-    Preprocessor as PreprocessorModel, 
-    PreprocessorTypeOptions 
+    Preprocessor as PreprocessorModel,
 } from '../../../../models/preprocessor/preprocessor.model';
 
 import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.selector';
 
-import { loadSourceCodeTabsAction, closeModalAction, clearUiAction } from './../../../../actions/ui.action';
+import {
+    changeSourceCodeAction,
+    loadSourceCodeTabsAction, 
+    closeModalAction, 
+    clearUiAction 
+} from './../../../../actions/ui.action';
 import { clearPreprocessorStateAction } from './../../../../actions/preprocessor.action';
 
 import SourceModal from './../../../../app/components/Modals/SourceModal/SourceModal';
@@ -33,12 +38,12 @@ type SourceModalForm = {
     name: string;
     filename: string;
     code: string;
-    preprocessor: PreprocessorTypeOptions;
+    preprocessor: CodeSupportedOption;
 };
 
 /* Own Props */
 type SourceModalContainerProps = {
-    source: SourceModel
+    source?: SourceModel
 };
 
 /* Own States */
@@ -58,6 +63,7 @@ type DispatchProps = {
             closeModal: () => void;
             clearUi: () => void;
             loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void;
+            changeSourceCode: (source: SourceModel) => void;
         },
         preprocessorState: {
             clearPreprocessorState: () => void;
@@ -85,7 +91,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
             filename: '', 
             code: '', 
             preprocessor: {
-                type: PreprocessorTypeOptions.scss
+                type: appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB
             }
         } } = props;
 
@@ -109,9 +115,12 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     /********************************/
     /*     COMPONENT_DID_MOUNT      */
     /********************************/
-    componentDidMount() { 
+    componentDidMount() {
         // Generate source Code Tab options
         this._generateSourceCodeTabOptions();
+
+        // Load source passed through props in State Store
+        this._saveSourceCodeInStore();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -124,6 +133,9 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     componentDidUpdate() {
         // Generate source Code Tab options
         this._generateSourceCodeTabOptions();
+
+        // Load source passed through props in State Store
+        this._saveSourceCodeInStore();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -253,6 +265,23 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         this.props.actions.ui.loadSourceCodeTabs();
     }
 
+
+    /**
+     * @desc Save sourceCode in Store
+     * @method _saveSourceCodeInStore
+     * @example this._saveSourceCodeInStore()
+     * @private 
+     * @returns {void}
+     */
+    private _saveSourceCodeInStore() {
+
+        // Destructuring props & states
+        const { source } = this.props;
+
+        // Load source code tab options
+        this.props.actions.ui.changeSourceCode(source);
+    }
+
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -302,7 +331,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
             ui: {
                 closeModal: () => dispatch(closeModalAction()),
                 clearUi: () => dispatch(clearUiAction()),
-                loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs))
+                loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs)),
+                changeSourceCode: (source: SourceModel) => dispatch(changeSourceCodeAction(source))
             },
             preprocessorState: {
                 clearPreprocessorState: () => dispatch(clearPreprocessorStateAction())

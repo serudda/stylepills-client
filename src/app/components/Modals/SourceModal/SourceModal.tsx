@@ -108,8 +108,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
 
                     {/* Source Panel Container */}
                     <div className="mt-5">
-                        <SourceCodePanelContainer html={null}
-                                                  css={null} />
+                        <SourceCodePanelContainer />
                     </div>
 
                     {/* Save button */}

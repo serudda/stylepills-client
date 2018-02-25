@@ -5,12 +5,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { CodeSupportedOption } from '../../../../core/interfaces/interfaces';
+
 import { IRootState } from './../../../../reducer/reducer.config';
 
 import { compileCodeAction } from './../../../../actions/preprocessor.action';
 import {
-    CompileToTypeOptions,
-    PreprocessorTypeOptions
+    CompileToTypeOptions
 } from './../../../../models/preprocessor/preprocessor.model';
 
 import CompileBtn from './../../../components/Buttons/CompileBtn/CompileBtn';
@@ -24,7 +25,7 @@ import CompileBtn from './../../../components/Buttons/CompileBtn/CompileBtn';
 
 /* Own Props */
 type CompileBtnContainerProps = {
-    preprocessorType: PreprocessorTypeOptions,
+    preprocessorType: CodeSupportedOption,
     compileTo: CompileToTypeOptions,
     label: string,
     codeToCompile: string
@@ -40,7 +41,7 @@ type StateProps = {};
 type DispatchProps = {
     actions: {
         ui: { 
-            compileCode: (preprocessorType: PreprocessorTypeOptions, code: string) => void;
+            compileCode: (preprocessorType: CodeSupportedOption, code: string) => void;
         }
     };
 };
@@ -79,7 +80,7 @@ extends React.Component<ChildProps<CompileBtnContainerProps & StateProps & Dispa
      */
     handleCompileClick (e: React.FormEvent<{}>) {
         const { 
-            preprocessorType = PreprocessorTypeOptions.scss, 
+            preprocessorType = CodeSupportedOption.scss, 
             codeToCompile = CompileToTypeOptions.css 
         } = this.props;
         this._compileCode(preprocessorType, codeToCompile);
@@ -99,7 +100,7 @@ extends React.Component<ChildProps<CompileBtnContainerProps & StateProps & Dispa
      * @param {string} type - compile options (e.g. 'html', 'css', 'js')
      * @returns {void}
      */
-    private _compileCode(preprocessorType: PreprocessorTypeOptions, code: string) {
+    private _compileCode(preprocessorType: CodeSupportedOption, code: string) {
         // Launch Compile Action
         this.props.actions.ui.compileCode(preprocessorType, code);
     }

@@ -13,6 +13,7 @@ import { IAnalyticsTrack } from './../core/interfaces/interfaces';
 import { Basic as BasicColorModel, Color as ColorModel, ColorTypeOptions } from '../models/color/color.model';
 import { Lib as LibModel, LibTypeOptions } from './../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
+import SourceService from './../models/source/source.service';
 
 import { 
     LibsList,
@@ -268,24 +269,9 @@ export interface IChangeColorAction {
     SOURCE CODE PANEL ACTIONS
     state: sourceCodePanel
 */
-
-export interface ICodeProps {
-    code: string;
-    libs?: Array<string>;
-}
-
-export interface ICurrentCode {
-    codeType: string; 
-    codeProps: ICodeProps;
-}
-
-export interface ISourceCodePanel {
-    currentCode: ICurrentCode;
-}
-
 export interface IChangeSourceCodeAction {
     type: types.CHANGE_SOURCE_CODE;
-    sourceCodePanel: ISourceCodePanel;
+    source: SourceModel;
 }
 
 export type Action =
@@ -785,18 +771,22 @@ export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOp
  * @desc Return an action type, CHANGE_SOURCE_CODE 
  * to indicate that user wants to change source code on SourcePanel
  * @function changeSourceCodeAction
- * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {SourceModel} codeType - code type (e.g. 'html', 'css', etc.)
  * @param {any} codeProps - code properties (e.g. code, libs, etc)
  * @returns {Action}
  */
-export const changeSourceCodeAction = (codeType: string, codeProps: any): Action => {
+export const changeSourceCodeAction = (source: SourceModel = null): Action => {
+    let sourceInstance: SourceModel;
+
+    if (source === null) {
+        let currentPreprocessor = store.getState().preprocessorState.currentPreprocessor;
+        sourceInstance = SourceService.createSourceObjBasedOnCurrentPreprocessor(currentPreprocessor);
+    } else {
+        sourceInstance = source;
+    }
+
     return {
         type: types.CHANGE_SOURCE_CODE,
-        sourceCodePanel: {
-            currentCode: {
-                codeType,
-                codeProps
-            }
-        }
+        source: sourceInstance
     };
 };

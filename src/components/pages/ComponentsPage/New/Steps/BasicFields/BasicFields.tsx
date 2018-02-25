@@ -10,6 +10,7 @@ import { isEmpty } from 'lodash';
 
 import * as classNames from 'classnames';
 
+import { CodeSupportedOption } from './../../../../../../core/interfaces/interfaces';
 import { functionsUtil } from './../../../../../../core/utils/functionsUtil';
 import { 
         validateBasicFields, 
@@ -17,9 +18,9 @@ import {
 } from './../../../../../../core/validations/atom';
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
+import { CurrentCode } from './../../../../../../reducer/ui.reducer';
 
 import { 
-    ICurrentCode, 
     showAlertAction,
     loadLibsAction
 } from './../../../../../../actions/ui.action';
@@ -32,7 +33,7 @@ import {
 }  from './../../../../../../models/lib/lib.model';
 import LibService from './../../../../../../models/lib/lib.service';
 
-import { getCurrentColor, getLibListDenormalized } from './../../../../../../selectors/ui.selector';
+import { getCurrentCode, getCurrentColor, getLibListDenormalized } from './../../../../../../selectors/ui.selector';
 
 import PreviewSectionContainer from './PreviewSection/PreviewSection.container';
 import PanelSectionContainer from './PanelSection/PanelSection.container';
@@ -85,7 +86,7 @@ type StateProps = {
     projectId: number | null,
     atomCategoryId: number | null,
     private: boolean,
-    currentCode: Array<ICurrentCode>,
+    currentCode: CurrentCode,
     color: BasicColorModel,
     user: UserModel,
     alerts: Array<{alertType: AlertOption, alertProps: any}>;
@@ -153,15 +154,13 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
 
         // Changed CurrentCode on Store state
         if (this.props.currentCode !== currentCode) {
-            
-            let obj = functionsUtil.sourceCodeArrayToObj(currentCode);
 
             this.setState((previousState: LocalStates) => ({
                 ...previousState,
                 fields: {
                     ...previousState.fields,
-                    html: obj.html || '',
-                    css: obj.css || ''
+                    html: currentCode[CodeSupportedOption.html].code || '',
+                    css: currentCode[CodeSupportedOption.css].code || ''
                 }
             }));
             
@@ -565,8 +564,6 @@ function mapStateToProps(state: IRootState): StateProps {
 
     const { user, isAuthenticated } = state.auth;
 
-    const { currentCode } = state.ui.sourceCodePanel;
-
     return {
         name,
         description,
@@ -577,7 +574,7 @@ function mapStateToProps(state: IRootState): StateProps {
         projectId,
         atomCategoryId,
         private: fields.private,
-        currentCode,
+        currentCode: getCurrentCode(state),
         color: getCurrentColor(state),
         user,
         alerts,

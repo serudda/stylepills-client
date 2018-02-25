@@ -4,30 +4,19 @@
 import * as React from 'react';
 
 import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
-
-import SourceCodeTabMenuContainer from './../../containers/Tabs/SourceCodeTabMenu.container';
+import * as appConfig from './../../../core/constants/app.constants';
 
 import {
     Option as CopyOption
 } from './../Buttons/CopyToClipboardBtn/CopyToClipboardBtn';
-
+import SourceCodeTabMenuContainer from './../../containers/Tabs/SourceCodeTabMenu.container';
 import CopyToClipboardBtnContainer from './../../containers/Buttons/CopyToClipboardBtn/CopyToClipboardBtn.container';
 import ActiveEditModeBtnContainer from './../../containers/Buttons/ActiveEditModeBtn/ActiveEditModeBtn.container';
+import CodeMirrorContainer from './../../containers/CodeMirrorContainer/CodeMirror.container';
 
 import BannerAlert, { 
     BannerAlertProps 
 } from './../Alerts/BannerAlert/BannerAlert';
-
-import * as CodeMirror from 'react-codemirror';
-import 'codemirror/mode/css/css';
-// TODO: Remover cuando no se necesite
-// import 'codemirror/mode/sass/sass';
-import 'codemirror/mode/xml/xml';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/addon/scroll/simplescrollbars';
-import 'codemirror/addon/scroll/simplescrollbars.css';
-import 'codemirror/theme/material.css';
-import 'codemirror/addon/display/autorefresh';
 
 // -----------------------------------
 
@@ -53,12 +42,9 @@ type SourceCodePanelProps = {
     currentTab: CodeSupportedOption,
     id?: number,
     name?: string,
-    html: string,
-    css: string,
     message?: BannerAlertProps,
     showMessage?: boolean,
     floatMenuBtns?: Array<FloatMenuOption>;
-    onCodeChange: (newCode: string) => void;
 };
 
 
@@ -87,25 +73,12 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
 
         // Destructuring props
         const { 
-            currentTab,
+            currentTab = appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB,
             id,
-            html, 
-            css,
             message,
             showMessage = false,
             floatMenuBtns = [],
-            onCodeChange
         } = this.props;
-
-        // Code Mirror HTML default options
-        const codeMirrorOptions = {
-            scrollbarStyle: 'overlay',
-            lineNumbers: true,
-            readOnly: false,
-            mode: currentTab === CodeSupportedOption.html ? 'xml' : CodeSupportedOption.css,
-            theme: 'material',
-            autoRefresh: true
-        };
 
         // Float Menu Options
         const floatMenuOptions: FloatMenuBtns = {
@@ -148,17 +121,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
-
-                            {currentTab === CodeSupportedOption.html && 
-                                <CodeMirror value={html} 
-                                            options={codeMirrorOptions} 
-                                            onChange={onCodeChange}/>}
-
-                            {currentTab === CodeSupportedOption.css && 
-                                <CodeMirror value={css} 
-                                            options={codeMirrorOptions} 
-                                            onChange={onCodeChange}/>}
-
+                            <CodeMirrorContainer sourceCodeType={currentTab}/>
                         </div>
 
                     </div>

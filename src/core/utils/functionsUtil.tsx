@@ -1,14 +1,10 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import { kebabCase } from 'lodash';
+import { kebabCase, find } from 'lodash';
 import * as appConfig from './../constants/app.constants';
 
 import { INormalizedResult } from './../interfaces/interfaces';
-
-import { ICurrentCode } from './../../actions/ui.action';
-import { SourceCode } from './../../models/atom/atom.model';
-import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
 
 
 /************************************/
@@ -24,9 +20,7 @@ interface IFunctionUtil {
     turnArrayIntoObject: (array: Array<any>, key?: string) => Object;
     deletePropInCollection: (array: Array<any>, ...keys: Array<string>) => Array<any>;
     consoleLog: (message: string, value?: any) => void;
-    sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     truncateText: (str: string, length: number, ending: string) => string;
-    convertHexToRgbaModel: (hex: string, opacity: number) => RgbaColorModel;
     toUrlFormat: (value: string) => string;
 }
 
@@ -260,27 +254,6 @@ class FunctionsUtil implements IFunctionUtil {
     }
 
 
-
-    /**
-     * @desc Get Source Code from currentCode (sourceCodePanel state on Store)
-     * @function sourceCodeArrayToObj
-     * @example this.sourceCodeArrayToObj(currentCode)
-     * @param {Array<ICurrentCode>} sourceCode - A list of currentCode format (codeType and codeProps)
-     * @return {SourceCode} obj - object parsed (e.g. obj = { "html": "<html>...</html>", "css": ".class {color: red}" })
-     */
-    sourceCodeArrayToObj(sourceCode: Array<ICurrentCode>): SourceCode {
-
-        let obj: any = {};
-
-        sourceCode.forEach((code) => {
-            obj[code.codeType] = code.codeProps.code;
-        });
-
-        return obj;
-    }
-
-
-
     /**
      * @desc Truncate a text based on a specific length and ending string
      * @function truncateText
@@ -306,31 +279,6 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * @desc Convert HEX to Rgba
-     * @function convertHexToRgba
-     * @example this.convertHexToRgba('#FFFFFF', 1)
-     * @param {string} hex - hex color
-     * @param {number} opacity - the color opacity
-     * @return {string} rgba color
-     */
-    convertHexToRgbaModel(hex: string , opacity: number): RgbaColorModel {
-
-        hex = hex.replace('#', '');
-        const r = parseInt(hex.substring(0, 2), 16);
-        const g = parseInt(hex.substring(2, 4), 16);
-        const b = parseInt(hex.substring(4, 6), 16);
-    
-        let result: RgbaColorModel = {
-            r, g, b, a: opacity
-        };
-        
-        return result;
-        
-    }
-
-
-
-    /**
      * toUrlFormat
      * @description - take a string and formatting it to url format ('colombia-immersion')
      * @use - functionsUtil.normalizeString('Colombia Immersion');
@@ -350,6 +298,27 @@ class FunctionsUtil implements IFunctionUtil {
 
         return valueParsed;
 
+    }
+
+    moveElementToFirstPosition(
+        array: Array<any>,
+        key: string = 'id',
+        value: number | string): Array<any> {
+
+        let newArray = this.copyArray(array);
+        // find index
+        let elem = find(newArray, [key, value]);
+
+        // if element does not exist in Array
+        if (!elem) { return newArray; }
+
+        // remove element in Array
+        newArray = this.deleteItemInArray(newArray, key, value);
+
+        // add element to the start
+        newArray.unshift( elem );
+
+        return newArray;
     }
 
 }

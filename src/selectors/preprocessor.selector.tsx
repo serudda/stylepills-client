@@ -4,6 +4,7 @@
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 
+import * as appConfig from './../core/constants/app.constants';
 import { INormalizedResult } from '../core/interfaces/interfaces';
 
 import { IRootState } from './../reducer/reducer.config';
@@ -45,7 +46,7 @@ export const getPreprocessorsList = (state: IRootState): INormalizedResult => st
 /**
  * @desc Get preprocessorsList denormalized to send to DB
  * @function getPreprocessorsListDenormalized
- * @returns {Array<LibModel>}
+ * @returns {INormalizedResult}
  */
 export const getPreprocessorsListDenormalized = createSelector(
     getPreprocessorsList,
@@ -58,5 +59,22 @@ export const getPreprocessorsListDenormalized = createSelector(
         const listDenormalized = denormalize(listCopy.result, preprocessorsListSchema, listCopy.entities);
 
         return listDenormalized;
+    }
+);
+
+
+/**
+ * @desc Get preprocessorsList putting source code default option on first position
+ * @function getPreprocessorsListWithDefault
+ * @returns {Array<LibModel>}
+ */
+export const getPreprocessorsListWithDefault = createSelector(
+    getPreprocessorsListDenormalized,
+    (preprocessorsList) => {
+
+        // Re order preprocessors list putting source code default option on first position
+        let newPreprocessorsList = functionsUtil.moveElementToFirstPosition(preprocessorsList, 'type', appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB);
+
+        return newPreprocessorsList;
     }
 );
