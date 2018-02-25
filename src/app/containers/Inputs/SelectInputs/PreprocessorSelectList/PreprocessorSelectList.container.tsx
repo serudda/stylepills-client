@@ -24,12 +24,13 @@ import SelectList from './../../../../components/Inputs/GenericSelectInput/Gener
 
 /* Own Props */
 type PreprocessorSelectListProps = {
+    selectedOption?: string | number, 
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
 };
 
 /* Own States */
 type LocalStates = {
-    value: string
+    value: string | number
 };
 
 
@@ -76,7 +77,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
         // Init state
         this.state = {
-            value: ''
+            value: props.selectedOption || ''
         };
 
         // Bind methods

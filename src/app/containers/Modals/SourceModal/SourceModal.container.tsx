@@ -16,6 +16,7 @@ import {
     Preprocessor as PreprocessorModel,
 } from '../../../../models/preprocessor/preprocessor.model';
 
+import { getSourceCodeTab, getCurrentCodeByType } from './../../../../selectors/ui.selector';
 import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.selector';
 
 import {
@@ -24,7 +25,7 @@ import {
     closeModalAction, 
     clearUiAction 
 } from './../../../../actions/ui.action';
-import { clearPreprocessorStateAction } from './../../../../actions/preprocessor.action';
+import { clearPreprocessorStateAction, changePreprocessorAction } from './../../../../actions/preprocessor.action';
 
 import SourceModal from './../../../../app/components/Modals/SourceModal/SourceModal';
 
@@ -53,6 +54,8 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
+    tab: CodeSupportedOption,
+    currentSource: SourceModel,
     currentPreprocessor: PreprocessorModel
 };
 
@@ -63,9 +66,10 @@ type DispatchProps = {
             closeModal: () => void;
             clearUi: () => void;
             loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void;
-            changeSourceCode: (source: SourceModel) => void;
+            changeSourceCode: (source: SourceModel, sourceType: CodeSupportedOption) => void;
         },
         preprocessorState: {
+            changePreprocessor: (preprocessorId: number) => void;
             clearPreprocessorState: () => void;
         }
     };
@@ -78,6 +82,20 @@ type DispatchProps = {
 class SourceModalContainer
 extends React.Component<ChildProps<SourceModalContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
 
+    private _DEFAULT_SOURCE_INSTANCE: SourceModel = {
+        id: parseInt(Date(), 10),
+        name: '',
+        filename: '', 
+        code: '', 
+        preprocessor: {
+            id: appConfig.SOURCE_CODE_DEFAULT_ID_ON_DB_OPTION,
+            name: appConfig.SOURCE_CODE_DEFAULT_NAME_OPTION,
+            type: appConfig.SOURCE_CODE_DEFAULT_TYPE_OPTION,
+            extension: appConfig.SOURCE_CODE_DEFAULT_EXT_OPTION,
+            compileTo: appConfig.SOURCE_CODE_DEFAULT_COMPILETO_OPTION
+        },
+        order: 0
+    };
     
     /********************************/
     /*         CONSTRUCTOR          */
@@ -86,14 +104,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         super(props);
 
         // Destructuring props 
-        const { source = {
-            name: '',
-            filename: '', 
-            code: '', 
-            preprocessor: {
-                type: appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB
-            }
-        } } = props;
+        const { source = this._DEFAULT_SOURCE_INSTANCE } = props;
 
         // Init form
         this.state = {
@@ -109,6 +120,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         this.handleCloseClick = this.handleCloseClick.bind(this);
         this.handleSourceNameInputChange = this.handleSourceNameInputChange.bind(this);
         this.handleSourceFilenameInputChange = this.handleSourceFilenameInputChange.bind(this);
+        this.handleAddClick = this.handleAddClick.bind(this);
     }
 
 
@@ -121,6 +133,9 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
 
         // Load source passed through props in State Store
         this._saveSourceCodeInStore();
+
+        // Load preprocessor passed through props in State Store
+        this._saveCurrentPreprocessorInStore();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -135,7 +150,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         this._generateSourceCodeTabOptions();
 
         // Load source passed through props in State Store
-        this._saveSourceCodeInStore();
+        // this._saveSourceCodeInStore();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -215,7 +230,21 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
      */
     handleAddClick (e: React.FormEvent<{}>) {
         e.preventDefault();
-        alert('Click on Add Click: SourceModal.container');
+        
+        const { fields } = this.state;
+        const { currentPreprocessor, currentSource } = this.props;
+
+        let sourceModel: SourceModel = {
+            name: fields.name,
+            filename: fields.filename,
+            code: currentSource.code,
+            preprocessor: currentPreprocessor,
+            order: 0
+        };
+
+        // TODO: Return to parent
+        console.log('currentSource: ', currentSource);
+        console.log('New Source Model: ', sourceModel);
     }
 
 
@@ -267,6 +296,25 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
 
 
     /**
+     * @desc Save current Preprocessor in Store
+     * @method _saveCurrentPreprocessorInStore
+     * @example this._saveCurrentPreprocessorInStore()
+     * @private 
+     * @returns {void}
+     */
+    private _saveCurrentPreprocessorInStore() {
+
+        // Destructuring props & states
+        const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
+
+        // Load source code tab options
+        if (source.preprocessor.id) {
+            this.props.actions.preprocessorState.changePreprocessor(source.preprocessor.id);
+        }
+    }
+
+
+    /**
      * @desc Save sourceCode in Store
      * @method _saveSourceCodeInStore
      * @example this._saveSourceCodeInStore()
@@ -275,11 +323,11 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
      */
     private _saveSourceCodeInStore() {
 
-        // Destructuring props & states
-        const { source } = this.props;
+        // Destructuring props 
+        const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
 
         // Load source code tab options
-        this.props.actions.ui.changeSourceCode(source);
+        this.props.actions.ui.changeSourceCode(source, source.preprocessor.type);
     }
 
     
@@ -293,14 +341,13 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         const { name, filename } = fields;
 
         const { currentPreprocessor } = this.props;
-        const { extension } = currentPreprocessor;
         
         /*         MARKUP          */
         /***************************/
         return (
             <SourceModal sourceNameValue={name}
                          sourceFilenameValue={filename}
-                         preprocessorExtension={extension}
+                         sourcePreprocessor={currentPreprocessor}
                          onSourceNameInputChange={this.handleSourceNameInputChange}
                          onSourceFilenameInputChange={this.handleSourceFilenameInputChange}
                          onSaveClick={this.handleAddClick}
@@ -315,8 +362,10 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
 /********************************/
 /*      MAP STATE TO PROPS      */
 /********************************/
-function mapStateToProps(state: IRootState): StateProps {
+function mapStateToProps(state: IRootState, ownProps: any): StateProps {
     return {
+        tab: getSourceCodeTab(state),
+        currentSource: getCurrentCodeByType(state),
         currentPreprocessor: getCurrentPreprocessor(state)
     };
 }
@@ -332,9 +381,10 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 closeModal: () => dispatch(closeModalAction()),
                 clearUi: () => dispatch(clearUiAction()),
                 loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs)),
-                changeSourceCode: (source: SourceModel) => dispatch(changeSourceCodeAction(source))
+                changeSourceCode: (source, sourceType) => dispatch(changeSourceCodeAction(source, sourceType))
             },
             preprocessorState: {
+                changePreprocessor: (preprocessorId) => dispatch(changePreprocessorAction(preprocessorId)),
                 clearPreprocessorState: () => dispatch(clearPreprocessorStateAction())
             }
         }

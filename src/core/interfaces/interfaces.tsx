@@ -10,7 +10,6 @@
 /******************************************/
 export enum CodeSupportedOption {
     html = 'html',
-    js = 'js',
     css = 'css',
     scss = 'scss',
     sass = 'sass',

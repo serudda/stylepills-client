@@ -424,7 +424,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CHANGE_COLOR: {
 
-            const { colorType } = action;
+            const { color, colorType } = action;
             const group = colorType ? colorType : 'general';
 
             return {
@@ -433,27 +433,16 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.colorPicker,
                     currentColor: {
                         ...state.colorPicker.currentColor,
-                        [group]: action.color
+                        [group]: color
                     }
                 }
             };
         }
 
-        case types.COPY_SOURCE_CODE: {
-            return {
-                ...state,
-                copied: {
-                    copiedType: action.copied.copiedType
-                }
-            };
-        }
-
-
         case types.CHANGE_SOURCE_CODE: {
 
-            const { source } = action;
-
-            const type = source.preprocessor.type;
+            const { source, sourceType } = action;
+            const group = sourceType ? sourceType : appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB;
 
             return {
                 ...state,
@@ -461,8 +450,18 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.sourceCodePanel,
                     currentCode: {
                         ...state.sourceCodePanel.currentCode,
-                        [type]: action.source
+                        [group]: source
                     }
+                }
+            };
+        }
+
+
+        case types.COPY_SOURCE_CODE: {
+            return {
+                ...state,
+                copied: {
+                    copiedType: action.copied.copiedType
                 }
             };
         }

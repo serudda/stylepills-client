@@ -124,8 +124,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      * @returns {void}
      */
     private _showModal(source: SourceModel) {
-        // TODO: Cambiar a SourceModal
-        // this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {source});
+        this.props.actions.ui.showModal(ModalOption.SourceModal, { source });
     }
 
 
@@ -153,23 +152,23 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
         const sourcesList: Array<SourceListItem> = [{
             id: 1,
             name: 'global',
-            filename: 'global.scss',
-            code: '.class {}',
+            filename: 'global',
+            code: '.class { global }',
             preprocessor: {
-                id: 1,
-                name: PreprocessorNameOptions.sass,
-                extension: PreprocessorExtOptions.sass,
-                type: CodeSupportedOption.sass,
+                id: 7,
+                name: PreprocessorNameOptions.scss,
+                extension: PreprocessorExtOptions.scss,
+                type: CodeSupportedOption.scss,
                 compileTo: CompileToTypeOptions.css
             },
             order: 1
         }, {
             id: 2,
             name: 'variables',
-            filename: 'variables.scss',
-            code: '.class {}',
+            filename: 'variables',
+            code: '.class { variables }',
             preprocessor: {
-                id: 2,
+                id: 8,
                 type: CodeSupportedOption.sass,
                 name: PreprocessorNameOptions.sass,
                 extension: PreprocessorExtOptions.sass,
@@ -179,13 +178,13 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
         }, {
             id: 3,
             name: 'helper classes',
-            filename: 'helper-classes.scss',
-            code: '.class {}',
+            filename: 'helper-classes',
+            code: '.class { helper-classes }',
             preprocessor: {
-                id: 3,
-                type: CodeSupportedOption.sass,
-                name: PreprocessorNameOptions.sass,
-                extension: PreprocessorExtOptions.sass,
+                id: 9,
+                type: CodeSupportedOption.less,
+                name: PreprocessorNameOptions.less,
+                extension: PreprocessorExtOptions.less,
                 compileTo: CompileToTypeOptions.css
             },
             order: 3

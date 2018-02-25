@@ -32,7 +32,7 @@ type HOCStates = {};
 
 /* Mapped State to Props */
 type HOCStateProps = {
-    tab: CodeSupportedOption ;
+    tab: CodeSupportedOption
 };
 
 /* Mapped Dispatches to Props */

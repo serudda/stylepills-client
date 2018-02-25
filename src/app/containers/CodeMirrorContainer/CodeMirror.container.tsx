@@ -10,6 +10,7 @@ import {
     CodeSupportedOption
 } from './../../../core/interfaces/interfaces';
 import { IRootState } from './../../../reducer/reducer.config';
+import { functionsUtil } from './../../../core/utils/functionsUtil';
 
 import { Source as SourceModel } from './../../../models/source/source.model';
 import {
@@ -42,7 +43,6 @@ import 'codemirror/addon/display/autorefresh';
 type CodeMirrorContainerProps = {
     /* config options */
     isReadOnly?: boolean;
-    sourceCodeType: CodeSupportedOption;
 
     /* methods */
     onCodeChange?: (newCode: string) => void;
@@ -67,7 +67,7 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: {
-            changeSourceCode: (source: SourceModel) => void;
+            changeSourceCode: (source: SourceModel, sourceType: CodeSupportedOption) => void;
         }
     };
 };
@@ -114,14 +114,16 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
      */
     handleChange(newCode: string) {
 
-        const { source } = this.props;
+        const { source, currentPreprocessor } = this.props;
+        const { type } = currentPreprocessor;
 
         // If receive an parent's onChange method
         if (this.props.onCodeChange) {
             this.props.onCodeChange(newCode);
         } else {
             // If not receive a parent's onChange method, default action.
-            this.props.actions.ui.changeSourceCode(source);
+            let sourceUpdated = functionsUtil.updateObject(source, {code: newCode});
+            this.props.actions.ui.changeSourceCode(sourceUpdated, type);
         }
 
     }
@@ -189,13 +191,11 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     /********************************/
     render() {
         // Destructuring state
-        const { source } = this.props;
+        const { source = null } = this.props;
         const { currentPreprocessor } = this.props;
         const { type } = currentPreprocessor;
 
         let options = this._configureComponent(type);
-
-        console.log('options: ', options);
 
         /*         MARKUP          */
         /***************************/
@@ -215,7 +215,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /********************************/
 function mapStateToProps(state: IRootState, ownProps: CodeMirrorContainerProps): StateProps {
     return {
-        source: getCurrentCodeByType(state, {type: ownProps.sourceCodeType }),
+        source: getCurrentCodeByType(state, {type: state.preprocessorState.currentPreprocessor.type }),
         currentPreprocessor: getCurrentPreprocessor(state)
     };
 }
@@ -228,7 +228,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeSourceCode: (source: SourceModel) => dispatch(changeSourceCodeAction(source))
+                changeSourceCode: (source, sourceType) => dispatch(changeSourceCodeAction(source, sourceType))
             }
         }
     };

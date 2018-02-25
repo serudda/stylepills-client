@@ -90,7 +90,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
             return options;
         } else {
             // If not receive a parent's options method, build default options.
-            return [ CodeSupportedOption.css, CodeSupportedOption.js ];
+            return [ CodeSupportedOption.css ];
         }
 
     }

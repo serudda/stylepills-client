@@ -4,9 +4,12 @@
 import * as React from 'react';
 import { Modal } from 'semantic-ui-react';
 
+import { Preprocessor as PreprocessorModel } from './../../../../models/preprocessor/preprocessor.model';
+
 import Input, {
     SizeOption as InputSizeOption
 } from './../../Inputs/SpecialTextInput/SpecialTextInput';
+
 import PreprocessorSelectListContainer from './../../../containers/Inputs/SelectInputs/PreprocessorSelectList/PreprocessorSelectList.container';
 import SourceCodePanelContainer from './../../../containers/SourceCodePanel/SourceCodePanel.container';
 import Button from './../../Buttons/GenericBtn/GenericBtn';
@@ -23,7 +26,7 @@ import Button from './../../Buttons/GenericBtn/GenericBtn';
 type SourceModalProps = {
     sourceNameValue: string | number | string[],
     sourceFilenameValue: string | number | string[],
-    preprocessorExtension: string,
+    sourcePreprocessor: PreprocessorModel,
     onSourceNameInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
     onSourceFilenameInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
     onSaveClick: (e: React.FormEvent<{}>) => any,
@@ -44,7 +47,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
     sourceFilenameValue,
 
     // Preprocessor
-    preprocessorExtension,
+    sourcePreprocessor,
 
     // Methods
     onSourceNameInputChange,
@@ -73,7 +76,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
                         <div className="fontFamily-openSans fontWeight-7 fontSize-md color-silver mr-3">
                             Preprocessor:
                         </div>
-                        <PreprocessorSelectListContainer />
+                        <PreprocessorSelectListContainer selectedOption={sourcePreprocessor.id} />
                     </div>
 
                     {/* Source name input */}
@@ -102,7 +105,7 @@ const SourceModal: React.SFC<SourceModalProps> = ({
 
                         {/* filename extension */}
                         <span className="fontFamily-openSans fontWeight-5 fontSize-md color-silver">
-                            .{preprocessorExtension}
+                            .{sourcePreprocessor.extension}
                         </span>
                     </div>
 

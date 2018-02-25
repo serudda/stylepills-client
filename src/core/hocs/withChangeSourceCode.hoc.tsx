@@ -189,7 +189,7 @@ export const withChangeSourceCode = ({ key = 'Default value' }: Options = {}) =>
         return {
             actions: {
                 ui: {
-                    changeSourceCode: (codeType, codeProps) => dispatch(changeSourceCodeAction(codeProps)),
+                    changeSourceCode: (codeType: CodeSupportedOption, codeProps) => dispatch(changeSourceCodeAction(codeProps, codeType)),
                 }
             }
         };

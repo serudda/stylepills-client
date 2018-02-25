@@ -272,6 +272,7 @@ export interface IChangeColorAction {
 export interface IChangeSourceCodeAction {
     type: types.CHANGE_SOURCE_CODE;
     source: SourceModel;
+    sourceType: CodeSupportedOption;
 }
 
 export type Action =
@@ -775,7 +776,7 @@ export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOp
  * @param {any} codeProps - code properties (e.g. code, libs, etc)
  * @returns {Action}
  */
-export const changeSourceCodeAction = (source: SourceModel = null): Action => {
+export const changeSourceCodeAction = (source: SourceModel = null, sourceType: CodeSupportedOption): Action => {
     let sourceInstance: SourceModel;
 
     if (source === null) {
@@ -787,6 +788,7 @@ export const changeSourceCodeAction = (source: SourceModel = null): Action => {
 
     return {
         type: types.CHANGE_SOURCE_CODE,
-        source: sourceInstance
+        source: sourceInstance,
+        sourceType
     };
 };

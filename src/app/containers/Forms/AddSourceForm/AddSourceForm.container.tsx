@@ -95,7 +95,6 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
      * @returns {void}
      */
     private _showModal() {
-        // TODO: Cambiar a SourceModal
         this.props.actions.ui.showModal(ModalOption.SourceModal, null);
     }
 

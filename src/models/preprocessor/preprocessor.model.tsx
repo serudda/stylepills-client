@@ -18,14 +18,18 @@ export type PreprocessorTypeOptions = CodeSupportedOption;
 
 /* Possible preprocessor name options */
 export enum PreprocessorNameOptions {
+    html = 'Html',
+    css = 'CSS',
     sass = 'SASS',
     scss = 'SCSS',
     less = 'Less',
-    stylus = 'Stylus'
+    stylus = 'Stylus',
 }
 
 /* Possible preprocessor extension options */
 export enum PreprocessorExtOptions {
+    html = 'html',
+    css = 'css',
     sass = 'sass',
     scss = 'scss',
     less = 'less',
@@ -34,9 +38,12 @@ export enum PreprocessorExtOptions {
 
 /* Possible compileTo type options */
 export enum CompileToTypeOptions {
-    html = 'html',
-    css = 'css',
-    js = 'js'
+    html = 'none',
+    css = 'none',
+    sass = 'css',
+    scss = 'css',
+    less = 'css',
+    stylus = 'css'
 }
 
 export type Preprocessor = {

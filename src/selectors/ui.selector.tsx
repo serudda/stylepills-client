@@ -4,7 +4,6 @@
 import { createSelector } from 'reselect';
 
 import { CodeSupportedOption } from './../core/interfaces/interfaces';
-import * as appConfig from './../core/constants/app.constants';
 
 import { IRootState } from './../reducer/reducer.config';
 import { functionsUtil } from './../core/utils/functionsUtil';
@@ -291,9 +290,9 @@ export const getCurrentCode = (state: IRootState): CurrentCode => state.ui.sourc
  * @function getCurrentCodeByType
  * @returns {SourceModel}
  */
-export const getCurrentCodeByType = (state: IRootState, props: any): SourceModel => {
+export const getCurrentCodeByType = (state: IRootState, props: any = {}): SourceModel => {
     const { type } = props;
-    const group = type ? type : appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB;
+    const group = type ? type : state.preprocessorState.currentPreprocessor.type;
 
     return state.ui.sourceCodePanel.currentCode[group];
 };
