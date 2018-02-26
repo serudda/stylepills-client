@@ -20,10 +20,11 @@ import { getSourceCodeTab, getCurrentCodeByType } from './../../../../selectors/
 import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.selector';
 
 import {
+    addSourceItemAction,
     changeSourceCodeAction,
     loadSourceCodeTabsAction, 
     closeModalAction, 
-    clearUiAction 
+    clearUiAction
 } from './../../../../actions/ui.action';
 import { clearPreprocessorStateAction, changePreprocessorAction } from './../../../../actions/preprocessor.action';
 
@@ -39,7 +40,7 @@ type SourceModalForm = {
     name: string;
     filename: string;
     code: string;
-    preprocessor: CodeSupportedOption;
+    preprocessor: PreprocessorModel;
 };
 
 /* Own Props */
@@ -63,14 +64,15 @@ type StateProps = {
 type DispatchProps = {
     actions: {
         ui: { 
-            closeModal: () => void;
-            clearUi: () => void;
-            loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void;
-            changeSourceCode: (source: SourceModel, sourceType: CodeSupportedOption) => void;
+            closeModal: () => void,
+            clearUi: () => void,
+            loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void,
+            changeSourceCode: (source: SourceModel, sourceType: CodeSupportedOption) => void,
+            addSourceItem: (source: SourceModel) => void
         },
         preprocessorState: {
-            changePreprocessor: (preprocessorId: number) => void;
-            clearPreprocessorState: () => void;
+            changePreprocessor: (preprocessorId: number) => void,
+            clearPreprocessorState: () => void
         }
     };
 };
@@ -112,7 +114,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
                 name: source.name,
                 filename: source.filename,
                 code: source.code,
-                preprocessor: source.preprocessor.type
+                preprocessor: source.preprocessor
             }
         };
 
@@ -148,9 +150,6 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     componentDidUpdate() {
         // Generate source Code Tab options
         this._generateSourceCodeTabOptions();
-
-        // Load source passed through props in State Store
-        // this._saveSourceCodeInStore();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -242,9 +241,11 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
             order: 0
         };
 
-        // TODO: Return to parent
-        console.log('currentSource: ', currentSource);
-        console.log('New Source Model: ', sourceModel);
+        // Add new source in sourcesList in State Store
+        this.props.actions.ui.addSourceItem(sourceModel);
+        // Close Modal
+        this._closeModal();
+
     }
 
 
@@ -381,7 +382,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 closeModal: () => dispatch(closeModalAction()),
                 clearUi: () => dispatch(clearUiAction()),
                 loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs)),
-                changeSourceCode: (source, sourceType) => dispatch(changeSourceCodeAction(source, sourceType))
+                changeSourceCode: (source, sourceType) => dispatch(changeSourceCodeAction(source, sourceType)),
+                addSourceItem: (source) => dispatch(addSourceItemAction(source))
             },
             preprocessorState: {
                 changePreprocessor: (preprocessorId) => dispatch(changePreprocessorAction(preprocessorId)),

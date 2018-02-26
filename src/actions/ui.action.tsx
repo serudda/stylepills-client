@@ -30,7 +30,7 @@ import {
     Option as AlertOption
 } from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
-import { libsListNormalized } from './../normalizrs/ui.normalizr';
+import { libsListNormalized, sourcesListNormalized } from './../normalizrs/ui.normalizr';
 
 /************************************/
 /*            INTERFACES            */
@@ -117,7 +117,7 @@ export interface IEditSourceItemAction {
 
 export interface IDeleteSourceItemAction {
     type: types.DELETE_SOURCE_ITEM;
-    id: number;
+    id: string;
 }
 
 export interface IChangeSourceItemOrderAction {
@@ -425,7 +425,7 @@ export const editSourceItemAction = (source: SourceModel): Action => {
  * @function deleteSourceItemAction
  * @returns {Action}
  */
-export const deleteSourceItemAction = (id: number): Action => {
+export const deleteSourceItemAction = (id: string): Action => {
     return {
         type: types.DELETE_SOURCE_ITEM,
         id
@@ -449,15 +449,15 @@ export const changeSourceItemOrderAction = (id: number, newOrder: number): Actio
 
 
 /**
- * @desc Return an action type, LOAD_LIBS
- * to load Lib on State store
+ * @desc Return an action type, LOAD_SOURCES
+ * to load Sources on State store
  * @function loadSourcesAction
  * @returns {Action}
  */
 export const loadSourcesAction = (sources: Array<SourceModel> = []): Action => {
     return {
         type: types.LOAD_SOURCES,
-        sources
+        sources: sourcesListNormalized(sources)
     };
 };
 

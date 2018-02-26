@@ -72,7 +72,7 @@ export interface IUiState {
         }
     };
     sourceCodePanel: {
-        currentCode: CurrentCode;
+        currentCode: CurrentCode
     };
     copied: {
         copiedType: string
@@ -287,7 +287,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
             const { libType } = action;
             const { lists } = state;
-            const group = libType ? libType : 'css';
+            const group = libType ? libType : CodeSupportedOption.css;
             let newLibList = [];
             let libsList = lists.libsList[group] ? lists.libsList[group] : []; 
 
@@ -314,7 +314,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
             const { libType } = action;
             const { lists } = state;
-            const group = libType ? libType : 'css';
+            const group = libType ? libType : CodeSupportedOption.css;
             let libsList = lists.libsList[group] ? lists.libsList[group] : [];
 
             const newLibsListState = functionsUtil.deleteItemInArray(libsList, 'tempId', action.id);
@@ -346,7 +346,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                 ...state,
                 lists: {
                     ...state.lists,
-                    sourcesList:  [
+                    sourcesList: [
                         ...state.lists.sourcesList,
                         { tempId: uuid(), ...action.source } // NOTE: 2
                     ]
@@ -408,6 +408,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     }
                 }
             };
+
         }
 
         case types.CHANGE_LIBS_TAB: {

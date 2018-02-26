@@ -2,10 +2,9 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-
 import * as appConfig from './../../../core/constants/app.constants';
 
-import { Source as SourceModel } from './../../../models/source/source.model';
+import { SourceListItem } from './../../../reducer/ui.reducer';
 
 import Icon from './../Icon/Icon';
 
@@ -18,11 +17,11 @@ import Icon from './../Icon/Icon';
 
 /* Own Props */
 type SourcesListProps = {
-    sources: Array<SourceModel>,
+    sources: Array<SourceListItem>,
     isEmpty?: boolean,
     emptyMessage?: string,
-    onEditClick: (source: SourceModel) => any
-    onDeleteClick: (id: number) => any
+    onEditClick: (source: SourceListItem) => any
+    onDeleteClick: (tempId: string) => any
 };
 
 
@@ -49,7 +48,7 @@ const SourcesList: React.SFC<SourcesListProps> = ({
                 </span>
             </div>}
 
-            {sources.map((source: SourceModel, index) => (
+            {sources.map((source: SourceListItem, index) => (
                 <li key={index} className="item">
 
                     {/* Sortable button */}
@@ -86,7 +85,7 @@ const SourcesList: React.SFC<SourcesListProps> = ({
                     </span>
 
                     {/* Delete Button */}
-                    <span className="icon-btn mr-3" onClick={onDeleteClick(source.id)}>
+                    <span className="icon-btn mr-3" onClick={onDeleteClick(source.tempId)}>
                         <Icon icon="close"
                             iconClass="icon stroke-silver strokeWidth-3"
                             width="18" height="18"/>
