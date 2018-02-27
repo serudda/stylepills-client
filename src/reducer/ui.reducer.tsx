@@ -2,8 +2,9 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as uuid from 'uuid/v4';
+import { omit } from 'lodash';
 
-import { CodeSupportedOption, ListProps } from './../core/interfaces/interfaces';
+import { INormalizedResult, CodeSupportedOption, ListProps } from './../core/interfaces/interfaces';
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
@@ -52,7 +53,7 @@ export interface IUiState {
     lists: {
         colorsList: ColorsList,
         libsList: LibsList,
-        sourcesList: Array<SourceListItem>
+        sourcesList: INormalizedResult,
     };
     tabs: {
         atomDetailsTab?: {
@@ -94,7 +95,10 @@ const defaultState: IUiState = {
         libsList: {
             css: []
         },
-        sourcesList: [] 
+        sourcesList: {
+            entities: {source: null},
+            result: []
+        }
     },
     tabs: {
         atomDetailsTab: {
@@ -155,7 +159,10 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     libsList: {
                         css: []
                     },
-                    sourcesList: []
+                    sourcesList: {
+                        entities: {source: null},
+                        result: []
+                    }
                 },
                 tabs: {
                     atomDetailsTab: {
@@ -226,7 +233,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CLOSE_ALERT: {
 
-            const newAlertsState = functionsUtil.deleteItemInArray(state.alerts, 'alertId', action.alerts.alertId);
+            const newAlertsState = functionsUtil.deleteObjectInArray(state.alerts, 'alertId', action.alerts.alertId);
 
             return {
                 ...state,
@@ -269,7 +276,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             const group = colorType ? colorType : 'general';
             let colorsList = lists.colorsList[group] ? lists.colorsList[group] : [];
 
-            const newColorsListState = functionsUtil.deleteItemInArray(colorsList, 'tempId', action.id);
+            const newColorsListState = functionsUtil.deleteObjectInArray(colorsList, 'tempId', action.id);
 
             return {
                 ...state,
@@ -317,7 +324,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             const group = libType ? libType : CodeSupportedOption.css;
             let libsList = lists.libsList[group] ? lists.libsList[group] : [];
 
-            const newLibsListState = functionsUtil.deleteItemInArray(libsList, 'tempId', action.id);
+            const newLibsListState = functionsUtil.deleteObjectInArray(libsList, 'tempId', action.id);
 
             return {
                 ...state,
@@ -342,32 +349,106 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         }
 
         case types.ADD_SOURCE_ITEM: {
+
+            const { source, id } = action;
+            const { entities, result } = source;
+
+            const { lists } = state;
+            const { sourcesList } = lists;
+            let newResult = functionsUtil.addItemInArray(sourcesList.result, result);
+
             return {
                 ...state,
                 lists: {
                     ...state.lists,
-                    sourcesList: [
+                    sourcesList: {
                         ...state.lists.sourcesList,
-                        { tempId: uuid(), ...action.source } // NOTE: 2
-                    ]
+                        entities: { 
+                            source: {
+                                ...state.lists.sourcesList.entities.source,
+                                [id]: {
+                                    ...entities.source[id]
+                                }
+                            }
+                        },
+                        result: newResult
+                    }
+                }
+            };
+        }
+
+        case types.EDIT_SOURCE_ITEM: {
+
+            const { source } = action;
+            const { tempId } = source;
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList: {
+                        ...state.lists.sourcesList,
+                        entities: { 
+                            source: { 
+                                ...state.lists.sourcesList.entities.source,
+                                [tempId]: {
+                                    ...source
+                                }
+                            }
+                        }
+                    }
                 }
             };
         }
 
         case types.DELETE_SOURCE_ITEM: {
+            const { lists } = state;
+            const { sourcesList } = lists;
+            const { result } = sourcesList;
 
-            const newSourcesListState = functionsUtil.deleteItemInArray(state.lists.sourcesList, 'tempId', action.id);
+            // Create copy
+            const sourcesListCopy = functionsUtil.updateObject(state.lists.sourcesList.entities.source);
+            let newSources;
+
+            for (const key in sourcesListCopy) {
+                if (key === action.id) {
+                    newSources = omit(sourcesListCopy, key);
+                }
+            }
+
+            const newResult: Array<string> = functionsUtil.deleteSimpleItemInArray(result, action.id);
 
             return {
                 ...state,
                 lists: {
                     ...state.lists,
-                    sourcesList: newSourcesListState
+                    sourcesList: {
+                        ...state.lists.sourcesList,
+                        entities: {
+                            ...state.lists.sourcesList.entities,
+                            source: newSources
+                        },
+                        result: newResult
+                    }
                 }
             };
         }
 
-        case types.CHANGE_ATOM_DETAILS_TAB : {
+        case types.LOAD_SOURCES: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList: {
+                        ...state.lists.sourcesList,
+                        entities: action.sources.entities,
+                        result: action.sources.result,
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_ATOM_DETAILS_TAB: {
             return {
                 ...state,
                 tabs: {
@@ -379,7 +460,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
-        case types.CHANGE_SOURCE_CODE_TAB: {
+        case types.CHANGE_SOURCE_CODE_TAB : {
             return {
                 ...state,
                 tabs: {

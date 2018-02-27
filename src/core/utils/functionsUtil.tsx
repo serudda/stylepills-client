@@ -16,7 +16,8 @@ interface IFunctionUtil {
     copyArray: (array: Array<any>) => Array<any>;
     addItemInArray: (array: Array<any>, newItem: any) => Array<any>;
     updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
-    deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
+    deleteObjectInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
+    deleteSimpleItemInArray: (array: Array<number | string>, value: number | string) => Array<number | string>;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     turnArrayIntoObject: (array: Array<any>, key?: string) => Object;
     deletePropInCollection: (array: Array<any>, ...keys: Array<string>) => Array<any>;
@@ -125,17 +126,44 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * @desc Encapsulate the idea of deleting and item in an array 
+     * @desc Encapsulate the idea of deleting and simple item in an array 
      * to ensure we correctly copy data instead of mutating.
-     * @function deleteItemInArray
+     * @function deleteSimpleItemInArray
      * @example 
-     * const newTodos = deleteItemInArray(state.todos, 'id', action.id);
+     * const newTodos = deleteSimpleItemInArray(state.todos, action.id);
+     * @param {Array<any>} array - array of objects
+     * @param {number | string} value - value to use to find item inside the array
+     * @return {Array<number | string>}
+     */
+    deleteSimpleItemInArray(
+        array: Array<number | string>,
+        value: number | string): Array<any> {
+
+        const newList = array.filter(
+            (item) => {
+            if (item === value) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    
+        return newList;
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of deleting and object in an array 
+     * to ensure we correctly copy data instead of mutating.
+     * @function deleteObjectInArray
+     * @example 
+     * const newTodos = deleteObjectInArray(state.todos, 'id', action.id);
      * @param {Array<any>} array - array of objects
      * @param {number | string} value - value to use to find item inside the array
      * @param {string} key - item identifier: e.g. id, uuid, etc.
      * @return {Array<any>}
      */
-    deleteItemInArray(
+    deleteObjectInArray(
         array: Array<any>,
         key: string = 'id',
         value: number | string): Array<any> {
@@ -314,7 +342,7 @@ class FunctionsUtil implements IFunctionUtil {
         if (!elem) { return newArray; }
 
         // remove element in Array
-        newArray = this.deleteItemInArray(newArray, key, value);
+        newArray = this.deleteObjectInArray(newArray, key, value);
 
         // add element to the start
         newArray.unshift( elem );
