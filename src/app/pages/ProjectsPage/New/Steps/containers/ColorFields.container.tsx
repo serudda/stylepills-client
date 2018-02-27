@@ -18,7 +18,7 @@ import { getIsAuthenticated } from './../../../../../../selectors/auth.selector'
 
 import { IRootState } from './../../../../../../reducer/reducer.config';
 
-import { Color as ColorModel } from './../../../../../../models/color/color.model';
+import { ColorListItem } from './../../../../../../reducer/ui.reducer';
 
 import ColorFields from './../components/ColorFields';
 
@@ -43,7 +43,7 @@ type LocalStates = {
 
 /* Mapped State to Props */
 type StateProps = {
-    colorsList: Array<ColorModel>;
+    colorsList: Array<ColorListItem>;
     isAuthenticated: boolean
 };
 
@@ -160,6 +160,7 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
      */
     private _nextStep() {
         const { colorsList } = this.props;
+
         if (this._isValid()) {
             this.props.nextStep({ colorPalette: colorsList });    
         }

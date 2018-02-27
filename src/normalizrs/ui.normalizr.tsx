@@ -5,6 +5,8 @@ import * as uuid from 'uuid/v4';
 import { schema, normalize } from 'normalizr';
 import { groupBy, mapValues } from 'lodash';
 
+import { INormalizedResult } from './../core/interfaces/interfaces';
+
 import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { 
@@ -98,8 +100,30 @@ export const libsListNormalized = (libsResult: Array<LibModel> = []): LibsList =
 //         state: lists.sourcesList ================================
 // =================================================================
 
-/* SOURCES LISTS NORMALIZER FUNCTIONS */
-export const sourcesListNormalized = (sourcesResult: Array<SourceModel> = []): Array<SourceListItem> => {
+/**
+ * @desc Return a Source entity schema on sourcesList store state
+ * @function sourceSchema
+ * @returns {schema.Entity}
+ */
+export const sourceSchema = new schema.Entity('source', {}, {
+    idAttribute: 'tempId'
+});
+
+
+/**
+ * @desc Represent Source List entity schema of sourcesList store state
+ * @function sourcesListSchema
+ * @returns {Array<schema.Entity>}
+ */
+export const sourcesListSchema = [sourceSchema];
+
+/* SOURCE NORMALIZER FUNCTION */
+export const sourceNormalized = (source: SourceModel): INormalizedResult => {
+    return normalize(source, sourceSchema);
+};
+
+/* SOURCES LISTS NORMALIZER FUNCTION */
+export const sourcesListNormalized = (sourcesResult: Array<SourceModel> = []): INormalizedResult => {
 
     // Create source copy
     let sourcesResultCopy: Array<SourceModel> = functionsUtil.copyArray(sourcesResult);
@@ -113,8 +137,11 @@ export const sourcesListNormalized = (sourcesResult: Array<SourceModel> = []): A
         }
     );
 
+    // Normalize sourcesList on State Store
+    let sourcesListNormalizedResult = normalize(newSourcesResult, sourcesListSchema);
+
     // Remove props that libsList State does not need TODO: Remover cuando no se necesite
     // let libListRemoved: Array<LibListItem> = functionsUtil.deletePropInCollection(newLibsResult, 'project', 'atom');
     
-    return newSourcesResult;
+    return sourcesListNormalizedResult;
 };

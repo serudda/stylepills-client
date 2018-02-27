@@ -16,7 +16,7 @@ import {
 } from './../../../actions/ui.action';
 
 import { Source as SourceModel } from './../../../models/source/source.model';
-import { getSourcesList } from './../../../selectors/ui.selector';
+import { getSourcesListDenormalized } from './../../../selectors/ui.selector';
 
 import { 
     Option as ModalOption 
@@ -177,7 +177,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        sourcesList: getSourcesList(state)
+        sourcesList: getSourcesListDenormalized(state)
     };
 }
 

@@ -1,6 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import * as uuid from 'uuid/v4';
 import { EventTypes } from 'redux-segment';
 
 import { store } from './../index';
@@ -8,7 +9,7 @@ import { store } from './../index';
 import { CodeSupportedOption } from './../core/interfaces/interfaces';
 
 import * as types from '../core/constants/action.types';
-import { IAnalyticsTrack } from './../core/interfaces/interfaces';
+import { INormalizedResult, IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { Basic as BasicColorModel, Color as ColorModel, ColorTypeOptions } from '../models/color/color.model';
 import { Lib as LibModel, LibTypeOptions } from './../models/lib/lib.model';
@@ -16,8 +17,8 @@ import { Source as SourceModel } from './../models/source/source.model';
 import SourceService from './../models/source/source.service';
 
 import { 
-    LibsList,
-    SourceListItem
+    SourceListItem,
+    LibsList
  } from './../reducer/ui.reducer';
 
 import {
@@ -30,7 +31,7 @@ import {
     Option as AlertOption
 } from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
-import { libsListNormalized, sourcesListNormalized } from './../normalizrs/ui.normalizr';
+import { libsListNormalized, sourceNormalized, sourcesListNormalized } from './../normalizrs/ui.normalizr';
 
 /************************************/
 /*            INTERFACES            */
@@ -107,12 +108,13 @@ export interface ICloseAlertAction {
 
 export interface IAddSourceItemAction {
     type: types.ADD_SOURCE_ITEM;
-    source: SourceModel;
+    source: INormalizedResult;
+    id: string;
 }
 
 export interface IEditSourceItemAction {
     type: types.EDIT_SOURCE_ITEM;
-    source: SourceModel;
+    source: SourceListItem;
 }
 
 export interface IDeleteSourceItemAction {
@@ -128,7 +130,7 @@ export interface IChangeSourceItemOrderAction {
 
 export interface ILoadSourcesAction {
     type: types.LOAD_SOURCES;
-    sources: Array<SourceListItem>;
+    sources: INormalizedResult;
 }
 
 
@@ -398,9 +400,13 @@ export const showAlertAction = (alertType: AlertOption, alertProps: any): Action
  * @returns {Action}
  */
 export const addSourceItemAction = (source: SourceModel): Action => {
+    const newSource: SourceListItem = source;
+    newSource.tempId = uuid();
+
     return {
         type: types.ADD_SOURCE_ITEM,
-        source
+        source: sourceNormalized(newSource),
+        id: newSource.tempId
     };
 };
 
@@ -411,7 +417,7 @@ export const addSourceItemAction = (source: SourceModel): Action => {
  * @function editSourceItemAction
  * @returns {Action}
  */
-export const editSourceItemAction = (source: SourceModel): Action => {
+export const editSourceItemAction = (source: SourceListItem): Action => {
     return {
         type: types.EDIT_SOURCE_ITEM,
         source

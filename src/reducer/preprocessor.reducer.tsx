@@ -75,6 +75,12 @@ export default function (state: IPreprocessorState = defaultState, action: Actio
                     sourceCode: null,
                     compileToCode: null,
                     isCompiled: false
+                },
+                currentPreprocessor: null,
+                preprocessorsList: {
+                    entities: null,
+                    result: [],
+                    loading: false
                 }
             };
         }

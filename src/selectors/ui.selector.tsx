@@ -2,20 +2,19 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { createSelector } from 'reselect';
+import { denormalize } from 'normalizr';
 
-import { CodeSupportedOption } from './../core/interfaces/interfaces';
+import { INormalizedResult, CodeSupportedOption } from './../core/interfaces/interfaces';
 
 import { IRootState } from './../reducer/reducer.config';
 import { functionsUtil } from './../core/utils/functionsUtil';
 import {
-    SourceListItem,
     LibListItem, LibsList,
     ColorListItem, ColorsList,
     CurrentCode
 } from './../reducer/ui.reducer';
 import {
     Basic as BasicColorModel, 
-    Color as ColorModel
 } from './../models/color/color.model';
 import {
     Lib as LibModel
@@ -23,6 +22,7 @@ import {
 import {
     Source as SourceModel
 } from './../models/source/source.model';
+import { sourcesListSchema } from './../normalizrs/ui.normalizr';
 
 import { 
     Option as DetailsTabMenuOptions 
@@ -83,11 +83,12 @@ export const makeGetColorListByType = () => { // NOTE: 1
 export const getColorListFormatted = createSelector(
     getColorsList,
     (colorsList) => {
-        let colorPalette: Array<ColorModel> = [];
+        let colorPalette: Array<ColorListItem> = [];
+        const listCopy: INormalizedResult = functionsUtil.updateObject(colorsList);
 
-        for (const key in colorsList) {
-            if (colorsList.hasOwnProperty(key)) {
-                colorPalette = colorPalette.concat(colorsList[key]);
+        for (const key in listCopy) {
+            if (listCopy.hasOwnProperty(key)) {
+                colorPalette = colorPalette.concat(listCopy[key]);
             }
         }
 
@@ -110,7 +111,25 @@ export const getColorListFormatted = createSelector(
  * @function getSourcesList
  * @returns {SourcesList}
  */
-export const getSourcesList = (state: IRootState): Array<SourceListItem> => state.ui.lists.sourcesList;
+export const getSourcesList = (state: IRootState): INormalizedResult => state.ui.lists.sourcesList;
+
+/**
+ * @desc Get sourcesList denormalized to send to DB
+ * @function getSourcesListDenormalized
+ * @returns {Array<SourceListItem>}
+ */
+export const getSourcesListDenormalized = createSelector(
+    getSourcesList,
+    (sourcesList) => {
+
+        // Generate a copy
+        const listCopy: INormalizedResult = functionsUtil.updateObject(sourcesList);
+
+        const listDenormalized = denormalize(listCopy.result, sourcesListSchema, listCopy.entities);
+
+        return listDenormalized === null ? [] : listDenormalized;
+    }
+);
 
 
 

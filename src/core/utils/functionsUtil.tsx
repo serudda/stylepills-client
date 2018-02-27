@@ -1,7 +1,7 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import { kebabCase, find } from 'lodash';
+import { kebabCase, find, omit } from 'lodash';
 import * as appConfig from './../constants/app.constants';
 
 import { INormalizedResult } from './../interfaces/interfaces';
@@ -14,6 +14,7 @@ import { INormalizedResult } from './../interfaces/interfaces';
 interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => any;
     copyArray: (array: Array<any>) => Array<any>;
+    addItemInArray: (array: Array<any>, newItem: any) => Array<any>;
     updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
     deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
@@ -73,21 +74,18 @@ class FunctionsUtil implements IFunctionUtil {
      * @example 
      * const newTodos = addItemInArray(state.todos, action.id, action.name, action.website);
      * @param {Array<any>} array - array of objects
-     * @param {number | string} value - value to use to find item inside the array
-     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @param {any} newItem - new item to add in the array
      * @return {Array<any>}
      */
     addItemInArray(
         array: Array<any>,
-        key: string = 'id',
-        obj: Object = {}): Array<any> {
+        newItem: any): Array<any> {
+        
+        let newArray = this.copyArray(array);
 
-        const newList = array.filter(
-            (item) => {
-            item = obj; 
-        });
+        newArray = newArray.concat(newItem);
     
-        return newList;
+        return newArray;
     }
 
 
@@ -222,15 +220,18 @@ class FunctionsUtil implements IFunctionUtil {
      */
     deletePropInCollection(array: Array<any>, ...keys: Array<string>): Array<any> {
 
-        const newCollection = array.filter((item) => {
+        const newCollection = array.map((item) => {
+            let newItem = this.updateObject(item);
 
             keys.forEach(
-                (key) => { 
-                    delete item[key];
+                (key) => {
+                    if (item.hasOwnProperty(key)) {
+                        newItem = omit(item, key);
+                    }
                 }
             );
             
-            return true;
+            return newItem;
         });
 
         return newCollection;

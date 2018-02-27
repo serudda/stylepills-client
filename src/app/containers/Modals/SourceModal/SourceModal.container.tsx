@@ -12,6 +12,7 @@ import { functionsUtil } from './../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../reducer/reducer.config';
 import { Source as SourceModel } from './../../../../models/source/source.model';
+import { SourceListItem } from './../../../../reducer/ui.reducer';
 import { 
     Preprocessor as PreprocessorModel,
 } from '../../../../models/preprocessor/preprocessor.model';
@@ -21,6 +22,7 @@ import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.sel
 
 import {
     addSourceItemAction,
+    editSourceItemAction,
     changeSourceCodeAction,
     loadSourceCodeTabsAction, 
     closeModalAction, 
@@ -45,7 +47,7 @@ type SourceModalForm = {
 
 /* Own Props */
 type SourceModalContainerProps = {
-    source?: SourceModel
+    source?: SourceListItem
 };
 
 /* Own States */
@@ -68,7 +70,8 @@ type DispatchProps = {
             clearUi: () => void,
             loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void,
             changeSourceCode: (source: SourceModel, sourceType: CodeSupportedOption) => void,
-            addSourceItem: (source: SourceModel) => void
+            addSourceItem: (source: SourceModel) => void,
+            editSourceItem: (source: SourceListItem) => void
         },
         preprocessorState: {
             changePreprocessor: (preprocessorId: number) => void,
@@ -233,6 +236,9 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         const { fields } = this.state;
         const { currentPreprocessor, currentSource } = this.props;
 
+        /* Own Props */
+        const { source } = this.props;
+
         let sourceModel: SourceModel = {
             name: fields.name,
             filename: fields.filename,
@@ -241,8 +247,17 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
             order: 0
         };
 
-        // Add new source in sourcesList in State Store
-        this.props.actions.ui.addSourceItem(sourceModel);
+        // Received a source?
+        if (!!source) {
+            // Add new source in sourcesList in State Store
+            let sourceListItem: SourceListItem = functionsUtil.updateObject(sourceModel, {tempId: source.tempId});
+            this.props.actions.ui.editSourceItem(sourceListItem);
+        } else { 
+            // Update source received in sourcesList in State Store
+            this.props.actions.ui.addSourceItem(sourceModel);
+        } 
+
+
         // Close Modal
         this._closeModal();
 
@@ -265,7 +280,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     private _closeModal() {
         this.props.actions.ui.closeModal();
         // Clean preprocessor states (close add source edition modal)
-        this.props.actions.preprocessorState.clearPreprocessorState();
+        // this.props.actions.preprocessorState.clearPreprocessorState();
         document.body.classList.remove('sourceModal-open');
     }
 
@@ -383,7 +398,8 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 clearUi: () => dispatch(clearUiAction()),
                 loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs)),
                 changeSourceCode: (source, sourceType) => dispatch(changeSourceCodeAction(source, sourceType)),
-                addSourceItem: (source) => dispatch(addSourceItemAction(source))
+                addSourceItem: (source) => dispatch(addSourceItemAction(source)),
+                editSourceItem: (source) => dispatch(editSourceItemAction(source))
             },
             preprocessorState: {
                 changePreprocessor: (preprocessorId) => dispatch(changePreprocessorAction(preprocessorId)),
