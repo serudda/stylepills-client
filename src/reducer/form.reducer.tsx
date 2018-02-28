@@ -36,6 +36,7 @@ const defaultState: IFormState = {
             website: null,
             description: null,
             libs: [],
+            sources: [],
             colorPalette: [],
             private: false,
             projectCategoryId: 1 // TODO: Magic number
@@ -88,6 +89,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         website: null,
                         description: null,
                         libs: [],
+                        sources: [],
                         colorPalette: [],
                         private: false,
                         projectCategoryId: 1 // TODO: Magic number
@@ -167,6 +169,7 @@ export default function (state: IFormState = defaultState, action: Action): IFor
                         website: action.fieldValues.website,
                         description: action.fieldValues.description,
                         libs: action.fieldValues.libs,
+                        sources: action.fieldValues.sources,
                         colorPalette: action.fieldValues.colorPalette,
                         private: action.fieldValues.private,
                         projectCategoryId: action.fieldValues.projectCategoryId

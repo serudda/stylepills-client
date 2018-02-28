@@ -11,7 +11,8 @@ import { functionsUtil } from './../core/utils/functionsUtil';
 import {
     LibListItem, LibsList,
     ColorListItem, ColorsList,
-    CurrentCode
+    CurrentCode,
+    SourceListItem
 } from './../reducer/ui.reducer';
 import {
     Basic as BasicColorModel, 
@@ -114,7 +115,7 @@ export const getColorListFormatted = createSelector(
 export const getSourcesList = (state: IRootState): INormalizedResult => state.ui.lists.sourcesList;
 
 /**
- * @desc Get sourcesList denormalized to send to DB
+ * @desc Get sourcesList denormalized
  * @function getSourcesListDenormalized
  * @returns {Array<SourceListItem>}
  */
@@ -125,9 +126,51 @@ export const getSourcesListDenormalized = createSelector(
         // Generate a copy
         const listCopy: INormalizedResult = functionsUtil.updateObject(sourcesList);
 
-        const listDenormalized = denormalize(listCopy.result, sourcesListSchema, listCopy.entities);
+        let listDenormalized = denormalize(listCopy.result, sourcesListSchema, listCopy.entities);
 
-        return listDenormalized === null ? [] : listDenormalized;
+        // Remove extra 'tempId' prop
+        if (listDenormalized !== null) {
+            listDenormalized = functionsUtil.deletePropInCollection(listDenormalized, 'tempId');
+        } else {
+            listDenormalized = [];
+        }
+
+        return listDenormalized;
+    }
+);
+
+
+/**
+ * @desc Get sourcesList formatted to send to DB
+ * @function getSourcesListFormatted
+ * @returns {Array<SourceModel>}
+ */
+export const getSourcesListFormatted = createSelector(
+    getSourcesListDenormalized,
+    (sourcesList) => {
+
+        // Generate a copy
+        let listCopy: Array<SourceListItem> = functionsUtil.copyArray(sourcesList);
+        let newList: Array<SourceListItem> = [];
+
+        if (listCopy.length > 0) {
+            
+            // Change 'preprocessor' obj by 'preprocessorId'
+            newList = listCopy.map((item) => {
+                let newItem: SourceListItem = functionsUtil.updateObject(item);
+    
+                if (newItem.preprocessor) {
+                    newItem.preprocessorId = newItem.preprocessor.id;
+                }
+                
+                return newItem;
+            });
+
+            // Remove extra 'preprocessor' prop
+            newList = functionsUtil.deletePropInCollection(newList, 'preprocessor');
+        }
+
+        return newList;
     }
 );
 

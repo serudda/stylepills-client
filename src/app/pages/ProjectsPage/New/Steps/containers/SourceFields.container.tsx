@@ -13,7 +13,7 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 import { Source as SourceModel } from './../../../../../../models/source/source.model';
 
 import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
-import { getSourcesListDenormalized } from './../../../../../../selectors/ui.selector';
+import { getSourcesListFormatted } from './../../../../../../selectors/ui.selector';
 import { getAllPreprocessorsAction } from './../../../../../../actions/preprocessor.action';
 
 import SourceFields from './../components/SourceFields';
@@ -195,7 +195,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 function mapStateToProps(state: IRootState): StateProps {
     
     return {
-        sourcesList: getSourcesListDenormalized(state),
+        sourcesList: getSourcesListFormatted(state),
         isAuthenticated: getIsAuthenticated(state)
     };
 }

@@ -13,6 +13,7 @@ export type Source = {
     filename: string;
     code: string;
     preprocessor: PreprocessorModel;
+    preprocessorId?: number;
     order: number;
     active?: boolean;
 };
