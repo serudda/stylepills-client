@@ -2,15 +2,15 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as uuid from 'uuid/v4';
+import { omit } from 'lodash';
 
-import { ListProps } from './../core/interfaces/interfaces';
+import { INormalizedResult, CodeSupportedOption, ListProps } from './../core/interfaces/interfaces';
 import * as appConfig from '../core/constants/app.constants';
 import * as types from '../core/constants/action.types';
 import { Action } from '../actions/ui.action';
 
 import { functionsUtil } from './../core/utils/functionsUtil';
 
-import { ICurrentCode } from './../actions/ui.action';
 import { 
     Basic as BasicColorModel, 
     Color as ColorModel 
@@ -18,9 +18,6 @@ import {
 import { Lib as LibModel } from '../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
 
-import { 
-    Option as CodeTabMenuOption 
-} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import { 
     Option as DetailsTabMenuOptions 
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
@@ -46,6 +43,9 @@ export type ColorsList = {
 export type LibsList = {
     [index: string]: Array<LibListItem> // NOTE: 'assign_new_property_to_an_object_in_TypeScript'
 };
+export type CurrentCode = {
+    [index: string]: SourceModel
+};
 
 export interface IUiState {
     modals: Array<{modalType: ModalOption, modalProps: any}>;
@@ -53,17 +53,18 @@ export interface IUiState {
     lists: {
         colorsList: ColorsList,
         libsList: LibsList,
-        sourcesList: Array<SourceListItem>
+        sourcesList: INormalizedResult,
     };
     tabs: {
         atomDetailsTab?: {
             tab: DetailsTabMenuOptions
         },
         sourceCodeTab?: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption,
+            options: Array<CodeSupportedOption>
         },
         libsTab?: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         }
     };
     colorPicker: {
@@ -72,7 +73,7 @@ export interface IUiState {
         }
     };
     sourceCodePanel: {
-        currentCode: Array<ICurrentCode>;
+        currentCode: CurrentCode
     };
     copied: {
         copiedType: string
@@ -94,14 +95,18 @@ const defaultState: IUiState = {
         libsList: {
             css: []
         },
-        sourcesList: [] 
+        sourcesList: {
+            entities: {source: null},
+            result: []
+        }
     },
     tabs: {
         atomDetailsTab: {
             tab: null
         },
         sourceCodeTab: {
-            tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+            tab: appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB,
+            options: [CodeSupportedOption.html, CodeSupportedOption.css]
         },
         libsTab: {
             tab: appConfig.LIBS_DEFAULT_OPTION_TAB
@@ -117,7 +122,10 @@ const defaultState: IUiState = {
         }
     },
     sourceCodePanel: {
-        currentCode: []
+        currentCode: {
+            html: null,
+            css: null
+        }
     },
     copied: null
 };
@@ -151,14 +159,18 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     libsList: {
                         css: []
                     },
-                    sourcesList: []
+                    sourcesList: {
+                        entities: {source: null},
+                        result: []
+                    }
                 },
                 tabs: {
                     atomDetailsTab: {
                         tab: null
                     },
                     sourceCodeTab: {
-                        tab: appConfig.ATOM_DETAILS_DEFAULT_OPTION_TAB
+                        tab: appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB,
+                        options: [CodeSupportedOption.html, CodeSupportedOption.css]
                     },
                     libsTab: {
                         tab: appConfig.LIBS_DEFAULT_OPTION_TAB
@@ -174,7 +186,10 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     }
                 },
                 sourceCodePanel: {
-                    currentCode: []
+                    currentCode: {
+                        html: null,
+                        css: null
+                    }
                 },
                 copied: null
             };
@@ -218,7 +233,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CLOSE_ALERT: {
 
-            const newAlertsState = functionsUtil.deleteItemInArray(state.alerts, 'alertId', action.alerts.alertId);
+            const newAlertsState = functionsUtil.deleteObjectInArray(state.alerts, 'alertId', action.alerts.alertId);
 
             return {
                 ...state,
@@ -261,7 +276,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             const group = colorType ? colorType : 'general';
             let colorsList = lists.colorsList[group] ? lists.colorsList[group] : [];
 
-            const newColorsListState = functionsUtil.deleteItemInArray(colorsList, 'tempId', action.id);
+            const newColorsListState = functionsUtil.deleteObjectInArray(colorsList, 'tempId', action.id);
 
             return {
                 ...state,
@@ -279,7 +294,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
             const { libType } = action;
             const { lists } = state;
-            const group = libType ? libType : 'css';
+            const group = libType ? libType : CodeSupportedOption.css;
             let newLibList = [];
             let libsList = lists.libsList[group] ? lists.libsList[group] : []; 
 
@@ -306,10 +321,10 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
             const { libType } = action;
             const { lists } = state;
-            const group = libType ? libType : 'css';
+            const group = libType ? libType : CodeSupportedOption.css;
             let libsList = lists.libsList[group] ? lists.libsList[group] : [];
 
-            const newLibsListState = functionsUtil.deleteItemInArray(libsList, 'tempId', action.id);
+            const newLibsListState = functionsUtil.deleteObjectInArray(libsList, 'tempId', action.id);
 
             return {
                 ...state,
@@ -334,32 +349,106 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
         }
 
         case types.ADD_SOURCE_ITEM: {
+
+            const { source, id } = action;
+            const { entities, result } = source;
+
+            const { lists } = state;
+            const { sourcesList } = lists;
+            let newResult = functionsUtil.addItemInArray(sourcesList.result, result);
+
             return {
                 ...state,
                 lists: {
                     ...state.lists,
-                    sourcesList:  [
+                    sourcesList: {
                         ...state.lists.sourcesList,
-                        { tempId: uuid(), ...action.source } // NOTE: 2
-                    ]
+                        entities: { 
+                            source: {
+                                ...state.lists.sourcesList.entities.source,
+                                [id]: {
+                                    ...entities.source[id]
+                                }
+                            }
+                        },
+                        result: newResult
+                    }
+                }
+            };
+        }
+
+        case types.EDIT_SOURCE_ITEM: {
+
+            const { source } = action;
+            const { tempId } = source;
+
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList: {
+                        ...state.lists.sourcesList,
+                        entities: { 
+                            source: { 
+                                ...state.lists.sourcesList.entities.source,
+                                [tempId]: {
+                                    ...source
+                                }
+                            }
+                        }
+                    }
                 }
             };
         }
 
         case types.DELETE_SOURCE_ITEM: {
+            const { lists } = state;
+            const { sourcesList } = lists;
+            const { result } = sourcesList;
 
-            const newSourcesListState = functionsUtil.deleteItemInArray(state.lists.sourcesList, 'tempId', action.id);
+            // Create copy
+            const sourcesListCopy = functionsUtil.updateObject(state.lists.sourcesList.entities.source);
+            let newSources;
+
+            for (const key in sourcesListCopy) {
+                if (key === action.id) {
+                    newSources = omit(sourcesListCopy, key);
+                }
+            }
+
+            const newResult: Array<string> = functionsUtil.deleteSimpleItemInArray(result, action.id);
 
             return {
                 ...state,
                 lists: {
                     ...state.lists,
-                    sourcesList: newSourcesListState
+                    sourcesList: {
+                        ...state.lists.sourcesList,
+                        entities: {
+                            ...state.lists.sourcesList.entities,
+                            source: newSources
+                        },
+                        result: newResult
+                    }
                 }
             };
         }
 
-        case types.CHANGE_ATOM_DETAILS_TAB : {
+        case types.LOAD_SOURCES: {
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    sourcesList: {
+                        ...state.lists.sourcesList,
+                        entities: action.sources.entities,
+                        result: action.sources.result,
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_ATOM_DETAILS_TAB: {
             return {
                 ...state,
                 tabs: {
@@ -371,16 +460,36 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
-        case types.CHANGE_SOURCE_CODE_TAB: {
+        case types.CHANGE_SOURCE_CODE_TAB : {
             return {
                 ...state,
                 tabs: {
                     ...state.tabs,
                     sourceCodeTab: {
+                        ...state.tabs.sourceCodeTab,
                         tab: action.tabs.sourceCodeTab.tab
                     }
                 }
             };
+        }
+
+        case types.LOAD_SOURCE_CODE_TABS: {
+
+            const { 
+                sourceCodeTabs = [CodeSupportedOption.html, CodeSupportedOption.css]
+            } = action;
+
+            return {
+                ...state,
+                tabs: {
+                    ...state.tabs,
+                    sourceCodeTab: {
+                        ...state.tabs.sourceCodeTab,
+                        options: sourceCodeTabs
+                    }
+                }
+            };
+
         }
 
         case types.CHANGE_LIBS_TAB: {
@@ -397,7 +506,7 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
 
         case types.CHANGE_COLOR: {
 
-            const { colorType } = action;
+            const { color, colorType } = action;
             const group = colorType ? colorType : 'general';
 
             return {
@@ -406,11 +515,41 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
                     ...state.colorPicker,
                     currentColor: {
                         ...state.colorPicker.currentColor,
-                        [group]: action.color
+                        [group]: color
                     }
                 }
             };
         }
+
+        case types.CLEAR_SOURCE_CODE: {
+            return {
+                ...state, 
+                sourceCodePanel: {
+                    currentCode: {
+                        html: null,
+                        css: null
+                    }
+                }
+            };
+        }
+
+        case types.CHANGE_SOURCE_CODE: {
+
+            const { source, sourceType } = action;
+            const group = sourceType ? sourceType : appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB;
+
+            return {
+                ...state,
+                sourceCodePanel: {
+                    ...state.sourceCodePanel,
+                    currentCode: {
+                        ...state.sourceCodePanel.currentCode,
+                        [group]: source
+                    }
+                }
+            };
+        }
+
 
         case types.COPY_SOURCE_CODE: {
             return {
@@ -421,45 +560,6 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
-        case types.CHANGE_SOURCE_CODE: {
-
-            const { currentCode } = action.sourceCodePanel;
-            const { codeType, codeProps } = currentCode;
-            let newCurrentCodeState = state.sourceCodePanel.currentCode.slice();
-
-            // To know if code type already exists on sourceCodePanel/currentCode state
-            let codeTypeAlreadyExists = functionsUtil.itemExistsInArray(state.sourceCodePanel.currentCode, codeType, 'codeType');
-
-            /* TODO: Todo este fragmento esta repetido en reducers/atom.reducer, deberiamos crear una funcion
-            global que haga esta operación */
-            if (codeTypeAlreadyExists) {
-
-                newCurrentCodeState = functionsUtil.updateItemInArray(newCurrentCodeState, 'codeType', codeType, 
-                (code: ICurrentCode) => {
-                    return {
-                        ...code,
-                        codeProps
-                    };
-                });
-
-            } else {
-
-                newCurrentCodeState = state.sourceCodePanel.currentCode.concat({
-                    codeType,
-                    codeProps
-                });
-                
-            }
-            /* TODO: Fin del fragmento */
-
-            return {
-                ...state,
-                sourceCodePanel: {
-                    currentCode: newCurrentCodeState
-                }
-            };
-
-        }
             
         default:
             return state;  

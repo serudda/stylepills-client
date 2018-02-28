@@ -78,7 +78,7 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
      */
     private handleAddClick(e: React.FormEvent<{}>) {
         e.preventDefault();
-        this._showModal(1);
+        this._showModal();
     }
 
 
@@ -92,12 +92,10 @@ extends React.Component<ChildProps<AddSourceFormContainerProps & StateProps & Di
      * @method _showModal
      * @example this._showModal()
      * @private
-     * @param {number} atomId - atom id
      * @returns {void}
      */
-    private _showModal(atomId: number) {
-        // TODO: Cambiar a SourceModal
-        this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, null);
+    private _showModal() {
+        this.props.actions.ui.showModal(ModalOption.SourceModal, null);
     }
 
 

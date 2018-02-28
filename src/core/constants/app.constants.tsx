@@ -4,10 +4,8 @@
  * @type constants
  */
 import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
-
-import { 
-    Option as CodeTabMenuOption 
-} from './../../app/components/Tabs/CodeTabMenu/CodeTabMenu';
+import { CodeSupportedOption } from './../interfaces/interfaces';
+import { PreprocessorNameOptions, PreprocessorExtOptions, CompileToTypeOptions } from './../../models/preprocessor/preprocessor.model';
 
 /* DEBUG */
 export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
@@ -55,11 +53,18 @@ export const ATOM_SEARCH_TYPE_DEFAULT = 'all';
 export type ATOM_SEARCH_TYPE_DEFAULT = typeof ATOM_SEARCH_TYPE_DEFAULT;
 export const ATOM_SEARCH_ORDER = 'DESC';
 
+/* Default code supported option */
+export const SOURCE_CODE_DEFAULT_ID_ON_DB_OPTION = 3; // NOTE: Tener mucho cuidado con este ID, debe corresponder al elemento por defecto en la tabla: preprocessors
+export const SOURCE_CODE_DEFAULT_NAME_OPTION = PreprocessorNameOptions.html;
+export const SOURCE_CODE_DEFAULT_TYPE_OPTION = CodeSupportedOption.html;
+export const SOURCE_CODE_DEFAULT_EXT_OPTION = PreprocessorExtOptions.html;
+export const SOURCE_CODE_DEFAULT_COMPILETO_OPTION = CompileToTypeOptions.html;
+
 /* Source Code Tabs (Atom Details) */
-export const ATOM_DETAILS_DEFAULT_OPTION_TAB = CodeTabMenuOption.html;
+export const SOURCE_CODE_DEFAULT_OPTION_TAB = CodeSupportedOption.html;
 
 /* Libs Tabs */
-export const LIBS_DEFAULT_OPTION_TAB = CodeTabMenuOption.css;
+export const LIBS_DEFAULT_OPTION_TAB = CodeSupportedOption.css;
 
 /* WHITE COLOR */
 export const WHITE_COLOR_HEX = '#FFFFFF';

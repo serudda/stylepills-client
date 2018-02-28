@@ -144,7 +144,7 @@ export const client = new ApolloClient({
 
 
 // Initialize store
-const store = configureStore();
+export const store = configureStore();
 
 let token = localStorage.token;
 let user = localStorage.user ? JSON.parse(localStorage.user) : undefined;

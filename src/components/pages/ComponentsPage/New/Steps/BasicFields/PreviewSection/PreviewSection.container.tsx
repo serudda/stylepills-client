@@ -6,15 +6,19 @@ import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../../../../../reducer/reducer.config';
-import { functionsUtil } from './../../../../../../../core/utils/functionsUtil';
+import { CodeSupportedOption } from './../../../../../../../core/interfaces/interfaces';
+
+import {
+    CurrentCode
+} from './../../../../../../../reducer/ui.reducer';
 
 import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
 import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
 import LibService from './../../../../../../../models/lib/lib.service';
 
-import { changeColorAction, ICurrentCode } from './../../../../../../../actions/ui.action';
+import { changeColorAction } from './../../../../../../../actions/ui.action';
 
-import { getCurrentColor, getLibListFormatted } from './../../../../../../../selectors/ui.selector';
+import { getCurrentColor, getLibListDenormalized, getCurrentCode } from './../../../../../../../selectors/ui.selector';
 
 import PreviewBox from './../../../../../../../app/components/PreviewBox/PreviewBox';
 import Iframe from './../../../../../../common/Iframe/Iframe.container';
@@ -41,7 +45,7 @@ type LocalStates = {
 /* Mapped State to Props */
 type StateProps = {
     color: BasicColorModel,
-    currentCode: Array<ICurrentCode>,
+    currentCode: CurrentCode,
     libs: Array<LibModel>
 };
 
@@ -108,14 +112,10 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     componentWillReceiveProps(nextProps: PreviewSectionContainerProps & StateProps) {   
         const { currentCode } = nextProps;
 
-        let obj = functionsUtil.sourceCodeArrayToObj(currentCode);  
-
-        if (currentCode.length > 0) {
-            this.setState({
-                html: obj.html,
-                css: obj.css
-            });
-        }
+        this.setState({
+            html: currentCode[CodeSupportedOption.html].code,
+            css: currentCode[CodeSupportedOption.css].code
+        });
         
     }
 
@@ -168,14 +168,10 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
-
-    // Destructuring state 
-    const { currentCode } = state.ui.sourceCodePanel;
-
     return {
         color: getCurrentColor(state),
-        currentCode,
-        libs: getLibListFormatted(state)
+        currentCode: getCurrentCode(state),
+        libs: getLibListDenormalized(state)
     };
 }
 

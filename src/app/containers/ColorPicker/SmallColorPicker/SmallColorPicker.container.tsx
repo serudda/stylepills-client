@@ -21,19 +21,22 @@ import SmallColorPicker from './../../../components/ColorPicker/SmallColorPicker
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type SmallColorPickerContainerProps = {
-    onChange?: (color: BasicColorModel) => void;
+    onChange?: (color: BasicColorModel) => void
 };
 
 /* Own States */
 type LocalStates = {
-    displayColorPicker: boolean;
+    displayColorPicker: boolean
 };
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
 
 /* Mapped State to Props */
 type StateProps = {
@@ -50,33 +53,36 @@ type DispatchProps = {
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    SmallColorPickerContainerProps
+&   StateProps
+&   DispatchProps;
+
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SmallColorPickerContainer 
-extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
     /********************************/
     /*         STATIC PROPS         */
     /********************************/
     private _DEFAULT_COLORS_LIST: Array<string> = [
-        '#273444', 
-        '#3C4858', 
-        '#8492A6', 
-        '#E0E6ED', 
-        '#EFF2F7',
-        '#976B55',
-        '#7BDCB5', 
-        '#0693E3', 
-        '#FFF78A', 
-        '#EC7D7D'
+        '#273444', '#3C4858', '#8492A6', 
+        '#E0E6ED', '#EFF2F7', '#976B55',
+        '#7BDCB5', '#0693E3', '#FFF78A', '#EC7D7D'
     ];
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SmallColorPickerContainerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         this.state = {
@@ -84,26 +90,26 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps &
         };
 
         // Bind methods
-        this._handleClick = this._handleClick.bind(this);
-        this._handleClose = this._handleClose.bind(this);
-        this._handleChange = this._handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
 
     /********************************/
-    /*       PRIVATE METHODS        */
+    /*        PUBLIC METHODS        */
     /********************************/
 
 
     /**
      * @desc Handle Click
-     * @method _handleClick
-     * @example this._handleClick()
-     * @private
+     * @method handleClick
+     * @example this.handleClick()
+     * @public
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleClick(e: React.FormEvent<{}>) {
+    handleClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this.setState({ displayColorPicker: !this.state.displayColorPicker });
     }
@@ -111,25 +117,25 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps &
 
     /**
      * @desc Handle Close
-     * @method _handleClose
-     * @example this._handleClose()
-     * @private
+     * @method handleClose
+     * @example this.handleClose()
+     * @public
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    private _handleClose(e: React.FormEvent<{}>) {
+    handleClose(e: React.FormEvent<{}>) {
         this.setState({ displayColorPicker: false });
     }
     
 
     /**
      * @desc Handle Change
-     * @method _handleChange
-     * @example this._handleChange()
-     * @private
+     * @method handleChange
+     * @example this.handleChange()
+     * @public
      * @returns {void}
      */
-    private _handleChange(color: ColorResult) {
+    handleChange(color: ColorResult) {
 
         const { hex, rgb } = color;
         const name = ColorService.generateColorName(hex);
@@ -162,9 +168,9 @@ extends React.Component<ChildProps<SmallColorPickerContainerProps & StateProps &
             <SmallColorPicker hex={color.hex} 
                               displayColorPicker={displayColorPicker}
                               defaultColors={this._DEFAULT_COLORS_LIST}
-                              onSwatchClick={this._handleClick}
-                              onPickerChange={this._handleChange}
-                              onClose={this._handleClose}/>
+                              onSwatchClick={this.handleClick}
+                              onPickerChange={this.handleChange}
+                              onClose={this.handleClose}/>
         );
 
     }

@@ -2,21 +2,32 @@
 /*           DEPENDENCIES           */
 /************************************/
 import { createSelector } from 'reselect';
+import { denormalize } from 'normalizr';
+
+import { INormalizedResult, CodeSupportedOption } from './../core/interfaces/interfaces';
 
 import { IRootState } from './../reducer/reducer.config';
 import { functionsUtil } from './../core/utils/functionsUtil';
 import {
-    SourceListItem,
     LibListItem, LibsList,
-    ColorListItem, ColorsList
+    ColorListItem, ColorsList,
+    CurrentCode,
+    SourceListItem
 } from './../reducer/ui.reducer';
 import {
     Basic as BasicColorModel, 
-    Color as ColorModel
 } from './../models/color/color.model';
 import {
     Lib as LibModel
 } from './../models/lib/lib.model';
+import {
+    Source as SourceModel
+} from './../models/source/source.model';
+import { sourcesListSchema } from './../normalizrs/ui.normalizr';
+
+import { 
+    Option as DetailsTabMenuOptions 
+} from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
 
 // -----------------------------------
 
@@ -73,11 +84,12 @@ export const makeGetColorListByType = () => { // NOTE: 1
 export const getColorListFormatted = createSelector(
     getColorsList,
     (colorsList) => {
-        let colorPalette: Array<ColorModel> = [];
+        let colorPalette: Array<ColorListItem> = [];
+        const listCopy: INormalizedResult = functionsUtil.updateObject(colorsList);
 
-        for (const key in colorsList) {
-            if (colorsList.hasOwnProperty(key)) {
-                colorPalette = colorPalette.concat(colorsList[key]);
+        for (const key in listCopy) {
+            if (listCopy.hasOwnProperty(key)) {
+                colorPalette = colorPalette.concat(listCopy[key]);
             }
         }
 
@@ -100,7 +112,67 @@ export const getColorListFormatted = createSelector(
  * @function getSourcesList
  * @returns {SourcesList}
  */
-export const getSourcesList = (state: IRootState): Array<SourceListItem> => state.ui.lists.sourcesList;
+export const getSourcesList = (state: IRootState): INormalizedResult => state.ui.lists.sourcesList;
+
+/**
+ * @desc Get sourcesList denormalized
+ * @function getSourcesListDenormalized
+ * @returns {Array<SourceListItem>}
+ */
+export const getSourcesListDenormalized = createSelector(
+    getSourcesList,
+    (sourcesList) => {
+
+        // Generate a copy
+        const listCopy: INormalizedResult = functionsUtil.updateObject(sourcesList);
+
+        let listDenormalized = denormalize(listCopy.result, sourcesListSchema, listCopy.entities);
+
+        // Remove extra 'tempId' prop
+        if (listDenormalized !== null) {
+            listDenormalized = functionsUtil.deletePropInCollection(listDenormalized, 'tempId');
+        } else {
+            listDenormalized = [];
+        }
+
+        return listDenormalized;
+    }
+);
+
+
+/**
+ * @desc Get sourcesList formatted to send to DB
+ * @function getSourcesListFormatted
+ * @returns {Array<SourceModel>}
+ */
+export const getSourcesListFormatted = createSelector(
+    getSourcesListDenormalized,
+    (sourcesList) => {
+
+        // Generate a copy
+        let listCopy: Array<SourceListItem> = functionsUtil.copyArray(sourcesList);
+        let newList: Array<SourceListItem> = [];
+
+        if (listCopy.length > 0) {
+            
+            // Change 'preprocessor' obj by 'preprocessorId'
+            newList = listCopy.map((item) => {
+                let newItem: SourceListItem = functionsUtil.updateObject(item);
+    
+                if (newItem.preprocessor) {
+                    newItem.preprocessorId = newItem.preprocessor.id;
+                }
+                
+                return newItem;
+            });
+
+            // Remove extra 'preprocessor' prop
+            newList = functionsUtil.deletePropInCollection(newList, 'preprocessor');
+        }
+
+        return newList;
+    }
+);
 
 
 
@@ -147,11 +219,11 @@ export const makeGetLibListByType = () => { // NOTE: 1
 
 
 /**
- * @desc Get libsList formatted to send to DB
- * @function getLibListFormatted
+ * @desc Get libsList denormalized to send to DB
+ * @function getLibListDenormalized
  * @returns {Array<LibModel>}
  */
-export const getLibListFormatted = createSelector(
+export const getLibListDenormalized = createSelector(
     getLibsList,
     (libsList) => {
         let externalLibs: Array<LibModel | LibListItem> = [];
@@ -212,6 +284,83 @@ export const makeGetCurrentColorByType = () => { // NOTE: 1
             return currentColor;
         });
 };
+
+
+
+// ----------------------------------------------------------------------------------
+
+
+/* 
+    TABS SELECTORS
+    state: ui.tabs.atomDetailsTab
+*/
+
+/**
+ * @desc Get atomDetailsTab tab from state store
+ * @function getAtomDetailsTab
+ * @returns {DetailsTabMenuOptions}
+ */
+export const getAtomDetailsTab = (state: IRootState): DetailsTabMenuOptions => state.ui.tabs.atomDetailsTab.tab;
+
+
+/* 
+    TABS SELECTORS
+    state: ui.tabs.sourceCodeTab
+*/
+
+/**
+ * @desc Get sourceCodeTab tab from state store
+ * @function getSourceCodeTab
+ * @returns {CodeSupportedOption}
+ */
+export const getSourceCodeTab = (state: IRootState): CodeSupportedOption => state.ui.tabs.sourceCodeTab.tab;
+
+
+
+/* 
+    TABS SELECTORS
+    state: ui.tabs.libsTab
+*/
+
+/**
+ * @desc Get libsTab tab from state store
+ * @function getLibsTab
+ * @returns {CodeSupportedOption}
+ */
+export const getLibsTab = (state: IRootState): CodeSupportedOption => state.ui.tabs.libsTab.tab;
+
+
+// ----------------------------------------------------------------------------------
+
+
+/* 
+    TABS SELECTORS
+    state: ui.sourceCodePanel.currentCode
+*/
+
+
+/**
+ * @desc Get Current Code from state store
+ * @function getCurrentCode
+ * @returns {CurrentCode}
+ */
+export const getCurrentCode = (state: IRootState): CurrentCode => state.ui.sourceCodePanel.currentCode;
+
+
+/**
+ * @desc Get currentCode by Type from state store (e.g. css, sass, js, html, etc)
+ * @function getCurrentCodeByType
+ * @returns {SourceModel}
+ */
+export const getCurrentCodeByType = (state: IRootState, props: any = {}): SourceModel => {
+    const { type } = props;
+    const group = type ? type : state.preprocessorState.currentPreprocessor.type;
+
+    return state.ui.sourceCodePanel.currentCode[group];
+};
+
+
+
 
 
 /*

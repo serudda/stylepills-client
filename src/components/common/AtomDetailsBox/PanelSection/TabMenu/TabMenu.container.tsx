@@ -8,7 +8,6 @@ import { compose, ChildProps } from 'react-apollo';
 import { functionsUtil } from './../../../../../core/utils/functionsUtil';
 
 import { IRootState } from './../../../../../reducer/reducer.config';
-import { User as UserModel } from './../../../../../models/user/user.model';
 
 import DetailsTabMenu , { 
     Option as DetailsTabMenuOptions 
@@ -19,23 +18,29 @@ import {
 } from './../../../../../app/containers/Modals/ModalManager/ModalManager.container';
 
 import { changeAtomDetailsTabAction, showModalAction } from './../../../../../actions/ui.action';
+import { getAtomDetailsTab } from './../../../../../selectors/ui.selector';
+import { getIsAuthenticated } from './../../../../../selectors/auth.selector';
 
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type TabMenuContainerProps = {
     atomId: number;
+    options?: Array<DetailsTabMenuOptions>;
 };
 
 /* Own States */
 type LocalStates = {
     isToggleCode: boolean
 };
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
 
 /* Mapped State to Props */
 type StateProps = {
@@ -45,7 +50,6 @@ type StateProps = {
         isDuplicated: boolean;
     };
     isAuthenticated: boolean;
-    user: UserModel;
 };
 
 /* Mapped Dispatches to Props */
@@ -59,17 +63,26 @@ type DispatchProps = {
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    TabMenuContainerProps
+&   StateProps
+&   DispatchProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class TabMenuContainer 
-extends React.Component<ChildProps<TabMenuContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<TabMenuContainerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         // Init state
@@ -79,24 +92,24 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
         functionsUtil.consoleLog('AtomDetailsBox/PanelSection/TabMenu container actived');
 
         // Bind methods
-        this._handleCodeClick = this._handleCodeClick.bind(this);
-        this._handleDuplicateClick = this._handleDuplicateClick.bind(this);
-        this._handleLibsClick = this._handleLibsClick.bind(this);
+        this.handleCodeTabClick = this.handleCodeTabClick.bind(this);
+        this.handleDuplicateTabClick = this.handleDuplicateTabClick.bind(this);
+        this.handleLibsTabClick = this.handleLibsTabClick.bind(this);
     }
 
 
     /********************************/
-    /*       PRIVATE METHODS        */
+    /*        PUBLIC METHODS        */
     /********************************/
 
     /**
-     * @desc HandleCodeClick
-     * @method _handleCodeClick
-     * @example this._handleCodeClick()
-     * @private
+     * @desc HandleCodeTabClick
+     * @method handleCodeTabClick
+     * @example this.handleCodeTabClick()
+     * @public
      * @returns {void}
      */
-    private _handleCodeClick(e: React.FormEvent<{}>) {
+    handleCodeTabClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this.setState((prevState: LocalStates) => ({
             isToggleCode: !prevState.isToggleCode
@@ -111,14 +124,14 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
 
     /**
-     * @desc HandleDuplicateClick
-     * @method _handleDuplicateClick
-     * @example this._handleDuplicateClick()
-     * @private 
+     * @desc handleDuplicateTabClick
+     * @method handleDuplicateTabClick
+     * @example this.handleDuplicateTabClick()
+     * @public 
      * @param {React.FormEvent<{}>} e - Click Event
      * @returns {void}
      */
-    private _handleDuplicateClick(e: React.FormEvent<{}>) {
+    handleDuplicateTabClick(e: React.FormEvent<{}>) {
         e.preventDefault();
 
         const { isDuplicated } = this.props.duplicated;
@@ -131,16 +144,21 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
 
     /**
-     * @desc HandleLibsClick
-     * @method _handleLibsClick
-     * @example this._handleLibsClick()
-     * @private
+     * @desc handleLibsTabClick
+     * @method handleLibsTabClick
+     * @example this.handleLibsTabClick()
+     * @public
      * @returns {void}
      */
-    private _handleLibsClick(e: React.FormEvent<{}>) {
+    handleLibsTabClick(e: React.FormEvent<{}>) {
         e.preventDefault();
         this._changeTab(DetailsTabMenuOptions.addLibs);
     }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
     
 
     /**
@@ -151,10 +169,10 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
      * @returns {void}
      */
     private _showDuplicateModal() {
-        const {isAuthenticated, user} = this.props;
+        const { isAuthenticated } = this.props;
         const { atomId } = this.props;
 
-        if (isAuthenticated && user) {
+        if (isAuthenticated) {
 
             this.props.actions.ui.showModal(ModalOption.DuplicateModal, {atomId});
 
@@ -178,35 +196,26 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 
 
     /**
-     * @desc Build Tab Menu component
-     * @method _buildTabMenu
-     * @example this._buildTabMenu()
+     * @desc Build tab options
+     * @method _buildTabOptions
+     * @example this._buildTabOptions()
      * @private
-     * @returns {JSX.Element} <DetailsTabMenu />
+     * @returns {void}
      */
-    private _buildTabMenu(): JSX.Element {
+    private _buildTabOptions() {
 
-        // Destructuring props
-        const { tab, duplicated } = this.props;
-        const { isDuplicated } = duplicated;
+        const { options } = this.props;
 
-        // VARIABLES
-        let options: Array<DetailsTabMenuOptions> = [
-            DetailsTabMenuOptions.addLibs,
-            DetailsTabMenuOptions.showCode,
-            DetailsTabMenuOptions.duplicate
-        ];    
+        // If receive an parent's options
+        if (options) {
+            return options;
+        } else {
+            // If not receive a parent's options method, build default options.
+            return [ DetailsTabMenuOptions.addLibs,
+                DetailsTabMenuOptions.showCode,
+                DetailsTabMenuOptions.duplicate ];
+        }
 
-        return (
-            <DetailsTabMenu options={options}
-                            isReversed={tab === DetailsTabMenuOptions.showCode}
-                            isDuplicated={isDuplicated}
-                            currentOption={tab}
-                            onDuplicateClick={this._handleDuplicateClick}
-                            onShowCodeClick={this._handleCodeClick}
-                            onAddLibsClick={this._handleLibsClick}/>
-        );
-        
     }
 
 
@@ -215,14 +224,20 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
     /********************************/
     render() {
 
+        // Destructuring props
+        const { tab, duplicated } = this.props;
+        const { isDuplicated } = duplicated; 
 
         /*         MARKUP          */
         /***************************/
         return (
-            <div>
-                {/* Build Tab Menu Options */}
-                {this._buildTabMenu()}
-            </div>
+            <DetailsTabMenu options={this._buildTabOptions()}
+                        isReversed={tab === DetailsTabMenuOptions.showCode}
+                        isDuplicated={isDuplicated}
+                        currentOption={tab}
+                        onDuplicateClick={this.handleDuplicateTabClick}
+                        onShowCodeClick={this.handleCodeTabClick}
+                        onAddLibsClick={this.handleLibsTabClick}/>
         );
     }
 
@@ -234,18 +249,11 @@ extends React.Component<ChildProps<TabMenuContainerProps & StateProps & Dispatch
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
 
-    const { tabs } = state.ui;
-    const { atomDetailsTab } = tabs;
-    const { tab } = atomDetailsTab;
-
     const { duplicated } = state.atomState;
-    
-    const { isAuthenticated, user } = state.auth;
 
     return {
-        tab,
-        isAuthenticated,
-        user,
+        tab: getAtomDetailsTab(state),
+        isAuthenticated: getIsAuthenticated(state),
         duplicated
     };
 }

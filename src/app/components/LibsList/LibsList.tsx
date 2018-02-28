@@ -6,7 +6,6 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 import { LibListItem } from './../../../reducer/ui.reducer';
-import { Lib as LibModel } from './../../../models/lib/lib.model';
 
 import Icon from './../Icon/Icon';
 
@@ -19,7 +18,7 @@ import Icon from './../Icon/Icon';
 
 /* Own Props */
 type LibsListProps = {
-    libs: Array<LibModel | LibListItem>,
+    libs: Array<LibListItem>,
     isEmpty?: boolean,
     onDeleteClick: (tempId: string) => any
 };
@@ -34,7 +33,7 @@ type LibsListProps = {
 const LibsList: React.SFC<LibsListProps> = ({ libs = [], isEmpty = false, onDeleteClick }) => {
 
     // Item Classes
-    const itemClasses = (lib: LibModel) => {
+    const itemClasses = (lib: LibListItem) => {
         return classNames({
             'item': true,
             'item--disabled': !!lib.project

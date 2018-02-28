@@ -2485,7 +2485,7 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-poppins {
   font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
-.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
+.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .SourceModal .sp-close-icon::after {
   font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
 .fontFamily-courierNew {
@@ -2570,7 +2570,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs, .SidebarWrapper .Sidebar__content .subtitle {
   font-size: 12px; }
 
-.fontSize-sm, .sp-list--simple .item .text, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
+.fontSize-sm, .sp-list--simple .item .text, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .SourceModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
 .fontSize-md, .sp-list--simple .item .text-tag .text, .SidebarWrapper .Sidebar__content .title {
@@ -2616,7 +2616,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-8 {
   font-weight: 800; }
 
-.fontWeight-9, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
+.fontWeight-9, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .SourceModal .sp-close-icon::after {
   font-weight: 900; }
 
 /* Line Height scale */
@@ -3605,6 +3605,41 @@ NOTE: Boostrap 4 has a flex set
   .sp-input--block {
     width: 100%; }
 
+.sp-special-input {
+  border: 0 hidden transparent;
+  border-bottom: 1px solid #C0CCDA;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  background-color: transparent;
+  color: #3C4858;
+  display: block; }
+  .sp-special-input.error {
+    border-color: #FF4949; }
+  .sp-special-input::-moz-placeholder  {
+    color: #C0CCDA; }
+  .sp-special-input::-webkit-input-placeholder {
+    color: #C0CCDA; }
+  .sp-special-input::placeholder {
+    color: #C0CCDA; }
+  .sp-special-input:focus {
+    border-color: #33ADA9;
+    outline: 0; }
+  .sp-special-input--sm {
+    padding: 0 10px;
+    height: 30px;
+    font-size: 13px; }
+  .sp-special-input--md {
+    padding: 0 12px;
+    height: 40px;
+    font-size: 15px; }
+  .sp-special-input--lg {
+    padding: 0 13px;
+    height: 45px;
+    font-size: 16px; }
+  .sp-special-input--block {
+    width: 100%; }
+
 /* TEXTAREA INPUT */
 .sp-textarea {
   border: 1px solid #C0CCDA;
@@ -4519,6 +4554,34 @@ body.atomDetailsModal-open .ui.dimmer {
 
 /* DIMMER (MODAL BACKDROP) */
 body.duplicateModal-open .ui.dimmer {
+  background-color: #EFF2F7; }
+
+/**********************************************************/
+/*                      SOURCE MODAL                      */
+/**********************************************************/
+.SourceModal .sp-close-icon {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  top: 1.0535rem;
+  right: 1rem;
+  position: absolute;
+  z-index: 1;
+  opacity: .5; }
+  .SourceModal .sp-close-icon::after {
+    content: "ESC";
+    color: #3C4858;
+    position: relative;
+    top: 28px; }
+  .SourceModal .sp-close-icon:hover {
+    background-color: #D3DCE6;
+    border: 5px solid #D3DCE6;
+    opacity: 1; }
+  .SourceModal .sp-close-icon:hover::after {
+    right: 4px; }
+
+/* DIMMER (MODAL BACKDROP) */
+body.sourceModal-open .ui.dimmer {
   background-color: #EFF2F7; }
 
 /**********************************************************/

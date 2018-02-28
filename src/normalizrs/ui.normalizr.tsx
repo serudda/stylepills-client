@@ -5,14 +5,18 @@ import * as uuid from 'uuid/v4';
 import { schema, normalize } from 'normalizr';
 import { groupBy, mapValues } from 'lodash';
 
+import { INormalizedResult } from './../core/interfaces/interfaces';
+
 import { functionsUtil } from './../core/utils/functionsUtil';
 
 import { 
     ColorListItem, 
-    LibListItem, LibsList
+    LibListItem, LibsList,
+    SourceListItem
 } from './../reducer/ui.reducer';
 
 import { Lib as LibModel } from './../models/lib/lib.model';
+import { Source as SourceModel } from './../models/source/source.model';
 
 
 // -----------------------------------
@@ -55,6 +59,7 @@ export const colorsListSchema = [colorSchema];
 export const colorsListNormalized = (colorsResult: Array<ColorListItem>) => normalize(colorsResult, colorsListSchema);
 
 
+
 // =================================================================
 //         LISTS SCHEMAS ===========================================
 //         state: lists.libsList ===================================
@@ -86,4 +91,57 @@ export const libsListNormalized = (libsResult: Array<LibModel> = []): LibsList =
     let libListGrouped: LibsList = mapValues(groupBy(libListRemoved, 'type'));
     
     return libListGrouped;
+};
+
+
+
+// =================================================================
+//         LISTS SCHEMAS ===========================================
+//         state: lists.sourcesList ================================
+// =================================================================
+
+/**
+ * @desc Return a Source entity schema on sourcesList store state
+ * @function sourceSchema
+ * @returns {schema.Entity}
+ */
+export const sourceSchema = new schema.Entity('source', {}, {
+    idAttribute: 'tempId'
+});
+
+
+/**
+ * @desc Represent Source List entity schema of sourcesList store state
+ * @function sourcesListSchema
+ * @returns {Array<schema.Entity>}
+ */
+export const sourcesListSchema = [sourceSchema];
+
+/* SOURCE NORMALIZER FUNCTION */
+export const sourceNormalized = (source: SourceModel): INormalizedResult => {
+    return normalize(source, sourceSchema);
+};
+
+/* SOURCES LISTS NORMALIZER FUNCTION */
+export const sourcesListNormalized = (sourcesResult: Array<SourceModel> = []): INormalizedResult => {
+
+    // Create source copy
+    let sourcesResultCopy: Array<SourceModel> = functionsUtil.copyArray(sourcesResult);
+
+    // Add tempId prop to each inner object
+    let newSourcesResult: Array<SourceListItem> = sourcesResultCopy.map(
+        (item: SourceModel) => {
+            let copyObj: SourceListItem = functionsUtil.updateObject(item); 
+            copyObj.tempId  = uuid();
+            return copyObj;
+        }
+    );
+
+    // Normalize sourcesList on State Store
+    let sourcesListNormalizedResult = normalize(newSourcesResult, sourcesListSchema);
+
+    // Remove props that libsList State does not need TODO: Remover cuando no se necesite
+    // let libListRemoved: Array<LibListItem> = functionsUtil.deletePropInCollection(newLibsResult, 'project', 'atom');
+    
+    return sourcesListNormalizedResult;
 };

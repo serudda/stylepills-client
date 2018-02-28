@@ -9,13 +9,15 @@ import { IRootState } from './../../../../reducer/reducer.config';
 
 import AtomDetailsModalContainer from './../AtomDetailsModal/AtomDetailsModal.container';
 import DuplicateModalContainer from './../../../../components/common/Modal/DuplicateModal/DuplicateModal.container';
+import SourceModalContainer from './../SourceModal/SourceModal.container';
 
 // -----------------------------------
 
 /* Here are all modal components */
 const modalComponentList = {
     AtomDetailsModal: AtomDetailsModalContainer,
-    DuplicateModal: DuplicateModalContainer
+    DuplicateModal: DuplicateModalContainer,
+    SourceModal: SourceModalContainer
 };
 
 
@@ -26,7 +28,8 @@ const modalComponentList = {
 /* Possible modal options */
 export enum Option {
     AtomDetailsModal = 'AtomDetailsModal',
-    DuplicateModal = 'DuplicateModal'
+    DuplicateModal = 'DuplicateModal',
+    SourceModal = 'SourceModal'
 }
 
 /* Own Props */

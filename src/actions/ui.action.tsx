@@ -1,23 +1,26 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import * as uuid from 'uuid/v4';
 import { EventTypes } from 'redux-segment';
 
+import { store } from './../index';
+
+import { CodeSupportedOption } from './../core/interfaces/interfaces';
+
 import * as types from '../core/constants/action.types';
-import { IAnalyticsTrack } from './../core/interfaces/interfaces';
+import { INormalizedResult, IAnalyticsTrack } from './../core/interfaces/interfaces';
 
 import { Basic as BasicColorModel, Color as ColorModel, ColorTypeOptions } from '../models/color/color.model';
 import { Lib as LibModel, LibTypeOptions } from './../models/lib/lib.model';
 import { Source as SourceModel } from './../models/source/source.model';
+import SourceService from './../models/source/source.service';
 
 import { 
-    LibsList,
-    SourceListItem
+    SourceListItem,
+    LibsList
  } from './../reducer/ui.reducer';
 
-import { 
-    Option as CodeTabMenuOption 
-} from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import {
     Option as DetailsTabMenuOptions
 } from './../app/components/Tabs/DetailsTabMenu/DetailsTabMenu';
@@ -28,7 +31,7 @@ import {
     Option as AlertOption
 } from './../app/containers/Alerts/AlertManager/AlertManager.container';
  
-import { libsListNormalized } from './../normalizrs/ui.normalizr';
+import { libsListNormalized, sourceNormalized, sourcesListNormalized } from './../normalizrs/ui.normalizr';
 
 /************************************/
 /*            INTERFACES            */
@@ -105,17 +108,18 @@ export interface ICloseAlertAction {
 
 export interface IAddSourceItemAction {
     type: types.ADD_SOURCE_ITEM;
-    source: SourceModel;
+    source: INormalizedResult;
+    id: string;
 }
 
 export interface IEditSourceItemAction {
     type: types.EDIT_SOURCE_ITEM;
-    source: SourceModel;
+    source: SourceListItem;
 }
 
 export interface IDeleteSourceItemAction {
     type: types.DELETE_SOURCE_ITEM;
-    id: number;
+    id: string;
 }
 
 export interface IChangeSourceItemOrderAction {
@@ -126,7 +130,7 @@ export interface IChangeSourceItemOrderAction {
 
 export interface ILoadSourcesAction {
     type: types.LOAD_SOURCES;
-    sources: Array<SourceListItem>;
+    sources: INormalizedResult;
 }
 
 
@@ -208,17 +212,22 @@ export interface IChangeSourceCodeTabAction {
     type: types.CHANGE_SOURCE_CODE_TAB;
     tabs: {
         sourceCodeTab: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
+}
+
+export interface ILoadSourceCodeTabsAction {
+    type: types.LOAD_SOURCE_CODE_TABS;
+    sourceCodeTabs?: Array<CodeSupportedOption>;
 }
 
 export interface IChangeLibsTabAction {
     type: types.CHANGE_LIBS_TAB;
     tabs: {
         libsTab: {
-            tab: CodeTabMenuOption
+            tab: CodeSupportedOption
         }
     };
     meta: IAnalyticsTrack<IChangeTabEventPayLoad>;
@@ -262,24 +271,14 @@ export interface IChangeColorAction {
     SOURCE CODE PANEL ACTIONS
     state: sourceCodePanel
 */
-
-export interface ICodeProps {
-    code: string;
-    libs?: Array<string>;
-}
-
-export interface ICurrentCode {
-    codeType: string; 
-    codeProps: ICodeProps;
-}
-
-export interface ISourceCodePanel {
-    currentCode: ICurrentCode;
+export interface IClearSourceCodeAction {
+    type: types.CLEAR_SOURCE_CODE;
 }
 
 export interface IChangeSourceCodeAction {
     type: types.CHANGE_SOURCE_CODE;
-    sourceCodePanel: ISourceCodePanel;
+    source: SourceModel;
+    sourceType: CodeSupportedOption;
 }
 
 export type Action =
@@ -306,8 +305,10 @@ export type Action =
 |   ILoadLibsAction
 |   IChangeAtomDetailsTabAction
 |   IChangeSourceCodeTabAction
+|   ILoadSourceCodeTabsAction
 |   IChangeLibsTabAction
 |   IChangeColorAction
+|   IClearSourceCodeAction
 |   IChangeSourceCodeAction
 |   ICopySourceCodeAction;
 
@@ -404,9 +405,13 @@ export const showAlertAction = (alertType: AlertOption, alertProps: any): Action
  * @returns {Action}
  */
 export const addSourceItemAction = (source: SourceModel): Action => {
+    const newSource: SourceListItem = source;
+    newSource.tempId = uuid();
+
     return {
         type: types.ADD_SOURCE_ITEM,
-        source
+        source: sourceNormalized(newSource),
+        id: newSource.tempId
     };
 };
 
@@ -417,7 +422,7 @@ export const addSourceItemAction = (source: SourceModel): Action => {
  * @function editSourceItemAction
  * @returns {Action}
  */
-export const editSourceItemAction = (source: SourceModel): Action => {
+export const editSourceItemAction = (source: SourceListItem): Action => {
     return {
         type: types.EDIT_SOURCE_ITEM,
         source
@@ -431,7 +436,7 @@ export const editSourceItemAction = (source: SourceModel): Action => {
  * @function deleteSourceItemAction
  * @returns {Action}
  */
-export const deleteSourceItemAction = (id: number): Action => {
+export const deleteSourceItemAction = (id: string): Action => {
     return {
         type: types.DELETE_SOURCE_ITEM,
         id
@@ -455,15 +460,15 @@ export const changeSourceItemOrderAction = (id: number, newOrder: number): Actio
 
 
 /**
- * @desc Return an action type, LOAD_LIBS
- * to load Lib on State store
+ * @desc Return an action type, LOAD_SOURCES
+ * to load Sources on State store
  * @function loadSourcesAction
  * @returns {Action}
  */
 export const loadSourcesAction = (sources: Array<SourceModel> = []): Action => {
     return {
         type: types.LOAD_SOURCES,
-        sources
+        sources: sourcesListNormalized(sources)
     };
 };
 
@@ -651,7 +656,7 @@ export const changeAtomDetailsTabAction = (tab: DetailsTabMenuOptions): Action =
  * @function changeSourceCodeTabAction
  * @returns {Action}
  */
-export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
+export const changeSourceCodeTabAction = (tab: CodeSupportedOption): Action => {
     return {
         type: types.CHANGE_SOURCE_CODE_TAB,
         tabs: {
@@ -675,12 +680,40 @@ export const changeSourceCodeTabAction = (tab: CodeTabMenuOption): Action => {
 
 
 /**
+ * @desc Return an action type, LOAD_SOURCE_CODE_TABS to load source code tabs
+ * @function loadSourceCodeTabsAction
+ * @returns {Action}
+ */
+export const loadSourceCodeTabsAction = (sourceCodeTabs: Array<CodeSupportedOption>): Action => {
+    
+    let options: Array<CodeSupportedOption> = [];
+
+    // If it doesn't receive sourceCodeTabs
+    if (!sourceCodeTabs) {
+        // Get tab menu options from current preprocessor selected
+        if (!!store.getState().preprocessorState.currentPreprocessor) {
+            const preprocessorType = store.getState().preprocessorState.currentPreprocessor.type;
+    
+            options = [CodeSupportedOption[preprocessorType]];
+        }
+    } else {
+        options = sourceCodeTabs;
+    }
+
+    return {
+        type: types.LOAD_SOURCE_CODE_TABS,
+        sourceCodeTabs: options
+    };
+};
+
+
+/**
  * @desc Return an action type, CHANGE_LIBS_TAB 
  * to indicate that user wants to change libs tab menu option (e.g. from 'javascript' to 'css')
  * @function changeLibsTabAction
  * @returns {Action}
  */
-export const changeLibsTabAction = (tab: CodeTabMenuOption): Action => {
+export const changeLibsTabAction = (tab: CodeSupportedOption): Action => {
     return {
         type: types.CHANGE_LIBS_TAB,
         tabs: {
@@ -747,21 +780,38 @@ export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOp
 
 
 /**
+ * @desc Return an action type, CLEAR_SOURCE_CODE to reset Source Code Panel states
+ * @function clearSourceCodeAction
+ * @returns {Action}
+ */
+export const clearSourceCodeAction = (): Action => {
+    return {
+        type: types.CLEAR_SOURCE_CODE
+    };
+};
+
+
+/**
  * @desc Return an action type, CHANGE_SOURCE_CODE 
  * to indicate that user wants to change source code on SourcePanel
  * @function changeSourceCodeAction
- * @param {string} codeType - code type (e.g. 'html', 'css', etc.)
+ * @param {SourceModel} codeType - code type (e.g. 'html', 'css', etc.)
  * @param {any} codeProps - code properties (e.g. code, libs, etc)
  * @returns {Action}
  */
-export const changeSourceCodeAction = (codeType: string, codeProps: any): Action => {
+export const changeSourceCodeAction = (source: SourceModel = null, sourceType: CodeSupportedOption): Action => {
+    let sourceInstance: SourceModel;
+
+    if (source === null) {
+        let currentPreprocessor = store.getState().preprocessorState.currentPreprocessor;
+        sourceInstance = SourceService.createSourceObjBasedOnCurrentPreprocessor(currentPreprocessor);
+    } else {
+        sourceInstance = source;
+    }
+
     return {
         type: types.CHANGE_SOURCE_CODE,
-        sourceCodePanel: {
-            currentCode: {
-                codeType,
-                codeProps
-            }
-        }
+        source: sourceInstance,
+        sourceType
     };
 };

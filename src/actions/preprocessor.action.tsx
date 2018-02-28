@@ -1,12 +1,26 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-import * as types from '../core/constants/action.types';
+import { client } from './../index';
+
+import * as types from './../core/constants/action.types';
+import { CodeSupportedOption, INormalizedResult } from './../core/interfaces/interfaces';
+import * as appConfig from './../core/constants/app.constants';
 
 import { 
     Preprocessor as PreprocessorModel,
     PreprocessorTypeOptions
 } from './../models/preprocessor/preprocessor.model';
+
+import { 
+    GET_PREPROCESSOR_BY_ID_QUERY,
+    GET_ALL_PREPROCESSORS_QUERY
+} from './../models/preprocessor/preprocessor.query';
+
+import { 
+    sassCompilerService, 
+    IResponse as SassCompilerResponse } from './../core/services/compilers/sassCompiler.service';
+import { preprocessorsListNormalized } from './../normalizrs/preprocessor.normalizr';
 
 
 /************************************/
@@ -19,7 +33,7 @@ export interface IClearPreprocessorStateAction {
 
 export interface IChangePreprocessorAction {
     type: types.CHANGE_PREPROCESSOR;
-    preprocessor: PreprocessorModel;
+    preprocessorId: number | string;
 }
 
 export interface IRequestCompileCodeAction {
@@ -43,13 +57,31 @@ export interface ICompileCodeFailureAction {
 }
 
 
+export interface IRequestGetPreprocessorsAction {
+    type: types.GET_PREPROCESSORS_REQUEST;
+}
+
+export interface IReceiveGetPreprocessorsAction {
+    type: types.GET_PREPROCESSORS_SUCCESS;
+    preprocessors: INormalizedResult;
+}
+
+export interface IGetPreprocessorsFailureAction {
+    type: types.GET_PREPROCESSORS_FAILURE;
+    message: string;
+}
+
+
 export type Action =
     // Preprocessor interaction
     IClearPreprocessorStateAction
 |   IChangePreprocessorAction
 |   IRequestCompileCodeAction
 |   IReceiveCompileCodeAction
-|   ICompileCodeFailureAction;
+|   ICompileCodeFailureAction
+|   IRequestGetPreprocessorsAction
+|   IReceiveGetPreprocessorsAction
+|   IGetPreprocessorsFailureAction;
 
 
 
@@ -70,18 +102,17 @@ export const clearPreprocessorStateAction = (): Action => {
 };
 
 
-
 /**
  * @desc Return an action type, CHANGE_PREPROCESSOR 
  * to indicate that user wants to change color on colorPicker
  * @function changePreprocessorAction
- * @param {PreprocessorModel} preprocessor - new preprocessor object
+ * @param {number | string} preprocessorId - preprocessor id
  * @returns {Action}
  */
-export const changePreprocessorAction = (preprocessor: PreprocessorModel): Action => {
+export const changePreprocessorAction = (preprocessorId: number | string): Action => {
     return {
         type: types.CHANGE_PREPROCESSOR,
-        preprocessor
+        preprocessorId
     };
 };
 
@@ -128,4 +159,185 @@ export const compileCodeFailureAction = (message: string): Action => {
         isCompiled: false,
         message
     };
+};
+
+/**
+ * @desc Return an action type, GET_PREPROCESSORS_REQUEST to start getting process
+ * @function requestGetPreprocessorsAction
+ * @returns {Action}
+ */
+export const requestGetPreprocessorsAction = (): Action => {
+    return {
+        type: types.GET_PREPROCESSORS_REQUEST
+    };
+};
+
+
+/**
+ * @desc Return an action type, GET_PREPROCESSORS_SUCCESS after a successful getting process
+ * @function receiveGetPreprocessorsAction
+ * @returns {Action}
+ */
+export const receiveGetPreprocessorsAction = (preprocessors: Array<PreprocessorModel>): Action => {
+    return {
+        type: types.GET_PREPROCESSORS_SUCCESS,
+        preprocessors: preprocessorsListNormalized(preprocessors)
+    };
+};
+
+
+/**
+ * @desc Return an action type, GET_PREPROCESSORS_FAILURE after a failure getting process
+ * @function getPreprocessorsFailureAction 
+ * @param {string} message - Error message
+ * @returns {Action}
+ */
+export const getPreprocessorsFailureAction = (message: string): Action => {
+    return {
+        type: types.GET_PREPROCESSORS_FAILURE,
+        message
+    };
+};
+
+/**
+ * @desc Compile Code Action
+ * @function compileCodeAction
+ * @param {CreateProjectInput} input - create project input data
+ * @returns {Promise<any>}
+ */
+export const compileCodeAction = (preprocessor: CodeSupportedOption, code: string) => {
+    return (dispatch: Function): Promise<SassCompilerResponse> => {
+
+        // Request Compile Code
+        dispatch(requestCompileCodeAction(preprocessor));
+        
+        switch (preprocessor) {
+            case CodeSupportedOption.sass:
+                return sassCompilerService.compile(code).then(_compileCodeResponse(preprocessor, code, dispatch));
+            default:
+                return null;
+        }
+
+    };
+
+};
+
+const _compileCodeResponse = (preprocessor: PreprocessorTypeOptions, code: string, dispatch: Function) => 
+    (response: SassCompilerResponse) => {
+        let { ok, message, text } = response;
+
+        if (ok) {
+            // Created Successful
+            dispatch(receiveCompileCodeAction(preprocessor, code, text));
+        } else {
+            // Created Failure
+            dispatch(compileCodeFailureAction(message));
+        }
+
+        return {
+            ok,
+            message
+        };
+    };
+
+
+/**
+ * @desc Get All Preprocessors Action
+ * @function getAllPreprocessorsAction
+ * @returns {Promise<any>}
+ */
+export const getAllPreprocessorsAction = () => {
+    return (dispatch: Function): Promise<any> => {
+
+        return client.query({
+            query: GET_ALL_PREPROCESSORS_QUERY
+        }).then(
+            (response: any) => {
+                let { error, allPreprocessors } = response.data;
+                let defaultPreprocessorId: number;
+
+                if (error) {
+
+                    // Failure
+                    dispatch(getPreprocessorsFailureAction(error));
+
+                    return {
+                        ok: false,
+                        message: 'Something wrong'
+                    };
+
+                }
+
+                // Got them Successful
+                dispatch(receiveGetPreprocessorsAction(allPreprocessors));
+
+
+                // Assign a default current Preprocessor
+                allPreprocessors.forEach((preprocessor: PreprocessorModel) => {
+                    if (preprocessor.type === appConfig.SOURCE_CODE_DEFAULT_OPTION_TAB) {
+                        defaultPreprocessorId = preprocessor.id;
+                    }
+                });
+                dispatch(changePreprocessorAction(defaultPreprocessorId));
+
+                return {
+                    ok: true,
+                    results: allPreprocessors
+                };
+
+            }
+        ).catch(
+            (response) => {
+                // Failure
+                dispatch(getPreprocessorsFailureAction(response));
+
+                return response;
+            }
+        );
+
+    };
+
+};
+
+
+/**
+ * @desc Get Preprocessor by Id Action
+ * @function getPreprocessorByIdAction
+ * @param {number} id - preprocessor id
+ * @returns {Promise<any>}
+ */
+export const getPreprocessorByIdAction = (id: number) => {
+    return (dispatch: Function): Promise<any> => {
+
+        return client.query({
+            query: GET_PREPROCESSOR_BY_ID_QUERY,
+            variables: { id }
+        }).then(
+            (response: any) => {
+                let { error, getPreprocessorById } = response.data;
+        
+                if (error) {
+                    return {
+                        ok: false,
+                        message: 'Something wrong'
+                    };
+                }
+
+                return {
+                    ok: true,
+                    results: getPreprocessorById
+                };
+            }
+        ).catch(
+            (response) => {
+                console.log('getPreprocessorByIdAction error: ', response);
+                return {
+                    ok: false,
+                    message: response
+                };
+            }
+        );
+
+    };
+
 };

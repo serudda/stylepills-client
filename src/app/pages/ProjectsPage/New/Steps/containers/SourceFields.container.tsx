@@ -2,7 +2,7 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
@@ -13,7 +13,8 @@ import { IRootState } from './../../../../../../reducer/reducer.config';
 import { Source as SourceModel } from './../../../../../../models/source/source.model';
 
 import { getIsAuthenticated } from './../../../../../../selectors/auth.selector';
-import { getSourcesList } from './../../../../../../selectors/ui.selector';
+import { getSourcesListFormatted } from './../../../../../../selectors/ui.selector';
+import { getAllPreprocessorsAction } from './../../../../../../actions/preprocessor.action';
 
 import SourceFields from './../components/SourceFields';
 import { 
@@ -23,9 +24,8 @@ import {
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type SourceFieldsContainerProps = {
@@ -36,6 +36,10 @@ type SourceFieldsContainerProps = {
 /* Own States */
 type LocalStates = {};
 
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
+
 /* Mapped State to Props */
 type StateProps = {    
     sourcesList: Array<SourceModel>,
@@ -43,19 +47,34 @@ type StateProps = {
 };
 
 /* Mapped Dispatches to Props */
-type DispatchProps = {};
+type DispatchProps = {
+    actions: {
+        ui: {
+            getAllPreprocessors: () => void;
+        }
+    };
+};
+
+
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps = 
+    SourceFieldsContainerProps
+&   StateProps    
+&   DispatchProps;
 
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SourceFieldsContainer
-extends React.Component<ChildProps<SourceFieldsContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SourceFieldsContainerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         // LOG
@@ -64,6 +83,15 @@ extends React.Component<ChildProps<SourceFieldsContainerProps & StateProps & Dis
         // Bind methods
         this.handlePrevClick =  this.handlePrevClick.bind(this);
         this.handleNextClick =  this.handleNextClick.bind(this);
+    }
+
+
+    /**************************************/
+    /*        COMPONENT_WILL_MOUNT        */
+    /**************************************/
+    componentWillMount() {
+        // Charge Preprocessors on State Store in order to use in SelectList
+        this.props.actions.ui.getAllPreprocessors();
     }
 
 
@@ -167,8 +195,22 @@ extends React.Component<ChildProps<SourceFieldsContainerProps & StateProps & Dis
 function mapStateToProps(state: IRootState): StateProps {
     
     return {
-        sourcesList: getSourcesList(state),
+        sourcesList: getSourcesListFormatted(state),
         isAuthenticated: getIsAuthenticated(state)
+    };
+}
+
+
+/********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                getAllPreprocessors: () => dispatch(getAllPreprocessorsAction())
+            }
+        }
     };
 }
 
@@ -176,7 +218,7 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const sourceFieldsContainerConnect = connect(mapStateToProps);
+const sourceFieldsContainerConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 /*         EXPORT          */

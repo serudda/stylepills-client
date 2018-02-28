@@ -7,6 +7,8 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { IRootState } from './../../../reducer/reducer.config';
 
+import { SourceListItem } from './../../../reducer/ui.reducer';
+
 import { 
     showModalAction, 
     deleteSourceItemAction, 
@@ -14,25 +16,19 @@ import {
 } from './../../../actions/ui.action';
 
 import { Source as SourceModel } from './../../../models/source/source.model';
-import { getSourcesList } from './../../../selectors/ui.selector';
+import { getSourcesListDenormalized } from './../../../selectors/ui.selector';
 
 import { 
     Option as ModalOption 
 } from './../../containers/Modals/ModalManager/ModalManager.container';
-import {
-    PreprocessorTypeOptions,
-    CompileToTypeOptions
-} from './../../../models/preprocessor/preprocessor.model';
 
 import SourcesList from './../../components/SourcesList/SourcesList';
-import { SourceListItem } from '../../../reducer/ui.reducer';
 
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type SourcesListContainerProps = {};
@@ -40,9 +36,13 @@ type SourcesListContainerProps = {};
 /* Own States */
 type LocalStates = {};
 
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
+
 /* Mapped State to Props */
 type StateProps = {
-    sourcesList: Array<SourceModel>
+    sourcesList: Array<SourceModel | SourceListItem>
 };
 
 /* Mapped Dispatches to Props */
@@ -50,24 +50,34 @@ type DispatchProps = {
     actions: {
         ui: {
             showModal: (modalType: ModalOption, modalProps: any) => void;
-            deleteSourceItem: (id: number) => void;
+            deleteSourceItem: (tempId: string) => void;
             changeSourceItemOrder: (id: number, newOrder: number) => void;
         }
     };
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    SourcesListContainerProps
+&   StateProps
+&   DispatchProps;
+
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SourcesListContainer 
-extends React.Component<ChildProps<SourcesListContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: SourcesListContainerProps & StateProps & DispatchProps) {
+    constructor(props: AllProps) {
         super(props);
 
         // Bind methods
@@ -100,12 +110,12 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      * @method handleDeleteClick
      * @example this.handleDeleteClick()
      * @public
-     * @param {number} id - source id
+     * @param {string} id - source id
      * @param {React.FormEvent<{}>} e - Event
      * @returns {void}
      */
-    handleDeleteClick = (id: number) => (e: React.FormEvent<{}>) => {
-        this._deleteSourceItem(1);
+    handleDeleteClick = (id: string) => (e: React.FormEvent<{}>) => {
+        this._deleteSourceItem(id);
     }
 
 
@@ -122,21 +132,20 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
      * @returns {void}
      */
     private _showModal(source: SourceModel) {
-        // TODO: Cambiar a SourceModal
-        // this.props.actions.ui.showModal(ModalOption.AtomDetailsModal, {source});
+        this.props.actions.ui.showModal(ModalOption.SourceModal, { source });
     }
 
 
     /**
-     * @desc Show Modal 
+     * @desc Delete Lib Item
      * @method _deleteSourceItem
      * @example this._deleteSourceItem(2)
      * @private
-     * @param {number} id - source id
+     * @param {string} id - lib id
      * @returns {void}
      */
-    private _deleteSourceItem(id: number) {
-        // this.props.actions.ui.deleteSourceItem(id);
+    private _deleteSourceItem(id: string) {
+        this.props.actions.ui.deleteSourceItem(id);
     }
 
 
@@ -146,36 +155,8 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
     render() {
 
         // Destructuring props & state
-        // const { sourcesList } = this.props;
+        const { sourcesList } = this.props;
 
-        const sourcesList: Array<SourceListItem> = [{
-            name: 'global',
-            filename: 'global.scss',
-            code: '.class {}',
-            preprocessor: {
-                type: PreprocessorTypeOptions.sass,
-                compileTo: CompileToTypeOptions.css
-            },
-            order: 1
-        }, {
-            name: 'variables',
-            filename: 'variables.scss',
-            code: '.class {}',
-            preprocessor: {
-                type: PreprocessorTypeOptions.sass,
-                compileTo: CompileToTypeOptions.css
-            },
-            order: 2
-        }, {
-            name: 'helper classes',
-            filename: 'helper-classes.scss',
-            code: '.class {}',
-            preprocessor: {
-                type: PreprocessorTypeOptions.sass,
-                compileTo: CompileToTypeOptions.css
-            },
-            order: 3
-        }];
 
         /*         MARKUP          */
         /***************************/
@@ -196,7 +177,7 @@ extends React.Component<ChildProps<SourcesListContainerProps & StateProps & Disp
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        sourcesList: getSourcesList(state)
+        sourcesList: getSourcesListDenormalized(state)
     };
 }
 
@@ -209,7 +190,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
         actions: {
             ui: {
                 showModal: (modalType, modalProps) => dispatch(showModalAction(modalType, modalProps)),
-                deleteSourceItem: (id) => dispatch(deleteSourceItemAction(id)),
+                deleteSourceItem: (tempId) => dispatch(deleteSourceItemAction(tempId)),
                 changeSourceItemOrder: (id, newOrder) => dispatch(changeSourceItemOrderAction(id, newOrder))
             }
         }

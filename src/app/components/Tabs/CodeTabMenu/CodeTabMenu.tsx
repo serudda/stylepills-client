@@ -5,6 +5,8 @@ import * as React from 'react';
 
 import * as classNames from 'classnames';
 
+import { CodeSupportedOption } from './../../../../core/interfaces/interfaces';
+
 // -----------------------------------
 
 
@@ -12,19 +14,14 @@ import * as classNames from 'classnames';
 /*      INTERFACES & TYPES      */
 /********************************/
 
-/* Possible options */
-export enum Option {
-    html = 'html',
-    css = 'css',
-    js = 'js'
-}
+// export type Option = CodeSupported;
 
 /* Own Props */
 type CodeTabMenuProps = {
-    options: Array<Option>;
+    options: Array<CodeSupportedOption>;
     tab: string;
     isReversed: boolean;
-    onTabClick: (type: Option) => any;
+    onTabClick: (type: CodeSupportedOption) => any;
 };
 
 
@@ -56,7 +53,7 @@ const CodeTabMenu: React.SFC<CodeTabMenuProps> = ({ ...props }) => {
     const btnClasses = (type: string) => {
         return classNames({
             'sp-tabMenu__button': true, 
-            'sp-tabMenu__button--active': props.tab === Option[type]
+            'sp-tabMenu__button--active': props.tab === CodeSupportedOption[type]
         });    
     };
     
@@ -73,9 +70,9 @@ const CodeTabMenu: React.SFC<CodeTabMenuProps> = ({ ...props }) => {
                     {props.options.map((option: string, index: number) => (
                         <button key={index}
                                 className={btnClasses(option)}
-                                onClick={props.onTabClick(Option[option])}>
+                                onClick={props.onTabClick(CodeSupportedOption[option])}>
                             <div className="inner">
-                                {Option[option]}
+                                {CodeSupportedOption[option]}
                             </div>
                         </button>
                     ))}

@@ -5,54 +5,68 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
+
 import { IRootState } from './../../../reducer/reducer.config';
 
-import { changeSourceCodeTabAction } from './../../../actions/ui.action';
+import { changeLibsTabAction } from './../../../actions/ui.action';
+import { getLibsTab } from './../../../selectors/ui.selector';
 
-import CodeTabMenu, { Option as CodeTabOption } from './../../components/Tabs/CodeTabMenu/CodeTabMenu';
+import CodeTabMenu from './../../components/Tabs/CodeTabMenu/CodeTabMenu';
 
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
-type CodeTabMenuContainerProps = {
-    options?: Array<CodeTabOption>;
-    currentTab?: CodeTabOption;
-    onTabClick?: (type: CodeTabOption) => void;
+type LibTabMenuContainerProps = {
+    options?: Array<CodeSupportedOption>;
+    onTabClick?: (type: CodeSupportedOption) => void;
 };
 
 /* Own States */
 type LocalStates = {};
 
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
+
 /* Mapped State to Props */
 type StateProps = {
-    tab: CodeTabOption
+    tab: CodeSupportedOption
 };
 
 /* Mapped Dispatches to Props */
 type DispatchProps = {
     actions: {
         ui: {
-            changeSourceCodeTab: (type: CodeTabOption) => void;
+            changeLibsTab: (type: CodeSupportedOption) => void;
         }
     };
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    LibTabMenuContainerProps
+&   StateProps
+&   DispatchProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class CodeTabMenuContainer 
-extends React.Component<ChildProps<CodeTabMenuContainerProps & StateProps & DispatchProps, {}>, LocalStates> {    
+class LibTabMenuContainer 
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {    
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<CodeTabMenuContainerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         // Bind methods
@@ -76,29 +90,7 @@ extends React.Component<ChildProps<CodeTabMenuContainerProps & StateProps & Disp
             return options;
         } else {
             // If not receive a parent's options method, build default options.
-            return [ CodeTabOption.css, CodeTabOption.js ];
-        }
-
-    }
-
-
-    /**
-     * @desc Assign current tab
-     * @method _assignCurrentTab
-     * @example this._assignCurrentTab()
-     * @private
-     * @returns {void}
-     */
-    private _assignCurrentTab() {
-
-        const { currentTab, onTabClick, tab } = this.props;
-
-        // If receive an parent's currentTab and onTabClick
-        if (currentTab && onTabClick) {
-            return currentTab;
-        } else {
-            // If not receive a parent's currenTab or onTabClick method, assign 'tab' state store.
-            return tab;
+            return [ CodeSupportedOption.css ];
         }
 
     }
@@ -116,14 +108,14 @@ extends React.Component<ChildProps<CodeTabMenuContainerProps & StateProps & Disp
      * @public
      * @returns {void}
      */
-    handleClick(type: CodeTabOption) {
+    handleClick(type: CodeSupportedOption) {
 
         // If receive an parent's onTabClick method
         if (this.props.onTabClick) {
             this.props.onTabClick(type);
         } else {
             // If not receive a parent's onTabClick method, default action.
-            this.props.actions.ui.changeSourceCodeTab(type);
+            this.props.actions.ui.changeLibsTab(type);
         }
 
     }
@@ -132,14 +124,16 @@ extends React.Component<ChildProps<CodeTabMenuContainerProps & StateProps & Disp
     /********************************/
     /*        RENDER MARKUP         */
     /********************************/
-    render() {        
+    render() {
+
+        const { tab } = this.props;
         
         /*         MARKUP          */
         /***************************/
         return (
             <CodeTabMenu options={this._buildTabOptions()} 
                          isReversed={false}
-                         tab={this._assignCurrentTab()} 
+                         tab={tab} 
                          onTabClick={this.handleClick}/>
         );
 
@@ -153,7 +147,7 @@ extends React.Component<ChildProps<CodeTabMenuContainerProps & StateProps & Disp
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
     return {
-        tab: state.ui.tabs.sourceCodeTab.tab
+        tab: getLibsTab(state)
     };
 }
 
@@ -165,7 +159,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changeSourceCodeTab: (type) => dispatch(changeSourceCodeTabAction(type))
+                changeLibsTab: (type) => dispatch(changeLibsTabAction(type))
             }
         }
     };
@@ -175,11 +169,11 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const codeTabMenuContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
+const libTabMenuContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
 /***************************/
 export default compose(
-    codeTabMenuContainerConnect
-)(CodeTabMenuContainer);
+    libTabMenuContainerConnect
+)(LibTabMenuContainer);

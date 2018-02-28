@@ -1,34 +1,29 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
+import { kebabCase, find, omit } from 'lodash';
 import * as appConfig from './../constants/app.constants';
 
-import { ICurrentCode } from './../../actions/ui.action';
-import { SourceCode } from './../../models/atom/atom.model';
-import { RgbaColor as RgbaColorModel } from './../../models/rgbaColor/rgbaColor.model';
+import { INormalizedResult } from './../interfaces/interfaces';
 
 
 /************************************/
 /*            INTERFACES            */
-/************************************/    
-
-interface INormalizedResult {
-    result: Array<string>;
-    entities: any;
-}
+/************************************/
 
 interface IFunctionUtil {
     updateObject: (oldObject: Object, newValues: any) => any;
     copyArray: (array: Array<any>) => Array<any>;
+    addItemInArray: (array: Array<any>, newItem: any) => Array<any>;
     updateItemInArray: (array: Array<any>, key: string, value: number | string, updateItemCallback: Function) => Array<any>;
-    deleteItemInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
+    deleteObjectInArray: (array: Array<any>, key: string, value: number | string) => Array<any>;
+    deleteSimpleItemInArray: (array: Array<number | string>, value: number | string) => Array<number | string>;
     itemExistsInArray: (array: Array<any>, value: any, key: string) => boolean;
     turnArrayIntoObject: (array: Array<any>, key?: string) => Object;
     deletePropInCollection: (array: Array<any>, ...keys: Array<string>) => Array<any>;
     consoleLog: (message: string, value?: any) => void;
-    sourceCodeArrayToObj: (sourceCode: Array<ICurrentCode>) => SourceCode;
     truncateText: (str: string, length: number, ending: string) => string;
-    convertHexToRgbaModel: (hex: string, opacity: number) => RgbaColorModel;
+    toUrlFormat: (value: string) => string;
 }
 
 
@@ -80,21 +75,18 @@ class FunctionsUtil implements IFunctionUtil {
      * @example 
      * const newTodos = addItemInArray(state.todos, action.id, action.name, action.website);
      * @param {Array<any>} array - array of objects
-     * @param {number | string} value - value to use to find item inside the array
-     * @param {string} key - item identifier: e.g. id, uuid, etc.
+     * @param {any} newItem - new item to add in the array
      * @return {Array<any>}
      */
     addItemInArray(
         array: Array<any>,
-        key: string = 'id',
-        obj: Object = {}): Array<any> {
+        newItem: any): Array<any> {
+        
+        let newArray = this.copyArray(array);
 
-        const newList = array.filter(
-            (item) => {
-            item = obj; 
-        });
+        newArray = newArray.concat(newItem);
     
-        return newList;
+        return newArray;
     }
 
 
@@ -134,17 +126,44 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * @desc Encapsulate the idea of deleting and item in an array 
+     * @desc Encapsulate the idea of deleting and simple item in an array 
      * to ensure we correctly copy data instead of mutating.
-     * @function deleteItemInArray
+     * @function deleteSimpleItemInArray
      * @example 
-     * const newTodos = deleteItemInArray(state.todos, 'id', action.id);
+     * const newTodos = deleteSimpleItemInArray(state.todos, action.id);
+     * @param {Array<any>} array - array of objects
+     * @param {number | string} value - value to use to find item inside the array
+     * @return {Array<number | string>}
+     */
+    deleteSimpleItemInArray(
+        array: Array<number | string>,
+        value: number | string): Array<any> {
+
+        const newList = array.filter(
+            (item) => {
+            if (item === value) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    
+        return newList;
+    }
+
+
+    /**
+     * @desc Encapsulate the idea of deleting and object in an array 
+     * to ensure we correctly copy data instead of mutating.
+     * @function deleteObjectInArray
+     * @example 
+     * const newTodos = deleteObjectInArray(state.todos, 'id', action.id);
      * @param {Array<any>} array - array of objects
      * @param {number | string} value - value to use to find item inside the array
      * @param {string} key - item identifier: e.g. id, uuid, etc.
      * @return {Array<any>}
      */
-    deleteItemInArray(
+    deleteObjectInArray(
         array: Array<any>,
         key: string = 'id',
         value: number | string): Array<any> {
@@ -229,15 +248,18 @@ class FunctionsUtil implements IFunctionUtil {
      */
     deletePropInCollection(array: Array<any>, ...keys: Array<string>): Array<any> {
 
-        const newCollection = array.filter((item) => {
+        const newCollection = array.map((item) => {
+            let newItem = this.updateObject(item);
 
             keys.forEach(
-                (key) => { 
-                    delete item[key];
+                (key) => {
+                    if (item.hasOwnProperty(key)) {
+                        newItem = omit(item, key);
+                    }
                 }
             );
             
-            return true;
+            return newItem;
         });
 
         return newCollection;
@@ -259,27 +281,6 @@ class FunctionsUtil implements IFunctionUtil {
             console.log(message, value);
         }
     }
-
-
-
-    /**
-     * @desc Get Source Code from currentCode (sourceCodePanel state on Store)
-     * @function sourceCodeArrayToObj
-     * @example this.sourceCodeArrayToObj(currentCode)
-     * @param {Array<ICurrentCode>} sourceCode - A list of currentCode format (codeType and codeProps)
-     * @return {SourceCode} obj - object parsed (e.g. obj = { "html": "<html>...</html>", "css": ".class {color: red}" })
-     */
-    sourceCodeArrayToObj(sourceCode: Array<ICurrentCode>): SourceCode {
-
-        let obj: any = {};
-
-        sourceCode.forEach((code) => {
-            obj[code.codeType] = code.codeProps.code;
-        });
-
-        return obj;
-    }
-
 
 
     /**
@@ -307,26 +308,46 @@ class FunctionsUtil implements IFunctionUtil {
 
 
     /**
-     * @desc Convert HEX to Rgba
-     * @function convertHexToRgba
-     * @example this.convertHexToRgba('#FFFFFF', 1)
-     * @param {string} hex - hex color
-     * @param {number} opacity - the color opacity
-     * @return {string} rgba color
+     * toUrlFormat
+     * @description - take a string and formatting it to url format ('colombia-immersion')
+     * @use - functionsUtil.normalizeString('Colombia Immersion');
+     * @function
+     * @param {string} value - string to parse
+     * @return {string} string parsed (e.g. colombia-immersion)
      */
-    convertHexToRgbaModel(hex: string , opacity: number): RgbaColorModel {
+    toUrlFormat(value: string): string {
+        // VARIABLES
+        let valueParsed = '';
+        let valueNormalized = '';
 
-        hex = hex.replace('#', '');
-        const r = parseInt(hex.substring(0, 2), 16);
-        const g = parseInt(hex.substring(2, 4), 16);
-        const b = parseInt(hex.substring(4, 6), 16);
-    
-        let result: RgbaColorModel = {
-            r, g, b, a: opacity
-        };
-        
-        return result;
-        
+        // Remove special characters
+        valueNormalized = kebabCase(value);
+        // To lower case, split and join with - between them
+        valueParsed = valueNormalized.toLowerCase().split(' ').join('-');
+
+        return valueParsed;
+
+    }
+
+    moveElementToFirstPosition(
+        array: Array<any>,
+        key: string = 'id',
+        value: number | string): Array<any> {
+
+        let newArray = this.copyArray(array);
+        // find index
+        let elem = find(newArray, [key, value]);
+
+        // if element does not exist in Array
+        if (!elem) { return newArray; }
+
+        // remove element in Array
+        newArray = this.deleteObjectInArray(newArray, key, value);
+
+        // add element to the start
+        newArray.unshift( elem );
+
+        return newArray;
     }
 
 }
