@@ -137,11 +137,12 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
                                     My Dashboard
                                 </Link>
                             </Dropdown.Item>
-                            {/*<Dropdown.Item>
-                                <Link className="link-reset" to={`/dashboard/account`}>
-                                    Settings
-                                </Link>
-                            </Dropdown.Item>*/}
+                            <Dropdown.Item>                    
+                                <a className="link-reset" target="_blank" href="https://www.buymeacoffee.com/stylepill">
+                                    <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Keep going" />
+                                    <span style={{marginLeft: '5px'}}>Keep going</span>
+                                </a>
+                            </Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={onLogoutClick}>
                                 Log out
