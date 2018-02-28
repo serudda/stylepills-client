@@ -100,6 +100,26 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     }
 
 
+    /**************************************/
+    /*    COMPONENT_WILL_RECEIVE_PROPS    */
+    /**************************************/
+    componentWillReceiveProps(nextProps: AllProps) {
+
+        // If user changed 'currentPreprocessor'
+        if (this.props.currentPreprocessor !== nextProps.currentPreprocessor) {
+
+            const { source } = this.props;
+            const { currentPreprocessor } = nextProps;
+            const { type } = currentPreprocessor;
+            
+            // Update sourceCode State based on this new preprocessor
+            let sourceUpdated = functionsUtil.updateObject(source, {preprocessor: currentPreprocessor});
+            this.props.actions.ui.changeSourceCode(sourceUpdated, type);
+
+        }
+    }
+
+
     /********************************/
     /*        PUBLIC METHODS        */
     /********************************/

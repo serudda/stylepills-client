@@ -118,7 +118,7 @@ class SourceCodePanel extends React.Component<SourceCodePanelProps, {}> {
 
                         {/* Source Code */}
                         <div className="SourceCode position-relative">
-                            <CodeMirrorContainer/>
+                            <CodeMirrorContainer />
                         </div>
 
                     </div>

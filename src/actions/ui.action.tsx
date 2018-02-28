@@ -271,6 +271,10 @@ export interface IChangeColorAction {
     SOURCE CODE PANEL ACTIONS
     state: sourceCodePanel
 */
+export interface IClearSourceCodeAction {
+    type: types.CLEAR_SOURCE_CODE;
+}
+
 export interface IChangeSourceCodeAction {
     type: types.CHANGE_SOURCE_CODE;
     source: SourceModel;
@@ -304,6 +308,7 @@ export type Action =
 |   ILoadSourceCodeTabsAction
 |   IChangeLibsTabAction
 |   IChangeColorAction
+|   IClearSourceCodeAction
 |   IChangeSourceCodeAction
 |   ICopySourceCodeAction;
 
@@ -770,6 +775,18 @@ export const changeColorAction = (color: BasicColorModel, colorType: ColorTypeOp
         type: types.CHANGE_COLOR,
         color,
         colorType
+    };
+};
+
+
+/**
+ * @desc Return an action type, CLEAR_SOURCE_CODE to reset Source Code Panel states
+ * @function clearSourceCodeAction
+ * @returns {Action}
+ */
+export const clearSourceCodeAction = (): Action => {
+    return {
+        type: types.CLEAR_SOURCE_CODE
     };
 };
 

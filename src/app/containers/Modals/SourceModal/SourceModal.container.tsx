@@ -23,6 +23,7 @@ import { getCurrentPreprocessor } from './../../../../selectors/preprocessor.sel
 import {
     addSourceItemAction,
     editSourceItemAction,
+    clearSourceCodeAction,
     changeSourceCodeAction,
     loadSourceCodeTabsAction, 
     closeModalAction, 
@@ -35,9 +36,9 @@ import SourceModal from './../../../../app/components/Modals/SourceModal/SourceM
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
+
 type SourceModalForm = {
     name: string;
     filename: string;
@@ -55,6 +56,10 @@ type LocalStates = {
     fields: SourceModalForm
 };
 
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
+
 /* Mapped State to Props */
 type StateProps = {
     tab: CodeSupportedOption,
@@ -69,6 +74,7 @@ type DispatchProps = {
             closeModal: () => void,
             clearUi: () => void,
             loadSourceCodeTabs: (sourceCodeTabs?: Array<CodeSupportedOption>) => void,
+            clearSourceCode: () => void,
             changeSourceCode: (source: SourceModel, sourceType: CodeSupportedOption) => void,
             addSourceItem: (source: SourceModel) => void,
             editSourceItem: (source: SourceListItem) => void
@@ -81,11 +87,20 @@ type DispatchProps = {
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    SourceModalContainerProps
+&   StateProps
+&   DispatchProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SourceModalContainer
-extends React.Component<ChildProps<SourceModalContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
     private _DEFAULT_SOURCE_INSTANCE: SourceModel = {
         id: parseInt(Date(), 10),
@@ -105,7 +120,7 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SourceModalContainerProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         // Destructuring props 
@@ -279,8 +294,6 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
      */
     private _closeModal() {
         this.props.actions.ui.closeModal();
-        // Clean preprocessor states (close add source edition modal)
-        // this.props.actions.preprocessorState.clearPreprocessorState();
         document.body.classList.remove('sourceModal-open');
     }
 
@@ -342,6 +355,9 @@ extends React.Component<ChildProps<SourceModalContainerProps & StateProps & Disp
         // Destructuring props 
         const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
 
+        // Clear Source Code Panel
+        this.props.actions.ui.clearSourceCode();
+
         // Load source code tab options
         this.props.actions.ui.changeSourceCode(source, source.preprocessor.type);
     }
@@ -397,6 +413,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
                 closeModal: () => dispatch(closeModalAction()),
                 clearUi: () => dispatch(clearUiAction()),
                 loadSourceCodeTabs: (sourceCodeTabs) => dispatch(loadSourceCodeTabsAction(sourceCodeTabs)),
+                clearSourceCode: () => dispatch(clearSourceCodeAction()),
                 changeSourceCode: (source, sourceType) => dispatch(changeSourceCodeAction(source, sourceType)),
                 addSourceItem: (source) => dispatch(addSourceItemAction(source)),
                 editSourceItem: (source) => dispatch(editSourceItemAction(source))

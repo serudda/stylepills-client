@@ -86,6 +86,9 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     }
 
 
+    /**************************************/
+    /*        COMPONENT_WILL_MOUNT        */
+    /**************************************/
     componentWillMount() {
         // Charge Preprocessors on State Store in order to use in SelectList
         this.props.actions.ui.getAllPreprocessors();

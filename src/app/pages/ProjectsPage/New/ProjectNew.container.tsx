@@ -85,6 +85,7 @@ extends React.Component<ChildProps<ProjectNewContainerProps & StateProps & Dispa
                 description: null,
                 colorPalette: [],
                 libs: [],
+                sources: [],
                 private: false,
                 projectCategoryId: 1 // TODO: Magic number
             },

@@ -521,6 +521,18 @@ export default function (state: IUiState = defaultState, action: Action): IUiSta
             };
         }
 
+        case types.CLEAR_SOURCE_CODE: {
+            return {
+                ...state, 
+                sourceCodePanel: {
+                    currentCode: {
+                        html: null,
+                        css: null
+                    }
+                }
+            };
+        }
+
         case types.CHANGE_SOURCE_CODE: {
 
             const { source, sourceType } = action;
