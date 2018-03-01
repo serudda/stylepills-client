@@ -103,10 +103,9 @@ class SourceModalContainer
 extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
     private _DEFAULT_SOURCE_INSTANCE: SourceModel = {
-        id: parseInt(Date(), 10),
         name: '',
         filename: '', 
-        code: '', 
+        code: '',
         preprocessor: {
             id: appConfig.SOURCE_CODE_DEFAULT_ID_ON_DB_OPTION,
             name: appConfig.SOURCE_CODE_DEFAULT_NAME_OPTION,
@@ -148,14 +147,11 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     /*     COMPONENT_DID_MOUNT      */
     /********************************/
     componentDidMount() {
-        // Generate source Code Tab options
-        this._generateSourceCodeTabOptions();
 
-        // Load source passed through props in State Store
-        this._saveSourceCodeInStore();
-
-        // Load preprocessor passed through props in State Store
-        this._saveCurrentPreprocessorInStore();
+        // Init States on Store
+        this._initSourceCodeTabOptions();
+        this._initSourceCode();
+        this._initCurrentPreprocessor();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -166,8 +162,9 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     /*    COMPONENT_DID_UPDATE      */
     /********************************/
     componentDidUpdate() {
+
         // Generate source Code Tab options
-        this._generateSourceCodeTabOptions();
+        this._initSourceCodeTabOptions();
 
         // Append Modal Class on Body
         this._appendModalOpenClassToBody();
@@ -286,6 +283,58 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
 
     /**
+     * @desc Init source code tabs options
+     * @method _initSourceCodeTabOptions
+     * @example this._initSourceCodeTabOptions()
+     * @private 
+     * @returns {void}
+     */
+    private _initSourceCodeTabOptions() {
+        // Load source code tab options
+        this.props.actions.ui.loadSourceCodeTabs();
+    }
+
+
+    /**
+     * @desc Init current Preprocessor in Store
+     * @method _initCurrentPreprocessor
+     * @example this._initCurrentPreprocessor()
+     * @private 
+     * @returns {void}
+     */
+    private _initCurrentPreprocessor() {
+
+        // Destructuring props & states
+        const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
+
+        // Load source code tab options
+        if (source.preprocessor.id) {
+            this.props.actions.preprocessorState.changePreprocessor(source.preprocessor.id);
+        }
+    }
+
+
+    /**
+     * @desc Init sourceCode in Store
+     * @method _initSourceCode
+     * @example this._initSourceCode()
+     * @private 
+     * @returns {void}
+     */
+    private _initSourceCode() {
+
+        // Destructuring props 
+        const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
+
+        // Clear Source Code Panel
+        this.props.actions.ui.clearSourceCode();
+
+        // Load source code tab options
+        this.props.actions.ui.changeSourceCode(source, source.preprocessor.type);
+    }
+
+
+    /**
      * @desc Close Modal 
      * @method _closeModal
      * @example this._closeModal()
@@ -308,58 +357,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
      */
     private _appendModalOpenClassToBody() {
         document.body.classList.add('sourceModal-open');
-    }
-
-
-    /**
-     * @desc Build SourceCodeTab options list
-     * @method _generateSourceCodeTabOptions
-     * @example this._generateSourceCodeTabOptions()
-     * @private 
-     * @returns {void}
-     */
-    private _generateSourceCodeTabOptions() {
-        // Load source code tab options
-        this.props.actions.ui.loadSourceCodeTabs();
-    }
-
-
-    /**
-     * @desc Save current Preprocessor in Store
-     * @method _saveCurrentPreprocessorInStore
-     * @example this._saveCurrentPreprocessorInStore()
-     * @private 
-     * @returns {void}
-     */
-    private _saveCurrentPreprocessorInStore() {
-
-        // Destructuring props & states
-        const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
-
-        // Load source code tab options
-        if (source.preprocessor.id) {
-            this.props.actions.preprocessorState.changePreprocessor(source.preprocessor.id);
-        }
-    }
-
-
-    /**
-     * @desc Save sourceCode in Store
-     * @method _saveSourceCodeInStore
-     * @example this._saveSourceCodeInStore()
-     * @private 
-     * @returns {void}
-     */
-    private _saveSourceCodeInStore() {
-
-        // Destructuring props 
-        const { source = this._DEFAULT_SOURCE_INSTANCE } = this.props;
-
-        // Clear Source Code Panel
-        this.props.actions.ui.clearSourceCode();
-
-        // Load source code tab options
-        this.props.actions.ui.changeSourceCode(source, source.preprocessor.type);
     }
 
     

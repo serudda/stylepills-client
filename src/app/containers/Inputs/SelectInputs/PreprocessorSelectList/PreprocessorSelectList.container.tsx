@@ -166,7 +166,7 @@ function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
     return {
         actions: {
             ui: {
-                changePreprocessor: (preprocessorId: number | string) => dispatch(changePreprocessorAction(preprocessorId))
+                changePreprocessor: (preprocessorId) => dispatch(changePreprocessorAction(preprocessorId))
             }
         }
     };

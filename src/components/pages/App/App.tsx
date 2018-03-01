@@ -2,7 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { graphql, compose, ChildProps } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
@@ -11,6 +11,8 @@ import { GET_USER_BY_ID_QUERY, GetByIdResponse } from '../../../models/user/user
 import { IRootState } from '../../../reducer/reducer.config';
 
 import { User } from '../../../models/user/user.model';
+
+import { getAllPreprocessorsAction } from './../../../actions/preprocessor.action';
 
 import Main from '../Main/Main';
 import ModalManager from './../../../app/containers/Modals/ModalManager/ModalManager.container';
@@ -38,18 +40,54 @@ type StateProps = {
     user: User;
 };
 
+/* Mapped Dispatches to Props */
+type DispatchProps = {
+    actions: {
+        ui: { 
+            getAllPreprocessors: () => void;
+        }
+    };
+};
+
 
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class App 
-extends React.Component<ChildProps<AppProps & StateProps, GetByIdResponse>, LocalStates> {
+extends React.Component<ChildProps<AppProps & StateProps & DispatchProps, GetByIdResponse>, LocalStates> {
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<AppProps & StateProps, GetByIdResponse>) {
+    constructor(props: ChildProps<AppProps & StateProps & DispatchProps, GetByIdResponse>) {
         super(props);
+    }
+
+
+    /********************************/
+    /*    COMPONENT_WILL_MOUNT      */
+    /********************************/
+    componentWillMount() {
+
+        // Init States on Store NOTE: 1
+        this._initPreprocessorsList();
+
+    }
+
+
+    /********************************/
+    /*       PRIVATE METHODS        */
+    /********************************/
+
+    /**
+     * @desc Init preprocessors list State in Store
+     * @method _initPreprocessorsList
+     * @example this._initPreprocessorsList()
+     * @private 
+     * @returns {void}
+     */
+    private _initPreprocessorsList() {
+        this.props.actions.ui.getAllPreprocessors();
     }
 
 
@@ -116,9 +154,23 @@ function mapStateToProps(state: IRootState): StateProps {
 
 
 /********************************/
+/*     MAP DISPATCH TO PROPS    */
+/********************************/
+function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
+    return {
+        actions: {
+            ui: {
+                getAllPreprocessors: () => dispatch(getAllPreprocessorsAction())
+            }
+        }
+    };
+}
+
+
+/********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const appConnect = connect(mapStateToProps); 
+const appConnect = connect(mapStateToProps, mapDispatchToProps); 
 
 
 /*         EXPORT          */
@@ -127,3 +179,11 @@ export default withRouter(compose<any>(
     appConnect,
     getUserByIdQuery
 )(App));
+
+
+/*
+
+(1): Usamos componentWillMount en vez de componentDidMount por que necesitamos tener cargada la lista de
+preprocesadores primero antes de que los demás componentes hijos se carguen.
+
+*/

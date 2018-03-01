@@ -316,6 +316,14 @@ export const getAtomDetailsTab = (state: IRootState): DetailsTabMenuOptions => s
 export const getSourceCodeTab = (state: IRootState): CodeSupportedOption => state.ui.tabs.sourceCodeTab.tab;
 
 
+/**
+ * @desc Get sourceCodeTab options from state store
+ * @function getSourceCodeTabOptions
+ * @returns {Array<CodeSupportedOption>}
+ */
+export const getSourceCodeTabOptions = (state: IRootState): Array<CodeSupportedOption> => state.ui.tabs.sourceCodeTab.options;
+
+
 
 /* 
     TABS SELECTORS

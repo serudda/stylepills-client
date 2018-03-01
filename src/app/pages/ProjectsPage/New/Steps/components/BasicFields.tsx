@@ -66,11 +66,16 @@ class BasicFields extends React.Component<BasicFieldsProps, {}> {
 
         // Destructuring props
         const {
+            /* Input values */
             nameValue,
             websiteValue,
             descriptionValue,
             privateValue,
+
+            /* Validation Errors */
             validationErrors,
+
+            /* Methods */
             onInputChange,
             onNextClick
         } = this.props;

@@ -249,7 +249,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
     /*       PRIVATE METHODS        */
     /********************************/
 
-
     /**
      * @desc HandleInputChange
      * @method _handleInputChange
@@ -296,7 +295,6 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
      */
     private _isValid() {
         // Copy state
-        // let fieldValues = Object.assign({}, this.state.fields); LEGACY
         let copyFieldValues = functionsUtil.updateObject(this.state.fields);
 
         const {errors, isValid} = validateBasicFields(copyFieldValues);
@@ -504,9 +502,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
                     {/* Panel Atom Section */}
 
                     <div className="position-relative overflow-hidden">
-                        <PanelSectionContainer html={this.state.fields.html}
-                                                css={this.state.fields.css}
-                                                libs={this.state.fields.libs}/>
+                        <PanelSectionContainer />
                         
                         {/* Error Bottom Message NOTE: 1*/}
                         {this._buildSourceCodeErrorMessage()}

@@ -2,17 +2,15 @@
 /*         DEPENDENCIES         */
 /********************************/
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
 import { CodeSupportedOption } from './../../../core/interfaces/interfaces';
 
-import { IRootState } from './../../../reducer/reducer.config';
-
-import { changeSourceCodeTabAction } from './../../../actions/ui.action';
-import { getSourceCodeTab } from './../../../selectors/ui.selector';
-
 import CodeTabMenu from './../../components/Tabs/CodeTabMenu/CodeTabMenu';
+
+import { withChangeCodeTab, 
+    InjectedProps as WithChangeCodeTabProps 
+  } from './../../../core/hocs/withChangeCodeTab.hoc';
 
 // -----------------------------------
 
@@ -35,19 +33,10 @@ type LocalStates = {};
 // ===================================
 
 /* Mapped State to Props */
-type StateProps = {
-    tab: CodeSupportedOption,
-    options: Array<CodeSupportedOption>
-};
+type StateProps = {};
 
 /* Mapped Dispatches to Props */
-type DispatchProps = {
-    actions: {
-        ui: {
-            changeSourceCodeTab: (type: CodeSupportedOption) => void;
-        }
-    };
-};
+type DispatchProps = {};
 
 
 //     ALL PROPS (EXTERNAL & OWN)
@@ -56,8 +45,8 @@ type DispatchProps = {
 type AllProps =    
     SourceCodeTabMenuContainerProps
 &   StateProps
-&   DispatchProps;
-
+&   DispatchProps
+&   WithChangeCodeTabProps;
 
 /***********************************************/
 /*              CLASS DEFINITION               */
@@ -70,9 +59,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
     /********************************/
     constructor(props: ChildProps<AllProps, {}>) {
         super(props);
-
-        // Bind methods
-        this.handleClick = this.handleClick.bind(this); 
     }
 
 
@@ -100,29 +86,6 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
     }
 
-
-    /********************************/
-    /*        PUBLIC METHODS        */
-    /********************************/
-
-
-    /**
-     * @desc Handle Clic
-     * @method handleClick
-     * @example this._handleClick()
-     * @public
-     * @returns {void}
-     */
-    handleClick = (type: CodeSupportedOption) => (e: React.FormEvent<{}>) => {
-        // If receive an parent's onTabClick method
-        if (this.props.onTabClick) {
-            this.props.onTabClick(type);
-        } else {
-            // If not receive a parent's onTabClick method, default action.
-            this.props.actions.ui.changeSourceCodeTab(type);
-        }
-    }
-
     
     /********************************/
     /*        RENDER MARKUP         */
@@ -138,7 +101,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
             <CodeTabMenu options={this._buildTabOptions()} 
                          isReversed={isReversed}
                          tab={tab} 
-                         onTabClick={this.handleClick}/>
+                         onTabClick={this.props.onTabClick}/>
         );
 
     }
@@ -146,42 +109,14 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 }
 
 
-/********************************/
-/*      MAP STATE TO PROPS      */
-/********************************/
-function mapStateToProps(state: IRootState): StateProps {
-
-    const { options } = state.ui.tabs.sourceCodeTab;
-
-    return {
-        tab: getSourceCodeTab(state),
-        options
-    };
-}
-
-
-/********************************/
-/*     MAP DISPATCH TO PROPS    */
-/********************************/
-function mapDispatchToProps(dispatch: Dispatch<IRootState>): DispatchProps {
-    return {
-        actions: {
-            ui: {
-                changeSourceCodeTab: (type) => dispatch(changeSourceCodeTabAction(type))
-            }
-        }
-    };
-}
-
-
-/********************************/
-/*         REDUX CONNECT        */
-/********************************/
-const sourceCodeTabMenuContainerConnect = connect(mapStateToProps, mapDispatchToProps); 
+/**************************************/
+/*     WITH CHANGE SOURCE CODE HOC    */
+/**************************************/
+const withChangeCodeTabConnect = withChangeCodeTab({allowChangeCurrentPreprocessor: true});
 
 
 /*         EXPORT          */
 /***************************/
-export default compose(
-    sourceCodeTabMenuContainerConnect
+export default compose <any>(
+    withChangeCodeTabConnect
 )(SourceCodeTabMenuContainer);

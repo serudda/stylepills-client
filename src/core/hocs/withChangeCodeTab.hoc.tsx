@@ -1,17 +1,18 @@
 /************************************/
 /*           DEPENDENCIES           */
 /************************************/
-
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 
-import { CodeSupportedOption } from './../../core/interfaces/interfaces';
+import { CodeSupportedOption, INormalizedResult } from './../../core/interfaces/interfaces';
 
 import { IRootState } from './../../reducer/reducer.config';
 
 import { changeSourceCodeTabAction } from './../../actions/ui.action';
+import { changePreprocessorAction } from './../../actions/preprocessor.action';
 
-import { getSourceCodeTab } from './../../selectors/ui.selector';
+import { getSourceCodeTab, getSourceCodeTabOptions } from './../../selectors/ui.selector';
+import { getPreprocessorsList } from './../../selectors/preprocessor.selector';
 
 // -----------------------------------
 
@@ -32,14 +33,17 @@ type HOCStates = {};
 
 /* Mapped State to Props */
 type HOCStateProps = {
-    tab: CodeSupportedOption
+    tab: CodeSupportedOption,
+    options: Array<CodeSupportedOption>,
+    preprocessorsList: INormalizedResult
 };
 
 /* Mapped Dispatches to Props */
 type HOCDispatchProps = {
     actions: {
         ui: { 
-            changeSourceCodeTab: (tab: CodeSupportedOption ) => void;
+            changeSourceCodeTab: (tab: CodeSupportedOption ) => void,
+            changePreprocessor: (preprocessorId: number) => void,
         }
     };
 };
@@ -49,15 +53,16 @@ type HOCDispatchProps = {
 // ===================================
 
 export interface InjectedProps {
-    tab?: CodeSupportedOption ;
-    onTabClick(tab: CodeSupportedOption ): void;
+    tab?: CodeSupportedOption;
+    options?: Array<CodeSupportedOption>;
+    onTabClick(tab: CodeSupportedOption): void;
 }
 
 
 //           HOC'S OPTIONS 
 // ===================================
 interface Options {
-    key?: string;
+    allowChangeCurrentPreprocessor?: boolean;
 }
 
 
@@ -65,7 +70,7 @@ interface Options {
 /*                HOC DEFINITION               */
 /***********************************************/
 
-export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
+export const withChangeCodeTab = ({ allowChangeCurrentPreprocessor = false }: Options = {}) =>
     <WrappedComponentProps extends {}>(
         Component: (React.ComponentClass<WrappedComponentProps & InjectedProps>
                 | React.StatelessComponent<WrappedComponentProps & InjectedProps>)
@@ -111,6 +116,9 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
          */
         handleTabClick = (tab: CodeSupportedOption ) => (e: React.FormEvent<{}>) => {
             this._changeTab(tab);
+            if (allowChangeCurrentPreprocessor) {
+                this._changePreprocessorByType(tab);
+            }
         }
 
 
@@ -128,6 +136,30 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
          */
         private _changeTab(tab: CodeSupportedOption ) {
             this.props.actions.ui.changeSourceCodeTab(tab);
+        }
+
+
+        /**
+         * @desc Change current Preprocessor
+         * @method _changePreprocessor
+         * @example this._changePreprocessor()
+         * @private
+         * @returns {void}
+         */
+        private _changePreprocessorByType(type: CodeSupportedOption) {
+            const { preprocessorsList } = this.props;
+            const { entities } = preprocessorsList;
+            const { preprocessor } = entities;
+            let preprocessorId: number;
+
+            // Look for preprocessor Id on preprocessorsList based on type
+            for (const key in preprocessor) {
+                if (preprocessor[key].type === type) {
+                    preprocessorId = preprocessor[key].id;
+                }
+            }
+
+            this.props.actions.ui.changePreprocessor(preprocessorId);
         }
 
 
@@ -153,7 +185,9 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
     /********************************/
     function mapStateToProps(state: IRootState): HOCStates {
         return {
-            tab: getSourceCodeTab(state)
+            tab: getSourceCodeTab(state),
+            options: getSourceCodeTabOptions(state),
+            preprocessorsList: getPreprocessorsList(state)
         };
     }
 
@@ -165,7 +199,8 @@ export const withChangeCodeTab = ({ key = 'Default value' }: Options = {}) =>
         return {
             actions: {
                 ui: {
-                    changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab))
+                    changeSourceCodeTab: (tab) => dispatch(changeSourceCodeTabAction(tab)),
+                    changePreprocessor: (preprocessorId) => dispatch(changePreprocessorAction(preprocessorId)),
                 }
             }
         };

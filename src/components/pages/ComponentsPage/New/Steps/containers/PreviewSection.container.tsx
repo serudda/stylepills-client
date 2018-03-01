@@ -5,30 +5,30 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
-import { IRootState } from './../../../../../../../reducer/reducer.config';
-import { CodeSupportedOption } from './../../../../../../../core/interfaces/interfaces';
+import { IRootState } from './../../../../../../reducer/reducer.config';
+import { CodeSupportedOption } from './../../../../../../core/interfaces/interfaces';
 
 import {
     CurrentCode
-} from './../../../../../../../reducer/ui.reducer';
+} from './../../../../../../reducer/ui.reducer';
 
-import { Basic as BasicColorModel } from './../../../../../../../models/color/color.model';
-import { Lib as LibModel } from './../../../../../../../models/lib/lib.model';
-import LibService from './../../../../../../../models/lib/lib.service';
+import { Basic as BasicColorModel } from './../../../../../../models/color/color.model';
+import { RgbaColor as RgbaColorModel } from './../../../../../../models/rgbaColor/rgbaColor.model';
+import { Lib as LibModel } from './../../../../../../models/lib/lib.model';
+import LibService from './../../../../../../models/lib/lib.service';
 
-import { changeColorAction } from './../../../../../../../actions/ui.action';
+import { changeColorAction } from './../../../../../../actions/ui.action';
 
-import { getCurrentColor, getLibListDenormalized, getCurrentCode } from './../../../../../../../selectors/ui.selector';
+import { getCurrentColor, getLibListDenormalized, getCurrentCode } from './../../../../../../selectors/ui.selector';
 
-import PreviewBox from './../../../../../../../app/components/PreviewBox/PreviewBox';
-import Iframe from './../../../../../../common/Iframe/Iframe.container';
+import PreviewBox from './../../../../../../app/components/PreviewBox/PreviewBox';
+import Iframe from './../../../../../common/Iframe/Iframe.container';
 
 // -----------------------------------
 
 
-/********************************/
-/*      INTERFACES & TYPES      */
-/********************************/
+//        OWN PROPS & STATES      
+// ===================================
 
 /* Own Props */
 type PreviewSectionContainerProps = {
@@ -41,6 +41,10 @@ type LocalStates = {
     html: string,
     css: string
 };
+
+
+//    REDUX MAPPED PROPS & STATES
+// ===================================
 
 /* Mapped State to Props */
 type StateProps = {
@@ -58,22 +62,35 @@ type DispatchProps = {
     };
 };
 
+
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    PreviewSectionContainerProps
+&   StateProps
+&   DispatchProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class PreviewSectionContainer
-extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & DispatchProps, {}>, LocalStates> {
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
     /********************************/
     /*         STATIC PROPS         */
     /********************************/
     private _DEFAULT_COLOR_HEX: string = '#F9FAFC';
+    private _DEFAULT_COLOR_RGBA: RgbaColorModel = {
+        r: 249, g: 250, b: 252, a: 1
+    };
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: PreviewSectionContainerProps & StateProps & DispatchProps) {
+    constructor(props: AllProps) {
         super(props);
 
         // Init local state
@@ -88,34 +105,24 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
     /*       COMPONENTDIDMOUNT      */
     /********************************/
     componentDidMount() {
-
-        // TODO: Analizar por que no estoy seguro que esto sea tarea de este componente
-        
-        const DEFAULT_COLOR_HEX = this._DEFAULT_COLOR_HEX;
-        const DEFAULT_COLOR_RGBA = {
-            r: 249, g: 250, b: 252, a: 1
-        };
-
-        const defaultColor: BasicColorModel = {
-            hex: DEFAULT_COLOR_HEX,
-            rgba: DEFAULT_COLOR_RGBA
-
-        };
-
-        this._changeColor(defaultColor);
+        // Init States on Store
+        this._initCurrentColor();
     }
 
 
     /**********************************/
     /*  COMPONENT WILL RECEIVE PROPS  */
     /**********************************/
-    componentWillReceiveProps(nextProps: PreviewSectionContainerProps & StateProps) {   
+    componentWillReceiveProps(nextProps: AllProps) { 
         const { currentCode } = nextProps;
+        const { html, css } = currentCode;
 
-        this.setState({
-            html: currentCode[CodeSupportedOption.html].code,
-            css: currentCode[CodeSupportedOption.css].code
-        });
+        if (html !== null || css !== null) {
+            this.setState({
+                html: currentCode[CodeSupportedOption.html].code,
+                css: currentCode[CodeSupportedOption.css].code
+            });
+        }
         
     }
 
@@ -126,14 +133,19 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
 
 
     /**
-     * @desc Change Color of Color Picker
-     * @method _changeColor
-     * @example this._changeColor()
+     * @desc Init currentColor State in Store
+     * @method _initCurrentColor
+     * @example this._initCurrentColor()
      * @private 
      * @returns {void}
      */
-    private _changeColor(color: BasicColorModel) {
-        this.props.actions.ui.changeColor(color);
+    private _initCurrentColor() {
+        const defaultColor: BasicColorModel = {
+            hex: this._DEFAULT_COLOR_HEX,
+            rgba: this._DEFAULT_COLOR_RGBA
+        };
+
+        this.props.actions.ui.changeColor(defaultColor);
     }
 
 
@@ -153,10 +165,10 @@ extends React.Component<ChildProps<PreviewSectionContainerProps & StateProps & D
             <PreviewBox height="30" 
                         isEmptyPreview={html === ''}> 
                 <Iframe children={html} 
-                                css={css} 
-                                title={'new'}
-                                background={color.hex}
-                                stylesheets={LibService.getStylesheetsFromLibs(libs)} />
+                        css={css} 
+                        title={'new'}
+                        background={color.hex}
+                        stylesheets={LibService.getStylesheetsFromLibs(libs)} />
             </PreviewBox>
         );
     }

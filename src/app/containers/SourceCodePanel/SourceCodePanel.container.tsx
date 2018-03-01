@@ -93,7 +93,7 @@ extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 /**************************************/
 /*     WITH CHANGE SOURCE CODE HOC    */
 /**************************************/
-const withChangeCodeTabConnect = withChangeCodeTab({key: 'True Live'});
+const withChangeCodeTabConnect = withChangeCodeTab();
 
 
 /*         EXPORT          */

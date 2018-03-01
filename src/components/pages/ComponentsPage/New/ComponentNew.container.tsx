@@ -17,7 +17,7 @@ import { nextStepAtomAction, prevStepAtomAction, skipStepAtomAction } from './..
 import { createAtomAction } from './../../../../actions/atom.action';
 import { CreateAtomInput } from './../../../../models/atom/atom.mutation';
 
-import BasicFields from './Steps/BasicFields/BasicFields';
+import BasicFieldsContainer from './Steps/containers/BasicFields.container';
 import Confirmation from './Steps/Confirmation';
 import Success from './Steps/Success';
 
@@ -203,7 +203,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
         switch (this.props.step) {
             case 1:
                 return (
-                    <BasicFields nextStep={this.nextStep} />
+                    <BasicFieldsContainer nextStep={this.nextStep} />
                 );
             case 2:
                 return (
@@ -215,7 +215,7 @@ extends React.Component<ChildProps<ComponentNewProps & StateProps & DispatchProp
                 );
             default:
                 return (
-                    <BasicFields nextStep={this.nextStep} />
+                    <BasicFieldsContainer nextStep={this.nextStep} />
                 );
         }
 
