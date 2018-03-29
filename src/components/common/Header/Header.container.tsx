@@ -7,7 +7,6 @@ import { compose, ChildProps } from 'react-apollo';
 
 import { config } from './../../../config/config';
 import { IRootState } from '../../../reducer/reducer.config';
-import { IUiState } from '../../../reducer/ui.reducer';
 
 import { clearUiAction } from '../../../actions/ui.action';
 
@@ -27,8 +26,7 @@ import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilte
 
 /* Own Props */
 type HeaderProps = {
-    showFilterSection?: boolean,
-    showPUVSection?: boolean
+    showFilterSection?: boolean
 };
 
 /* Own States */
@@ -36,7 +34,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    ui: IUiState;
+    isAuthenticated: boolean;
 };
 
 /* Mapped Dispatches to Props */
@@ -70,7 +68,11 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     render() {
 
         // Destructuring props
-        const { showFilterSection = false, showPUVSection = false } = this.props;
+        const { 
+            isAuthenticated = false,
+            showFilterSection = false
+        } = this.props;
+
         // Get server config object
         const serverConfig = config.getServerConfig();
             
@@ -103,7 +105,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 
 
                     {/* PUV Section */}
-                    {showPUVSection &&
+                    {!isAuthenticated &&
                     <div className="container" style={{marginTop: '100px', marginBottom: '100px'}}>
                         <div className="row align-items-center px-5">
                             <div className="col-12 text-center px-5">
@@ -154,8 +156,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
+    const { isAuthenticated } = state.auth;
     return {
-        ui:  state.ui
+        isAuthenticated
     };
 }
 
