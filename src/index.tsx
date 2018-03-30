@@ -23,7 +23,9 @@ import App from './components/pages/App/App';
 
 // If come from another domain, redirect to base domain
 if (location.host !== appConfig.BASE_DOMAIN) {
-    location.replace(appConfig.BASE_DOMAIN);
+    console.log('location: ', location);
+    console.log('BASE_DOMAIN: ', appConfig.BASE_DOMAIN);
+    // location.replace(appConfig.BASE_DOMAIN);
 }
 
 // Create a history of your choosing (we're using a browser history in this case)
