@@ -21,13 +21,11 @@ import App from './components/pages/App/App';
 
 // -----------------------------------
 
-console.log('outside location: ', location);
-console.log('outside BASE_DOMAIN: ', appConfig.BASE_DOMAIN);
+console.log('!location.href.includes(appConfig.BASE_DOMAIN) : ', !location.href.includes(appConfig.BASE_DOMAIN));
+console.log('location', location);
 
 // If come from another domain, redirect to base domain
-if (location.href !== appConfig.BASE_DOMAIN) {
-    console.log('inside location: ', location);
-    console.log('inside BASE_DOMAIN: ', appConfig.BASE_DOMAIN);
+if (!location.href.includes(appConfig.BASE_DOMAIN)) {
     location.replace(appConfig.BASE_DOMAIN);
 }
 
