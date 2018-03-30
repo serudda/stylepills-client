@@ -21,11 +21,14 @@ import App from './components/pages/App/App';
 
 // -----------------------------------
 
+console.log('outside location: ', location);
+console.log('outside BASE_DOMAIN: ', appConfig.BASE_DOMAIN);
+
 // If come from another domain, redirect to base domain
-if (location.host !== appConfig.BASE_DOMAIN) {
-    console.log('location: ', location);
-    console.log('BASE_DOMAIN: ', appConfig.BASE_DOMAIN);
-    // location.replace(appConfig.BASE_DOMAIN);
+if (location.href !== appConfig.BASE_DOMAIN) {
+    console.log('inside location: ', location);
+    console.log('inside BASE_DOMAIN: ', appConfig.BASE_DOMAIN);
+    location.replace(appConfig.BASE_DOMAIN);
 }
 
 // Create a history of your choosing (we're using a browser history in this case)
