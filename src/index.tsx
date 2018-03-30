@@ -22,7 +22,7 @@ import App from './components/pages/App/App';
 // -----------------------------------
 
 // If come from another domain, redirect to base domain
-if (!location.href.includes(appConfig.BASE_DOMAIN)) {
+if (!location.href.includes(appConfig.BASE_DOMAIN) && !appConfig.DEBUG) {
     location.replace(appConfig.BASE_DOMAIN);
 }
 

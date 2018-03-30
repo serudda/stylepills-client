@@ -98,6 +98,13 @@ extends React.Component<ChildProps<WithRouterMainProps & StateProps, {}>, LocalS
                     <Switch>
                         {/*<Route exact={true} path="/" component={HomePage} />*/}
                         <Route exact={true} path="/" component={ExplorePage} />
+                        <Route exact={true} path="/explore" render={props => (
+                            <Redirect
+                                to={{
+                                    pathname: '/'
+                                }}
+                            />
+                        )}/>
                         <Route exact={true} path="/styleguide" component={StyleguidePage} />
                         <PrivateRoute isAuthenticated={isAuthenticated}
                                         path="/dashboard"
