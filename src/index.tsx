@@ -21,9 +21,6 @@ import App from './components/pages/App/App';
 
 // -----------------------------------
 
-console.log('!location.href.includes(appConfig.BASE_DOMAIN) : ', !location.href.includes(appConfig.BASE_DOMAIN));
-console.log('location', location);
-
 // If come from another domain, redirect to base domain
 if (!location.href.includes(appConfig.BASE_DOMAIN)) {
     location.replace(appConfig.BASE_DOMAIN);
