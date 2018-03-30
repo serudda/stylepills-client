@@ -149,7 +149,7 @@ class HomePage extends React.Component<ChildProps<HomePageProps, {}>, LocalState
         } else {
             return (
                 <Link className="sp-btn sp-btn--sm sp-btn--white-ghost borderRadius-sm fontWeight-9"
-                    to={`/explore`}>
+                    to={`/`}>
                     Explore
                 </Link>
             );

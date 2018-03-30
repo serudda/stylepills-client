@@ -230,7 +230,7 @@ extends React.Component<ChildProps<LibFieldsContainerProps & StateProps & Dispat
         /***************************/
         if (!isAuthenticated) {
             return (
-                <Redirect to="/explore"/>
+                <Redirect to="/"/>
             );
         }
         

@@ -9,7 +9,7 @@ import { Switch, Route, withRouter, Redirect, RouteProps, RouteComponentProps } 
 import { IRootState } from '../../../reducer/reducer.config';
 import { User } from '../../../models/user/user.model';
 
-import HomePage from '../HomePage/HomePage.container';
+// import HomePage from '../HomePage/HomePage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
@@ -58,7 +58,7 @@ export const PrivateRoute: React.SFC<IPrivateRouteProps> = ({
         render={props => isAuthenticated ? React.createElement(component, props) 
                 : <Redirect
                     to={{
-                        pathname: '/explore',
+                        pathname: '/',
                         state: { from: props.location },
                     }}
                 />}
@@ -96,9 +96,9 @@ extends React.Component<ChildProps<WithRouterMainProps & StateProps, {}>, LocalS
             <main>
                 <div className="AppContent">
                     <Switch>
-                        <Route exact={true} path="/" component={HomePage} />
+                        {/*<Route exact={true} path="/" component={HomePage} />*/}
+                        <Route exact={true} path="/" component={ExplorePage} />
                         <Route exact={true} path="/styleguide" component={StyleguidePage} />
-                        <Route exact={true} path="/explore" component={ExplorePage} />
                         <PrivateRoute isAuthenticated={isAuthenticated}
                                         path="/dashboard"
                                         component={DashboardPageContainer}/>

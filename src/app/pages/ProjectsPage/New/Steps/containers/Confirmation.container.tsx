@@ -86,7 +86,7 @@ extends React.Component<ChildProps<ConfirmationProps & StateProps, {}>, LocalSta
         /***************************/
         if (!isAuthenticated) {
             return (
-                <Redirect to="/explore"/>
+                <Redirect to="/"/>
             );
         }
 

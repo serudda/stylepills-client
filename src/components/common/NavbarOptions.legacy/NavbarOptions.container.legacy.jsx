@@ -115,7 +115,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
             'nav-link': true, 
             'color-slate': true,
             'fontSize-sm': true,
-            'active': location.pathname === '/explore'
+            'active': location.pathname === '/'
         });
 
         // Now Nav Link Classes
@@ -152,7 +152,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                     </li>
                     <li className="nav-item mx-3">
                         <Link className={exploreNavLinkClasses}
-                            to={`/explore`}>
+                            to={`/`}>
                             Explore
                         </Link>
                     </li>
@@ -200,7 +200,7 @@ extends React.Component<ChildProps<NavbarOptionsProps & StateProps & DispatchPro
                     </li>
                     <li className="nav-item mx-3">
                         <Link className={exploreNavLinkClasses}
-                            to={`/explore`}>
+                            to={`/`}>
                             Explore
                         </Link>
                     </li>
