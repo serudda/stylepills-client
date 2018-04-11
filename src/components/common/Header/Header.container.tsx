@@ -11,6 +11,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { clearUiAction } from '../../../actions/ui.action';
 
 import Icon from './../../../app/components/Icon/Icon';
+import Slider from './../../../app/components/Slider/Slider';
 import NavbarOptionsContainer from './../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
@@ -26,7 +27,8 @@ import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilte
 
 /* Own Props */
 type HeaderProps = {
-    showFilterSection?: boolean
+    showFilterSection?: boolean,
+    showSliderSection?: boolean
 };
 
 /* Own States */
@@ -70,7 +72,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
         // Destructuring props
         const { 
             isAuthenticated = false,
-            showFilterSection = false
+            showFilterSection = false,
+            showSliderSection = false,
         } = this.props;
 
         // Get server config object
@@ -120,6 +123,18 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                             </div>
                         </div>
                     </div>}
+                    
+                    {/* Project Slider section */}
+                    {showSliderSection &&
+                    <div className="row borderColor-smoke borderTopStyle-dashed borderTop-1 no-gutters py-5">
+                        <div className="col-12">
+                            <h2 className="color-silver fontSize-xl">
+                                Featured Projects
+                            </h2>
+                            <Slider />
+                        </div>
+                    </div>  
+                    }
 
 
                     {/* Filter section */}

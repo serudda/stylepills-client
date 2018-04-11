@@ -8,7 +8,6 @@
 @import '../../../../node_modules/bootstrap/scss/utilities';
 
 
-
 // All Core Sass files goes into the theme/core files (variables, globals)
 // --------------------------------------------------
 @import '../../../theme/core/global';
@@ -52,18 +51,14 @@
 
 // Component Box Component Style
 @import './../../../app/components/AtomBox/AtomBox';
-// Component Box Component Style (ComponentsPage)
-// @import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
 // Component Source Code Panel Style
 @import './../../../app/components/SourceCodePanel/SourceCodePanel';
-// Component Create New Component (Source Code Panel) Style
-// @import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/components/SourceCodePanel';
-         
 // Component Info Component Style
-// @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
 @import './../../../app/components/InfoSection/InfoSection';
+// Component Box Component Style
+@import './../../../app/components/Slider/Slider';
 
 
 /*      List Component Style      */
@@ -71,7 +66,6 @@
 // Libs List Component Style
 @import './../../../app/components/LibsList/LibsList';
 // Components List Component Style
-// @import '../../common/AtomsList/AtomsList.legacy';
 @import './../../../app/components/AtomsList/AtomsList';
 
 
@@ -85,16 +79,12 @@
 @import '../../common/Header/Header';
 // IFrame Component Style
 @import '../../common/Iframe/Iframe';
-
 // Atom Details Modal Component Style
-@import './../../../app/components/Modals/AtomDetailsModal/AtomDetailsModal';
+@import '../../../app/components/Modals/AtomDetailsModal/AtomDetailsModal';
 // Duplicate Modal Component Style
 @import '../../common/Modal/DuplicateModal/DuplicateModal';
-// Atom Details Modal Component Style
-@import './../../../app/components/Modals/SourceModal/SourceModal';
-
 // NavbarOptions Component Style
-@import './../../../app/components/Navbars/NavbarOptions/NavbarOptions';
+@import '../../../app/components/Navbars/NavbarOptions/NavbarOptions';
 
 
 /*  ColorPickers Component Style  */
@@ -102,8 +92,6 @@
 
 // SmallColorPicker Component Style
 @import './../../../app/components/ColorPicker/SmallColorPicker/SmallColorPicker';
-// InputColorPicker Component Style
-@import './../../../app/components/ColorPicker/InputColorPicker/InputColorPicker';
 
 
 // Pagination Buttons Component Style
@@ -134,9 +122,9 @@
 // User Stats Style (UserProfilePage)
 @import '../UserProfilePage/UserStats/UserStats';
 // BasicFields Step (ComponentNew)
-@import '../ComponentsPage/New/Steps/components/BasicFields';
+@import '../ComponentsPage/New/Steps/BasicFields/BasicFields';
 // Preview Section (ComponentNew)
-@import '../ComponentsPage/New/Steps/components/PreviewSection';
+@import '../ComponentsPage/New/Steps/BasicFields/PreviewSection/PreviewSection';
 
 
 

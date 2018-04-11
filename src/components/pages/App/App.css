@@ -4324,6 +4324,38 @@ NOTE: Boostrap 4 has a flex set
       height: 100%;
       background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
 
+/**********************************************************/
+/*                         SLIDER                         */
+/**********************************************************/
+.Slider {
+  position: relative;
+  margin: 0 auto;
+  width: 80%; }
+  .Slider .itemWrapper {
+    background-color: transparent !important;
+    height: 200px !important; }
+  .Slider__container {
+    height: 200px !important; }
+    .Slider__container__image {
+      width: 200px !important;
+      height: 200px !important; }
+    .Slider__container__footer {
+      bottom: 0;
+      height: auto !important; }
+  .Slider__btn {
+    position: relative;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    box-shadow: 1px 1px 1px 1px #9E9E9E;
+    text-align: center; }
+    .Slider__btn .icon {
+      display: inline-block;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 36px; }
+
 /*      List Component Style      */
 /**********************************/
 /**********************************************************/

@@ -1,0 +1,46 @@
+/**********************************************************/
+/*                         SLIDER                         */
+/**********************************************************/
+
+.Slider {
+    position: relative; 
+    margin: 0 auto;
+    width: 80%;
+
+    .itemWrapper {
+        background-color: transparent!important;
+        height: 200px!important;
+    }
+
+    &__container {
+        height: 200px!important;
+
+        &__image {
+            width: 200px!important;
+            height: 200px!important;
+        }
+
+        &__footer {
+            bottom: 0;
+            height: auto!important;
+        }
+    }
+
+    &__btn {
+        position: relative;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        box-shadow: 1px 1px 1px 1px #9E9E9E;
+        text-align: center;
+
+        .icon {
+            display: inline-block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 36px;
+        }
+    }
+
+}
