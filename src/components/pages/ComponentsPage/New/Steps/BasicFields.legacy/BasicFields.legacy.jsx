@@ -386,7 +386,7 @@ extends React.Component<ChildProps<BasicFieldsProps & StateProps & DispatchProps
         /***************************/
         if (!isAuthenticated) {
             return (
-                <Redirect to="/explore"/>
+                <Redirect to="/"/>
             );
         }
 

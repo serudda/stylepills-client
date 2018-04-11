@@ -190,7 +190,7 @@ extends React.Component<ChildProps<BasicFieldsContainerProps & StateProps, {}>, 
         /***************************/
         if (!isAuthenticated) {
             return (
-                <Redirect to="/explore"/>
+                <Redirect to="/"/>
             );
         }
         

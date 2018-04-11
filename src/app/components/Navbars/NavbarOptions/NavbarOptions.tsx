@@ -74,7 +74,7 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
         'nav-link': true, 
         'color-slate': true,
         'fontSize-sm': true,
-        'active': currentLocation === '/explore'
+        'active': currentLocation === '/'
     });
 
     // Now Nav Link Classes
@@ -116,7 +116,7 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
                 </li>
                 <li className="nav-item mx-3">
                     <Link className={exploreNavLinkClasses}
-                        to={`/explore`}>
+                        to={`/`}>
                         Explore
                     </Link>
                 </li>
@@ -165,7 +165,7 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
                 </li>
                 <li className="nav-item mx-3">
                     <Link className={exploreNavLinkClasses}
-                        to={`/explore`}>
+                        to={`/`}>
                         Explore
                     </Link>
                 </li>

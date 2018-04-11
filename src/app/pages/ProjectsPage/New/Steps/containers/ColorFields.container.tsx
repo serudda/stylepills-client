@@ -183,7 +183,7 @@ extends React.Component<ChildProps<ColorFieldsContainerProps & StateProps, {}>, 
         /***************************/
         if (!isAuthenticated) {
             return (
-                <Redirect to="/explore"/>
+                <Redirect to="/"/>
             );
         }
 

@@ -4,14 +4,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
-import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect, RouteProps, RouteComponentProps } from 'react-router-dom';
 
 import { IRootState } from '../../../reducer/reducer.config';
 import { User } from '../../../models/user/user.model';
 
-import { PrivateRoute } from './../../../core/hocs/privateRoute.hoc';
-
-import HomePage from '../HomePage/HomePage.container';
+// import HomePage from '../HomePage/HomePage.container';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
@@ -38,6 +36,34 @@ type LocalStates = {};
 type StateProps = {
     isAuthenticated: boolean;
     user: User;
+};
+
+interface IPrivateRouteProps extends RouteProps {
+    isAuthenticated: boolean;
+}
+
+
+/**
+ * @desc Represent Private Route Structure
+ * @function PrivateRoute
+ * @type STATELESS FUNCTIONAL COMPONENT (SFC)
+ * @returns page view & routes list
+ */
+export const PrivateRoute: React.SFC<IPrivateRouteProps> = ({
+    component, isAuthenticated, ...rest
+}) => {
+    return (
+        <Route
+        {...rest}
+        render={props => isAuthenticated ? React.createElement(component, props) 
+                : <Redirect
+                    to={{
+                        pathname: '/',
+                        state: { from: props.location },
+                    }}
+                />}
+        />
+    );
 };
 
 
@@ -70,9 +96,16 @@ extends React.Component<ChildProps<WithRouterMainProps & StateProps, {}>, LocalS
             <main>
                 <div className="AppContent">
                     <Switch>
-                        <Route exact={true} path="/" component={HomePage} />
+                        {/*<Route exact={true} path="/" component={HomePage} />*/}
+                        <Route exact={true} path="/" component={ExplorePage} />
+                        <Route exact={true} path="/explore" render={props => (
+                            <Redirect
+                                to={{
+                                    pathname: '/'
+                                }}
+                            />
+                        )}/>
                         <Route exact={true} path="/styleguide" component={StyleguidePage} />
-                        <Route exact={true} path="/explore" component={ExplorePage} />
                         <PrivateRoute isAuthenticated={isAuthenticated}
                                         path="/dashboard"
                                         component={DashboardPageContainer}/>

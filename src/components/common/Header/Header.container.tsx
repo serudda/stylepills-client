@@ -5,8 +5,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { compose, ChildProps } from 'react-apollo';
 
+import { config } from './../../../config/config';
 import { IRootState } from '../../../reducer/reducer.config';
-import { IUiState } from '../../../reducer/ui.reducer';
 
 import { clearUiAction } from '../../../actions/ui.action';
 
@@ -34,7 +34,7 @@ type LocalStates = {};
 
 /* Mapped State to Props */
 type StateProps = {
-    ui: IUiState;
+    isAuthenticated: boolean;
 };
 
 /* Mapped Dispatches to Props */
@@ -68,7 +68,13 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
     render() {
 
         // Destructuring props
-        const { showFilterSection = false } = this.props;
+        const { 
+            isAuthenticated = false,
+            showFilterSection = false
+        } = this.props;
+
+        // Get server config object
+        const serverConfig = config.getServerConfig();
             
         
         /*         MARKUP          */
@@ -96,6 +102,25 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                         <NavbarOptionsContainer />
 
                     </div>
+
+
+                    {/* PUV Section */}
+                    {!isAuthenticated &&
+                    <div className="container" style={{marginTop: '100px', marginBottom: '100px'}}>
+                        <div className="row align-items-center px-5">
+                            <div className="col-12 text-center px-5">
+                                <h2 className="color-slate fontSize-xxl px-5 mb-5">
+                                    The best place to host and show off your UI Components, 
+                                    create Styleguides for your projects, and find inspiration 
+                                    from the community's open source components.
+                                </h2>
+                                <a href={serverConfig.authGoogleUrl} className="sp-btn sp-btn--primary sp-btn--lg">
+                                    Create UI repository
+                                </a>
+                            </div>
+                        </div>
+                    </div>}
+
 
                     {/* Filter section */}
                     {showFilterSection && 
@@ -131,8 +156,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 /*      MAP STATE TO PROPS      */
 /********************************/
 function mapStateToProps(state: IRootState): StateProps {
+    const { isAuthenticated } = state.auth;
     return {
-        ui:  state.ui
+        isAuthenticated
     };
 }
 

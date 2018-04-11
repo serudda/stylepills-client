@@ -10,6 +10,9 @@ import { PreprocessorNameOptions, PreprocessorExtOptions, CompileToTypeOptions }
 /* DEBUG */
 export const DEBUG = !!process.env.REACT_APP_LOCAL_ENV;
 
+/* Base domain */
+export const BASE_DOMAIN = 'https://alpha.stylepill.io';
+
 /* Environments */
 export const LOCAL      = 'local';
 export const DEV        = 'development';
