@@ -2066,10 +2066,10 @@ NOTE: Boostrap 4 has a flex set
 .zIndex-modal {
   z-index: 9000; }
 
-.zIndex-overlay, .AtomDetailsBox .float-color-picker, .ComponentNew .PreviewSection .float-color-picker {
+.zIndex-overlay, .AtomDetailsBox .float-color-picker {
   z-index: 8000; }
 
-.zIndex-dropdown, .LibsList__message, .PreviewBox__content__message, .ComponentNew .PreviewSection__content .cover-link {
+.zIndex-dropdown, .LibsList__message, .PreviewBox__content__message {
   z-index: 7000; }
 
 .zIndex-header {
@@ -2485,7 +2485,7 @@ NOTE: Boostrap 4 has a flex set
 .fontFamily-poppins {
   font-family: "Poppins", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
-.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .SourceModal .sp-close-icon::after {
+.fontFamily-quicksand, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
   font-family: "Quicksand", "Open Sans", "Helvetica Neue", Arial, Helvetica, Verdana, sans-serif; }
 
 .fontFamily-courierNew {
@@ -2570,7 +2570,7 @@ NOTE: Boostrap 4 has a flex set
 .fontSize-xs, .SidebarWrapper .Sidebar__content .subtitle {
   font-size: 12px; }
 
-.fontSize-sm, .sp-list--simple .item .text, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .SourceModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
+.fontSize-sm, .sp-list--simple .item .text, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .UserProfilePage .UserStats__item__text {
   font-size: 14px; }
 
 .fontSize-md, .sp-list--simple .item .text-tag .text, .SidebarWrapper .Sidebar__content .title {
@@ -2616,7 +2616,7 @@ NOTE: Boostrap 4 has a flex set
 .fontWeight-8 {
   font-weight: 800; }
 
-.fontWeight-9, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after, .SourceModal .sp-close-icon::after {
+.fontWeight-9, .AtomDetailsModal .sp-close-icon::after, .DuplicateModal .sp-close-icon::after {
   font-weight: 900; }
 
 /* Line Height scale */
@@ -4589,34 +4589,6 @@ body.duplicateModal-open .ui.dimmer {
   background-color: #EFF2F7; }
 
 /**********************************************************/
-/*                      SOURCE MODAL                      */
-/**********************************************************/
-.SourceModal .sp-close-icon {
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
-  top: 1.0535rem;
-  right: 1rem;
-  position: absolute;
-  z-index: 1;
-  opacity: .5; }
-  .SourceModal .sp-close-icon::after {
-    content: "ESC";
-    color: #3C4858;
-    position: relative;
-    top: 28px; }
-  .SourceModal .sp-close-icon:hover {
-    background-color: #D3DCE6;
-    border: 5px solid #D3DCE6;
-    opacity: 1; }
-  .SourceModal .sp-close-icon:hover::after {
-    right: 4px; }
-
-/* DIMMER (MODAL BACKDROP) */
-body.sourceModal-open .ui.dimmer {
-  background-color: #EFF2F7; }
-
-/**********************************************************/
 /*                     NAVBAR OPTIONS                     */
 /**********************************************************/
 .NavbarOptions .nav-link--negative {
@@ -4649,20 +4621,6 @@ body.sourceModal-open .ui.dimmer {
   right: 0;
   top: 45px; }
   .SmallColorPicker__popover__cover {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0; }
-
-/**********************************************************/
-/*                INPUT BOX (COLOR PICKER)                */
-/**********************************************************/
-.InputColorPicker__popover {
-  position: absolute;
-  z-index: 2;
-  left: 50px; }
-  .InputColorPicker__popover__cover {
     position: fixed;
     top: 0;
     right: 0;
@@ -4852,31 +4810,3 @@ body.sourceModal-open .ui.dimmer {
 @media (max-width: 575.98px) {
   .UserProfilePage .UserStats__item__text {
     font-size: 12px; } }
-
-/**********************************************************/
-/*           BASIC FIELDS STEP (COMPONENT NEW)            */
-/**********************************************************/
-.ComponentNew .BasicFields .validationMsg {
-  bottom: 0; }
-
-/**********************************************************/
-/*           ATOM DETAILS BOX (PREVIEW SECTION)           */
-/**********************************************************/
-.ComponentNew .PreviewSection {
-  position: relative; }
-  .ComponentNew .PreviewSection .float-color-picker {
-    position: absolute;
-    top: 10px;
-    right: 10px; }
-  .ComponentNew .PreviewSection__content {
-    height: 0;
-    padding-top: 20%;
-    overflow: hidden;
-    position: relative; }
-    .ComponentNew .PreviewSection__content .cover-link {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      border: 0 !important; }

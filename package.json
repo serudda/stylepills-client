@@ -78,6 +78,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.1.5",
     "enzyme": "^3.2.0",
+    "node-sass": "^4.8.3",
     "node-sass-chokidar": "0.0.3",
     "react-addons-test-utils": "^15.6.0"
   }
