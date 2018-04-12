@@ -3,7 +3,11 @@
 /********************************/
 import gql from 'graphql-tag';
 
-import { PROJECT_FRAGMENT, BASIC_PROJECT_FRAGMENT } from './project.fragment';
+import { 
+    PROJECT_FRAGMENT, 
+    BASIC_PROJECT_FRAGMENT, 
+    BASIC_PROJECT_AND_AUTHOR_FRAGMENT 
+} from './project.fragment';
 import { Project as ProjectModel, Basic } from './project.model';
 
 
@@ -63,10 +67,10 @@ export type GetByIdResponse = {
 export const GET_ALL_PROJECT_QUERY = gql`
 query getAllProjects ($limit: Int!){
     allProjects(limit: $limit) {
-        ...ProjectFragment
+        ...BasicProjectAndAuthorFragment
     }
 }
-${PROJECT_FRAGMENT}
+${BASIC_PROJECT_AND_AUTHOR_FRAGMENT}
 `;
 
 /*        TYPE         */

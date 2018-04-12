@@ -8,7 +8,6 @@
 @import '../../../../node_modules/bootstrap/scss/utilities';
 
 
-
 // All Core Sass files goes into the theme/core files (variables, globals)
 // --------------------------------------------------
 @import '../../../theme/core/global';
@@ -52,18 +51,14 @@
 
 // Component Box Component Style
 @import './../../../app/components/AtomBox/AtomBox';
-// Component Box Component Style (ComponentsPage)
-// @import './../ComponentsPage/List/AtomsList/AtomBox/AtomBox';
 // Component Details Box Component Style
 @import '../../common/AtomDetailsBox/AtomDetailsBox';
 // Component Source Code Panel Style
 @import './../../../app/components/SourceCodePanel/SourceCodePanel';
-// Component Create New Component (Source Code Panel) Style
-// @import '../ComponentsPage/New/Steps/BasicFields/PanelSection/SourceCodePanel/components/SourceCodePanel';
-         
 // Component Info Component Style
-// @import '../../common/AtomBox/AtomInfoSection/AtomInfoSection.legacy';
 @import './../../../app/components/InfoSection/InfoSection';
+// Component Projects Slider Component Style
+@import './../../../app/components/ProjectsSlider/ProjectsSlider';
 
 
 /*      List Component Style      */
@@ -71,7 +66,6 @@
 // Libs List Component Style
 @import './../../../app/components/LibsList/LibsList';
 // Components List Component Style
-// @import '../../common/AtomsList/AtomsList.legacy';
 @import './../../../app/components/AtomsList/AtomsList';
 
 
@@ -86,11 +80,11 @@
 // IFrame Component Style
 @import '../../common/Iframe/Iframe';
 // Atom Details Modal Component Style
-@import '../../common/Modal/AtomDetailsModal/AtomDetailsModal';
+@import '../../../app/components/Modals/AtomDetailsModal/AtomDetailsModal';
 // Duplicate Modal Component Style
 @import '../../common/Modal/DuplicateModal/DuplicateModal';
 // NavbarOptions Component Style
-@import '../../common/NavbarOptions/NavbarOptions';
+@import '../../../app/components/Navbars/NavbarOptions/NavbarOptions';
 
 
 /*  ColorPickers Component Style  */

@@ -82,7 +82,8 @@ const NavbarOptions: React.SFC<NavbarOptionsProps> = ({
         'nav-link': true, 
         'nav-link--negative': true,
         'fontSize-sm': true,
-        'fontWeight-9': true
+        'fontWeight-9': true,
+        'd-none': true
     });
 
 

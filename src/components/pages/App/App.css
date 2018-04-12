@@ -3267,7 +3267,11 @@ NOTE: Boostrap 4 has a flex set
     width: 150px;
     height: 150px; }
   .sp-avatar--empty {
-    background: "https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg"; }
+    background: url("https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg") 0 0 no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; }
   .sp-avatar img {
     text-indent: -9999px; }
 
@@ -4283,6 +4287,49 @@ NOTE: Boostrap 4 has a flex set
       height: 100%;
       background: linear-gradient(to right, rgba(239, 242, 247, 0), #EFF2F7 80%); }
 
+/**********************************************************/
+/*                         SLIDER                         */
+/**********************************************************/
+.Slider {
+  position: relative;
+  margin: 0 auto;
+  width: 98%; }
+  .Slider .sliderBox {
+    width: 85% !important;
+    height: 240px !important;
+    border-left: 1px solid #E0E6ED !important;
+    border-right: 1px solid #E0E6ED !important; }
+  .Slider .itemWrapper {
+    background-color: transparent !important;
+    height: 200px !important; }
+  .Slider .buttonWrapper {
+    z-index: 900 !important; }
+  .Slider__container {
+    overflow: hidden;
+    height: 200px !important; }
+    .Slider__container__image {
+      width: 200px !important;
+      height: 200px !important; }
+    .Slider__container__footer {
+      bottom: 0;
+      height: auto !important;
+      -webkit-box-shadow: inset 0px -110px 170px -81px black;
+      -moz-box-shadow: inset 0px -110px 170px -81px black;
+      box-shadow: inset 0px -110px 170px -81px black; }
+  .Slider__btn {
+    position: relative;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    box-shadow: 1px 1px 1px 1px #9E9E9E;
+    text-align: center; }
+    .Slider__btn .icon {
+      display: inline-block;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 36px; }
+
 /*      List Component Style      */
 /**********************************/
 /**********************************************************/
@@ -4397,6 +4444,12 @@ NOTE: Boostrap 4 has a flex set
   border-bottom: 3px solid transparent;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
   font-size: 16px; }
+  .Header .PUVSection__title {
+    font-size: 28px; }
+
+@media (max-width: 991.98px) {
+  .Header .PUVSection__title {
+    font-size: 20px; } }
 
 .Iframe-wrapper iframe {
   width: 100%;

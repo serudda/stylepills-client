@@ -10,4 +10,22 @@
     border-bottom: 3px solid transparent;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
     font-size: 16px;
+
+    .PUVSection {
+        &__title {
+            font-size: 28px;
+        }
+    }
+}
+
+
+// Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+    .Header {
+        .PUVSection {
+            &__title {
+                font-size: 20px;
+            }
+        }
+    }
 }
