@@ -51,7 +51,7 @@ extends React.Component<ChildProps<ExplorePageProps & StateProps, {}>, LocalStat
             <div className="ExplorePage sp-bg-darkSnow h-100">
 
                 {/* Header */}
-                <Header showFilterSection={true} />
+                <Header showFilterSection={true} showSliderSection={true} />
 
                 {/* Atoms list container */}
                 <GeneralAtomsListContainer />

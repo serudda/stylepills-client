@@ -11,6 +11,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { clearUiAction } from '../../../actions/ui.action';
 
 import Icon from './../../../app/components/Icon/Icon';
+import Slider from './../../../app/components/Slider/Slider';
 import NavbarOptionsContainer from './../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
@@ -26,7 +27,8 @@ import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilte
 
 /* Own Props */
 type HeaderProps = {
-    showFilterSection?: boolean
+    showFilterSection?: boolean,
+    showSliderSection?: boolean
 };
 
 /* Own States */
@@ -70,7 +72,8 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
         // Destructuring props
         const { 
             isAuthenticated = false,
-            showFilterSection = false
+            showFilterSection = false,
+            showSliderSection = false,
         } = this.props;
 
         // Get server config object
@@ -106,10 +109,10 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
 
                     {/* PUV Section */}
                     {!isAuthenticated &&
-                    <div className="container" style={{marginTop: '100px', marginBottom: '100px'}}>
-                        <div className="row align-items-center px-5">
-                            <div className="col-12 text-center px-5">
-                                <h2 className="color-slate fontSize-xxl px-5 mb-5">
+                    <div className="PUVSection container" style={{marginTop: '100px', marginBottom: '100px'}}>
+                        <div className="row align-items-center px-sm-5">
+                            <div className="col-12 text-center px-sm-5">
+                                <h2 className="PUVSection__title color-slate px-sm-5 mb-5">
                                     The best place to host and show off your UI Components, 
                                     create Styleguides for your projects, and find inspiration 
                                     from the community's open source components.
@@ -120,26 +123,44 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                             </div>
                         </div>
                     </div>}
+                    
+                    {/* Project Slider section */}
+                    {showSliderSection &&
+                    <div className="row borderColor-smoke borderTopStyle-dashed borderTop-1 borderBottomStyle-dashed borderBottom-1 no-gutters py-5">
+                        <div className="col-12">
+                            <h2 className="color-silver fontSize-xxl ml-3 mb-5">
+                                Featured Projects
+                            </h2>
+                            <Slider />
+                        </div>
+                    </div>  
+                    }
 
 
                     {/* Filter section */}
                     {showFilterSection && 
-                    <div className="d-flex align-items-center"> 
+                    <div className="row no-gutters pt-5">
+                        <div className="col-12">
+                            <h2 className="color-silver fontSize-xxl ml-3 mb-3">
+                                All Components
+                            </h2>
+                            <div className="d-flex align-items-center"> 
+                                {/* Search Box */}
+                                <div className="w-100">
+                                    <AtomSearchContainer />
+                                </div>
 
-                        {/* Search Box */}
-                        <div className="w-100">
-                            <AtomSearchContainer />
+                                {/* Category Select List */}
+                                <div className="ml-4">
+                                    <AtomCategoryFilterContainer />
+                                </div>
+
+                                {/* Sort by section  */}
+                                {/* <SortBySelectListContainer /> */}
+                            </div>
                         </div>
-
-                        {/* Category Select List */}
-                        <div className="ml-4">
-                            <AtomCategoryFilterContainer />
-                        </div>
-                        
-                        {/* Sort by section  */}
-                        {/* <SortBySelectListContainer /> */}
-
-                    </div>}
+                    </div>
+                    }
 
                 </div>
                 
