@@ -114,7 +114,7 @@ class ProjectsSlider extends React.Component<ProjectsSliderProps, {}> {
         const {results, loading, error} = this.props;
 
         const itemsStyle = {
-            margin: '0 30px'
+            margin: '0 10px'
         };
 
         const rBtnCpnt = (
