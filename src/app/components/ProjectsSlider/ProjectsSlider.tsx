@@ -2,6 +2,7 @@
 /*           DEPENDENCIES           */
 /************************************/
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Project as ProjectModel } from '../../../models/project/project.model';
 
@@ -87,19 +88,20 @@ class ProjectsSlider extends React.Component<ProjectsSliderProps, {}> {
 
         return ( 
             results.map((project, index) => (
-                <div key={index} 
-                    className="Slider__container sp-bg-silver border-6 borderColor-white position-relative boxShadow-raised borderRadius-md">
-                    <img className="Slider__container__image" 
-                        width="200" height="200" src={project.logoUrl} alt={project.name} />
-                    <div className="Slider__container__footer position-absolute p-2 w-100">
-                        <div className="fontSize-md color-white textShadow-close fontWeight-9">
-                            {project.name}
-                        </div>
-                        <div className="fontSize-sm color-white textShadow-close">
-                            {project.author.firstname}
+                <Link key={index} to={`/project/${project.id}`}>
+                    <div className="Slider__container sp-bg-silver border-6 borderColor-white position-relative boxShadow-raised borderRadius-md">
+                        <img className="Slider__container__image" 
+                            width="200" height="200" src={project.logoUrl} alt={project.name} />
+                        <div className="Slider__container__footer position-absolute p-2 w-100">
+                            <div className="fontSize-md color-white textShadow-close fontWeight-9">
+                                {project.name}
+                            </div>
+                            <div className="fontSize-sm color-white textShadow-close">
+                                {project.author.firstname}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             ))
         );
     }

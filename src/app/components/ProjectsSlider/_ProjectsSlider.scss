@@ -19,6 +19,10 @@
         height: 200px!important;
     }
 
+    .buttonWrapper {
+        z-index: 900!important;
+    }
+
     &__container {
         overflow: hidden;
         height: 200px!important;

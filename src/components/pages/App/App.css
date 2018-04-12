@@ -3267,7 +3267,11 @@ NOTE: Boostrap 4 has a flex set
     width: 150px;
     height: 150px; }
   .sp-avatar--empty {
-    background: "https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg"; }
+    background: url("https://s3.amazonaws.com/waysily-img/stylepill/photo-default.svg") 0 0 no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; }
   .sp-avatar img {
     text-indent: -9999px; }
 
@@ -4298,6 +4302,8 @@ NOTE: Boostrap 4 has a flex set
   .Slider .itemWrapper {
     background-color: transparent !important;
     height: 200px !important; }
+  .Slider .buttonWrapper {
+    z-index: 900 !important; }
   .Slider__container {
     overflow: hidden;
     height: 200px !important; }

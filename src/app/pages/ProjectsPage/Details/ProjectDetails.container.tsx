@@ -42,6 +42,9 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
     /********************************/
     constructor(props: ChildProps<ProjectDetailsProps & StateProps, GetByIdResponse>) {
         super(props);
+        
+        // Go top pages
+        window.scrollTo(0, 0);
     }
 
 
@@ -140,6 +143,7 @@ extends React.Component<ChildProps<ProjectDetailsProps & StateProps, GetByIdResp
                     <Header projectName={projectById.name}
                             projectWebsite={projectById.website} 
                             projectDescription={projectById.description}
+                            projectLogo={projectById.logoUrl}
                             isPrivate={projectById.private} />
                 </div>
 

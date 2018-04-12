@@ -19,6 +19,7 @@ type HeaderProps = {
     projectName: string;
     projectWebsite: string;
     projectDescription: string;
+    projectLogo?: string;
     isPrivate: boolean;
 };
 
@@ -56,9 +57,10 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
             projectName,
             projectWebsite,
             projectDescription,
+            projectLogo = '',
             isPrivate
         } = this.props; 
-            
+        
         
         /*         MARKUP          */
         /***************************/
@@ -82,7 +84,9 @@ extends React.Component<ChildProps<HeaderProps & StateProps, {}>, LocalStates> {
                             
                             {/* Logo */}
                             <div className="sp-avatar sp-avatar--md borderRadius-circle mr-4">
-                                <img width="70" height="70" src="https://s3.amazonaws.com/waysily-img/stylepill/projectLogo.svg" alt={projectName} />
+                                <img width="70" 
+                                    height="70" 
+                                    src={!!projectLogo ? projectLogo : `https://s3.amazonaws.com/waysily-img/stylepill/projectLogo.svg`} alt={projectName} />
                             </div>
 
                             {/* Title */}

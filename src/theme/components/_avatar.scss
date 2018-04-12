@@ -75,7 +75,11 @@ $avatar-sizes: (
     }
 
     &--empty {
-        background: $avatar-default-path;
+        background: url($avatar-default-path) 0 0 no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
 
     /// ELEMENTS

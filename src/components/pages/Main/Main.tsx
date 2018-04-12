@@ -15,6 +15,7 @@ import StyleguidePage from '../StyleguidePage/StyleguidePage';
 import ExplorePage from '../ExplorePage/ExplorePage.container';
 import DashboardPageContainer from '../DashboardPage/DashboardPage.container';
 import UserProfilePage from '../UserProfilePage/UserProfilePage.container';
+import ProjectDetailsContainer from './../../../app/pages/ProjectsPage/Details/ProjectDetails.container';
 
 
 // -----------------------------------
@@ -110,6 +111,7 @@ extends React.Component<ChildProps<WithRouterMainProps & StateProps, {}>, LocalS
                                         path="/dashboard"
                                         component={DashboardPageContainer}/>
                         <Route exact={true} path="/user/:username" component={UserProfilePage} />
+                        <Route exact={true} path="/project/:id" component={ProjectDetailsContainer} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
