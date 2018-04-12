@@ -11,7 +11,7 @@ import { IRootState } from '../../../reducer/reducer.config';
 import { clearUiAction } from '../../../actions/ui.action';
 
 import Icon from './../../../app/components/Icon/Icon';
-import Slider from './../../../app/components/Slider/Slider';
+import ProjectsSliderContainer from './../../../app/containers/ProjectsSlider/ProjectsSlider.container';
 import NavbarOptionsContainer from './../../../app/containers/Navbars/NavbarOptions/NavbarOptions.container';
 import AtomSearchContainer from '../AtomSearch/AtomSearch.container';
 import AtomCategoryFilterContainer from '../AtomCategoryFilter/AtomCategoryFilter.container';
@@ -131,7 +131,7 @@ extends React.Component<ChildProps<HeaderProps & StateProps & DispatchProps, {}>
                             <h2 className="color-silver fontSize-xxl ml-3 mb-5">
                                 Featured Projects
                             </h2>
-                            <Slider />
+                            <ProjectsSliderContainer />
                         </div>
                     </div>  
                     }

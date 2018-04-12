@@ -33,6 +33,19 @@ export const BASIC_PROJECT_FRAGMENT = gql`
     }
 `;
 
+export const BASIC_PROJECT_AND_AUTHOR_FRAGMENT = gql`
+    fragment BasicProjectAndAuthorFragment on Project {
+        id
+        name
+        logoUrl
+        author {
+            ...AuthorProjectFragment
+        }
+        __typename
+    }
+    ${AUTHOR_PROJECT_FRAGMENT}
+`;
+
 export const PROJECT_BY_ATOM_FRAGMENT = gql`
     fragment ProjectByAtomFragment on Project {
         ...BasicProjectFragment
@@ -54,6 +67,7 @@ export const PROJECT_FRAGMENT = gql`
         ...BasicProjectFragment
         website
         description
+        logoUrl
         colorPalette {
             ...ColorFragment
         }
@@ -61,6 +75,7 @@ export const PROJECT_FRAGMENT = gql`
             ...LibFragment
         }
         private
+        status
         author {
             ...AuthorProjectFragment
         }

@@ -11,6 +11,13 @@ import { ProjectCategory } from '../projectCategory/projectCategory.model';
 /*         TYPE & INTERFACES        */
 /************************************/
 
+/* Possible status options */
+export enum StatusOptions {
+    new = 'NW',
+    validated = 'VA',
+    verified = 'VE'
+}
+
 export type Basic = {
     id: number | null;
     name: string;
@@ -21,11 +28,13 @@ export type Project = {
     name: string;
     description: string;
     website: string;
+    logoUrl: string;
     colorPalette: Array<ColorModel>;
     libs: Array<LibModel>;
     atoms: Array<Atom>;
     active: boolean;
     private: boolean;
+    status: StatusOptions;
     author: User;
     category: ProjectCategory;
 };
