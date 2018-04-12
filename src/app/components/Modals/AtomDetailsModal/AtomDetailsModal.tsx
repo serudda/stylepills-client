@@ -151,10 +151,12 @@ class AtomDetailsModal extends React.Component<AtomDetailsModalProps, {}> {
 
                     { !!atom.project &&
                         <div className="fontFamily-poppins fontSize-sm fontWeight-5 color-slate">
-                            Belongs to 
-                            <span className="sp-tag sp-tag--xs sp-tag--white fontWeight-5 fontSmoothing-reset ml-2 boxShadow-close">
-                                {atom.project.name}
-                            </span>
+                            Belongs to
+                            <Link to={`/project/${atom.project.id}`} target="_blank">
+                                <span className="sp-tag sp-tag--xs sp-tag--white fontWeight-5 fontSmoothing-reset ml-2 boxShadow-close">
+                                    {atom.project.name}
+                                </span>
+                            </Link>
                             <span className="mx-3 borderLeft-1 borderColor-darkSmoke" />
                         </div>
                     }
