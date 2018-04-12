@@ -3565,7 +3565,8 @@ NOTE: Boostrap 4 has a flex set
   /* User Menu Dropdown (top right position) */
   /* User Menu Dropdown (menu) */ }
   .ui.pointing.sp-dropdown--userMenu.top.right .menu {
-    right: -9px; }
+    right: -9px;
+    z-index: 1000; }
   .ui.pointing.sp-dropdown--userMenu .menu .item {
     padding: 15px 25px !important; }
 
@@ -4444,6 +4445,8 @@ NOTE: Boostrap 4 has a flex set
   border-bottom: 3px solid transparent;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
   font-size: 16px; }
+  .Header .navbar {
+    z-index: 9000; }
   .Header .PUVSection__title {
     font-size: 28px; }
 
