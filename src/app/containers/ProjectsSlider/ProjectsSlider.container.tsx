@@ -79,7 +79,7 @@ extends React.Component<ChildProps<AllProps, GetAllResponse>, LocalStates> {
         
         /*         MARKUP          */
         /***************************/
-        return (     
+        return (
             
             <ProjectsSlider results={data.allProjects ? data.allProjects : null}
                             loading={data.loading}

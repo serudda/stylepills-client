@@ -20,7 +20,7 @@ type ProjectsSliderProps = {
     loading: boolean,
     error: any,
     results: Array<ProjectModel>,
-    onTrackClick?: (elementType: string, elementProps: any) => void
+    onTrackClick?: (elementType: string, elementProps: any) => any
 };
 
 
@@ -86,10 +86,12 @@ class ProjectsSlider extends React.Component<ProjectsSliderProps, {}> {
 
         // Destructuring props
         const {results} = this.props;
+        const {onTrackClick} = this.props;
 
         return ( 
             results.map((project, index) => (
-                <Link key={index} to={`/project/${project.id}`}>
+                <Link key={index} to={`/project/${project.id}`}
+                      onClick={onTrackClick('PROJECT CARD ON SLIDER', {projectId: project.id, component: 'ProjectsSlider'})}>
                     <div className="Slider__container sp-bg-silver border-6 borderColor-white position-relative boxShadow-raised borderRadius-md">
                         <img className="Slider__container__image" 
                             width="200" height="200" src={project.logoUrl} alt={project.name} />
@@ -115,19 +117,22 @@ class ProjectsSlider extends React.Component<ProjectsSliderProps, {}> {
 
         // Destructuring props
         const {results, loading, error} = this.props;
+        const { onTrackClick } = this.props;
 
         const itemsStyle = {
             margin: '0 10px'
         };
 
         const rBtnCpnt = (
-            <div className="Slider__btn">
+            <div className="Slider__btn"
+                 onClick={onTrackClick('LEFT PROJECT SLIDER BTN', {component: 'ProjectsSlider'})}>
                 <div className="icon material-icons color-silver">chevron_right</div>
             </div>
         );
     
         const lBtnCpnt = (
-            <div className="Slider__btn">
+            <div className="Slider__btn"
+                 onClick={onTrackClick('RIGHT PROJECT SLIDER BTN', {component: 'ProjectsSlider'})}>
                 <div className="icon material-icons color-silver" >chevron_left</div>
             </div>
         );
