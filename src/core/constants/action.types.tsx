@@ -14,6 +14,9 @@ export type LOCATION_CHANGE = typeof LOCATION_CHANGE;
 export const CLEAR_UI = 'CLEAR_UI';
 export type CLEAR_UI = typeof CLEAR_UI;
 
+export const CLICK_ELEMENT = 'CLICK_ELEMENT';
+export type CLICK_ELEMENT = typeof CLICK_ELEMENT;
+
 export const SHOW_MODAL = 'SHOW_MODAL';
 export type SHOW_MODAL = typeof SHOW_MODAL;
 

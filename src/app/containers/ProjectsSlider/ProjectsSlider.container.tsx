@@ -9,7 +9,7 @@ import {
     GetAllResponse
 } from './../../../models/project/project.query';
 
-import Slider from './../../components/ProjectsSlider/ProjectsSlider';
+import ProjectsSlider from './../../components/ProjectsSlider/ProjectsSlider';
 
 
 // -----------------------------------
@@ -67,9 +67,9 @@ extends React.Component<ChildProps<SliderContainerProps & StateProps & DispatchP
         /***************************/
         return (     
             
-            <Slider results={data.allProjects ? data.allProjects : null}
-                    loading={data.loading}
-                    error={data.error} />
+            <ProjectsSlider results={data.allProjects ? data.allProjects : null}
+                            loading={data.loading}
+                            error={data.error} />
 
         );
 
