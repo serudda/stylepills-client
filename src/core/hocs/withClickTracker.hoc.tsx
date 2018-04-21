@@ -42,7 +42,7 @@ type HOCDispatchProps = {
 // ===================================
 
 export interface InjectedProps {
-    onTrackClick(elementType: string, elementProps: any): void;
+    onTrackClick(elementType: string, elementProps: any): any;
 }
 
 

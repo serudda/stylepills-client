@@ -14,6 +14,10 @@ import { User as UserModel } from './../../../models/user/user.model';
 
 import { GET_BASIC_PROJECTS_BY_USER_ID_QUERY, GetBasicProjectsByUserIdResponse } from './../../../models/project/project.query';
 
+import { withClickTracker, 
+    InjectedProps as WithClickTrackerProps 
+  } from './../../../core/hocs/withClickTracker.hoc';
+
 import Icon from './../../../app/components/Icon/Icon';
 import ComponentsSection from './ComponentsSection/ComponentsSection';
 import ProjectsSection from './ProjectsSection/ProjectsSection.container';
@@ -47,17 +51,26 @@ type StateProps = {
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    SidebarWrapperProps
+&   StateProps
+&   WithClickTrackerProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SidebarWrapper
-extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
+extends React.Component<ChildProps<AllProps, GetBasicProjectsByUserIdResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SidebarWrapperProps & StateProps, GetBasicProjectsByUserIdResponse>) {
+    constructor(props: ChildProps<AllProps, GetBasicProjectsByUserIdResponse>) {
         super(props);
 
         // LOG
@@ -178,7 +191,8 @@ extends React.Component<ChildProps<SidebarWrapperProps & StateProps, GetBasicPro
                     {/* Sidebar Footer TODO: Cuando el scroll esta down, y presiono este boton, no hace el scrollTop */}
                     <div className="Sidebar__footer">
                         <Link className="Sidebar__footer__btn link-reset d-flex align-items-center sp-bg-black p-4"
-                            to="/dashboard/components/new">
+                              to="/dashboard/components/new"
+                              onClick={this.props.onTrackClick('CREATE NEW COMPONENT', null)}>
                             <Icon icon="plus"
                                 iconClass="stroke-white strokeWidth-5"
                                 width="20" height="20"/>
@@ -242,9 +256,17 @@ function mapStateToProps(state: IRootState): StateProps {
 const sidebarWrapperConnect = connect(mapStateToProps); 
 
 
+/**************************************/
+/*     WITH CHANGE SOURCE CODE HOC    */
+/**************************************/
+const withClickTrackerConnect = withClickTracker();
+
+
+
 /*         EXPORT          */
 /***************************/
 export default compose<any>(
     sidebarWrapperConnect,
+    withClickTrackerConnect,
     getBasicProjectsByUserIdQuery
 )(SidebarWrapper);
