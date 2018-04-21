@@ -14,6 +14,10 @@ import { IRootState } from './../../../../reducer/reducer.config';
 
 import { Basic } from './../../../../models/project/project.model';
 
+import { withClickTracker, 
+    InjectedProps as WithClickTrackerProps 
+  } from './../../../../core/hocs/withClickTracker.hoc';
+
 import BaseFolder from './BaseFolder/BaseFolder';
 import Icon from './../../../../app/components/Icon/Icon';
 
@@ -52,17 +56,28 @@ type DispatchProps = {
 };
 
 
+
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    ProjectsSectionProps
+&   StateProps
+&   DispatchProps
+&   WithClickTrackerProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
-class ProjectsSection
-extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchProps, {}>, LocalStates> {
+class ProjectsSectionContainer
+extends React.Component<ChildProps<AllProps, {}>, LocalStates> {
 
 
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<ProjectsSectionProps & StateProps & DispatchProps, {}>) {
+    constructor(props: ChildProps<AllProps, {}>) {
         super(props);
 
         // LOG
@@ -196,7 +211,8 @@ extends React.Component<ChildProps<ProjectsSectionProps & StateProps & DispatchP
             <Popup
             trigger={
                 <Link className="link-reset d-flex align-content-center ml-auto"
-                      to="/dashboard/projects/new">
+                      to="/dashboard/projects/new"
+                      onClick={this.props.onTrackClick('CREATE NEW PROJECT', null)}>
                     <Icon icon="plus"
                           iconClass="title__icon stroke-white strokeWidth-4"
                           width="18" height="18"/>
@@ -356,14 +372,21 @@ function mapStateToProps(state: IRootState): StateProps {
 /********************************/
 /*         REDUX CONNECT        */
 /********************************/
-const projectsSectionConnect = connect(mapStateToProps, mapDispatchToProps); 
+const projectsSectionContainerConnect = connect(mapStateToProps, mapDispatchToProps);
+
+
+/**************************************/
+/*     WITH CHANGE SOURCE CODE HOC    */
+/**************************************/
+const withClickTrackerConnect = withClickTracker();
 
 
 /*         EXPORT          */
 /***************************/
-export default compose(
-    projectsSectionConnect
-)(ProjectsSection);
+export default compose<any>(
+    projectsSectionContainerConnect,
+    withClickTrackerConnect
+)(ProjectsSectionContainer);
 
 
 /*

@@ -20,7 +20,7 @@ import { withClickTracker,
 
 import Icon from './../../../app/components/Icon/Icon';
 import ComponentsSection from './ComponentsSection/ComponentsSection';
-import ProjectsSection from './ProjectsSection/ProjectsSection.container';
+import ProjectsSectionContainer from './ProjectsSection/ProjectsSection.container';
 
 
 // -----------------------------------
@@ -184,7 +184,7 @@ extends React.Component<ChildProps<AllProps, GetBasicProjectsByUserIdResponse>, 
                         <div className="divider m-3 mt-4" />
                         
                         {/* Projects List Section */}
-                        <ProjectsSection basicProjects={data.basicProjectsByUserId} />
+                        <ProjectsSectionContainer basicProjects={data.basicProjectsByUserId} />
 
                     </div>
 
