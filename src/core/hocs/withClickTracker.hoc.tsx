@@ -50,7 +50,7 @@ export interface InjectedProps {
 /*                HOC DEFINITION               */
 /***********************************************/
 
-export const withClickTracker = ({}) =>
+export const withClickTracker = () =>
     <WrappedComponentProps extends {}>(
         Component: (React.ComponentClass<WrappedComponentProps & InjectedProps>
                 | React.StatelessComponent<WrappedComponentProps & InjectedProps>)

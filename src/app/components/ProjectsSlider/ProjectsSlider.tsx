@@ -17,9 +17,10 @@ const CarouselSlider = require('react-carousel-slider').default;
 
 /* Own Props */
 type ProjectsSliderProps = {
-    loading: boolean;
-    error: any;
-    results: Array<ProjectModel>;
+    loading: boolean,
+    error: any,
+    results: Array<ProjectModel>,
+    onTrackClick?: (elementType: string, elementProps: any) => void
 };
 
 

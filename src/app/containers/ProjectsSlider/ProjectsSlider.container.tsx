@@ -9,6 +9,10 @@ import {
     GetAllResponse
 } from './../../../models/project/project.query';
 
+import { withClickTracker, 
+    InjectedProps as WithClickTrackerProps 
+  } from './../../../core/hocs/withClickTracker.hoc';
+
 import ProjectsSlider from './../../components/ProjectsSlider/ProjectsSlider';
 
 
@@ -38,17 +42,27 @@ type DispatchProps = {
 };
 
 
+//     ALL PROPS (EXTERNAL & OWN)
+// ===================================   
+
+type AllProps =    
+    SliderContainerProps
+&   StateProps
+&   DispatchProps
+&   WithClickTrackerProps;
+
+
 /***********************************************/
 /*              CLASS DEFINITION               */
 /***********************************************/
 class SliderContainer 
-extends React.Component<ChildProps<SliderContainerProps & StateProps & DispatchProps, GetAllResponse>, LocalStates> {
+extends React.Component<ChildProps<AllProps, GetAllResponse>, LocalStates> {
     
     
     /********************************/
     /*         CONSTRUCTOR          */
     /********************************/
-    constructor(props: ChildProps<SliderContainerProps & StateProps & DispatchProps, GetAllResponse>) {
+    constructor(props: ChildProps<AllProps, GetAllResponse>) {
         super(props);
     }
 
@@ -69,7 +83,8 @@ extends React.Component<ChildProps<SliderContainerProps & StateProps & DispatchP
             
             <ProjectsSlider results={data.allProjects ? data.allProjects : null}
                             loading={data.loading}
-                            error={data.error} />
+                            error={data.error}
+                            onTrackClick={this.props.onTrackClick} />
 
         );
 
@@ -99,8 +114,15 @@ const getAllProjectQuery = graphql<GetAllResponse, SliderContainerProps>(
 ); 
 
 
+/**************************************/
+/*     WITH CHANGE SOURCE CODE HOC    */
+/**************************************/
+const withClickTrackerConnect = withClickTracker();
+
+
 /*         EXPORT          */
 /***************************/
 export default compose(
-    getAllProjectQuery
+    getAllProjectQuery,
+    withClickTrackerConnect
 )(SliderContainer);
