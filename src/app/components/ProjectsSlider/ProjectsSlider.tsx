@@ -125,14 +125,14 @@ class ProjectsSlider extends React.Component<ProjectsSliderProps, {}> {
 
         const rBtnCpnt = (
             <div className="Slider__btn"
-                 onClick={onTrackClick('LEFT PROJECT SLIDER BTN', {component: 'ProjectsSlider'})}>
+                 onClick={onTrackClick('RIGHT PROJECT SLIDER BTN', {component: 'ProjectsSlider'})}>
                 <div className="icon material-icons color-silver">chevron_right</div>
             </div>
         );
     
         const lBtnCpnt = (
             <div className="Slider__btn"
-                 onClick={onTrackClick('RIGHT PROJECT SLIDER BTN', {component: 'ProjectsSlider'})}>
+                 onClick={onTrackClick('LEFT PROJECT SLIDER BTN', {component: 'ProjectsSlider'})}>
                 <div className="icon material-icons color-silver" >chevron_left</div>
             </div>
         );
