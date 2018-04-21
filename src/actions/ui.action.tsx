@@ -11,7 +11,7 @@ import { Basic as BasicColorModel } from '../models/color/color.model';
 import { Lib as LibModel } from './../models/lib/lib.model';
 
 import { 
-    Option as CodeTabMenuOption 
+    Option as CodeTabMenuOption
 } from './../app/components/Tabs/CodeTabMenu/CodeTabMenu';
 import {
     Option as DetailsTabMenuOptions
@@ -80,6 +80,24 @@ export interface IClearUiAction {
 
 
 /* 
+    GENERIC CLICK ELEMENT ACTIONS
+*/
+
+interface IClickEventPayLoad {
+    event: string;
+    properties: {
+        elementType: string,
+        elementProps: any
+    };
+}
+
+export interface IClickElementAction {
+    type: types.CLICK_ELEMENT;
+    meta: IAnalyticsTrack<IClickEventPayLoad>;
+}
+
+
+/* 
     MODALS ACTIONS
     state: modals
 */
@@ -105,6 +123,7 @@ export interface ICloseModalAction {
     type: types.CLOSE_MODAL;
     meta: IAnalyticsTrack<IModalEventPayLoad>;
 }
+
 
 /* 
     ALERTS ACTIONS
@@ -247,6 +266,7 @@ export type Action =
     // UI interaction
     ILocationChangeAction
 |   IClearUiAction
+|   IClickElementAction
 |   IShowModalAction
 |   ICloseModalAction
 |   IShowAlertAction
@@ -297,6 +317,31 @@ export const clearUiAction = (): Action => {
         duplicated: {
             atomId: null,
             isDuplicated: false
+        }
+    };
+};
+
+
+/**
+ * @desc Return an action type, CLICK_ELEMENT
+ * to indicate that user clicked an specific element
+ * @function clickElementAction
+ * @returns {Action}
+ */
+export const clickElementAction = (elementType: string, elementProps: any): Action => {
+    return {
+        type: types.CLICK_ELEMENT,
+        meta: {
+            analytics: {
+                eventType: EventTypes.track,
+                eventPayload: {
+                    event: types.CLICK_ELEMENT,
+                    properties: {
+                        elementType,
+                        elementProps
+                    }
+                },
+            },
         }
     };
 };
