@@ -10,7 +10,6 @@ import { createBrowserHistory as createHistory } from 'history';
 import * as queryString from 'query-string';
 import * as jwtDecode from 'jwt-decode';
 
-// import * as appConfig from './core/constants/app.constants';
 import { config } from './config/config';
 import configureStore from './store/store.config';
 
@@ -22,9 +21,9 @@ import App from './components/pages/App/App';
 // -----------------------------------
 
 // If come from another domain, redirect to base domain
-/*if (!location.href.includes(appConfig.BASE_DOMAIN) && !appConfig.DEBUG) {
-    location.replace(appConfig.BASE_DOMAIN);
-}*/
+if (!location.href.includes('https://stylepill.netlify.app/')) {
+    location.replace('https://stylepill.netlify.app/');
+}
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
